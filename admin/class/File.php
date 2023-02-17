@@ -1,6 +1,6 @@
 <?php
 
-class File{
+class File extends Common{
 
     private $conn ;
 
@@ -9,11 +9,7 @@ class File{
         $this->conn = $db;
     }
 
-    function showError($stmt){
-        echo "<pre>";
-            print_r($stmt->errorInfo());
-        echo "</pre>";
-    }
+
 
     
 }

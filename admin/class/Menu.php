@@ -1,6 +1,6 @@
 <?php
 
-class Menu{
+class Menu extends Common{
 
     private $conn ;
 
@@ -9,11 +9,6 @@ class Menu{
         $this->conn = $db;
     }
 
-    function showError($stmt){
-        echo "<pre>";
-            print_r($stmt->errorInfo());
-        echo "</pre>";
-    }
 
     
 }

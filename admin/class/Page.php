@@ -1,6 +1,6 @@
 <?php
 
-class Page{
+class Page extends Common{
 
     private $conn ;
 
@@ -9,11 +9,6 @@ class Page{
         $this->conn = $db;
     }
 
-    function showError($stmt){
-        echo "<pre>";
-            print_r($stmt->errorInfo());
-        echo "</pre>";
-    }
 
     
 }

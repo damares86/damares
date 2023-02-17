@@ -1,6 +1,6 @@
 <?php
 
-class Role{
+class Role extends Common{
 
     private $conn ;
 
@@ -9,11 +9,6 @@ class Role{
         $this->conn = $db;
     }
 
-    function showError($stmt){
-        echo "<pre>";
-            print_r($stmt->errorInfo());
-        echo "</pre>";
-    }
 
     
 }
