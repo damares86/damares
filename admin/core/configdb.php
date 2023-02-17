@@ -6,12 +6,6 @@
 // 	'output' => true,
 // ));
 
-
-if(!$_POST['dbname']||!$_POST['username']||!$_POST['db_password']||!$_POST['host']||!$_POST['email']||!$_POST['password']){
-  header("Location: ../../auth-register.php");
-  exit;
-} 
-
 // create Database class
 
 if(!is_file('../class/Database.php')){
@@ -103,23 +97,23 @@ chmod('../core/prefix.php',0777);
 /////////////////////////////////////////////////////////////
 
 // creating role's table
-$db->query("CREATE TABLE IF NOT EXISTS ".$prefix."roles
-                           ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                             rolename VARCHAR(255) NOT NULL)");
+// $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."roles
+//                            ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+//                              rolename VARCHAR(255) NOT NULL)");
 
-$db->query("INSERT INTO ".$prefix."roles
-                            (id, rolename)
-                            VALUES ('1','Admin')
-                            ");
+// $db->query("INSERT INTO ".$prefix."roles
+//                             (id, rolename)
+//                             VALUES ('1','Admin')
+//                             ");
 
-$db->query("INSERT INTO ".$prefix."roles
-                            (id, rolename)
-                            VALUES ('2','Manager')
-                            ");
-$db->query("INSERT INTO ".$prefix."roles
-                            (id, rolename)
-                            VALUES ('3','Editor')
-                            ");
+// $db->query("INSERT INTO ".$prefix."roles
+//                             (id, rolename)
+//                             VALUES ('2','Manager')
+//                             ");
+// $db->query("INSERT INTO ".$prefix."roles
+//                             (id, rolename)
+//                             VALUES ('3','Editor')
+//                             ");
 
                             
 header("Location: ../index.php");

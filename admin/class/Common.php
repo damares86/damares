@@ -9,6 +9,11 @@ public function showError($stmt){
     echo "</pre>";
 }
 
+// show_all
+
+// delete
+
+
 
 }
 

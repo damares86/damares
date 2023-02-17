@@ -5,6 +5,8 @@ $debug = new \bdk\Debug(array(
 	'output' => true,
 ));
 
+require __DIR__."/config.php";
+
 
 ?>
 
