@@ -2,14 +2,28 @@
 
 class Role extends Common{
 
-    private $conn ;
+    public $table = "roles" ;
+    public $rolename ;
 
-    // constructor
-    public function __construct($db){
-        $this->conn = $db;
+    public function showRolenameById(){
+        $query = "SELECT rolename
+                FROM ".$this->table."
+                WHERE id = :id";
+
+       $stmt = $this->conn->prepare($query);
+
+       $stmt->bindParam(":id",$this->id) ;
+
+       $stmt->execute() ;
+       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+       if($stmt){
+           return $this->rolename = $row['rolename'];
+       } else {
+           return false ;
+       }
+    
     }
-
-
     
 }
 

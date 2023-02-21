@@ -81,7 +81,7 @@
                     </div>
                     <div class="ms-3 name">
                       <h5 class="font-bold">John Duck</h5>
-                      <h6 class="text-muted mb-0">@johnducky</h6>
+                      <h6 class="text-muted mb-0"><a href="core/logout.php">Logout</a></h6>
                     </div>
                   </div>
                 </div>

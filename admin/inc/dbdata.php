@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';		// If installed via composer
+require 'vendor/autoload.php';		// If installed via composer
 $debug = new \bdk\Debug(array(
 	'collect' => true,
 	'output' => true,
@@ -17,21 +17,21 @@ require "config.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Mazer Admin Dashboard</title>
 
-    <link rel="stylesheet" href="../assets/css/main/app.css" />
-    <link rel="stylesheet" href="../assets/css/pages/auth.css" />
-    <link rel="stylesheet" href="../assets/css/main/app-dark.css" />
+    <link rel="stylesheet" href="assets/css/main/app.css" />
+    <link rel="stylesheet" href="assets/css/pages/auth.css" />
+    <link rel="stylesheet" href="assets/css/main/app-dark.css" />
     <link
       rel="shortcut icon"
-      href="../assets/images/logo/favicon.svg"
+      href="assets/images/logo/favicon.svg"
       type="image/x-icon"
     />
     <link
       rel="shortcut icon"
-      href="../assets/images/logo/favicon.png"
+      href="assets/images/logo/favicon.png"
       type="image/png"
     />
 
-    <link rel="stylesheet" href="../assets/css/shared/iconly.css" />
+    <link rel="stylesheet" href="assets/css/shared/iconly.css" />
   </head>
 
   <body>
@@ -41,11 +41,11 @@ require "config.php";
           <div id="auth-left">
             <div class="auth-logo">
               <a href="index.html"
-                ><img src="../assets/images/logo/logo.svg" alt="Logo"
+                ><img src="assets/images/logo/logo.svg" alt="Logo"
               /></a>
             </div>
             <h1 class="auth-title">Insert your database data</h1>
-            <form class="form form-horizontal" action="../core/configdb.php" method="POST"  data-parsley-validate>
+            <form class="form form-horizontal" action="core/configdb.php" method="POST"  data-parsley-validate>
                 <div class="form-body">
                   <div class="row">
                     <div class="col-md-4">

@@ -1,0 +1,56 @@
+<?php 
+
+class AccountRoles extends Common{
+
+    public $table = "accountsRoles" ;
+    public $accounts_id ;
+    public $role_id ;
+    public $redirect ;
+
+
+    public function showAccountRolesId(){
+
+        $query = "SELECT role_id
+                    FROM " .$this->prx. $this->table . "
+                    WHERE accounts_id = :accounts_id
+                    ORDER BY role_id ASC";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":accounts_id",$this->accounts_id);
+        
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if($stmt){
+            return $this->role_id = $row['role_id'];
+        } else {
+            return false ;
+        }
+        
+    }
+    
+    
+    public function showRolesAccountId(){
+
+        $query = "SELECT account_id
+                    FROM " .$this->prx. $this->table . "
+                    WHERE role_id = :role_id";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":role_id",$this->role_id);
+        
+        $stmt->execute();
+
+        if($stmt){
+            return $stmt ;
+        } else {
+            return false ;
+        }
+        
+    }
+}
+
+?>

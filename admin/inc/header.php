@@ -5,6 +5,22 @@ $debug = new \bdk\Debug(array(
 	'output' => true,
 ));
 
+// check if database is configured
+
+if(!is_file('class/Database.php')){
+  require "inc/dbdata.php";
+  exit;
+}
+
+session_start();
+
+// check if the user is logged in
+
+if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
+    header('Location: ../auth-login.php?msg=noLogin');
+    exit;
+}
+
 require __DIR__."/config.php";
 
 
