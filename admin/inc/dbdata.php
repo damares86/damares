@@ -5,9 +5,6 @@ $debug = new \bdk\Debug(array(
 	'output' => true,
 ));
 
-require "config.php";
-
-
 ?>
 
 <!DOCTYPE html>

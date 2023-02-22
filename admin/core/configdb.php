@@ -66,7 +66,7 @@ $db = $database->getConnection();
 
 $user_email=$_POST['email'];
 $password=$_POST['password'];
-$password_hash = password_hash($password, PASSWORD_DEFAULT);
+$password_hash = password_hash($password, PASSWORD_BCRYPT);
 
 
 // prefix optionally given by user
@@ -218,6 +218,8 @@ $db->query("INSERT INTO ".$prefix."settings
 $db->query("INSERT INTO ".$prefix."verify
                             (id, public, secret, active) 
                             VALUES ('1','PUBLIC_KEY', 'SECRET_KEY', '0')");           
+
+// scan the plugin directory and insert the plugin by folder's name
 
 $plugins = scandir('../plugin');
 $exclude = array('..', '.');
