@@ -226,7 +226,7 @@ $db->query("INSERT INTO ".$prefix."sectionChild
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('2','mngProfile','Profile','person-circle','1')");
+                            VALUES ('2','editProfile','Profile','person-circle','1')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
