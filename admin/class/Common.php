@@ -40,10 +40,6 @@ function showAll($orderBy,$table){
     return $stmt ;
 }
 
-
-///////////////////////////
-// TO FIX
-///////////////////////////
 function showAllWhere($orderBy,$table,$where){
 
     $i = 1;

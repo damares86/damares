@@ -108,9 +108,8 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."accounts
                 username VARCHAR(255) NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
-                avatar_id INT (5),
-                last_login datetime DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY(avatar_id) REFERENCES files(id))");
+                avatar VARCHAR(255) DEFAULT 'default.png',
+                last_login datetime DEFAULT CURRENT_TIMESTAMP)");
 
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."roles
@@ -182,13 +181,9 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."plugins
 
 /////////////////////////////////////////////////////////////
 
-$db->query("INSERT INTO ".$prefix."files
-                            (id, filename, label)
-                            VALUES ('1','default.png','default_avatar')");
-
 $db->query("INSERT INTO ".$prefix."accounts
-(id, username, password,email,avatar_id)
-VALUES ('1','admin', '". $password_hash ."','". $user_email ."','1')");
+(id, username, password,email)
+VALUES ('1','admin', '". $password_hash ."','". $user_email ."')");
 
 $db->query("INSERT INTO ".$prefix."roles
                             (id, rolename)

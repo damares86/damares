@@ -47,4 +47,5 @@ require __DIR__."/config.php";
     />
 
     <link rel="stylesheet" href="assets/css/shared/iconly.css" />
+    <link rel="stylesheet" href="assets/css/custom.css" />
   </head>

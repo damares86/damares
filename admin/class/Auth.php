@@ -6,17 +6,19 @@ class Auth extends Common{
     public $username;
     public $password;
     public $email;
+    public $avatar;
     public $last_login;
     public $token;
     public $expDate;
 
 
     public function emailExists(){
-                // query to check if email exists
-                $query = "SELECT *
-                FROM " .$this->prx. $this->table . "
-                WHERE email = ?
-                LIMIT 0,1";
+        
+        // query to check if email exists
+        $query = "SELECT *
+        FROM " .$this->prx. $this->table . "
+        WHERE email = ?
+        LIMIT 0,1";
     
         // prepare the query
         $stmt = $this->conn->prepare( $query );
@@ -44,6 +46,7 @@ class Auth extends Common{
             $this->username = $row['username'];
             $this->password = $row['password'];
             $this->email = $row['email'];
+            $this->avatar = $row['avatar'];
             $this->last_login = $row['last_login'];
     
             // return true because email exists in the database

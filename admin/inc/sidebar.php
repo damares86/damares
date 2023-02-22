@@ -77,7 +77,7 @@
                 <div class="card-body py-4 px-4">
                   <div class="d-flex align-items-center">
                     <div class="avatar avatar-xl">
-                      <img src="assets/images/faces/1.jpg" alt="Face 1" />
+                      <img src="uploads/avatar/<?=$_SESSION['avatar']?>" alt="Face 1" />
                     </div>
                     <div class="ms-3 name">
                       <h5 class="font-bold"><?=$_SESSION['username']?></h5>
