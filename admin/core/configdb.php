@@ -214,10 +214,41 @@ $db->query("INSERT INTO ".$prefix."settings
                             (id, name,value)
                             VALUES ('2','license','none')");
 
-       
 $db->query("INSERT INTO ".$prefix."verify
                             (id, public, secret, active) 
                             VALUES ('1','PUBLIC_KEY', 'SECRET_KEY', '0')");           
+
+
+// insert the section for the sidebar / home link management
+
+$db->query("INSERT INTO ".$prefix."sectionParent
+                            (id, link,label,icon)
+                            VALUES ('1','allAccounts','Accounts','users')");
+
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('1','mngProfile','Profile','user-circle','1')");
+
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('2','addUser','Add user','user-plus','1')");
+
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('3','allRoles','Roles','users-cog','1')");
+
+$db->query("INSERT INTO ".$prefix."sectionParent
+                            (id, link,label,icon)
+                            VALUES ('2','allFiles','Files','folder-open')");
+
+$db->query("INSERT INTO ".$prefix."sectionParent
+                            (id, link,label,icon)
+                            VALUES ('3','allSettings','Settings','cogs')");
+
+$db->query("INSERT INTO ".$prefix."sectionParent
+                            (id, link,label,icon)
+                            VALUES ('4','allPlugins','Settings','plus-circle')");
+                            
 
 // scan the plugin directory and insert the plugin by folder's name
 

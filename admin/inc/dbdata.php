@@ -181,11 +181,11 @@ $debug = new \bdk\Debug(array(
         </div>
       </div>
     </div>
-    <script src="../assets/js/bootstrap.js"></script>
-    <script src="../assets/js/app.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/app.js"></script>
 
-    <script src="../assets/extensions/jquery/jquery.min.js"></script>
-    <script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
-    <script src="../assets/js/pages/parsley.js"></script>
+    <script src="assets/extensions/jquery/jquery.min.js"></script>
+    <script src="assets/extensions/parsleyjs/parsley.min.js"></script>
+    <script src="assets/js/pages/parsley.js"></script>
   </body>
 </html>
