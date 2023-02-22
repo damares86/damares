@@ -11,11 +11,13 @@ class Common{
     public $prx ;
 
 
-    // constructor
+// constructor
+
     public function __construct($db){
         $this->conn = $db;
     }
 
+// error->TENERE?
     public function showError($stmt){
         echo "<pre>";
             print_r($stmt->errorInfo());
@@ -25,33 +27,48 @@ class Common{
     
 // show_all
 
-function showAll($items,$orderBy){
+function showAll($orderBy,$table){
+
+    $query = "SELECT *
+        FROM " .$this->prx. $table."
+        ORDER BY ".$orderBy." ASC";   
+
+    $stmt = $this->conn->prepare( $query );
+
+    $stmt->execute();
+
+    return $stmt ;
+}
+
+
+///////////////////////////
+// TO FIX
+///////////////////////////
+function showAllWhere($orderBy,$table,$where){
 
     $i = 1;
-    foreach($items as $item){
+    foreach($where as $item){
         $this->where.="$item = :$item" ;
-        if($i<count($items)){
+        if($i<count($where)){
             $this->where.=", ";            
         }
         $i++;
     }
     
     $query = "SELECT *
-        FROM " .$this->prx. $this->table . " 
+        FROM " .$this->prx. $table."
         WHERE ".$this->where."
-        ORDER BY ".$orderBy." ASC";  
+        ORDER BY ".$orderBy." ASC"; 
 
     $stmt = $this->conn->prepare( $query );
 
-    foreach($items as $item){
+    foreach($where as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
 
     $stmt->execute();
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $row;
+    return $stmt;
 }
 
 

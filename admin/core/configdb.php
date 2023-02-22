@@ -184,7 +184,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."plugins
 
 $db->query("INSERT INTO ".$prefix."files
                             (id, filename, label)
-                            VALUES ('1','default.jpg','default_avatar')");
+                            VALUES ('1','default.png','default_avatar')");
 
 $db->query("INSERT INTO ".$prefix."accounts
 (id, username, password,email,avatar_id)
@@ -223,31 +223,35 @@ $db->query("INSERT INTO ".$prefix."verify
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('1','allAccounts','Accounts','users')");
+                            VALUES ('1','#','Accounts','people-fill')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('1','mngProfile','Profile','user-circle','1')");
+                            VALUES ('1','allAccounts','All accounts','people-fill','1')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('2','addUser','Add user','user-plus','1')");
+                            VALUES ('2','mngProfile','Profile','person-circle','1')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('3','allRoles','Roles','users-cog','1')");
+                            VALUES ('3','addUser','Add user','person-plus-fill','1')");
+
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('4','allRoles','Roles','key-fill','1')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('2','allFiles','Files','folder-open')");
+                            VALUES ('2','allFiles','Files','folder-fill')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('3','allSettings','Settings','cogs')");
+                            VALUES ('3','allSettings','Settings','gear-fill')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('4','allPlugins','Settings','plus-circle')");
+                            VALUES ('4','allPlugins','Plugins','plus-circle-fill')");
                             
 
 // scan the plugin directory and insert the plugin by folder's name

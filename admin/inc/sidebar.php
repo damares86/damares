@@ -80,7 +80,7 @@
                       <img src="assets/images/faces/1.jpg" alt="Face 1" />
                     </div>
                     <div class="ms-3 name">
-                      <h5 class="font-bold">John Duck</h5>
+                      <h5 class="font-bold"><?=$_SESSION['username']?></h5>
                       <h6 class="text-muted mb-0"><a href="core/logout.php">Logout</a></h6>
                     </div>
                   </div>
@@ -89,31 +89,83 @@
           </div>
           <div class="sidebar-menu">
             <ul class="menu">
-              <li class="sidebar-title">Menu</li>
-
-              <li class="sidebar-item active">
+                <?php
+                  $active = "" ;
+                  if($page == "dashboard"){
+                    $active = "active" ;
+                  }
+                ?>
+              <li class="sidebar-item <?=$active?>">
                 <a href="index.php" class="sidebar-link">
                   <i class="bi bi-grid-fill"></i>
                   <span>Dashboard</span>
                 </a>
               </li>
+              <?php
+                $stmt = $section->showAll('id','sectionParent') ;
 
-              <li class="sidebar-item has-sub">
-                <a href="#" class="sidebar-link">
-                  <i class="bi bi-stack"></i>
-                  <span>Voce con dropdown</span>
+                
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                  
+                  extract($row) ;
+                  
+                  $hasSub = "" ;
+                  $active = "" ;
+                  
+                  $link="?p=".$row['link']."";
+                  
+                  if($section->countChild($row['id'])>0){
+                    $hasSub = "has-sub" ;
+                    $link="#";
+                  }
+
+                  if($page == $row['link']){
+                    $active = "active" ;
+                  }
+              ?>
+              <li class="sidebar-item <?=$active?> <?=$hasSub?>">
+                <a href="index.php<?=$link?>" class="sidebar-link">
+                  <i class="bi bi-<?=$row['icon']?>"></i>
+                  <span><?=$row['label']?></span>
                 </a>
-                <ul class="submenu">
-                  <li class="submenu-item">
-                    <a href="#">
-                    <i class="bi bi-stack"></i>
-                    <span>voce 1</span></a>
-                  </li>
-                  <li class="submenu-item">
-                    <a href="#">voce 2</a>
-                  </li>
-                </ul>
+                <?php
+                  if($hasSub){
+                    $where = ['parent_id'] ;
+                    $section->parent_id = $row['id'];
+                    $child = $section->showAllWhere('id','sectionChild',$where);
+                ?>
+                  <ul class="submenu">
+                <?php
+                    while ($row1 = $child->fetch(PDO::FETCH_ASSOC)){
+
+                      $active1 ="" ;
+
+                      extract($row1) ;
+                      
+                      if($page == $row1['link']){
+                        $active1 = "active" ;
+                      }
+                      
+                ?>
+                    <li class="submenu-item <?=$active1?>">
+                      <a href="index.php?p=<?=$row1['link']?>">
+                      <i class="bi bi-<?=$row1['icon']?>"></i>
+                      <span><?=$row1['label']?></span></a>
+                    </li>
+
+                <?php
+                    }
+                ?>
+                  </ul>
+                <?php 
+                  }
+                ?>
               </li>
+              
+              <?php
+                }
+              ?>
+            </ul>
           </div>
         </div>
       </div>

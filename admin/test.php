@@ -1,5 +1,7 @@
 <?php
 
+require "inc/header.php" ;
+
 // $items = ['accounts','file','setting'];
 
 // $test = "";
@@ -15,12 +17,46 @@
 // print_r($test);
 // exit;
 
-require "inc/header.php" ;
+//////////////////////////////////////
 
-$account->id=1;
-$items = ['id'];
 
-$test = $account->showAll($items,'id'); 
+// $account->id=1;
+// $items = ['id'];
 
-print_r($test) ;
+// $test = $account->showAll($items,'id'); 
+
+// print_r($test) ;
+// exit;
+
+//////////////////////////////////////
+
+// $stmt = $section->showAll('id','sectionParent') ;
+
+// while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        
+//         extract($row);
+
+//         echo $row['link'];
+//         echo "<br>";
+// }
+
+// echo "fine";
+
+//////////////////////////////////////
+        
+$num = $section->countChild('1');
+print_r($num) ;
 exit;
+
+
+
+
+
+
+
+
+
+
+
+
+
