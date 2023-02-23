@@ -113,29 +113,6 @@ $stmt1 = $account->showAllWhere('id','accounts',['id']);
                             </div>
                         </div>
 
-                <!--    <div class="col-md-3">
-                            <label>Password <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group has-icon-left">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="password"
-                                        class="form-control"
-                                        placeholder="Password"
-                                        name="password"
-                                        data-parsley-required="true"
-                                        />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-lock"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
--->
-
                         <div class="col-md-3">
                             <label>Role <span class="text-danger">*</span></label>
                         </div>
@@ -197,6 +174,7 @@ $stmt1 = $account->showAllWhere('id','accounts',['id']);
                         </div>
 
                         <input type="hidden" name="operation" value="edit">
+                        <input type="hidden" name="avatar_orig" value="<?=$avatar?>">
                         <input type="hidden" name="idToMod" value="<?=$id?>">
                         <input type="hidden" name="origin" value="editAccount">
                       

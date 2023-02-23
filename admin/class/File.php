@@ -4,13 +4,14 @@ class File extends Common{
 
     public $table = "files" ;
     public $filename ;
+    public $filename_orig ;
     public $label ;
     public $inputFileName ;
     public $path ;
     public $origin ;
 
     public function uploadFile(){
-        
+
         if($this->filename){
 
             $target_directory = $this->path ;
@@ -67,7 +68,7 @@ class File extends Common{
                         }
                             // prepare the query
                             $stmt = $this->conn->prepare($query);
-                       
+                            
                     // bind the values
                     $stmt->bindParam(':filename', $this->filename);
                     $stmt->bindParam(':label', $this->label);

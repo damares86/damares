@@ -30,17 +30,15 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 if(filter_input(INPUT_POST,"idToMod")){
 
-    $account->username = filter_input(INPUT_POST,"username") ;
-    $account->email = filter_input(INPUT_POST,"email") ;
+    $id = filter_input(INPUT_POST,"idToMod");
+    $account->id = $id;
+    $account->table = "accounts" ;
 
     if($operation=="password"){
 
         $password = filter_input(INPUT_POST,"password");
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
         $account->password = $password_hash ;
-        $account->table = "accounts" ;
-        $account->id = filter_input(INPUT_POST,"idToMod");
-        $id = filter_input(INPUT_POST,"idToMod");
 
         if($account->update(['password'],'id')){
             header("Location: ../index.php?p=editAccount&idToMod=$id&msg=passMod");
@@ -51,7 +49,51 @@ if(filter_input(INPUT_POST,"idToMod")){
         }
 
     }else if($operation=="edit"){
-        echo "edit" ;
+        
+        $account->username = filter_input(INPUT_POST,"username") ;
+        $account->email = filter_input(INPUT_POST,"email") ;
+
+        if($_FILES['avatar']['size'] > 0){
+            // set data for file uploading
+            $file->filename = $_FILES['avatar']['name'] ;
+            $file->inputFileName = $_FILES['avatar']['tmp_name'] ;
+            $file->label = 'avatar_'.filter_input(INPUT_POST,"username") ;
+            $file->path = "../uploads/avatar/" ;
+            $file->origin = filter_input(INPUT_POST,"origin");
+            $file->filename_orig = filter_input(INPUT_POST,"avatar_orig");
+
+            if($file->uploadFile()){
+                $account->avatar = $_FILES['avatar']['name'] ;
+                unlink("../uploads/avatar/".filter_input(INPUT_POST,"avatar_orig"));
+            }else{
+                header("Location: ../index.php?p=allAccounts&err=noAvatarUpload");
+                exit;
+            }            
+        }else{
+            $account->avatar = filter_input(INPUT_POST,"avatar_orig");
+        }
+
+        if($account->update(['username','email','avatar'],'id')){
+
+            $accountroles->role_id = filter_input(INPUT_POST,"role") ;
+            $accountroles->account_id = $id ;
+            
+            if($accountroles->update(['role_id'],'account_id')){
+                header("Location: ../index.php?p=editAccount&idToMod=$id&msg=accountEdit");
+                exit;
+            }else{
+                header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountRoleNoEdit");
+                exit;  
+            }
+
+        }else{
+            header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountNoEdit");
+            exit;
+        }
+
+
+        exit;
+        
     }
     exit;
     
