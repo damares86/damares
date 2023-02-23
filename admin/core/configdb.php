@@ -230,7 +230,7 @@ $db->query("INSERT INTO ".$prefix."sectionChild
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('3','addUser','Add user','person-plus-fill','1')");
+                            VALUES ('3','addAccount','Add account','person-plus-fill','1')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)

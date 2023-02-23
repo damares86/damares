@@ -12,7 +12,7 @@ require "inc/funcHeader.php";
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngAccounts.php" method="POST" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngAccounts.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
@@ -95,25 +95,24 @@ require "inc/funcHeader.php";
                                         id="role"
                                         name="role"
                                         >
-                                        <option>Green</option>
-                                        <option>Red</option>
-                                        <option>Blue</option>
+                                        <?php
+                                            $stmt = $role->showAll('id','roles');
+                                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                                if($row['id']>1){
+                                        ?>
+
+                                            <option value="<?=$row['id']?>"><?=$row['rolename']?></option>
+
+                                        <?php
+                                            }
+                                        }
+                                        ?>
                                         </select>
                                     </fieldset>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-
 
                         <div class="col-md-3">
                             <label>Avatar (optional)</label>
@@ -130,7 +129,8 @@ require "inc/funcHeader.php";
                             </div>
                             </div>
                         </div>
-                        <input type="hidden" name="add" value="yes">
+                        <input type="hidden" name="operation" value="add">
+                        <input type="hidden" name="origin" value="addAccount">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

@@ -5,10 +5,11 @@ class Common{
     public $conn ;
     public $stmt ;
     public $table ;
-    public $where = "" ;
-    public $fields = [] ;
+    public $where ;
+    public $fields  ;
     public $id ;
     public $prx ;
+    public $operation ;
 
 
 // constructor
@@ -23,6 +24,70 @@ class Common{
             print_r($stmt->errorInfo());
         echo "</pre>";
     }
+
+
+// insert
+
+// $fields must be an array
+function insert($fields){
+
+    $i = 1;
+    foreach($fields as $item){
+        $this->fields.="$item = :$item" ;
+        if($i<count($fields)){
+            $this->fields.=", ";            
+        }
+        $i++;
+    }
+    
+    $query = "INSERT INTO " .$this->prx. $this->table."
+        SET ".$this->fields.""; 
+
+    $stmt = $this->conn->prepare( $query );
+
+    foreach($fields as $item){
+        $stmt->bindParam(":$item", $this->$item);
+    }
+
+    if($stmt->execute()){
+        return true ;
+    }else{
+        return false ;
+    }
+    
+}
+
+// update
+
+// $fields must be an array
+function update($fields,$where){
+
+    $i = 1;
+    foreach($fields as $item){
+        $this->fields.="$item = :$item" ;
+        if($i<count($fields)){
+            $this->fields.=", ";            
+        }
+        $i++;
+    }
+    
+    $query = "UPDATE " .$this->prx. $this->table."
+        SET ".$this->fields." WHERE $where = :$where"; 
+
+        $stmt = $this->conn->prepare( $query );
+        
+        foreach($fields as $item){
+        $stmt->bindParam(":$item", $this->$item);
+        }
+    $stmt->bindParam(":$where",$this->$where);
+
+    if($stmt->execute()){
+        return true ;
+    }else{
+        return false ;
+    }
+    
+}
 
     
 // show_all
@@ -40,6 +105,7 @@ function showAll($orderBy,$table){
     return $stmt ;
 }
 
+// $where must be an array
 function showAllWhere($orderBy,$table,$where){
 
     $i = 1;
@@ -55,7 +121,8 @@ function showAllWhere($orderBy,$table,$where){
         FROM " .$this->prx. $table."
         WHERE ".$this->where."
         ORDER BY ".$orderBy." ASC"; 
-
+// print_r($query);
+// exit;
     $stmt = $this->conn->prepare( $query );
 
     foreach($where as $item){
@@ -71,14 +138,14 @@ function showAllWhere($orderBy,$table,$where){
 
 // delete
 
-    function delete(){
+    function delete($field){
         
-        $query = "DELETE FROM " .$this->prx. $this->table. " WHERE id = :id";
+        $query = "DELETE FROM " .$this->prx. $this->table. " WHERE ".$field." = :".$field."";
         
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":$field", $this->$field);
 
-        if($result = $stmt->execute()){
+        if($stmt->execute()){
             return true;
         }else{
             return false;

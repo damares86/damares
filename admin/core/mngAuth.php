@@ -1,7 +1,15 @@
 <?php
 
-require __DIR__."/coreConfig.php";
+spl_autoload_register('autoloader');
 
+function autoloader($class){
+	include("../class/$class.php");
+}
+
+$database = new Database();
+$db = $database->getConnection();
+
+include "../inc/class_initialize.php";
 // get the form data
 $postpass = $_POST['password'];
 
@@ -16,7 +24,7 @@ if($email_exists && password_verify($postpass,$auth->password)){
     
     session_start();
     
-    $accountroles->accounts_id = $auth->id; 
+    $accountroles->account_id = $auth->id; 
 
     
     $role_id = $accountroles->showAccountRolesId();

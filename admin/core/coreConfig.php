@@ -9,7 +9,7 @@ $debug = new \bdk\Debug(array(
 session_start();
 
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: ../login.php');
+    header('Location: ../../auth-login.php?msg=no');
     exit;
 }
 

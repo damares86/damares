@@ -11,7 +11,7 @@ $users = $account->showAll('id','accounts');
 <section class="section">
   <div class="card">
     <div class="card-header">All the accounts registered &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addUser" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addAccount" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> Add new account</a
                       ></div>
     <div class="card-body">
@@ -30,6 +30,7 @@ $users = $account->showAll('id','accounts');
         <?php
         while($row = $users->fetch(PDO::FETCH_ASSOC)){
           extract($row);
+          if($row['id']>1){
         ?>
           <tr>
             <td><?=$row['username']?></td>
@@ -45,7 +46,7 @@ $users = $account->showAll('id','accounts');
             </td>
             <td><?=$row['last_login']?></td>
             <td>
-              <a href="index.php?p=editUser&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editAccount&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -112,6 +113,7 @@ $users = $account->showAll('id','accounts');
 
         <?php
         }
+      }
 
         ?>
 

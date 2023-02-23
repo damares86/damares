@@ -48,13 +48,19 @@ $pageLabel = "" ;
 $pageId = "" ;
 
 $parent = $section->showByLink($page,'sectionParent');
+$child = $section->showByLink($page,'sectionChild');
 
 if($parent){
     $pageLabel = $parent['label'] ;
+    $pageLink = $parent['link'] ;
     $pageId = $parent['id'] ;
-}else{
-    $child = $section->showByLink($page,'sectionChild');
+}else if($child){
     $pageLabel = $child['label'] ;
+    $pageLink = $child['link'] ;
     $pageId = $child['id'] ;
+}else{
+    $pageLabel = "" ;
+    $pageLink = "" ;
+    $pageId = "" ;
 }
 
