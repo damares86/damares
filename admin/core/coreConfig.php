@@ -6,12 +6,12 @@ $debug = new \bdk\Debug(array(
 	'output' => true,
 ));
 
-// session_start();
+session_start();
 
-// if (!isset($_SESSION['loggedin'])) {
-//     header('Location: ../login.php');
-//     exit;
-// }
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: ../login.php');
+    exit;
+}
 
 spl_autoload_register('autoloader');
 

@@ -17,16 +17,16 @@
           </a>
         </header>
 
-        <div class="page-heading">
-          <h3>Profile Statistics</h3>
-        </div>
         <div class="page-content">
           <?php
             if(filter_input(INPUT_GET,"p")){
               include "inc/func/$page.php";
             }else{
-
-          ?>
+              
+              ?>
+              <div class="page-heading">
+                <h3>Profile Statistics</h3>
+              </div>
           <section class="row">
             <div class="col-12 col-lg-9">
               <div class="row">

@@ -3,7 +3,7 @@
 class AccountRoles extends Common{
 
     public $table = "accountsRoles" ;
-    public $accounts_id ;
+    public $account_id ;
     public $role_id ;
     public $redirect ;
 
@@ -11,17 +11,18 @@ class AccountRoles extends Common{
     public function showAccountRolesId(){
 
         $query = "SELECT role_id
-                    FROM " .$this->prx. $this->table . "
-                    WHERE accounts_id = :accounts_id
-                    ORDER BY role_id ASC";
-
+                FROM " .$this->prx. $this->table . "
+                WHERE account_id = :account_id
+                ORDER BY role_id ASC";
         $stmt = $this->conn->prepare($query);
-
-        $stmt->bindParam(":accounts_id",$this->accounts_id);
+        
+        $stmt->bindParam(":account_id",$this->account_id);
         
         $stmt->execute();
-
+        
+        
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
     
         if($stmt){
             return $this->role_id = $row['role_id'];

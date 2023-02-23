@@ -1,5 +1,4 @@
 <?php
-
 require __DIR__."/prefix.php";
 require __DIR__."/version.php";
 
@@ -18,11 +17,11 @@ rsort($files);
 
 // creation of the file with all the initialization of the classes
 if(!is_file('inc/class_initialize.php')){
-$file_handle = fopen('inc/class_initialize.php', 'w');
-fwrite($file_handle, '<?php');
-fwrite($file_handle, "\n");
-foreach ($files as $filename) {
-    $nomefile = pathinfo($filename);
+    $file_handle = fopen('inc/class_initialize.php', 'w');
+    fwrite($file_handle, '<?php');
+    fwrite($file_handle, "\n");
+    foreach ($files as $filename) {
+        $nomefile = pathinfo($filename);
     $file=$nomefile['filename'];
     $file_var = strtolower($file);
     fwrite($file_handle, '$'.$file_var.' = new '.$file.'($db);');
@@ -44,3 +43,18 @@ if(filter_input(INPUT_GET,"p")){
 }else{
     $page = "dashboard";
 }
+
+$pageLabel = "" ;
+$pageId = "" ;
+
+$parent = $section->showByLink($page,'sectionParent');
+
+if($parent){
+    $pageLabel = $parent['label'] ;
+    $pageId = $parent['id'] ;
+}else{
+    $child = $section->showByLink($page,'sectionChild');
+    $pageLabel = $child['label'] ;
+    $pageId = $child['id'] ;
+}
+

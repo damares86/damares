@@ -20,6 +20,20 @@ class Section extends Common{
         return $num;
     }
     
+    function showByLink($link, $table){
+
+        $query = "SELECT *
+            FROM " .$this->prx. $table."
+            WHERE link = :link";   
+    
+        $stmt = $this->conn->prepare( $query );
+        $stmt->bindParam(":link",$link);
+    
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ;
+    }
 
 
     

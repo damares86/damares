@@ -114,14 +114,14 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."accounts
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."roles
               ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                rolename VARCHAR(255) NOT NULL)");
+                rolename VARCHAR(255) NOT NULL,
+                redirect VARCHAR ( 255 ) DEFAULT 'none')");
 
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."accountsRoles
               ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                accounts_id INT ( 5 ) NOT NULL,
+                account_id INT ( 5 ) NOT NULL,
                 role_id INT (5) NOT NULL,
-                redirect VARCHAR ( 255 ) DEFAULT 'none',
                 FOREIGN KEY (accounts_id) REFERENCES accounts(id),
                 FOREIGN KEY (role_id) REFERENCES roles(id))");
 
