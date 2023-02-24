@@ -28,7 +28,7 @@ class File extends Common{
             if(file_exists($target_file)){
                 $file_upload_error_messages.="File already exists";
             }
-
+            
             // make sure the 'uploads' folder exists
             // if not, create it
             if(!is_dir($target_directory)){
@@ -41,12 +41,14 @@ class File extends Common{
                 umask($oldmask);
             }
             
-            if(empty($file_upload_error_messages)){                
+            if(empty($file_upload_error_messages)){  
                 
                 // the physical file on a temporary uploads directory on the server
                 $file = $this->inputFileName;
                 
 				if (move_uploaded_file($file, $target_file)) {
+                    
+
                     $oldmask = umask(0);
                     chmod($target_file, 0777);
                     umask($oldmask);
@@ -87,12 +89,32 @@ class File extends Common{
 				
                 } else {
                     echo "Failed to upload file.";
+                    return false;
                 }   
         	}
         }
  
     }
 
+    public function showIdByFilename(){
+        $query = "SELECT id
+                FROM ".$this->table."
+                WHERE filename = :filename";
+
+       $stmt = $this->conn->prepare($query);
+
+       $stmt->bindParam(":filename",$this->filename_orig) ;
+
+       $stmt->execute() ;
+       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+       if($row){
+           return $this->id = $row['id'];
+       } else {
+           return false ;
+       }
+    
+    }
     
 }
 

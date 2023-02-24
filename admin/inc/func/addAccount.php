@@ -96,7 +96,7 @@ require "inc/funcHeader.php";
                                         name="role"
                                         >
                                         <?php
-                                            $stmt = $role->showAll('id','roles');
+                                            $stmt = $role->showAll('id');
                                             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                                                 if($row['id']>1){
                                         ?>

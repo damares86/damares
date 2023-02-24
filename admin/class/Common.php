@@ -30,7 +30,7 @@ class Common{
 
 // $fields must be an array
 function insert($fields){
-
+    
     $i = 1;
     foreach($fields as $item){
         $this->fields.="$item = :$item" ;
@@ -41,8 +41,8 @@ function insert($fields){
     }
     
     $query = "INSERT INTO " .$this->prx. $this->table."
-        SET ".$this->fields.""; 
-
+    SET ".$this->fields.""; 
+    
     $stmt = $this->conn->prepare( $query );
 
     foreach($fields as $item){
@@ -92,7 +92,20 @@ function update($fields,$where){
     
 // show_all
 
-function showAll($orderBy,$table){
+function showAll($orderBy){
+
+    $query = "SELECT *
+        FROM " .$this->prx. $this->table."
+        ORDER BY ".$orderBy." ASC";   
+
+    $stmt = $this->conn->prepare( $query );
+
+    $stmt->execute();
+
+    return $stmt ;
+}
+
+function showAllTable($orderBy,$table){
 
     $query = "SELECT *
         FROM " .$this->prx. $table."
@@ -106,7 +119,35 @@ function showAll($orderBy,$table){
 }
 
 // $where must be an array
-function showAllWhere($orderBy,$table,$where){
+function showAllWhere($orderBy,$where){
+
+    $i = 1;
+    foreach($where as $item){
+        $this->where.="$item = :$item" ;
+        if($i<count($where)){
+            $this->where.=", ";            
+        }
+        $i++;
+    }
+    
+    $query = "SELECT *
+        FROM " .$this->prx. $this->table."
+        WHERE ".$this->where."
+        ORDER BY ".$orderBy." ASC"; 
+// print_r($query);
+// exit;
+    $stmt = $this->conn->prepare( $query );
+
+    foreach($where as $item){
+        $stmt->bindParam(":$item", $this->$item);
+    }
+
+    $stmt->execute();
+
+    return $stmt;
+}
+
+function showAllWhereTable($orderBy,$table,$where){
 
     $i = 1;
     foreach($where as $item){
@@ -133,6 +174,7 @@ function showAllWhere($orderBy,$table,$where){
 
     return $stmt;
 }
+
 
 
 

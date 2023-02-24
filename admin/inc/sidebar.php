@@ -102,7 +102,7 @@
                 </a>
               </li>
               <?php
-                $stmt = $section->showAll('id','sectionParent') ;
+                $stmt = $section->showAllTable('id','sectionParent') ;
 
                 
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -132,7 +132,7 @@
                   if($hasSub){
                     $where = ['parent_id'] ;
                     $section->parent_id = $row['id'];
-                    $child = $section->showAllWhere('id','sectionChild',$where);
+                    $child = $section->showAllWhereTable('id','sectionChild',$where);
                 ?>
                   <ul class="submenu">
                 <?php

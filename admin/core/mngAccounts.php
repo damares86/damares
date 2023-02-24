@@ -7,14 +7,13 @@ require __DIR__."/coreConfig.php";
 if(filter_input(INPUT_GET,"idToDel")){
 
     // $idToDel = filter_input(INPUT_GET,"idToDel");
+    $accountroles->account_id = filter_input(INPUT_GET,"idToDel");
+    $accountroles->delete('account_id');
     $account->table = "accounts";
+
     $account->id = filter_input(INPUT_GET,"idToDel");
 
     if($account->delete('id')){
-
-        $accountroles->table = "accountsRoles" ;
-        $accountroles->account_id = filter_input(INPUT_GET,"idToDel") ;
-
         header("Location: ../index.php?p=allAccounts&msg=accountDel");
         exit;
     }else{
@@ -61,6 +60,8 @@ if(filter_input(INPUT_POST,"idToMod")){
             $file->path = "../uploads/avatar/" ;
             $file->origin = filter_input(INPUT_POST,"origin");
             $file->filename_orig = filter_input(INPUT_POST,"avatar_orig");
+            $file->id = $file->showIdByFilename();
+            $file->operation = $operation ;
 
             if($file->uploadFile()){
                 $account->avatar = $_FILES['avatar']['name'] ;
@@ -72,6 +73,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         }else{
             $account->avatar = filter_input(INPUT_POST,"avatar_orig");
         }
+
 
         if($account->update(['username','email','avatar'],'id')){
 
@@ -98,7 +100,7 @@ if(filter_input(INPUT_POST,"idToMod")){
     exit;
     
 
-}else if(filter_input(INPUT_POST,"operation")){
+}else if($operation == "add"){
 
     $auth->email = filter_input(INPUT_POST,"email");
 
@@ -134,15 +136,17 @@ if(filter_input(INPUT_POST,"idToMod")){
                 $errUpload = "&err=noAvatar" ;
                 $account->avatar = "default.png" ;
             }
+        }else{
+            $account->avatar = "default.png" ;
         }
 
-        if($account->insert('accounts',['username','email','password','avatar'])){
-            
+        if($account->insert(['username','email','password','avatar'])){
+
             $accountroles->role_id = filter_input(INPUT_POST,"role") ;
             $insertedId = "" ;
             $account->email = filter_input(INPUT_POST,"email") ;
             
-            $stmt= $account->showAllWhere('id','accounts',['email']);
+            $stmt= $account->showAllWhere('id',['email']);
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                 extract($row);
                 $insertedId = $row['id'];
@@ -151,7 +155,7 @@ if(filter_input(INPUT_POST,"idToMod")){
             $accountroles->account_id = $insertedId ;
 
             // success, insert the role in accountsRoles table
-            if($accountroles->insert('accountsRoles',['account_id','role_id'])){
+            if($accountroles->insert(['account_id','role_id'])){
                 
                 //success
                 header("Location: ../index.php?p=allAccounts&msg=accountSucc$errUpload");

@@ -122,7 +122,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."accountsRoles
               ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 account_id INT ( 5 ) NOT NULL,
                 role_id INT (5) NOT NULL,
-                FOREIGN KEY (accounts_id) REFERENCES accounts(id),
+                FOREIGN KEY (account_id) REFERENCES accounts(id),
                 FOREIGN KEY (role_id) REFERENCES roles(id))");
 
 
@@ -198,7 +198,7 @@ $db->query("INSERT INTO ".$prefix."roles
                             VALUES ('3','User')");
 
 $db->query("INSERT INTO ".$prefix."accountsRoles
-                            (id, accounts_id,role_id)
+                            (id, account_id,role_id)
                             VALUES ('1','1','1')");
 
 $db->query("INSERT INTO ".$prefix."settings

@@ -1,7 +1,7 @@
 <?php
 
-$account->id = filter_input(INPUT_GET,"idToMod");
-$stmt1 = $account->showAllWhere('id',['id']);
+$account->id = $_SESSION['account_id'] ;
+$stmt1 = $account->showAllWhere('id',['id']) ;
 
 
 
@@ -116,45 +116,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <label>Role <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                    <fieldset class="form-group">
-                                        <select
-                                        class="form-select"
-                                        id="role"
-                                        name="role"
-                                        >
-                                        <?php
-                                            $stmt = $role->showAll('id');
-                                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                                if($row['id']>1){                                                   
-
-                                                    $selected = "" ;
-
-                                                    if($row['id']==$roleId){
-                                                        $selected = "selected" ;
-                                                    }
-                                        ?>
-
-                                            <option value="<?=$row['id']?>" <?=$selected?>><?=$row['rolename']?></option>
-
-                                        <?php
-
-                                            }
-                                        }
-                                        ?>
-                                        </select>
-                                    </fieldset>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div class="col-md-3">
                             <label>Avatar (optional)</label>

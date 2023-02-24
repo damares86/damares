@@ -1,6 +1,6 @@
 <?php
 class Database{
-public $db_name="newcms";
+public $db_name="damares";
 public $username="root";
 public $password="admin";
 public $host="localhost";

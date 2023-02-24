@@ -1,7 +1,7 @@
 <?php
 require "inc/funcHeader.php";
 
-$users = $account->showAll('id','accounts');
+$users = $account->showAll('id');
 
 ?>
 
