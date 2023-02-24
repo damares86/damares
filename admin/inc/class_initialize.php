@@ -2,6 +2,7 @@
 $verify = new Verify($db);
 $setting = new Setting($db);
 $section = new Section($db);
+$rolessection = new RolesSection($db);
 $role = new Role($db);
 $plugin = new Plugin($db);
 $file = new File($db);

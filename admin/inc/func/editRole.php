@@ -1,7 +1,7 @@
 <?php
 
-$account->id = $_SESSION['account_id'] ;
-$stmt1 = $account->showAllWhere('id',['id']) ;
+$role->id = filter_input(INPUT_GET,"idToMod");
+$stmt1 = $role->showAllWhere('id',['id']);
 
 
 
@@ -10,7 +10,7 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Edit Account</h3>
+      <h3>Edit Role</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -22,7 +22,7 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
             <a href="index.php">Dashboard</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Edit Account
+            Edit Role
           </li>
         </ol>
       </nav>
@@ -36,41 +36,35 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Edit the information for this account</h4>
+                <h4 class="card-title">Edit the information for this role</h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
                     <?php
-                    $id="";
-                    $username="";
-                    $email="";
-                    $avatar="";
-                    $roleId="";
-
+                    $roleid="";
+                    $rolename="";
+                    $redirect="";
                         while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
 
-                            $id=$row1['id'];
-                            $username=$row1['username'];
-                            $email=$row1['email'];
-                            $avatar=$row1['avatar'];
+                            $roleid=$row1['id'];
+                            $rolename=$row1['rolename'];
+                            $redirect=$row1['redirect'];
+                            
+                            $rolessection->role_id = $row1['id'];
+                            $stmt2 = $rolessection->showAllWhere('id',['role_id']);
 
-                            if(!$avatar){
-                                $avatar = "default.png" ;
+                            $sections=[];
+                            foreach($stmt2 as $item){
+                               $sections[]=$item['section_id'];
                             }
 
-                            $accountroles->account_id = $row1['id'];
-                            $stmt2 = $accountroles->showAllWhere('id',['account_id']);
-
-                            while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-                                $roleId = $row2['role_id'] ;
-                            }
                         }
                     ?>
-                    <form class="form form-horizontal" action="core/mngAccounts.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngRoles.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Username <span class="text-danger">*</span></label>
+                            <label>Rolename <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -79,11 +73,11 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Name"
-                                        id="username"
-                                        name="username"
+                                        placeholder="Rolename"
+                                        id="rolename"
+                                        name="rolename"
                                         data-parsley-required="true"
-                                        value="<?=$username?>"
+                                        value="<?=$rolename?>"
 
                                         />
                                         <div class="form-control-icon">
@@ -94,55 +88,44 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label>Email <span class="text-danger">*</span></label>
+                            <label>Section authorized  <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
-                            <div class="form-group has-icon-left">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="email"
-                                        class="form-control"
-                                        placeholder="Email"
-                                        id="email"
-                                        name="email"
-                                        data-parsley-required="true"
-                                        value="<?=$email?>"
-                                        />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-envelope"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                         <div class="form-group">
+                                <select
+                                class="choices form-select multiple-remove"
+                                multiple="multiple" name="section[]"
+                                >
+                                <?php
+                                    $stmt = $section->showAllTable('id','sectionParent');
+                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                        extract($row);
+                                        $selected = "" ;
+
+                                        if(in_array($row['id'],$sections)){
+                                            $selected = "selected";
+                                        }
+                                ?>
+
+                                    <option value="<?=$row['id']?>" <?=$selected?>><?=$row['label']?></option>
+
+                                <?php
+                                        $selected = "" ;
+
+                                }
+                                ?>
+
+                                </select>
                             </div>
                         </div>
+                   
+
                         
-
-                        <div class="col-md-3">
-                            <label>Avatar (optional)</label>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <div class="avatar avatar-lg me-3">
-                                <img src="uploads/avatar/<?=$avatar?>" alt="" srcset="">
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="form-group">
-                                    <div >
-                                    <input
-                                    class="form-control"
-                                    type="file"
-                                    id="formFile"
-                                    name="avatar"
-                                />
-                            </div>
-                            </div>
-                        </div>
-
+                            
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="avatar_orig" value="<?=$avatar?>">
-                        <input type="hidden" name="role" value="<?=$roleId?>">
-                        <input type="hidden" name="idToMod" value="<?=$id?>">                        <input type="hidden" name="origin" value="editAccount">
+                        <input type="hidden" name="idToMod" value="<?=$roleid?>">
+                        <input type="hidden" name="origin" value="editRole">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

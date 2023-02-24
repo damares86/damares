@@ -2,6 +2,14 @@
 
 require "inc/header.php" ;
 
+$role->rolename = 'User' ; 
+
+$id = $role->showIdByRolename();
+
+print_r($id);
+exit;
+
+
 // $items = ['accounts','file','setting'];
 
 // $test = "";

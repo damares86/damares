@@ -48,7 +48,7 @@ function insert($fields){
     foreach($fields as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
-
+   
     if($stmt->execute()){
         return true ;
     }else{
@@ -56,6 +56,8 @@ function insert($fields){
     }
     
 }
+
+
 
 // update
 
@@ -93,11 +95,10 @@ function update($fields,$where){
 // show_all
 
 function showAll($orderBy){
-
     $query = "SELECT *
-        FROM " .$this->prx. $this->table."
-        ORDER BY ".$orderBy." ASC";   
-
+    FROM " .$this->prx. $this->table."
+    ORDER BY ".$orderBy." ASC";   
+    
     $stmt = $this->conn->prepare( $query );
 
     $stmt->execute();

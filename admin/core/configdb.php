@@ -234,7 +234,7 @@ $db->query("INSERT INTO ".$prefix."sectionChild
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('4','allRoles','Roles','key-fill','1')");
+                            VALUES ('4','allRoles','All Roles','key-fill','1')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)

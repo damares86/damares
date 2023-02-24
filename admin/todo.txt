@@ -1,12 +1,9 @@
 Missing part:
 
-- allAccounts-> table view
-- addUser
-- editUser
-- editProfile
 - allRoles
 - newRole
 - editRole
 - file
 - settings
 - plugins-> all the functional logic
+- alert

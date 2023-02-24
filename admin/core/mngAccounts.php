@@ -65,6 +65,7 @@ if(filter_input(INPUT_POST,"idToMod")){
 
             if($file->uploadFile()){
                 $account->avatar = $_FILES['avatar']['name'] ;
+                $_SESSION['avatar'] = $_FILES['avatar']['name'] ;
                 unlink("../uploads/avatar/".filter_input(INPUT_POST,"avatar_orig"));
             }else{
                 header("Location: ../index.php?p=allAccounts&err=noAvatarUpload");

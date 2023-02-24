@@ -52,6 +52,22 @@ class AccountRoles extends Common{
         }
         
     }
+
+    public function countRoleAccounts(){
+    
+        $query = "SELECT id FROM ".$this->prx.$this->table."
+                 WHERE role_id = :role_id";
+    
+        $stmt = $this->conn->prepare( $query );
+
+        $stmt->bindParam(":role_id",$this->role_id);
+        $stmt->execute();
+    
+        $num = $stmt->rowCount();
+    
+        return $num;
+    }
+    
 }
 
 ?>

@@ -27,5 +27,7 @@
     <script src="assets/js/pages/datatables.js"></script>
     <script src="assets/extensions/parsleyjs/parsley.min.js"></script>
     <script src="assets/js/pages/parsley.js"></script>
+    <script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+    <script src="assets/js/pages/form-element-select.js"></script>
   </body>
 </html>

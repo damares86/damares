@@ -44,7 +44,10 @@ require __DIR__."/config.php";
       href="assets/images/logo/favicon.png"
       type="image/png"
     />
-
+    <link
+      rel="stylesheet"
+      href="assets/extensions/choices.js/public/assets/styles/choices.css"
+    />
     <link rel="stylesheet" href="assets/css/shared/iconly.css" />
     <link rel="stylesheet" href="assets/css/custom.css" />
   </head>
