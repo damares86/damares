@@ -4,6 +4,7 @@
 
 $common_dashboard = "Dashboard" ;
 $common_logout = "Logout" ;
+$common_link = "Link" ;
 $common_username = "Username" ;
 $common_email = "Email" ;
 $common_role = "Role" ;
@@ -45,6 +46,15 @@ $role_edit_header = "Edit Role" ;
 $role_edit_title = "Edit the information for" ;
 
 
+//////  FILE  //////
+
+$file_all_title = "All files" ;
+$file_all_add = "Add new file" ;
+$file_all_label = "File title" ;
+$file_all_file = "File name" ;
+
+
+
 //////  MAIN MSG ALERT  //////
 
 $msg_accountDel = "Account successfully deleted" ;
@@ -69,3 +79,4 @@ $err_roleNoDel = "Role not deleted" ;
 $err_roleNoEdit = "Role not modified" ;
 $err_roleExist = "Role already exist" ;
 $err_roleFail = "Role not created" ;
+$err_formatErr = "File format error" ;

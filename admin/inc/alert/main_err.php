@@ -137,6 +137,18 @@ if($err){
             ></button>
         </div>
     <?php
+    } else if($err=="formatErr"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_formatErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
     }
 }
 ?>
