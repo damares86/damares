@@ -2,7 +2,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$role_add_header?></h3>
+      <h3><?=$file_add_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -14,7 +14,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$role_add_header?>
+            <?=$file_add_header?>
           </li>
         </ol>
       </nav>
@@ -28,15 +28,15 @@
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title"><?=$role_add_title?></h4>
+                <h4 class="card-title"><?=$file_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngRoles.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngFiles.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label><?=$common_rolename?> <span class="text-danger">*</span></label>
+                            <label><?=$file_all_label?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -47,7 +47,7 @@
                                         class="form-control"
                                         placeholder="Role name"
                                         id="first-name-icon"
-                                        name="rolename"
+                                        name="label"
                                         data-parsley-required="true"
 
                                         />
@@ -59,53 +59,25 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label><?=$common_section_auth?> <span class="text-danger">*</span></label>
+                            <label><?=$file_add_file?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <select
-                                class="choices form-select multiple-remove"
-                                multiple="multiple" name="section[]"
-                                >
-                                <?php
-                                    $stmt = $section->showAllTable('id','sectionParent');
-                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                ?>
-
-                                    <option value="<?=$row['id']?>"><?=$row['label']?></option>
-
-                                <?php
-
-                                    }
-
-                                ?>
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label><?=$common_redirect?> </label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group has-icon-left">
-                                <div class="position-relative">
-                                    <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Url"
-                                    id="first-name-icon"
-                                    name="redirect"
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        class="form-control"
+                                        type="file"
+                                        id="formFile"
+                                        name="myfile"
+                                        data-parsley-required="true"
                                     />
-                                    <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-               
                         <input type="hidden" name="operation" value="add">
-                        <input type="hidden" name="origin" value="addRole">
+                        <input type="hidden" name="origin" value="addFile">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

@@ -41,11 +41,11 @@ class File extends Common{
                 umask($oldmask);
             }
             
+
             if(empty($file_upload_error_messages)){  
                 
                 // the physical file on a temporary uploads directory on the server
                 $file = $this->inputFileName;
-                
 				if (move_uploaded_file($file, $target_file)) {
                     
 

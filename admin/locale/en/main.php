@@ -50,8 +50,13 @@ $role_edit_title = "Edit the information for" ;
 
 $file_all_title = "All files" ;
 $file_all_add = "Add new file" ;
+$file_all_modal_body = "If you confirm, you will completely delete this file." ;
 $file_all_label = "File title" ;
 $file_all_file = "File name" ;
+$file_add_header = "Add a file" ;
+$file_add_title = "Add a new file" ;
+$file_add_file = "Upload file" ;
+
 
 
 
