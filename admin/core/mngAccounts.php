@@ -134,7 +134,7 @@ if(filter_input(INPUT_POST,"idToMod")){
             if($file->uploadFile()){
                 $account->avatar = $_FILES['avatar']['name'] ;
             }else{
-                $errUpload = "&err=noAvatar" ;
+                $errUpload = "&err=noAvatarUpload" ;
                 $account->avatar = "default.png" ;
             }
         }else{
@@ -190,6 +190,6 @@ if(filter_input(INPUT_POST,"idToMod")){
 
 
 }else{
-    header("Location: ../index.php?p=allAccounts&msg=noPost");
+    header("Location: ../index.php?p=allAccounts&err=noPost");
     exit;
 }

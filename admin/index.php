@@ -19,6 +19,13 @@
 
         <div class="page-content">
           <?php
+
+            // require of all alert files
+            $alert=glob("inc/alert/*.php", GLOB_BRACE);
+
+            foreach($alert as $row){
+                require "$row";
+            }
             if(filter_input(INPUT_GET,"p")){
               include "inc/func/$page.php";
             }else{

@@ -3,4 +3,4 @@ Missing part:
 - file
 - settings
 - plugins-> all the functional logic
-- alert
+- locale multilang (label)
