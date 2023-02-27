@@ -6,7 +6,7 @@ if($msg){
     if($msg=="accountDel"){
     ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Account successfully deleted
+            <?=$msg_accountDel?>
             <button
                 type="button"
                 class="btn-close"
@@ -18,7 +18,7 @@ if($msg){
     } else if($msg=="passMod"){
     ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Password modified
+            <?=$msg_passMod?>
             <button
                 type="button"
                 class="btn-close"
@@ -30,7 +30,7 @@ if($msg){
     } else if($msg=="accountEdit"){
     ?> 
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Account successfully modified
+            <?=$msg_accountEdit?>
             <button
                 type="button"
                 class="btn-close"
@@ -42,7 +42,7 @@ if($msg){
     } else if($msg=="accountSucc"){
         ?> 
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Account created
+            <?=$msg_accountSucc?>
             <button
                 type="button"
                 class="btn-close"
@@ -54,7 +54,7 @@ if($msg){
     } else if($msg=="roleDel"){
         ?> 
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Role successfully deleted
+            <?=$msg_roleDel?>
             <button
                 type="button"
                 class="btn-close"
@@ -66,7 +66,7 @@ if($msg){
     } else if($msg=="roleEdit"){
         ?> 
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Role successfully modified
+            <?=$msg_roleEdit?>
             <button
                 type="button"
                 class="btn-close"
@@ -78,7 +78,7 @@ if($msg){
     } else if($msg=="roleSucc"){
         ?> 
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Role created
+            <?=$msg_roleSucc ?>
             <button
                 type="button"
                 class="btn-close"

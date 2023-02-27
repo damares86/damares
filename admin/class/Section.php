@@ -34,6 +34,22 @@ class Section extends Common{
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row ;
     }
+    
+    function showById($table){
+
+        $query = "SELECT *
+            FROM " .$this->prx. $table."
+            WHERE id = :id";   
+    
+        $stmt = $this->conn->prepare( $query );
+        $stmt->bindParam(":id",$this->id);
+    
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ;
+    }
+
 
 
     

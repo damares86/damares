@@ -8,7 +8,7 @@ if($err){
     if($err=="accountNoDel"){
     ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Account not deleted
+            <?=$err_accountNoDel?>
             <button
                 type="button"
                 class="btn-close"
@@ -20,7 +20,7 @@ if($err){
     } else if($err=="passNoMod"){
     ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Password not modified
+            <?=$err_passNoMod?>
             <button
                 type="button"
                 class="btn-close"
@@ -32,7 +32,7 @@ if($err){
     } else if($err=="noAvatarUpload"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Avatar image not uploaded
+            <?=$err_noAvatarUpload?>
             <button
                 type="button"
                 class="btn-close"
@@ -44,7 +44,7 @@ if($err){
     } else if($err=="accountRoleNoEdit"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Account role not mdified
+            <?=$err_accountRoleNoEdit?>
             <button
                 type="button"
                 class="btn-close"
@@ -56,7 +56,7 @@ if($err){
     } else if($err=="accountNoEdit"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Account not modified
+            <?=$err_accountNoEdit?>
             <button
                 type="button"
                 class="btn-close"
@@ -68,7 +68,7 @@ if($err){
     } else if($err=="accountExist"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Account already exist
+            <?=$err_accountExist?>
             <button
                 type="button"
                 class="btn-close"
@@ -80,7 +80,7 @@ if($err){
     } else if($err=="accountFail"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Account not created
+            <?=$err_accountFail ?>
             <button
                 type="button"
                 class="btn-close"
@@ -92,7 +92,7 @@ if($err){
     } else if($err=="roleNoDel"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Role not deleted
+            <?=$err_roleNoDel?>
             <button
                 type="button"
                 class="btn-close"
@@ -104,7 +104,7 @@ if($err){
     } else if($err=="roleNoEdit"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Role not modified
+            <?=$err_roleNoEdit?>
             <button
                 type="button"
                 class="btn-close"
@@ -116,7 +116,7 @@ if($err){
     } else if($err=="roleExist"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Role already exist
+            <?=$err_roleExist?>
             <button
                 type="button"
                 class="btn-close"
@@ -128,7 +128,7 @@ if($err){
     } else if($err=="roleFail"){
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Role not created
+            <?=$err_roleFail?>
             <button
                 type="button"
                 class="btn-close"

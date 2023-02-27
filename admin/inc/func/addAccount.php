@@ -8,7 +8,7 @@ require "inc/funcHeader.php";
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Complete the information for the new account</h4>
+                <h4 class="card-title"><?=$account_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -16,7 +16,7 @@ require "inc/funcHeader.php";
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Username <span class="text-danger">*</span></label>
+                            <label><?=$common_username ?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -39,7 +39,7 @@ require "inc/funcHeader.php";
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label>Email <span class="text-danger">*</span></label>
+                            <label><?= $common_username ?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -61,7 +61,7 @@ require "inc/funcHeader.php";
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label>Password <span class="text-danger">*</span></label>
+                            <label><?= $common_password ?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -83,7 +83,7 @@ require "inc/funcHeader.php";
                         </div>
 
                         <div class="col-md-3">
-                            <label>Role <span class="text-danger">*</span></label>
+                            <label><?=$common_role?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -115,7 +115,7 @@ require "inc/funcHeader.php";
                         </div>
 
                         <div class="col-md-3">
-                            <label>Avatar (optional)</label>
+                            <label><?=$account_add_avatar?></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -137,13 +137,13 @@ require "inc/funcHeader.php";
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            Submit
+                            <?=$common_submit?>
                             </button>
                             <button
                             type="reset"
                             class="btn btn-light-secondary me-1 mb-1"
                             >
-                            Reset
+                            <?=$common_reset?>
                             </button>
                         </div>
                         </div>
@@ -156,7 +156,7 @@ require "inc/funcHeader.php";
         <div class="col-md-4 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Info</h4>
+                    <h4 class="card-title"><?=$common_info?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">

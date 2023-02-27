@@ -10,19 +10,19 @@ $users = $account->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">All the accounts registered &nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$account_all_title ?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addAccount" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Add new account</a
+                        ><i data-feather="plus-circle"></i> <?=$account_all_add?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Last login</th>
-            <th>Actions</th>
+            <th><?=$common_username?></th>
+            <th><?=$common_email?></th>
+            <th><?=$common_role?></th>
+            <th><?=$common_lastLogin?></th>
+            <th><?=$common_actions?></th>
           </tr>
         </thead>
         <tbody>
@@ -73,7 +73,7 @@ $users = $account->showAll('id');
                                       class="modal-title white"
                                       id="myModalLabel120"
                                     >
-                                      Are you sure?
+                                      <?=$common_modal_title_sure?>
                                     </h5>
                                     <button
                                       type="button"
@@ -85,7 +85,7 @@ $users = $account->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    If you click "Ok", you will completely delete this account.
+                                    <?=$account_all_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -95,11 +95,13 @@ $users = $account->showAll('id');
                                     >
                                       <i class="bx bx-x d-block d-sm-none"></i>
                                       <span class="d-none d-sm-block"
-                                        >Cancel</span
+                                        ><?=$common_modal_cancel?></span
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngAccounts.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">Ok</a></span
+                                        ><a href="core/mngAccounts.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                          <?=$common_modal_confirm?>
+                                        </a></span
                                       >
                                   </div>
                                 </div>

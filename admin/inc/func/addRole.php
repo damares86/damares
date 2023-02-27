@@ -2,7 +2,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Add Role</h3>
+      <h3><?=$role_add_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -11,10 +11,10 @@
       >
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.php">Dashboard</a>
+            <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Add Role
+            <?=$role_add_header?>
           </li>
         </ol>
       </nav>
@@ -28,7 +28,7 @@
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Create a new role</h4>
+                <h4 class="card-title"><?=$role_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -36,7 +36,7 @@
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Role name <span class="text-danger">*</span></label>
+                            <label><?=$common_rolename?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label>Section authorized <span class="text-danger">*</span></label>
+                            <label><?=$common_section_auth?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Redirect </label>
+                            <label><?=$common_redirect?> </label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -112,13 +112,13 @@
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            Submit
+                            <?=$common_submit?>
                             </button>
                             <button
                             type="reset"
                             class="btn btn-light-secondary me-1 mb-1"
                             >
-                            Reset
+                            <?=$common_reset?>
                             </button>
                         </div>
                         </div>
@@ -131,7 +131,7 @@
         <div class="col-md-4 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Info</h4>
+                    <h4 class="card-title"><?=$common_info?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">

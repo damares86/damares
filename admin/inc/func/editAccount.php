@@ -19,10 +19,24 @@ $stmt1 = $account->showAllWhere('id',['id']);
       >
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.php">Dashboard</a>
+            <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Edit Account
+            <?php
+                  $id="";
+                  $username="";
+                  $email="";
+                  $avatar="";
+                  $roleId="";
+
+                      while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
+
+                          $id=$row1['id'];
+                          $username=$row1['username'];
+                          $email=$row1['email'];
+                          $avatar=$row1['avatar'];
+                          ?>
+            <?=$account_edit_header?> 
           </li>
         </ol>
       </nav>
@@ -36,23 +50,12 @@ $stmt1 = $account->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Edit the information for this account</h4>
+                <h4 class="card-title"><?=$account_edit_title?> <b><?=$username?></b>  </h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
                     <?php
-                    $id="";
-                    $username="";
-                    $email="";
-                    $avatar="";
-                    $roleId="";
-
-                        while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
-
-                            $id=$row1['id'];
-                            $username=$row1['username'];
-                            $email=$row1['email'];
-                            $avatar=$row1['avatar'];
+              
 
                             if(!$avatar){
                                 $avatar = "default.png" ;
@@ -70,7 +73,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Username <span class="text-danger">*</span></label>
+                            <label><?=$common_username?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -94,7 +97,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label>Email <span class="text-danger">*</span></label>
+                            <label><?=$common_email?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -118,7 +121,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                         </div>
 
                         <div class="col-md-3">
-                            <label>Role <span class="text-danger">*</span></label>
+                            <label><?=$common_role?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -157,7 +160,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                         </div>
 
                         <div class="col-md-3">
-                            <label>Avatar (optional)</label>
+                            <label><?=$account_add_avatar?></label>
                         </div>
                         <div class="col-md-2 text-center">
                             <div class="avatar avatar-lg me-3">
@@ -187,7 +190,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            Submit
+                            <?=$common_submit?>
                             </button>
                         </div>
                         </div>
@@ -200,7 +203,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
         <div class="col-md-4 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Info</h4>
+                    <h4 class="card-title"><?=$common_info?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -216,7 +219,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Edit the password for this account</h4>
+                    <h4 class="card-title"><?=$account_edit_password?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -224,7 +227,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Password <span class="text-danger">*</span></label>
+                                        <label><?=$common_password?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group has-icon-left">
@@ -253,7 +256,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                                             type="submit"
                                             class="btn btn-primary me-1 mb-1"
                                             >
-                                            Submit
+                                            <?=$common_submit?>
                                         </button>
                                     </div>
                                 </div>

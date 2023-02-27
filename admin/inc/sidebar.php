@@ -81,7 +81,7 @@
                     </div>
                     <div class="ms-3 name">
                       <h5 class="font-bold"><?=$_SESSION['username']?></h5>
-                      <h6 class="text-muted mb-0"><a href="core/logout.php">Logout</a></h6>
+                      <h6 class="text-muted mb-0"><a href="core/logout.php"><?=$common_logout?></a></h6>
                     </div>
                   </div>
                 </div>
@@ -98,7 +98,7 @@
               <li class="sidebar-item <?=$active?>">
                 <a href="index.php" class="sidebar-link">
                   <i class="bi bi-grid-fill"></i>
-                  <span>Dashboard</span>
+                  <span><?=$common_dashboard?></span>
                 </a>
               </li>
               <?php

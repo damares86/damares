@@ -10,7 +10,7 @@ $stmt1 = $role->showAllWhere('id',['id']);
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Edit Role</h3>
+      <h3><?=$role_edit_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -19,10 +19,10 @@ $stmt1 = $role->showAllWhere('id',['id']);
       >
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.php">Dashboard</a>
+            <a href="index.php"><?=$common_dashboard_?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Edit Role
+          <?=$role_edit_header?>
           </li>
         </ol>
       </nav>
@@ -46,7 +46,7 @@ $stmt1 = $role->showAllWhere('id',['id']);
                         $rolename=$row1['rolename'];
                         $redirect=$row1['redirect'];
                     ?>
-                <h4 class="card-title">Edit the information for <b><?=$rolename?></b></h4>
+                <h4 class="card-title"><?=$role_edit_title ?> <b><?=$rolename?></b></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -68,7 +68,7 @@ $stmt1 = $role->showAllWhere('id',['id']);
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Rolename <span class="text-danger">*</span></label>
+                            <label><?=$common_rolename ?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -92,7 +92,7 @@ $stmt1 = $role->showAllWhere('id',['id']);
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label>Section authorized  <span class="text-danger">*</span></label>
+                            <label><?=$common_section_auth?>  <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                          <div class="form-group">
@@ -135,7 +135,7 @@ $stmt1 = $role->showAllWhere('id',['id']);
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            Submit
+                            <?=$common_submit?>
                             </button>
                         </div>
                         </div>
@@ -148,65 +148,10 @@ $stmt1 = $role->showAllWhere('id',['id']);
         <div class="col-md-4 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Info</h4>
+                    <h4 class="card-title"><?=$common_info?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="row">
-        <div class="col-md-8 col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Edit the password for this account</h4>
-                </div>
-                <div class="card-content">
-                    <div class="card-body">
-                        <form class="form form-horizontal" action="core/mngAccounts.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label>Password <span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="form-group has-icon-left">
-                                            <div class="form-check mandatory">
-                                                <div class="position-relative">
-                                                    <input
-                                                    type="password"
-                                                    class="form-control"
-                                                    placeholder="Password"
-                                                    name="password"
-                                                    data-parsley-required="true"
-                                                    />
-                                                    <div class="form-control-icon">
-                                                    <i class="bi bi-lock"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="operation" value="password">
-                                    <input type="hidden" name="idToMod" value="<?=$id?>">
-                                    <input type="hidden" name="origin" value="editAccount">
-                            
-                                    <div class="col-12 d-flex justify-content-end">
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary me-1 mb-1"
-                                            >
-                                            Submit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>

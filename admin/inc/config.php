@@ -68,8 +68,9 @@ if($parent){
 // $stmt=$settings->showLangAndName();
 // $lang=$settings->dashboard_language;
 
-// foreach (glob("locale/$lang/*.php") as $row){
-//     require "$row";
-// }
 
 $lang = "en" ;
+
+foreach (glob("locale/$lang/*.php") as $row){
+    require "$row";
+}

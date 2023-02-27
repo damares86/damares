@@ -11,7 +11,7 @@
       >
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.php">Dashboard</a>
+            <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
             <?=$pageLabel?>
