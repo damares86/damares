@@ -122,6 +122,20 @@
                   if($page == $row['link']){
                     $active = "active" ;
                   }
+
+              // SECTION PERMISSIONS
+                  $role_id = $_SESSION['role_id'] ;
+                  $rolessection->role_id = $role_id ;
+                  $permission = $rolessection->showAllPermission('id',['role_id']) ;
+                 
+                  $sectionOk = [] ;
+                  foreach($permission as $item){
+                    if($item['role_id']==$role_id){
+                      $sectionOk[] = $item['section_id'];
+                    } 
+                  }
+
+                  if($role_id==1 || in_array($row['id'],$sectionOk)){
               ?>
               <li class="sidebar-item <?=$active?> <?=$hasSub?>">
                 <a href="index.php<?=$link?>" class="sidebar-link">
@@ -132,6 +146,7 @@
                   if($hasSub){
                     $where = ['parent_id'] ;
                     $section->parent_id = $row['id'];
+                    
                     $child = $section->showAllWhereTable('id','sectionChild',$where);
                 ?>
                   <ul class="submenu">
@@ -163,6 +178,7 @@
               </li>
               
               <?php
+                }
                 }
               ?>
             </ul>

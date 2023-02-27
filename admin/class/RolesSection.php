@@ -27,6 +27,27 @@ function insertRoleSection(){
     }
     
 }
+
+
+function showAllPermission(){
+
+    $query = "SELECT *
+        FROM " .$this->prx. $this->table."
+        WHERE role_id = :role_id
+        ORDER BY id ASC"; 
+// print_r($query);
+// exit;
+    $stmt = $this->conn->prepare( $query );
+
+    $stmt->bindParam(":role_id", $this->role_id);
+
+    $stmt->execute();
+
+    return $stmt;
+}
+
+
+
 }
 
 ?>

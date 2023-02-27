@@ -1,8 +1,5 @@
 Missing part:
 
-- allRoles
-- newRole
-- editRole
 - file
 - settings
 - plugins-> all the functional logic
