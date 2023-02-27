@@ -145,9 +145,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."sectionChild
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     section_id INT ( 5 ) NOT NULL,
-                    role_id INT (5) NOT NULL,
-                    FOREIGN KEY (section_id) REFERENCES sectionParent(id),
-                    FOREIGN KEY (role_id) REFERENCES roles(id))");
+                    role_id INT (5) NOT NULL)");
 
                  
 $db->query("CREATE TABLE ".$prefix."password_reset_temp (
@@ -248,6 +246,11 @@ $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
                             VALUES ('4','allPlugins','Plugins','plus-circle-fill')");
                             
+///////////////////////////////////////////////////////////////
+
+///  ADD THE SECTION PERMISSION FOR THE ROLES MANAGER AND USER
+
+///////////////////////////////////////////////////////////////                          
 
 // scan the plugin directory and insert the plugin by folder's name
 

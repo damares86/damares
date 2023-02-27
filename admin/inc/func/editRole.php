@@ -36,19 +36,23 @@ $stmt1 = $role->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Edit the information for this role</h4>
+                    <?php
+
+                    $roleid="";
+                    $rolename="";
+                    $redirect="";
+                    while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
+                        $roleid=$row1['id'];
+                        $rolename=$row1['rolename'];
+                        $redirect=$row1['redirect'];
+                    ?>
+                <h4 class="card-title">Edit the information for <b><?=$rolename?></b></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
                     <?php
-                    $roleid="";
-                    $rolename="";
-                    $redirect="";
-                        while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
 
-                            $roleid=$row1['id'];
-                            $rolename=$row1['rolename'];
-                            $redirect=$row1['redirect'];
+                       
                             
                             $rolessection->role_id = $row1['id'];
                             $stmt2 = $rolessection->showAllWhere('id',['role_id']);
@@ -123,7 +127,6 @@ $stmt1 = $role->showAllWhere('id',['id']);
                         
                             
                         <input type="hidden" name="operation" value="edit">
-                        <input type="hidden" name="avatar_orig" value="<?=$avatar?>">
                         <input type="hidden" name="idToMod" value="<?=$roleid?>">
                         <input type="hidden" name="origin" value="editRole">
                       

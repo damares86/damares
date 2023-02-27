@@ -35,13 +35,13 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 // check if there's a role to edit or add
 
-if(filter_input(INPUT_POST,"idToMod")){
 
-    $id = filter_input(INPUT_POST,"idToMod");
+
     
     $role->id = $id;
     
     if($operation=="edit"){
+        $idToMod = filter_input(INPUT_POST,"idToMod");
         
         $role->rolename = filter_input(INPUT_POST,"rolename") ;
         if(filter_input(INPUT_POST,"redirect") ){
@@ -51,7 +51,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         }
 
         if($role->update(['rolename','redirect'],'id')){
-            $rolessection->role_id = $id ;
+            $rolessection->role_id = $idToMod ;
             $stmt = $rolessection->showAllWhere('id',['role_id']);
 
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -64,12 +64,13 @@ if(filter_input(INPUT_POST,"idToMod")){
             $sectionId = $_POST['section'];
 
             foreach($sectionId as $item){
-                $rolessection->role_id = $id;
+                $rolessection->role_id = $idToMod;
                 $rolessection->section_id = $item;
                 $rolessection->insertRoleSection(['section_id','role_id']);
                 
             }
-            header("Location: ../index.php?p=editRole&idToMod=$id&msg=roletEdit");
+
+            header("Location: ../index.php?p=editRole&idToMod=$idToMod&msg=roleEdit");
             exit;
 
         }else{
@@ -126,8 +127,8 @@ if(filter_input(INPUT_POST,"idToMod")){
             exit;  
         }
     }
-}
+
 }else{
-    header("Location: ../index.php?p=allAccounts&msg=noPost");
+    header("Location: ../index.php?p=allRoles&msg=noPost");
     exit;
 }
