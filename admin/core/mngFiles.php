@@ -7,9 +7,16 @@ require __DIR__."/coreConfig.php";
 if(filter_input(INPUT_GET,"idToDel")){
 
 
-    $file->id = filter_input(INPUT_GET,"idToDel");
+    $idToDel = filter_input(INPUT_GET,"idToDel");
+    $file->id = $idToDel;
+    
+    $filename = $file->showFilenameById();
+    $file->id = $idToDel;
 
     if($file->delete('id')){
+
+        unlink("../uploads/$filename");
+
         header("Location: ../index.php?p=allFiles&msg=fileDel");
         exit;
     }else{
@@ -25,65 +32,57 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 if(filter_input(INPUT_POST,"idToMod")){
 
-    /////////////////// TODO
-
     $idToMod = filter_input(INPUT_POST,"idToMod");
- 
-        $account->username = filter_input(INPUT_POST,"username") ;
-        $account->email = filter_input(INPUT_POST,"email") ;
+    
+    $file->id = $idToMod ;
+    $file->label = filter_input(INPUT_POST,"label") ;
 
-        if($_FILES['avatar']['size'] > 0){
-            // set data for file uploading
-            $file->filename = $_FILES['avatar']['name'] ;
-            $file->inputFileName = $_FILES['avatar']['tmp_name'] ;
-            $file->label = 'avatar_'.filter_input(INPUT_POST,"username") ;
-            $file->path = "../uploads/avatar/" ;
-            $file->origin = filter_input(INPUT_POST,"origin");
-            $file->filename_orig = filter_input(INPUT_POST,"avatar_orig");
-            $file->id = $file->showIdByFilename();
-            $file->operation = $operation ;
+    if($_FILES['myfile']['size'] > 0){
 
-            if($file->uploadFile()){
-                $account->avatar = $_FILES['avatar']['name'] ;
-                $_SESSION['avatar'] = $_FILES['avatar']['name'] ;
-                unlink("../uploads/avatar/".filter_input(INPUT_POST,"avatar_orig"));
-            }else{
-                header("Location: ../index.php?p=allAccounts&err=noAvatarUpload");
-                exit;
-            }            
+        $file->filename = $_FILES['myfile']['name'] ;
+        $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
+        $file->path = "../uploads/" ;
+        $file->origin = filter_input(INPUT_POST,"origin");
+
+        $file->operation = filter_input(INPUT_POST,"operation") ;
+
+
+        if($file->uploadFile()){
+            $filename_orig = $_POST['filename_orig'];
+            unlink("../uploads/$filename_orig");
+            header("Location: ../index.php?p=allFiles&msg=fileEditSucc");
+            exit;
         }else{
-            $account->avatar = filter_input(INPUT_POST,"avatar_orig");
-        }
-
-
-        if($account->update(['username','email','avatar'],'id')){
-
-            $accountroles->role_id = filter_input(INPUT_POST,"role") ;
-            $accountroles->account_id = $id ;
-            
-            if($accountroles->update(['role_id'],'account_id')){
-                header("Location: ../index.php?p=editAccount&idToMod=$id&msg=accountEdit");
-                exit;
-            }else{
-                header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountRoleNoEdit");
-                exit;  
-            }
-
-        }else{
-            header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountNoEdit");
+            header("Location: ../index.php?p=allFiles&err=fileFail");
             exit;
         }
 
+    } else{
+
+        if($file->update(['label'],'id')){
+            header("Location: ../index.php?p=allFiles&msg=fileEditSucc");
+            exit;
+        }else{
+            header("Location: ../index.php?p=allFiles&msg=fileEditFail");
+            exit;
+        }
+        
+    }
 
         
-
-    
 
 }else if($operation == "add"){ 
     if($_FILES['myfile']['size'] > 0){
         
-        // set data for file uploading
         $file->filename = $_FILES['myfile']['name'] ;
+
+        if($file->countFile()>0){
+            
+            header("Location: ../index.php?p=allFiles&err=fileExists");
+            exit;
+        }
+
+        // set data for file uploading
         $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
         $file->label = filter_input(INPUT_POST,"label") ;
         $file->path = "../uploads/" ;
@@ -106,6 +105,6 @@ if(filter_input(INPUT_POST,"idToMod")){
         }
 
 }else{
-    header("Location: ../index.php?p=allFiles&err=noPost");
+    header("Location: ../index.php?p=allFiles&err=noFilePost");
     exit;
 }

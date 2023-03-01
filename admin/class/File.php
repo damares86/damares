@@ -13,13 +13,12 @@ class File extends Common{
     public function uploadFile(){
 
         if($this->filename){
-
             $target_directory = $this->path ;
             $target_file = $target_directory . $this->filename;
             $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
             $file_upload_error_messages="";
             
-            $allowed_file_types=array("png","jpg","JPG","gif","pdf", "doc", "docx", "zip");
+            $allowed_file_types=array("png","jpg","jpeg","JPG","gif","pdf", "doc", "docx", "zip");
             if(!in_array($file_type, $allowed_file_types)){
                 header("Location: ../index.php?p=".$this->origin."&err=formatErr");
 		        exit;
@@ -40,7 +39,6 @@ class File extends Common{
                 chmod($target_directory, 0777);
                 umask($oldmask);
             }
-            
 
             if(empty($file_upload_error_messages)){  
                 
@@ -70,7 +68,6 @@ class File extends Common{
                         }
                             // prepare the query
                             $stmt = $this->conn->prepare($query);
-                            
                     // bind the values
                     $stmt->bindParam(':filename', $this->filename);
                     $stmt->bindParam(':label', $this->label);
@@ -96,6 +93,21 @@ class File extends Common{
  
     }
 
+    public function countFile(){
+    
+        $query = "SELECT id FROM ".$this->prx.$this->table."
+                 WHERE filename = :filename";
+    
+        $stmt = $this->conn->prepare( $query );
+
+        $stmt->bindParam(":filename",$this->filename);
+        $stmt->execute();
+    
+        $num = $stmt->rowCount();
+    
+        return $num;
+    }
+
     public function showIdByFilename(){
         $query = "SELECT id
                 FROM ".$this->table."
@@ -116,6 +128,26 @@ class File extends Common{
     
     }
     
+    public function showFilenameById(){
+        $query = "SELECT filename
+                FROM ".$this->table."
+                WHERE id = :id";
+
+       $stmt = $this->conn->prepare($query);
+
+       $stmt->bindParam(":id",$this->id) ;
+
+       $stmt->execute() ;
+       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+       if($row){
+           return $this->id = $row['filename'];
+       } else {
+           return false ;
+       }
+    
+    }
+
 }
 
 ?>

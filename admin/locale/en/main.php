@@ -56,6 +56,10 @@ $file_all_file = "File name" ;
 $file_add_header = "Add a file" ;
 $file_add_title = "Add a new file" ;
 $file_add_file = "Upload file" ;
+$file_edit_header = "Edit a file" ;
+$file_edit_title = "Edit the file" ;
+$file_edit_file = "Upload new file" ;
+$file_edit_actual = "Actual file:";
 
 
 
