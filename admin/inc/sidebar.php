@@ -140,7 +140,19 @@
               <li class="sidebar-item <?=$active?> <?=$hasSub?>">
                 <a href="index.php<?=$link?>" class="sidebar-link">
                   <i class="bi bi-<?=$row['icon']?>"></i>
-                  <span><?=$row['label']?></span>
+                  <span>
+                    <?php
+                      if($lang=="en"){
+                        echo $row['label'];
+                      }else{
+                        $locale_label=strtolower($row['label']);
+                        $locale_label = str_replace(" ","_",$locale_label);
+                        $locale_label = "label_$locale_label";
+                        $section_label = $$locale_label ;
+                        echo $section_label ;
+                      }
+                    ?>
+                  </span>
                 </a>
                 <?php
                   if($hasSub){
@@ -165,7 +177,19 @@
                     <li class="submenu-item <?=$active1?>">
                       <a href="index.php?p=<?=$row1['link']?>">
                       <i class="bi bi-<?=$row1['icon']?>"></i>
-                      <span><?=$row1['label']?></span></a>
+                      <span>    
+                        <?php
+                          if($lang=="en"){
+                            echo $row1['label'];
+                          }else{
+                            $locale_label=strtolower($row1['label']);
+                            $locale_label = str_replace(" ","_",$locale_label);
+                            $locale_label = "label_$locale_label";
+                            $section_label = $$locale_label ;
+                            echo $section_label ;
+                          }
+                        ?>
+                      </span></a>
                     </li>
 
                 <?php

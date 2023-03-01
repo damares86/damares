@@ -216,7 +216,7 @@ $db->query("INSERT INTO ".$prefix."verify
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('1','#','Accounts','people-fill')");
+                            VALUES ('1','accounts','Accounts','people-fill')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
