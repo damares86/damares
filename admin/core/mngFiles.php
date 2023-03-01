@@ -53,7 +53,7 @@ if(filter_input(INPUT_POST,"idToMod")){
             header("Location: ../index.php?p=allFiles&msg=fileEditSucc");
             exit;
         }else{
-            header("Location: ../index.php?p=allFiles&err=fileFail");
+            header("Location: ../index.php?p=allFiles&err=fileEdiFail");
             exit;
         }
 

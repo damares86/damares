@@ -149,6 +149,78 @@ if($err){
             ></button>
         </div>
     <?php
+    } else if($err=="fileNoDel"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_fileNoDel?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="fileFail"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_fileFail?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="fileEditFail"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_fileEditFail?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="fileExists"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_fileExists?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="fileErr"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_fileErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="noFilePost"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_fileErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
     }
 }
 ?>

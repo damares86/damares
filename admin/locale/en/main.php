@@ -73,6 +73,8 @@ $msg_accountSucc = "Account created" ;
 $msg_roleDel = "Role successfully deleted" ;
 $msg_roleEdit = "Role successfully modified" ;
 $msg_roleSucc = "Role created" ;
+$msg_fileDel = "File successfully deleted" ;
+$msg_fileSucc = "File uploaded" ;
 
 
 //////  MAIN ERR ALERT  //////
@@ -89,3 +91,7 @@ $err_roleNoEdit = "Role not modified" ;
 $err_roleExist = "Role already exist" ;
 $err_roleFail = "Role not created" ;
 $err_formatErr = "File format error" ;
+$err_fileNoDel = "File not deleted" ;
+$err_fileEditFail = "File not modified" ;
+$err_fileExists = "File already exists" ;
+$err_fileFail = "File not uploaded" ;

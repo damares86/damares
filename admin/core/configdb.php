@@ -255,7 +255,7 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 // scan the plugin directory and insert the plugin by folder's name
 
 $plugins = scandir('../plugin');
-$exclude = array('..', '.');
+$exclude = array('..', '.',"base");
 $plugin_id = 1 ;
 
 foreach ($plugins as $key => $value){

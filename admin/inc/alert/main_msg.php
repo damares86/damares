@@ -87,6 +87,42 @@ if($msg){
             ></button>
         </div>
     <?php
+    } else if($msg=="fileDel"){
+        ?> 
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <?=$msg_roleSucc ?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($msg=="fileEditSucc"){
+        ?> 
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?=$msg_fileEditSucc ?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($msg=="fileSucc"){
+        ?> 
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?=$msg_fileSucc ?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
     }
 }
 ?>
