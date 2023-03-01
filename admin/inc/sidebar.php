@@ -159,7 +159,7 @@
                     $where = ['parent_id'] ;
                     $section->parent_id = $row['id'];
                     
-                    $child = $section->showAllWhereTable('id','sectionChild',$where);
+                    $child = $section->showAllChild();
                 ?>
                   <ul class="submenu">
                 <?php

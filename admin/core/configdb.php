@@ -114,8 +114,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."accounts
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."roles
               ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                rolename VARCHAR(255) NOT NULL,
-                redirect VARCHAR ( 255 ) DEFAULT 'none')");
+                rolename VARCHAR(255) NOT NULL)");
 
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."accountsRoles
@@ -238,6 +237,10 @@ $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
                             VALUES ('2','allFiles','Files','folder-fill')");
 
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('5','allFiles','All files','folder-fill','2')");
+
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
                             VALUES ('3','allSettings','Settings','gear-fill')");
@@ -261,8 +264,8 @@ $plugin_id = 1 ;
 foreach ($plugins as $key => $value){
     if(!in_array($value,$exclude)){
         $db->query("INSERT INTO ".$prefix."plugins
-                              (id, pluginname,active)
-                              VALUES ('".$plugin_id."','".$value."','0')");
+                              (id, pluginname,installed,active)
+                              VALUES ('".$plugin_id."','".$value."','0','0')");
         $plugin_id++ ;
   }
 }

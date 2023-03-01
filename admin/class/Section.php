@@ -4,6 +4,7 @@ class Section extends Common{
 
     public $table_parent = "sectionParent";
     public $table_child = "sectionChild";
+    public $parent_id ;
 
     public function countChild($id){
     
@@ -50,7 +51,22 @@ class Section extends Common{
         return $row ;
     }
 
+    function showAllChild(){
 
+        $query = "SELECT *
+            FROM " .$this->prx. $this->table_child."
+            WHERE parent_id = :parent_id
+            ORDER BY id ASC"; 
+
+        $stmt = $this->conn->prepare( $query );
+    
+        $stmt->bindParam(":parent_id", $this->parent_id);
+    
+        $stmt->execute();
+    
+        return $stmt;
+    }
+    
 
     
 }
