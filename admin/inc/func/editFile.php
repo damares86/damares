@@ -47,7 +47,7 @@
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngFiles.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
+                    <form class="form form-horizontal upload-form" action="core/mngFiles.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
@@ -93,6 +93,12 @@
                                     </div>
                             </div>
                         </div>
+                        <div class="col-md-3">&nbsp;</div>
+                        <div class="col-md-9">
+                            <div class="progress"></div>
+                            <div class="result"></div>
+                        </div>
+
                         <input type="hidden" name="filename_orig" value="<?=$filename?>">
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="idToMod" value="<?=$id?>">
@@ -118,6 +124,7 @@
         }
         ?>
                     </form>
+                    <script src="script/uploadFile.js"></script>
                 </div>
                 </div>
             </div>

@@ -90,7 +90,7 @@ if($msg){
     } else if($msg=="fileDel"){
         ?> 
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <?=$msg_roleSucc ?>
+            <?=$msg_fileDel ?>
             <button
                 type="button"
                 class="btn-close"

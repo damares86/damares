@@ -1,5 +1,4 @@
 <?php
-
 require '../vendor/autoload.php';		// If installed via composer
 $debug = new \bdk\Debug(array(
 	'collect' => true,
@@ -9,7 +8,7 @@ $debug = new \bdk\Debug(array(
 session_start();
 
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: ../../auth-login.php?msg=no');
+	header('Location: ../../auth-login.php?msg=no');
     exit;
 }
 

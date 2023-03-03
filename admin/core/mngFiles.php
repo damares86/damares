@@ -72,6 +72,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         
 
 }else if($operation == "add"){ 
+
     if($_FILES['myfile']['size'] > 0){
         
         $file->filename = $_FILES['myfile']['name'] ;
@@ -81,7 +82,6 @@ if(filter_input(INPUT_POST,"idToMod")){
             header("Location: ../index.php?p=allFiles&err=fileExists");
             exit;
         }
-
         // set data for file uploading
         $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
         $file->label = filter_input(INPUT_POST,"label") ;
@@ -91,7 +91,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         $file->operation = "add" ;
         
         if($file->uploadFile()){
-
+            
                 //success
                 header("Location: ../index.php?p=allFiles&msg=fileSucc");
                 exit;
