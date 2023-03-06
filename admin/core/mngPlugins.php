@@ -175,26 +175,29 @@ if($_FILES["zip_file"]["name"]) {
         $error++;
     }
   }
-  print_r($error);
-  exit;
+
   $scan = scandir($path.'/locale');
-  $exclude = array('..', '.');
   foreach($scan as $folder) {
      if (is_dir("$path/locale/$folder") && !in_array($folder,$exclude)) {
 
           // copy locale files
         foreach (glob("$path/locale/$folder/*") as $row) {
           $item=pathinfo($row);
+          print_r($folder);
+          print_r($item['basename']."<br>");
 
-          if(copy($path.'locale/'.$folder.'/'.$item['basename'].'', '../locale/'.$folder.'/'.$item['basename'].'')){
-              chmod( '../locale/'.$folder.'/'.$item['basename'].'',0777);
-          }else{
+          if(copy($path.'/locale/'.$folder.'/'.$item['basename'].'', '../locale/'.$folder.'/'.$item['basename'].'')){
+
+          print_r($item['basename']." ok<br>");
+          chmod( '../locale/'.$folder.'/'.$item['basename'].'',0777);
+        }else{
+            print_r($item['basename']." ko<br>");
               $error++;
           }
         }
      }
   }
- 
+  
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginAdd");
     exit;
