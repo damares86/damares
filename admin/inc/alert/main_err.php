@@ -221,6 +221,66 @@ if($err){
             ></button>
         </div>
     <?php
+    } else if($err=="pluginUploadFormatErr"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_pluginUploadFormatErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="pluginUploadErr"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_pluginUploadErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="pluginAddErr"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_pluginAddErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="pluginDisErr"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_pluginDisErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
+    } else if($err=="pluginRmErr"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_pluginRmErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
     }
 }
 ?>

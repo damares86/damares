@@ -1,22 +1,5 @@
 <?php
 
-// require '../vendor/autoload.php';		// If installed via composer
-// $debug = new \bdk\Debug(array(
-// 	'collect' => true,
-// 	'output' => true,
-// ));
-
-// include("../../class/Database.php");
-// include("../../class/Common.php");
-// include("../../class/Plugin.php");
-
-require "../inc/prefix.php";
-
-$database = new Database();
-$db = $database->getConnection();
-$plugin = new Plugin($db);
-
-
 // plugin information
 
 $pluginname = "file_for_role" ;
@@ -32,3 +15,5 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."filesRoles
     FOREIGN KEY (role_id) REFERENCES roles(id))";
 
 $query_drop_table = "DROP TABLE  ".$prefix."filesRoles";
+
+?>

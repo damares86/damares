@@ -10,16 +10,16 @@ $allplugins = $plugin->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header"><?=$file_all_title?> &nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$plugin_all_title?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addFile" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> <?=$file_all_add?></a
+                        ><i data-feather="plus-circle"></i> <?=$plugin_all_add?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Plugin name</th>
-            <th>Description</th>
+            <th><?=$plugin_all_name?></th>
+            <th><?=$plugin_all_description?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -94,7 +94,7 @@ $allplugins = $plugin->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$file_all_modal_body?>
+                                    <?=$plugin_all_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

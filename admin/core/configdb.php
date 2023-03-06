@@ -288,10 +288,11 @@ $exclude = array('..', '.',"base");
 $plugin_id = 1 ;
 
 foreach ($plugins as $key => $value){
+    require "../plugins/$value/config.php" ;
     if(!in_array($value,$exclude)){
         $db->query("INSERT INTO ".$prefix."plugins
-                              (id, pluginname,installed,active)
-                              VALUES ('".$plugin_id."','".$value."','0','0')");
+                              (id, pluginname,description,installed,active)
+                              VALUES ('".$plugin_id."','".$description."','".$value."','0','0')");
         $plugin_id++ ;
   }
 }

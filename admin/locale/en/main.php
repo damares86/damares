@@ -62,6 +62,13 @@ $file_edit_file = "Upload new file" ;
 $file_edit_actual = "Actual file:";
 
 
+//////  PLUGIN  //////
+
+$plugin_all_title = "All plugins" ;
+$plugin_all_add = "Upload new plugins" ;
+$plugin_all_name = "Plugin name" ;
+$plugin_all_description = "Description" ;
+$plugin_all_modal_body = "If you confirm, you will completely delete all the files of this plugin." ;
 
 
 //////  MAIN MSG ALERT  //////
@@ -75,6 +82,10 @@ $msg_roleEdit = "Role successfully modified" ;
 $msg_roleSucc = "Role created" ;
 $msg_fileDel = "File successfully deleted" ;
 $msg_fileSucc = "File uploaded" ;
+$msg_pluginUploadSucc = "Plugin successfully uploaded" ;
+$msg_pluginAdd = "Plugin added and activated" ;
+$msg_pluginDis = "Plugin disabled" ;
+$msg_pluginRm = "Plugin removed" ;
 
 
 //////  MAIN ERR ALERT  //////
@@ -95,3 +106,8 @@ $err_fileNoDel = "File not deleted" ;
 $err_fileEditFail = "File not modified" ;
 $err_fileExists = "File already exists" ;
 $err_fileFail = "File not uploaded" ;
+$err_pluginUploadFormatErr = "Invalid file format" ;
+$err_pluginUploadErr = "Plugin not uploaded" ;
+$err_pluginAddErr = "Plugin not added and enabled" ;
+$err_pluginDisErr = "Plugin not disabled" ;
+$err_pluginRmErr = "Plugin not removed" ;

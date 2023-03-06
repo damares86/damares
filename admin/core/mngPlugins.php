@@ -63,7 +63,7 @@ if($_FILES["zip_file"]["name"]) {
     
     $continue = strtolower($name[1]) == 'zip' ? true : false;
     if(!$continue) {
-        header("Location: ../index.php?man=plugins&op=show&msg=pluginUploadFormatErr");
+        header("Location: ../index.php?p=allPlugins&msg=pluginUploadFormatErr");
         exit;
     }
     
@@ -188,15 +188,10 @@ if($_FILES["zip_file"]["name"]) {
           // copy locale files
         foreach (glob("$path/locale/$folder/*") as $row) {
           $item=pathinfo($row);
-          print_r($folder);
-          print_r($item['basename']."<br>");
 
           if(copy($path.'/locale/'.$folder.'/'.$item['basename'].'', '../locale/'.$folder.'/'.$item['basename'].'')){
-
-          print_r($item['basename']." ok<br>");
           chmod( '../locale/'.$folder.'/'.$item['basename'].'',0777);
         }else{
-            print_r($item['basename']." ko<br>");
               $error++;
           }
         }
