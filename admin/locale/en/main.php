@@ -65,7 +65,7 @@ $file_edit_actual = "Actual file:";
 //////  PLUGIN  //////
 
 $plugin_all_title = "All plugins" ;
-$plugin_all_add = "Upload new plugins" ;
+$plugin_all_add = "Upload new plugin" ;
 $plugin_all_name = "Plugin name" ;
 $plugin_all_description = "Description" ;
 $plugin_all_modal_body = "If you confirm, you will completely delete all the files of this plugin." ;

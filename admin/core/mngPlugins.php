@@ -2,22 +2,8 @@
 
 require __DIR__."/coreConfig.php";
 
-$op = filter_input(INPUT_GET,"op");
-
-$idPlugin = filter_input(INPUT_GET,"idPlugin") ;
-$plugin->id=$idPlugin ;
-$pluginFolder = $plugin->showPluginnameById() ;
-
-$path = "../plugins/$pluginFolder" ;
-
-require "$path/starter.php" ;
-$exclude = array('..', '.','alert','func','.gitkeep');
-
-
-
-
-if($op=="submit"){
-
+if(filter_input(INPUT_POST,"new")){
+  
   function chmod_R($path, $filemode) {
     if ( !is_dir($path) ) {
      return chmod($path, $filemode);
@@ -48,8 +34,8 @@ if($op=="submit"){
    }
 
 if($_FILES["zip_file"]["name"]) {
-    $filename = $_FILES["zip_file"]["name"];
-    $source = $_FILES["zip_file"]["tmp_name"];
+  $filename = $_FILES["zip_file"]["name"];
+  $source = $_FILES["zip_file"]["tmp_name"];
     $type = $_FILES["zip_file"]["type"];
     
     $name = explode(".", $filename);
@@ -58,28 +44,29 @@ if($_FILES["zip_file"]["name"]) {
         if($mime_type == $type) {
             $okay = true;
             break;
-        } 
-    }
-    
-    $continue = strtolower($name[1]) == 'zip' ? true : false;
-    if(!$continue) {
-        header("Location: ../index.php?p=allPlugins&msg=pluginUploadFormatErr");
-        exit;
-    }
-    
-    $path="../plugins/";
-    if(!is_dir($path)){
-        mkdir($path);
-        chmod($path,0777);
-    }
-    $target_path = "../plugins/".$filename;  // change this to the correct site path
-    if(move_uploaded_file($source, $target_path)) {
+          } 
+        }
+        
+        $continue = strtolower($name[1]) == 'zip' ? true : false;
+        if(!$continue) {
+          header("Location: ../index.php?p=allPlugins&msg=pluginUploadFormatErr");
+          exit;
+        }
+        
+        $path="../plugins/";
+        if(!is_dir($path)){
+          mkdir($path);
+          chmod($path,0777);
+        }
+
+        $target_path = "../plugins/".$filename;  // change this to the correct site path
+      if(move_uploaded_file($source, $target_path)) {
         $zip = new ZipArchive();
         $x = $zip->open($target_path);
         $folder="../plugins/";
         if ($x === true) {
-            $zip->extractTo($folder); // change this to the correct site path
-            $zip->close();
+          $zip->extractTo($folder); // change this to the correct site path
+          $zip->close();
             
             chmod_R($folder,0777);
 
@@ -92,8 +79,23 @@ if($_FILES["zip_file"]["name"]) {
         exit;
     }
 }
+}
+print_r("ko");
+exit;
+$op = filter_input(INPUT_GET,"op");
 
-} else if($op=="add"){
+$idPlugin = filter_input(INPUT_GET,"idPlugin") ;
+$plugin->id=$idPlugin ;
+$pluginFolder = $plugin->showPluginnameById() ;
+
+$path = "../plugins/$pluginFolder" ;
+
+require "$path/starter.php" ;
+$exclude = array('..', '.','alert','func','.gitkeep');
+
+
+
+if($op=="add"){
 
   
   // create table

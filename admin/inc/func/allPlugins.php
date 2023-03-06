@@ -10,10 +10,53 @@ $allplugins = $plugin->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header"><?=$plugin_all_title?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addFile" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> <?=$plugin_all_add?></a
-                      ></div>
+    <div class="card-header"> 
+    <div class="row">
+      <div class="col-md-5">
+        <form class="form form-horizontal upload-form" action="core/mngPlugins.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
+          <div class="form-body">
+            <div class="row">
+              <div class="col-md-3">
+                  <label><?=$plugin_all_add?> <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-9">
+                  <div class="form-group">
+                      <div class="form-check mandatory">
+                          <div class="position-relative">
+                              <input
+                              class="form-control"
+                              type="file"
+                              id="formFile"
+                              name="zip_file"
+                              data-parsley-required="true"
+                          />
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <input type="hidden" name="new" value="file">
+              <div class="col-12 d-flex justify-content-end">
+                <button
+                type="submit"
+                class="btn btn-primary me-1 mb-1"
+                >
+                <?=$common_submit?>
+                </button>
+                <button
+                type="reset"
+                class="btn btn-light-secondary me-1 mb-1"
+                >
+                <?=$common_reset?>
+                </button>
+              </div>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
