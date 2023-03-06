@@ -283,21 +283,21 @@ if(!$db->query("UPDATE ".$prefix."plugins SET active = 0 WHERE pluginname = '$pl
 
   $scan = scandir($path.'/locale');
   $exclude = array('..', '.');
-  foreach($scan as $foolder) {
+  foreach($scan as $folder) {
      if (is_dir("$path/locale/$folder") && !in_array($folder,$exclude)) {
-
+          print_r("Folder: $path/locale/$folder <br>") ;
           // copy locale files
         foreach (glob("$path/locale/$folder/*") as $row) {
           $item=pathinfo($row);
-
+          print_r("File ".$item['basename']);
           if(!unlink('../locale/'.$folder.'/'.$item['basename'].'')){
+              print_r("Error on ".$item['basename']);
               $error++;
           }
         }
      }
   }
-  print_r($error);
-  exit;
+
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginRm");
     exit;
