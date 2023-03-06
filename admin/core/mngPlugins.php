@@ -197,7 +197,7 @@ if($_FILES["zip_file"]["name"]) {
         }
      }
   }
-  
+
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginAdd");
     exit;
@@ -206,14 +206,14 @@ if($_FILES["zip_file"]["name"]) {
     exit;
   }
 
-} else if($op=="remove"){
+} else if($op=="rm"){
                 
 // REMOVE
 
-$db->query($query_drop_table);
+// $db->query($query_drop_table);
 
 $db->query("UPDATE ".$prefix."plugins
-                SET installed = 0 WHERE pluginname = $pluginname");
+                SET active = 0 WHERE pluginname = '$pluginname'");
 
     // DELETE ALL FILES
 
