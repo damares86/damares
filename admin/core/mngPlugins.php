@@ -104,48 +104,50 @@ if($_FILES["zip_file"]["name"]) {
     $error++ ;
   }
   
-
   // copy assets files
   foreach (glob("$path/assets/*") as $row) {
     $item=pathinfo($row);
 
     if(copy($path.'/assets/'.$item['basename'].'', '../assets/css/'.$item['basename'].'')){
-        chmod('../assets/css/'.$item['basename'].'',0777);
+      chmod('../assets/css/'.$item['basename'].'',0777);
     }else{
-        $error++;
+      $error++;
     }
   }
   
   // copy class files
   foreach (glob("$path/class/*") as $row) {
     $item=pathinfo($row);
-
+    
     if(copy($path.'/class/'.$item['basename'].'', '../class/'.$item['basename'].'')){
-        chmod('../class/'.$item['basename'].'',0777);
+      chmod('../class/'.$item['basename'].'',0777);
     }else{
-        $error++;
+      $error++;
     }
   }
-
+  
   // copy core files
-  foreach (glob("$path/core/*") as $row) {
+  foreach (scandir("$path/core/") as $row) {
     $item=pathinfo($row);
 
     if(copy($path.'/core/'.$item['basename'].'', ''.$item['basename'].'')){
-        chmod(''.$item['basename'].'',0777);
+      chmod(''.$item['basename'].'',0777);
     }else{
-        $error++;
+      $error++;
     }
   }
 
   // copy inc files
-  foreach (glob("$path/inc/*") as $row) {
-    $item=pathinfo($row);
+  $scan = scandir($path.'/inc');
+  $exclude = array('..', '.','alert','func');
 
-    if(copy($path.'/inc/'.$item['basename'].'', '../inc/'.$item['basename'].'')){
+  foreach ($scan as $folder) {
+    if(!in_array($folder, $exclude )){
+      if(copy($path.'/inc/'.$item['basename'].'', '../inc/'.$item['basename'].'')){
         chmod('../inc/'.$item['basename'].'',0777);
-    }else{
+      }else{
         $error++;
+      }
     }
   }
 
@@ -173,7 +175,7 @@ if($_FILES["zip_file"]["name"]) {
 
   $scan = scandir($path.'/locale');
   $exclude = array('..', '.');
-  foreach($scan as $foolder) {
+  foreach($scan as $folder) {
      if (is_dir("$path/locale/$folder") && !in_array($folder,$exclude)) {
 
           // copy locale files
