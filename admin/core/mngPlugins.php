@@ -8,6 +8,7 @@ $pluginFolder = filter_input(INPUT_GET,"name") ;
 $path = "../plugins/$pluginFolder" ;
 
 require "$path/config.php" ;
+$exclude = array('..', '.','alert','func','.gitkeep');
 
 
 
@@ -92,7 +93,6 @@ if($_FILES["zip_file"]["name"]) {
 
 } else if($op=="add"){
 
-  $exclude = array('..', '.','alert','func','.gitkeep');
   
   // create table
 
@@ -210,10 +210,15 @@ if($_FILES["zip_file"]["name"]) {
                 
 // REMOVE
 
-// $db->query($query_drop_table);
+$error=0;
 
-$db->query("UPDATE ".$prefix."plugins
-                SET active = 0 WHERE pluginname = '$pluginname'");
+// if(!$db->query($query_drop_table)){
+//   $error++;
+// }
+
+if(!$db->query("UPDATE ".$prefix."plugins SET active = 0 WHERE pluginname = '$pluginname'")){
+  $error++;
+}
 
     // DELETE ALL FILES
 
@@ -225,7 +230,7 @@ $db->query("UPDATE ".$prefix."plugins
         $error++;
     }
   }
-  
+
   // remove class files
   foreach (glob("$path/class/*") as $row) {
     $item=pathinfo($row);
@@ -234,30 +239,35 @@ $db->query("UPDATE ".$prefix."plugins
         $error++;
     }
   }
-
   // remove core files
   foreach (glob("$path/core/*") as $row) {
     $item=pathinfo($row);
-
+    
     if(!unlink(''.$item['basename'].'')){
-        $error++;
+      $error++;
     }
   }
-
+  
   // remove inc files
-  foreach (glob("$path/inc/*") as $row) {
-    $item=pathinfo($row);
 
-    if(!unlink('../inc/'.$item['basename'].'')){
+  $scan = scandir($path.'/inc');
+
+  foreach ($scan as $file) {
+    if(!in_array($file, $exclude )){
+      if(!unlink('../inc/'.$file.'')){
         $error++;
+      }
     }
   }
+
+
+
 
   // remove inc/alert files
   foreach (glob("$path/inc/alert/*") as $row) {
     $item=pathinfo($row);
 
-    if(!unlink($path.'/inc/alert/'.$item['basename'].'', '../inc/alert/'.$item['basename'].'')){
+    if(!unlink('../inc/alert/'.$item['basename'].'')){
         $error++;
     }
   }
@@ -286,7 +296,8 @@ $db->query("UPDATE ".$prefix."plugins
         }
      }
   }
-  
+  print_r($error);
+  exit;
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginRm");
     exit;
