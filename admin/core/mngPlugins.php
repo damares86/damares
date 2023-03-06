@@ -92,7 +92,7 @@ if($_FILES["zip_file"]["name"]) {
 
 } else if($op=="add"){
 
-  $exclude = array('..', '.','alert','func');
+  $exclude = array('..', '.','alert','func','.gitkeep');
   
   // create table
 
@@ -145,17 +145,14 @@ if($_FILES["zip_file"]["name"]) {
 
   foreach ($scan as $folder) {
     if(!in_array($folder, $exclude )){
-      if(copy($path.'/inc/'.$item['basename'].'', '../inc/'.$item['basename'].'')){
-        echo $item['basename']."ok <br>";
-        chmod('../inc/'.$item['basename'].'',0777);
+      if(copy($path.'/inc/'.$folder.'', '../inc/'.$folder.'')){
+        chmod('../inc/'.$folder.'',0777);
       }else{
-        echo  $item['basename']."ko <br>";
         $error++;
       }
     }
   }
-  print_r($error);
-  exit; 
+
 
   // copy inc/alert files
   foreach (glob("$path/inc/alert/*") as $row) {
@@ -178,7 +175,8 @@ if($_FILES["zip_file"]["name"]) {
         $error++;
     }
   }
-
+  print_r($error);
+  exit;
   $scan = scandir($path.'/locale');
   $exclude = array('..', '.');
   foreach($scan as $folder) {
@@ -196,7 +194,7 @@ if($_FILES["zip_file"]["name"]) {
         }
      }
   }
-  
+ 
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginAdd");
     exit;
