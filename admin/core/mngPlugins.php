@@ -10,7 +10,7 @@ $pluginFolder = $plugin->showPluginnameById() ;
 
 $path = "../plugins/$pluginFolder" ;
 
-require "$path/config.php" ;
+require "$path/starter.php" ;
 $exclude = array('..', '.','alert','func','.gitkeep');
 
 

@@ -171,7 +171,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
                     role_id INT (5) NOT NULL)");
 
                  
-$db->query("CREATE TABLE ".$prefix."password_reset_temp (
+$db->query("CREATE TABLE IF NOT EXISTS  ".$prefix."password_reset_temp (
                     email varchar(250) NOT NULL PRIMARY KEY,
                     token varchar(250) NOT NULL,
                     expDate datetime NOT NULL)");
@@ -183,7 +183,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."settings
                     value VARCHAR(255) NOT NULL)");
 
 
-$db->query("CREATE TABLE ".$prefix."verify (
+$db->query("CREATE TABLE IF NOT EXISTS  ".$prefix."verify (
                     id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     public varchar(250) NOT NULL,
                     secret varchar(250) NOT NULL,
@@ -193,7 +193,7 @@ $db->query("CREATE TABLE ".$prefix."verify (
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."plugins
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     pluginname VARCHAR(255) NOT NULL,  
-                    description TEXT NON NULL,                     
+                    description TEXT NOT NULL,                     
                     installed INT(1) NOT NULL,
                     active INT(1) NOT NULL)");
 
@@ -283,17 +283,17 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 
 // scan the plugin directory and insert the plugin by folder's name
 
-$plugins = scandir('../plugin');
-$exclude = array('..', '.',"base");
+$plugins = scandir('../plugins');
+$exclude = array('..', '.',".gitkeep","base");
 $plugin_id = 1 ;
 
 foreach ($plugins as $key => $value){
-    require "../plugins/$value/config.php" ;
-    if(!in_array($value,$exclude)){
-        $db->query("INSERT INTO ".$prefix."plugins
-                              (id, pluginname,description,installed,active)
-                              VALUES ('".$plugin_id."','".$description."','".$value."','0','0')");
-        $plugin_id++ ;
+  if(!in_array($value,$exclude)){
+      require "../plugins/$value/config.php" ;
+      $db->query("INSERT INTO ".$prefix."plugins
+                            (id, pluginname,description,installed,active)
+                            VALUES ('".$plugin_id."','".$value."','".$description."','0','0')");
+      $plugin_id++ ;
   }
 }
 
