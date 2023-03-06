@@ -2,7 +2,7 @@
 
 require __DIR__."/coreConfig.php";
 
-// check if there's an account to delete
+// check if there's a file to delete
 
 if(filter_input(INPUT_GET,"idToDel")){
 

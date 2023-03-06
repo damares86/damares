@@ -80,8 +80,7 @@ if($_FILES["zip_file"]["name"]) {
     }
 }
 }
-print_r("ko");
-exit;
+
 $op = filter_input(INPUT_GET,"op");
 
 $idPlugin = filter_input(INPUT_GET,"idPlugin") ;

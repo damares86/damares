@@ -1,3 +1,5 @@
 Missing part:
 
+- reset password
 - settings
+- prepare for recaptcha

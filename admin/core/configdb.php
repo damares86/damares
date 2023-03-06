@@ -181,14 +181,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."settings
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     name VARCHAR(255) NOT NULL,
                     value VARCHAR(255) NOT NULL)");
-
-
-$db->query("CREATE TABLE IF NOT EXISTS  ".$prefix."verify (
-                    id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    public varchar(250) NOT NULL,
-                    secret varchar(250) NOT NULL,
-                    active INT ( 5 ) DEFAULT 0)");
-
+                    
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."plugins
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -231,11 +224,6 @@ $db->query("INSERT INTO ".$prefix."settings
 $db->query("INSERT INTO ".$prefix."settings
                             (id, name,value)
                             VALUES ('2','license','none')");
-
-$db->query("INSERT INTO ".$prefix."verify
-                            (id, public, secret, active) 
-                            VALUES ('1','PUBLIC_KEY', 'SECRET_KEY', '0')");           
-
 
 // insert the section for the sidebar / home link management
 
