@@ -194,6 +194,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."plugins
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     pluginname VARCHAR(255) NOT NULL,  
                     description TEXT NON NULL,                     
+                    installed INT(1) NOT NULL,
                     active INT(1) NOT NULL)");
 
 

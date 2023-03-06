@@ -1,5 +1,3 @@
 Missing part:
 
-- plugins-> all the functional logic for base plugin
 - settings
-- locale multilang (label section?)

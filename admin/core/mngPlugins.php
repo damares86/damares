@@ -2,8 +2,11 @@
 
 require __DIR__."/coreConfig.php";
 
-$pluginFolder = filter_input(INPUT_GET,"name") ;
-// $pluginFolder = filter_input(INPUT_POST,"name") ;
+$op = filter_input(INPUT_GET,"op");
+
+$idPlugin = filter_input(INPUT_GET,"idPlugin") ;
+$plugin->id=$idPlugin ;
+$pluginFolder = $plugin->showPluginnameById() ;
 
 $path = "../plugins/$pluginFolder" ;
 
@@ -12,7 +15,6 @@ $exclude = array('..', '.','alert','func','.gitkeep');
 
 
 
-$op = filter_input(INPUT_GET,"op");
 
 if($op=="submit"){
 
@@ -102,7 +104,10 @@ if($_FILES["zip_file"]["name"]) {
     $error++ ;
   }
                 
-  if(!$db->query("UPDATE ".$prefix."plugins SET active = 1 WHERE pluginname = '$pluginname'")){
+  if(!$db->query("UPDATE ".$prefix."plugins 
+    SET 
+    installed = 1,
+    active = 1 WHERE pluginname = '$pluginname'")){
     $error++ ;
   }
   
@@ -206,17 +211,33 @@ if($_FILES["zip_file"]["name"]) {
     exit;
   }
 
-} else if($op=="rm"){
+} else if($op == "dis"){
+
+  $error = 0 ;
+
+  if(!$db->query("UPDATE ".$prefix."plugins SET active = 0 WHERE pluginname = '$pluginname'")){
+    $error++;
+  }
+
+  if($error==0){
+    header("Location: ../index.php?p=allPlugins&msg=pluginDis");
+    exit;
+  }else{
+    header("Location: ../index.php?p=allPlugins&err=pluginDisErr");
+    exit;
+  }
+
+}else if($op=="rm"){
                 
 // REMOVE
 
 $error=0;
 
-// if(!$db->query($query_drop_table)){
-//   $error++;
-// }
+if(!$db->query($query_drop_table)){
+  $error++;
+}
 
-if(!$db->query("UPDATE ".$prefix."plugins SET active = 0 WHERE pluginname = '$pluginname'")){
+if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pluginname = '$pluginname'")){
   $error++;
 }
 

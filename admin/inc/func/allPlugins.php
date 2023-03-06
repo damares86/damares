@@ -30,12 +30,13 @@ $allplugins = $plugin->showAll('id');
           extract($row);
             
         $background="#c7fac1";
-        $button = "<a href=\"index.php?p=editFile&idToMod=".$row['id']."\" class=\"btn icon btn-warning\"><i class=\"bi bi-patch-minus\"></i></a>" ;
+        $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=dis\" class=\"btn icon btn-warning\"><i class=\"bi bi-patch-minus\"></i></a>" ;
+        
         if($row['active']==0){             
           $background="none";
-          $button = "<a href=\"index.php?p=editFile&idToMod=".$row['id']."\" class=\"btn icon btn-success\"><i class=\"bi bi-patch-plus\"></i></a>" ;
+          $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=add\" class=\"btn icon btn-success\"><i class=\"bi bi-patch-plus\"></i></a>" ;
         }
-      ?>
+        ?>
           <tr style="background:<?=$background?>">
             <td>
               <?php
@@ -47,16 +48,19 @@ $allplugins = $plugin->showAll('id');
             <td>
               <?php
                 echo $row['description'] ;
-              ?>
+                ?>
             </td>
-
+            
             <td>
               <?php echo $button?>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
-                data-bs-toggle="modal"
-                data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
-              </a>
+              <?php
+              if($row['installed']==1){
+              ?>
+                <a href="#" class="btn icon btn-danger" data-bs-toggle="modal" data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i></a>
+              <?php
+              }
+              ?>
             </td>
 
                   <!--Danger theme Modal -->
@@ -104,7 +108,7 @@ $allplugins = $plugin->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngFiles.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
+                                        ><a href="core/mngPlugins.php?idPlugin=<?=$row['id']?>&op=rm" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
                                       >
                                   </div>
                                 </div>
