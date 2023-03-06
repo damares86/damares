@@ -1,9 +1,9 @@
 <?php
-// require 'vendor/autoload.php';		// If installed via composer
-// $debug = new \bdk\Debug(array(
-// 	'collect' => true,
-// 	'output' => true,
-// ));
+require 'vendor/autoload.php';		// If installed via composer
+$debug = new \bdk\Debug(array(
+	'collect' => true,
+	'output' => true,
+));
 
 // check if database is configured
 

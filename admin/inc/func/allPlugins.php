@@ -19,36 +19,46 @@ $allplugins = $plugin->showAll('id');
         <thead>
           <tr>
             <th>Plugin name</th>
-            <th><?=$file_all_file?></th>
-            <!-- ################################## -->
-            <!-- role authorized se presente plugin -->
-            <!-- ################################## -->
-            <th><?=$common_link?></th>
+            <th>Description</th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
         <tbody>
           
         <?php          
-        while($row = $allfiles->fetch(PDO::FETCH_ASSOC)){
+        while($row = $allplugins->fetch(PDO::FETCH_ASSOC)){
           extract($row);
             
-        ?>
-          <tr>
-            <td><?=$row['label']?></td>
-            <td><?=$row['filename']?></td>
+        $background="#c7fac1";
+        $button = "<a href=\"index.php?p=editFile&idToMod=".$row['id']."\" class=\"btn icon btn-warning\"><i class=\"bi bi-patch-minus\"></i></a>" ;
+        if($row['active']==0){             
+          $background="none";
+          $button = "<a href=\"index.php?p=editFile&idToMod=".$row['id']."\" class=\"btn icon btn-success\"><i class=\"bi bi-patch-plus\"></i></a>" ;
+        }
+      ?>
+          <tr style="background:<?=$background?>">
             <td>
-              <a href="uploads/<?=$row['filename']?>" target="_blank"><?=$common_link?></a>
+              <?php
+                $pluginLabel = str_replace("_", " ", $row['pluginname']);
+                $pluginLabel = ucfirst($pluginLabel) ;
+                echo $pluginLabel ;
+              ?>
             </td>
             <td>
-              <a href="index.php?p=editFile&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
-                ><i class="bi bi-pencil-square"></i
-              ></a>
+              <?php
+                echo $row['description'] ;
+              ?>
+            </td>
+
+            <td>
+              <?php echo $button?>
               &nbsp; &nbsp;
               <a href="#" class="btn icon btn-danger"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>
+            </td>
+
                   <!--Danger theme Modal -->
                   <div
                               class="modal fade text-left"
