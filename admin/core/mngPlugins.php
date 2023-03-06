@@ -1,6 +1,9 @@
 <?php
 
-$pluginFolder = filter_input(INPUT_POST,"name") ;
+require __DIR__."/coreConfig.php";
+
+$pluginFolder = filter_input(INPUT_GET,"name") ;
+// $pluginFolder = filter_input(INPUT_POST,"name") ;
 
 $path = "../plugins/$pluginFolder" ;
 
@@ -97,7 +100,7 @@ if($_FILES["zip_file"]["name"]) {
     $error++ ;
   }
                 
-  if(!$db->query("UPDATE ".$prefix."plugins SET installed = 1 WHERE pluginname = $pluginname")){
+  if(!$db->query("UPDATE ".$prefix."plugins SET active = 1 WHERE pluginname = '$pluginname'")){
     $error++ ;
   }
   
