@@ -91,6 +91,8 @@ if($_FILES["zip_file"]["name"]) {
 }
 
 } else if($op=="add"){
+
+  $exclude = array('..', '.','alert','func');
   
   // create table
 
@@ -129,27 +131,31 @@ if($_FILES["zip_file"]["name"]) {
   // copy core files
   foreach (scandir("$path/core/") as $row) {
     $item=pathinfo($row);
-
-    if(copy($path.'/core/'.$item['basename'].'', ''.$item['basename'].'')){
-      chmod(''.$item['basename'].'',0777);
-    }else{
-      $error++;
-    }
-  }
-
-  // copy inc files
-  $scan = scandir($path.'/inc');
-  $exclude = array('..', '.','alert','func');
-
-  foreach ($scan as $folder) {
-    if(!in_array($folder, $exclude )){
-      if(copy($path.'/inc/'.$item['basename'].'', '../inc/'.$item['basename'].'')){
-        chmod('../inc/'.$item['basename'].'',0777);
+    if(!in_array($item['basename'],$exclude)){
+      if(copy($path.'/core/'.$item['basename'].'', ''.$item['basename'].'')){
+        chmod(''.$item['basename'].'',0777);
       }else{
         $error++;
       }
     }
   }
+
+  // copy inc files
+  $scan = scandir($path.'/inc');
+
+  foreach ($scan as $folder) {
+    if(!in_array($folder, $exclude )){
+      if(copy($path.'/inc/'.$item['basename'].'', '../inc/'.$item['basename'].'')){
+        echo $item['basename']."ok <br>";
+        chmod('../inc/'.$item['basename'].'',0777);
+      }else{
+        echo  $item['basename']."ko <br>";
+        $error++;
+      }
+    }
+  }
+  print_r($error);
+  exit; 
 
   // copy inc/alert files
   foreach (glob("$path/inc/alert/*") as $row) {
