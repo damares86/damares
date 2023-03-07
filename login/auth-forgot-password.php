@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Mazer Admin Dashboard</title>
-    <link rel="stylesheet" href="admin/assets/css/main/app.css">
-    <link rel="stylesheet" href="admin/assets/css/pages/auth.css">
-    <link rel="shortcut icon" href="admin/assets/images/logo/favicon.svg" type="image/x-icon">
-    <link rel="shortcut icon" href="admin/assets/images/logo/favicon.png" type="image/png">
+    <link rel="stylesheet" href="../admin/assets/css/main/app.css">
+    <link rel="stylesheet" href="../admin/assets/css/pages/auth.css">
+    <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.png" type="image/png">
 </head>
 
 <body>
@@ -18,12 +18,12 @@
     <div class="col-lg-5 col-12">
         <div id="auth-left">
             <div class="auth-logo">
-                <a href="index.html"><img src="admin/assets/images/logo/logo.svg" alt="Logo"></a>
+                <a href="../index.php"><img src="../admin/assets/images/logo/logo.svg" alt="Logo"></a>
             </div>
             <h1 class="auth-title">Forgot Password</h1>
             <p class="auth-subtitle mb-5">Input your email and we will send you reset password link.</p>
 
-            <form action="admin/core/mngPass.php">
+            <form action="../admin/core/mngPass.php">
                 <div class="form-group position-relative has-icon-left mb-4">
                     <input type="email" name="email" class="form-control form-control-xl" placeholder="Email">
                     <div class="form-control-icon">

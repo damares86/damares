@@ -17,7 +17,7 @@ session_start();
 // check if the user is logged in
 
 if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
-  header('Location: ../auth-login.php?msg=noLogin');
+  header('Location: ../login/auth-login.php?msg=noLogin');
   exit;
 }
 

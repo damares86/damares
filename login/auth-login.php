@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Mazer Admin Dashboard</title>
-    <link rel="stylesheet" href="admin/assets/css/main/app.css" />
-    <link rel="stylesheet" href="admin/assets/css/pages/auth.css" />
+    <link rel="stylesheet" href="../admin/assets/css/main/app.css" />
+    <link rel="stylesheet" href="../admin/assets/css/pages/auth.css" />
     <link
       rel="shortcut icon"
-      href="admin/assets/images/logo/favicon.svg"
+      href="../admin/assets/images/logo/favicon.svg"
       type="image/x-icon"
     />
     <link
       rel="shortcut icon"
-      href="admin/assets/images/logo/favicon.png"
+      href="../admin/assets/images/logo/favicon.png"
       type="image/png"
     />
   </head>
@@ -24,8 +24,8 @@
         <div class="col-lg-5 col-12">
           <div id="auth-left">
             <div class="auth-logo">
-              <a href="index.html"
-                ><img src="admin/assets/images/logo/logo.svg" alt="Logo"
+              <a href="../index.php"
+                ><img src="../admin/assets/images/logo/logo.svg" alt="Logo"
               /></a>
             </div>
             <h1 class="auth-title">Log in.</h1>
@@ -34,7 +34,7 @@
               Log in with your data that you entered during registration.
             </p>
 
-            <form action="admin/core/mngAuth.php" method="POST">
+            <form action="../admin/core/mngAuth.php" method="POST">
               <div class="form-group position-relative has-icon-left mb-4">
                 <input
                   type="email"
