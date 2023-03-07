@@ -17,5 +17,151 @@ $db = $database->getConnection();
 include "../inc/class_initialize.php";
 
 $email = filter_input(INPUT_GET,"email");
-print_r($email);
+
+
+	$resetForm = filter_input(INPUT_POST, "resetForm");
+	$resetMail = filter_input(INPUT_POST, "resetMail");
+
+	if($resetForm){
+		
+	
+		// receive the reset password request
+
+		$auth->email=$_POST['email'];
+		$email=$_POST['email'];
+
+		$email_exists=$auth->emailExists();
+		
+		if(!$email_exists){
+			header("Location: ../../login/auth-forgot-password.php?err=mailNotReg");
+			exit;
+		}
+		
+		$account->email = $email ;
+		
+		$pswTmp = $account->getPswTmpDataByEmail();
+
+		$curDate=date("Y-m-d H:i:s");
+		$expDate=$pswTmp['expDate'];
+		
+		if((!$pswTmp['email']||(($pswTmp['email']) && ($expDate<$curDate)))){
+			$stmt=$account->deleteFromTable('email','password_reset_temp');
+			
+			if(!$stmt){
+				header("Location: ../../login.php?msg=noResetDelete");
+				exit;
+			}else {
+			$expFormat = mktime(date("H")+1, date("i"), date("s"), date("m") ,date("d"), date("Y"));
+			$expDate = date("Y-m-d H:i:s",$expFormat);
+
+			$token = md5(2418*2+$email);
+			$addToken= substr(md5(uniqid(rand(),1)),3,10);
+			$token = $token . $addToken;
+			$account->token=$token;
+			$account->expDate = $expDate ;
+			
+			if($account->insertIntoTable(['email','token','expDate'],'password_reset_temp')){
+	
+				$url = $_SERVER['SERVER_NAME'];
+
+				//////////////////////////////////////////// select the noreply mail from database
+
+				// $stmt=$contact->showAll();
+				// $pswTmp=$stmt->fetch(PDO::FETCH_ASSOC);
+				// $from=$row['reset'];
+
+				$from = "noreply@dmweblab.com" ;
+
+				// To send HTML mail, the Content-type header must be set
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				// Create email headers
+				$headers .= 'From: '.$from."\r\n".
+				'Reply-To: '.$from."\r\n" .
+				'X-Mailer: PHP/' . phpversion();
+
+				$output='<html><body>';
+				$output.='<p>Dear user,</p>';
+				$output.='<p>Please click on the following link to reset your password.</p>';
+				$output.='<p>-------------------------------------------------------------</p>';
+				$output.='<p><a href="http://'.$url.'/login/auth-forgot-password.php?email='.$email.'&token='.$token.'&op=reset" target="_blank">http://'.$url.'/login/auth-forgot-password.php?email='.$email.'&token='.$token.'&op=reset</a></p>';		
+				$output.='<p>-------------------------------------------------------------</p>';
+				$output.='<p>Please be sure to copy the entire link into your browser.
+				The link will expire after 1 hour for security reason.</p>';
+				$output.='<p>If you did not request this forgotten password email, no action 
+				is needed, your password will not be reset. However, you may want to log into 
+				your account and change your security password as someone may have guessed it.</p>';   	
+				$output.='<p>Thanks,</p>';
+				$output.='<p>Damares</p>';
+				$output.='</body></html>';
+				
+				$to= $email; 
+				$subject="Reset password Damares";
+
+				
+				if (mail ($to, $subject, $output, $headers)) {
+					header("Location: ../../login/auth-login.php?msg=sentMail");
+					exit;
+				} else {
+					header("Location: ../../login/auth-login.php?err=errSendMail");
+					exit;
+				}
+			
+			}else{	
+				header("Location: ../../login/auth-login.php?msg=noReset");
+				exit;
+			}
+		}
+		} else{
+			header("Location: ../../login/auth-login.php?msg=errResetRequest");
+			exit;
+		}
+	}else if($resetMail) {
+
+		$email=filter_input(INPUT_POST, "email");
+		$account->email=$email;
+		$stmt = $account->showAllWhere('id',['email']);
+		$row=$stmt->fetch(PDO::FETCH_ASSOC);
+		
+		if(!$_POST['password']){
+			header("Location: ../../login.php?msg=pswEmpty");
+			exit;
+		}
+	
+		$account->password = $_POST['password'];
+		$account->id = $row['id'] ;
+
+		// update the post
+		if($account->update(['password'],'id')){
+			if($stmt=$account->deleteFromTable('email','password_reset_temp')){
+				header("Location: ../../login/auth-login.php?msg=newPass");
+				exit;
+			}else{
+				header("Location: ../../login/auth-login.php?msg=keyDelErr");
+				exit;
+			}
+			// empty posted values
+			// $_POST=array();
+			
+		}else{
+			header("Location: ../../login/auth-login.php?msg=pswEditErr");
+			exit;
+		}
+	}else{
+header("Location: ../../login/auth-login.php?msg=errPost");
 exit;
+}
+
+exit;
+
+?>
+
+
+
+
+
+
+
+
+
+

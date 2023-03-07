@@ -38,11 +38,33 @@ if($email_exists && password_verify($postpass,$auth->password)){
     $_SESSION['username'] = $auth->username;
     $_SESSION['avatar'] = $auth->avatar;
     
-    
     // update the login log time
     $time=date("Y.m.d, G:i:s");
     $auth->updateLog($time);
+
+    $plugin->pluginname = "role_redirect" ;
+    $redir = $plugin->itemExists('pluginname');    
            
+    if($redir){
+        $stmt = $role->showAllWhere('id',['id']);
+        foreach($stmt as $row){
+            header("Location: ".$row['redirect']."");
+            exit;
+        }
+    }
+
+    $plugin->pluginname = "file_for_role" ;
+    $ffr = $plugin->itemExists('pluginname');    
+           
+    if($ffr){
+        // TODO
+        // $stmt = $role->showAllWhere('id',['id']);
+        // foreach($stmt as $row){
+        //     header("Location: ".$row['redirect']."");
+        //     exit;
+        // }
+    }
+
     header("Location: ../");
     exit;
     

@@ -53,11 +53,9 @@ require "inc/header.php" ;
 
 //////////////////////////////////////
         
-$num = $section->countChild('1');
-print_r($num) ;
-exit;
-
-
+// $num = $section->countChild('1');
+// print_r($num) ;
+// exit;
 
 
 

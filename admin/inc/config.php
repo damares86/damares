@@ -64,12 +64,9 @@ if($parent){
     $pageId = "" ;
 }
 
-// // setting dashboard language
-// $stmt=$settings->showLangAndName();
-// $lang=$settings->dashboard_language;
-
-
-$lang = "en" ;
+$setting->name="locale" ;
+$stmt = $setting->showByName();
+$lang = $stmt['value'];
 
 foreach (glob("locale/$lang/*.php") as $row){
     require "$row";

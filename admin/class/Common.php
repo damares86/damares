@@ -57,6 +57,34 @@ function insert($fields){
     
 }
 
+function insertIntoTable($fields,$table){
+    
+    $i = 1;
+    foreach($fields as $item){
+        $this->fields.="$item = :$item" ;
+        if($i<count($fields)){
+            $this->fields.=", ";            
+        }
+        $i++;
+    }
+    
+    $query = "INSERT INTO " .$this->prx. $table."
+    SET ".$this->fields.""; 
+    
+    $stmt = $this->conn->prepare( $query );
+
+    foreach($fields as $item){
+        $stmt->bindParam(":$item", $this->$item);
+    }
+   
+    if($stmt->execute()){
+        return true ;
+    }else{
+        return false ;
+    }
+    
+}
+
 
 
 // update
@@ -217,6 +245,22 @@ public function itemExists($item){
             return false;
         }
     }
+
+
+    function deleteFromTable($field,$table){
+        
+        $query = "DELETE FROM " .$this->prx. $table. " WHERE ".$field." = :".$field."";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":$field", $this->$field);
+
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 
 

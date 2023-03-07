@@ -23,10 +23,6 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
 
 require __DIR__."/config.php";
 
-$setting->name="locale" ;
-$stmt = $setting->showByName();
-$lang = $stmt['value'];
-
 ?>
 
 <!DOCTYPE html>
