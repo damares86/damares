@@ -182,6 +182,16 @@ if($op=="add"){
     }
   }
 
+  // copy inc/settings files
+  foreach (glob("$path/inc/settings/*") as $row) {
+    $item=pathinfo($row);
+
+    if(copy($path.'/inc/settings/'.$item['basename'].'', '../inc/settings/'.$item['basename'].'')){
+        chmod('../inc/settings/'.$item['basename'].'',0777);
+    }else{
+        $error++;
+    }
+  }
   $scan = scandir($path.'/locale');
   foreach($scan as $folder) {
      if (is_dir("$path/locale/$folder") && !in_array($folder,$exclude)) {

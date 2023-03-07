@@ -7,6 +7,8 @@ $description = "Description lorem ipsum" ;
 
 // query to create and drop the table
 
+// REMEMBER: add all pages to section tables and also settings pages
+
 $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."baseTable
     ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     field INT ( 5 ) NOT NULL,
