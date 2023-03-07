@@ -58,11 +58,10 @@ if($resetForm){
 
 				$url = $_SERVER['SERVER_NAME'];
 
-				//////////////////////////////////////////// select the noreply mail from database
-
-				// $stmt=$contact->showAll();
-				// $pswTmp=$stmt->fetch(PDO::FETCH_ASSOC);
-				// $from=$row['reset'];
+				$contact->label="noreply";
+				$stmt=$contact->showAllWhere('id',['label']);
+				$row=$stmt->fetch(PDO::FETCH_ASSOC);
+				$from=$row['email'];
 
 				$from = "noreply@dmweblab.com" ;
 

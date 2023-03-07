@@ -1,5 +1,3 @@
 Missing part:
 
-- reset password
-- prepare for recaptcha
 - alert in login, password, etc
