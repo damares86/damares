@@ -16,52 +16,46 @@ $db = $database->getConnection();
 
 include "../inc/class_initialize.php";
 
-$email = filter_input(INPUT_GET,"email");
+$email=$_POST['email'];
 
 
-	$resetForm = filter_input(INPUT_POST, "resetForm");
-	$resetMail = filter_input(INPUT_POST, "resetMail");
+$resetForm = filter_input(INPUT_POST, "resetForm");
+$resetMail = filter_input(INPUT_POST, "resetMail");
 
-	if($resetForm){
-		
+if($resetForm){
 	
-		// receive the reset password request
+	$auth->email=$email;
+	$email_exists=$auth->emailExists();	
+	
+	if(!$email_exists){
+		header("Location: ../../login/auth-forgot-password.php?err=mailNotReg");
+		exit;
+	}
+	$account->email = $email ;
 
-		$auth->email=$_POST['email'];
-		$email=$_POST['email'];
+	$pswTmp = $account->getPswTmpDataByEmail();
 
-		$email_exists=$auth->emailExists();
-		
-		if(!$email_exists){
-			header("Location: ../../login/auth-forgot-password.php?err=mailNotReg");
-			exit;
-		}
-		
-		$account->email = $email ;
-		
-		$pswTmp = $account->getPswTmpDataByEmail();
 
 		$curDate=date("Y-m-d H:i:s");
 		$expDate=$pswTmp['expDate'];
 		
 		if((!$pswTmp['email']||(($pswTmp['email']) && ($expDate<$curDate)))){
 			$stmt=$account->deleteFromTable('email','password_reset_temp');
-			
 			if(!$stmt){
 				header("Location: ../../login.php?msg=noResetDelete");
 				exit;
 			}else {
-			$expFormat = mktime(date("H")+1, date("i"), date("s"), date("m") ,date("d"), date("Y"));
-			$expDate = date("Y-m-d H:i:s",$expFormat);
+				$expFormat = mktime(date("H")+2, date("i"), date("s"), date("m") ,date("d"), date("Y"));
+				$expDate = date("Y-m-d H:i:s",$expFormat);
+				
+				$token = md5($email);
+				$addToken= substr(md5(uniqid(rand(),1)),3,10);
+				$token = $token . $addToken;
+				$account->token=$token;
+				$account->expDate = $expDate ;
 
-			$token = md5(2418*2+$email);
-			$addToken= substr(md5(uniqid(rand(),1)),3,10);
-			$token = $token . $addToken;
-			$account->token=$token;
-			$account->expDate = $expDate ;
-			
 			if($account->insertIntoTable(['email','token','expDate'],'password_reset_temp')){
-	
+
 				$url = $_SERVER['SERVER_NAME'];
 
 				//////////////////////////////////////////// select the noreply mail from database
@@ -94,7 +88,7 @@ $email = filter_input(INPUT_GET,"email");
 				$output.='<p>Thanks,</p>';
 				$output.='<p>Damares</p>';
 				$output.='</body></html>';
-				
+
 				$to= $email; 
 				$subject="Reset password Damares";
 
@@ -127,8 +121,10 @@ $email = filter_input(INPUT_GET,"email");
 			header("Location: ../../login.php?msg=pswEmpty");
 			exit;
 		}
-	
-		$account->password = $_POST['password'];
+		
+		$password = $_POST['password'];
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
+		$account->password = $password_hash;
 		$account->id = $row['id'] ;
 
 		// update the post
@@ -151,7 +147,6 @@ $email = filter_input(INPUT_GET,"email");
 header("Location: ../../login/auth-login.php?msg=errPost");
 exit;
 }
-
 exit;
 
 ?>

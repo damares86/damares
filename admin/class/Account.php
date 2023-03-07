@@ -36,7 +36,7 @@ class Account extends Common{
         ".$this->prx."password_reset_temp
         WHERE email = :email
         LIMIT 0,1";
-
+        
         $stmt = $this->conn->prepare( $query );
 
         $stmt->bindParam(":email",$this->email) ;
@@ -44,7 +44,6 @@ class Account extends Common{
         $stmt->execute();
 
         $row=$stmt->fetch(PDO::FETCH_ASSOC);
-
         return $row;
     }
 

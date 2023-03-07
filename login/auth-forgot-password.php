@@ -16,8 +16,13 @@ $op=filter_input(INPUT_GET,"op");
 $plugin->pluginname = "use_recaptcha" ;
 $recap = $plugin->itemExists('pluginname');
 $mng = "mngPass";
+
 if($recap){
-    $mng = "mngPassRecap";
+    $stmt=$plugin->showAllWhere('id',['pluginname']);
+    $row=$stmt->fetch(PDO::FETCH_ASSOC);
+    if($row['active']==1){
+        $mng = "mngPassRecap";
+    }
 }
 
 ?>
@@ -110,6 +115,7 @@ if($recap){
                 </div>
               </div>
 			<input type="hidden" name="resetMail" value="resetMail" />
+			<input type="hidden" name="email" value="<?=$email?>" />
 
               <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Send</button>
 

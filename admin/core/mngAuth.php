@@ -70,6 +70,6 @@ if($email_exists && password_verify($postpass,$auth->password)){
     
 } else {
     
-    header("Location: ../../auth-login.php?msg=errUserPsw");
+    header("Location: ../../login/auth-login.php?msg=errUserPsw");
     exit;
 }
