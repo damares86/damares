@@ -58,10 +58,10 @@ if($resetForm){
 
 				$url = $_SERVER['SERVER_NAME'];
 
-				$contact->label="noreply";
-				$stmt=$contact->showAllWhere('id',['label']);
+				$setting->name="noreply";
+				$stmt=$setting->showAllWhere('id',['name']);
 				$row=$stmt->fetch(PDO::FETCH_ASSOC);
-				$from=$row['email'];
+				$from=$row['value'];
 
 				$from = "noreply@dmweblab.com" ;
 

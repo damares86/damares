@@ -17,11 +17,10 @@ require "inc/funcHeader.php";
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Locale <span class="text-danger">*</span></label>
+                            <label>Locale </label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="form-check mandatory">
                                     <div class="position-relative">
                                     <fieldset class="form-group">
                                         <select
@@ -52,6 +51,34 @@ require "inc/funcHeader.php";
                                         ?>
                                         </select>
                                     </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                            $setting->name="noreply";
+                            $stmt=$setting->showAllWhere('id',['name']);
+                            $row=$stmt->fetch(PDO::FETCH_ASSOC);
+                            $reset = $row['value'];
+                            ?>
+                        <div class="col-md-3">
+                            <label>Password reset email <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group has-icon-left">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="email"
+                                        class="form-control"
+                                        placeholder="Email"
+                                        id="first-name-icon"
+                                        name="email"
+                                        data-parsley-required="true"
+                                        value="<?=$reset?>"
+                                        />
+                                        <div class="form-control-icon">
+                                        <i class="bi bi-envelope"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -191,12 +191,6 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."plugins
                     installed INT(1) NOT NULL,
                     active INT(1) NOT NULL)");
 
-$db->query("CREATE TABLE ".$prefix."contacts (
-                    `id` INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    `label` varchar(255) NOT NULL,
-                    `email` varchar(255) NOT NULL
-                  )");
-
 /////////////////////////////////////////////////////////////
 
 // insert data in the db tables
@@ -229,7 +223,11 @@ $db->query("INSERT INTO ".$prefix."settings
 
 $db->query("INSERT INTO ".$prefix."settings
                             (id, name,value)
-                            VALUES ('2','license','none')");
+                            VALUES ('2','noreply','noreply@mail.com')");
+    
+$db->query("INSERT INTO ".$prefix."settings
+                            (id, name,value)
+                            VALUES ('3','license','none')");                        
 
 // insert the section for the sidebar / home link management
 
@@ -269,9 +267,7 @@ $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
                             VALUES ('4','allPlugins','Plugins','plus-circle-fill')");
 
-$db->query("INSERT INTO ".$prefix."contacts
-                            (id, label,email)
-                            VALUES ('1','noreply','noreply@mail.com')");
+
                             
 ///////////////////////////////////////////////////////////////
 
