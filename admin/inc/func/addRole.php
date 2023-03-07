@@ -1,3 +1,9 @@
+<?php
+
+$plugin->pluginname = "role_redirect" ;
+$redir = $plugin->itemExists('pluginname');
+
+?>
 <div class="page-heading">
 <div class="page-title">
   <div class="row">
@@ -83,7 +89,9 @@
                                 </select>
                             </div>
                         </div>
-
+                    <?php
+                    if($redir){
+                    ?>
                         <div class="col-md-3">
                             <label><?=$common_redirect?> </label>
                         </div>
@@ -103,6 +111,9 @@
                                 </div>
                             </div>
                         </div>
+                    <?php
+                    }
+                    ?>
                
                         <input type="hidden" name="operation" value="add">
                         <input type="hidden" name="origin" value="addRole">

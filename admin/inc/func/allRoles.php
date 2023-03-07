@@ -3,6 +3,9 @@ require "inc/funcHeader.php";
 
 $allroles = $role->showAll('id');
 
+$plugin->pluginname = "role_redirect" ;
+$redir = $plugin->itemExists('pluginname');
+
 ?>
 
 
@@ -20,7 +23,13 @@ $allroles = $role->showAll('id');
           <tr>
             <th><?=$common_rolename?></th>
             <th><?=$common_section_auth?></th>
-            <th><?=$common_redirect?></th>
+            <?php
+              if($redir){
+            ?>
+                <th><?=$common_redirect?></th>
+            <?php
+              }
+            ?>
             <th><?=$common_number_user?></th>
             <th><?=$common_actions?></th>
           </tr>
@@ -45,7 +54,13 @@ $allroles = $role->showAll('id');
                 }
               ?>
             </td>
+            <?php
+              if($redir){
+            ?>
             <td><?=$row['redirect']?></td>
+            <?php
+              }
+            ?>
             <td>
               <?php
                 $accountroles->role_id = $row['id'];

@@ -2,7 +2,11 @@
 
 class Plugin extends Common{
 
-    public $table = "plugins";
+    public $table = "plugins" ;
+    public $pluginname ;
+    public $description ;
+    public $installed ;
+    public $active ;
     
     public function showPluginnameById(){
         $query = "SELECT pluginname

@@ -3,7 +3,8 @@
 $role->id = filter_input(INPUT_GET,"idToMod");
 $stmt1 = $role->showAllWhere('id',['id']);
 
-
+$plugin->pluginname = "role_redirect" ;
+$redir = $plugin->itemExists('pluginname');
 
 ?>
 <div class="page-heading">
@@ -123,7 +124,32 @@ $stmt1 = $role->showAllWhere('id',['id']);
                             </div>
                         </div>
                    
-
+                        <?php
+                    if($redir){
+                    ?>
+                        <div class="col-md-3">
+                            <label><?=$common_redirect?> </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group has-icon-left">
+                                <div class="position-relative">
+                                    <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Url"
+                                    id="first-name-icon"
+                                    name="redirect"
+                                    value=<?=$row['redirect']?>
+                                    />
+                                    <div class="form-control-icon">
+                                    <i class="bi bi-link-45deg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
                         
                             
                         <input type="hidden" name="operation" value="edit">
