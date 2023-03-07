@@ -1,5 +1,5 @@
 Missing part:
 
 - reset password
-- settings
+- settings (ciclo)
 - prepare for recaptcha

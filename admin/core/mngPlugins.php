@@ -214,6 +214,10 @@ if($op=="add"){
   if(!$db->query("UPDATE ".$prefix."plugins SET active = 0 WHERE pluginname = '$pluginname'")){
     $error++;
   }
+  
+  if(!$db->query($query_disable)){
+    $error++;
+  }
 
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginDis");
