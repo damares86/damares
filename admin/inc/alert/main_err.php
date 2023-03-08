@@ -281,6 +281,18 @@ if($err){
             ></button>
         </div>
     <?php
+    } else if($err=="settingUpdateErr"){
+        ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?=$err_settingUpdateErr?>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    <?php
     }
 }
 ?>

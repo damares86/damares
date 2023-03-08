@@ -64,7 +64,7 @@ if($parent){
     $pageId = "" ;
 }
 
-$setting->name="locale" ;
+$setting->name="lang" ;
 $stmt = $setting->showByName();
 $lang = $stmt['value'];
 

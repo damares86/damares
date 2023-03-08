@@ -72,7 +72,7 @@ require "inc/funcHeader.php";
                                         class="form-control"
                                         placeholder="Email"
                                         id="first-name-icon"
-                                        name="email"
+                                        name="noreply"
                                         data-parsley-required="true"
                                         value="<?=$reset?>"
                                         />
@@ -83,8 +83,6 @@ require "inc/funcHeader.php";
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="operation" value="lang">
-                        <input type="hidden" name="setting_name" value="locale">
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"

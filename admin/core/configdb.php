@@ -219,7 +219,7 @@ $db->query("INSERT INTO ".$prefix."accountsRoles
 
 $db->query("INSERT INTO ".$prefix."settings
                             (id, name,value)
-                            VALUES ('1','locale','en')");
+                            VALUES ('1','lang','en')");
 
 $db->query("INSERT INTO ".$prefix."settings
                             (id, name,value)

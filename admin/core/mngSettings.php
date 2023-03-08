@@ -5,18 +5,24 @@ require __DIR__."/coreConfig.php";
 
 $operation = filter_input(INPUT_POST,"operation") ;
 
-if($operation == "lang"){ 
+$post = $_POST ;
 
-    $lang = filter_input(INPUT_POST,"lang");
-    $setting_name= filter_input(INPUT_POST,"setting_name");
-    $setting->name=$setting_name;
-    $setting->value=$lang;
+$error = 0 ;
 
-    if($setting->updateValue()){
-        header("Location: ../index.php?p=allSettings&msg=langUpdate");
-        exit;
-    }else{
-        header("Location: ../index.php?p=allSettings&err=langUpdateErr");
-        exit;
+foreach($post as $key => $value){
+
+    $setting->name = $key ;
+    $setting->value = $value ;
+    if(!$setting->updateValue()){
+        $error++ ;
     }
+
+}
+
+if($error==0){
+    header("Location: ../index.php?p=allSettings&msg=settingUpdate");
+    exit;
+}else{
+    header("Location: ../index.php?p=allSettings&err=settingUpdateErr");
+    exit;
 }

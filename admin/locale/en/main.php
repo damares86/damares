@@ -86,6 +86,8 @@ $msg_pluginUploadSucc = "Plugin successfully uploaded" ;
 $msg_pluginAdd = "Plugin added and activated" ;
 $msg_pluginDis = "Plugin disabled" ;
 $msg_pluginRm = "Plugin removed" ;
+$msg_settingUpdate = "Settings updated" ;
+
 
 
 //////  MAIN ERR ALERT  //////
@@ -111,3 +113,4 @@ $err_pluginUploadErr = "Plugin not uploaded" ;
 $err_pluginAddErr = "Plugin not added and enabled" ;
 $err_pluginDisErr = "Plugin not disabled" ;
 $err_pluginRmErr = "Plugin not removed" ;
+$err_settingUpdateErr = "Settings not updated" ;

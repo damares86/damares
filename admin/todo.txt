@@ -1,4 +1,4 @@
 Missing part:
 
-- contact reset in settings
+- locale label in reset password
 - alert in login, password, etc
