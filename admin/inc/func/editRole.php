@@ -4,8 +4,10 @@ $role->id = filter_input(INPUT_GET,"idToMod");
 $stmt1 = $role->showAllWhere('id',['id']);
 
 $plugin->pluginname = "role_redirect" ;
-$redir = $plugin->itemExists('pluginname');
-
+$redir = false;
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+    $redir = true ;
+}
 ?>
 <div class="page-heading">
 <div class="page-title">

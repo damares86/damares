@@ -28,6 +28,26 @@ class Plugin extends Common{
     
     }
 
+    public function isActive(){
+        $query = "SELECT active
+                FROM ".$this->table."
+                WHERE pluginname = :pluginname";
+
+       $stmt = $this->conn->prepare($query);
+
+       $stmt->bindParam(":pluginname",$this->pluginname) ;
+
+       $stmt->execute() ;
+       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+       if($row){
+           return $row['active'];
+       } else {
+           return false ;
+       }
+    
+    }
+
 
 }
 

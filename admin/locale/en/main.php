@@ -71,6 +71,14 @@ $plugin_all_description = "Description" ;
 $plugin_all_modal_body = "If you confirm, you will completely delete all the files of this plugin." ;
 
 
+//////  SETTINGS  //////
+
+$settings_all_title = "All settings" ;
+$settings_all_lang = "Language" ;
+$settings_all_noreply = "Password reset email" ;
+
+
+
 //////  MAIN MSG ALERT  //////
 
 $msg_accountDel = "Account successfully deleted" ;

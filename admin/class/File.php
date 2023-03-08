@@ -9,6 +9,7 @@ class File extends Common{
     public $inputFileName ;
     public $path ;
     public $origin ;
+    public $role_auth ;
 
     public function uploadFile(){
 
@@ -119,7 +120,6 @@ class File extends Common{
 
        $stmt->execute() ;
        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-       
        if($row){
            return $this->id = $row['id'];
        } else {

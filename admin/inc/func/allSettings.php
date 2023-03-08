@@ -9,7 +9,7 @@ require "inc/funcHeader.php";
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">All settings</h4>
+                <h4 class="card-title"><?=$settings_all_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -17,7 +17,7 @@ require "inc/funcHeader.php";
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Locale </label>
+                            <label><?=$settings_all_lang?> </label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -60,8 +60,14 @@ require "inc/funcHeader.php";
                             $row=$stmt->fetch(PDO::FETCH_ASSOC);
                             $reset = $row['value'];
                             ?>
+                            <br>
+                            <br>
+                            <br>
+                            <hr>
+                            <br>
+                            <br>
                         <div class="col-md-3">
-                            <label>Password reset email <span class="text-danger">*</span></label>
+                            <label><?=$settings_all_noreply?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -83,6 +89,10 @@ require "inc/funcHeader.php";
                                 </div>
                             </div>
                         </div>
+                        <br>
+                            <br>
+                            <br>
+                            <hr>
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"

@@ -1,7 +1,10 @@
 <?php
 
 $plugin->pluginname = "role_redirect" ;
-$redir = $plugin->itemExists('pluginname');
+$redir = false;
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+    $redir = true ;
+}
 
 ?>
 <div class="page-heading">

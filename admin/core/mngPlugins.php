@@ -111,6 +111,7 @@ if($op=="add"){
     active = 1 WHERE pluginname = '$pluginname'")){
     $error++ ;
   }
+
   
   // copy assets files
   foreach (glob("$path/assets/*") as $row) {
@@ -210,6 +211,7 @@ if($op=="add"){
   }
 
   if($error==0){
+    unlink("../inc/class_initialize.php") ;
     header("Location: ../index.php?p=allPlugins&msg=pluginAdd");
     exit;
   }else{
@@ -330,6 +332,7 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
   }
 
   if($error==0){
+    unlink("../inc/class_initialize.php") ;
     header("Location: ../index.php?p=allPlugins&msg=pluginRm");
     exit;
   }else{

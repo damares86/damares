@@ -3,6 +3,12 @@ require "inc/funcHeader.php";
 
 $allfiles = $file->showAll('id');
 
+$plugin->pluginname = "file_for_role" ;
+$ffr = false;
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+    $ffr = true ;
+}
+
 ?>
 
 
@@ -20,9 +26,6 @@ $allfiles = $file->showAll('id');
           <tr>
             <th><?=$file_all_label?></th>
             <th><?=$file_all_file?></th>
-            <!-- ################################## -->
-            <!-- role authorized se presente plugin -->
-            <!-- ################################## -->
             <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
@@ -32,7 +35,6 @@ $allfiles = $file->showAll('id');
         <?php
         while($row = $allfiles->fetch(PDO::FETCH_ASSOC)){
           extract($row);
-          if($row['id']>1){
         ?>
           <tr>
             <td><?=$row['label']?></td>
@@ -107,7 +109,6 @@ $allfiles = $file->showAll('id');
                         
 
         <?php
-        }
       }
 
         ?>

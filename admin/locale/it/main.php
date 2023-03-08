@@ -11,3 +11,5 @@ $label_all_accounts = "Tutti gli utenti";
 $label_profile = "Modifica il tuo profilo";
 $label_add_account = "Aggiungi utente";
 $label_all_roles = "Tutti i ruoli";
+
+$common_dashboard = "Dashboard";

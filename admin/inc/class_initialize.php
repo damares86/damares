@@ -4,6 +4,7 @@ $section = new Section($db);
 $rolessection = new RolesSection($db);
 $role = new Role($db);
 $plugin = new Plugin($db);
+$fileforrole = new FileForRole($db);
 $file = new File($db);
 $database = new Database($db);
 $common = new Common($db);

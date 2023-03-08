@@ -3,6 +3,36 @@
 require "inc/header.php" ;
 
 
+$file->filename = "referto.pdf" ;
+print_r($file->filename."<br>");
+$stmt = $file->showAllWhere('id',['filename']);
+echo "ciao <br>";
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$file_id = $row['id'] ;
+$roles = $_POST['roles'];
+print_r($file_id) ;
+exit ;
+
+foreach($roles as $item){
+    $fileforrole->file_id = $file_id ;
+    $fileforrole->role_id = $item ;
+    print_r("file ".$fileforrole->file_id." - Role ".$fileforrole->role_id."");
+    $fileforrole->insert(['file_id','role_id']);
+}
+
+
+
+
+// $plugin->pluginname = "file_for_role" ;
+// $active = $plugin->isActive();
+// $ffr = false;
+// if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+//     $ffr = true ;
+// }
+
+// print_r($ffr);
+
 // $role->rolename = 'User' ; 
 
 // $id = $role->showIdByRolename();
@@ -57,7 +87,7 @@ require "inc/header.php" ;
 // print_r($num) ;
 // exit;
 
-
+?>
 
 
 

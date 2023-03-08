@@ -1,4 +1,7 @@
 Missing part:
 
+- role authorized in add file
 - locale label in reset password
+- locale label in settings
+- check locale label
 - alert in login, password, etc

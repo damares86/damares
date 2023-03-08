@@ -58,6 +58,7 @@ $allplugins = $plugin->showAll('id');
   <hr>
 
     <div class="card-body">
+                <h4 class="card-title"><?=$plugin_all_title?></h4>
       <table class="table" id="table1">
         <thead>
           <tr>

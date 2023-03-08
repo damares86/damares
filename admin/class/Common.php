@@ -163,8 +163,7 @@ function showAllWhere($orderBy,$where){
         FROM " .$this->prx. $this->table."
         WHERE ".$this->where."
         ORDER BY ".$orderBy." ASC"; 
-// print_r($query);
-// exit;
+        
     $stmt = $this->conn->prepare( $query );
 
     foreach($where as $item){

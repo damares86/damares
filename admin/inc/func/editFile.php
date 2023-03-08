@@ -1,3 +1,12 @@
+<?php
+
+$plugin->pluginname = "file_for_role" ;
+$ffr = false;
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+    $ffr = true ;
+}
+
+?>
 <div class="page-heading">
 <div class="page-title">
   <div class="row">
@@ -26,7 +35,14 @@
     $idToMod = filter_input(INPUT_GET,'idToMod');
     $file->id = $idToMod ;
     $stmt1 = $file->showAllWhere('id',['id']) ;
-    
+
+    $fileforrole->file_id = $idToMod ;
+    $stmt2 = $fileforrole->showAllWhere('id',['file_id']);
+    $fileRole=[];
+    foreach($stmt2 as $row2){
+        $fileRole[] = $row2['role_id'];
+    }
+
     $id="";
     $filename="";
     $label="";
@@ -74,6 +90,47 @@
                                 </div>
                             </div>
                         </div>
+
+                        <?php
+                        if($ffr){
+                        ?>
+                            <div class="col-md-3">
+                                <label><?=$ffr_role_authorized?> <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <select
+                                    class="choices form-select multiple-remove"
+                                    multiple="multiple" name="roles[]"
+                                        data-parsley-required="true"
+                                    >
+                                    <?php
+                                        $stmt = $role->showAll('id');
+
+                                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                            $selected = "" ;
+                                            if(in_array($row['id'],$fileRole)){
+                                                $selected = "selected" ;
+                                            }
+
+                                    ?>
+
+                                        <option value="<?=$row['id']?>" <?=$selected?>><?=$row['rolename']?></option>
+
+                                    <?php
+                                        }
+                                    ?>
+
+                                    </select>
+                                </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+
+
                         <div class="col-md-3">&nbsp;</div>
                         <div class="col-md-9 bg-primary text-white p-2 my-2">
                             <?=$file_edit_actual?> <b><?=$filename?> </b>
@@ -124,7 +181,7 @@
         }
         ?>
                     </form>
-                    <script src="script/uploadFile.js"></script>
+                    <!-- <script src="script/uploadFile.js"></script> -->
                 </div>
                 </div>
             </div>
