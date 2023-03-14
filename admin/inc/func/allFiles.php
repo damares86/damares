@@ -3,11 +3,6 @@ require "inc/funcHeader.php";
 
 $allfiles = $file->showAll('id');
 
-$plugin->pluginname = "file_for_role" ;
-$ffr = false;
-if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-    $ffr = true ;
-}
 
 ?>
 

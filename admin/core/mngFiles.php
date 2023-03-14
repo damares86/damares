@@ -52,22 +52,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         if($file->uploadFile()){
             $filename_orig = $_POST['filename_orig'];
             unlink("../uploads/$filename_orig");
-
-            $plugin->pluginname = "file_for_role" ;
-            if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-                    $file->filename = $filename ;
-                    $stmt = $fileforrole->showRoleFile();
-                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        extract($row);
-                        
-                        $fileforrole->id = $row['id'] ;
-                        $fileforrole->delete('id');
-                    }
-                
-                    require "mngFileforrole.php" ;
-                }
-
-           
+          
             header("Location: ../index.php?p=allFiles&msg=fileEditSucc");
             exit;
         }else{
@@ -78,28 +63,6 @@ if(filter_input(INPUT_POST,"idToMod")){
     } else{
 
         if($file->update(['label'],'id')){
-            $plugin->pluginname = "file_for_role" ;
-            
-            $stmt = $file->showAllWhere('id',['id']);
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            $filename = $row['filename'] ;
-
-
-            if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-                    $fileforrole->file_id = $idToMod ;
-                    $stmt = $fileforrole->showAllWhere('id',['file_id']);
-                    
-                    $file->filename = $filename ;
-                    
-                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        extract($row);                        
-                        $fileforrole->id = $row['id'] ;
-                        $fileforrole->delete('id');
-                    }
-                    require "mngFileforrole.php" ;
-                }
-
             header("Location: ../index.php?p=allFiles&msg=fileEditSucc");
             exit;
         }else{
@@ -131,22 +94,17 @@ if(filter_input(INPUT_POST,"idToMod")){
         $file->operation = "add" ;
         
         if($file->uploadFile()){
-            $plugin->pluginname = "file_for_role" ;
-            if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-                    $file->filename = $filename ;
-                    require "mngFileforrole.php" ;
-                }
-                //success
-                header("Location: ../index.php?p=allFiles&msg=fileSucc");
-                exit;
-            }else{
-                header("Location: ../index.php?p=allFiles&err=fileFail");
-                exit;
-            }
+            //success
+            header("Location: ../index.php?p=allFiles&msg=fileSucc");
+            exit;
         }else{
-            header("Location: ../index.php?p=allFiles&err=fileErr");
+            header("Location: ../index.php?p=allFiles&err=fileFail");
             exit;
         }
+    }else{
+        header("Location: ../index.php?p=allFiles&err=fileErr");
+        exit;
+    }
 
 }else{
     header("Location: ../index.php?p=allFiles&err=noFilePost");

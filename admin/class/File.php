@@ -9,7 +9,6 @@ class File extends Common{
     public $inputFileName ;
     public $path ;
     public $origin ;
-    public $role_auth ;
 
     public function uploadFile(){
 

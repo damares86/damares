@@ -1,11 +1,3 @@
-<?php
-
-$plugin->pluginname = "file_for_role" ;
-$ffr = false;
-if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-    $ffr = true ;
-}
-?>
 <div class="page-heading">
 <div class="page-title">
   <div class="row">
@@ -66,39 +58,6 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                                 </div>
                             </div>
                         </div>
-                        
-                        <?php
-                        if($ffr){
-                        ?>
-                            <div class="col-md-3">
-                                <label><?=$ffr_role_authorized?> <span class="text-danger">*</span></label>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <select
-                                    class="choices form-select multiple-remove"
-                                    multiple="multiple" name="roles[]"
-                                        data-parsley-required="true"
-                                    >
-                                    <?php
-                                        $stmt = $role->showAll('id');
-                                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                    ?>
-
-                                        <option value="<?=$row['id']?>"><?=$row['rolename']?></option>
-
-                                    <?php
-                                        }
-                                    ?>
-
-                                    </select>
-                                </div>
-                                </div>
-                            </div>
-                        <?php
-                        }
-                        ?>
 
                         <div class="col-md-3">
                             <label><?=$file_add_file?> <span class="text-danger">*</span></label>
@@ -143,7 +102,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                         </div>
                     </div>
                     </form>
-                    <!-- <script src="script/uploadFile.js"></script> -->
+                    <script src="script/uploadFile.js"></script> 
                 </div>
                 </div>
             </div>
