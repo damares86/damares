@@ -18,6 +18,13 @@ include "../inc/class_initialize.php";
 
 $email=$_POST['email'];
 
+$setting->name="lang" ;
+$stmt = $setting->showByName();
+$lang = $stmt['value'];
+
+foreach (glob("locale/$lang/*.php") as $row){
+    require "$row";
+}
 
 $resetForm = filter_input(INPUT_POST, "resetForm");
 $resetMail = filter_input(INPUT_POST, "resetMail");
@@ -42,7 +49,7 @@ if($resetForm){
 		if((!$pswTmp['email']||(($pswTmp['email']) && ($expDate<$curDate)))){
 			$stmt=$account->deleteFromTable('email','password_reset_temp');
 			if(!$stmt){
-				header("Location: ../../login.php?msg=noResetDelete");
+				header("Location: ../../login.php?err=noResetDelete");
 				exit;
 			}else {
 				$expFormat = mktime(date("H")+2, date("i"), date("s"), date("m") ,date("d"), date("Y"));
@@ -63,7 +70,11 @@ if($resetForm){
 				$row=$stmt->fetch(PDO::FETCH_ASSOC);
 				$from=$row['value'];
 
-				$from = "noreply@dmweblab.com" ;
+				$setting->name="noreply" ;
+				$stmt = $setting->showByName();
+				$noreply = $stmt['value'];
+
+				$from = $noreply ;
 
 				// To send HTML mail, the Content-type header must be set
 				$headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -73,20 +84,9 @@ if($resetForm){
 				'Reply-To: '.$from."\r\n" .
 				'X-Mailer: PHP/' . phpversion();
 
-				$output='<html><body>';
-				$output.='<p>Dear user,</p>';
-				$output.='<p>Please click on the following link to reset your password.</p>';
-				$output.='<p>-------------------------------------------------------------</p>';
+				$output=$block1;
 				$output.='<p><a href="http://'.$url.'/login/auth-forgot-password.php?email='.$email.'&token='.$token.'&op=reset" target="_blank">http://'.$url.'/login/auth-forgot-password.php?email='.$email.'&token='.$token.'&op=reset</a></p>';		
-				$output.='<p>-------------------------------------------------------------</p>';
-				$output.='<p>Please be sure to copy the entire link into your browser.
-				The link will expire after 1 hour for security reason.</p>';
-				$output.='<p>If you did not request this forgotten password email, no action 
-				is needed, your password will not be reset. However, you may want to log into 
-				your account and change your security password as someone may have guessed it.</p>';   	
-				$output.='<p>Thanks,</p>';
-				$output.='<p>Damares</p>';
-				$output.='</body></html>';
+				$output.=$block2;
 
 				$to= $email; 
 				$subject="Reset password Damares";
@@ -101,12 +101,12 @@ if($resetForm){
 				}
 			
 			}else{	
-				header("Location: ../../login/auth-login.php?msg=noReset");
+				header("Location: ../../login/auth-login.php?err=noReset");
 				exit;
 			}
 		}
 		} else{
-			header("Location: ../../login/auth-login.php?msg=errResetRequest");
+			header("Location: ../../login/auth-login.php?err=errResetRequest");
 			exit;
 		}
 	}else if($resetMail) {
@@ -132,14 +132,14 @@ if($resetForm){
 				header("Location: ../../login/auth-login.php?msg=newPass");
 				exit;
 			}else{
-				header("Location: ../../login/auth-login.php?msg=keyDelErr");
+				header("Location: ../../login/auth-login.php?err=keyDelErr");
 				exit;
 			}
 			// empty posted values
 			// $_POST=array();
 			
 		}else{
-			header("Location: ../../login/auth-login.php?msg=pswEditErr");
+			header("Location: ../../login/auth-login.php?err=pswEditErr");
 			exit;
 		}
 	}else{

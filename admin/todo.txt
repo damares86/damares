@@ -1,6 +1,4 @@
-Missing part:
+TODO:
 
-- locale label in reset password
-- locale label in settings
-- check locale label
-- alert in login, password, etc
+- italian translation
+- test all online

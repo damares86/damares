@@ -11,18 +11,22 @@ $db = $database->getConnection();
 
 include "../admin/inc/class_initialize.php" ;
 
+$setting->name="lang" ;
+$stmt = $setting->showByName();
+$lang = $stmt['value'];
+
+foreach (glob("../admin/locale/$lang/*.php") as $row){
+    require "$row";
+}
+
 $op=filter_input(INPUT_GET,"op");
 
 $plugin->pluginname = "use_recaptcha" ;
-$recap = $plugin->itemExists('pluginname');
+$recap =
 $mng = "mngPass";
 
-if($recap){
-    $stmt=$plugin->showAllWhere('id',['pluginname']);
-    $row=$stmt->fetch(PDO::FETCH_ASSOC);
-    if($row['active']==1){
-        $mng = "mngPassRecap";
-    }
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+    $mng = "mngPassRecap";
 }
 
 ?>
@@ -33,7 +37,7 @@ if($recap){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset password - Mazer Admin Dashboard</title>
+    <title><?=$forgot_titlebar?> - damares</title>
     <link rel="stylesheet" href="../admin/assets/css/main/app.css">
     <link rel="stylesheet" href="../admin/assets/css/pages/auth.css">
     <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.svg" type="image/x-icon">
@@ -50,10 +54,19 @@ if($recap){
                 <a href="../index.php"><img src="../admin/assets/images/logo/logo.svg" alt="Logo"></a>
             </div>
             <?php
+
+
+                // require of all alert files
+                $alert=glob("../admin/inc/alert/*.php", GLOB_BRACE);
+
+                foreach($alert as $row){
+                    require "$row";
+                }
+
                 if($op==""){
             ?>
-            <h1 class="auth-title">Forgot Password</h1>
-            <p class="auth-subtitle mb-5">Input your email and we will send you reset password link.</p>
+            <h1 class="auth-title"><?=$forgot_title?></h1>
+            <p class="auth-subtitle mb-5"><?=$forgot_desc?></p>
 
             <form action="../admin/core/mngPass.php" method="POST"  data-parsley-validate>
                 <div class="form-group position-relative has-icon-left mb-4">
@@ -67,10 +80,10 @@ if($recap){
                 </div>
 				<input type="hidden" name="resetForm" value="resetForm" />
 
-                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Send</button>
+                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=$forgot_button?></button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
-                <p class='text-gray-600'>Remember your account? <a href="auth-login.php" class="font-bold">Log in</a>.
+                <p class='text-gray-600'><?=$forgot_back?> <a href="auth-login.php" class="font-bold"><?=$login_title?></a>.
                 </p>
             </div>
            
@@ -100,16 +113,19 @@ if($recap){
                     if($expDate>=$curDate){
                 ?>	
 
-            <h1 class="auth-title">Choose the new Password</h1>
+            <h1 class="auth-title"><?=$forgot_choose?></h1>
 
-            <form action="../admin/core/mngPass.php" method="POST">
+            <form action="../admin/core/mngPass.php" method="POST"  data-parsley-validate>
               <div class="form-group position-relative has-icon-left mb-4">
-                <input
-                  type="password"
-                  class="form-control form-control-xl"
-                  placeholder="Password"
-                  name="password"
-                />
+                <div class="form-check mandatory">
+                    <input
+                    type="password"
+                    class="form-control form-control-xl"
+                    placeholder="Password"
+                    name="password"
+                    data-parsley-required="true"
+                    />
+                </div>
                 <div class="form-control-icon">
                   <i class="bi bi-shield-lock"></i>
                 </div>
@@ -117,7 +133,7 @@ if($recap){
 			<input type="hidden" name="resetMail" value="resetMail" />
 			<input type="hidden" name="email" value="<?=$email?>" />
 
-              <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Send</button>
+              <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=$forgot_button?></button>
 
             </form>
 
@@ -126,7 +142,7 @@ if($recap){
                 ?>
 
                     <div class="alert alert-danger">
-                        Token expired
+                        <?=$forgot_token?>
                     </div>
                     <a href="login.php"><-- <?=$log_back?></a>
 

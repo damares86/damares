@@ -2,8 +2,6 @@
 
 $err=filter_input(INPUT_GET,"err");
 
-/////// ERROR ON LOGIN????
-
 if($err){
     if($err=="accountNoDel"){
     ?>

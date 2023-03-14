@@ -1,9 +1,33 @@
+<?php
+require '../admin/vendor/autoload.php';		// If installed via composer
+$debug = new \bdk\Debug(array(
+	'collect' => true,
+	'output' => true,
+));
+
+
+include "../admin/class/Database.php";
+include "../admin/class/Common.php";
+include "../admin/class/Setting.php";
+
+$database = new Database();
+$db = $database->getConnection();
+$setting= new Setting($db);
+
+$setting->name="lang" ;
+$stmt = $setting->showByName();
+$lang = $stmt['value'];
+
+foreach (glob("../admin/locale/$lang/*.php") as $row){
+    require "$row";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Mazer Admin Dashboard</title>
+    <title><?=$login_titlebar?> - damares</title>
     <link rel="stylesheet" href="../admin/assets/css/main/app.css" />
     <link rel="stylesheet" href="../admin/assets/css/pages/auth.css" />
     <link
@@ -28,10 +52,21 @@
                 ><img src="../admin/assets/images/logo/logo.svg" alt="Logo"
               /></a>
             </div>
-            <h1 class="auth-title">Log in.</h1>
+
+            <?php
+
+            // require of all alert files
+            $alert=glob("../admin/inc/alert/*.php", GLOB_BRACE);
+
+            foreach($alert as $row){
+                require "$row";
+            }
+            ?>
+
+            <h1 class="auth-title"><?=$login_title?></h1>
             
             <p class="auth-subtitle mb-5">
-              Log in with your data that you entered during registration.
+              <?=$login_desc?>
             </p>
 
             <form action="../admin/core/mngAuth.php" method="POST">
@@ -72,7 +107,7 @@
                 </label>
               </div> -->
               <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
-                Log in
+                <?=$login_button?>
               </button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
@@ -82,7 +117,7 @@
               </p> -->
               <!-- <p> -->
                 <a class="font-bold" href="auth-forgot-password.php"
-                  >Forgot password?</a
+                  ><?=$login_forgot?></a
                 >
               </p>
             </div>
@@ -93,5 +128,11 @@
         </div>
       </div>
     </div>
+    <script src="../admin/assets/js/bootstrap.js"></script>
+    <script src="../admin/assets/js/app.js"></script>
+    <script src="../admin/assets/js/pages/dashboard.js"></script>
+    <script src="../admin/assets/extensions/jquery/jquery.min.js"></script>
+    <script src="../admin/assets/extensions/parsleyjs/parsley.min.js"></script>
+    <script src="../admin/assets/js/pages/parsley.js"></script>
   </body>
 </html>
