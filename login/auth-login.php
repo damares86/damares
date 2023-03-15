@@ -1,26 +1,12 @@
 <?php
-require '../admin/vendor/autoload.php';		// If installed via composer
-$debug = new \bdk\Debug(array(
-	'collect' => true,
-	'output' => true,
-));
+  require "inc/header.php" ;
 
+  $plugin->pluginname = "user_register" ;
+  $reg = "";
 
-include "../admin/class/Database.php";
-include "../admin/class/Common.php";
-include "../admin/class/Setting.php";
-
-$database = new Database();
-$db = $database->getConnection();
-$setting= new Setting($db);
-
-$setting->name="lang" ;
-$stmt = $setting->showByName();
-$lang = $stmt['value'];
-
-foreach (glob("../admin/locale/$lang/*.php") as $row){
-    require "$row";
-}
+  if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+      $reg = true ;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,11 +97,17 @@ foreach (glob("../admin/locale/$lang/*.php") as $row){
               </button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
-              <!-- <p class="text-gray-600">
-                Don't have an account?
-                <a href="auth-register.html" class="font-bold">Sign up</a>.
-              </p> -->
-              <!-- <p> -->
+              <?php
+                if($reg){
+              ?>  
+                <p class="text-gray-600">
+                  <?=$login_reg?>
+                  <a href="auth-register.php" class="font-bold"><?=$login_signup?></a>.
+                </p>
+              <?php
+                }
+              ?>
+               <p>
                 <a class="font-bold" href="auth-forgot-password.php"
                   ><?=$login_forgot?></a
                 >
@@ -124,15 +116,14 @@ foreach (glob("../admin/locale/$lang/*.php") as $row){
           </div>
         </div>
         <div class="col-lg-7 d-none d-lg-block">
-          <div id="auth-right"></div>
+          <div id="auth-right">
+            <img src="img/visual.jpg">
+          </div>
         </div>
       </div>
     </div>
-    <script src="../admin/assets/js/bootstrap.js"></script>
-    <script src="../admin/assets/js/app.js"></script>
-    <script src="../admin/assets/js/pages/dashboard.js"></script>
-    <script src="../admin/assets/extensions/jquery/jquery.min.js"></script>
-    <script src="../admin/assets/extensions/parsleyjs/parsley.min.js"></script>
-    <script src="../admin/assets/js/pages/parsley.js"></script>
+    <?php
+    require "inc/footer.php";
+    ?>
   </body>
 </html>

@@ -1,28 +1,9 @@
 <?php
 
-spl_autoload_register('autoloader');
-
-function autoloader($class){
-    include("../admin/class/$class.php");
-}
-
-$database = new Database();
-$db = $database->getConnection();
-
-include "../admin/inc/class_initialize.php" ;
-
-$setting->name="lang" ;
-$stmt = $setting->showByName();
-$lang = $stmt['value'];
-
-foreach (glob("../admin/locale/$lang/*.php") as $row){
-    require "$row";
-}
-
+require "inc/header.php" ;
 $op=filter_input(INPUT_GET,"op");
 
 $plugin->pluginname = "use_recaptcha" ;
-$recap =
 $mng = "mngPass";
 
 if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
@@ -48,7 +29,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
     <div id="auth">
         
 <div class="row h-100">
-    <div class="col-lg-7 col-12">
+    <div class="col-lg-5 col-12">
         <div id="auth-left">
             <div class="auth-logo">
                 <a href="../index.php"><img src="../admin/assets/images/logo/logo.svg" alt="Logo"></a>
@@ -155,13 +136,16 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
          ?>
         </div>
     </div>
-    <div class="col-lg-5 d-none d-lg-block">
+    <div class="col-lg-7 d-none d-lg-block">
         <div id="auth-right">
 
+            <img src="img/visual.jpg">
         </div>
     </div>
 </div>
-
+    <?php
+        require "inc/footer.php" ;
+    ?>
     </div>
 </body>
 

@@ -22,7 +22,7 @@ $setting->name="lang" ;
 $stmt = $setting->showByName();
 $lang = $stmt['value'];
 
-foreach (glob("locale/$lang/*.php") as $row){
+foreach (glob("../locale/$lang/*.php") as $row){
     require "$row";
 }
 

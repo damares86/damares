@@ -70,11 +70,11 @@ $operation = filter_input(INPUT_POST,"operation") ;
                 
             }
 
-            header("Location: ../index.php?p=editRole&idToMod=$idToMod&msg=roleEdit");
+            header("Location: ../index.php?p=allRole&msg=roleEdit");
             exit;
 
         }else{
-            header("Location: ../index.php?p=editRole&idToMod=$id&err=roleNoEdit");
+            header("Location: ../index.php?p=allRole&err=roleNoEdit");
             exit;
         }
 

@@ -5,7 +5,7 @@ $msg=filter_input(INPUT_GET,"msg");
 if($msg){
     if($msg=="sentMail"){
     ?>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <?=$msg_sentMail?>
             <button
                 type="button"

@@ -1,4 +1,5 @@
 TODO:
 
+- home dashboard
 - italian translation
-- test all online
+- logo damares
