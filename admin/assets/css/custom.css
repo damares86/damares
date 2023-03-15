@@ -48,3 +48,66 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
 .sidebar-wrapper .sidebar-header  {
   font-size:1.2rem;
 }
+
+#auth #auth-left .auth-logo img {
+  height: 4rem;
+}
+
+#auth #auth-left button {
+  background-color: #008db1;
+  border-color: #007c9b;
+}
+
+#auth #auth-left button:hover {
+  background-color: #00afdb;
+  border-color: #008db1;
+}
+
+#auth #auth-left h1{
+  color: #008db1;
+}
+
+#auth #auth-left a{
+  color: #008db1;
+}
+
+#auth #auth-left a:visited{
+  color: #008db1;
+}
+
+#auth #auth-left a:hover{
+  color: #00afdb;
+}
+
+.sidebar-wrapper .menu .sidebar-link {
+  color:#008db1;
+}
+
+.sidebar-wrapper .menu .sidebar-link i{
+  color:#008db1;
+}
+
+.sidebar-wrapper .sidebar-header {
+  padding: 1rem 2rem;
+  background-color: #f2f7ff;
+}
+
+.name h5{
+  color:#008db1;
+}
+
+#sidebar a{
+  color:#008db1;
+  border-bottom: 1px dotted;
+}
+
+#main a{
+  color:#008db1;
+  border-bottom: 1px dotted;
+}
+
+#sidebar .logo a, #main .float-end a{
+  border: 0;
+}
+
+

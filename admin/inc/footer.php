@@ -5,7 +5,7 @@
             </div> -->
             <div class="float-end">
               <p>
-                Damares - a project by 
+              <img src="assets/images/logo/damares_logo_rid.png" alt="Logo"/> - a project by 
                 <a href="http://www.dmweblab.com" target="_blank">
                     <img src="assets/images/logo/dmweblab_logo.png" alt="Logo"/>
                 </a>

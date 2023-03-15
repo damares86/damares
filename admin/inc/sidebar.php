@@ -7,7 +7,7 @@
                   ><img src="assets/images/logo/damares_logo.png" alt="Logo" srcset=""
                 /></a>
               </div>
-              <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
+              <!-- <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -69,7 +69,7 @@
                 <a href="#" class="sidebar-hide d-xl-none d-block"
                   ><i class="bi bi-x bi-middle"></i
                 ></a>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="col-12 col-lg-3">

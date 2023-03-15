@@ -21,8 +21,9 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
     <title><?=$forgot_titlebar?> - damares</title>
     <link rel="stylesheet" href="../admin/assets/css/main/app.css">
     <link rel="stylesheet" href="../admin/assets/css/pages/auth.css">
-    <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.svg" type="image/x-icon">
-    <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.png" type="image/png">
+    <link rel="stylesheet" href="../admin/assets/css/custom.css">
+    <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.ico" type="image/png">
 </head>
 
 <body>
@@ -32,7 +33,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
     <div class="col-lg-5 col-12">
         <div id="auth-left">
             <div class="auth-logo">
-                <a href="../index.php"><img src="../admin/assets/images/logo/logo.svg" alt="Logo"></a>
+                <a href="../index.php"><img src="../admin/assets/images/logo/damares_logo.png" alt="Logo"></a>
             </div>
             <?php
 

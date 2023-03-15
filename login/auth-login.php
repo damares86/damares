@@ -16,14 +16,15 @@
     <title><?=$login_titlebar?> - damares</title>
     <link rel="stylesheet" href="../admin/assets/css/main/app.css" />
     <link rel="stylesheet" href="../admin/assets/css/pages/auth.css" />
+    <link rel="stylesheet" href="../admin/assets/css/custom.css">
     <link
       rel="shortcut icon"
-      href="../admin/assets/images/logo/favicon.svg"
+      href="../admin/assets/images/logo/favicon.ico"
       type="image/x-icon"
     />
     <link
       rel="shortcut icon"
-      href="../admin/assets/images/logo/favicon.png"
+      href="../admin/assets/images/logo/favicon.ico"
       type="image/png"
     />
   </head>
@@ -35,7 +36,7 @@
           <div id="auth-left">
             <div class="auth-logo">
               <a href="../index.php"
-                ><img src="../admin/assets/images/logo/logo.svg" alt="Logo"
+                ><img src="../admin/assets/images/logo/damares_logo.png" alt="Logo"
               /></a>
             </div>
 
