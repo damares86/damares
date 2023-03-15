@@ -31,7 +31,21 @@
             }else{
               
               ?>
-              <div class="page-heading">
+          
+          <script src="script/packery.pkgd.min.js"></script>
+          <div class="grid" data-packery='{ "itemSelector": ".grid-item", "gutter": 10 }'>
+          <!--
+
+          <div class="grid">
+            <div class="grid-item">...</div>
+            <div class="grid-item grid-item--width2">...</div>
+            <div class="grid-item">...</div>
+            ...
+          </div>
+
+          -->
+          
+          <div class="page-heading">
                 <h3>Profile Statistics</h3>
               </div>
           <section class="row">

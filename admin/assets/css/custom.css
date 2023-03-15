@@ -110,4 +110,5 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
   border: 0;
 }
 
-
+.grid-item { width: 25%; }
+.grid-item--width2 { width: 50%; }
