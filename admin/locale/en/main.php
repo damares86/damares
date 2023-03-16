@@ -1,5 +1,14 @@
 <?php
 
+##############    Damares    ###############
+#                                          #
+#    A backend project by DM WebLab        #
+#   Website: https://www.dmweblab.com      #
+#   GitHub: https://github.com/damares86   #
+#                                          #
+############################################
+
+
 //////  COMMON  //////
 
 $common_dashboard = "Dashboard" ;
@@ -21,6 +30,18 @@ $common_rolename = "Rolename" ;
 $common_section_auth = "Section authorized" ;
 $common_redirect = "Redirect" ;
 $common_number_user = "Number of users" ;
+
+
+//////  HOMEPAGE  //////
+
+$welcome_title = "Welcome" ;
+$welcome_desc1 = "Welcome to your <b>damares</b> Admin Dashboard.<br>
+Here you have some information and quick links to manage your website.<br>
+You have the <b>damares</b> core manual or the manuals of every module installed linked in this page.<br><br>
+If you need some help, please " ;
+$welcome_desc2 = "contact us" ;
+$manuals_title = "Manuals" ;
+$last_login_title = "Last logged users" ;
 
 
 //////  ACCOUNT  //////

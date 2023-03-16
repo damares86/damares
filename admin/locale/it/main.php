@@ -1,5 +1,14 @@
 <?php
 
+##############    Damares    ###############
+#                                          #
+#    A backend project by DM WebLab        #
+#   Website: https://www.dmweblab.com      #
+#   GitHub: https://github.com/damares86   #
+#                                          #
+############################################
+
+
 // TRADUZIONE SEZIONI SIDEBAR
 // la label della sezione lowercase e con "_" invece degli spazi, preceduta da "label_"
 

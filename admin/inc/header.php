@@ -32,6 +32,16 @@ require __DIR__."/config.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?=$common_dashboard?> - damares</title>
 
+    <!--
+    ##############    Damares    ###############
+    #                                          #
+    #    A backend project by DM WebLab        #
+    #   Website: https://www.dmweblab.com      #
+    #   GitHub: https://github.com/damares86   #
+    #                                          #
+    ############################################
+    -->
+    
     <link rel="stylesheet" href="assets/css/main/app.css" />
     <link rel="stylesheet" href="assets/css/main/app-dark.css" />
     <link

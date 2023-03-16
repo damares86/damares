@@ -24,6 +24,17 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
     <link rel="stylesheet" href="../admin/assets/css/custom.css">
     <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.ico" type="image/png">
+
+        <!--
+    ##############    Damares    ###############
+    #                                          #
+    #    A backend project by DM WebLab        #
+    #   Website: https://www.dmweblab.com      #
+    #   GitHub: https://github.com/damares86   #
+    #                                          #
+    ############################################
+    -->
+    
 </head>
 
 <body>

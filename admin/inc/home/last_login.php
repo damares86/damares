@@ -3,7 +3,7 @@
 ?>
 
 <div class="card-header">
-<h4>Last logged users</h4>
+<h4><?=$last_login_title?></h4>
 </div>
 <div class="card-content pb-4">
 

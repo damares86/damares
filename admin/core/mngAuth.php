@@ -1,5 +1,13 @@
 <?php
 
+##############    Damares    ###############
+#                                          #
+#    A backend project by DM WebLab        #
+#   Website: https://www.dmweblab.com      #
+#   GitHub: https://github.com/damares86   #
+#                                          #
+############################################
+
 spl_autoload_register('autoloader');
 
 function autoloader($class){

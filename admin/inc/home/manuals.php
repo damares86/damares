@@ -3,7 +3,7 @@
 ?>
 
 <div class="card-header">
-    <h4>Manuals</h4>
+    <h4><?=$manuals_title?></h4>
 </div>
 <div class="card-content p-4">
     <ul>

@@ -1,5 +1,15 @@
 <?php
 
+
+##############    Damares    ###############
+#                                          #
+#    A backend project by DM WebLab        #
+#   Website: https://www.dmweblab.com      #
+#   GitHub: https://github.com/damares86   #
+#                                          #
+############################################
+
+
 require __DIR__."/coreConfig.php";
 
 if(filter_input(INPUT_POST,"new")){
@@ -210,6 +220,18 @@ if($op=="add"){
      }
   }
 
+  
+  // copy class files
+  foreach (glob("$path/manual/*") as $row) {
+    $item=pathinfo($row);
+    
+    if(copy($path.'/manual/'.$item['basename'].'', '../manual/'.$item['basename'].'')){
+      chmod('../manual/'.$item['basename'].'',0777);
+    }else{
+      $error++;
+    }
+  }
+
   if($error==0){
     unlink("../inc/class_initialize.php") ;
     header("Location: ../index.php?p=allPlugins&msg=pluginAdd");
@@ -272,6 +294,7 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
         $error++;
     }
   }
+
   // remove core files
   foreach (glob("$path/core/*") as $row) {
     $item=pathinfo($row);
@@ -312,7 +335,17 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
     if(!unlink('../inc/func/'.$item['basename'].'')){
         $error++;
     }
+
   }
+
+    // remove manual files
+    foreach (glob("$path/manual/*") as $row) {
+      $item=pathinfo($row);
+  
+      if(!unlink('../manual/'.$item['basename'].'')){
+          $error++;
+      }
+    }
 
   $scan = scandir($path.'/locale');
   $exclude = array('..', '.');

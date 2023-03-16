@@ -6,6 +6,17 @@ $debug = new \bdk\Debug(array(
 	'output' => true,
 ));
 
+
+##############    Damares    ###############
+#                                          #
+#    A backend project by DM WebLab        #
+#   Website: https://www.dmweblab.com      #
+#   GitHub: https://github.com/damares86   #
+#                                          #
+############################################
+
+
+
 // create Database class
 
 if(!is_file('../class/Database.php')){
@@ -214,10 +225,6 @@ $db->query("INSERT INTO ".$prefix."roles
                             (id, rolename)
                             VALUES ('2','Manager')");
 
-$db->query("INSERT INTO ".$prefix."roles
-                            (id, rolename)
-                            VALUES ('3','User')");
-
 $db->query("INSERT INTO ".$prefix."accountsRoles
                             (id, account_id,role_id)
                             VALUES ('1','1','1')");
@@ -271,6 +278,22 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
                             VALUES ('4','allPlugins','Modules','plus-circle-fill')");
+
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('1','1','1')");
+           
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('2','2','1')");      
+
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('3','3','1')");
+           
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('4','4','1')"); 
 
 // homepage blocks                            
 

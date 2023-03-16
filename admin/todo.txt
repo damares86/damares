@@ -1,5 +1,0 @@
-TODO:
-
-- home dashboard
-- italian translation
-- logo damares

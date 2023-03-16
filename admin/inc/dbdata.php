@@ -29,6 +29,17 @@ $debug = new \bdk\Debug(array(
     />
 
     <link rel="stylesheet" href="assets/css/shared/iconly.css" />
+
+    <!--
+    ##############    Damares    ###############
+    #                                          #
+    #    A backend project by DM WebLab        #
+    #   Website: https://www.dmweblab.com      #
+    #   GitHub: https://github.com/damares86   #
+    #                                          #
+    ############################################
+    -->
+    
   </head>
 
   <body>
