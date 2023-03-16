@@ -47,7 +47,7 @@ class Account extends Common{
         return $row;
     }
 
-    function getExpDate(){
+    public function getExpDate(){
         $query = "SELECT *
         FROM ".$this->prx."password_reset_temp
         WHERE email = :email
@@ -55,11 +55,27 @@ class Account extends Common{
   
         $stmt = $this->conn->prepare( $query );
         $stmt->bindParam(':email', $this->email);
-                $stmt->execute();
+        
+        $stmt->execute();
     
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
         $this->expDate = $row['expDate'];
+    }
+
+    public function getLastLogin(){
+
+        $query="SELECT * FROM 
+        ".$this->prx.$this->table."
+        ORDER BY last_login DESC
+        LIMIT 3";
+
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->execute();
+
+        return $stmt ;
+
     }
     
 

@@ -173,9 +173,9 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
 
                  
 $db->query("CREATE TABLE IF NOT EXISTS  ".$prefix."password_reset_temp (
-                    email varchar(250) NOT NULL PRIMARY KEY,
-                    token varchar(250) NOT NULL,
-                    expDate datetime NOT NULL)");
+                    email VARACHAR(250) NOT NULL PRIMARY KEY,
+                    token VARCHAR(250) NOT NULL,
+                    expDate DATETIME NOT NULL)");
               
               
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."settings
@@ -190,6 +190,11 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."plugins
                     description TEXT NOT NULL,                     
                     installed INT(1) NOT NULL,
                     active INT(1) NOT NULL)");
+
+$db->query("CREATE TABLE IF NOT EXISTS ".$prefix."home
+                  ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                    content TEXT,  
+                    size INT(2) NOT NULL)");
 
 /////////////////////////////////////////////////////////////
 
@@ -265,9 +270,21 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('4','allPlugins','Plugins','plus-circle-fill')");
+                            VALUES ('4','allPlugins','Modules','plus-circle-fill')");
 
+// homepage blocks                            
 
+$db->query("INSERT INTO ".$prefix."home
+                            (id, content,size)
+                            VALUES ('1','welcome.php','6')");
+
+$db->query("INSERT INTO ".$prefix."home
+                            (id, content,size)
+                            VALUES ('2','manuals.php','3')");
+
+$db->query("INSERT INTO ".$prefix."home
+                              (id, content,size)
+                              VALUES ('3','last_login.php','3')");
                             
 ///////////////////////////////////////////////////////////////
 
