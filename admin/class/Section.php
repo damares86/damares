@@ -13,7 +13,11 @@ class Section extends Common{
     public $table_parent = "sectionParent";
     public $table_child = "sectionChild";
     public $parent_id ;
+    public $link ;
+    public $label ;
+    public $icon ;
 
+        
     public function countChild($id){
     
         $query = "SELECT id FROM ".$this->prx.$this->table_child."
@@ -29,6 +33,50 @@ class Section extends Common{
         return $num;
     }
     
+    public function insertParent(){
+
+        $query = "INSERT INTO " .$this->prx. $this->table_parent."
+        SET link = :link,
+        label = :label,
+        icon = :icon"; 
+        
+        $stmt = $this->conn->prepare( $query );
+    
+        $stmt->bindParam(":link", $this->link);
+        $stmt->bindParam(":label", $this->label);
+        $stmt->bindParam(":icon", $this->icon);
+    
+        if($stmt->execute()){
+            return true ;
+        }else{
+            return false ;
+        }
+        
+    }
+
+    public function insertChild(){
+
+        $query = "INSERT INTO " .$this->prx. $this->table_child."
+        SET link = :link,
+        label = :label,
+        icon = :icon,
+        parent_id = :parent_id"; 
+        
+        $stmt = $this->conn->prepare( $query );
+    
+        $stmt->bindParam(":link", $this->link);
+        $stmt->bindParam(":label", $this->label);
+        $stmt->bindParam(":icon", $this->icon);
+        $stmt->bindParam(":parent_id", $this->parent_id);
+    
+        if($stmt->execute()){
+            return true ;
+        }else{
+            return false ;
+        }
+        
+    }
+
     function showByLink($link, $table){
 
         $query = "SELECT *
@@ -76,7 +124,19 @@ class Section extends Common{
     }
     
 
-    
+    function deleteByLink($table){
+        
+        $query = "DELETE FROM " .$this->prx. $table. " WHERE link = :link";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":link", $this->link);
+
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
 
 ?>

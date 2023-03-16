@@ -12,11 +12,12 @@ $debug = new \bdk\Debug(array(
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>damares - configure your backend</title>
 
     <link rel="stylesheet" href="assets/css/main/app.css" />
     <link rel="stylesheet" href="assets/css/pages/auth.css" />
     <link rel="stylesheet" href="assets/css/main/app-dark.css" />
+    <link rel="stylesheet" href="assets/css/custom.css" />
     <link
       rel="shortcut icon"
       href="assets/images/logo/favicon.svg"
@@ -48,9 +49,8 @@ $debug = new \bdk\Debug(array(
         <div class="col-lg-7 col-12">
           <div id="auth-left">
             <div class="auth-logo">
-              <a href="index.html"
-                ><img src="assets/images/logo/logo.svg" alt="Logo"
-              /></a>
+                <img src="assets/images/logo/damares_logo.png" alt="Logo"
+              />
             </div>
             <h1 class="auth-title">Insert your database data</h1>
             <form class="form form-horizontal" action="core/configdb.php" method="POST"  data-parsley-validate>

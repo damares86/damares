@@ -56,7 +56,7 @@ function insert($fields){
     foreach($fields as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
-   
+
     if($stmt->execute()){
         return true ;
     }else{
@@ -78,9 +78,9 @@ function insertIntoTable($fields,$table){
     
     $query = "INSERT INTO " .$this->prx. $table."
     SET ".$this->fields.""; 
-    
     $stmt = $this->conn->prepare( $query );
-
+    
+    print_r($query."<br>");
     foreach($fields as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
@@ -257,7 +257,8 @@ public function itemExists($item){
     function deleteFromTable($field,$table){
         
         $query = "DELETE FROM " .$this->prx. $table. " WHERE ".$field." = :".$field."";
-        
+        print_r($query);
+        exit;
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":$field", $this->$field);
 

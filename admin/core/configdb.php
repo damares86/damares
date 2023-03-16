@@ -184,7 +184,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
 
                  
 $db->query("CREATE TABLE IF NOT EXISTS  ".$prefix."password_reset_temp (
-                    email VARACHAR(250) NOT NULL PRIMARY KEY,
+                    email VARCHAR(250) NOT NULL PRIMARY KEY,
                     token VARCHAR(250) NOT NULL,
                     expDate DATETIME NOT NULL)");
               
@@ -273,11 +273,17 @@ $db->query("INSERT INTO ".$prefix."sectionChild
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('3','allSettings','Settings','gear-fill')");
+                            VALUES ('3','settings','Settings','gear-fill')");
+
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('6','allSettings','All settings','gear-fill','3')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
                             VALUES ('4','allPlugins','Modules','plus-circle-fill')");
+
+// role authorizations
 
 $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
