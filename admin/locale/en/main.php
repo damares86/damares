@@ -36,7 +36,7 @@ $common_number_user = "Number of users" ;
 
 $welcome_title = "Welcome" ;
 $welcome_desc1 = "Welcome to your <b>damares</b> Admin Dashboard.<br>
-Here you have some information and quick links to manage your website.<br>
+Here you have some information and quick links to manage your backend.<br>
 You have the <b>damares</b> core manual or the manuals of every module installed linked in this page.<br><br>
 If you need some help, please " ;
 $welcome_desc2 = "contact us" ;
@@ -85,11 +85,11 @@ $file_edit_actual = "Actual file:";
 
 //////  PLUGIN  //////
 
-$plugin_all_title = "All plugins" ;
-$plugin_all_add = "Upload new plugin" ;
-$plugin_all_name = "Plugin name" ;
+$plugin_all_title = "All modules" ;
+$plugin_all_add = "Upload new module" ;
+$plugin_all_name = "Module name" ;
 $plugin_all_description = "Description" ;
-$plugin_all_modal_body = "If you confirm, you will completely delete all the files of this plugin." ;
+$plugin_all_modal_body = "If you confirm, you will completely delete all the files of this module." ;
 
 
 //////  SETTINGS  //////
@@ -112,10 +112,10 @@ $msg_roleSucc = "Role created" ;
 $msg_fileDel = "File successfully deleted" ;
 $msg_fileEditSucc = "File modified" ;
 $msg_fileSucc = "File uploaded" ;
-$msg_pluginUploadSucc = "Plugin successfully uploaded" ;
-$msg_pluginAdd = "Plugin added and activated" ;
-$msg_pluginDis = "Plugin disabled" ;
-$msg_pluginRm = "Plugin removed" ;
+$msg_pluginUploadSucc = "Module successfully uploaded" ;
+$msg_pluginAdd = "Module added and activated" ;
+$msg_pluginDis = "Module disabled" ;
+$msg_pluginRm = "Module removed" ;
 $msg_settingUpdate = "Settings updated" ;
 
 
@@ -125,7 +125,7 @@ $msg_settingUpdate = "Settings updated" ;
 $err_accountNoDel = "Account not deleted" ;
 $err_passNoMod = "Password not modified" ;
 $err_noAvatarUpload = "Avatar image not uploaded" ;
-$err_accountRoleNoEdit = "Account role not mdified" ;
+$err_accountRoleNoEdit = "Account role not modified" ;
 $err_accountNoEdit = "Account not modified" ;
 $err_accountExist = "Account already exist" ;
 $err_accountFail = "Account not created" ;
@@ -133,15 +133,15 @@ $err_roleNoDel = "Role not deleted" ;
 $err_roleNoEdit = "Role not modified" ;
 $err_roleExist = "Role already exist" ;
 $err_roleFail = "Role not created" ;
-$err_formatErr = "File format error" ;
+$err_formatErr = "File format error (only allowed 'pdf', 'doc', 'docx', 'zip' file)" ;
 $err_fileNoDel = "File not deleted" ;
 $err_fileEditFail = "File not modified" ;
 $err_fileExists = "File already exists" ;
 $err_fileFail = "File not uploaded" ;
 $err_fileErr = "Error with the file" ;
-$err_pluginUploadFormatErr = "Invalid file format" ;
-$err_pluginUploadErr = "Plugin not uploaded" ;
-$err_pluginAddErr = "Plugin not added and enabled" ;
-$err_pluginDisErr = "Plugin not disabled" ;
-$err_pluginRmErr = "Plugin not removed" ;
+$err_pluginUploadFormatErr = "Damaged file or invalid file format" ;
+$err_pluginUploadErr = "Module not uploaded" ;
+$err_pluginAddErr = "Module not added and enabled" ;
+$err_pluginDisErr = "Module not disabled" ;
+$err_pluginRmErr = "Module not removed" ;
 $err_settingUpdateErr = "Settings not updated" ;

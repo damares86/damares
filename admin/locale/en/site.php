@@ -16,8 +16,6 @@ $login_title = "Login" ;
 $login_desc = "Log in with your data that you entered during registration.";
 $login_button = "Login";
 $login_forgot = "Forgot password?";
-$login_reg = "Don't have an account?";
-$login_signup = "Sign up" ;
 
 //////  RESET  //////
 
