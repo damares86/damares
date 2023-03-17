@@ -188,7 +188,9 @@ $debug = new \bdk\Debug(array(
           </div>
         </div>
         <div class="col-lg-5 d-none d-lg-block">
-          <div id="auth-right"></div>
+          <div id="auth-right">
+              <img src="../login/img/visual.jpg">
+          </div>
         </div>
       </div>
     </div>
