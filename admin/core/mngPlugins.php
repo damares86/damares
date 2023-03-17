@@ -114,7 +114,39 @@ if($op=="add"){
   if(!$db->query($query_create_table)){
     $error++ ;
   }
-                
+
+  if($parent_table){
+    for($i=0;$i<count($parent_table);$i++){
+      $section->link=$parent_table[$i]['link'];
+      $section->label=$parent_table[$i]['label'];
+      $section->icon=$parent_table[$i]['icon'];
+
+      if(!$section->insertParent()){
+        $error++;
+      }
+
+    }
+  }
+
+  if($child_table){
+    
+    $row = $section->showByLink($link_parent,"sectionParent");
+
+    for($i=0;$i<count($child_table);$i++){
+      $section->parent_id = $row['id'] ;
+      
+      $section->link=$child_table[$i]['link'];
+      $section->label=$child_table[$i]['label'];
+      $section->icon=$child_table[$i]['icon'];
+
+      if(!$section->insertChild()){
+        $error++;
+      }
+
+    }
+    
+  }
+  
   if(!$db->query("UPDATE ".$prefix."plugins 
     SET 
     installed = 1,
@@ -134,6 +166,7 @@ if($op=="add"){
     }
   }
   
+  
   // copy class files
   foreach (glob("$path/class/*") as $row) {
     $item=pathinfo($row);
@@ -145,6 +178,8 @@ if($op=="add"){
     }
   }
   
+  
+
   // copy core files
   foreach (scandir("$path/core/") as $row) {
     $item=pathinfo($row);
@@ -157,6 +192,7 @@ if($op=="add"){
     }
   }
 
+  
   // copy inc files
   $scan = scandir($path.'/inc');
 
@@ -231,9 +267,9 @@ if($op=="add"){
       $error++;
     }
   }
-
+  
+  unlink("../inc/class_initialize.php") ;
   if($error==0){
-    unlink("../inc/class_initialize.php") ;
     header("Location: ../index.php?p=allPlugins&msg=pluginAdd");
     exit;
   }else{
@@ -249,9 +285,30 @@ if($op=="add"){
     $error++;
   }
   
-  if(!$db->query($query_disable)){
-    $error++;
+  if($child_table){
+    for($i=0;$i<count($child_table);$i++){
+  
+      $section->link=$child_table[$i]['link'];
+   
+      if(!$section->deleteByLink("sectionChild")){
+        $error++;
+      }
+  
+    }
+    
   }
+  
+  if($parent_table){
+    for($i=0;$i<count($parent_table);$i++){
+      $section->link=$parent_table[$i]['link'];
+  
+      if(!$section->deleteByLink("sectionParent")){
+        $error++;
+      }
+  
+    }
+  }
+  
 
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginDis");
@@ -270,6 +327,31 @@ $error=0;
 if(!$db->query($query_drop_table)){
   $error++;
 }
+
+if($child_table){
+  for($i=0;$i<count($child_table);$i++){
+
+    $section->link=$child_table[$i]['link'];
+ 
+    if(!$section->deleteByLink("sectionChild")){
+      $error++;
+    }
+
+  }
+  
+}
+
+if($parent_table){
+  for($i=0;$i<count($parent_table);$i++){
+    $section->link=$parent_table[$i]['link'];
+
+    if(!$section->deleteByLink("sectionParent")){
+      $error++;
+    }
+
+  }
+}
+
 
 if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pluginname = '$pluginname'")){
   $error++;
@@ -364,8 +446,8 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
      }
   }
 
+  unlink("../inc/class_initialize.php") ;
   if($error==0){
-    unlink("../inc/class_initialize.php") ;
     header("Location: ../index.php?p=allPlugins&msg=pluginRm");
     exit;
   }else{

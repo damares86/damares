@@ -1,5 +1,5 @@
 <?php
-require __DIR__."/prefix.php";
+require "core/prefix.php";
 require __DIR__."/version.php";
 
 spl_autoload_register('autoloader');
