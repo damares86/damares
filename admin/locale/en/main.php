@@ -37,7 +37,7 @@ $common_number_user = "Number of users" ;
 $welcome_title = "Welcome" ;
 $welcome_desc1 = "Welcome to your <b>damares</b> Admin Dashboard.<br>
 Here you have some information and quick links to manage your backend.<br>
-You have the <b>damares</b> core manual or the manuals of every module installed linked in this page.<br><br>
+You have the <b>damares</b> core manual and the manuals of every module installed linked in this page.<br><br>
 If you need some help, please " ;
 $welcome_desc2 = "contact us" ;
 $manuals_title = "Manuals" ;

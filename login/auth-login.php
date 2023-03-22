@@ -1,7 +1,7 @@
 <?php
   require "inc/header.php" ;
 
-  $plugin->pluginname = "user_register" ;
+  $plugin->pluginname = "account_register" ;
   $reg = "";
 
   if($plugin->itemExists('pluginname') && $plugin->isActive()==1){

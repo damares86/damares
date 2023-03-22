@@ -273,7 +273,7 @@ $db->query("INSERT INTO ".$prefix."sectionChild
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('3','settings','Settings','gear-fill')");
+                            VALUES ('3','settings','Settings','tools')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
