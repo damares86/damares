@@ -25,7 +25,7 @@ $forgot_desc = "Input your email and we will send you reset password link.";
 $forgot_button = "Send";
 $forgot_back = "Remember your account?";
 $forgot_choose = "Choose the new Password" ;
-$forgot_token = "Token expired";
+$forgot_token = "Reset request expired";
 
 //////  ALERT: ERR  //////
 

@@ -230,10 +230,10 @@ if($op=="add"){
   }
 
   // copy inc/settings files
-  foreach (glob("$path/inc/settings/*") as $row) {
+  foreach (glob("$path/settings/*") as $row) {
     $item=pathinfo($row);
 
-    if(copy($path.'/inc/settings/'.$item['basename'].'', '../inc/func/'.$item['basename'].'')){
+    if(copy($path.'/settings/'.$item['basename'].'', '../inc/func/'.$item['basename'].'')){
         chmod('../inc/func/'.$item['basename'].'',0777);
     }else{
         $error++;

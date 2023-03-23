@@ -4,10 +4,10 @@ require "inc/header.php" ;
 $op=filter_input(INPUT_GET,"op");
 
 $plugin->pluginname = "use_recaptcha" ;
-$mng = "mngPass";
+$mng = "mngRegister";
 
 if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-    $mng = "mngPassRecap";
+    $mng = "mngRegisterRecap";
 }
 
 ?>
@@ -57,10 +57,10 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 
                 if($op==""){
             ?>
-            <h1 class="auth-title">Sign Up</h1>
-            <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
+            <h1 class="auth-title"><?=$login_signup?></h1>
+            <p class="auth-subtitle mb-5"><?=$reg_desc?></p>
 
-            <form action="../admin/core/mngRegister.php" method="POST" data-parsley-validate>
+            <form action="../admin/core/<?=$mng?>.php" method="POST" data-parsley-validate>
                 <div class="form-group position-relative has-icon-left mb-4">
                     <div class="form-check mandatory">
                         <input type="text" class="form-control form-control-xl" name="email" placeholder="Email" data-parsley-required="true">
@@ -85,7 +85,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="reg_form">
+                <input type="hidden" name="reg_form" value="1">
                 <div class="form-group position-relative has-icon-left mb-4">
                     <div class="form-check mandatory">
                         <input type="password" class="form-control form-control-xl" placeholder="Confirm Password" data-parsley-equalto="#first-password">
@@ -94,43 +94,91 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
+                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=$login_signup?></button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
-                <p class='text-gray-600'>Already have an account? <a href="auth-login.php" class="font-bold">Log
-                        in</a>.</p>
+                <p class='text-gray-600'><?=$reg_account?> <a href="auth-login.php" class="font-bold"><?=$reg_account_button?></a>.</p>
             </div>
             <?php
-             }else if($op="reg"){
-                $email=filter_input(INPUT_GET, "email");
-                $register->email=$email;
-                $token=filter_input(INPUT_GET, "token");
-                $register->token=$token;
-                $curDate=date("Y-m-d H:i:s");
+             }else if($op=="reg"){
+                 $email=filter_input(INPUT_GET, "email");
+                 $register->email=$email;
+                 $token=filter_input(INPUT_GET, "token");
+                 $register->token=$token;
+                 $curDate=date("Y-m-d H:i:s");
+                 
+                 $regTmp="";
+                 $stmt = $register->showAllWhere('id',['token','email']);
+                 foreach($stmt as $row){
+                     $regTmp = $row['token'];
+                    }
 
-                $regTmp = $register->showAllWhere('id',['token','email']);
-                if(!$regTmp['token']){	
+                if(!$regTmp){	
                     // token non c'è
                     ?>       
                     
-                    <a href="auth-login.php"><-- No uncompleted registration. Please retry or contact us </a>				
+                    <a href="auth-register.php"><?=$reg_noreg?></a>				
 
                 <?php	
                 }else{
-                    $register->showAllWhere('id',['email']);
-                    $expDate=$register->expDate;
+
+                    $stmt = $register->showAllWhere('id',['email']);
+                    foreach($stmt as $row){
+                    $expDate=$row['expDate'];
                     // dati recuperati da email e da passare alla funzione per inserire
                     if($expDate>=$curDate){
 
-                        $register->avatar = "default.png" ;
+                        $account->username = $row['username'];
+                        $account->password = $row['password'];
+                        $account->email = $row['email'];
+                        $account->avatar = "default.png" ;
                         
-                        if($register->insert(['username','password','email','avatar'])){
-                            header("Location: ../home.php");
-                            exit;
+                        if($account->insert(['username','password','email','avatar'])){
+                            
+                            //get the default role from settings
+                            $setting->name="reg_role" ;
+                            $stmt1 = $setting->showByName();
+                            $default_role = $stmt1['value'];
+
+                            $role->rolename = $default_role ;
+                            $stmt2 = $role->showIdByRolename();
+                            $role_id ="";
+
+                            foreach($stmt2 as $row2){
+                                $role_id = $row2['id'];
+                            }
+                            
+                            $accountroles->role_id = $role_id ;
+                            $insertedId = "" ;
+                            
+                            // $account->email = filter_input(INPUT_POST,"email") ;                            
+                            $stmt3= $account->showAllWhere('id',['email']);
+                            while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)){
+                                extract($row3);
+                                $insertedId = $row3['id'];
+                            }
+                            
+                            $accountroles->account_id = $insertedId ;
+
+                            // success, insert the role in accountsRoles table
+                            if($accountroles->insert(['account_id','role_id'])){
+                                
+                                //success
+                                header("Location: auth-login.php?msg=accountReg");
+                                exit;
+
+                            }else{
+
+                                // failed, delete the user inserted
+
+                                header("Location: auth-register.php?err=accountNoReg");
+                                exit;
+                            }
+
                         }else{
                             ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                Errore nella registrazione. Riprova o contattaci
+                                <?=$reg_errreg?>
                                 <button
                                     type="button"
                                     class="btn-close"
@@ -140,19 +188,22 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                             </div>
                         <?php
                         }
-                    
+                    }
+                }
+            }
+                  
+                
                     }else{
                         ?>
 
                         <div class="alert alert-danger">
-                            <?=$forgot_token?>
+                            <?=$reg_token?>
                         </div>
-                        <a href="auth-register.php"><-- Go back to register page</a>
+                        <a href="auth-register.php"><?=$reg_back?></a>
     
                     <?php
                     }
-                }
-            }
+
             ?>
         </div>
     </div>

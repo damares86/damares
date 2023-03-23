@@ -1,9 +1,9 @@
 <?php
-// require '../admin/vendor/autoload.php';		// If installed via composer
-// $debug = new \bdk\Debug(array(
-// 	'collect' => true,
-// 	'output' => true,
-// ));
+require '../admin/vendor/autoload.php';		// If installed via composer
+$debug = new \bdk\Debug(array(
+	'collect' => true,
+	'output' => true,
+));
 
 
 spl_autoload_register('autoloader');

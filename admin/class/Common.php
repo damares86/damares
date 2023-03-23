@@ -157,12 +157,14 @@ function showAllTable($orderBy,$table){
 
 // $where must be an array
 function showAllWhere($orderBy,$where){
+    
+    $this->where="";
 
     $i = 1;
     foreach($where as $item){
         $this->where.="$item = :$item" ;
         if($i<count($where)){
-            $this->where.=", ";            
+            $this->where.=" AND ";            
         }
         $i++;
     }
@@ -173,13 +175,13 @@ function showAllWhere($orderBy,$where){
         ORDER BY ".$orderBy." ASC"; 
         
     $stmt = $this->conn->prepare( $query );
-
+    
     foreach($where as $item){
+        
         $stmt->bindParam(":$item", $this->$item);
     }
-
+    
     $stmt->execute();
-
     return $stmt;
 }
 

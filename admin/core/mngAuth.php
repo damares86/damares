@@ -1,5 +1,4 @@
 <?php
-
 ##############    Damares    ###############
 #                                          #
 #    A backend project by DM WebLab        #
@@ -11,7 +10,7 @@
 spl_autoload_register('autoloader');
 
 function autoloader($class){
-	include("../class/$class.php");
+    include("../class/$class.php");
 }
 
 $database = new Database();
@@ -33,7 +32,7 @@ if($email_exists && password_verify($postpass,$auth->password)){
     session_start();
     
     $accountroles->account_id = $auth->id; 
-
+    
     
     $role_id = $accountroles->showAccountRolesId();
     $role->id = $role_id ;
@@ -49,11 +48,10 @@ if($email_exists && password_verify($postpass,$auth->password)){
     // update the login log time
     $time=date("Y.m.d, G:i:s");
     $auth->updateLog($time);
-
+    
     $plugin->pluginname = "role_redirect" ;
-    $redir = $plugin->itemExists('pluginname');    
-           
-    if($redir){
+    
+    if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         $stmt = $role->showAllWhere('id',['id']);
         foreach($stmt as $row){
             header("Location: ".$row['redirect']."");
@@ -61,18 +59,13 @@ if($email_exists && password_verify($postpass,$auth->password)){
         }
     }
 
-    $plugin->pluginname = "file_for_role" ;
-    $ffr = $plugin->itemExists('pluginname');    
-           
-    if($ffr){
+    $plugin->pluginname = "file_for_role" ; 
+    
+    if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         // TODO
-        // $stmt = $role->showAllWhere('id',['id']);
-        // foreach($stmt as $row){
-        //     header("Location: ".$row['redirect']."");
-        //     exit;
-        // }
+        // spostamento su una pagina con i file
     }
-
+        
     header("Location: ../");
     exit;
     
