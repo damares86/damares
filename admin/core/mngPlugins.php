@@ -398,9 +398,6 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
     }
   }
 
-
-
-
   // remove inc/alert files
   foreach (glob("$path/inc/alert/*") as $row) {
     $item=pathinfo($row);
@@ -419,6 +416,16 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
     }
 
   }
+
+    // remove setting files
+    foreach (glob("$path/settings/*") as $row) {
+      $item=pathinfo($row);
+  
+      if(!unlink('../inc/func/'.$item['basename'].'')){
+          $error++;
+      }
+    }
+  
 
     // remove manual files
     foreach (glob("$path/manual/*") as $row) {

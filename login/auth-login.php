@@ -79,7 +79,7 @@
               <?=$login_desc?>
             </p>
 
-            <form action="../admin/core<?=$mng?>.php" method="POST">
+            <form action="../admin/core/<?=$mng?>.php" method="POST">
               <div class="form-group position-relative has-icon-left mb-4">
                 <input
                   type="email"
