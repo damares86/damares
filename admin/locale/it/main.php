@@ -36,14 +36,13 @@ $common_lastLogin = "Ultimo Login" ;
 $common_actions = "Azioni" ;
 $common_password = "Password" ;
 $common_modal_title_sure = "Sei sicuro?" ;
-$common_modal_confirm = "Conferm" ;
+$common_modal_confirm = "Conferma" ;
 $common_modal_cancel = "Cancella" ;
 $common_submit = "Invia" ;
 $common_reset = "Reset" ;
 $common_info = "Info" ;
 $common_rolename = "Nome del ruolo" ;
 $common_section_auth = "Sezioni autorizzate" ;
-$common_redirect = "Reindirizzamento" ;
 $common_number_user = "Numero di utenti" ;
 
 

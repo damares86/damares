@@ -110,9 +110,10 @@ if($op=="add"){
   // create table
 
   $error = 0 ;
-  
-  if(!$db->query($query_create_table)){
-    $error++ ;
+  if($query_create_table){
+    if(!$db->query($query_create_table)){
+      $error++ ;
+    }
   }
 
   if($parent_table){
@@ -323,9 +324,10 @@ if($op=="add"){
 // REMOVE
 
 $error=0;
-
-if(!$db->query($query_drop_table)){
-  $error++;
+if($query_drop_table){
+  if(!$db->query($query_drop_table)){
+    $error++;
+  }
 }
 
 if($child_table){

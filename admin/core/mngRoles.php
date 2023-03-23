@@ -48,18 +48,19 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 
     
-    $role->id = $id;
+$idToMod = filter_input(INPUT_POST,"idToMod");
+    $role->id = $idToMod;
     
     if($operation=="edit"){
-        $idToMod = filter_input(INPUT_POST,"idToMod");
         
         $role->rolename = filter_input(INPUT_POST,"rolename") ;
         if(filter_input(INPUT_POST,"redirect") ){
             $role->redirect = filter_input(INPUT_POST,"redirect") ; 
+
         }else{
             $role->redirect = "none" ;
         }
-
+        
         if($role->update(['rolename','redirect'],'id')){
             $rolessection->role_id = $idToMod ;
             $stmt = $rolessection->showAllWhere('id',['role_id']);
@@ -80,11 +81,11 @@ $operation = filter_input(INPUT_POST,"operation") ;
                 
             }
 
-            header("Location: ../index.php?p=allRole&msg=roleEdit");
+            header("Location: ../index.php?p=allRoles&msg=roleEdit");
             exit;
 
         }else{
-            header("Location: ../index.php?p=allRole&err=roleNoEdit");
+            header("Location: ../index.php?p=allRoles&err=roleNoEdit");
             exit;
         }
 

@@ -54,8 +54,10 @@ if($email_exists && password_verify($postpass,$auth->password)){
     if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         $stmt = $role->showAllWhere('id',['id']);
         foreach($stmt as $row){
-            header("Location: ".$row['redirect']."");
-            exit;
+            if($row['redirect']!="none"){
+                header("Location: ".$row['redirect']."");
+                exit;
+            }
         }
     }
 

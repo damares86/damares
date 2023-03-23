@@ -22,7 +22,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
       >
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.php"><?=$common_dashboard_?></a>
+            <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
           <?=$role_edit_header?>
@@ -141,7 +141,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                                     placeholder="Url"
                                     id="first-name-icon"
                                     name="redirect"
-                                    value=<?=$row['redirect']?>
+                                    value="<?=$redirect?>"
                                     />
                                     <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>

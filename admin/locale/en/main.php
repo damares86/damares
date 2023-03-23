@@ -28,7 +28,6 @@ $common_reset = "Reset" ;
 $common_info = "Info" ;
 $common_rolename = "Rolename" ;
 $common_section_auth = "Section authorized" ;
-$common_redirect = "Redirect" ;
 $common_number_user = "Number of users" ;
 
 
