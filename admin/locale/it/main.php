@@ -13,10 +13,11 @@
 // la label della sezione lowercase e con "_" invece degli spazi, preceduta da "label_"
 
 $label_accounts = "Utenti";
-$label_files = "Tutti i file";
+$label_files = "File";
+$label_all_files = "Tutti i file";
 $label_settings = "Impostazioni";
-$label_all_settings = "Impostazioni generali";
-$label_plugins = "Moduli";
+$label_all_settings = "Generali";
+$label_modules = "Moduli";
 $label_all_accounts = "Tutti gli utenti";
 $label_profile = "Modifica il tuo profilo";
 $label_add_account = "Aggiungi utente";
@@ -48,7 +49,7 @@ $common_number_user = "Numero di utenti" ;
 
 //////  HOMEPAGE  //////
 
-$welcome_title = "Benevenuto" ;
+$welcome_title = "Benvenuto" ;
 $welcome_desc1 = "Benvenuto nella dashboard di amministrazione di <b>damares</b>.<br>
 Qui puoi trovare alcune informazioni e link utili per la gestione del tuo backend.<br>
 Ci sono i manuali del core di <b>damares</b> e di ogni modulo installato linkati in questa pagina.<br><br>

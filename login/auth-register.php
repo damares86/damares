@@ -98,6 +98,7 @@ $op=filter_input(INPUT_GET,"op");
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                 <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=$login_signup?></button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">

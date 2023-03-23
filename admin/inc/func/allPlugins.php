@@ -11,7 +11,7 @@ $allplugins = $plugin->showAll('id');
 <section class="section">
   <div class="card">
     <div class="card-header"> 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-5">
         <form class="form form-horizontal upload-form" action="core/mngPlugins.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
           <div class="form-body">
@@ -55,7 +55,7 @@ $allplugins = $plugin->showAll('id');
     </div>
   </div>
 
-  <hr>
+  <hr> -->
 
     <div class="card-body">
                 <h4 class="card-title"><?=$plugin_all_title?></h4>

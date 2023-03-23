@@ -19,7 +19,7 @@ $db = $database->getConnection();
 include "../inc/class_initialize.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])) {
-	$stmt=$verify->showAll();
+	$stmt=$verify->showAll('id');
 	$row=$stmt->fetch(PDO::FETCH_ASSOC);
 	$secret=$row['secret'];
 	// Costruire il POST request:      

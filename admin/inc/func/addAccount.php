@@ -39,7 +39,7 @@ require "inc/funcHeader.php";
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label><?= $common_username ?> <span class="text-danger">*</span></label>
+                            <label><?= $common_email ?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">

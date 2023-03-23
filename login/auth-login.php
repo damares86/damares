@@ -102,6 +102,7 @@
                   <i class="bi bi-shield-lock"></i>
                 </div>
               </div>
+              <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
               <!-- <div class="form-check form-check-lg d-flex align-items-end">
                 <input
                   class="form-check-input me-2"
