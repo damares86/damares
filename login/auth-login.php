@@ -4,6 +4,8 @@
   $plugin->pluginname = "account_register" ;
   $reg = "";
 
+
+
   if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
       $reg = true ;
   }
@@ -27,7 +29,17 @@
       href="../admin/assets/images/logo/favicon.ico"
       type="image/png"
     />
+    <?php
     
+    $plugin->pluginname = "recaptcha" ;
+    $mng="mngAuth";
+
+    if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+        $mng = "mngAuthRecap";
+        require "../admin/inc/recaptcha.php";
+    }
+
+    ?>
     <!--
     ##############    Damares    ###############
     #                                          #
@@ -67,7 +79,7 @@
               <?=$login_desc?>
             </p>
 
-            <form action="../admin/core/mngAuth.php" method="POST">
+            <form action="../admin/core<?=$mng?>.php" method="POST">
               <div class="form-group position-relative has-icon-left mb-4">
                 <input
                   type="email"

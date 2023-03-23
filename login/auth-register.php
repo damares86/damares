@@ -3,13 +3,6 @@
 require "inc/header.php" ;
 $op=filter_input(INPUT_GET,"op");
 
-$plugin->pluginname = "use_recaptcha" ;
-$mng = "mngRegister";
-
-if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-    $mng = "mngRegisterRecap";
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -18,13 +11,24 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - damares</title>
+    <title><?=$reg_title?> - damares</title>
     <link rel="stylesheet" href="../admin/assets/css/main/app.css">
     <link rel="stylesheet" href="../admin/assets/css/pages/auth.css">
     <link rel="stylesheet" href="../admin/assets/css/custom.css">
     <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.ico" type="image/png">
 
+    <?php
+
+    $plugin->pluginname = "recaptcha" ;
+    $mng = "mngRegister";
+
+    if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+        $mng = "mngRegisterRecap";
+        require "../admin/inc/recaptcha.php";
+    }
+
+    ?>
         <!--
     ##############    Damares    ###############
     #                                          #

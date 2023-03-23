@@ -97,13 +97,10 @@ if(filter_input(INPUT_POST, "reg_form")){
 				'Reply-To: '.$from."\r\n" .
 				'X-Mailer: PHP/' . phpversion();
 
-				// $output=$reg_block1;
-				$output=$block1;
+				$output=$reg_block1;
 				$output.='<p><a href="http://'.$url.'/login/auth-register.php?email='.$email.'&token='.$token.'&op=reg" target="_blank">http://'.$url.'/login/auth-register.php?email='.$email.'&token='.$token.'&op=reg</a></p>';		
-				$output.=$block2;
-				// $output.=$reg_block2;
-				print_r($output);
-				exit;
+				$output.=$reg_block2;
+
 				$to= $email; 
 				$subject="Reset password Damares";
 
@@ -126,6 +123,23 @@ if(filter_input(INPUT_POST, "reg_form")){
 			header("Location: ../../login/auth-register.php?err=errRegRequest");
 			exit;
 		}
+
+	}else if(filter_input(INPUT_POST, "reg_role")){
+
+		$role_id = filter_input(INPUT_POST, "role");
+		$role->id = $role_id ;
+		$rolename = $role->showRolenameById();
+
+		$setting->name = "reg_role" ;
+		$setting->value = $rolename ;
+		if(!$setting->updateValue()){
+			header("Location: ../index.php?p=setRegister&err=regRoleNotUpdated");
+			exit;
+		}else{
+			header("Location: ../index.php?p=setRegister&msg=regRoleUpdated");
+			exit;
+		}
+	
 
 	}else{
 header("Location: ../../login/auth-register.php?msg=errPost");

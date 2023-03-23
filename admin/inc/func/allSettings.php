@@ -100,12 +100,7 @@ require "inc/funcHeader.php";
                             >
                             <?=$common_submit?>
                             </button>
-                            <button
-                            type="reset"
-                            class="btn btn-light-secondary me-1 mb-1"
-                            >
-                            <?=$common_reset?>
-                            </button>
+
                         </div>
                         </div>
                     </div>
