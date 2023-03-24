@@ -44,7 +44,10 @@
           </div>
 
           -->
-          
+          <?php
+          print_r($_COOKIE);
+          exit;
+          ?>
           <div class="page-heading">
                 <h3>Damares <?=$common_dashboard?></h3>
               </div>

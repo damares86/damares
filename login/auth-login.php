@@ -108,7 +108,7 @@
                   class="form-check-input me-2"
                   type="checkbox"
                   name="remember"
-                  value=""
+                  value="remember_me"
                   id="flexCheckDefault"
                 />
                 <label

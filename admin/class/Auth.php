@@ -94,7 +94,7 @@ class Auth extends Common{
             WHERE id = :id AND auth_token = :auth_token";
         
         $stmt=$this->conn->prepare($query);
-        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':auth_token', $this->auth_token);
         
         if($stmt->execute()){
