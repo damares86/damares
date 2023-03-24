@@ -22,14 +22,18 @@ require "../inc/class_initialize.php" ;
 
 if(isset($_COOKIE['damares-login'])){
     $pieces = explode(",", $_COOKIE['damares-login']);
+    echo "pieces<br>";
+    print_r($pieces);
     $id = $pieces[0];
     $account->id = $pieces[0];
     $token = "none";
     $account->auth_token = "none";
 
+
     $account->update(['auth_token'],'id');
 
-    setcookie("damares-login", $id . "," . $token, "", time() - 3600);
+    unset($_COOKIE['damares-login']);
+    setcookie("damares-login", '', time() - 3600,"/");
 }
 
 

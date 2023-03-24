@@ -4,7 +4,6 @@ if(isset($_COOKIE['damares-login'])){
     $pieces = explode(",", $_COOKIE['damares-login']);
     $auth->id = $pieces[0];
     $auth->auth_token = $pieces[1];
-
     if($auth->checkCookie()){
         
         if($email_exists = $auth->emailExists()){
