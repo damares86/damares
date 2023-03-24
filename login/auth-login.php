@@ -72,9 +72,7 @@
                 require "$row";
             }
             ?>
-          <?php
-          print_r($_COOKIE);
-          ?>
+            
             <h1 class="auth-title"><?=$login_title?></h1>
             
             <p class="auth-subtitle mb-5">
