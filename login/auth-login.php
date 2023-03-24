@@ -103,10 +103,11 @@
                 </div>
               </div>
               <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
-              <!-- <div class="form-check form-check-lg d-flex align-items-end">
+              <div class="form-check form-check-lg d-flex align-items-end">
                 <input
                   class="form-check-input me-2"
                   type="checkbox"
+                  name="remember"
                   value=""
                   id="flexCheckDefault"
                 />
@@ -116,7 +117,7 @@
                 >
                   Keep me logged in
                 </label>
-              </div> -->
+              </div>
               <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
                 <?=$login_button?>
               </button>

@@ -5,7 +5,6 @@
 // 	'output' => true,
 // ));
 
-
 spl_autoload_register('autoloader');
 
 function autoloader($class){
@@ -16,6 +15,8 @@ $database = new Database();
 $db = $database->getConnection();
 
 require "../admin/inc/class_initialize.php" ;
+
+require "../admin/inc/check_cookie.php" ;
 
 $setting->name="lang" ;
 $stmt = $setting->showByName();

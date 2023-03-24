@@ -14,6 +14,8 @@ if(!is_file('class/Database.php')){
 
 session_start();
 
+require "inc/check_cookie.php" ;
+
 // check if the user is logged in
 
 if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {

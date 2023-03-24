@@ -144,6 +144,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."accounts
                 password VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
                 avatar VARCHAR(255) DEFAULT 'default.png',
+                auth_token VARCHAR(255) DEFAULT 'none',
                 last_login datetime DEFAULT CURRENT_TIMESTAMP)");
 
 

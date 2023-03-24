@@ -21,7 +21,7 @@ include "../inc/class_initialize.php";
 $postpass = $_POST['password'];
 
 $auth->email = $_POST['email'];
-
+$email = $_POST['email'];
 
 // check if the given email exist in db
 $email_exists = $auth->emailExists();
@@ -29,8 +29,22 @@ $email_exists = $auth->emailExists();
 // match the email and the password
 if($email_exists && password_verify($postpass,$auth->password)){
     
-    session_start();
     
+    if($_POST['remember']){
+
+        $token = md5($email);
+        $addToken= substr(md5(uniqid(rand(),1)),3,10);
+        $token = $token . $addToken;
+        
+        $account->email = $email ;
+        $account->auth_token = $token ;
+        
+        $account->update(['auth_token'],'email') ;
+        setcookie("damares-login", $auth->id . "," . $token, time()+(60 * 60 *24 * 365 *10 ),"/");
+        
+    }
+    
+    session_start();
     $accountroles->account_id = $auth->id; 
     
     
