@@ -2,8 +2,8 @@
 
 if(isset($_COOKIE['damares-login'])){
     $pieces = explode(",", $_COOKIE['damares-login']);
-    $id = $pieces[0];
-    $auth_token = $pieces[1];
+    $auth->id = $pieces[0];
+    $auth->auth_token = $pieces[1];
 
     if($auth->checkCookie()){
         

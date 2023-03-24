@@ -14,16 +14,16 @@ if(!is_file('class/Database.php')){
 
 session_start();
 
-require "inc/check_cookie.php" ;
 
 // check if the user is logged in
+require __DIR__."/config.php";
 
 if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
+  require "inc/check_cookie.php" ;
   header('Location: ../login/auth-login.php?err=noLogin');
   exit;
 }
 
-require __DIR__."/config.php";
 
 ?>
 
