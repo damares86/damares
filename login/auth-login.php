@@ -115,7 +115,7 @@
                   class="form-check-label text-gray-600"
                   for="flexCheckDefault"
                 >
-                  Keep me logged in
+                  <?=$login_remember?>
                 </label>
               </div>
               <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">

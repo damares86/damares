@@ -15,6 +15,7 @@ $login_titlebar = "Login";
 $login_title = "Login" ;
 $login_desc = "Log in with your data that you entered during registration.";
 $login_button = "Login";
+$login_remember = "Keep me logged in";
 $login_forgot = "Forgot password?";
 
 //////  RESET  //////
