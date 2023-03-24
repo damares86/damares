@@ -172,8 +172,8 @@ if($op=="add"){
   foreach (glob("$path/class/*") as $row) {
     $item=pathinfo($row);
     
-    if(copy($path.'/class/'.$item['basename'].'', '../class/'.$item['basename'].'')){
-      chmod('../class/'.$item['basename'].'',0777);
+    if(copy($path.'/class/'.$item['basename'].'', '../class/plugin/'.$item['basename'].'')){
+      chmod('../class/plugin/'.$item['basename'].'',0777);
     }else{
       $error++;
     }
@@ -373,8 +373,7 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
   // remove class files
   foreach (glob("$path/class/*") as $row) {
     $item=pathinfo($row);
-
-    if(!unlink('../class/'.$item['basename'].'')){
+    if(!unlink('../class/plugin/'.$item['basename'].'')){
         $error++;
     }
   }
@@ -442,20 +441,18 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
   $exclude = array('..', '.');
   foreach($scan as $folder) {
      if (is_dir("$path/locale/$folder") && !in_array($folder,$exclude)) {
-          print_r("Folder: $path/locale/$folder <br>") ;
           // copy locale files
         foreach (glob("$path/locale/$folder/*") as $row) {
           $item=pathinfo($row);
-          print_r("File ".$item['basename']);
+          
           if(!unlink('../locale/'.$folder.'/'.$item['basename'].'')){
-              print_r("Error on ".$item['basename']);
+            
               $error++;
           }
         }
      }
   }
-
-  unlink("../inc/class_initialize.php") ;
+  // unlink("../inc/class_initialize.php") ;
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginRm");
     exit;

@@ -74,11 +74,11 @@ $allplugins = $plugin->showAll('id');
           extract($row);
             
         $background="#c7fac1";
-        $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=dis\" class=\"btn icon btn-warning\"><i class=\"bi bi-patch-minus\"></i></a>" ;
+        $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=dis\" class=\"btn icon btn-warning\"><i class=\"bi bi-dash-circle\"></i></a>" ;
         
         if($row['active']==0){             
           $background="none";
-          $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=add\" class=\"btn icon btn-success\"><i class=\"bi bi-patch-plus\"></i></a>" ;
+          $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=add\" class=\"btn icon btn-success\"><i class=\"bi bi-plus-circle\"></i></a>" ;
         }
         ?>
           <tr style="background:<?=$background?>">
