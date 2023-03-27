@@ -1,4 +1,4 @@
-admin/plugins/*
+# admin/plugins/*
 !admin/plugins/.gitkeep
 admin/class/Database.php
 admin/inc/class_initialize.php
