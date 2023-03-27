@@ -88,9 +88,6 @@ $idToMod = filter_input(INPUT_POST,"idToMod");
             header("Location: ../index.php?p=allRoles&err=roleNoEdit");
             exit;
         }
-
-
-     
     
 
 }else if($operation == "add"){

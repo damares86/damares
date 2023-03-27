@@ -80,7 +80,6 @@ function insertIntoTable($fields,$table){
     SET ".$this->fields.""; 
     $stmt = $this->conn->prepare( $query );
     
-    print_r($query."<br>");
     foreach($fields as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
@@ -99,6 +98,8 @@ function insertIntoTable($fields,$table){
 
 // $fields must be an array
 function update($fields,$where){
+
+    $this->where = "" ;
 
     $i = 1;
     foreach($fields as $item){
@@ -128,6 +129,39 @@ function update($fields,$where){
     
 }
 
+
+// $fields must be an array
+function updateTable($fields,$where,$table){
+
+    $this->where = "" ;
+
+    $i = 1;
+    foreach($fields as $item){
+        $this->fields.="$item = :$item" ;
+        if($i<count($fields)){
+            $this->fields.=", ";            
+        }
+        $i++;
+    }
+    
+    $query = "UPDATE " .$this->prx. $table."
+        SET ".$this->fields." WHERE $where = :$where"; 
+
+        
+        $stmt = $this->conn->prepare( $query );
+        
+        foreach($fields as $item){
+        $stmt->bindParam(":$item", $this->$item);
+        }
+    $stmt->bindParam(":$where",$this->$where);
+
+    if($stmt->execute()){
+        return true ;
+    }else{
+        return false ;
+    }
+    
+}
     
 // show_all
 
@@ -262,8 +296,7 @@ public function itemExists($item){
     function deleteFromTable($field,$table){
         
         $query = "DELETE FROM " .$this->prx. $table. " WHERE ".$field." = :".$field."";
-        print_r($query);
-        exit;
+
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":$field", $this->$field);
 

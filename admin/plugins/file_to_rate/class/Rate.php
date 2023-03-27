@@ -23,7 +23,7 @@ class Rate extends Common{
     public $rate_cat_id ;  
     
 
-    function showCat(){
+    public function showCat(){
  
         $query = "SELECT rate_cat_id
             FROM " .$this->prx. $this->pivot_cat."
@@ -43,7 +43,7 @@ class Rate extends Common{
 
     }
 
-    function showCatName(){
+    public function showCatName(){
  
         $query = "SELECT cat_name
             FROM " .$this->prx. $this->table_cat."
@@ -63,7 +63,7 @@ class Rate extends Common{
         
     }
 
-    function showStar(){
+    public function showStar(){
  
         $query = "SELECT star
             FROM " .$this->prx. $this->table."
@@ -81,6 +81,38 @@ class Rate extends Common{
 
         return $row['star'] ;
         
+    }
+
+    public function catExists(){
+        // query to check if email exists
+        $query = "SELECT *
+        FROM " .$this->prx. $this->table_cat . "
+        WHERE cat_name = :cat_name
+        LIMIT 0,1";
+        
+        // prepare the query
+        $stmt = $this->conn->prepare( $query );
+        
+        // bind given cat value
+        $stmt->bindParam(':cat_name', $this->cat_name);
+        
+        // execute the query
+        $stmt->execute();
+        
+        // get number of rows
+        $num = $stmt->rowCount();
+    
+        // if cat exists, assign values to object properties for easy access and use for php sessions
+        if($num>0){
+            return true ;
+        }else{
+            return false ;
+        }
+
+    }
+
+    public function deleteAllFileRate(){
+
     }
 
 }

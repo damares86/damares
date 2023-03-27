@@ -60,6 +60,36 @@
                         </div>
 
                         <div class="col-md-3">
+                            <label>Category <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                    <fieldset class="form-group">
+                                        <select
+                                        class="form-select"
+                                        id="category"
+                                        name="category"
+                                        >
+                                        <?php
+                                            $stmt = $rate->showAllTable('id','rate_cat');
+                                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                        ?>
+
+                                            <option value="<?=$row['id']?>"><?=$row['cat_name']?></option>
+
+                                        <?php
+                                            }
+                                        ?>
+                                        </select>
+                                    </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
                             <label><?=$file_add_file?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
