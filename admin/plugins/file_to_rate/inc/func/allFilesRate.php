@@ -1,8 +1,7 @@
 <?php
 require "inc/funcHeader.php";
 
-$allfiles = $file->showAll('id');
-
+$allfiles = $rate->showAllTable('id','fileCat');
 
 ?>
 
@@ -12,7 +11,7 @@ $allfiles = $file->showAll('id');
 <section class="section">
   <div class="card">
     <div class="card-header"><?=$file_all_title?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addFile" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addFileRate" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> <?=$file_all_add?></a
                       ></div>
     <div class="card-body">
@@ -21,6 +20,8 @@ $allfiles = $file->showAll('id');
           <tr>
             <th><?=$file_all_label?></th>
             <th><?=$file_all_file?></th>
+            <th>Categoria<?=$rate_all_cat?></th>
+            <th>Punteggio<?=$rate_all_star?></th>
             <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
@@ -30,15 +31,38 @@ $allfiles = $file->showAll('id');
         <?php
         while($row = $allfiles->fetch(PDO::FETCH_ASSOC)){
           extract($row);
+          $file->id = $row['id'];
+          $rateFile = $file->showAllWhere('id',['id']);
+          $row1 = $ratefile->fetch(PDO::FETCH_ASSOC);
+          extract($row1);
         ?>
           <tr>
-            <td><?=$row['label']?></td>
-            <td><?=$row['filename']?></td>
+            <td><?=$row1['label']?></td>
+            <td><?=$row1['filename']?></td>
+            <?php
+              
+              $rate->file_id = $row1['id'];
+              $rate_cat = $rate->showCat() ;
+              $rate->id = $rate_cat ;
+              $cat_name = $rate->showCatName();
+
+            ?>
             <td>
-              <a href="uploads/<?=$row['filename']?>" target="_blank"><?=$common_link?></a>
+              <?=$cat_name?>
+            </td>
+            <?php
+
+              $star = $rate->showStar() ;
+
+            ?>
+            <td>
+              <?=$star?>
             </td>
             <td>
-              <a href="index.php?p=editFile&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="../uploads/ratefile/<?=$row['filename']?>" target="_blank"><?=$common_link?></a>
+            </td>
+            <td>
+              <a href="index.php?p=editFileRate&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -91,7 +115,7 @@ $allfiles = $file->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngFiles.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
+                                        ><a href="core/mngRate.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
                                       >
                                   </div>
                                 </div>

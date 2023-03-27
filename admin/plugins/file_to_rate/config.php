@@ -21,7 +21,13 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS  ".$prefix."rate_cat (
       id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       account_id INT(5) NOT NULL,
       file_id INT(5) NOT NULL,
-      rate INT (1) NOT NULL,
+      rate INT (1) NOT NULL);
+   CREATE TABLE IF NOT EXISTS  ".$prefix."rate (
+      id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      file_id INT(5) NOT NULL,
+      vote_sum INT NOT NULL,
+      vote_number INT(5) NOT NULL,
+      star INT(3) NOT NULL,
       percent INT (3) NOT NULL);";
 
 $parent_table=[['link'=>'#',
@@ -29,7 +35,7 @@ $parent_table=[['link'=>'#',
       'icon'=>'star-fill']];
 
 $child_table=[['link'=>'allFilesRate',
-                'label'=>'All files',
+                'label'=>'All files to rate',
                 'icon'=>'files-alt'],
                 ['link'=>'addFileRate',
                 'label'=>'Add file to rate',
@@ -41,7 +47,6 @@ $child_table=[['link'=>'allFilesRate',
                 'label'=>'Add rate category',
                 'icon'=>'plus-square-fill']];
 
-$query_drop_table = "DROP TABLE  ".$prefix."register_account_temp;
-                     DELETE FROM ".$prefix."settings WHERE value = reg_role";
+$query_drop_table = "DROP TABLE  ".$prefix."rate_cat, ".$prefix."fileCat, ".$prefix."fileAccountRate;";
 
 ?>

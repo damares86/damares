@@ -28,11 +28,11 @@
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title"><?=$file_add_title?></h4>
+                <h4 class="card-title">Aggiungi file da votare<?=$file_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal upload-form" action="core/mngFiles.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
+                    <form class="form form-horizontal upload-form" action="core/mngRate.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">

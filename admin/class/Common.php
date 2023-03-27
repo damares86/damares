@@ -188,6 +188,8 @@ function showAllWhere($orderBy,$where){
 
 function showAllWhereTable($orderBy,$table,$where){
     
+    $this->where="";
+    
     $i = 1;
     foreach($where as $item){
         $this->where.="$item = :$item" ;
