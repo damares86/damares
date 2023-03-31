@@ -59,7 +59,7 @@
                             </div>
                         </div>
                        
-                        <input type="hidden" name="operation" value="add">
+                        <input type="hidden" name="operation" value="addCat">
                         <input type="hidden" name="origin" value="addCatRate">
                       
                         <div class="col-12 d-flex justify-content-end">

@@ -40,6 +40,7 @@ $stmt1 = $rate->showAllWhereTable('id','rate_cat',['id']);
                     $redirect="";
                     while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
                         $cat_id=$row1['id'];
+
                         $cat_name=$row1['cat_name'];
                         
                     ?>
@@ -76,8 +77,8 @@ $stmt1 = $rate->showAllWhereTable('id','rate_cat',['id']);
                         </div>
                     
                             
-                        <input type="hidden" name="operation" value="edit">
-                        <input type="hidden" name="idToMod" value="<?=$roleid?>">
+                        <input type="hidden" name="operation" value="editCat">
+                        <input type="hidden" name="idToMod" value="<?=$cat_id?>">
                         <input type="hidden" name="origin" value="editCatRate">
                       <?php
                     }

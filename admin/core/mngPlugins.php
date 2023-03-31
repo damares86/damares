@@ -173,8 +173,8 @@ if($op=="add"){
   foreach (glob("$path/class/*") as $row) {
     $item=pathinfo($row);
     
-    if(copy($path.'/class/'.$item['basename'].'', '../class/plugin/'.$item['basename'].'')){
-      chmod('../class/plugin/'.$item['basename'].'',0777);
+    if(copy($path.'/class/'.$item['basename'].'', '../class/'.$item['basename'].'')){
+      chmod('../class/'.$item['basename'].'',0777);
     }else{
       $error++;
     }
@@ -374,7 +374,7 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
   // remove class files
   foreach (glob("$path/class/*") as $row) {
     $item=pathinfo($row);
-    if(!unlink('../class/plugin/'.$item['basename'].'')){
+    if(!unlink('../class/'.$item['basename'].'')){
         $error++;
     }
   }
@@ -453,7 +453,8 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
         }
      }
   }
-  // unlink("../inc/class_initialize.php") ;
+  unlink("../inc/class_initialize.php") ;
+
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginRm");
     exit;

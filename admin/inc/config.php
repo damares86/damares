@@ -37,25 +37,6 @@ chmod('inc/class_initialize.php',0777);
 
 include "inc/class_initialize.php";
 
-$module = $plugin->showAll('id');
-foreach($module as $row){
-    $plugin->pluginname = $row['pluginname'] ;
-        if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-            $scan = scandir("plugins/".$row['pluginname']."/class");
-            $exclude = array('..', '.','.gitkeep');
-            foreach($scan as $file){
-            if (!in_array($file,$exclude)) {
-                $item = pathinfo($file);
-                include "class/plugin/".$item['basename']."";
-                echo "class/plugin/".$item['basename']."";
-                $class_file = $item['filename'] ;
-                $class_var = strtolower($class_file) ;
-                $$class_var = new $class_file($db);
-            }
-        }
-    }
-}
-
 // get the p from url if exists
 if(filter_input(INPUT_GET,"p")){
     $page = filter_input(INPUT_GET,"p");
