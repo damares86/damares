@@ -2,9 +2,9 @@
 
 // plugin information
 
-$pluginname = "account_register" ;
-$description = "Allow user to register with a simple form" ;
-$link_parent = "File to rate" ;
+$pluginname = "file_to_rate" ;
+$description = "Add files to be rated by users" ;
+$link_parent = "fileRate" ;
 
 // query to create and drop the table
 
@@ -30,7 +30,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS  ".$prefix."rate_cat (
       star INT(3) NOT NULL,
       percent INT (3) NOT NULL);";
 
-$parent_table=[['link'=>'#',
+$parent_table=[['link'=>'fileRate',
       'label'=>'File to rate',
       'icon'=>'star-fill']];
 
@@ -40,10 +40,10 @@ $child_table=[['link'=>'allFilesRate',
                 ['link'=>'addFileRate',
                 'label'=>'Add file to rate',
                 'icon'=>'file-earmark-plus'],
-                ['link'=>'allRateCat',
+                ['link'=>'allCatRate',
                 'label'=>'Rate categories',
                 'icon'=>'grid-fill'],
-                ['link'=>'addRateCat',
+                ['link'=>'addCatRate',
                 'label'=>'Add rate category',
                 'icon'=>'plus-square-fill']];
 

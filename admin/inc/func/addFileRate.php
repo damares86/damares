@@ -1,9 +1,8 @@
-
 <div class="page-heading">
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$file_edit_header?></h3>
+      <h3><?=$file_add_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -15,7 +14,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$file_edit_header?>
+            <?=$file_add_header?>
           </li>
         </ol>
       </nav>
@@ -23,28 +22,13 @@
   </div>
 </div>
 <br>
-<?php
-    $idToMod = filter_input(INPUT_GET,'idToMod');
-    $file->id = $idToMod ;
-    $stmt1 = $file->showAllWhere('id',['id']) ;
 
-    $id="";
-    $filename="";
-    $label="";
-
-        while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
-
-            $id=$row1['id'];
-            $filename=$row1['filename'];
-            $label=$row1['label'];
-
-?>
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Modifica file da votare<?=$file_edit_title?></h4>
+                <h4 class="card-title">Aggiungi file da votare<?=$file_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -65,7 +49,6 @@
                                         id="first-name-icon"
                                         name="label"
                                         data-parsley-required="true"
-                                        value="<?=$label?>"
 
                                         />
                                         <div class="form-control-icon">
@@ -75,8 +58,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- ADD CHECK ON CATEGORY -->
 
                         <div class="col-md-3">
                             <label>Category <span class="text-danger">*</span></label>
@@ -107,23 +88,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">&nbsp;</div>
-                        <div class="col-md-9 bg-primary text-white p-2 my-2">
-                            <?=$file_edit_actual?> <b><?=$filename?> </b>
-                        </div>
+
                         <div class="col-md-3">
-                            <label><?=$file_edit_file?></label>
+                            <label><?=$file_add_file?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
+                                <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
                                         class="form-control"
                                         type="file"
                                         id="formFile"
                                         name="myfile"
+                                        data-parsley-required="true"
                                     />
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">&nbsp;</div>
@@ -131,11 +112,8 @@
                             <div class="progress"></div>
                             <div class="result"></div>
                         </div>
-
-                        <input type="hidden" name="filename_orig" value="<?=$filename?>">
-                        <input type="hidden" name="operation" value="edit">
-                        <input type="hidden" name="idToMod" value="<?=$id?>">
-                        <input type="hidden" name="origin" value="editFile">
+                        <input type="hidden" id="operation" name="operation" value="add">
+                        <input type="hidden" name="origin" value="addFile">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button
@@ -153,11 +131,8 @@
                         </div>
                         </div>
                     </div>
-                    <?php
-        }
-        ?>
                     </form>
-                    <script src="script/uploadFile.js"></script>
+                    <script src="script/uploadFile.js"></script> 
                 </div>
                 </div>
             </div>

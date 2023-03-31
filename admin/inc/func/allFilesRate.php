@@ -1,7 +1,7 @@
 <?php
 require "inc/funcHeader.php";
 
-$allcat = $rate->showAllTable('id','rate_cat');
+$allfiles = $rate->showAllTable('id','fileCat');
 
 ?>
 
@@ -10,29 +10,59 @@ $allcat = $rate->showAllTable('id','rate_cat');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">All categories &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addCatRate" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Add new category</a
+    <div class="card-header"><?=$file_all_title?> &nbsp; &nbsp; &nbsp; 
+                    <a href="index.php?p=addFileRate" class="btn icon icon-left btn-success"
+                        ><i data-feather="plus-circle"></i> <?=$file_all_add?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Categoria</th>
-            <th><?=$common_number_user?></th>
+            <th><?=$file_all_label?></th>
+            <th><?=$file_all_file?></th>
+            <th>Categoria<?=$rate_all_cat?></th>
+            <th>Punteggio<?=$rate_all_star?></th>
+            <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
         <tbody>
           
         <?php
-        while($row = $allcat->fetch(PDO::FETCH_ASSOC)){
+        while($row = $allfiles->fetch(PDO::FETCH_ASSOC)){
           extract($row);
+          $file->id = $row['id'];
+          $rateFile = $file->showAllWhere('id',['id']);
+          $row1 = $ratefile->fetch(PDO::FETCH_ASSOC);
+          extract($row1);
         ?>
           <tr>
-            <td><?=$row['cat_name']?></td>
+            <td><?=$row1['label']?></td>
+            <td><?=$row1['filename']?></td>
+            <?php
+              
+              $rate->file_id = $row1['id'];
+              $rate_cat = $rate->showCat() ;
+              $rate->id = $rate_cat ;
+              $cat_name = $rate->showCatName();
+
+            ?>
             <td>
-              <a href="index.php?p=editCatRate&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <?=$cat_name?>
+            </td>
+            <?php
+
+              $star = $rate->showStar() ;
+
+            ?>
+            <td>
+              <?=$star?>
+            </td>
+            <td>
+              <a href="../uploads/ratefile/<?=$row['filename']?>" target="_blank"><?=$common_link?></a>
+            </td>
+            <td>
+              <a href="index.php?p=editFileRate&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -71,7 +101,7 @@ $allcat = $rate->showAllTable('id','rate_cat');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    testo modale
+                                    <?=$file_all_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -85,7 +115,7 @@ $allcat = $rate->showAllTable('id','rate_cat');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngRate.php?idCatToDel=<?=$row['id']?>" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
+                                        ><a href="core/mngRate.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
                                       >
                                   </div>
                                 </div>
@@ -98,7 +128,8 @@ $allcat = $rate->showAllTable('id','rate_cat');
                         
 
         <?php
-        }
+      }
+
         ?>
 
 

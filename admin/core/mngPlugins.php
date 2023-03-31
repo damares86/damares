@@ -121,13 +121,14 @@ if($op=="add"){
       $section->link=$parent_table[$i]['link'];
       $section->label=$parent_table[$i]['label'];
       $section->icon=$parent_table[$i]['icon'];
-
+      
       if(!$section->insertParent()){
         $error++;
       }
-
+      
     }
   }
+
 
   if($child_table){
     

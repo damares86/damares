@@ -47,6 +47,10 @@ foreach($module as $row){
             if (!in_array($file,$exclude)) {
                 $item = pathinfo($file);
                 include "class/plugin/".$item['basename']."";
+                echo "class/plugin/".$item['basename']."";
+                $class_file = $item['filename'] ;
+                $class_var = strtolower($class_file) ;
+                $$class_var = new $class_file($db);
             }
         }
     }

@@ -174,8 +174,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."sectionChild
                   link VARCHAR(255) NOT NULL,
                   label VARCHAR(255) NOT NULL,
                   icon VARCHAR ( 255 ) NOT NULL,
-                  parent_id INT ( 5 ) NOT NULL,
-                  FOREIGN KEY (parent_id) REFERENCES sectionParent(id))");
+                  parent_id INT ( 5 ) NOT NULL)");
 
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
