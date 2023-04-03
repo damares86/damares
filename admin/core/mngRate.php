@@ -43,11 +43,12 @@ if(filter_input(INPUT_GET,"idToDel")){
     
     $filename = $file->showFilenameById();
     $file->id = $idToDel;
+    $rate->file_id = $idToDel ;
 
     if($file->delete('id')){
 
-		if(($rate->deleteFromTable(['file_id'],'fileAccountRate')) && ($rate->deleteFromTable(['file_id'],'file_cat')) && ($rate->deleteFromTable(['file_id'],'rate'))){
-			
+		if(($rate->deleteFromTable('file_id','fileAccountRate')) && ($rate->deleteFromTable('file_id','fileCat')) && ($rate->deleteFromTable('file_id','rate'))){
+
 			unlink("../../uploads/ratefile/$filename");
 	
 			header("Location: ../index.php?p=allFilesRate&msg=fileDel");
@@ -102,7 +103,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         
         if($file->uploadFile()){
             $filename_orig = $_POST['filename_orig'];
-            unlink("../uploads/ratefile/$filename_orig");
+            unlink("../../uploads/ratefile/$filename_orig");
           
             header("Location: ../index.php?p=allFilesRate&msg=fileEditSucc");
             exit;
@@ -206,6 +207,5 @@ if(filter_input(INPUT_POST,"idToMod")){
 	}
 
 }
-
 
 ?>

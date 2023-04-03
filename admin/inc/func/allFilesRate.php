@@ -67,7 +67,7 @@ $allfiles = $rate->showAllTable('id','fileCat');
 
             ?>
             <td>
-              <?=$star?>
+              <?=$star?> / 5
             </td>
             <td>
               <a href="../uploads/ratefile/<?=$row1['filename']?>" target="_blank"><?=$common_link?></a>

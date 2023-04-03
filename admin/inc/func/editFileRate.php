@@ -157,7 +157,7 @@
         }
         ?>
                     </form>
-                    <script src="script/uploadFile.js"></script>
+                    <!-- <script src="script/uploadFile.js"></script> -->
                 </div>
                 </div>
             </div>
