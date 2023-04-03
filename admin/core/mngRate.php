@@ -43,13 +43,12 @@ if(filter_input(INPUT_GET,"idToDel")){
     
     $filename = $file->showFilenameById();
     $file->id = $idToDel;
-    $rate->file_id = $idToDel ;
 
     if($file->delete('id')){
 
-		if(($rate->deleteFromTable('file_id','fileAccountRate')) && ($rate->deleteFromTable('file_id','fileCat')) && ($rate->deleteFromTable('file_id','rate'))){
-
-			unlink("../../uploads/ratefile/$filename");
+		if(($rate->deleteFromTable(['file_id'],'fileAccountRate')) && ($rate->deleteFromTable(['file_id'],'file_cat')) && ($rate->deleteFromTable(['file_id'],'rate'))){
+			
+			unlink("../uploads/ratefile/$filename");
 	
 			header("Location: ../index.php?p=allFilesRate&msg=fileDel");
 			exit;
@@ -94,7 +93,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         $file->filename = $_FILES['myfile']['name'] ;
         $filename = $_FILES['myfile']['name'] ;
         $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
-        $file->path = "../../uploads/ratefile/" ;
+        $file->path = "../uploads/ratefile/" ;
         $file->origin = filter_input(INPUT_POST,"origin");
 
         $file->operation = filter_input(INPUT_POST,"operation") ;
@@ -103,7 +102,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         
         if($file->uploadFile()){
             $filename_orig = $_POST['filename_orig'];
-            unlink("../../uploads/ratefile/$filename_orig");
+            unlink("../uploads/ratefile/$filename_orig");
           
             header("Location: ../index.php?p=allFilesRate&msg=fileEditSucc");
             exit;
@@ -140,7 +139,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         // set data for file uploading
         $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
         $file->label = filter_input(INPUT_POST,"label") ;
-        $file->path = "../../uploads/ratefile/" ;
+        $file->path = "../uploads/ratefile/" ;
         $file->origin = filter_input(INPUT_POST,"origin");
         
         $file->operation = "add" ;
@@ -160,14 +159,14 @@ if(filter_input(INPUT_POST,"idToMod")){
 			$rate->insertIntoTable(['file_id','rate_cat_id'],'fileCat');
 
             //success
-            header("Location: ../index.php?p=allFilesRate&msg=fileSucc");
+            header("Location: ../index.php?p=allFiles&msg=fileSucc");
             exit;
         }else{
-            header("Location: ../index.php?p=allFilesRate&err=fileFail");
+            header("Location: ../index.php?p=allFiles&err=fileFail");
             exit;
         }
     }else{
-        header("Location: ../index.php?p=allFilesRate&err=fileErr");
+        header("Location: ../index.php?p=allFiles&err=fileErr");
         exit;
     }
 
@@ -207,5 +206,6 @@ if(filter_input(INPUT_POST,"idToMod")){
 	}
 
 }
+
 
 ?>

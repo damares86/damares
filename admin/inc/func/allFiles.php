@@ -3,6 +3,11 @@ require "inc/funcHeader.php";
 
 $allfiles = $file->showAll('id');
 
+$plugin->pluginname = "file_to_rate" ;
+$fileToRate = false;
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+  $fileToRate = true ;
+}
 
 ?>
 
@@ -30,6 +35,17 @@ $allfiles = $file->showAll('id');
         <?php
         while($row = $allfiles->fetch(PDO::FETCH_ASSOC)){
           extract($row);
+          $fileOk = true;
+          if($fileToRate){
+            $rate->file_id = $row['id'];
+            $stmt1 = $rate->showAllWhereTable('id','fileCat',['file_id']);
+            $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+            extract($row1);
+            if($row['id']==$row1['file_id']){
+              $fileOk = false ;
+            }
+          }
+          if($fileOk){
         ?>
           <tr>
             <td><?=$row['label']?></td>
@@ -104,6 +120,7 @@ $allfiles = $file->showAll('id');
                         
 
         <?php
+          }
       }
 
         ?>
