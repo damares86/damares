@@ -9,8 +9,22 @@
 #                                          #
 ############################################
 
+require '../vendor/autoload.php';		// If installed via composer
+$debug = new \bdk\Debug(array(
+	'collect' => true,
+	'output' => true,
+));
 
-require __DIR__."/coreConfig.php";
+spl_autoload_register('autoloader');
+
+function autoloader($class){
+	include("../class/$class.php");
+}
+
+$database = new Database();
+$db = $database->getConnection();
+
+include "../inc/class_initialize.php";
 
 $setting->name="lang" ;
 $stmt = $setting->showByName();
@@ -34,7 +48,7 @@ if(filter_input(INPUT_GET,"idToDel")){
 
 		if(($rate->deleteFromTable(['file_id'],'fileAccountRate')) && ($rate->deleteFromTable(['file_id'],'file_cat')) && ($rate->deleteFromTable(['file_id'],'rate'))){
 			
-			unlink("../uploads/ratefile/$filename");
+			unlink("../../uploads/ratefile/$filename");
 	
 			header("Location: ../index.php?p=allFilesRate&msg=fileDel");
 			exit;
@@ -53,7 +67,7 @@ if(filter_input(INPUT_GET,"idToDel")){
     $idToDel = filter_input(INPUT_GET,"idCatToDel");
     $rate->id = $idToDel ;
 
-    if($rate->deleteFromTable('id','rate_cat')){
+    if($rate->deleteFromTable(['id'],'rate_cat')){
         header("Location:  ../index.php?p=allCatRate&msg=catRateDel");
         exit;
     }else{
@@ -67,42 +81,7 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 // check if there's an account to edit or add
 
-if($operation == "addCat"){
-
-	$rate->cat_name = filter_input(INPUT_POST,"cat_name");
-
-    if($rate->catExists()){
-        header("Location: ../index.php?p=addCatRate&err=rateCatExist");
-        exit;
-    }else{
-        
-        if($rate->insertIntoTable(['cat_name'],'rate_cat')){
-
-            //success
-            header("Location: ../index.php?p=allCatRate&msg=catRateSucc");
-            exit;
-        }else{
-            //success
-            header("Location: ../index.php?p=allCatRate&err=catRateFail");
-            exit;  
-        }
-    }
-}else if($operation == "editCat"){
-
-	$rate->id = filter_input(INPUT_POST,"idToMod");
-	$rate->cat_name = filter_input(INPUT_POST,"cat_name");
-	
-	if($rate->updateTable(['cat_name'],'id','rate_cat')){
-
-		header("Location: ../index.php?p=allCatRate&msg=catRateEdit");
-		exit;
-
-	}else{
-		header("Location: ../index.php?p=allCatRate&err=catRateNoEdit");
-		exit;
-	}
-
-} else if(filter_input(INPUT_POST,"idToMod")){
+if(filter_input(INPUT_POST,"idToMod")){
 
     $idToMod = filter_input(INPUT_POST,"idToMod");
     
@@ -114,7 +93,7 @@ if($operation == "addCat"){
         $file->filename = $_FILES['myfile']['name'] ;
         $filename = $_FILES['myfile']['name'] ;
         $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
-        $file->path = "../uploads/ratefile/" ;
+        $file->path = "../../uploads/ratefile/" ;
         $file->origin = filter_input(INPUT_POST,"origin");
 
         $file->operation = filter_input(INPUT_POST,"operation") ;
@@ -160,7 +139,7 @@ if($operation == "addCat"){
         // set data for file uploading
         $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
         $file->label = filter_input(INPUT_POST,"label") ;
-        $file->path = "../uploads/ratefile/" ;
+        $file->path = "../../uploads/ratefile/" ;
         $file->origin = filter_input(INPUT_POST,"origin");
         
         $file->operation = "add" ;
@@ -190,6 +169,41 @@ if($operation == "addCat"){
         header("Location: ../index.php?p=allFilesRate&err=fileErr");
         exit;
     }
+
+}else if($operation == "addCat"){
+
+	$rate->cat_name = filter_input(INPUT_POST,"cat_name");
+
+    if($rate->catExists()){
+        header("Location: ../index.php?p=addCatRate&err=rateCatExist");
+        exit;
+    }else{
+        
+        if($rate->insertIntoTable(['cat_name'],'rate_cat')){
+
+            //success
+            header("Location: ../index.php?p=allCatRate&msg=catRateSucc");
+            exit;
+        }else{
+            //success
+            header("Location: ../index.php?p=allCatRate&err=catRateFail");
+            exit;  
+        }
+    }
+}else if($operation == "editCat"){
+
+	$rate->cat_name = filter_input(INPUT_POST,"cat_name");
+
+	
+	if($rate->update(['cat_name'],'id','rate_cat')){
+
+		header("Location: ../index.php?p=allCatRate&msg=catRateEdit");
+		exit;
+
+	}else{
+		header("Location: ../index.php?p=allCatRate&err=catRateNoEdit");
+		exit;
+	}
 
 }
 

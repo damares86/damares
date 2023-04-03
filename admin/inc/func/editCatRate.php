@@ -40,7 +40,6 @@ $stmt1 = $rate->showAllWhereTable('id','rate_cat',['id']);
                     $redirect="";
                     while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
                         $cat_id=$row1['id'];
-
                         $cat_name=$row1['cat_name'];
                         
                     ?>

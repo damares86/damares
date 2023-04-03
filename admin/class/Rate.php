@@ -55,11 +55,8 @@ class Rate extends Common{
         $stmt->bindParam(":id", $this->id);
         
         $stmt->execute();
-        
-        $row=$stmt->fetch(PDO::FETCH_ASSOC);
-        extract($row);
 
-        return $row['cat_name'] ;
+        return $stmt['cat_name'] ;
         
     }
 

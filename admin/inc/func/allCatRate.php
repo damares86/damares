@@ -19,6 +19,7 @@ $allcat = $rate->showAllTable('id','rate_cat');
         <thead>
           <tr>
             <th>Categoria</th>
+            <th><?=$common_number_user?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>

@@ -31,38 +31,49 @@ $allfiles = $rate->showAllTable('id','fileCat');
         <?php
         while($row = $allfiles->fetch(PDO::FETCH_ASSOC)){
           extract($row);
-          $file->id = $row['id'];
+          $file_id = $row['file_id'];
+          $file->id = $row['file_id'];
           $rateFile = $file->showAllWhere('id',['id']);
-          $row1 = $ratefile->fetch(PDO::FETCH_ASSOC);
-          extract($row1);
-        ?>
+
+          foreach($rateFile as $row1){
+
+          ?>
           <tr>
             <td><?=$row1['label']?></td>
             <td><?=$row1['filename']?></td>
             <?php
               
-              $rate->file_id = $row1['id'];
+              $rate->file_id = $file_id;
               $rate_cat = $rate->showCat() ;
               $rate->id = $rate_cat ;
-              $cat_name = $rate->showCatName();
+              $stmt2 = $rate->showAllWhereTable('id','rate_cat',['id']);
+              $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
 
             ?>
             <td>
-              <?=$cat_name?>
+              <?=$row2['cat_name']?>
             </td>
             <?php
 
-              $star = $rate->showStar() ;
+
+              // $stmt3 = $rate->showStar() ;
+              $stmt3 = $rate->showAllWhereTable('id','rate',['id']);
+              $row3 = $stmt3->fetch(PDO::FETCH_ASSOC) ;
+              $star = 0 ;
+
+              if($row3['star']){
+                $star = $row3['star'];
+              }
 
             ?>
             <td>
               <?=$star?>
             </td>
             <td>
-              <a href="../uploads/ratefile/<?=$row['filename']?>" target="_blank"><?=$common_link?></a>
+              <a href="../uploads/ratefile/<?=$row1['filename']?>" target="_blank"><?=$common_link?></a>
             </td>
             <td>
-              <a href="index.php?p=editFileRate&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editFileRate&idToMod=<?=$row1['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -115,7 +126,7 @@ $allfiles = $rate->showAllTable('id','fileCat');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngRate.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
+                                        ><a href="core/mngRate.php?idToDel=<?=$row1['id']?>" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
                                       >
                                   </div>
                                 </div>
@@ -128,6 +139,7 @@ $allfiles = $rate->showAllTable('id','fileCat');
                         
 
         <?php
+          }
       }
 
         ?>
