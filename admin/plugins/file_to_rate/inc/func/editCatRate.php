@@ -76,8 +76,8 @@ $stmt1 = $rate->showAllWhereTable('id','rate_cat',['id']);
                         </div>
                     
                             
-                        <input type="hidden" name="operation" value="edit">
-                        <input type="hidden" name="idToMod" value="<?=$roleid?>">
+                        <input type="hidden" name="operation" value="editCat">
+                        <input type="hidden" name="idToMod" value="<?=$cat_id?>">
                         <input type="hidden" name="origin" value="editCatRate">
                       <?php
                     }
