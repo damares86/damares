@@ -159,14 +159,14 @@ if(filter_input(INPUT_POST,"idToMod")){
 			$rate->insertIntoTable(['file_id','rate_cat_id'],'fileCat');
 
             //success
-            header("Location: ../index.php?p=allFiles&msg=fileSucc");
+            header("Location: ../index.php?p=allFilesRate&msg=fileSucc");
             exit;
         }else{
-            header("Location: ../index.php?p=allFiles&err=fileFail");
+            header("Location: ../index.php?p=allFilesRate&err=fileFail");
             exit;
         }
     }else{
-        header("Location: ../index.php?p=allFiles&err=fileErr");
+        header("Location: ../index.php?p=allFilesRate&err=fileErr");
         exit;
     }
 

@@ -311,5 +311,3 @@ public function itemExists($item){
 
 
 }
-
-?>
