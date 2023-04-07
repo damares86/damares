@@ -25,7 +25,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         <thead>
           <tr>
             <th><?=$file_all_label?></th>
-            <th><?=$file_all_file?></th>
+            <th class="d-none d-md-block"><?=$file_all_file?></th>
             <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
@@ -49,7 +49,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         ?>
           <tr>
             <td><?=$row['label']?></td>
-            <td><?=$row['filename']?></td>
+            <td class="d-none d-md-block"><?=$row['filename']?></td>
             <td>
               <a href="uploads/<?=$row['filename']?>" target="_blank"><?=$common_link?></a>
             </td>

@@ -42,8 +42,13 @@ if(isset($_COOKIE['damares-login'])){
             }
         }
 
-        header("Location: ../admin/");
-        exit;
+        if($role->id == 1){
+            header("Location: ../admin/");
+            exit;
+        }else{
+            header("Location: ../../");
+            exit;
+        }
       
     }
 }

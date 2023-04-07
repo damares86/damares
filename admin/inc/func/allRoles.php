@@ -25,15 +25,15 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         <thead>
           <tr>
             <th><?=$common_rolename?></th>
-            <th><?=$common_section_auth?></th>
+            <th class="d-none d-md-block"><?=$common_section_auth?></th>
             <?php
               if($redir){
             ?>
-                <th><?=$common_redirect?></th>
+                <th class="d-none d-md-block"><?=$common_redirect?></th>
             <?php
               }
             ?>
-            <th><?=$common_number_user?></th>
+            <th class="d-none d-md-block"><?=$common_number_user?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -46,7 +46,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         ?>
           <tr>
             <td><?=$row['rolename']?></td>
-            <td>
+            <td class="d-none d-md-block">
               <?php
                 $rolessection->role_id = $row['id'] ;
                 $permissions = $rolessection->showAllPermission();
@@ -60,11 +60,11 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
             <?php
               if($redir){
             ?>
-            <td><?=$row['redirect']?></td>
+            <td class="d-none d-md-block"><?=$row['redirect']?></td>
             <?php
               }
             ?>
-            <td>
+            <td class="d-none d-md-block">
               <?php
                 $accountroles->role_id = $row['id'];
                 $roleNum = $accountroles->countRoleAccounts();

@@ -19,9 +19,9 @@ $users = $account->showAll('id');
         <thead>
           <tr>
             <th><?=$common_username?></th>
-            <th><?=$common_email?></th>
-            <th><?=$common_role?></th>
-            <th><?=$common_lastLogin?></th>
+            <th class="d-none d-md-block"><?=$common_email?></th>
+            <th class="d-none d-md-block"><?=$common_role?></th>
+            <th class="d-none d-md-block"><?=$common_lastLogin?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -34,8 +34,8 @@ $users = $account->showAll('id');
         ?>
           <tr>
             <td><?=$row['username']?></td>
-            <td><?=$row['email']?></td>
-            <td>
+            <td class="d-none d-md-block"><?=$row['email']?></td>
+            <td class="d-none d-md-block">
               <?php
                 $accountroles->account_id = $row['id'];
                 $roleId = $accountroles->showAccountRolesId();
@@ -44,7 +44,7 @@ $users = $account->showAll('id');
                 echo $rolename;
               ?>
             </td>
-            <td><?=$row['last_login']?></td>
+            <td class="d-none d-md-block"><?=$row['last_login']?></td>
             <td>
               <a href="index.php?p=editAccount&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i

@@ -121,7 +121,7 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
                         <div class="col-md-3">
                             <label><?=$account_add_avatar?></label>
                         </div>
-                        <div class="col-md-2 text-center">
+                        <div class="col-md-2 mb-2 text-center">
                             <div class="avatar avatar-lg me-3">
                                 <img src="uploads/avatar/<?=$avatar?>" alt="" srcset="">
                             </div>

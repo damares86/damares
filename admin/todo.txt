@@ -1,0 +1,6 @@
+RATE
+- frontend
+- locale
+- test on backend
+- RIABILITARE UPLOADFILE IN ADD FILE RATE
+- cancellare i file to rate alla cancellazione del plugin
