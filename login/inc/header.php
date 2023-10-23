@@ -84,7 +84,11 @@ foreach (glob("../admin/locale/$lang/*.php") as $row){
 $plugin->pluginname = "account_register" ;
 $reg = "";
 
+$op="";
 
+if(filter_input(INPUT_GET,"op")){
+  $op=filter_input(INPUT_GET,"op");
+}
 
 if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
     $reg = true ;

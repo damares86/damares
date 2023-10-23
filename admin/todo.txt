@@ -1,96 +1,13 @@
 ------------------------------------------
-
-MODIFICHE
-
+        TODO
 ------------------------------------------
 
--label moderatori, ecc
+- fix dell'altezza delle pagine register e password
+- gestire messaggio su pagina reset
+- implementare logiche di register
+- implementare il "remeber me"
 
-- frontend
-    - pagina con info tecniche
+### REGISTER
 
-
-
-CHECK
-
-controllare perché se la categoria di rating non è attiva, in edit session si pianta
-
-
-------------------------------------------
-
-COMPLETAMENTO WEBAPP
-
-------------------------------------------
-
-
-Quiz
-----------------------------------------
-
-CREAZIONE 
-
-1. il quiz viene composto da BE 
-    -> OK
-2. viene inserito nel db con active=0 
-    -> OK
-3. viene creata una cartella sito.it/quiz/q_{id quiz}/ 
-    -> OK
-4. dentro la cartella viene creato il file json `qna.php` con le domande e risposte 
-    -> OK
-5. viene creata una sottocartella `score` dove verranno creati i json con le risposte e i timestamp 
-    -> OK
-6. ### DA GESTIRE LA MODIFICA ###
-    -> OK
-
-ATTIVAZIONE
-
-1. il quiz diventa attivo su db 
-    -> OK
-2. appare il link nel tab 'Quiz' della relazione specifica 
-    -> OK
-3. il link rimanda in sito.it/quiz/quiz.php 
-    -> OK
-4. la pagina recupera dinamicamente le domande da `q_{id quiz}/qna.php` 
-    -> OK
-
-UTILIZZO
-
-1. gli utenti rispondono alle domande 
-    -> OK
-2. a fine quiz appare il conteggio delle domande e il link per tornare alla pagina della relazione 
-    -> OK
-3. per ogni utente viene scritto un file con id nel nome nella cartella `score` (vedi sopra) 
-    -> OK
-4. l'admin conclude il quiz e vengono passati tutti i file per trovare quello che ha il timestamp più basso
-    -> OK
-5. l'admin viene rimandato a una pagina con gli esiti (risposte giuste e utente più veloce)
-    -> OK
-6. viene scritto nel db il risultato
-    -> OK
-
-
---------------------------------------------------------------------------------
-
-                        DETTAGLI FINALI
-
---------------------------------------------------------------------------------
-
-Sessions
-----------------------------------------
-
-    - locale ruoli moderatore/annunciatore    
-    - automatizzare la pagina "Program file" nel caso di installazione del plugin
-
-
-Generale
-----------------------------------------
-- nomi delle pagine
-- prevedere di automatizzare le voci del menù footer
-- manuale
-- testare modifica account senza campi details
-- info a lato di ogni pagina
-- gestire nomi (barra degli indirizzi) delle pagine multilingua
-
-
-----------------------------------------
-             TEMA GRAFICO
-----------------------------------------
+- aggiunta dell'approvazione di admin, ecc per registrazioni dal form
+- togliere il ruolo admin dalle scelte del ruolo di default

@@ -51,11 +51,11 @@ require "inc/header.php";
                 <?=$login_button?>
               </button>
             </form>
-            <div class="text-center mt-5 text-lg fs-4">
+            <div class="text-center mt-3 text-lg fs-4">
               <?php
                 if($reg){
               ?>  
-                <p class="text-gray-600">
+                <a class="font-bold">
                   <?=$login_reg?>
                   <a href="auth-register.php" class="font-bold"><?=$login_signup?></a>.
                 </p>
@@ -72,7 +72,8 @@ require "inc/header.php";
         </div>
         <div class="col-lg-7 d-none d-lg-block">
           <div id="auth-right">
-            <img src="img/visual.jpg" class="h-100">
+            &nbsp;
+            <!-- <img src="img/visual.jpg" class="h-100"> -->
           </div>
         </div>
         

@@ -97,11 +97,11 @@ require "inc/header.php" ;
         </div>
     </div>
     <div class="col-lg-7 d-none d-lg-block">
-        <div id="auth-right">
-
-            <img src="img/visual.jpg">
+          <div id="auth-right">
+            &nbsp;
+            <!-- <img src="img/visual.jpg" class="h-100"> -->
+          </div>
         </div>
-    </div>
 </div>
     <?php
         require "inc/footer.php" ;

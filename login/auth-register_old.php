@@ -1,6 +1,10 @@
 <?php
 require "inc/header.php";
-$op=filter_input(INPUT_GET,"op");
+$op="";
+
+if(filter_input(INPUT_GET,"op")){
+  $op=filter_input(INPUT_GET,"op");
+}
 
 $plugin->pluginname = "recaptcha" ;
 $mng = "mngRegister";
