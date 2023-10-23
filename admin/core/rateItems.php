@@ -1,2 +1,0 @@
-<?php
-$rateItems=['sessions','speakers'];
