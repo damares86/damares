@@ -27,9 +27,9 @@ $email = $_POST['email'];
 // check if the given email exist in db
 $email_exists = $auth->emailExists();
 
+
 // match the email and the password
 if($email_exists && password_verify($postpass,$auth->password)){
-    
     if($_POST['remember']){
         $token = md5($email);
         $addToken= substr(md5(uniqid(rand(),1)),3,10);
@@ -50,6 +50,7 @@ if($email_exists && password_verify($postpass,$auth->password)){
     $role_id = $accountroles->showAccountRolesId();
     $role->id = $role_id ;
     
+    
     // set session data
     $_SESSION['loggedin'] = true ;
     $_SESSION['account_id'] = $auth->id;
@@ -58,6 +59,7 @@ if($email_exists && password_verify($postpass,$auth->password)){
     // $_SESSION['username'] = $auth->username;
     $_SESSION['avatar'] = $auth->avatar;
     
+
     // update the login log time
     $time=date("Y.m.d, G:i:s");
     $auth->updateLog($time);
@@ -80,7 +82,8 @@ if($email_exists && password_verify($postpass,$auth->password)){
         // TODO
         // spostamento su una pagina con i file
     }
-        
+
+
     header("Location: ../");
     exit;
     

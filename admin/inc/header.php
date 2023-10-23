@@ -14,6 +14,7 @@ if(!is_file('class/Database.php')){
 
 session_start();
 
+   
 // check if the user is logged in
 require __DIR__."/config.php";
 if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {

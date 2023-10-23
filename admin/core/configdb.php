@@ -287,11 +287,7 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('5','allProgram','Program file','file-earmark-ruled','2')");
-
-$db->query("INSERT INTO ".$prefix."sectionChild
-                            (id, link,label,icon,parent_id)
-                            VALUES ('6','allFiles','All files','folder-fill','2')");
+                            VALUES ('5','allFiles','All files','folder-fill','2')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
@@ -299,7 +295,7 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('7','allSettings','All settings','gear-fill','3')");
+                            VALUES ('6','allSettings','All settings','gear-fill','3')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)

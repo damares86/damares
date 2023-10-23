@@ -5,7 +5,7 @@
             </div> -->
             <div class="float-end">
               <p>
-              <img src="../assets/img/logo_salomon_rid.png" alt="Logo"/> &nbsp; web app developed by 
+              <img src="assets/images/logo/damares_logo_rid.png" alt="Logo"/> &nbsp; backend developed by 
                 <a href="http://www.dmweblab.com" target="_blank">
                     <img src="assets/images/logo/dmweblab_logo.png" alt="Logo"/>
                 </a>
@@ -26,7 +26,6 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
     <script src="assets/js/pages/datatables.js"></script>
     <script src="assets/extensions/parsleyjs/parsley.min.js"></script>
-    <script src="script/rate.js"></script>
     <script src="assets/js/pages/parsley.js"></script>
     <script src="assets/js/pages/<?=$lang?>.js"></script>
     <script src="assets/js/pages/<?=$lang?>.extra.js"></script>

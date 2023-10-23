@@ -4,12 +4,11 @@
     	'collect' => true,
     	'output' => true,
     ));
-
-spl_autoload_register('autoloader');
-
-function autoloader($class){
-	include("../admin/class/$class.php");
-}
+    spl_autoload_register('autoloader');
+    
+    function autoloader($class){
+        include("../admin/class/$class.php");
+    }
 
 $database = new Database();
 $db = $database->getConnection();
@@ -17,25 +16,6 @@ $db = $database->getConnection();
 // recall of all the classes
 $files=glob("../admin/class/*.php", GLOB_BRACE);
 rsort($files); 
-// creation of the file with all the initialization of the classes
-if(!is_file('../admin/inc/class_initialize.php')){
-    $file_handle = fopen('../admin/inc/class_initialize.php', 'w');
-    fwrite($file_handle, '<?php');
-    fwrite($file_handle, "\n");
-    foreach ($files as $filename) {
-        $nomefile = pathinfo($filename);
-    $file=$nomefile['filename'];
-    $file_var = strtolower($file);
-    fwrite($file_handle, '$'.$file_var.' = new '.$file.'($db);');
-    fwrite($file_handle, "\n");
-}
-if($prefix){
-    fwrite($file_handle,'$common->prx = "'.$prefix.'_";') ;
-    fwrite($file_handle, "\n");
-}
-fwrite($file_handle,"?>");
-chmod('../admin/inc/class_initialize.php',0777);
-}
 
 require "../admin/inc/class_initialize.php" ;
 
@@ -116,41 +96,49 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><?=$login_titlebar?> - damares</title>
+    <link rel="stylesheet" href="../admin/assets/css/main/app.css" />
+    <link rel="stylesheet" href="../admin/assets/css/pages/auth.css" />
+    <link rel="stylesheet" href="../admin/assets/css/custom.css">
+    <link
+      rel="shortcut icon"
+      href="../admin/assets/images/logo/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="shortcut icon"
+      href="../admin/assets/images/logo/favicon.ico"
+      type="image/png"
+    />
     
-    <head>
     <!--
-    ##############    Salomon    ###############
+    ##############    Damares    ###############
     #                                          #
-    #           A multipurpose WebApp          #
-    #               by DM WebLab               #
+    #    A backend project by DM WebLab        #
     #   Website: https://www.dmweblab.com      #
     #   GitHub: https://github.com/damares86   #
     #                                          #
     ############################################
     -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Salomon - WebApp for conventions and conferences">
-  <meta name="author" content="DM WebLab">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <!-- <meta name="theme-color" content="#0134d4"> -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  </head>
 
-  <!-- Title -->
-  
-  <!-- Favicon -->
-  <link rel="icon" href="../assets/img/favicon.ico">
-  <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="../assets/img/icons/icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="167x167" href="../assets/img/icons/icon-167x167.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/icons/icon-180x180.png">
-  
-  <!-- Style CSS -->
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../assets/css/custom.css">
-  
-  <!-- Web App Manifest -->
-  <link rel="manifest" href="../manifest.json">
+  <body>
+    <div id="auth">
+      <div class="row h-100">
+        <div class="col-lg-5 col-12">
+          <div id="auth-left">
+            <div class="auth-logo">
+              <a href="../index.php"
+                ><img src="../admin/assets/images/logo/damares_logo.png" alt="Logo"
+              /></a>
+            </div>
+
+            <?php
+
+            // require of all alert files
+            require "../inc/alert.php";
+            ?>
