@@ -1,6 +1,7 @@
 <?php
 require "inc/funcHeader.php";
 
+$verify->table="verify";
 $stmt=$verify->showAll('id');
 $row=$stmt->fetch(PDO::FETCH_ASSOC);
 

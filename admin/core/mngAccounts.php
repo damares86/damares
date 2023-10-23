@@ -38,11 +38,11 @@ $operation = filter_input(INPUT_POST,"operation") ;
 // check if there's an account to edit or add
 
 if(filter_input(INPUT_POST,"idToMod")){
-
+    
     $id = filter_input(INPUT_POST,"idToMod");
     $account->id = $id;
     $account->table = "accounts" ;
-
+    
     if($operation=="password"){
 
         $password = filter_input(INPUT_POST,"password");
@@ -59,14 +59,58 @@ if(filter_input(INPUT_POST,"idToMod")){
 
     }else if($operation=="edit"){
         
-        $account->username = filter_input(INPUT_POST,"username") ;
+        $account->id = $id ;
+        $stmt = $account->showAllWhere('id',['id']);
+        $old_email = "" ;
+        foreach($stmt as $item){
+            $old_email=$item['email'];
+        }
+        $email = filter_input(INPUT_POST,"email");
+    
+        $auth->email = $email;
+       
+        if($auth->emailExists() && $email!=$old_email){
+            if(filter_input(INPUT_POST,'frontend')){ 
+                header("Location: ../../profile.php?err=accountExist");
+                exit;
+            }else{
+                header("Location: ../index.php?p=editAccount&err=accountExist");
+                exit;
+            }            
+        }else{
+        
+        // hidden username
+        // $account->username = filter_input(INPUT_POST,"username") ;
         $account->email = filter_input(INPUT_POST,"email") ;
+
+        require "accountDetails.php";
+
+        $details_arr = [] ;
+        $details_opt_arr = [] ;
+
+        foreach($account_details as $item){
+            $details_arr[] = array("$item" => "".$_POST[$item]."");
+        }
+
+        if($details_arr){
+            $details_str = serialize($details_arr);
+            $account->details = $details_str;
+        }
+
+        foreach($account_details_opt as $item){
+            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
+        }
+
+        if($details_opt_arr){
+            $details_opt_str = serialize($details_opt_arr);
+            $account->details_opt = $details_opt_str ;
+        }
 
         if($_FILES['avatar']['size'] > 0){
             // set data for file uploading
             $file->filename = $_FILES['avatar']['name'] ;
             $file->inputFileName = $_FILES['avatar']['tmp_name'] ;
-            $file->label = 'avatar_'.filter_input(INPUT_POST,"username") ;
+            $file->label = 'avatar_'.rand(10,100) ;
             $file->path = "../uploads/avatar/" ;
             $file->origin = filter_input(INPUT_POST,"origin");
             $file->filename_orig = filter_input(INPUT_POST,"avatar_orig");
@@ -75,7 +119,9 @@ if(filter_input(INPUT_POST,"idToMod")){
 
             if($file->uploadFile()){
                 $account->avatar = $_FILES['avatar']['name'] ;
-                $_SESSION['avatar'] = $_FILES['avatar']['name'] ;
+                if($_SESSION['account_id']==$id){
+                    $_SESSION['avatar'] = $_FILES['avatar']['name'] ;
+                }
                 if($_POST['avatar_orig']!="default.png"){
                     unlink("../uploads/avatar/".filter_input(INPUT_POST,"avatar_orig"));
                 }
@@ -88,22 +134,30 @@ if(filter_input(INPUT_POST,"idToMod")){
         }
 
 
-        if($account->update(['username','email','avatar'],'id')){
-
+        if($account->update(['email','avatar','details','details_opt'],'id')){
+            if(filter_input(INPUT_POST,'frontend')){ 
+                header("Location: ../../profile.php?msg=accountEdit");
+                exit;
+            }
             $accountroles->role_id = filter_input(INPUT_POST,"role") ;
             $accountroles->account_id = $id ;
             
             if($accountroles->update(['role_id'],'account_id')){
-                header("Location: ../index.php?p=editAccount&idToMod=$id&msg=accountEdit");
-                exit;
-            }else{
+                    header("Location: ../index.php?p=editAccount&idToMod=$id&msg=accountEdit");
+                    exit;
+                }else{
                 header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountRoleNoEdit");
                 exit;  
             }
 
         }else{
-            header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountNoEdit");
-            exit;
+            if(filter_input(INPUT_POST,'frontend')){ 
+                header("Location: ../../profile.php?msg=accountNoEdit");
+                exit;
+            }else{
+                header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountNoEdit");
+                exit;
+            }
         }
 
 
@@ -111,7 +165,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         
     }
     exit;
-    
+}
 
 }else if($operation == "add"){
 
@@ -122,14 +176,33 @@ if(filter_input(INPUT_POST,"idToMod")){
         exit;
     }else{
 
-        $account->username = filter_input(INPUT_POST,"username") ;
+        // hidden username
+        // $account->username = filter_input(INPUT_POST,"username") ;
         $account->email = filter_input(INPUT_POST,"email") ;
         
         // hash password
         $password=filter_input(INPUT_POST,"password");
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
         $account->password = $password_hash ;
-        
+
+        require "accountDetails.php";
+
+        $details_arr = [] ;
+        $details_opt_arr = [] ;
+
+        foreach($account_details as $item){
+            $details_arr[] = array("$item" => "".$_POST[$item]."");
+        }
+
+        $details_str = serialize($details_arr);
+        $account->details = $details_str;
+
+        foreach($account_details_opt as $item){
+            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
+        }
+        $details_opt_str = serialize($details_opt_arr);
+        $account->details_opt = $details_opt_str ;
+
         // upload avatar
         $errUpload = "";
         $file->operation = filter_input(INPUT_POST,"operation") ;
@@ -139,7 +212,7 @@ if(filter_input(INPUT_POST,"idToMod")){
             // set data for file uploading
             $file->filename = $_FILES['avatar']['name'] ;
             $file->inputFileName = $_FILES['avatar']['tmp_name'] ;
-            $file->label = 'avatar_'.filter_input(INPUT_POST,"username") ;
+            $file->label = 'avatar_'.rand(10,100) ;
             $file->path = "../uploads/avatar/" ;
             $file->origin = filter_input(INPUT_POST,"origin");
 
@@ -153,7 +226,7 @@ if(filter_input(INPUT_POST,"idToMod")){
             $account->avatar = "default.png" ;
         }
 
-        if($account->insert(['username','email','password','avatar'])){
+        if($account->insert(['email','password','avatar','details','details_opt'])){
 
             $accountroles->role_id = filter_input(INPUT_POST,"role") ;
             $insertedId = "" ;

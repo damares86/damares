@@ -71,8 +71,28 @@ if(filter_input(INPUT_POST, "reg_form")){
                 $password=filter_input(INPUT_POST,"password");
                 $password_hash = password_hash($password, PASSWORD_BCRYPT);
                 $register->password = $password_hash ;
+
+				$register->avatar="default.png";
 				
-				if($register->insert(['email','username','password','token','expDate'])){
+				require "accountDetails.php";
+
+				$details_arr = [] ;
+				$details_opt_arr = [] ;
+
+				foreach($account_details as $item){
+					$details_arr[] = array("$item" => "".$_POST[$item]."");
+				}
+
+				$details_str = serialize($details_arr);
+				$register->details = $details_str;
+
+				foreach($account_details_opt as $item){
+					$details_opt_arr[] = array("$item" => "".$_POST[$item]."");
+				}
+				$details_opt_str = serialize($details_opt_arr);
+				$register->details_opt = $details_opt_str ;
+
+				if($register->insert(['email','username','password','avatar','details','details_opt','token','expDate'])){
 					
 				$url = $_SERVER['SERVER_NAME'];
 

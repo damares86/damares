@@ -14,6 +14,7 @@
 
 $label_accounts = "Utenti";
 $label_files = "File";
+$label_program_file = "Programma";
 $label_all_files = "Tutti i file";
 $label_settings = "Impostazioni";
 $label_all_settings = "Generali";
@@ -30,6 +31,7 @@ $common_dashboard = "Dashboard" ;
 $common_logout = "Logout" ;
 $common_link = "Link" ;
 $common_username = "Username" ;
+$common_name = "Nome" ;
 $common_email = "Email" ;
 $common_role = "Ruolo" ;
 $common_lastLogin = "Ultimo Login" ;
@@ -39,6 +41,7 @@ $common_modal_title_sure = "Sei sicuro?" ;
 $common_modal_confirm = "Conferma" ;
 $common_modal_cancel = "Cancella" ;
 $common_submit = "Invia" ;
+$common_update = "Aggiorna" ;
 $common_reset = "Reset" ;
 $common_info = "Info" ;
 $common_rolename = "Nome del ruolo" ;
@@ -60,18 +63,27 @@ $last_login_title = "Ultimi utenti loggati" ;
 
 //////  ACCOUNT  //////
 
+$account_add_header = "Aggiungi nuovo utente" ;
+$account_all_header = "Tutti gli utenti" ;
 $account_all_title = "Tutti gli utenti registrati" ;
 $account_all_add = "Aggiungi nuovo utente" ;
 $account_all_modal_body = "Se confermi, cancellerai definitivamente questo utente." ;
 $account_add_title = "Completa le informazione per questo utente" ;
-$account_add_avatar = "Avatar (opzionale)" ;
+$account_add_avatar = "Avatar" ;
+$account_add_optional = "(opzionale)" ;
 $account_edit_header = "Modifica utente" ;
 $account_edit_title = "Modifica le informazioni per questo utente" ;
 $account_edit_password = "Modifica la password per questo utente" ;
+// optional fields
+$account_add_name = "Nome"; 
+$account_add_surname = "Cognome"; 
+$account_add_birth = "Data di nascita"; 
+$account_add_phone = "Telefono"; 
 
 
 //////  ROLE  //////
 
+$role_all_header = "Tutti i ruoli" ;
 $role_all_title = "Tutti i ruoli" ;
 $role_all_add = "Aggiungi nuovo ruolo" ;
 $role_all_modal_body = "Se confermi, cancellerai definitivamente questo ruolo." ;
@@ -83,6 +95,7 @@ $role_edit_title = "Modifica la informazioni per " ;
 
 //////  FILE  //////
 
+$file_all_header = "Tutti i file" ;
 $file_all_title = "Tutti i file" ;
 $file_all_add = "Aggiungi nuovo file" ;
 $file_all_modal_body = "Se confermi, cancellerai definitivamente questo file." ;
@@ -138,10 +151,10 @@ $msg_settingUpdate = "Impostazioni modificate" ;
 
 $err_accountNoDel = "Utente non eliminato" ;
 $err_passNoMod = "Password non modificata" ;
-$err_noAvatarUpload = "Avatar non caircato" ;
+$err_noAvatarUpload = "Avatar non caricato" ;
 $err_accountRoleNoEdit = "Ruolo utente non modificato" ;
 $err_accountNoEdit = "Utente non modificato" ;
-$err_accountExist = "L'utente è già presente" ;
+$err_accountExist = "Email utente già presente" ;
 $err_accountFail = "Utente non creato" ;
 $err_roleNoDel = "Ruolo non eliminato" ;
 $err_roleNoEdit = "Ruolo non modificato" ;

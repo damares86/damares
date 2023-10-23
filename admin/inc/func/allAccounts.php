@@ -1,10 +1,31 @@
 <?php
-require "inc/funcHeader.php";
 
 $users = $account->showAll('id');
 
 ?>
-
+<div class="page-title">
+  <div class="row">
+    <div class="col-12 col-md-6 order-md-1 order-last">
+      <h3><?=$account_all_header?></h3>
+    </div>
+    <div class="col-12 col-md-6 order-md-2 order-first">
+      <nav
+        aria-label="breadcrumb"
+        class="breadcrumb-header float-start float-lg-end"
+      >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.php"><?=$common_dashboard?></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <?=$account_all_header?>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
 
 
 <!-- Basic Tables start -->
@@ -19,9 +40,9 @@ $users = $account->showAll('id');
         <thead>
           <tr>
             <th><?=$common_username?></th>
-            <th class="d-none d-md-block"><?=$common_email?></th>
-            <th class="d-none d-md-block"><?=$common_role?></th>
-            <th class="d-none d-md-block"><?=$common_lastLogin?></th>
+            <th><?=$common_email?></th>
+            <th><?=$common_role?></th>
+            <th><?=$common_lastLogin?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -30,12 +51,12 @@ $users = $account->showAll('id');
         <?php
         while($row = $users->fetch(PDO::FETCH_ASSOC)){
           extract($row);
-          if($row['id']>1){
+          if($row['id']>2){
         ?>
           <tr>
             <td><?=$row['username']?></td>
-            <td class="d-none d-md-block"><?=$row['email']?></td>
-            <td class="d-none d-md-block">
+            <td><?=$row['email']?></td>
+            <td>
               <?php
                 $accountroles->account_id = $row['id'];
                 $roleId = $accountroles->showAccountRolesId();
@@ -44,7 +65,7 @@ $users = $account->showAll('id');
                 echo $rolename;
               ?>
             </td>
-            <td class="d-none d-md-block"><?=$row['last_login']?></td>
+            <td><?=$row['last_login']?></td>
             <td>
               <a href="index.php?p=editAccount&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i

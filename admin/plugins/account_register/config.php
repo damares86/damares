@@ -15,6 +15,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS  ".$prefix."register_account_t
    email VARCHAR(250) NOT NULL,
    username VARCHAR(250) NOT NULL,
    password VARCHAR(250) NOT NULL,
+   avatar VARCHAR(255) DEFAULT 'default.png',
+   details TEXT DEFAULT NULL,
+   details_opt TEXT DEFAULT NULL,
    token VARCHAR(250) NOT NULL,
    expDate DATETIME NOT NULL);
    INSERT INTO ".$prefix."settings

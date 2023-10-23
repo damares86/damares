@@ -32,7 +32,7 @@ if(session_status() == PHP_SESSION_ACTIVE){
  }
 
  
- $query = "DROP TABLE IF EXISTS `".$prx."accounts`, `".$prx."accountsRoles`, `".$prx."files`, `".$prx."home`, `".$prx."password_reset_temp`, `".$prx."plugins`, `".$prx."roles`, `".$prx."rolesSection`, `".$prx."sectionChild`, `".$prx."sectionParent`, `".$prx."settings`";
+ $query = "DROP TABLE IF EXISTS `".$prx."accounts`, `".$prx."accountsRoles`, `".$prx."files`, `".$prx."home`, `".$prx."password_reset_temp`, `".$prx."plugins`, `".$prx."roles`, `".$prx."rolesSection`, `".$prx."sectionChild`, `".$prx."sectionParent`, `".$prx."settings`,`".$prx."register_account_temp`";
 
  
  $stmt = $database->conn->prepare($query);
@@ -53,19 +53,22 @@ if(session_status() == PHP_SESSION_ACTIVE){
 
 // rmdir_recursive($dir);
 
-$avatar_arr=array("default");
+$exclude_arr=array("default","Program","sd");
 
 foreach (glob("../uploads/avatar/*") as $row){
     $file = pathinfo($row);
     $filename = $file['filename'];
-  if(!in_array($filename,$avatar_arr)){
+  if(!in_array($filename,$exclude_arr)){
     unlink($row);
   }
 }
 
 foreach (glob("../uploads/*") as $row){
     $file = pathinfo($row);
-    unlink($row);
+    $filename = $file['filename'];
+    if(!in_array($filename,$exclude_arr)){
+      unlink($row);
+    }
   }
 
 unlink("../class/Database.php");

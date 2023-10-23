@@ -208,18 +208,6 @@ if($op=="add"){
     }
   }
 
-
-  // copy inc/alert files
-  foreach (glob("$path/inc/alert/*") as $row) {
-    $item=pathinfo($row);
-
-    if(copy($path.'/inc/alert/'.$item['basename'].'', '../inc/alert/'.$item['basename'].'')){
-        chmod('../inc/alert/'.$item['basename'].'',0777);
-    }else{
-        $error++;
-    }
-  }
-
   // copy inc/func files
   foreach (glob("$path/inc/func/*") as $row) {
     $item=pathinfo($row);
@@ -259,7 +247,7 @@ if($op=="add"){
   }
 
   
-  // copy class files
+  // copy manual files
   foreach (glob("$path/manual/*") as $row) {
     $item=pathinfo($row);
     
@@ -269,6 +257,29 @@ if($op=="add"){
       $error++;
     }
   }
+
+    // copy frontend files
+    foreach (glob("$path/frontend/*") as $row) {
+      $item=pathinfo($row);
+      
+      if(copy($path.'/frontend/'.$item['basename'].'', '../../'.$item['basename'].'')){
+        chmod('../../'.$item['basename'].'',0777);
+      }else{
+        $error++;
+      }
+    }
+
+    // copy uploads files
+    foreach (glob("$path/uploads/*") as $row) {
+      $item=pathinfo($row);
+      
+      if(copy($path.'/uploads/'.$item['basename'].'', '../uploads/'.$item['basename'].'')){
+        chmod('../uploads/'.$item['basename'].'',0777);
+      }else{
+        $error++;
+      }
+    }
+    
   
   unlink("../inc/class_initialize.php") ;
   if($error==0){
@@ -400,15 +411,6 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
     }
   }
 
-  // remove inc/alert files
-  foreach (glob("$path/inc/alert/*") as $row) {
-    $item=pathinfo($row);
-
-    if(!unlink('../inc/alert/'.$item['basename'].'')){
-        $error++;
-    }
-  }
-
   // remove inc/func files
   foreach (glob("$path/inc/func/*") as $row) {
     $item=pathinfo($row);
@@ -453,6 +455,26 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
         }
      }
   }
+
+  // remove frontend files
+  foreach (glob("$path/frontend/*") as $row) {
+    $item=pathinfo($row);
+
+    if(!unlink('../../'.$item['basename'].'')){
+        $error++;
+    }
+  }
+
+    // remove uploads files
+    foreach (glob("$path/uploads/*") as $row) {
+      $item=pathinfo($row);
+  
+      if(!unlink('../uploads/'.$item['basename'].'')){
+          $error++;
+      }
+    }
+
+
   unlink("../inc/class_initialize.php") ;
 
   if($error==0){

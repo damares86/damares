@@ -5,7 +5,7 @@ if(isset($_COOKIE['damares-login'])){
     $auth->id = $pieces[0];
     $id = $pieces[0];
     $auth->auth_token = $pieces[1];
-    if($auth->checkCookie()){
+    if($auth->checkCookie()>0){
                      
         session_start();
         $accountroles->account_id = $id; 
@@ -42,13 +42,16 @@ if(isset($_COOKIE['damares-login'])){
             }
         }
 
-        if($role->id == 1){
-            header("Location: ../admin/");
-            exit;
-        }else{
-            header("Location: ../../");
-            exit;
-        }
+        // if($role->id == 1 || $role->id == 2 ){
+        //     header("Location: admin/");
+        //     exit;
+        // }else{
+        //     header("Location: home.php");
+        //     exit;
+        // }
       
+    } else {
+    header("Location: login/auth-login.php?err=noLogin");
+    exit;
     }
 }

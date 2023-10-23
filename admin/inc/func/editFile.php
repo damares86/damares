@@ -111,14 +111,9 @@
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            <?=$common_submit?>
+                            <?=$common_update?>
                             </button>
-                            <button
-                            type="reset"
-                            class="btn btn-light-secondary me-1 mb-1"
-                            >
-                            <?=$common_reset?>
-                            </button>
+                           
                         </div>
                         </div>
                     </div>

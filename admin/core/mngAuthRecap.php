@@ -18,22 +18,6 @@ $db = $database->getConnection();
 
 include "../inc/class_initialize.php";
 
-$module = $plugin->showAll('id');
-foreach($module as $row){
-    $plugin->pluginname = $row['pluginname'] ;
-        if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-            $scan = scandir("plugins/".$row['pluginname']."/class");
-            $exclude = array('..', '.','.gitkeep');
-            foreach($scan as $file){
-            if (!in_array($file,$exclude)) {
-                $item = pathinfo($file);
-                include "class/plugin/".$item['basename']."";
-            }
-        }
-    }
-}
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])) {
 	$stmt=$verify->showAll('id');
 	$row=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -57,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
         $postpass = $_POST['password'];
 
         $auth->email = $_POST['email'];
+        $email = $_POST['email'];
 
 
         // check if the given email exist in db
@@ -64,9 +49,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
 
         // match the email and the password
         if($email_exists && password_verify($postpass,$auth->password)){
+    
+            if($_POST['remember']){
+                $token = md5($email);
+                $addToken= substr(md5(uniqid(rand(),1)),3,10);
+                $token = $token . $addToken;
+                
+                $account->email = $email ;
+                $account->auth_token = $token ;
+                
+                $account->update(['auth_token'],'email') ;
+                setcookie("damares-login", $auth->id . "," . $token, time()+(60 * 60 *24 * 365 *10 ),"/");
+                
+            }
             
             session_start();
-            
             $accountroles->account_id = $auth->id; 
             
             
@@ -78,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
             $_SESSION['account_id'] = $auth->id;
             $_SESSION['role_id'] = $role_id;
             $_SESSION['rolename'] = $role->showRolenameById();
-            $_SESSION['username'] = $auth->username;
+            // $_SESSION['username'] = $auth->username;
             $_SESSION['avatar'] = $auth->avatar;
             
             // update the login log time
@@ -90,11 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
             if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                 $stmt = $role->showAllWhere('id',['id']);
                 foreach($stmt as $row){
-                    header("Location: ".$row['redirect']."");
-                    exit;
+                    if($row['redirect']!="none"){
+                        header("Location: ".$row['redirect']."");
+                        exit;
+                    }
                 }
             }
-
+        
             $plugin->pluginname = "file_for_role" ; 
             
             if($plugin->itemExists('pluginname') && $plugin->isActive()==1){

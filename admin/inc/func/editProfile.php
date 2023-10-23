@@ -150,7 +150,7 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            <?=$common_submit?>
+                            <?=$common_update?>
                             </button>
                         </div>
                         </div>

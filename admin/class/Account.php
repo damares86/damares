@@ -21,6 +21,8 @@ class Account extends Common{
     public $token ;
     public $expDate ;
     public $auth_token ;
+    public $details ;
+    public $details_opt ;
 
     public function getPswTmpData(){
         

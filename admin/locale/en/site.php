@@ -18,13 +18,14 @@ $login_button = "Login";
 $login_remember = "Keep me logged in";
 $login_forgot = "Forgot password?";
 
+
 //////  RESET  //////
 
 $forgot_titlebar = "Reset password";
 $forgot_title = "Forgot Password";
 $forgot_desc = "Input your email and we will send you reset password link.";
 $forgot_button = "Send";
-$forgot_back = "Remember your account?";
+$forgot_back = "No reset request present. Go back to the reset request form.";
 $forgot_choose = "Choose the new Password" ;
 $forgot_token = "Reset request expired";
 
@@ -38,6 +39,7 @@ $err_errResetRequest = "No reset request present or request expired" ;
 $err_keyDelErr = "Password modified, but there where some problems. Please contatct us" ;
 $err_pswEditErr = "Password not modified. Please contact us" ;
 $err_noLogin = "You must be logged in to access that page" ;
+$err_errUserPsw = "Username or password wrong" ;
 
 //////  ALERT: MSG  //////
 

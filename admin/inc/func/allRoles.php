@@ -1,5 +1,4 @@
 <?php
-require "inc/funcHeader.php";
 
 $allroles = $role->showAll('id');
 
@@ -10,7 +9,29 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 }
 
 ?>
-
+<div class="page-title">
+  <div class="row">
+    <div class="col-12 col-md-6 order-md-1 order-last">
+      <h3><?=$role_all_header ?></h3>
+    </div>
+    <div class="col-12 col-md-6 order-md-2 order-first">
+      <nav
+        aria-label="breadcrumb"
+        class="breadcrumb-header float-start float-lg-end"
+      >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.php"><?=$common_dashboard?></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <?=$role_all_header ?>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
 
 
 <!-- Basic Tables start -->
@@ -25,15 +46,15 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         <thead>
           <tr>
             <th><?=$common_rolename?></th>
-            <th class="d-none d-md-block"><?=$common_section_auth?></th>
+            <th><?=$common_section_auth?></th>
             <?php
               if($redir){
             ?>
-                <th class="d-none d-md-block"><?=$common_redirect?></th>
+                <th><?=$common_redirect?></th>
             <?php
               }
             ?>
-            <th class="d-none d-md-block"><?=$common_number_user?></th>
+            <th><?=$common_number_user?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -42,11 +63,17 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         <?php
         while($row = $allroles->fetch(PDO::FETCH_ASSOC)){
           extract($row);
-          if($row['id']>1){
+          
+          // hide sections for non root users
+          $exclude_roles = [1,2];
+          if(in_array($row['id'], $exclude_roles)){
+              continue;
+          }
+          
         ?>
           <tr>
             <td><?=$row['rolename']?></td>
-            <td class="d-none d-md-block">
+            <td>
               <?php
                 $rolessection->role_id = $row['id'] ;
                 $permissions = $rolessection->showAllPermission();
@@ -60,11 +87,11 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
             <?php
               if($redir){
             ?>
-            <td class="d-none d-md-block"><?=$row['redirect']?></td>
+            <td><?=$row['redirect']?></td>
             <?php
               }
             ?>
-            <td class="d-none d-md-block">
+            <td>
               <?php
                 $accountroles->role_id = $row['id'];
                 $roleNum = $accountroles->countRoleAccounts();
@@ -139,7 +166,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 
         <?php
         }
-      }
+      
 
         ?>
 

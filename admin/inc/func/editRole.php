@@ -109,6 +109,12 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                                         extract($row);
                                         $selected = "" ;
 
+                                        // hide sections for non root users
+                                        $exclude_sections = [4];
+                                        if($_SESSION['role_id']!=1 && in_array($row['id'], $exclude_sections)){
+                                            continue;
+                                        }
+
                                         if(in_array($row['id'],$sections)){
                                             $selected = "selected";
                                         }
@@ -163,7 +169,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            <?=$common_submit?>
+                            <?=$common_update?>
                             </button>
                         </div>
                         </div>

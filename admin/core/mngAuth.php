@@ -18,21 +18,6 @@ $db = $database->getConnection();
 
 include "../inc/class_initialize.php";
 
-$module = $plugin->showAll('id');
-foreach($module as $row){
-    $plugin->pluginname = $row['pluginname'] ;
-        if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-            $scan = scandir("plugins/".$row['pluginname']."/class");
-            $exclude = array('..', '.','.gitkeep');
-            foreach($scan as $file){
-            if (!in_array($file,$exclude)) {
-                $item = pathinfo($file);
-                include "class/plugin/".$item['basename']."";
-            }
-        }
-    }
-}
-
 // get the form data
 $postpass = $_POST['password'];
 
@@ -45,9 +30,7 @@ $email_exists = $auth->emailExists();
 // match the email and the password
 if($email_exists && password_verify($postpass,$auth->password)){
     
-    
     if($_POST['remember']){
-
         $token = md5($email);
         $addToken= substr(md5(uniqid(rand(),1)),3,10);
         $token = $token . $addToken;
@@ -72,7 +55,7 @@ if($email_exists && password_verify($postpass,$auth->password)){
     $_SESSION['account_id'] = $auth->id;
     $_SESSION['role_id'] = $role_id;
     $_SESSION['rolename'] = $role->showRolenameById();
-    $_SESSION['username'] = $auth->username;
+    // $_SESSION['username'] = $auth->username;
     $_SESSION['avatar'] = $auth->avatar;
     
     // update the login log time
@@ -103,6 +86,7 @@ if($email_exists && password_verify($postpass,$auth->password)){
     
 } else {
     
-    header("Location: ../../login/auth-login.php?msg=errUserPsw");
+    // header("Location: ../../login/auth-login.php?err=errUserPsw");
+    header("Location: ../../index.php?err=errUserPsw");
     exit;
 }

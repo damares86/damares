@@ -1,6 +1,4 @@
 <?php
-require "inc/funcHeader.php";
-
 $allfiles = $file->showAll('id');
 
 $plugin->pluginname = "file_to_rate" ;
@@ -11,7 +9,29 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 
 ?>
 
-
+<div class="page-title">
+  <div class="row">
+    <div class="col-12 col-md-6 order-md-1 order-last">
+      <h3><?=$file_all_header ?></h3>
+    </div>
+    <div class="col-12 col-md-6 order-md-2 order-first">
+      <nav
+        aria-label="breadcrumb"
+        class="breadcrumb-header float-start float-lg-end"
+      >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.php"><?=$common_dashboard?></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <?=$file_all_header ?>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
 
 <!-- Basic Tables start -->
 <section class="section">
@@ -25,7 +45,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         <thead>
           <tr>
             <th><?=$file_all_label?></th>
-            <th class="d-none d-md-block"><?=$file_all_file?></th>
+            <th><?=$file_all_file?></th>
             <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
@@ -45,11 +65,14 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
               $fileOk = false ;
             }
           }
-          if($fileOk){
+
+          $label_arr=explode("_",$row['label']);
+
+          if($fileOk && $label_arr[0]!="avatar" && $row['id']!=1){
         ?>
           <tr>
             <td><?=$row['label']?></td>
-            <td class="d-none d-md-block"><?=$row['filename']?></td>
+            <td><?=$row['filename']?></td>
             <td>
               <a href="uploads/<?=$row['filename']?>" target="_blank"><?=$common_link?></a>
             </td>
