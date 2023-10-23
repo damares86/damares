@@ -89,6 +89,10 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
   height:100%;
 }
 
+.form-check .form-check-input.remember{
+  margin-left:0;
+}
+
 .sidebar-wrapper .menu .sidebar-link {
   color:#008db1;
 }

@@ -33,20 +33,21 @@ require "inc/header.php";
                   <i class="bi bi-shield-lock"></i>
                 </div>
               </div>
-              <!-- <div class="form-check form-check-lg d-flex align-items-end">
-                <input
-                  class="form-check-input me-2"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-                <label
-                  class="form-check-label text-gray-600"
-                  for="flexCheckDefault"
-                >
-                  Keep me logged in
-                </label>
-              </div> -->
+                <div class="form-check form-check-lg d-flex align-items-end">
+                  <input
+                    class="form-check-input remember me-2"
+                    type="checkbox"
+                    value=""
+                    name="remember"
+                    id="flexCheckDefault"
+                  />
+                  <label
+                    class="form-check-label text-gray-600"
+                    for="flexCheckDefault"
+                  >
+                  <?=$login_remember?>
+                  </label>
+                </div>
               <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
                 <?=$login_button?>
               </button>
@@ -55,8 +56,8 @@ require "inc/header.php";
               <?php
                 if($reg){
               ?>  
-                <a class="font-bold">
                   <?=$login_reg?>
+                <a class="font-bold">
                   <a href="auth-register.php" class="font-bold"><?=$login_signup?></a>.
                 </p>
               <?php
