@@ -79,8 +79,7 @@ if(filter_input(INPUT_POST,"idToMod")){
             }            
         }else{
         
-        // hidden username
-        // $account->username = filter_input(INPUT_POST,"username") ;
+        $account->username = filter_input(INPUT_POST,"username") ;
         $account->email = filter_input(INPUT_POST,"email") ;
 
         require "accountDetails.php";
@@ -134,7 +133,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         }
 
 
-        if($account->update(['email','avatar','details','details_opt'],'id')){
+        if($account->update(['username','email','avatar','details','details_opt'],'id')){
             if(filter_input(INPUT_POST,'frontend')){ 
                 header("Location: ../../profile.php?msg=accountEdit");
                 exit;
@@ -176,8 +175,7 @@ if(filter_input(INPUT_POST,"idToMod")){
         exit;
     }else{
 
-        // hidden username
-        // $account->username = filter_input(INPUT_POST,"username") ;
+        $account->username = filter_input(INPUT_POST,"username") ;
         $account->email = filter_input(INPUT_POST,"email") ;
         
         // hash password
@@ -226,7 +224,7 @@ if(filter_input(INPUT_POST,"idToMod")){
             $account->avatar = "default.png" ;
         }
 
-        if($account->insert(['email','password','avatar','details','details_opt'])){
+        if($account->insert(['username','email','password','avatar','details','details_opt'])){
 
             $accountroles->role_id = filter_input(INPUT_POST,"role") ;
             $insertedId = "" ;

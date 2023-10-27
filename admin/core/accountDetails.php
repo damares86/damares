@@ -1,6 +1,6 @@
 <?php
 
-$account_details = ['nome','cognome', 'città'];
+$account_details = [];
 $account_details_opt = [];
 
 ?>

@@ -37,7 +37,7 @@ require "inc/header.php";
                   <input
                     class="form-check-input remember me-2"
                     type="checkbox"
-                    value=""
+                    value="remember_me"
                     name="remember"
                     id="flexCheckDefault"
                   />

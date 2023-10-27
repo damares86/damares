@@ -76,7 +76,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                     <form class="form form-horizontal" action="core/mngAccounts.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
-                        <!-- <div class="col-md-3">
+                        <div class="col-md-3">
                             <label><?=$common_username?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
@@ -99,7 +99,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="col-md-3">
                             <label><?=$common_email?> <span class="text-danger">*</span></label>
                         </div>

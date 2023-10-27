@@ -85,6 +85,7 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
     />
     <link rel="stylesheet" href="assets/css/shared/iconly.css" />
     <?php
+
     foreach (glob("assets/css/*.css") as $row){
     ?>
       <link rel="stylesheet" href="<?=$row?>" />

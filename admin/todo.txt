@@ -2,12 +2,9 @@
         TODO
 ------------------------------------------
 
-- fix dell'altezza delle pagine register e password
 - gestire messaggio su pagina reset
 - implementare logiche di register
-- implementare il "remeber me"
 
 ### REGISTER
 
 - aggiunta dell'approvazione di admin, ecc per registrazioni dal form
-- togliere il ruolo admin dalle scelte del ruolo di default

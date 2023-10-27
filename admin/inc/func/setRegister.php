@@ -41,7 +41,7 @@ $reg_role = $row['value'];
 
                                             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                                                 $selected = "" ;
-                                                if($row['id']>1){
+                                                if($row['id']>2){
                                                 
                                                     if($reg_role == $row['rolename']){
                                                         $selected = "selected" ;
