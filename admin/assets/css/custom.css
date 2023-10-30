@@ -93,12 +93,26 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
   margin-left:0;
 }
 
-.sidebar-wrapper .menu .sidebar-link {
-  color:#008db1;
+#sidebar .card{
+  margin-bottom: 0 !important;
 }
 
-.sidebar-wrapper .menu .sidebar-link i{
+.sidebar-wrapper .menu{
+  margin-top: 0;
+}
+
+
+.sidebar-wrapper .menu .sidebar-link {
   color:#008db1;
+  font-size:0.8rem;
+}
+
+.sidebar-wrapper .menu .sidebar-item{
+  margin-top: 0;
+}
+
+.sidebar-wrapper .menu .submenu .submenu-item a{
+  font-size:0.8rem;   
 }
 
 .sidebar-wrapper .sidebar-header {

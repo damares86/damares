@@ -2,9 +2,11 @@
         TODO
 ------------------------------------------
 
-- gestire messaggio su pagina reset
-- implementare logiche di register
+- aggiungere gestione customer, separata da account, ma con la logica dei details e details_opt
+- import dati in excel
+- export risultati pdf e excel
 
 ### REGISTER
 
 - aggiunta dell'approvazione di admin, ecc per registrazioni dal form
+- testare funzionalità di registrazione e reset password online

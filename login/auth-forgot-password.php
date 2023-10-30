@@ -24,9 +24,9 @@ require "inc/header.php" ;
                 <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=$forgot_button?></button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
-                <p class='text-gray-600'><?=$forgot_back?> <a href="auth-login.php" class="font-bold"><?=$login_title?></a>.
+                <p class='text-gray-600'><a href="auth-login.php" class="font-bold"><-- <?=$login_title?></a>
                 </p>
-            </div>
+            </div> 
            
             <?php
             }else if($op=="reset"){
