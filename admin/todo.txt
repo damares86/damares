@@ -3,6 +3,15 @@
 ------------------------------------------
 
 - aggiungere gestione customer, separata da account, ma con la logica dei details e details_opt
+- filtri di ricerca sulle tabelle
+
+
+## CALENDARIO
+- vista calendario con pratiche
+- pallini/riquadri cliccabili con modale di dettaglio delle pratiche, cliccabili
+
+
+### TEST OK
 - import dati in excel
 - export risultati pdf e excel
 
