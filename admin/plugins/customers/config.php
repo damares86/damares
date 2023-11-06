@@ -12,7 +12,8 @@ $link_parent = "customers" ;
 
 $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."customers
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      email VARCHAR(255) NOT NULL,
+      name VARCHAR(255) NOT NULL,
+      surname VARCHAR(255) NOT NULL,
       details TEXT DEFAULT NULL,
       details_opt TEXT DEFAULT NULL)";
 

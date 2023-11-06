@@ -2,20 +2,25 @@
         TODO
 ------------------------------------------
 
-- aggiungere gestione customer, separata da account, ma con la logica dei details e details_opt
 - filtri di ricerca sulle tabelle
+
+
+## CUSTOMER
+- aggiungere gestione customer, separata da account, ma con la logica dei details e details_opt
 
 
 ## CALENDARIO
 - vista calendario con pratiche
-- pallini/riquadri cliccabili con modale di dettaglio delle pratiche, cliccabili
+- pallini/riquadri cliccabili con modale di dettaglio delle pratiche
 
 
-### TEST OK
+## TEST OK
 - import dati in excel
 - export risultati pdf e excel
 
-### REGISTER
 
+#####    AGGIUNTE FUTURE    #####
+
+## REGISTER
 - aggiunta dell'approvazione di admin, ecc per registrazioni dal form
 - testare funzionalità di registrazione e reset password online

@@ -10,8 +10,12 @@
 
 class Customer extends Common{
 
-    public $table ;
+    public $table = 'customers' ;
     public $id ;
+    public $name ;
+    public $surname ;
+    public $details ;
+    public $details_opt ;
 
 
 }
