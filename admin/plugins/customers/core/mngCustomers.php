@@ -53,7 +53,7 @@ if($operation=="edit"){
 
         if($details_arr){
             $details_str = serialize($details_arr);
-            $customers->details = $details_str;
+            $customer->details = $details_str;
         }
 
         foreach($customers_details_opt as $item){
@@ -92,14 +92,14 @@ if($operation=="edit"){
         $details_arr = [] ;
         $details_opt_arr = [] ;
 
-        foreach($customer_details as $item){
+        foreach($customers_details as $item){
             $details_arr[] = array("$item" => "".$_POST[$item]."");
         }
 
         $details_str = serialize($details_arr);
         $customer->details = $details_str;
 
-        foreach($customer_details_opt as $item){
+        foreach($customers_details_opt as $item){
             $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
         }
         $details_opt_str = serialize($details_opt_arr);

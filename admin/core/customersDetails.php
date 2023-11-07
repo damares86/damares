@@ -1,3 +1,3 @@
 <?php
-$customers_details=['email','birth'];
-$customers_details_opt=['indirizzo'];
+$customers_details=[];
+$customers_details_opt=[];

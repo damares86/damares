@@ -17,7 +17,6 @@ $details_opt="";
         $surname=$row1['surname'];
         $details=unserialize($row1['details']);
         $details_opt=unserialize($row1['details_opt']);
-
     }
 
 
