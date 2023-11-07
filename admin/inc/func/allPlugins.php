@@ -11,7 +11,7 @@ $allplugins = $plugin->showAll('id');
 <section class="section">
   <div class="card">
     <div class="card-header"> 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-5">
         <form class="form form-horizontal upload-form" action="core/mngPlugins.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
           <div class="form-body">
@@ -55,7 +55,7 @@ $allplugins = $plugin->showAll('id');
     </div>
   </div>
 
-  <hr>
+  <hr> -->
 
     <div class="card-body">
                 <h4 class="card-title"><?=$plugin_all_title?></h4>
@@ -74,11 +74,11 @@ $allplugins = $plugin->showAll('id');
           extract($row);
             
         $background="#c7fac1";
-        $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=dis\" class=\"btn icon btn-warning\"><i class=\"bi bi-patch-minus\"></i></a>" ;
+        $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=dis\" class=\"btn icon btn-warning\"><i class=\"bi bi-dash-circle\"></i></a>" ;
         
         if($row['active']==0){             
           $background="none";
-          $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=add\" class=\"btn icon btn-success\"><i class=\"bi bi-patch-plus\"></i></a>" ;
+          $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=add\" class=\"btn icon btn-success\"><i class=\"bi bi-plus-circle\"></i></a>" ;
         }
         ?>
           <tr style="background:<?=$background?>">

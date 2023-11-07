@@ -1,65 +1,8 @@
 <?php
-  require "inc/header.php" ;
 
-  $plugin->pluginname = "user_register" ;
-  $reg = "";
+require "inc/header.php";
 
-  if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-      $reg = true ;
-  }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?=$login_titlebar?> - damares</title>
-    <link rel="stylesheet" href="../admin/assets/css/main/app.css" />
-    <link rel="stylesheet" href="../admin/assets/css/pages/auth.css" />
-    <link rel="stylesheet" href="../admin/assets/css/custom.css">
-    <link
-      rel="shortcut icon"
-      href="../admin/assets/images/logo/favicon.ico"
-      type="image/x-icon"
-    />
-    <link
-      rel="shortcut icon"
-      href="../admin/assets/images/logo/favicon.ico"
-      type="image/png"
-    />
-    
-    <!--
-    ##############    Damares    ###############
-    #                                          #
-    #    A backend project by DM WebLab        #
-    #   Website: https://www.dmweblab.com      #
-    #   GitHub: https://github.com/damares86   #
-    #                                          #
-    ############################################
-    -->
-
-  </head>
-
-  <body>
-    <div id="auth">
-      <div class="row h-100">
-        <div class="col-lg-5 col-12">
-          <div id="auth-left">
-            <div class="auth-logo">
-              <a href="../index.php"
-                ><img src="../admin/assets/images/logo/damares_logo.png" alt="Logo"
-              /></a>
-            </div>
-
-            <?php
-
-            // require of all alert files
-            $alert=glob("../admin/inc/alert/*.php", GLOB_BRACE);
-
-            foreach($alert as $row){
-                require "$row";
-            }
-            ?>
 
             <h1 class="auth-title"><?=$login_title?></h1>
             
@@ -90,35 +33,36 @@
                   <i class="bi bi-shield-lock"></i>
                 </div>
               </div>
-              <!-- <div class="form-check form-check-lg d-flex align-items-end">
-                <input
-                  class="form-check-input me-2"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-                <label
-                  class="form-check-label text-gray-600"
-                  for="flexCheckDefault"
-                >
-                  Keep me logged in
-                </label>
-              </div> -->
+                <div class="form-check form-check-lg d-flex align-items-end">
+                  <input
+                    class="form-check-input remember me-2"
+                    type="checkbox"
+                    value="remember_me"
+                    name="remember"
+                    id="flexCheckDefault"
+                  />
+                  <label
+                    class="form-check-label text-gray-600"
+                    for="flexCheckDefault"
+                  >
+                  <?=$login_remember?>
+                  </label>
+                </div>
               <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
                 <?=$login_button?>
               </button>
             </form>
-            <div class="text-center mt-5 text-lg fs-4">
+            <div class="text-center mt-3 text-lg fs-4">
               <?php
                 if($reg){
               ?>  
-                <p class="text-gray-600">
                   <?=$login_reg?>
+                <a class="font-bold">
                   <a href="auth-register.php" class="font-bold"><?=$login_signup?></a>.
                 </p>
               <?php
                 }
-              ?>
+                ?>
                <p>
                 <a class="font-bold" href="auth-forgot-password.php"
                   ><?=$login_forgot?></a
@@ -129,9 +73,11 @@
         </div>
         <div class="col-lg-7 d-none d-lg-block">
           <div id="auth-right">
-            <img src="img/visual.jpg">
+            &nbsp;
+            <!-- <img src="img/visual.jpg" class="h-100"> -->
           </div>
         </div>
+        
       </div>
     </div>
     <?php

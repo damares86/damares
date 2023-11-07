@@ -22,7 +22,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
       >
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.php"><?=$common_dashboard_?></a>
+            <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
           <?=$role_edit_header?>
@@ -109,6 +109,12 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                                         extract($row);
                                         $selected = "" ;
 
+                                        // hide sections for non root users
+                                        $exclude_sections = [4];
+                                        if($_SESSION['role_id']!=1 && in_array($row['id'], $exclude_sections)){
+                                            continue;
+                                        }
+
                                         if(in_array($row['id'],$sections)){
                                             $selected = "selected";
                                         }
@@ -141,7 +147,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                                     placeholder="Url"
                                     id="first-name-icon"
                                     name="redirect"
-                                    value=<?=$row['redirect']?>
+                                    value="<?=$redirect?>"
                                     />
                                     <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>
@@ -163,7 +169,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            <?=$common_submit?>
+                            <?=$common_update?>
                             </button>
                         </div>
                         </div>

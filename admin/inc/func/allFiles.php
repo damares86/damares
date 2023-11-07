@@ -1,12 +1,37 @@
 <?php
-require "inc/funcHeader.php";
-
 $allfiles = $file->showAll('id');
 
+$plugin->pluginname = "file_to_rate" ;
+$fileToRate = false;
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+  $fileToRate = true ;
+}
 
 ?>
 
-
+<div class="page-title">
+  <div class="row">
+    <div class="col-12 col-md-6 order-md-1 order-last">
+      <h3><?=$file_all_header ?></h3>
+    </div>
+    <div class="col-12 col-md-6 order-md-2 order-first">
+      <nav
+        aria-label="breadcrumb"
+        class="breadcrumb-header float-start float-lg-end"
+      >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.php"><?=$common_dashboard?></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <?=$file_all_header ?>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
 
 <!-- Basic Tables start -->
 <section class="section">
@@ -30,6 +55,20 @@ $allfiles = $file->showAll('id');
         <?php
         while($row = $allfiles->fetch(PDO::FETCH_ASSOC)){
           extract($row);
+          $fileOk = true;
+          if($fileToRate){
+            $rate->file_id = $row['id'];
+            $stmt1 = $rate->showAllWhereTable('id','fileCat',['file_id']);
+            $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+            extract($row1);
+            if($row['id']==$row1['file_id']){
+              $fileOk = false ;
+            }
+          }
+
+          $label_arr=explode("_",$row['label']);
+
+          if($fileOk && $label_arr[0]!="avatar" && $row['id']!=1){
         ?>
           <tr>
             <td><?=$row['label']?></td>
@@ -104,6 +143,7 @@ $allfiles = $file->showAll('id');
                         
 
         <?php
+          }
       }
 
         ?>

@@ -9,25 +9,26 @@
 ############################################
 
 
-//////  LOGIN  //////
+// LOGIN 
 
 $login_titlebar = "Login";
 $login_title = "Login" ;
 $login_desc = "Effettua il login con i dati forniti durante la registrazione.";
 $login_button = "Login";
+$login_remember = "Ricordami";
 $login_forgot = "Password dimenticata?";
 
-//////  RESET  //////
+//  RESET
 
 $forgot_titlebar = "Reset password";
 $forgot_title = "Password dimenticata";
 $forgot_desc = "Scrivi la tua mail e ti manderemo un link per resettare la password.";
 $forgot_button = "Invia";
-$forgot_back = "Ricordami?";
+$forgot_back = "Nessuna richiesta di reset password presente. Torna al form per la richiesta di reset.";
 $forgot_choose = "Scegli la nuova password" ;
 $forgot_token = "Link scaduto";
 
-//////  ALERT: ERR  //////
+//  ALERT: ERR 
 
 $err_noResetDelete = "Erorre nel reset della password. Contattaci" ;
 $err_mailNotReg = "Mail non registrata" ;
@@ -37,13 +38,14 @@ $err_errResetRequest = "Nessuna richiesta di reset in sospeso o link scaduto" ;
 $err_keyDelErr = "Password modificata, ma c'è stato qualche problema. Contattaci" ;
 $err_pswEditErr = "Password non modificata. Contattaci" ;
 $err_noLogin = "Devi essere loggato per vedere quella pagina" ;
+$err_errUserPsw = "Username o password errati" ;
 
-//////  ALERT: MSG  //////
+//  ALERT: MSG 
 
 $msg_sentMail = "Email di reset inviata al tuo indirizzo mail" ;
 $msg_newPass = "Password modificata" ;
 
-//////  RESET MAIL //////
+//  RESET MAIL 
 
 $block1 ='<html><body>';
 $block1.='<p>Caro utente,</p>';

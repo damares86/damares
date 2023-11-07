@@ -38,8 +38,10 @@ class Common{
 
 // $fields must be an array
 function insert($fields){
-    
+
     $i = 1;
+
+    $this->fields="";
     foreach($fields as $item){
         $this->fields.="$item = :$item" ;
         if($i<count($fields)){
@@ -50,7 +52,7 @@ function insert($fields){
     
     $query = "INSERT INTO " .$this->prx. $this->table."
     SET ".$this->fields.""; 
-    
+
     $stmt = $this->conn->prepare( $query );
 
     foreach($fields as $item){
@@ -66,8 +68,10 @@ function insert($fields){
 }
 
 function insertIntoTable($fields,$table){
-    
+        
     $i = 1;
+
+    $this->fields="";
     foreach($fields as $item){
         $this->fields.="$item = :$item" ;
         if($i<count($fields)){
@@ -79,12 +83,10 @@ function insertIntoTable($fields,$table){
     $query = "INSERT INTO " .$this->prx. $table."
     SET ".$this->fields.""; 
     $stmt = $this->conn->prepare( $query );
-    
-    print_r($query."<br>");
     foreach($fields as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
-   
+
     if($stmt->execute()){
         return true ;
     }else{
@@ -99,6 +101,10 @@ function insertIntoTable($fields,$table){
 
 // $fields must be an array
 function update($fields,$where){
+
+    $this->where = "" ;
+
+    $this->fields="";
 
     $i = 1;
     foreach($fields as $item){
@@ -115,6 +121,43 @@ function update($fields,$where){
         $stmt = $this->conn->prepare( $query );
         
         foreach($fields as $item){
+            $stmt->bindParam(":$item", $this->$item);
+        }
+
+    $stmt->bindParam(":$where",$this->$where);
+
+    if($stmt->execute()){
+        return true ;
+    }else{
+        return false ;
+    }
+    
+}
+
+
+// $fields must be an array
+function updateTable($fields,$where,$table){
+    
+    $this->where = "" ;
+
+    $this->fields="";
+
+    $i = 1;
+    foreach($fields as $item){
+        $this->fields.="$item = :$item" ;
+        if($i<count($fields)){
+            $this->fields.=", ";            
+        }
+        $i++;
+    }
+    
+    $query = "UPDATE " .$this->prx. $table."
+        SET ".$this->fields." WHERE $where = :$where"; 
+
+        
+        $stmt = $this->conn->prepare( $query );
+        
+        foreach($fields as $item){
         $stmt->bindParam(":$item", $this->$item);
         }
     $stmt->bindParam(":$where",$this->$where);
@@ -127,6 +170,54 @@ function update($fields,$where){
     
 }
 
+
+// $fields and $where must be an array
+function updateTableMultiple($fields,$where,$table){
+    
+    $this->where = "" ;
+
+    $this->fields="";
+
+    $i = 1;
+    foreach($fields as $item){
+        $this->fields.="$item = :$item" ;
+        if($i<count($fields)){
+            $this->fields.=", ";            
+        }
+        $i++;
+    }
+    
+    $i = 1;
+    foreach($where as $item){
+        $this->where.="$item = :$item" ;
+        if($i<count($where)){
+            $this->where.=" AND ";            
+        }
+        $i++;
+    }
+    
+    $query = "UPDATE " .$this->prx. $table."
+    SET ".$this->fields." WHERE ".$this->where.""; 
+    
+        $stmt = $this->conn->prepare( $query );
+        
+        foreach($fields as $item){
+            $stmt->bindParam(":$item", $this->$item);
+            
+        }
+
+    foreach($where as $item){        
+        $stmt->bindParam(":$item", $this->$item);
+        
+        }
+
+    if($stmt->execute()){
+        return true ;
+    }else{
+        return false ;
+    }
+    
+}
     
 // show_all
 
@@ -141,6 +232,19 @@ function showAll($orderBy){
 
     return $stmt ;
 }
+
+function showAllLimitDesc($orderBy,$limit){
+    $query = "SELECT *
+    FROM " .$this->prx. $this->table."
+    ORDER BY ".$orderBy." DESC LIMIT ".$limit."";   
+    
+    $stmt = $this->conn->prepare( $query );
+
+    $stmt->execute();
+
+    return $stmt ;
+}
+
 
 function showAllTable($orderBy,$table){
 
@@ -157,12 +261,43 @@ function showAllTable($orderBy,$table){
 
 // $where must be an array
 function showAllWhere($orderBy,$where){
+    
+    $this->where="";
 
     $i = 1;
     foreach($where as $item){
         $this->where.="$item = :$item" ;
         if($i<count($where)){
-            $this->where.=", ";            
+            $this->where.=" AND ";            
+        }
+        $i++;
+    }
+    
+        
+    $query = "SELECT *
+        FROM " .$this->prx. $this->table."
+        WHERE ".$this->where."
+        ORDER BY ".$orderBy." ASC"; 
+    $stmt = $this->conn->prepare( $query );
+
+    
+    foreach($where as $item){
+        $stmt->bindParam(":$item", $this->$item);
+    }
+    
+    $stmt->execute();
+    return $stmt;
+}
+
+function showAllWhereLimitDesc($orderBy,$where,$limit){
+    
+    $this->where="";
+
+    $i = 1;
+    foreach($where as $item){
+        $this->where.="$item = :$item" ;
+        if($i<count($where)){
+            $this->where.=" AND ";            
         }
         $i++;
     }
@@ -170,26 +305,28 @@ function showAllWhere($orderBy,$where){
     $query = "SELECT *
         FROM " .$this->prx. $this->table."
         WHERE ".$this->where."
-        ORDER BY ".$orderBy." ASC"; 
-        
-    $stmt = $this->conn->prepare( $query );
+        ORDER BY ".$orderBy."  DESC LIMIT ".$limit.""; 
 
+    $stmt = $this->conn->prepare( $query );
+    
     foreach($where as $item){
+        
         $stmt->bindParam(":$item", $this->$item);
     }
-
+    
     $stmt->execute();
-
     return $stmt;
 }
 
 function showAllWhereTable($orderBy,$table,$where){
     
+    $this->where="";
+    
     $i = 1;
     foreach($where as $item){
         $this->where.="$item = :$item" ;
         if($i<count($where)){
-            $this->where.=", ";            
+            $this->where.=" AND ";            
         }
         $i++;
     }
@@ -257,8 +394,7 @@ public function itemExists($item){
     function deleteFromTable($field,$table){
         
         $query = "DELETE FROM " .$this->prx. $table. " WHERE ".$field." = :".$field."";
-        print_r($query);
-        exit;
+
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":$field", $this->$field);
 
@@ -273,5 +409,3 @@ public function itemExists($item){
 
 
 }
-
-?>

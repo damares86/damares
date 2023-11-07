@@ -1,4 +1,9 @@
 
+body{
+  height: 100%;
+  width:100%;
+}
+
 .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
     background-color: #008db1;
 }
@@ -79,12 +84,35 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
   color: #00afdb;
 }
 
-.sidebar-wrapper .menu .sidebar-link {
-  color:#008db1;
+#auth #auth-right{
+  background-image: url("../../../login/img/visual.jpg");
+  height:100%;
 }
 
-.sidebar-wrapper .menu .sidebar-link i{
+.form-check .form-check-input.remember{
+  margin-left:0;
+}
+
+#sidebar .card{
+  margin-bottom: 0 !important;
+}
+
+.sidebar-wrapper .menu{
+  margin-top: 0;
+}
+
+
+.sidebar-wrapper .menu .sidebar-link {
   color:#008db1;
+  font-size:0.8rem;
+}
+
+.sidebar-wrapper .menu .sidebar-item{
+  margin-top: 0;
+}
+
+.sidebar-wrapper .menu .submenu .submenu-item a{
+  font-size:0.8rem;   
 }
 
 .sidebar-wrapper .sidebar-header {

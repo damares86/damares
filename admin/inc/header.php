@@ -14,14 +14,39 @@ if(!is_file('class/Database.php')){
 
 session_start();
 
+   
 // check if the user is logged in
-
+require __DIR__."/config.php";
 if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
+  require "inc/check_cookie.php" ;
   header('Location: ../login/auth-login.php?err=noLogin');
   exit;
-}
+}else if(isset($_COOKIE['damares-login'])){
+  $pieces = explode(",", $_COOKIE['damares-login']);
+  $auth->id = $pieces[0];
+  $id = $pieces[0];
+  $auth->auth_token = $pieces[1];
 
-require __DIR__."/config.php";
+  if(!$auth->checkCookie()>0){
+    header("Location: ../login/auth-login.php?err=noLogin");
+    exit;
+  }
+
+  $role->id = $_SESSION['role_id'] ;
+
+  $plugin->pluginname = "role_redirect" ;
+  
+  if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+      $stmt = $role->showAllWhere('id',['id']);
+      foreach($stmt as $row){
+          if($row['redirect']!="none"){
+              header("Location: ".$row['redirect']."");
+              exit;
+          }
+      }
+  }
+
+}
 
 ?>
 
@@ -59,5 +84,12 @@ require __DIR__."/config.php";
       href="assets/extensions/choices.js/public/assets/styles/choices.css"
     />
     <link rel="stylesheet" href="assets/css/shared/iconly.css" />
-    <link rel="stylesheet" href="assets/css/custom.css" />
+    <?php
+
+    foreach (glob("assets/css/*.css") as $row){
+    ?>
+      <link rel="stylesheet" href="<?=$row?>" />
+    <?php
+    }
+    ?>
   </head>

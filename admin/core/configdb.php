@@ -140,10 +140,13 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."files
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."accounts
               ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                username VARCHAR(255) NOT NULL,
+                username VARCHAR(255) DEFAULT NULL,
                 password VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
                 avatar VARCHAR(255) DEFAULT 'default.png',
+                details TEXT DEFAULT NULL,
+                details_opt TEXT DEFAULT NULL,
+                auth_token VARCHAR(255) DEFAULT 'none',
                 last_login datetime DEFAULT CURRENT_TIMESTAMP)");
 
 
@@ -173,8 +176,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."sectionChild
                   link VARCHAR(255) NOT NULL,
                   label VARCHAR(255) NOT NULL,
                   icon VARCHAR ( 255 ) NOT NULL,
-                  parent_id INT ( 5 ) NOT NULL,
-                  FOREIGN KEY (parent_id) REFERENCES sectionParent(id))");
+                  parent_id INT ( 5 ) NOT NULL)");
 
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
@@ -199,8 +201,8 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."plugins
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     pluginname VARCHAR(255) NOT NULL,  
                     description TEXT NOT NULL,                     
-                    installed INT(1) NOT NULL,
-                    active INT(1) NOT NULL)");
+                    installed INT(1) DEFAULT 0,
+                    active INT(1) DEFAULT 0)");
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."home
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -214,20 +216,36 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."home
 /////////////////////////////////////////////////////////////
 
 $db->query("INSERT INTO ".$prefix."accounts
+(id, username, password,email, avatar)
+VALUES ('1','dmweblab', '$2y$10\$NJZuseSMqVHYPfMBNqRiMe1R8emeluW2htAzl2mPuyFL1dSylwSIi','davidemasera@gmail.com','sd.png')");
+
+$db->query("INSERT INTO ".$prefix."accounts
 (id, username, password,email)
-VALUES ('1','admin', '". $password_hash ."','". $user_email ."')");
+VALUES ('2','admin', '". $password_hash ."','". $user_email ."')");
 
 $db->query("INSERT INTO ".$prefix."roles
                             (id, rolename)
-                            VALUES ('1','Admin')");
+                            VALUES ('1','Root')");
 
 $db->query("INSERT INTO ".$prefix."roles
                             (id, rolename)
-                            VALUES ('2','Manager')");
+                            VALUES ('2','Admin')");
+
+$db->query("INSERT INTO ".$prefix."roles
+                            (id, rolename)
+                            VALUES ('3','Manager')");
+
+$db->query("INSERT INTO ".$prefix."roles
+                            (id, rolename)
+                            VALUES ('4','Subscriber')");
 
 $db->query("INSERT INTO ".$prefix."accountsRoles
                             (id, account_id,role_id)
                             VALUES ('1','1','1')");
+
+$db->query("INSERT INTO ".$prefix."accountsRoles
+                            (id, account_id,role_id)
+                            VALUES ('2','2','2')");
 
 $db->query("INSERT INTO ".$prefix."settings
                             (id, name,value)
@@ -273,7 +291,7 @@ $db->query("INSERT INTO ".$prefix."sectionChild
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('3','settings','Settings','gear-fill')");
+                            VALUES ('3','settings','Settings','tools')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
@@ -283,7 +301,11 @@ $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
                             VALUES ('4','allPlugins','Modules','plus-circle-fill')");
 
-// role authorizations
+///////////////////////////////////////////////////////////////
+
+///  ADD THE SECTION PERMISSION FOR THE ROLES ROOT AND ADMIN
+
+///////////////////////////////////////////////////////////////    
 
 $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
@@ -301,6 +323,18 @@ $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
                             VALUES ('4','4','1')"); 
 
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('5','1','2')");
+           
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('6','2','2')");      
+
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('7','3','2')");
+
 // homepage blocks                            
 
 $db->query("INSERT INTO ".$prefix."home
@@ -314,13 +348,13 @@ $db->query("INSERT INTO ".$prefix."home
 $db->query("INSERT INTO ".$prefix."home
                               (id, content,size)
                               VALUES ('3','last_login.php','3')");
+
+// insert first program file
+
+$db->query("INSERT INTO ".$prefix."files
+                              (id, filename,label)
+                              VALUES ('1','Program.pdf','Convention program')");
                             
-///////////////////////////////////////////////////////////////
-
-///  ADD THE SECTION PERMISSION FOR THE ROLES MANAGER AND USER
-
-///////////////////////////////////////////////////////////////                          
-
 // scan the plugin directory and insert the plugin by folder's name
 
 $plugins = scandir('../plugins');
@@ -336,6 +370,7 @@ foreach ($plugins as $key => $value){
       $plugin_id++ ;
   }
 }
+
 
 
                             

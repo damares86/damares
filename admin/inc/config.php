@@ -5,7 +5,7 @@ require __DIR__."/version.php";
 spl_autoload_register('autoloader');
 
 function autoloader($class){
-	include("class/$class.php");
+    include("class/$class.php");
 }
 
 $database = new Database();

@@ -22,20 +22,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?php
-                  $id="";
-                  $username="";
-                  $email="";
-                  $avatar="";
-                  $roleId="";
-
-                      while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
-
-                          $id=$row1['id'];
-                          $username=$row1['username'];
-                          $email=$row1['email'];
-                          $avatar=$row1['avatar'];
-                          ?>
+          
             <?=$account_edit_header?> 
           </li>
         </ol>
@@ -44,6 +31,40 @@ $stmt1 = $account->showAllWhere('id',['id']);
   </div>
 </div>
 <br>
+
+<?php
+    $id="";
+    $username="";
+    $email="";
+    $avatar="";
+    $roleId="";
+    $details="";
+    $details_opt="";
+
+        while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
+        extract($row1);
+        
+            $id=$row1['id'];
+            $username=$row1['username'];
+            $email=$row1['email'];
+            $avatar=$row1['avatar'];
+            $details=unserialize($row1['details']);
+            $details_opt=unserialize($row1['details_opt']);
+
+
+            if(!$avatar){
+                $avatar = "default.png" ;
+            }
+
+            $accountroles->account_id = $row1['id'];
+            $stmt2 = $accountroles->showAllWhere('id',['account_id']);
+
+            while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+                $roleId = $row2['role_id'] ;
+            }
+        }
+
+?>
 
 <section class="section">
     <div class="row">
@@ -54,21 +75,6 @@ $stmt1 = $account->showAllWhere('id',['id']);
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <?php
-              
-
-                            if(!$avatar){
-                                $avatar = "default.png" ;
-                            }
-
-                            $accountroles->account_id = $row1['id'];
-                            $stmt2 = $accountroles->showAllWhere('id',['account_id']);
-
-                            while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-                                $roleId = $row2['role_id'] ;
-                            }
-                        }
-                    ?>
                     <form class="form form-horizontal" action="core/mngAccounts.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
@@ -136,8 +142,6 @@ $stmt1 = $account->showAllWhere('id',['id']);
                                         <?php
                                             $stmt = $role->showAll('id');
                                             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                                if($row['id']>1){                                                   
-
                                                     $selected = "" ;
 
                                                     if($row['id']==$roleId){
@@ -149,7 +153,6 @@ $stmt1 = $account->showAllWhere('id',['id']);
 
                                         <?php
 
-                                            }
                                         }
                                         ?>
                                         </select>
@@ -158,6 +161,99 @@ $stmt1 = $account->showAllWhere('id',['id']);
                                 </div>
                             </div>
                         </div>
+
+                         <?php
+
+                            require "core/accountDetails.php";
+
+                            $counter=0;
+                            foreach($account_details as $item){
+
+                                $label = "account_add_$item";
+                                $array_value = array_values($details[$counter]);
+                                $value = $array_value[0];
+
+                                
+                                $item_label=ucfirst($item);
+
+                            ?>
+                            <div class="col-md-3">
+                                <label><?=$item_label?> <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                        <?php
+                            
+                                                $type="text";
+                                                if($item=="birth"){
+                                                    $type="date";
+                                                }
+                                            ?>
+                                            <input
+                                            type="<?=$type?>"
+                                            class="form-control"
+                                            placeholder="<?=$item_label?>"
+                                            name="<?=$item?>"
+                                            data-parsley-required="true"
+                                            value="<?=$value?>"
+
+                                            />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                                $counter++;
+
+                            }
+
+                            $counter=0;
+                            foreach($account_details_opt as $item){
+
+                                $label = "account_add_$item";
+                                // if(array_values($details_opt[$counter])){
+                                    $array_value = array_values($details_opt[$counter]);
+                                    $value = $array_value[0];
+                                // }
+
+                            ?>
+                            <div class="col-md-3">
+                                <label><?=$$label?> <?=$account_add_optional?></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="position-relative">
+                                        <?php
+                                            $type="text";
+                                            if($item=="birth"){
+                                                $type="date";
+                                            }
+                                        ?>
+                                        <input
+                                        type="<?=$type?>"
+                                        class="form-control"
+                                        placeholder="<?=$$label?>"
+                                        name="<?=$item?>"
+                                        data-parsley-required="true"
+                                            value="<?=$value?>"
+
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                                $counter++;
+
+                            }
+
+                            ?>
+
 
                         <div class="col-md-3">
                             <label><?=$account_add_avatar?></label>
@@ -190,7 +286,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            <?=$common_submit?>
+                            <?=$common_update?>
                             </button>
                         </div>
                         </div>

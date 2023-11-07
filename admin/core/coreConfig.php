@@ -22,3 +22,4 @@ $database = new Database();
 $db = $database->getConnection();
 
 include "../inc/class_initialize.php";
+

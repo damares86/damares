@@ -39,7 +39,8 @@ $operation = filter_input(INPUT_POST,"operation") ;
 // check if there's an account to edit or add
 
 if(filter_input(INPUT_POST,"idToMod")){
-
+    echo "ciao";
+    exit;
     $idToMod = filter_input(INPUT_POST,"idToMod");
     
     $file->id = $idToMod ;
@@ -54,17 +55,19 @@ if(filter_input(INPUT_POST,"idToMod")){
         $file->origin = filter_input(INPUT_POST,"origin");
 
         $file->operation = filter_input(INPUT_POST,"operation") ;
-
-        
+        $filename_orig = $_POST['filename_orig'];
         
         if($file->uploadFile()){
-            $filename_orig = $_POST['filename_orig'];
-            unlink("../uploads/$filename_orig");
+            if(file_exists('../uploads/'.$filename_orig.'_old')){
+                unlink('../uploads/'.$filename_orig.'_old');
+            }else{
+                unlink("../uploads/$filename_orig");
+            }
           
             header("Location: ../index.php?p=allFiles&msg=fileEditSucc");
             exit;
         }else{
-            header("Location: ../index.php?p=allFiles&err=fileEdiFail");
+            header("Location: ../index.php?p=allFiles&err=fileEditFail");
             exit;
         }
 

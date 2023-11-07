@@ -1,0 +1,6 @@
+{
+    "require": {
+        "peppeocchi/php-cron-scheduler": "^4.0",
+        "bdk/debug": "^3.0"
+    }
+}

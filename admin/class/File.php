@@ -33,7 +33,8 @@ class File extends Common{
             }
             
             if(file_exists($target_file)){
-                $file_upload_error_messages.="File already exists";
+                rename($target_file,$target_file.'_old');
+               // $file_upload_error_messages.="File already exists";
             }
             
             // make sure the 'uploads' folder exists
@@ -47,24 +48,25 @@ class File extends Common{
                 chmod($target_directory, 0777);
                 umask($oldmask);
             }
-
+            
             if(empty($file_upload_error_messages)){  
-                
                 // the physical file on a temporary uploads directory on the server
                 $file = $this->inputFileName;
-				if (move_uploaded_file($file, $target_file)) {
+                
+				if(move_uploaded_file($file, $target_file)) {
                     
-
                     $oldmask = umask(0);
                     chmod($target_file, 0777);
                     umask($oldmask);
                     $query="";
                     if($this->operation=="add"){
+            
                     $query = "INSERT INTO
                                 " .$this->prx. $this->table . "
                             SET
                             filename = :filename,
                             label = :label";
+                            
                         }else if($this->operation=="edit"){
                             $query = "UPDATE
                             " .$this->prx. $this->table . "
@@ -74,23 +76,21 @@ class File extends Common{
                             WHERE 
                             id = :id";
                         }
-                            // prepare the query
-                            $stmt = $this->conn->prepare($query);
-                    // bind the values
-                    $stmt->bindParam(':filename', $this->filename);
-                    $stmt->bindParam(':label', $this->label);
-                    if($this->operation=="edit"){
-                        $stmt->bindParam(':id', $this->id);
-                    }
-                   
-                    // execute the query, also check if query was successful
-                    if($stmt->execute()){
+                        // prepare the query
+                        $stmt = $this->conn->prepare($query);
+                        // bind the values
+                        $stmt->bindParam(':filename', $this->filename);
+                        $stmt->bindParam(':label', $this->label);
+                        if($this->operation=="edit"){
+                            $stmt->bindParam(':id', $this->id);
+                        }
+                        // execute the query, also check if query was successful
+                        if($stmt->execute()){
                         return true;
                     }else{
                         $this->showError($stmt);
                         return false;
                     }
-				
 				
                 } else {
                     echo "Failed to upload file.";

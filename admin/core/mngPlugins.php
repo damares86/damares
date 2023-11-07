@@ -110,9 +110,10 @@ if($op=="add"){
   // create table
 
   $error = 0 ;
-  
-  if(!$db->query($query_create_table)){
-    $error++ ;
+  if($query_create_table){
+    if(!$db->query($query_create_table)){
+      $error++ ;
+    }
   }
 
   if($parent_table){
@@ -120,13 +121,14 @@ if($op=="add"){
       $section->link=$parent_table[$i]['link'];
       $section->label=$parent_table[$i]['label'];
       $section->icon=$parent_table[$i]['icon'];
-
+      
       if(!$section->insertParent()){
         $error++;
       }
-
+      
     }
   }
+
 
   if($child_table){
     
@@ -206,18 +208,6 @@ if($op=="add"){
     }
   }
 
-
-  // copy inc/alert files
-  foreach (glob("$path/inc/alert/*") as $row) {
-    $item=pathinfo($row);
-
-    if(copy($path.'/inc/alert/'.$item['basename'].'', '../inc/alert/'.$item['basename'].'')){
-        chmod('../inc/alert/'.$item['basename'].'',0777);
-    }else{
-        $error++;
-    }
-  }
-
   // copy inc/func files
   foreach (glob("$path/inc/func/*") as $row) {
     $item=pathinfo($row);
@@ -230,11 +220,11 @@ if($op=="add"){
   }
 
   // copy inc/settings files
-  foreach (glob("$path/inc/settings/*") as $row) {
+  foreach (glob("$path/settings/*") as $row) {
     $item=pathinfo($row);
 
-    if(copy($path.'/inc/settings/'.$item['basename'].'', '../inc/settings/'.$item['basename'].'')){
-        chmod('../inc/settings/'.$item['basename'].'',0777);
+    if(copy($path.'/settings/'.$item['basename'].'', '../inc/func/'.$item['basename'].'')){
+        chmod('../inc/func/'.$item['basename'].'',0777);
     }else{
         $error++;
     }
@@ -257,7 +247,7 @@ if($op=="add"){
   }
 
   
-  // copy class files
+  // copy manual files
   foreach (glob("$path/manual/*") as $row) {
     $item=pathinfo($row);
     
@@ -267,6 +257,29 @@ if($op=="add"){
       $error++;
     }
   }
+
+    // copy frontend files
+    foreach (glob("$path/frontend/*") as $row) {
+      $item=pathinfo($row);
+      
+      if(copy($path.'/frontend/'.$item['basename'].'', '../../'.$item['basename'].'')){
+        chmod('../../'.$item['basename'].'',0777);
+      }else{
+        $error++;
+      }
+    }
+
+    // copy uploads files
+    foreach (glob("$path/uploads/*") as $row) {
+      $item=pathinfo($row);
+      
+      if(copy($path.'/uploads/'.$item['basename'].'', '../uploads/'.$item['basename'].'')){
+        chmod('../uploads/'.$item['basename'].'',0777);
+      }else{
+        $error++;
+      }
+    }
+    
   
   unlink("../inc/class_initialize.php") ;
   if($error==0){
@@ -323,9 +336,10 @@ if($op=="add"){
 // REMOVE
 
 $error=0;
-
-if(!$db->query($query_drop_table)){
-  $error++;
+if($query_drop_table){
+  if(!$db->query($query_drop_table)){
+    $error++;
+  }
 }
 
 if($child_table){
@@ -371,7 +385,6 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
   // remove class files
   foreach (glob("$path/class/*") as $row) {
     $item=pathinfo($row);
-
     if(!unlink('../class/'.$item['basename'].'')){
         $error++;
     }
@@ -398,18 +411,6 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
     }
   }
 
-
-
-
-  // remove inc/alert files
-  foreach (glob("$path/inc/alert/*") as $row) {
-    $item=pathinfo($row);
-
-    if(!unlink('../inc/alert/'.$item['basename'].'')){
-        $error++;
-    }
-  }
-
   // remove inc/func files
   foreach (glob("$path/inc/func/*") as $row) {
     $item=pathinfo($row);
@@ -419,6 +420,16 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
     }
 
   }
+
+    // remove setting files
+    foreach (glob("$path/settings/*") as $row) {
+      $item=pathinfo($row);
+  
+      if(!unlink('../inc/func/'.$item['basename'].'')){
+          $error++;
+      }
+    }
+  
 
     // remove manual files
     foreach (glob("$path/manual/*") as $row) {
@@ -433,20 +444,39 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
   $exclude = array('..', '.');
   foreach($scan as $folder) {
      if (is_dir("$path/locale/$folder") && !in_array($folder,$exclude)) {
-          print_r("Folder: $path/locale/$folder <br>") ;
           // copy locale files
         foreach (glob("$path/locale/$folder/*") as $row) {
           $item=pathinfo($row);
-          print_r("File ".$item['basename']);
+          
           if(!unlink('../locale/'.$folder.'/'.$item['basename'].'')){
-              print_r("Error on ".$item['basename']);
+            
               $error++;
           }
         }
      }
   }
 
+  // remove frontend files
+  foreach (glob("$path/frontend/*") as $row) {
+    $item=pathinfo($row);
+
+    if(!unlink('../../'.$item['basename'].'')){
+        $error++;
+    }
+  }
+
+    // remove uploads files
+    foreach (glob("$path/uploads/*") as $row) {
+      $item=pathinfo($row);
+  
+      if(!unlink('../uploads/'.$item['basename'].'')){
+          $error++;
+      }
+    }
+
+
   unlink("../inc/class_initialize.php") ;
+
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginRm");
     exit;

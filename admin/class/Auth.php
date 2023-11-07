@@ -18,6 +18,7 @@ class Auth extends Common{
     public $last_login;
     public $token;
     public $expDate;
+    public $auth_token ;
 
 
     public function emailExists(){
@@ -85,6 +86,23 @@ class Auth extends Common{
             return false;
         }
 
+    }
+
+    public function checkCookie(){
+        $query="SELECT * FROM ".$this->table."
+        WHERE id = :id AND auth_token = :auth_token";
+        
+
+        $stmt=$this->conn->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':auth_token', $this->auth_token);
+        
+        $stmt->execute();
+
+        $num = $stmt->rowCount();
+    
+        return $num;
+        
     }
 
 }

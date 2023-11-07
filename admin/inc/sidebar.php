@@ -80,7 +80,7 @@
                       <img src="uploads/avatar/<?=$_SESSION['avatar']?>" alt="Face 1" />
                     </div>
                     <div class="ms-3 name">
-                      <h5 class="font-bold"><?=$_SESSION['username']?></h5>
+                      <h5 class="font-bold"><?=$_SESSION['rolename']?></h5>
                       <h6 class="text-muted mb-0"><a href="core/logout.php"><?=$common_logout?></a></h6>
                     </div>
                   </div>
@@ -135,7 +135,7 @@
                     } 
                   }
 
-                  if($role_id==1 || in_array($row['id'],$sectionOk)){
+                  if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
               ?>
               <li class="sidebar-item <?=$active?> <?=$hasSub?>">
                 <a href="index.php<?=$link?>" class="sidebar-link">

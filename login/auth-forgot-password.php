@@ -1,61 +1,9 @@
 <?php
 
 require "inc/header.php" ;
-$op=filter_input(INPUT_GET,"op");
-
-$plugin->pluginname = "use_recaptcha" ;
-$mng = "mngPass";
-
-if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-    $mng = "mngPassRecap";
-}
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=$forgot_titlebar?> - damares</title>
-    <link rel="stylesheet" href="../admin/assets/css/main/app.css">
-    <link rel="stylesheet" href="../admin/assets/css/pages/auth.css">
-    <link rel="stylesheet" href="../admin/assets/css/custom.css">
-    <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="../admin/assets/images/logo/favicon.ico" type="image/png">
-
-        <!--
-    ##############    Damares    ###############
-    #                                          #
-    #    A backend project by DM WebLab        #
-    #   Website: https://www.dmweblab.com      #
-    #   GitHub: https://github.com/damares86   #
-    #                                          #
-    ############################################
-    -->
-    
-</head>
-
-<body>
-    <div id="auth">
-        
-<div class="row h-100">
-    <div class="col-lg-5 col-12">
-        <div id="auth-left">
-            <div class="auth-logo">
-                <a href="../index.php"><img src="../admin/assets/images/logo/damares_logo.png" alt="Logo"></a>
-            </div>
-            <?php
-
-
-                // require of all alert files
-                $alert=glob("../admin/inc/alert/*.php", GLOB_BRACE);
-
-                foreach($alert as $row){
-                    require "$row";
-                }
-
+<?php
                 if($op==""){
             ?>
             <h1 class="auth-title"><?=$forgot_title?></h1>
@@ -76,9 +24,9 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                 <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=$forgot_button?></button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
-                <p class='text-gray-600'><?=$forgot_back?> <a href="auth-login.php" class="font-bold"><?=$login_title?></a>.
+                <p class='text-gray-600'><a href="auth-login.php" class="font-bold"><-- <?=$login_title?></a>
                 </p>
-            </div>
+            </div> 
            
             <?php
             }else if($op=="reset"){
@@ -149,11 +97,11 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         </div>
     </div>
     <div class="col-lg-7 d-none d-lg-block">
-        <div id="auth-right">
-
-            <img src="img/visual.jpg">
+          <div id="auth-right">
+            &nbsp;
+            <!-- <img src="img/visual.jpg" class="h-100"> -->
+          </div>
         </div>
-    </div>
 </div>
     <?php
         require "inc/footer.php" ;

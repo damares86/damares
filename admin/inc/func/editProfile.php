@@ -121,7 +121,7 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
                         <div class="col-md-3">
                             <label><?=$account_add_avatar?></label>
                         </div>
-                        <div class="col-md-2 text-center">
+                        <div class="col-md-2 mb-2 text-center">
                             <div class="avatar avatar-lg me-3">
                                 <img src="uploads/avatar/<?=$avatar?>" alt="" srcset="">
                             </div>
@@ -150,7 +150,7 @@ $stmt1 = $account->showAllWhere('id',['id']) ;
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
                             >
-                            <?=$common_submit?>
+                            <?=$common_update?>
                             </button>
                         </div>
                         </div>

@@ -1,5 +1,4 @@
 <?php
-require "inc/funcHeader.php";
 
 $allroles = $role->showAll('id');
 
@@ -10,7 +9,29 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 }
 
 ?>
-
+<div class="page-title">
+  <div class="row">
+    <div class="col-12 col-md-6 order-md-1 order-last">
+      <h3><?=$role_all_header ?></h3>
+    </div>
+    <div class="col-12 col-md-6 order-md-2 order-first">
+      <nav
+        aria-label="breadcrumb"
+        class="breadcrumb-header float-start float-lg-end"
+      >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.php"><?=$common_dashboard?></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <?=$role_all_header ?>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
 
 
 <!-- Basic Tables start -->
@@ -42,7 +63,13 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         <?php
         while($row = $allroles->fetch(PDO::FETCH_ASSOC)){
           extract($row);
-          if($row['id']>1){
+          
+          // hide sections for non root users
+          $exclude_roles = [1,2];
+          if(in_array($row['id'], $exclude_roles)){
+              continue;
+          }
+          
         ?>
           <tr>
             <td><?=$row['rolename']?></td>
@@ -139,7 +166,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 
         <?php
         }
-      }
+      
 
         ?>
 

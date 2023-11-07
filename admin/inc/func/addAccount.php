@@ -1,7 +1,26 @@
-<?php
-require "inc/funcHeader.php";
-
-?>
+<div class="page-title">
+  <div class="row">
+    <div class="col-12 col-md-6 order-md-1 order-last">
+      <h3><?=$account_add_header?></h3>
+    </div>
+    <div class="col-12 col-md-6 order-md-2 order-first">
+      <nav
+        aria-label="breadcrumb"
+        class="breadcrumb-header float-start float-lg-end"
+      >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.php"><?=$common_dashboard?></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <?=$account_add_header?>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<br>
 
 <section class="section">
     <div class="row">
@@ -37,9 +56,9 @@ require "inc/funcHeader.php";
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-md-3">
-                            <label><?= $common_username ?> <span class="text-danger">*</span></label>
+                            <label><?= $common_email ?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -114,8 +133,87 @@ require "inc/funcHeader.php";
                             </div>
                         </div>
 
+                        <?php
+
+                        require "core/accountDetails.php";
+                        foreach($account_details as $item){
+
+                            $label = "account_add_$item";
+                            $item_label=ucfirst($item);
+
+                        ?>
                         <div class="col-md-3">
-                            <label><?=$account_add_avatar?></label>
+                            <label><?=$item_label?> <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <?php                                                              
+                                                $type="text";
+                                                if($item=="birth"){
+                                                    $type="date";
+                                                }
+                                            ?>
+                                            <input
+                                            type="<?=$type?>"
+                                            class="form-control"
+                                            placeholder="<?=$item_label?>"
+                                            name="<?=$item?>"
+                                            data-parsley-required="true"
+
+                                            />
+                                            <?php
+                                            
+                                            ?>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <?php
+
+                        }
+
+                        foreach($account_details_opt as $item){
+
+                            $label = "account_add_$item";
+                            $item_label=ucfirst($item);
+
+                        ?>
+                        <div class="col-md-3">
+                            <label><?=$item?> <?=$account_add_optional?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="position-relative">
+                                    <?php
+                                        $type="text";
+                                        if($item=="birth"){
+                                            $type="date";
+                                        }
+                                    ?>
+                                    <input
+                                    type="<?=$type?>"
+                                    class="form-control"
+                                    placeholder="<?=$item_label?>"
+                                    name="<?=$item?>"
+
+                                    />
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <?php
+
+                        }
+
+                        ?>
+
+                        <div class="col-md-3">
+                            <label><?=$account_add_avatar?> <?=$account_add_optional?></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">

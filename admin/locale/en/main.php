@@ -15,6 +15,8 @@ $common_dashboard = "Dashboard" ;
 $common_logout = "Logout" ;
 $common_link = "Link" ;
 $common_username = "Username" ;
+$common_name = "Name" ;
+$common_surname = "Surname" ;
 $common_email = "Email" ;
 $common_role = "Role" ;
 $common_lastLogin = "Last Login" ;
@@ -24,11 +26,11 @@ $common_modal_title_sure = "Are you sure?" ;
 $common_modal_confirm = "Confirm" ;
 $common_modal_cancel = "Cancel" ;
 $common_submit = "Submit" ;
+$common_update = "Update" ;
 $common_reset = "Reset" ;
 $common_info = "Info" ;
 $common_rolename = "Rolename" ;
 $common_section_auth = "Section authorized" ;
-$common_redirect = "Redirect" ;
 $common_number_user = "Number of users" ;
 
 
@@ -37,7 +39,7 @@ $common_number_user = "Number of users" ;
 $welcome_title = "Welcome" ;
 $welcome_desc1 = "Welcome to your <b>damares</b> Admin Dashboard.<br>
 Here you have some information and quick links to manage your backend.<br>
-You have the <b>damares</b> core manual or the manuals of every module installed linked in this page.<br><br>
+You have the <b>damares</b> core manual and the manuals of every module installed linked in this page.<br><br>
 If you need some help, please " ;
 $welcome_desc2 = "contact us" ;
 $manuals_title = "Manuals" ;
@@ -46,18 +48,28 @@ $last_login_title = "Last logged users" ;
 
 //////  ACCOUNT  //////
 
+$account_add_header = "Add account" ;
+$account_all_header = "All accounts" ;
 $account_all_title = "All the accounts registered" ;
 $account_all_add = "Add new account" ;
 $account_all_modal_body = "If you confirm, you will completely delete this account." ;
 $account_add_title = "Complete the information for the new account" ;
-$account_add_avatar = "Avatar (optional)" ;
+$account_add_avatar = "Avatar" ;
+$account_add_optional = "(optional)" ;
 $account_edit_header = "Edit Account" ;
 $account_edit_title = "Edit the information for the account" ;
 $account_edit_password = "Edit the password for this account" ;
+// optional fields
+$account_add_name = "Name"; 
+$account_add_surname = "Surname"; 
+$account_add_birth = "Birth date"; 
+$account_add_phone = "Phone number"; 
+
 
 
 //////  ROLE  //////
 
+$role_all_header = "All the roles" ;
 $role_all_title = "All the roles" ;
 $role_all_add = "Add new role" ;
 $role_all_modal_body = "If you confirm, you will completely delete this role." ;
@@ -69,6 +81,7 @@ $role_edit_title = "Edit the information for" ;
 
 //////  FILE  //////
 
+$file_all_header = "All files" ;
 $file_all_title = "All files" ;
 $file_all_add = "Add new file" ;
 $file_all_modal_body = "If you confirm, you will completely delete this file." ;
@@ -127,7 +140,7 @@ $err_passNoMod = "Password not modified" ;
 $err_noAvatarUpload = "Avatar image not uploaded" ;
 $err_accountRoleNoEdit = "Account role not modified" ;
 $err_accountNoEdit = "Account not modified" ;
-$err_accountExist = "Account already exist" ;
+$err_accountExist = "Account email already exist" ;
 $err_accountFail = "Account not created" ;
 $err_roleNoDel = "Role not deleted" ;
 $err_roleNoEdit = "Role not modified" ;
