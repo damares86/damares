@@ -33,15 +33,16 @@ $operation = filter_input(INPUT_POST,"operation") ;
 // check if there's a customer to edit or add
 
 if($operation=="edit"){
+
+        $id = filter_input(INPUT_POST,"idToMod") ;
         
         $customer->id = $id ;
         $stmt = $customer->showAllWhere('id',['id']);
-       
-        
+               
         $customer->name = filter_input(INPUT_POST,"name") ;
         $customer->surname = filter_input(INPUT_POST,"surname") ;
 
-        require "customerDetails.php";
+        require "customersDetails.php";
 
         $details_arr = [] ;
         $details_opt_arr = [] ;
@@ -64,7 +65,7 @@ if($operation=="edit"){
             $customer->details_opt = $details_opt_str ;
         }
 
-        if($account->update(['name','surname','details','details_opt'],'id')){
+        if($customer->update(['name','surname','details','details_opt'],'id')){
 
 			header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=customerEdit");
 			exit; 
@@ -86,7 +87,7 @@ if($operation=="edit"){
         exit;
     }else{
 
-        require "customerDetails.php";
+        require "customersDetails.php";
 
         $details_arr = [] ;
         $details_opt_arr = [] ;

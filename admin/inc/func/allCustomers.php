@@ -50,8 +50,8 @@ $stmt = $customer->showAll('id');
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         ?>
           <tr <?=$class?>>
-            <td><?=$row['name']?></td>
             <td><?=$row['surname']?></td>
+            <td><?=$row['name']?></td>
             <td>
               <a href="index.php?p=editCustomer&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
@@ -106,7 +106,7 @@ $stmt = $customer->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngCustomer.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngCustomers.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >

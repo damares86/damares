@@ -12,44 +12,45 @@
 
 $label_customers="Clienti" ;
 $label_all_customers = "Tutti i clienti" ;
-$label_add_a_customers = "Aggiungi un cliente" ;
+$label_add_a_customer = "Aggiungi un cliente" ;
 
 
 // add 
 
+$customer_add_header = "Aggiungi un cliente" ;
+$customer_add_title = "Aggiungi cliente" ;
+$customer_add_name_ph = "Nome del cliente" ;
+$customer_add_surname_ph = "Cognome del cliente" ;
+$customer_add_optional = "Opzionale" ;
 
 // edit
+
+$customer_edit_header = "Modifica un cliente" ;
+$customer_edit_title = "Modifica cliente" ;
 
 
 // all
 
+$customer_all_header = "Tutti i clienti" ;
+$customer_all_title = "Tutti i clienti" ;
+$customer_all_add = "Aggiungi un cliente" ;
+$customer_all_surname_table = "Cognome" ;
+$customer_all_name_table = "Nome" ;
+$customer_all_modal_body = "Se confermi, cancellerai definitivamente questo cliente." ;
 
 
 // msg
 
-$msg_speakerDel = "Relatore cancellato correttamente" ;
-$msg_speakerEdit = "Relatore modificato correttamente" ;
-$msg_speakerSucc = "Relatore creato correttamente" ;
-$msg_relDelSucc = "Sessione cancellata correttamente" ;
-$msg_relSucc = "Sessione creata correttamente" ;
-$msg_relEditSucc = "Sessione modificata correttamente" ;
-$msg_activeSucc = "Sessione modificata" ;
-
+$msg_customerDel = "Cliente cancellato correttamente" ;
+$msg_customerEdit = "Cliente modificato correttamente" ;
+$msg_customerSucc = "Cliente creato correttamente" ;
 
 
 // err
 
-$err_speakerNoDel = "Relatore non eliminato" ;
-$err_speakerExist = "Il relatore inserito esiste già" ;
-$err_speakerNoEdit = "Relatore non modificato" ;
-$err_speakerFail = "Relatore non creato" ;
-$err_relNotDel = "Sessione non eliminata" ;
-$err_relFileNotDel = "File di relazione non eliminato" ;
-$err_fileDelTable = "File eliminato, ma alcuni dati sono rimasti" ;
-$err_relErr = "Sessione non creata" ;
-$err_relEditErr = "Sessione non modificata" ;
-$err_activeErr = "Sessione non modificata" ;
-
-
+$err_customerNoDel = "Cliente non eliminato" ;
+$err_customerExist = "Il cliente inserito esiste già" ;
+$err_customerNoEdit = "Cliente non modificato" ;
+$err_customerFail = "Cliente non creato" ;
 
 ?>

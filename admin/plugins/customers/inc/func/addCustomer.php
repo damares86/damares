@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$speakers_add_header?></h3>
+      <h3><?=$customer_add_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$speakers_add_header?>
+            <?=$customer_add_header?>
           </li>
         </ol>
       </nav>
@@ -27,11 +27,11 @@
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title"><?=$speakers_add_title?></h4>
+                <h4 class="card-title"><?=$customer_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngSpeakers.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngCustomers.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
@@ -44,7 +44,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$speakers_add_name_ph?>"
+                                        placeholder="<?=$customer_add_name_ph?>"
                                         id="first-name"
                                         name="name"
                                         data-parsley-required="true"
@@ -59,34 +59,18 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$speakers_all_avatar?> <?=$account_add_optional?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                    <div class="position-relative">
-                                    <input
-                                    class="form-control"
-                                    type="file"
-                                    id="formFile"
-                                    name="avatar"
-                                />
-                            </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label><?=$speakers_add_desc?> <span class="text-danger">*</span></label>
+                            <label><?=$common_surname?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
-                                        type="textarea"
+                                        type="text"
                                         class="form-control"
-                                        placeholder="<?=$speakers_add_desc_ph?>"
-                                        id="default"
-                                        name="description"
+                                        placeholder="<?=$customer_add_surname_ph?>"
+                                        id="surname"
+                                        name="surname"
                                         data-parsley-required="true"
 
                                         />
@@ -97,12 +81,11 @@
                                 </div>
                             </div>
                         </div>
-                      
 
                         <?php
 
-                        require "core/speakersDetails.php";
-                        foreach($speakers_details as $item){
+                        require "core/customersDetails.php";
+                        foreach($customers_details as $item){
 
                             $label = "account_add_$item";
 
@@ -138,13 +121,13 @@
 
                         }
 
-                        foreach($speakers_details_opt as $item){
+                        foreach($customers_details_opt as $item){
 
                             $label = "account_add_$item";
 
                         ?>
                         <div class="col-md-3">
-                            <label><?=$$label?> <?=$account_add_optional?></label>
+                            <label><?=$$label?> <?=$customer_add_optional?></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -175,7 +158,7 @@
 
                         
                         <input type="hidden" name="operation" value="add">
-                        <input type="hidden" name="origin" value="addSpeaker">
+                        <input type="hidden" name="origin" value="addCustomer">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

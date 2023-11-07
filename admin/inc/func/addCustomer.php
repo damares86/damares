@@ -68,7 +68,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$customer_add_name_ph?>"
+                                        placeholder="<?=$customer_add_surname_ph?>"
                                         id="surname"
                                         name="surname"
                                         data-parsley-required="true"
@@ -85,7 +85,7 @@
                         <?php
 
                         require "core/customersDetails.php";
-                        foreach($customer_details as $item){
+                        foreach($customers_details as $item){
 
                             $label = "account_add_$item";
 
@@ -121,7 +121,7 @@
 
                         }
 
-                        foreach($customer_details_opt as $item){
+                        foreach($customers_details_opt as $item){
 
                             $label = "account_add_$item";
 

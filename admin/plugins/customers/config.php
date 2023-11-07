@@ -23,7 +23,7 @@ $parent_table=[['link'=>'customers',
 
 $child_table=[['link'=>'allCustomers',
                 'label'=>'All Customers',
-                'icon'=>'people-file'],
+                'icon'=>'people-fill'],
                 ['link'=>'addCustomer',
                 'label'=>'Add a customer',
                 'icon'=>'person-plus-fill']

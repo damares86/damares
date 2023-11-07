@@ -18,6 +18,10 @@ $details_opt="";
         $details=unserialize($row1['details']);
         $details_opt=unserialize($row1['details_opt']);
 
+        print_r($details);
+        echo "<br>";
+        print_r($details_opt);
+
     }
 
 
@@ -93,7 +97,7 @@ $details_opt="";
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$customer_add_name_ph?>"
+                                        placeholder="<?=$customer_add_surname_ph?>"
                                         id="surname"
                                         name="surname"
                                         data-parsley-required="true"
@@ -112,7 +116,7 @@ $details_opt="";
                         require "core/customersDetails.php";
 
                         $counter=0;
-                        foreach($customer_details as $item){
+                        foreach($customers_details as $item){
 
                             $label = "customer_add_$item";
                             $item_label=ucfirst($item);
@@ -154,7 +158,7 @@ $details_opt="";
                         }
 
                         $counter=0;
-                        foreach($customer_details_opt as $item){
+                        foreach($customers_details_opt as $item){
 
                             $label = "customer_add_$item";
                             $item_label=ucfirst($item);
@@ -196,6 +200,7 @@ $details_opt="";
                         ?>
 
                         
+                        <input type="hidden" name="idToMod" value="<?=$id?>">
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="origin" value="editCustomer">
                       
