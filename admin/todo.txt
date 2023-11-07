@@ -4,11 +4,6 @@
 
 - filtri di ricerca sulle tabelle
 
-
-## CUSTOMER
-- aggiungere gestione customer, separata da account, ma con la logica dei details e details_opt
-
-
 ## CALENDARIO
 - vista calendario con pratiche
 - pallini/riquadri cliccabili con modale di dettaglio delle pratiche
