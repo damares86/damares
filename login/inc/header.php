@@ -144,5 +144,5 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
             <?php
 
             // require of all alert files
-            require "../inc/alert.php";
+            require "inc/alert.php";
             ?>
