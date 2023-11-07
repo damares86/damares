@@ -32,6 +32,7 @@ $common_logout = "Logout" ;
 $common_link = "Link" ;
 $common_username = "Username" ;
 $common_name = "Nome" ;
+$common_surname = "Cognome" ;
 $common_email = "Email" ;
 $common_role = "Ruolo" ;
 $common_lastLogin = "Ultimo Login" ;

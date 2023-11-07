@@ -16,6 +16,7 @@ $common_logout = "Logout" ;
 $common_link = "Link" ;
 $common_username = "Username" ;
 $common_name = "Name" ;
+$common_surname = "Surname" ;
 $common_email = "Email" ;
 $common_role = "Role" ;
 $common_lastLogin = "Last Login" ;

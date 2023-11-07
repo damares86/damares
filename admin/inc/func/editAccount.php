@@ -31,39 +31,41 @@ $stmt1 = $account->showAllWhere('id',['id']);
   </div>
 </div>
 <br>
+
 <?php
-                  $id="";
-                  $username="";
-                  $email="";
-                  $avatar="";
-                  $roleId="";
-                  $details="";
-                  $details_opt="";
+    $id="";
+    $username="";
+    $email="";
+    $avatar="";
+    $roleId="";
+    $details="";
+    $details_opt="";
 
-                      while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
-                        extract($row1);
-                        
-                          $id=$row1['id'];
-                          $username=$row1['username'];
-                          $email=$row1['email'];
-                          $avatar=$row1['avatar'];
-                          $details=unserialize($row1['details']);
-                          $details_opt=unserialize($row1['details_opt']);
+        while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
+        extract($row1);
+        
+            $id=$row1['id'];
+            $username=$row1['username'];
+            $email=$row1['email'];
+            $avatar=$row1['avatar'];
+            $details=unserialize($row1['details']);
+            $details_opt=unserialize($row1['details_opt']);
 
-      
-                                  if(!$avatar){
-                                      $avatar = "default.png" ;
-                                  }
-      
-                                  $accountroles->account_id = $row1['id'];
-                                  $stmt2 = $accountroles->showAllWhere('id',['account_id']);
-      
-                                  while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-                                      $roleId = $row2['role_id'] ;
-                                  }
-                              }
 
-                          ?>
+            if(!$avatar){
+                $avatar = "default.png" ;
+            }
+
+            $accountroles->account_id = $row1['id'];
+            $stmt2 = $accountroles->showAllWhere('id',['account_id']);
+
+            while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+                $roleId = $row2['role_id'] ;
+            }
+        }
+
+?>
+
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
@@ -183,20 +185,6 @@ $stmt1 = $account->showAllWhere('id',['id']);
                                     <div class="form-check mandatory">
                                         <div class="position-relative">
                                         <?php
-                                            if($item=="qualifica"){
-                                            ?>
-                                        <div class="form-check px-4">
-                                            <input class="form-check-input form-check-success" type="radio" name="<?=$item?>" 
-                                                checked>
-                                            <label class="form-check-label" for="successRadio">Strutturato</label>
-                                        </div>
-                                        <div class="form-check px-4">
-                                            <input class="form-check-input form-check-success" type="radio" name="<?=$item?>"
-                                                >
-                                            <label class="form-check-label" for="successRadio">Specializzando</label>
-                                        </div>
-                                            <?php    
-                                            }else{
                             
                                                 $type="text";
                                                 if($item=="birth"){
@@ -212,9 +200,6 @@ $stmt1 = $account->showAllWhere('id',['id']);
                                             value="<?=$value?>"
 
                                             />
-                                            <?php
-                                            }
-                                            ?>
 
                                         </div>
                                     </div>

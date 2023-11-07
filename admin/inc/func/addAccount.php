@@ -149,22 +149,7 @@
                             <div class="form-group">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
-                                        <?php
-                                            if($item=="qualifica"){
-                                            ?>
-                                        <div class="form-check px-4">
-                                            <input class="form-check-input form-check-success" type="radio" name="<?=$item?>" 
-                                                checked>
-                                            <label class="form-check-label" for="successRadio">Strutturato</label>
-                                        </div>
-                                        <div class="form-check px-4">
-                                            <input class="form-check-input form-check-success" type="radio" name="<?=$item?>"
-                                                >
-                                            <label class="form-check-label" for="successRadio">Specializzando</label>
-                                        </div>
-                                            <?php    
-                                            }else{
-                            
+                                        <?php                                                              
                                                 $type="text";
                                                 if($item=="birth"){
                                                     $type="date";
@@ -179,7 +164,7 @@
 
                                             />
                                             <?php
-                                            }
+                                            
                                             ?>
 
                                     </div>
@@ -194,6 +179,7 @@
                         foreach($account_details_opt as $item){
 
                             $label = "account_add_$item";
+                            $item_label=ucfirst($item);
 
                         ?>
                         <div class="col-md-3">
@@ -211,7 +197,7 @@
                                     <input
                                     type="<?=$type?>"
                                     class="form-control"
-                                    placeholder="<?=$item?>"
+                                    placeholder="<?=$item_label?>"
                                     name="<?=$item?>"
 
                                     />

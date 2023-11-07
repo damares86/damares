@@ -76,114 +76,50 @@ if($operation=="edit"){
 		
         }
 
-		// TODO add customer
 }else if($operation == "add"){
 
-    $auth->email = filter_input(INPUT_POST,"email");
+    $customer->name = filter_input(INPUT_POST,"name");
+    $customer->surname = filter_input(INPUT_POST,"surname");
 
-    if($auth->emailExists()){
-        header("Location: ../index.php?p=addAccount&err=accountExist");
+    if($customer->customerExists()){
+        header("Location: ../index.php?p=addCustomer&err=customerExist");
         exit;
     }else{
 
-        $account->username = filter_input(INPUT_POST,"username") ;
-        $account->email = filter_input(INPUT_POST,"email") ;
-        
-        // hash password
-        $password=filter_input(INPUT_POST,"password");
-        $password_hash = password_hash($password, PASSWORD_BCRYPT);
-        $account->password = $password_hash ;
-
-        require "accountDetails.php";
+        require "customerDetails.php";
 
         $details_arr = [] ;
         $details_opt_arr = [] ;
 
-        foreach($account_details as $item){
+        foreach($customer_details as $item){
             $details_arr[] = array("$item" => "".$_POST[$item]."");
         }
 
         $details_str = serialize($details_arr);
-        $account->details = $details_str;
+        $customer->details = $details_str;
 
-        foreach($account_details_opt as $item){
+        foreach($customer_details_opt as $item){
             $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
         }
         $details_opt_str = serialize($details_opt_arr);
-        $account->details_opt = $details_opt_str ;
+        $customer->details_opt = $details_opt_str ;
 
-        // upload avatar
-        $errUpload = "";
-        $file->operation = filter_input(INPUT_POST,"operation") ;
-        
-        if($_FILES['avatar']['size'] > 0){
-            
-            // set data for file uploading
-            $file->filename = $_FILES['avatar']['name'] ;
-            $file->inputFileName = $_FILES['avatar']['tmp_name'] ;
-            $file->label = 'avatar_'.rand(10,100) ;
-            $file->path = "../uploads/avatar/" ;
-            $file->origin = filter_input(INPUT_POST,"origin");
+        if($customer->insert(['name','surname','details','details_opt'])){
 
-            if($file->uploadFile()){
-                $account->avatar = $_FILES['avatar']['name'] ;
-            }else{
-                $errUpload = "&err=noAvatarUpload" ;
-                $account->avatar = "default.png" ;
-            }
-        }else{
-            $account->avatar = "default.png" ;
-        }
-
-        if($account->insert(['username','email','password','avatar','details','details_opt'])){
-
-            $accountroles->role_id = filter_input(INPUT_POST,"role") ;
-            $insertedId = "" ;
-            $account->email = filter_input(INPUT_POST,"email") ;
-            
-            $stmt= $account->showAllWhere('id',['email']);
-            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                extract($row);
-                $insertedId = $row['id'];
-            }
-
-            $accountroles->account_id = $insertedId ;
-
-            // success, insert the role in accountsRoles table
-            if($accountroles->insert(['account_id','role_id'])){
-                
-                //success
-                header("Location: ../index.php?p=allAccounts&msg=accountSucc$errUpload");
-                exit;
-
-            }else{
-
-                // failed, delete the user inserted
-           
-                if(!$errUpload){
-                    unlink("../uploads/avatar/".$_FILES['avatar']['name']."");
-                }               
-                header("Location: ../index.php?p=allAccounts&err=accountFail");
-                exit;
-            }
-
+            //success
+            header("Location: ../index.php?p=allCustomers&msg=customerSucc");
+            exit;
 
         }else{
 
-            // error, removing avatar if uploaded
-            if(!$errUpload){
-                unlink("../uploads/avatar/".$_FILES['avatar']['name']."");
-            }
-            header("Location: ../index.php?p=allAccounts&err=accountFail");
+            // fail
+            header("Location: ../index.php?p=allCustomers&err=customerFail");
             exit;
         }
 
     }
 
-
-
-
 }else{
-    header("Location: ../index.php?p=allAccounts&err=noPost");
+    header("Location: ../index.php?p=allCustomers&err=noPost");
     exit;
 }
