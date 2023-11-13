@@ -46,8 +46,9 @@ if(filter_input(INPUT_POST,"new")){
 if($_FILES["zip_file"]["name"]) {
   $filename = $_FILES["zip_file"]["name"];
   $source = $_FILES["zip_file"]["tmp_name"];
-    $type = $_FILES["zip_file"]["type"];
-    
+  $type = $_FILES["zip_file"]["type"];
+  
+
     $name = explode(".", $filename);
     $accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
     foreach($accepted_types as $mime_type) {
@@ -70,9 +71,10 @@ if($_FILES["zip_file"]["name"]) {
         }
 
         $target_path = "../plugins/".$filename;  // change this to the correct site path
-      if(move_uploaded_file($source, $target_path)) {
-        $zip = new ZipArchive();
-        $x = $zip->open($target_path);
+        if(move_uploaded_file($source, $target_path)) {
+          $zip = new ZipArchive();
+          $x = $zip->open($target_path);
+
         $folder="../plugins/";
         if ($x === true) {
           $zip->extractTo($folder); // change this to the correct site path
@@ -82,8 +84,19 @@ if($_FILES["zip_file"]["name"]) {
 
             unlink($target_path);
         }
-        header("Location: ../index.php?p=allPlugins&msg=pluginUploadSucc");
-        exit;
+
+        require "../plugins/$name[0]/config.php";
+
+        $plugin->pluginname = $link_parent ;
+        $plugin->description = $description ;
+
+        if($plugin->insert(['pluginname','description'])){
+          header("Location: ../index.php?p=allPlugins&msg=pluginUploadSucc");
+          exit;
+        }else{
+          header("Location: ../index.php?p=allPlugins&err=pluginDbErr");
+          exit;   
+        }
     } else {	
         header("Location: ../index.php?p=allPlugins&err=pluginUploadErr");
         exit;
@@ -105,6 +118,7 @@ $exclude = array('..', '.','alert','func','.gitkeep');
 
 
 if($op=="add"){
+
 
   
   // create table
@@ -152,7 +166,7 @@ if($op=="add"){
   if(!$db->query("UPDATE ".$prefix."plugins 
     SET 
     installed = 1,
-    active = 1 WHERE pluginname = '$pluginname'")){
+    active = 1 WHERE pluginname = '".$row['link']."'")){
     $error++ ;
   }
 
@@ -293,6 +307,13 @@ if($op=="add"){
 } else if($op == "dis"){
 
   $error = 0 ;
+
+  $pluginId = filter_input(INPUT_GET,'idPlugin');
+  $plugin->id = $pluginId ;
+  $stmt = $plugin-> showAllWhere('id',['id']);
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  extract($row);
+  $pluginname = $row['pluginname'];
 
   if(!$db->query("UPDATE ".$prefix."plugins SET active = 0 WHERE pluginname = '$pluginname'")){
     $error++;

@@ -169,6 +169,7 @@ $err_fileFail = "File non caricato" ;
 $err_fileErr = "Errore con il file" ;
 $err_pluginUploadFormatErr = "File danneggiato o formato file errato" ;
 $err_pluginUploadErr = "Modulo non caricato" ;
+$err_pluginDbErr = "Modulo non aggiunto al db" ;
 $err_pluginAddErr = "Modulo non aggiunto e attivato" ;
 $err_pluginDisErr = "Modulo non disattivato" ;
 $err_pluginRmErr = "Modulo non rimosso" ;

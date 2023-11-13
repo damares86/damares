@@ -154,6 +154,7 @@ $err_fileFail = "File not uploaded" ;
 $err_fileErr = "Error with the file" ;
 $err_pluginUploadFormatErr = "Damaged file or invalid file format" ;
 $err_pluginUploadErr = "Module not uploaded" ;
+$err_pluginDbErr = "Modulo not added to db" ;
 $err_pluginAddErr = "Module not added and enabled" ;
 $err_pluginDisErr = "Module not disabled" ;
 $err_pluginRmErr = "Module not removed" ;
