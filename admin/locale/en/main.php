@@ -130,6 +130,7 @@ $msg_pluginAdd = "Module added and activated" ;
 $msg_pluginDis = "Module disabled" ;
 $msg_pluginRm = "Module removed" ;
 $msg_settingUpdate = "Settings updated" ;
+$msg_debugUpdate = "Debug activated" ;
 
 
 
@@ -159,3 +160,4 @@ $err_pluginAddErr = "Module not added and enabled" ;
 $err_pluginDisErr = "Module not disabled" ;
 $err_pluginRmErr = "Module not removed" ;
 $err_settingUpdateErr = "Settings not updated" ;
+$err_debugUpdateErr = "Debug not activated" ;

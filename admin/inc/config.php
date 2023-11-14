@@ -37,6 +37,19 @@ chmod('inc/class_initialize.php',0777);
 
 include "inc/class_initialize.php";
 
+$setting->name = "debug" ;
+$dbg = $setting->showAllWhere('id',['name']);
+$row = $dbg->fetch(PDO::FETCH_ASSOC);
+extract($row);
+
+if($row['value']==1){
+	require 'vendor/autoload.php';		// If installed via composer
+	$debug = new \bdk\Debug(array(
+		'collect' => true,
+		'output' => true,
+	));
+}
+
 // get the p from url if exists
 if(filter_input(INPUT_GET,"p")){
     $page = filter_input(INPUT_GET,"p");

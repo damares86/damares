@@ -145,7 +145,7 @@ $msg_pluginAdd = "Modulo aggiunto e attivato" ;
 $msg_pluginDis = "Modulo disattivato" ;
 $msg_pluginRm = "Modulo eliminato" ;
 $msg_settingUpdate = "Impostazioni modificate" ;
-
+$msg_debugUpdate = "Debug attivato" ;
 
 
 //////  MAIN ERR ALERT  //////
@@ -174,3 +174,4 @@ $err_pluginAddErr = "Modulo non aggiunto e attivato" ;
 $err_pluginDisErr = "Modulo non disattivato" ;
 $err_pluginRmErr = "Modulo non rimosso" ;
 $err_settingUpdateErr = "Impostazioni non modificate" ;
+$err_debugUpdateErr = "Debug non attivato" ;

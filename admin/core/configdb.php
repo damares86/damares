@@ -257,7 +257,11 @@ $db->query("INSERT INTO ".$prefix."settings
     
 $db->query("INSERT INTO ".$prefix."settings
                             (id, name,value)
-                            VALUES ('3','license','none')");                        
+                            VALUES ('3','license','none')");                 
+
+$db->query("INSERT INTO ".$prefix."settings
+                            (id, name,value)
+                            VALUES ('4','debug','0')");         
 
 // insert the section for the sidebar / home link management
 
@@ -299,7 +303,11 @@ $db->query("INSERT INTO ".$prefix."sectionChild
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('4','allPlugins','Modules','plus-circle-fill')");
+                            VALUES ('4','damares','Damares','dice-6-fill')");
+
+$db->query("INSERT INTO ".$prefix."sectionParent
+                            (id, link,label,icon)
+                            VALUES ('5','allPlugins','Modules','plus-circle-fill')");
 
 ///////////////////////////////////////////////////////////////
 
@@ -325,15 +333,19 @@ $db->query("INSERT INTO ".$prefix."rolesSection
 
 $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
-                            VALUES ('5','1','2')");
-           
-$db->query("INSERT INTO ".$prefix."rolesSection
-                            (id, section_id,role_id)
-                            VALUES ('6','2','2')");      
+                            VALUES ('5','5','1')"); 
 
 $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
-                            VALUES ('7','3','2')");
+                            VALUES ('6','1','2')");
+           
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('7','2','2')");      
+
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('8','3','2')");
 
 // homepage blocks                            
 

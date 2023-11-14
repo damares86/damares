@@ -1,9 +1,5 @@
 <?php
-require '../vendor/autoload.php';		// If installed via composer
-$debug = new \bdk\Debug(array(
-	'collect' => true,
-	'output' => true,
-));
+
 
 session_start();
 
@@ -23,3 +19,15 @@ $db = $database->getConnection();
 
 include "../inc/class_initialize.php";
 
+$setting->name = "debug" ;
+$dbg = $setting->showAllWhere('id',['name']);
+$row = $dbg->fetch(PDO::FETCH_ASSOC);
+extract($row);
+
+if($row['value']==1){
+	require '../vendor/autoload.php';		// If installed via composer
+	$debug = new \bdk\Debug(array(
+		'collect' => true,
+		'output' => true,
+	));
+}
