@@ -1,9 +1,5 @@
 <?php
-	// require '../vendor/autoload.php';		// If installed via composer
-	// $debug = new \bdk\Debug(array(
-	// 	'collect' => true,
-	// 	'output' => true,
-	// ));
+
 // check if database is configured
 
 if(!is_file('class/Database.php')){
