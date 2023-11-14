@@ -387,10 +387,13 @@ if($parent_table){
 }
 
 
-if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pluginname = '$pluginname'")){
+$plugin->id = filter_input(INPUT_GET,'idPlugin');
+$plugin->installed = 0 ;
+$plugin->active = 0 ;
+
+if(!$plugin->update(['installed','active'],'id')){
   $error++;
 }
-
 
     // DELETE ALL FILES
 
