@@ -355,7 +355,6 @@ if($op=="add"){
 }else if($op=="rm"){
                 
 // REMOVE
-
 $error=0;
 if($query_drop_table){
   if(!$db->query($query_drop_table)){
@@ -371,7 +370,7 @@ if($child_table){
     if(!$section->deleteByLink("sectionChild")){
       $error++;
     }
-
+    
   }
   
 }
@@ -379,7 +378,7 @@ if($child_table){
 if($parent_table){
   for($i=0;$i<count($parent_table);$i++){
     $section->link=$parent_table[$i]['link'];
-
+    
     if(!$section->deleteByLink("sectionParent")){
       $error++;
     }
@@ -391,6 +390,7 @@ if($parent_table){
 if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pluginname = '$pluginname'")){
   $error++;
 }
+
 
     // DELETE ALL FILES
 
@@ -497,7 +497,7 @@ if(!$db->query("UPDATE ".$prefix."plugins SET installed = 0, active = 0 WHERE pl
 
 
   unlink("../inc/class_initialize.php") ;
-
+  
   if($error==0){
     header("Location: ../index.php?p=allPlugins&msg=pluginRm");
     exit;
