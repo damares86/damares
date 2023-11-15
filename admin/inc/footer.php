@@ -1,11 +1,11 @@
 <footer>
           <div class="footer clearfix mb-0 text-muted">
-            <!-- <div class="float-start">
-              <p>2021 &copy; Mazer</p>
-            </div> -->
+            <?php
+            require 'inc/version.php';
+            ?>
             <div class="float-end">
               <p>
-              <img src="assets/images/logo/damares_logo_rid.png" alt="Logo"/> &nbsp; backend developed by 
+              <img src="assets/images/logo/damares_rid.png" alt="Logo"/> &nbsp; <strong>damares v.<?=$version?></strong> - developed by 
                 <a href="http://www.dmweblab.com" target="_blank">
                     <img src="assets/images/logo/dmweblab_logo.png" alt="Logo"/>
                 </a>
