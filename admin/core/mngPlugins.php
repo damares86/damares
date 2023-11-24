@@ -242,6 +242,19 @@ if($op=="add"){
         $error++;
     }
   }
+
+  // copy script files
+  foreach (glob("$path/script/*") as $row) {
+    $item=pathinfo($row);
+
+    if(copy($path.'/script/'.$item['basename'].'', '../script/'.$item['basename'].'')){
+        chmod('../script/'.$item['basename'].'',0777);
+    }else{
+        $error++;
+    }
+  }
+
+  // copy locale files
   $scan = scandir($path.'/locale');
   foreach($scan as $folder) {
      if (is_dir("$path/locale/$folder") && !in_array($folder,$exclude)) {
@@ -453,6 +466,14 @@ if(!$plugin->update(['installed','active'],'id')){
       }
     }
   
+    // remove script files
+    foreach (glob("$path/script/*") as $row) {
+      $item=pathinfo($row);
+  
+      if(!unlink('../script/'.$item['basename'].'')){
+          $error++;
+      }
+    }
 
     // remove manual files
     foreach (glob("$path/manual/*") as $row) {
