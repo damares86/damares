@@ -142,33 +142,32 @@ if($op=="add"){
       
     }
   }
-
-
+  $row = $section->showByLink($link_parent,"sectionParent");
   if($child_table){
     
-    $row = $section->showByLink($link_parent,"sectionParent");
-
+    
     for($i=0;$i<count($child_table);$i++){
       $section->parent_id = $row['id'] ;
       
       $section->link=$child_table[$i]['link'];
       $section->label=$child_table[$i]['label'];
       $section->icon=$child_table[$i]['icon'];
-
+      
       if(!$section->insertChild()){
         $error++;
       }
-
+      
     }
     
   }
   
   if(!$db->query("UPDATE ".$prefix."plugins 
-    SET 
-    installed = 1,
-    active = 1 WHERE pluginname = '".$row['link']."'")){
+  SET 
+  installed = 1,
+  active = 1 WHERE pluginname = '".$row['link']."'")){
     $error++ ;
   }
+  
 
   
   // copy assets files
