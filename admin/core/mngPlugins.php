@@ -142,7 +142,16 @@ if($op=="add"){
       
     }
   }
+
   $row = $section->showByLink($link_parent,"sectionParent");
+
+  $pluginname = '';
+  
+  if($row){
+    $pluginname = $row['link'];    
+  }else{
+    $pluginname = $link_parent ;
+  }
   if($child_table){
     
     
@@ -160,16 +169,14 @@ if($op=="add"){
     }
     
   }
-  
+
   if(!$db->query("UPDATE ".$prefix."plugins 
   SET 
   installed = 1,
-  active = 1 WHERE pluginname = '".$row['link']."'")){
+  active = 1 WHERE pluginname = '".$pluginname."'")){
     $error++ ;
   }
-  
-
-  
+    
   // copy assets files
   foreach (glob("$path/assets/*") as $row) {
     $item=pathinfo($row);
