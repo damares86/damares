@@ -21,6 +21,11 @@ $parent_table=[['link'=>'calendar',
                   'label'=>'Calendar',
                   'icon'=>'calendar-week']];
 
+$child_table=[['link'=>'addCalendarCat',
+            'label'=>'Add an event category',
+            'icon'=>'bookmark-plus']
+            ];
+
 $query_drop_table = "DROP TABLE  ".$prefix."calendar";
 
 ?>
