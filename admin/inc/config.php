@@ -39,10 +39,10 @@ include "inc/class_initialize.php";
 
 $setting->name = "debug" ;
 $dbg = $setting->showAllWhere('id',['name']);
-$row = $dbg->fetch(PDO::FETCH_ASSOC);
-extract($row);
+$row_debug = $dbg->fetch(PDO::FETCH_ASSOC);
+extract($row_debug);
 
-if($row['value']==1){
+if($row_debug['value']==1){
 	require 'vendor/autoload.php';		// If installed via composer
 	$debug = new \bdk\Debug(array(
 		'collect' => true,

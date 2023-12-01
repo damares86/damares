@@ -143,34 +143,40 @@ if($op=="add"){
     }
   }
 
+  $row = $section->showByLink($link_parent,"sectionParent");
 
+  $pluginname = '';
+  
+  if($row){
+    $pluginname = $row['link'];    
+  }else{
+    $pluginname = $link_parent ;
+  }
   if($child_table){
     
-    $row = $section->showByLink($link_parent,"sectionParent");
-
+    
     for($i=0;$i<count($child_table);$i++){
       $section->parent_id = $row['id'] ;
       
       $section->link=$child_table[$i]['link'];
       $section->label=$child_table[$i]['label'];
       $section->icon=$child_table[$i]['icon'];
-
+      
       if(!$section->insertChild()){
         $error++;
       }
-
+      
     }
     
   }
-  
+
   if(!$db->query("UPDATE ".$prefix."plugins 
-    SET 
-    installed = 1,
-    active = 1 WHERE pluginname = '".$row['link']."'")){
+  SET 
+  installed = 1,
+  active = 1 WHERE pluginname = '".$pluginname."'")){
     $error++ ;
   }
-
-  
+    
   // copy assets files
   foreach (glob("$path/assets/*") as $row) {
     $item=pathinfo($row);
@@ -243,6 +249,19 @@ if($op=="add"){
         $error++;
     }
   }
+
+  // copy script files
+  foreach (glob("$path/script/*") as $row) {
+    $item=pathinfo($row);
+
+    if(copy($path.'/script/'.$item['basename'].'', '../script/'.$item['basename'].'')){
+        chmod('../script/'.$item['basename'].'',0777);
+    }else{
+        $error++;
+    }
+  }
+
+  // copy locale files
   $scan = scandir($path.'/locale');
   foreach($scan as $folder) {
      if (is_dir("$path/locale/$folder") && !in_array($folder,$exclude)) {
@@ -454,6 +473,14 @@ if(!$plugin->update(['installed','active'],'id')){
       }
     }
   
+    // remove script files
+    foreach (glob("$path/script/*") as $row) {
+      $item=pathinfo($row);
+  
+      if(!unlink('../script/'.$item['basename'].'')){
+          $error++;
+      }
+    }
 
     // remove manual files
     foreach (glob("$path/manual/*") as $row) {
