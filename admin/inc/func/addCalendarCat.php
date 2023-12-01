@@ -32,6 +32,25 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 </div>
 <br>
 
+<script src="script/jscolor.js"></script>
+
+<script>
+// Here we can adjust defaults for all color pickers on page:
+jscolor.presets.default = {
+    palette: [
+        '#000000', '#7d7d7d', '#870014', '#ec1c23', '#ff7e26', '#fef100', '#22b14b', '#00a1e7', '#3f47cc', '#a349a4',
+        '#ffffff', '#c3c3c3', '#b87957', '#feaec9', '#ffc80d', '#eee3af', '#b5e61d', '#99d9ea', '#7092be', '#c8bfe7',
+    ],
+    //paletteCols: 12,
+    //hideOnPaletteClick: true,
+    //width: 271,
+    //height: 151,
+    //position: 'right',
+    //previewPosition: 'right',
+    //backgroundColor: 'rgba(51,51,51,1)', controlBorderColor: 'rgba(153,153,153,1)', buttonColor: 'rgba(240,240,240,1)',
+}
+</script>
+
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
@@ -72,51 +91,10 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <select
-                                class="choices form-select multiple-remove"
-                                multiple="multiple" name="section[]"
-                                >
-                                <?php
-                                    $stmt = $section->showAllTable('id','sectionParent');
-                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                ?>
-
-                                    <option value="<?=$row['id']?>"><?=$row['label']?></option>
-
-                                <?php
-
-                                    }
-
-                                ?>
-
-                                </select>
+                            <input value="008db1" data-jscolor="{}">
                             </div>
                         </div>
-                    <?php
-                    if($redir){
-                    ?>
-                        <div class="col-md-3">
-                            <label><?=$common_redirect?> </label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group has-icon-left">
-                                <div class="position-relative">
-                                    <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Url"
-                                    id="first-name-icon"
-                                    name="redirect"
-                                    />
-                                    <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                    }
-                    ?>
+                   
                
                         <input type="hidden" name="operation" value="add">
                         <input type="hidden" name="origin" value="addRole">
