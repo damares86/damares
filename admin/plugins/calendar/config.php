@@ -10,18 +10,22 @@ $link_parent = "Calendar" ;
 
 // REMEMBER: add all pages to section tables and also settings pages
 
-$query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."calendar
+$query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."calendar_cat
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      event_id INT(5) NOT NULL,
-      event_title VARCHAR(255) NOT NULL,
-      event_start_date VARCHAR(255) NOT NULL,
-      event_end_date VARCHAR(255) DEFAULT NULL)";
+      cat_name VARCHAR(255) NOT NULL,
+      cat_color VARCHAR(7) DEFAULT '#008db1');
+      INSERT INTO ".$prefix."calendar_cat
+      (id, cat_name, cat_color)
+      VALUES ('1','default','#008db1')";
 
 $parent_table=[['link'=>'calendar',
                   'label'=>'Calendar',
                   'icon'=>'calendar-week']];
 
-$child_table=[['link'=>'addCalendarCat',
+$child_table=[['link'=>'calendar',
+            'label'=>'Show calendar',
+            'icon'=>'calendar3'],
+            ['link'=>'addCalendarCat',
             'label'=>'Add an event category',
             'icon'=>'bookmark-plus']
             ];
