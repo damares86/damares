@@ -2,7 +2,21 @@
 
 $users = $account->showAll('id');
 
+if($export)
+{
+  ?>
+
+  <style>
+    .dataTables_filter {
+    display: none;
+    } 
+  </style>
+
+  <?php
+}
+
 ?>
+
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
@@ -36,6 +50,9 @@ $users = $account->showAll('id');
                         ><i data-feather="plus-circle"></i> <?=$account_all_add?></a
                       ></div>
     <div class="card-body">
+      <div class="row">
+        <div class="export_box col bg-info">Ciao</div>
+      </div>
       <table class="table" id="table1">
         <thead>
           <tr>

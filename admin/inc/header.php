@@ -42,6 +42,14 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
       }
   }
 
+  $export = false ;
+  $plugin->pluginname = "export_xlsx" ;
+  
+  if($plugin->itemExists('pluginname') && $plugin->isActive()==1)
+  {
+    $export = true ;
+  }
+
 }
 
 ?>
