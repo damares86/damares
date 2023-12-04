@@ -42,7 +42,7 @@ if(filter_input(INPUT_GET,"idToDel"))
     }
     else
     {
-        header("Location: ../index.php?p=allCalendars&err=calEevntsExists");
+        header("Location: ../index.php?p=allCalendars&err=calEventsExists");
         exit;  
     }
     
@@ -87,9 +87,6 @@ else if($operation == "edit")
     }
 }
 
-    // mng categories
- 
-    // remove calendar.json and recreate
 
 
 ?>

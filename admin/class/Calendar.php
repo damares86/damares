@@ -29,17 +29,20 @@ class Calendar extends Common{
         foreach($allEvents as $item)
         {
             // check calendar category for color
-            $id_cat = $item['id_calendar_cat'] ?  $item['id_calendar_cat'] : 0 ;
+            $id_cat = $item['id_calendar_cat'] ?  $item['id_calendar_cat'] : 1 ;
+            $stmt = $this->showAllWhere('id',['id']) ;
+            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+            extract($row) ;
             
             // check if isset the url in calendarSettings
             $url = $events['url'] ? ",\n'url' => ".$events['url'].$item['id']."" : '' ;
 
             // create the event element
             $ev = array(
-                'title'	        => $item[''.$evnts['title'].''],
-                'start'         => $item['st'],
-                'end'           => $item['et'],
-                'id_event_cat'	=> $id_cat.$url
+                'title'	          => $item[''.$evnts['title'].''],
+                'start'           => $item['st'],
+                'end'             => $item['et'],
+                'color'           => $row['cat_color'].$url
             );
             
             $events_arr[] = $ev ;

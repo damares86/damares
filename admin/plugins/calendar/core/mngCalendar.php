@@ -12,115 +12,81 @@
 
 require __DIR__."/coreConfig.php";
 
-// check if there's a customer to delete
+if(filter_input(INPUT_GET,"idToDel"))
+{
+    
+    require "../inc/func/calendarSettings.php" ;
+    
+    $calendar->cat_id = filter_input(INPUT_GET,"idToDel") ;
+    $calendar->table = $events['table'];
 
-if(filter_input(INPUT_GET,"idToDel")){
+    $stmt = $calendar->itemExists('cat_id');
 
-    $customer->id = filter_input(INPUT_GET,"idToDel");
-
-    if($customer->delete('id')){
-        header("Location: ../index.php?p=allCustomers&msg=customerDel");
-        exit;
-    }else{
-        header("Location: ../index.php?p=allCustomers&err=customerNoDel");
-        exit;
-    }
-
-}
-
-$operation = filter_input(INPUT_POST,"operation") ;
-
-// check if there's a customer to edit or add
-
-if($operation=="edit"){
-
-        $id = filter_input(INPUT_POST,"idToMod") ;
+    if(!$stmt)
+    {
         
-        $customer->id = $id ;
-        $stmt = $customer->showAllWhere('id',['id']);
-               
-        $customer->name = filter_input(INPUT_POST,"name") ;
-        $customer->surname = filter_input(INPUT_POST,"surname") ;
+        $calendar->id = filter_input(INPUT_GET,"idToDel") ;
+        $calendar->table = 'calendar_cat' ;
 
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        if($details_arr){
-            $details_str = serialize($details_arr);
-            $customer->details = $details_str;
-        }
-
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        if($details_opt_arr){
-            $details_opt_str = serialize($details_opt_arr);
-            $customer->details_opt = $details_opt_str ;
-        }
-
-        if($customer->update(['name','surname','details','details_opt'],'id')){
-
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=customerEdit");
-			exit; 
-		
-		}else{
-        
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&err=customerNoEdit");
-			exit;
-		
-        }
-
-}else if($operation == "add"){
-
-    $customer->name = filter_input(INPUT_POST,"name");
-    $customer->surname = filter_input(INPUT_POST,"surname");
-
-    if($customer->customerExists()){
-        header("Location: ../index.php?p=addCustomer&err=customerExist");
-        exit;
-    }else{
-
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        $details_str = serialize($details_arr);
-        $customer->details = $details_str;
-
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-        $details_opt_str = serialize($details_opt_arr);
-        $customer->details_opt = $details_opt_str ;
-
-        if($customer->insert(['name','surname','details','details_opt'])){
-
-            //success
-            header("Location: ../index.php?p=allCustomers&msg=customerSucc");
+        if($calendar->delete('id'))
+        {
+            header("Location: ../index.php?p=allCalendars&msg=delCalOk");
             exit;
-
-        }else{
-
-            // fail
-            header("Location: ../index.php?p=allCustomers&err=customerFail");
+        }
+        else
+        {
+            header("Location: ../index.php?p=allCalendars&err=delCalFail");
             exit;
         }
 
     }
-
-}else{
-    header("Location: ../index.php?p=allCustomers&err=noPost");
-    exit;
+    else
+    {
+        header("Location: ../index.php?p=allCalendars&err=calEventsExists");
+        exit;  
+    }
+    
 }
+
+$operation = filter_input(INPUT_POST,"operation");
+
+if($operation=="add")
+{
+
+    $calendar->cat_name = filter_input(INPUT_POST,"cat_name");
+    $calendar->cat_color = filter_input(INPUT_POST,"cat_color");
+    
+    // insert calendar category and color in db
+    if($calendar->insert(['cat_name','cat_color']))
+    {
+        header("Location: ../index.php?p=allCalendars&msg=addCalOk");
+        exit;
+    }
+    else
+    {
+        header("Location: ../index.php?p=allCalendars&err=addCalFail");
+        exit;
+    }
+
+} 
+else if($operation == "edit")
+{
+    $calendar->id = filter_input(INPUT_POST,'idToMod') ;
+    $calendar->cat_name = filter_input(INPUT_POST,"cat_name");
+    $calendar->cat_color = filter_input(INPUT_POST,"cat_color");
+
+    if($calendar->update(['cat_name','cat_color'],'id'))
+    {
+        header("Location: ../index.php?p=allCalendars&msg=editCalOk");
+        exit;
+    }
+    else
+    {
+        header("Location: ../index.php?p=allCalendars&err=editCalFail");
+        exit;
+    }
+}
+
+
+
+?>
