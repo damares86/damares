@@ -33,7 +33,7 @@ $events_cat = $calendar->showAll('id');
   <div class="card">
     <div class="card-header"><?=$cal_event_cat_all_header?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addCalendar" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i>  <?=$cal_event_add_cat_header?>/a
+                        ><i data-feather="plus-circle"></i>  <?=$cal_event_add_cat_header?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
@@ -54,6 +54,9 @@ $events_cat = $calendar->showAll('id');
             <td><?=$row['cat_name']?></td>
             <td><span class="p-2 text-white" style="background-color: <?=$row['cat_color']?>;"><?=$row['cat_color']?></span></td>
             <td>
+              <?php
+                if($row['id']>1){
+              ?>
               <a href="index.php?p=editCalendar&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
@@ -115,6 +118,9 @@ $events_cat = $calendar->showAll('id');
                                 </div>
                               </div>
                             </div>
+                          <?php
+                }
+                          ?>
             </td>
           </tr>
                           
