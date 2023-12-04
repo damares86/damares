@@ -25,7 +25,10 @@ $parent_table=[['link'=>'calendar',
 $child_table=[['link'=>'calendar',
             'label'=>'Show calendar',
             'icon'=>'calendar3'],
-            ['link'=>'addCalendarCat',
+            ['link'=>'addCalendar',
+            'label'=>'All event category',
+            'icon'=>'bookmark-plus'],
+            ['link'=>'addCalendar',
             'label'=>'Add an event category',
             'icon'=>'bookmark-plus']
             ];

@@ -1,5 +1,5 @@
 <?php 
-$calendar = 
+$events = 
   [
      "table" => "EVENT TABLE",
      "url"   => "url da concatenare all'id alla fine", // opzionale

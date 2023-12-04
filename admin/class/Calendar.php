@@ -10,29 +10,33 @@
 
 class Calendar extends Common{
 
+    public $table = "calendar_cat" ;
     public $event_title ;
     public $page_origin ;
+    public $cat_id ;
+    public $cat_name ;
+    public $cat_color ;
 
     public function updateCalendar(){
 
         require_once '../inc/func/calendarSettings.php' ;
 
-        $this->table = $calendar['table'];
-        $events = $this->showAll('st') ; 
+        $this->table = $events['table'];
+        $allEvents = $this->showAll('st') ; 
 
         $events_arr = [] ;
         
-        foreach($events as $item)
+        foreach($allEvents as $item)
         {
             // check calendar category for color
             $id_cat = $item['id_calendar_cat'] ?  $item['id_calendar_cat'] : 0 ;
             
             // check if isset the url in calendarSettings
-            $url = $calendar['url'] ? ",\n'url' => ".$calendar['url'].$item['id']."" : '' ;
+            $url = $events['url'] ? ",\n'url' => ".$events['url'].$item['id']."" : '' ;
 
             // create the event element
             $ev = array(
-                'title'	        => $item[''.$this->event_title.''],
+                'title'	        => $item[''.$evnts['title'].''],
                 'start'         => $item['st'],
                 'end'           => $item['et'],
                 'id_event_cat'	=> $id_cat.$url
