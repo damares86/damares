@@ -1,11 +1,12 @@
-<?php 
-  $users = $account->showAll('id');
-?>
+<?php
 
+$events_cat = $calendar->showAll('id');
+
+?>
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$account_all_header?></h3>
+      <h3><?=$cal_event_cat_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -17,7 +18,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$account_all_header?>
+            <?=$cal_event_cat_all_header?>
           </li>
         </ol>
       </nav>
@@ -30,44 +31,33 @@
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header"><?=$account_all_title ?> &nbsp; &nbsp; &nbsp; 
-    <a href="index.php?p=addAccount" class="btn icon icon-left btn-success"
-    ><i data-feather="plus-circle"></i> <?=$account_all_add?></a>
-    </div>
+    <div class="card-header"><?=$cal_event_cat_all_header?> &nbsp; &nbsp; &nbsp; 
+                    <a href="index.php?p=addCalendar" class="btn icon icon-left btn-success"
+                        ><i data-feather="plus-circle"></i>  <?=$cal_event_add_cat_header?></a
+                      ></div>
     <div class="card-body">
-   
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th><?=$common_username?></th>
-            <th><?=$common_email?></th>
-            <th><?=$common_role?></th>
-            <th><?=$common_lastLogin?></th>
+            <th><?=$cal_event_edit_cat_name_header?></th>
+            <th><?=$cal_event_edit_cat_color_header?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
         <tbody>
           
         <?php
-        while($row = $users->fetch(PDO::FETCH_ASSOC)){
+        while($row = $events_cat->fetch(PDO::FETCH_ASSOC)){
           extract($row);
-          if($row['id']>2){
         ?>
           <tr>
-            <td><?=$row['username']?></td>
-            <td><?=$row['email']?></td>
+            <td><?=$row['cat_name']?></td>
+            <td><span class="p-2 text-white" style="background-color: <?=$row['cat_color']?>;"><?=$row['cat_color']?></span></td>
             <td>
               <?php
-                $accountroles->account_id = $row['id'];
-                $roleId = $accountroles->showAccountRolesId();
-                $role->id = $roleId ;
-                $rolename = $role->showRolenameById();
-                echo $rolename;
+                if($row['id']>1){
               ?>
-            </td>
-            <td><?=$row['last_login']?></td>
-            <td>
-              <a href="index.php?p=editAccount&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editCalendar&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -106,7 +96,7 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$account_all_modal_body?>
+                                    <?=$cal_event_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -120,7 +110,7 @@
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngAccounts.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngCalendar.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >
@@ -128,6 +118,9 @@
                                 </div>
                               </div>
                             </div>
+                          <?php
+                }
+                          ?>
             </td>
           </tr>
                           
@@ -135,7 +128,6 @@
                         
 
         <?php
-        }
       }
 
         ?>

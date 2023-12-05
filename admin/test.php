@@ -1,4 +1,5 @@
 <?php
+
   require "inc/header.php" ;
 
 $ch = curl_init('https://giornatecardiologichetorinesi.it/quiz/script.php');

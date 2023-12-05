@@ -1,17 +1,9 @@
-<?php
 
-$plugin->pluginname = "role_redirect" ;
-$redir = false;
-if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-    $redir = true ;
-}
-
-?>
 <div class="page-heading">
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$role_add_header?></h3>
+      <h3><?=$cal_event_cat_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -23,7 +15,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$role_add_header?>
+          <?=$cal_event_add_cat_header?>
           </li>
         </ol>
       </nav>
@@ -32,20 +24,39 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 </div>
 <br>
 
+<script src="script/jscolor.js"></script>
+
+<script>
+// Here we can adjust defaults for all color pickers on page:
+jscolor.presets.default = {
+    palette: [
+        '#000000', '#7d7d7d', '#870014', '#ec1c23', '#ff7e26', '#fef100', '#22b14b', '#00a1e7', '#3f47cc', '#a349a4',
+        '#ffffff', '#c3c3c3', '#b87957', '#feaec9', '#ffc80d', '#eee3af', '#b5e61d', '#99d9ea', '#7092be', '#c8bfe7',
+    ],
+    //paletteCols: 12,
+    //hideOnPaletteClick: true,
+    //width: 271,
+    //height: 151,
+    //position: 'right',
+    //previewPosition: 'right',
+    //backgroundColor: 'rgba(51,51,51,1)', controlBorderColor: 'rgba(153,153,153,1)', buttonColor: 'rgba(240,240,240,1)',
+}
+</script>
+
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title"><?=$role_add_title?></h4>
+                <h4 class="card-title"><?=$cal_event_add_cat_header?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngRoles.php" method="POST" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngCalendar.php" method="POST" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label><?=$common_rolename?> <span class="text-danger">*</span></label>
+                            <label><?=$cal_event_edit_cat_name_header?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -54,72 +65,27 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Role name"
-                                        id="first-name-icon"
-                                        name="rolename"
+                                        placeholder="<?=$cal_event_edit_cat_name_header?>"
+                                        name="cat_name"
                                         data-parsley-required="true"
 
                                         />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-key"></i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label><?=$common_section_auth?> <span class="text-danger">*</span></label>
+                            <label><?=$cal_event_edit_cat_color_header ?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <select
-                                class="choices form-select multiple-remove"
-                                multiple="multiple" name="section[]"
-                                >
-                                <?php
-                                    $stmt = $section->showAllTable('id','sectionParent');
-                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                ?>
-
-                                    <option value="<?=$row['id']?>"><?=$row['label']?></option>
-
-                                <?php
-
-                                    }
-
-                                ?>
-
-                                </select>
+                            <input name="cat_color" value="008db1" data-jscolor="{}">
                             </div>
                         </div>
-                    <?php
-                    if($redir){
-                    ?>
-                        <div class="col-md-3">
-                            <label><?=$common_redirect?> </label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group has-icon-left">
-                                <div class="position-relative">
-                                    <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Url"
-                                    id="first-name-icon"
-                                    name="redirect"
-                                    />
-                                    <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                    }
-                    ?>
+                   
                
                         <input type="hidden" name="operation" value="add">
-                        <input type="hidden" name="origin" value="addRole">
+                        <input type="hidden" name="origin" value="addCalendar">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

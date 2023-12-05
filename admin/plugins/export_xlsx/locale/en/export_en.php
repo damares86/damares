@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 ##############    Damares    ###############
 #                                          #
@@ -8,11 +8,11 @@
 #                                          #
 ############################################
 
-class Calendar extends Common{
+$exp_btn_show = "Show all" ;
+$exp_btn_export = "Export" ;
+$exp_title_show = "Show all records" ;
+$exp_title_export = "Export data in XSLX format" ;
+$exp_title_search = "Search form" ;
 
-    public $table = 'calendar' ;
-
-   
-}
 
 ?>

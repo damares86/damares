@@ -119,8 +119,6 @@ $exclude = array('..', '.','alert','func','.gitkeep');
 
 if($op=="add"){
 
-
-  
   // create table
 
   $error = 0 ;
@@ -169,7 +167,7 @@ if($op=="add"){
     }
     
   }
-
+  
   if(!$db->query("UPDATE ".$prefix."plugins 
   SET 
   installed = 1,

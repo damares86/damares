@@ -23,9 +23,12 @@ if(!is_file('inc/class_initialize.php')){
     foreach ($files as $filename) {
         $nomefile = pathinfo($filename);
     $file=$nomefile['filename'];
-    $file_var = strtolower($file);
-    fwrite($file_handle, '$'.$file_var.' = new '.$file.'($db);');
-    fwrite($file_handle, "\n");
+    if($file!="PhpXlsxGenerator")
+    {
+        $file_var = strtolower($file);
+        fwrite($file_handle, '$'.$file_var.' = new '.$file.'($db);');
+        fwrite($file_handle, "\n");
+    }
 }
 if($prefix){
     fwrite($file_handle,'$common->prx = "'.$prefix.'_";') ;
