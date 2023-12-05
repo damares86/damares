@@ -1,3 +1,7 @@
+<?php 
+  $users = $account->showAll('id');
+?>
+
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
@@ -27,26 +31,11 @@
 <section class="section">
   <div class="card">
     <div class="card-header"><?=$account_all_title ?> &nbsp; &nbsp; &nbsp; 
-        <a href="index.php?p=addAccount" class="btn icon icon-left btn-success"
-            ><i data-feather="plus-circle"></i> <?=$account_all_add?></a>
+    <a href="index.php?p=addAccount" class="btn icon icon-left btn-success"
+    ><i data-feather="plus-circle"></i> <?=$account_all_add?></a>
     </div>
     <div class="card-body">
-
-    <?php
-      $exp_filename = "account_export_" ;
-      $exp_class = "account" ;
-      $exp_table = "accounts" ;
-      $exp_origin = "allAccounts" ;
-      // set the name of a field that need to be of type "date
-      $exp_date_field = "last_login" ;
-      
-      if($export)
-      {
-        require __DIR__.'/export_form.php' ;
-      }
-    ?>
-
-
+   
       <table class="table" id="table1">
         <thead>
           <tr>

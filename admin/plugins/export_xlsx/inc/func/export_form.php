@@ -1,7 +1,7 @@
-    <div class="row border-top border-bottom pt-3 pb-3">
+    <div id="export_box"  class="row border-top border-bottom pt-3 pb-3">
       <div class="col-7 p3">
         <!-- export search box -->
-        <div id="export_box" class="row">
+        <div class="row">
           <h3><?=$exp_title_search?></h3>
             <form class="form form-horizontal" action="" method="POST"  enctype="multipart/form-data" data-parsley-validate>
               <div class="form-body">
@@ -93,29 +93,13 @@
               }
               
               // query based on post data search
-              $users = $account->showAllWhere('id',$searchKeys);
+              $$exp_var = $$exp_class->showAllWhere('id',$searchKeys);
             }
             else if(!$_POST || isset($_POST['showall']))
             {
               // if is set showall or is not set anything, search all
-              $users = $account->showAll('id');
-            }
-
-            if($export)
-            {
-              ?>
-
-              <style>
-                .dataTables_filter {
-                  display: none;
-                } 
-                #export_box{
-                  display:block;
-                }
-              </style>
-
-              <?php
-            }
+              $$exp_var = $$exp_class->showAll('id');
+            }         
 
             ?>
             
