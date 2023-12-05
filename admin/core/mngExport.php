@@ -63,10 +63,9 @@ if(filter_input(INPUT_POST,'export'))
 
     // Export data to excel and download as xlsx file 
     $xlsx = CodexWorld\PhpXlsxGenerator::fromArray( $excelData ); 
-    $xlsx->downloadAs($fileName); 
+    
+    $xlsx->downloadAs($fileName);
 
-    header("Location: ../index.php?p=$origin&msg=expOk") ;
-    exit;
 
 }
 

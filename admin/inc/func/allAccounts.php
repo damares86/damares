@@ -37,6 +37,8 @@
       $exp_class = "account" ;
       $exp_table = "accounts" ;
       $exp_origin = "allAccounts" ;
+      // set the name of a field that need to be of type "date
+      $exp_date_field = "last_login" ;
       
       if($export)
       {
