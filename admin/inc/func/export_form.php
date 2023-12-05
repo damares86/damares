@@ -3,53 +3,35 @@
         <form class="form form-horizontal" action="" method="POST"  enctype="multipart/form-data" data-parsley-validate>
           <div class="form-body">
               <div class="row">
-
-                <div class="col-md-3">
-                    <label><?=$common_username ?> <span class="text-danger">*</span></label>
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group has-icon-left">
-                        <div class="form-check mandatory">
-                            <div class="position-relative">
-                                <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Name"
-                                id="first-name-icon"
-                                name="username"
-                                data-parsley-required="true"
-                                />
-                                <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
+                <?php
+                    $fields_name = $exp_class.'_form_fields' ;
+                    require 'core/exportSettings.php';
+                    
+                    foreach($$fields_name as $field)
+                    {
+                ?>
+                    <div class="col-md-3">
+                        <label><?=$field?><span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="form-check mandatory">
+                                <div class="position-relative">
+                                    <input
+                                    type="text"
+                                    class="form-control"
+                                    id="first-name-icon"
+                                    name="<?=$field?>"
+                                    data-parsley-required="true"
+                                    />
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div> 
-
-                <div class="col-md-3">
-                    <label><?=$common_email ?> <span class="text-danger">*</span></label>
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group has-icon-left">
-                        <div class="form-check mandatory">
-                            <div class="position-relative">
-                                <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Email"
-                                id="first-name-icon"
-                                name="email"
-                                data-parsley-required="true"
-                                />
-                                <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-
+                    </div> 
+                <?php
+                    }
+                ?>
+  
               </div>
             </div>
             <div class="col-12 d-flex justify-content-end">

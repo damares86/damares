@@ -36,6 +36,7 @@ if(filter_input(INPUT_POST,'export'))
     {
         if(!in_array($key,$exclude_post))
         {
+            // get all the keys and set all the class properties
             $searchKeys[] = $key ;
             $$class_post->$key = $value ;
         }
@@ -49,24 +50,16 @@ if(filter_input(INPUT_POST,'export'))
 
         $linedata = [] ;
         
+        // get all the column of the record
         foreach($row as $item)
         {
             $linedata[] = $item;
         }
         
+        // push the array with the data of this record in the excelData array
         $excelData[] = $linedata; 
     
     }
-
-    // // Fetch records from database and store in an array 
-    // $query = $db->query("SELECT * FROM members ORDER BY id ASC"); 
-    // if($query->num_rows > 0){ 
-    //     while($row = $query->fetch_assoc()){ 
-    //         $status = ($row['status'] == 1)?'Active':'Inactive'; 
-    //         $lineData = array($row['id'], $row['first_name'], $row['last_name'], $row['email'], $row['gender'], $row['country'], $row['created'], $status);  
-    //         $excelData[] = $lineData; 
-    //     } 
-    // } 
 
     // Export data to excel and download as xlsx file 
     $xlsx = CodexWorld\PhpXlsxGenerator::fromArray( $excelData ); 
