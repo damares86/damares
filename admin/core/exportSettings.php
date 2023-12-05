@@ -1,5 +1,6 @@
 <?php
 
-$export_fields = [] ;
+// set the fields for every possible excel export
+// syntax: $'CLASSNAME'_export_fields
 
-$fileName = "members-data_" . date('Y-m-d') . ".xlsx"; 
+$account_export_fields = [] ;
