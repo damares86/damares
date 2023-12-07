@@ -16,11 +16,11 @@ require "inc/funcHeader.php";
                     <form class="form form-horizontal" action="core/mngSettings.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
-                        <div class="col-md-3">
-                            <label><?=$settings_all_lang?> </label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
+                            <div class="col-md-3">
+                                <label><?=$settings_all_lang?> </label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
                                     <div class="position-relative">
                                     <fieldset class="form-group">
                                         <select
@@ -34,7 +34,7 @@ require "inc/funcHeader.php";
                                             $exclude = array('..', '.','.gitkeep');
                                             $selected ="";
                                             foreach ($scan as $folder) {
-                                              if(!in_array($folder, $exclude )){
+                                                if(!in_array($folder, $exclude )){
                                                 
                                                 if($folder==$lang){
                                                     $selected="selected" ;
@@ -60,16 +60,11 @@ require "inc/funcHeader.php";
                             $row=$stmt->fetch(PDO::FETCH_ASSOC);
                             $reset = $row['value'];
                             ?>
-                            <br>
-                            <br>
-                            <br>
-                            <hr>
-                            <br>
-                            <br>
-                        <div class="col-md-3">
+       
+                        <div class="col-md-3 border-top mt-3 pt-3">
                             <label><?=$settings_all_noreply?> <span class="text-danger">*</span></label>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9 border-top mt-3 pt-3">
                             <div class="form-group has-icon-left">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">

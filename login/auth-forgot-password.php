@@ -1,6 +1,15 @@
 <?php
 
 require "inc/header.php" ;
+
+$plugin->pluginname = "recaptcha" ;
+$mng = "mngPass";
+
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+    $mng = "mngPassRecap";
+    require "../admin/inc/recaptcha.php";
+}
+
 ?>
 
 <?php
@@ -9,7 +18,7 @@ require "inc/header.php" ;
             <h1 class="auth-title"><?=$forgot_title?></h1>
             <p class="auth-subtitle mb-5"><?=$forgot_desc?></p>
 
-            <form action="../admin/core/mngPass.php" method="POST"  data-parsley-validate>
+            <form action="../admin/core/<?=$mng?>.php" method="POST"  data-parsley-validate>
                 <div class="form-group position-relative has-icon-left mb-4">
                     <div class="form-check mandatory">
                         <input type="email" name="email" class="form-control form-control-xl" placeholder="Email"
@@ -56,7 +65,7 @@ require "inc/header.php" ;
 
             <h1 class="auth-title"><?=$forgot_choose?></h1>
 
-            <form action="../admin/core/mngPass.php" method="POST"  data-parsley-validate>
+            <form action="../admin/core/<?=$mng?>.php" method="POST"  data-parsley-validate>
               <div class="form-group position-relative has-icon-left mb-4">
                 <div class="form-check mandatory">
                     <input
