@@ -466,8 +466,9 @@ extract($row1) ;
                         ?>
 
                        
-                        <input type="hidden" name="operation" value="add">
-                        <input type="hidden" name="origin" value="addCollaboratore">
+                        <input type="hidden" name="operation" value="edit">
+                        <input type="hidden" name="origin" value="editCollaboratore">
+                        <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button
