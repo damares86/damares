@@ -1,7 +1,16 @@
+<?php
+
+$cfa->id = filter_input(INPUT_GET,"idToMod") ;
+$stmt1 = $cfa->showAllWhere('id',['id']) ;
+$row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
+extract($row1) ;
+
+?>
+
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Aggiungi un collaboratore</h3>
+      <h3>Modifica un collaboratore</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +22,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Aggiungi un collaboratore
+          Modifica un collaboratore
           </li>
         </ol>
       </nav>
@@ -27,7 +36,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Aggiungi un nuovo collaboratore</h4>
+                <h4 class="card-title">Modifica il collaboratore</h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -50,7 +59,7 @@
                                                 id="first-name-icon"
                                                 name="nome"
                                                 data-parsley-required="true"
-
+                                                value="<?=$row1['nome']?>"
                                                 />
                                                 <div class="form-control-icon">
                                                 <i class="bi bi-person"></i>
@@ -77,7 +86,7 @@
                                                 id="first-name-icon"
                                                 name="cognome"
                                                 data-parsley-required="true"
-
+                                                value="<?=$row1['cognome']?>"
                                                 />
                                                 <div class="form-control-icon">
                                                 <i class="bi bi-person"></i>
@@ -108,6 +117,7 @@
                                         id="first-name-icon"
                                         name="sede_legale"
                                         data-parsley-required="true"
+                                        value="<?=$row1['sede_legale']?>"
                                         />
                                     </div>
                                 </div>
@@ -128,6 +138,7 @@
                                         id="first-name-icon"
                                         name="sede_operativa"
                                         data-parsley-required="true"
+                                        value="<?=$row1['sede_operativa']?>"
                                         />
                                     </div>
                                 </div>
@@ -148,6 +159,7 @@
                                         id="first-name-icon"
                                         name="telefono"
                                         data-parsley-required="true"
+                                        value="<?=$row1['telefono']?>"
                                         />
                                     </div>
                                 </div>
@@ -168,6 +180,7 @@
                                         id="first-name-icon"
                                         name="cellulare"
                                         data-parsley-required="true"
+                                        value="<?=$row1['cellulare']?>"
                                         />
                                     </div>
                                 </div>
@@ -188,6 +201,7 @@
                                         id="first-name-icon"
                                         name="email"
                                         data-parsley-required="true"
+                                        value="<?=$row1['email']?>"
                                         />
                                     </div>
                                 </div>
@@ -208,6 +222,7 @@
                                         id="first-name-icon"
                                         name="pec"
                                         data-parsley-required="true"
+                                        value="<?=$row1['pec']?>"
                                         />
                                     </div>
                                 </div>
@@ -228,6 +243,7 @@
                                         id="first-name-icon"
                                         name="codice_fiscale"
                                         data-parsley-required="true"
+                                        value="<?=$row1['codice_fiscale']?>"
                                         />
                                     </div>
                                 </div>
@@ -248,6 +264,7 @@
                                         id="first-name-icon"
                                         name="p_iva"
                                         data-parsley-required="true"
+                                        value="<?=$row1['p_iva']?>"
                                         />
                                     </div>
                                 </div>
@@ -274,6 +291,7 @@
                                         id="first-name-icon"
                                         name="ritenuta_acconto"
                                         data-parsley-required="true"
+                                        value="<?=$row1['ritenuta_acconto']?>"
                                         />
                                     </div>
                                 </div>
@@ -294,6 +312,7 @@
                                         id="first-name-icon"
                                         name="iban"
                                         data-parsley-required="true"
+                                        value="<?=$row1['iban']?>"
                                         />
                                     </div>
                                 </div>
@@ -314,6 +333,7 @@
                                         id="first-name-icon"
                                         name="banca"
                                         data-parsley-required="true"
+                                        value="<?=$row1['banca']?>"
                                         />
                                     </div>
                                 </div>
@@ -334,6 +354,7 @@
                                         id="first-name-icon"
                                         name="provvigioni_dare"
                                         data-parsley-required="true"
+                                        value="<?=$row1['provvigioni_dare']?>"
                                         />
                                     </div>
                                 </div>
@@ -354,6 +375,7 @@
                                         id="first-name-icon"
                                         name="provvigioni_avere"
                                         data-parsley-required="true"
+                                        value="<?=$row1['provvigioni_avere']?>"
                                         />
                                     </div>
                                 </div>
