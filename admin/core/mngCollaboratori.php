@@ -14,11 +14,12 @@ require __DIR__."/coreConfig.php";
 
 // check if there's an account to delete
 
-if(filter_input(INPUT_POST,"idToDel"))
+if(filter_input(INPUT_GET,"idToDel"))
 {
 
-    $cfa->id = filter_input(INPUT_POST,"idToDel");
-
+    $cfa->id = filter_input(INPUT_GET,"idToDel");
+    $cfa->table = 'collaboratori' ;
+    
     if($cfa->delete('id'))
     {
         header("Location: ../index.php?p=allCollaboratori&msg=collabDel");
