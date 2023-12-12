@@ -56,6 +56,7 @@ function insert($fields){
     $stmt = $this->conn->prepare( $query );
 
     foreach($fields as $item){
+        print_r($item.' -> '. $this->$item.'<br>');
         $stmt->bindParam(":$item", $this->$item);
     }
 
@@ -279,7 +280,6 @@ function showAllWhere($orderBy,$where){
         WHERE ".$this->where."
         ORDER BY ".$orderBy." ASC"; 
     $stmt = $this->conn->prepare( $query );
-
     
     foreach($where as $item){
         $stmt->bindParam(":$item", $this->$item);

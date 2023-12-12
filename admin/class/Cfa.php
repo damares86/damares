@@ -10,9 +10,33 @@
 
 class Cfa extends Common{
 
-    public $table = 'polizze' ;
+    // public $table = 'polizze' ;
     
+    // collaboratore
+    public $nome ;
+    public $cognome ;
+    public $sede_legale ;
+    public $sede_operativa ;
+    public $telefono ;
+    public $cellulare ;
+    public $email ;
+    public $pec ;
+    public $codice_fiscale ;
+    public $p_iva ;
+    public $ritenuta_acconto ;
+    public $iban ;
+    public $banca ;
+    public $provvigioni_dare ;
+    public $provvigioni_avere ;
 
+    // contribuente
+
+
+    // beneficiario
+
+
+    // polizze
+    
 
 
 }
