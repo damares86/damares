@@ -36,14 +36,32 @@ class Cfa extends Common{
     public $spese ;
     public $provv ;    
 
-    // contribuente
-
+    // contraente
+    public $ragione_sociale ;
+    public $via ;
+    public $citta ;
+    public $cap ;
 
     // beneficiario
-
+    // come sopra
 
     // polizze
-    
+    public $id_collaboratore ;
+    public $id_compagnia ;
+    public $numero ;
+    public $tipologia ;
+    public $id_contraente ;
+    public $id_beneficiario ;
+    public $descrizione ;
+    public $importo_gara ;
+    public $massimale ;
+    public $st ;
+    public $et ;
+    public $id_calendar_cat ;
+    public $consulenza ;
+    public $incasso_data ;
+    public $incasso_mod ;
+    public $pagato ;
 
 
 }

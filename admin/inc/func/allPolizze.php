@@ -1,12 +1,12 @@
-<?php
-
-$stmt = $customer->showAll('id');
-
+<?php 
+  $cfa->table = 'collaboratori' ;
+  $collab = $cfa->showAll('id');
 ?>
+
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$customer_all_header?></h3>
+      <h3>Collaboratori</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $customer->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          <?=$customer_all_header?>
+            Collaboratori
           </li>
         </ol>
       </nav>
@@ -31,29 +31,34 @@ $stmt = $customer->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header"><?=$customer_all_title?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addCustomer" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> <?=$customer_all_add?></a
-                      ></div>
+    <div class="card-header">Tutti i collaboratori &nbsp; &nbsp; &nbsp; 
+    <a href="index.php?p=addCollaboratore" class="btn icon icon-left btn-success"
+    ><i data-feather="plus-circle"></i> Aggiungi un collaboratore</a>
+    </div>
     <div class="card-body">
+   
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th><?=$customer_all_surname_table?></th>
-            <th><?=$customer_all_name_table?></th>
+            <th><?=$common_name?></th>
+            <th>Cellulare</th>
+            <th><?=$common_email?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
         <tbody>
           
         <?php
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        while($row = $collab->fetch(PDO::FETCH_ASSOC))
+        {
+          extract($row);
         ?>
-          <tr <?=$class?>>
-            <td><?=$row['surname']?></td>
-            <td><?=$row['name']?></td>
+          <tr>
+            <td><?=$row['cognome']?> <?=$row['nome']?></td>
+            <td><?=$row['cellulare']?></td>
+            <td><?=$row['email']?></td>
             <td>
-              <a href="index.php?p=editCustomer&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editCollaboratore&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -92,7 +97,7 @@ $stmt = $customer->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$customer_all_modal_body?>
+                                    <?=$account_all_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -106,7 +111,7 @@ $stmt = $customer->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngCustomers.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngCollaboratori.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >
@@ -121,7 +126,9 @@ $stmt = $customer->showAll('id');
                         
 
         <?php
-        }
+        
+      }
+
         ?>
 
 

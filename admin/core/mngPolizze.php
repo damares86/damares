@@ -12,17 +12,22 @@
 
 require __DIR__."/coreConfig.php";
 
-// check if there's a customer to delete
+// check if there's an account to delete
 
-if(filter_input(INPUT_GET,"idToDel")){
+if(filter_input(INPUT_GET,"idToDel"))
+{
 
-    $customer->id = filter_input(INPUT_GET,"idToDel");
-
-    if($customer->delete('id')){
-        header("Location: ../index.php?p=allCustomers&msg=customerDel");
+    $cfa->id = filter_input(INPUT_GET,"idToDel");
+    $cfa->table = 'collaboratori' ;
+    
+    if($cfa->delete('id'))
+    {
+        header("Location: ../index.php?p=allCollaboratori&msg=collabDel");
         exit;
-    }else{
-        header("Location: ../index.php?p=allCustomers&err=customerNoDel");
+    }
+    else
+    {
+        header("Location: ../index.php?p=allCollaboratori&err=collabNoDel");
         exit;
     }
 
@@ -30,97 +35,82 @@ if(filter_input(INPUT_GET,"idToDel")){
 
 $operation = filter_input(INPUT_POST,"operation") ;
 
-// check if there's a customer to edit or add
 
-if($operation=="edit"){
+if(filter_input(INPUT_POST,"idToMod"))
+{
+    
+    $cfa->id = filter_input(INPUT_POST,"idToMod");
 
-        $id = filter_input(INPUT_POST,"idToMod") ;
-        
-        $customer->id = $id ;
-        $stmt = $customer->showAllWhere('id',['id']);
-               
-        $customer->name = filter_input(INPUT_POST,"name") ;
-        $customer->surname = filter_input(INPUT_POST,"surname") ;
+    $cfa->nome = filter_input(INPUT_POST,'nome') ;
+    $cfa->cognome = filter_input(INPUT_POST,'cognome') ;
+    $cfa->sede_legale = filter_input(INPUT_POST,'sede_legale') ;
+    $cfa->sede_operativa = filter_input(INPUT_POST,'sede_operativa') ;
+    $cfa->telefono = filter_input(INPUT_POST,'telefono') ;
+    $cfa->cellulare = filter_input(INPUT_POST,'cellulare') ;
+    $cfa->email = filter_input(INPUT_POST,'email') ;
+    $cfa->pec = filter_input(INPUT_POST,'pec') ;
+    $cfa->codice_fiscale = filter_input(INPUT_POST,'codice_fiscale') ;
+    $cfa->p_iva = filter_input(INPUT_POST,'p_iva') ;
+    $cfa->ritenuta_acconto = filter_input(INPUT_POST,'ritenuta_acconto') ;
+    $cfa->iban = filter_input(INPUT_POST,'iban') ;
+    $cfa->banca = filter_input(INPUT_POST,'banca') ;
+    $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
+    $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
 
-        require "customersDetails.php";
+    // details
 
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
+    $cfa->table = 'collaboratori' ;
 
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        if($details_arr){
-            $details_str = serialize($details_arr);
-            $customer->details = $details_str;
-        }
-
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        if($details_opt_arr){
-            $details_opt_str = serialize($details_opt_arr);
-            $customer->details_opt = $details_opt_str ;
-        }
-
-        if($customer->update(['name','surname','details','details_opt'],'id')){
-
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=customerEdit");
-			exit; 
-		
-		}else{
-        
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&err=customerNoEdit");
-			exit;
-		
-        }
-
-}else if($operation == "add"){
-
-    $customer->name = filter_input(INPUT_POST,"name");
-    $customer->surname = filter_input(INPUT_POST,"surname");
-
-    if($customer->customerExists()){
-        header("Location: ../index.php?p=addCustomer&err=customerExist");
+    if($cfa->update(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','provvigioni_dare','provvigioni_avere'],'id'))
+    {
+        header("Location: ../index.php?p=allCollaboratori&msg=collabEditSucc");
         exit;
-    }else{
-
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        $details_str = serialize($details_arr);
-        $customer->details = $details_str;
-
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-        $details_opt_str = serialize($details_opt_arr);
-        $customer->details_opt = $details_opt_str ;
-
-        if($customer->insert(['name','surname','details','details_opt'])){
-
-            //success
-            header("Location: ../index.php?p=allCustomers&msg=customerSucc");
-            exit;
-
-        }else{
-
-            // fail
-            header("Location: ../index.php?p=allCustomers&err=customerFail");
-            exit;
-        }
-
+    }
+    else
+    {
+        header("Location: ../index.php?p=allCollaboratori&err=collabEditFail");
+        exit;
     }
 
-}else{
-    header("Location: ../index.php?p=allCustomers&err=noPost");
+}
+else if($operation == "add")
+{
+
+    $cfa->nome = filter_input(INPUT_POST,'nome') ;
+    $cfa->cognome = filter_input(INPUT_POST,'cognome') ;
+    $cfa->sede_legale = filter_input(INPUT_POST,'sede_legale') ;
+    $cfa->sede_operativa = filter_input(INPUT_POST,'sede_operativa') ;
+    $cfa->telefono = filter_input(INPUT_POST,'telefono') ;
+    $cfa->cellulare = filter_input(INPUT_POST,'cellulare') ;
+    $cfa->email = filter_input(INPUT_POST,'email') ;
+    $cfa->pec = filter_input(INPUT_POST,'pec') ;
+    $cfa->codice_fiscale = filter_input(INPUT_POST,'codice_fiscale') ;
+    $cfa->p_iva = filter_input(INPUT_POST,'p_iva') ;
+    $cfa->ritenuta_acconto = filter_input(INPUT_POST,'ritenuta_acconto') ;
+    $cfa->iban = filter_input(INPUT_POST,'iban') ;
+    $cfa->banca = filter_input(INPUT_POST,'banca') ;
+    $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
+    $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
+
+    // details
+
+    $cfa->table = 'collaboratori' ;
+
+    if($cfa->insert(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','provvigioni_dare','provvigioni_avere']))
+    {
+        header("Location: ../index.php?p=allCollaboratori&msg=collabAddSucc");
+        exit;
+    }
+    else
+    {
+        header("Location: ../index.php?p=allCollaboratori&err=collabAddFail");
+        exit;
+    }
+
+
+}
+else
+{
+    header("Location: ../index.php?p=allCollaboratori&err=noPost");
     exit;
 }
