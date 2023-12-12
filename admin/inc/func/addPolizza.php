@@ -132,6 +132,37 @@
                     
                     <div class="row border-top mt-3 pt-3">
 
+
+                    <style>
+                    .box_visual{display:none};
+                    </style>
+
+                    <script>
+                    $(document).ready(function(){
+                    $('input[name="visual[]"]').click(function(){
+                    var inputValue = $(this).attr("value");
+                    var targetBox = $("." + inputValue);
+                    $('.box_visual').not(targetBox).hide();
+                    $(targetBox).show();
+                    });
+                    });
+                    </script>
+
+        <label><input type="radio" name="block<?=$i?>[]" value="n<?=$i?>" <?=$$none?>> <?=$regpage_none?></label>
+        <label><input type="radio" name="block<?=$i?>[]" value="p<?=$i?>" <?=$$pict?>> <?=$regpage_picture?></label>
+
+        <div class="t<?=$i?> box<?=$i?>">
+            <?php
+            $name="block$i";
+            $page->$name=$_SESSION['sess_editor'.$i.''];
+            ?>
+            <textarea id="editor<?=$i?>" name="editor<?=$i?>" rows="10">   <?=$page->$var?></textarea>
+            <br>
+
+
+        </div>
+
+
                         <p>
                             <a class="btn btn-primary mb-2" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
                             <a class="btn btn-primary mb-2" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
