@@ -29,6 +29,13 @@ class Cfa extends Common{
     public $provvigioni_dare ;
     public $provvigioni_avere ;
 
+    // compagnie
+    public $netto ;
+    public $imponibile ;
+    public $lordo ;
+    public $pese ;
+    public $provv ;    
+
     // contribuente
 
 
