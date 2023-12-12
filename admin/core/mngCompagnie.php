@@ -18,16 +18,16 @@ if(filter_input(INPUT_GET,"idToDel"))
 {
 
     $cfa->id = filter_input(INPUT_GET,"idToDel");
-    $cfa->table = 'collaboratori' ;
+    $cfa->table = 'compagnie' ;
     
     if($cfa->delete('id'))
     {
-        header("Location: ../index.php?p=allCollaboratori&msg=collabDel");
+        header("Location: ../index.php?p=allCompagnie&msg=compagnieDel");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allCollaboratori&err=collabNoDel");
+        header("Location: ../index.php?p=allCompagnie&err=compagnieNoDel");
         exit;
     }
 
@@ -42,71 +42,59 @@ if(filter_input(INPUT_POST,"idToMod"))
     $cfa->id = filter_input(INPUT_POST,"idToMod");
 
     $cfa->nome = filter_input(INPUT_POST,'nome') ;
-    $cfa->cognome = filter_input(INPUT_POST,'cognome') ;
     $cfa->sede_legale = filter_input(INPUT_POST,'sede_legale') ;
-    $cfa->sede_operativa = filter_input(INPUT_POST,'sede_operativa') ;
-    $cfa->telefono = filter_input(INPUT_POST,'telefono') ;
-    $cfa->cellulare = filter_input(INPUT_POST,'cellulare') ;
-    $cfa->email = filter_input(INPUT_POST,'email') ;
-    $cfa->pec = filter_input(INPUT_POST,'pec') ;
-    $cfa->codice_fiscale = filter_input(INPUT_POST,'codice_fiscale') ;
-    $cfa->p_iva = filter_input(INPUT_POST,'p_iva') ;
-    $cfa->ritenuta_acconto = filter_input(INPUT_POST,'ritenuta_acconto') ;
-    $cfa->iban = filter_input(INPUT_POST,'iban') ;
-    $cfa->banca = filter_input(INPUT_POST,'banca') ;
-    $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
-    $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
+    $cfa->netto = filter_input(INPUT_POST,'netto') ;
+    $cfa->imponibile = filter_input(INPUT_POST,'imponibile') ;
+    $cfa->lordo = filter_input(INPUT_POST,'lordo') ;
+    $cfa->spese = filter_input(INPUT_POST,'spese') ;
+    $cfa->provv = filter_input(INPUT_POST,'provv') ;
 
-    $cfa->table = 'collaboratori' ;
+    // details
 
-    if($cfa->update(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','provvigioni_dare','provvigioni_avere'],'id'))
+    $cfa->table = 'compagnie' ;
+
+    if($cfa->update(['nome','sede_legale','netto','imponibile','lordo','spese','provv'],'id'))
     {
-        header("Location: ../index.php?p=allCollaboratori&msg=collabEditSucc");
+        header("Location: ../index.php?p=allCompagnie&msg=compagnieEditSucc");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allCollaboratori&err=collabEditFail");
+        header("Location: ../index.php?p=allCompagnie&err=compagnieEditFail");
         exit;
     }
+
 
 }
 else if($operation == "add")
 {
 
     $cfa->nome = filter_input(INPUT_POST,'nome') ;
-    $cfa->cognome = filter_input(INPUT_POST,'cognome') ;
     $cfa->sede_legale = filter_input(INPUT_POST,'sede_legale') ;
-    $cfa->sede_operativa = filter_input(INPUT_POST,'sede_operativa') ;
-    $cfa->telefono = filter_input(INPUT_POST,'telefono') ;
-    $cfa->cellulare = filter_input(INPUT_POST,'cellulare') ;
-    $cfa->email = filter_input(INPUT_POST,'email') ;
-    $cfa->pec = filter_input(INPUT_POST,'pec') ;
-    $cfa->codice_fiscale = filter_input(INPUT_POST,'codice_fiscale') ;
-    $cfa->p_iva = filter_input(INPUT_POST,'p_iva') ;
-    $cfa->ritenuta_acconto = filter_input(INPUT_POST,'ritenuta_acconto') ;
-    $cfa->iban = filter_input(INPUT_POST,'iban') ;
-    $cfa->banca = filter_input(INPUT_POST,'banca') ;
-    $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
-    $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
+    $cfa->netto = filter_input(INPUT_POST,'netto') ;
+    $cfa->imponibile = filter_input(INPUT_POST,'imponibile') ;
+    $cfa->lordo = filter_input(INPUT_POST,'lordo') ;
+    $cfa->spese = filter_input(INPUT_POST,'spese') ;
+    $cfa->provv = filter_input(INPUT_POST,'provv') ;
 
-    $cfa->table = 'collaboratori' ;
+    // details
 
-    if($cfa->insert(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','provvigioni_dare','provvigioni_avere']))
+    $cfa->table = 'compagnie' ;
+
+    if($cfa->insert(['nome','sede_legale','netto','imponibile','lordo','spese','provv']))
     {
-        header("Location: ../index.php?p=allCollaboratori&msg=collabAddSucc");
+        header("Location: ../index.php?p=allCompagnie&msg=compagnieAddSucc");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allCollaboratori&err=collabAddFail");
+        header("Location: ../index.php?p=allCompagnie&err=compagnieAddFail");
         exit;
     }
-
 
 }
 else
 {
-    header("Location: ../index.php?p=allCollaboratori&err=noPost");
+    header("Location: ../index.php?p=allCompagnie&err=noPost");
     exit;
 }

@@ -76,26 +76,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <label>Partita IVA <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Partita IVA"
-                                        name="p_iva"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class="row border-top mt-3 pt-3">
@@ -148,7 +128,7 @@
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
-                                        type="email"
+                                        type="text"
                                         class="form-control"
                                         placeholder="Lordo"
                                         name="lordo"
@@ -167,7 +147,7 @@
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
-                                        type="email"
+                                        type="text"
                                         class="form-control"
                                         placeholder="Spese"
                                         name="spese"

@@ -57,6 +57,8 @@ if(filter_input(INPUT_POST,"idToMod"))
     $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
     $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
 
+    // details
+
     $cfa->table = 'collaboratori' ;
 
     if($cfa->update(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','provvigioni_dare','provvigioni_avere'],'id'))
@@ -89,6 +91,8 @@ else if($operation == "add")
     $cfa->banca = filter_input(INPUT_POST,'banca') ;
     $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
     $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
+
+    // details
 
     $cfa->table = 'collaboratori' ;
 

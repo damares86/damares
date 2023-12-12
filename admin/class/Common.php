@@ -56,7 +56,6 @@ function insert($fields){
     $stmt = $this->conn->prepare( $query );
 
     foreach($fields as $item){
-        print_r($item.' -> '. $this->$item.'<br>');
         $stmt->bindParam(":$item", $this->$item);
     }
 

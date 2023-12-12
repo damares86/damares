@@ -1,6 +1,7 @@
 <?php
 
-$cfa->id = filter_input(INPUT_GET,"idToMod") ;
+$id = filter_input(INPUT_GET,"idToMod") ;
+$cfa->id = $id ;
 $cfa->table = 'collaboratori' ;
 $stmt1 = $cfa->showAllWhere('id',['id']) ;
 $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;

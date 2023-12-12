@@ -33,7 +33,7 @@ class Cfa extends Common{
     public $netto ;
     public $imponibile ;
     public $lordo ;
-    public $pese ;
+    public $spese ;
     public $provv ;    
 
     // contribuente

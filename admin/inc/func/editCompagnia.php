@@ -1,6 +1,7 @@
 <?php
 
-$cfa->id = filter_input(INPUT_GET,"idToMod") ;
+$id = filter_input(INPUT_GET,"idToMod") ;
+$cfa->id = $id ;
 $cfa->table = 'compagnie' ;
 $stmt1 = $cfa->showAllWhere('id',['id']) ;
 $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
@@ -87,26 +88,6 @@ extract($row1) ;
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <label>Partita IVA <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Partita IVA"
-                                        name="p_iva"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['p_iva']?>"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class="row border-top mt-3 pt-3">
@@ -161,7 +142,7 @@ extract($row1) ;
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
-                                        type="email"
+                                        type="text"
                                         class="form-control"
                                         placeholder="Lordo"
                                         name="lordo"
@@ -181,7 +162,7 @@ extract($row1) ;
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
-                                        type="email"
+                                        type="text"
                                         class="form-control"
                                         placeholder="Spese"
                                         name="spese"
@@ -293,7 +274,8 @@ extract($row1) ;
                         ?>
 
                        
-                        <input type="hidden" name="operation" value="add">
+                        <input type="hidden" name="operation" value="edit">
+                        <input type="hidden" name="idToMod" value="<?=$id?>">
                         <input type="hidden" name="origin" value="addCompagnia">
                       
                         <div class="col-12 d-flex justify-content-end">
