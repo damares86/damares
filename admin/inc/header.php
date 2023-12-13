@@ -96,4 +96,6 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
     <?php
     }
     ?>
+    <script src="assets/extensions/jquery/jquery.min.js"></script>
+
   </head>

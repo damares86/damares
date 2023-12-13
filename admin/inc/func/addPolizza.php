@@ -132,44 +132,33 @@
                     
                     <div class="row border-top mt-3 pt-3">
 
-
                     <style>
-                    .box_visual{display:none};
+                    .box{display:none};
                     </style>
 
+                    <?php
+                    $exists='checked';
+                    $new='';
+                    ?>
                     <script>
-                    $(document).ready(function(){
-                    $('input[name="visual[]"]').click(function(){
-                    var inputValue = $(this).attr("value");
-                    var targetBox = $("." + inputValue);
-                    $('.box_visual').not(targetBox).hide();
-                    $(targetBox).show();
-                    });
-                    });
+                        $(document).ready(function(){
+                            $('input[name="contraente[]"]').click(function(){
+                                var inputValue = $(this).attr("value");
+                                var targetBox = $("." + inputValue);
+                                $('.box').not(targetBox).hide();
+                                $(targetBox).show();
+                            });
+                        });
                     </script>
+                    <style>
+                    .box.exists{display:block}
+                    </style>
 
-        <label><input type="radio" name="block<?=$i?>[]" value="n<?=$i?>" <?=$$none?>> <?=$regpage_none?></label>
-        <label><input type="radio" name="block<?=$i?>[]" value="p<?=$i?>" <?=$$pict?>> <?=$regpage_picture?></label>
+                    <label><input type="radio" name="contraente[]" value="exists" <?=$exists?>>Cerca contrante</label>
+                    <label><input type="radio" name="contraente[]" value="new" <?=$new?>> Aggiungi contraente</label>
 
-        <div class="t<?=$i?> box<?=$i?>">
-            <?php
-            $name="block$i";
-            $page->$name=$_SESSION['sess_editor'.$i.''];
-            ?>
-            <textarea id="editor<?=$i?>" name="editor<?=$i?>" rows="10">   <?=$page->$var?></textarea>
-            <br>
-
-
-        </div>
-
-
-                        <p>
-                            <a class="btn btn-primary mb-2" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                            <a class="btn btn-primary mb-2" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                            <button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second element</button>
-                            <button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle both elements</button>
-                        </p>
-                        <div class="row" id="multiCollapseExample1">
+                    <div class="exists box">
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>Contraente <span class="text-danger">*</span></label>
                             </div>
@@ -196,16 +185,16 @@
                                 </div>
                             </div> 
                         </div>
-
-                        <div class="row" id="multiCollapseExample2">
-                            <div class="col">
-                                <div class="collapse multi-collapse" >
-                                    <div class="card card-body">
-                                        Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="new box">
+                        <div class="row">
+                            form inserimento
                         </div>
+
+                    </div>
+
+                       
+
 
                        
 <!-- 

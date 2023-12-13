@@ -22,7 +22,6 @@
     <!-- Need: Apexcharts -->
   
     <script src="assets/js/pages/dashboard.js"></script>
-    <script src="assets/extensions/jquery/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
     <script src="assets/js/pages/datatables.js"></script>
     <script src="assets/extensions/parsleyjs/parsley.min.js"></script>
