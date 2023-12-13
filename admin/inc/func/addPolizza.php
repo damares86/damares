@@ -153,9 +153,14 @@
                     <style>
                     .box.exists{display:block}
                     </style>
-
-                    <label><input type="radio" name="contraente[]" value="exists" <?=$exists?>>Cerca contrante</label>
-                    <label><input type="radio" name="contraente[]" value="new" <?=$new?>> Aggiungi contraente</label>
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label class="d-inline"><input type="radio" name="contraente[]" value="exists" <?=$exists?>> Cerca contraente</label>
+                        </div>
+                        <div class="col-2">
+                            <label class="d-inline"><input type="radio" name="contraente[]" value="new" <?=$new?>> Aggiungi contraente</label>
+                        </div>
+                    </div>
 
                     <div class="exists box">
                         <div class="row">
