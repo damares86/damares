@@ -91,6 +91,7 @@
 
                     <div class="row border-top mt-3 pt-3">
 
+                        <h4 class="card-title mb-3">Dati polizza</h4>
                         <div class="col-md-3">
                             <label>Numero polizza <span class="text-danger">*</span></label>
                         </div>
@@ -128,17 +129,52 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-3">
+                            <label>Descrizione <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <textarea class="form-control" name="descrizione" rows="3" data-parsley-required="true">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Importo gara </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Importo gara"
+                                        name="importo_gara"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                     
                     <div class="row border-top mt-3 pt-3">
+                    <h4 class="card-title mb-3">Contraente</h4>
 
                     <style>
                     .box{display:none};
                     </style>
 
                     <?php
-                    $exists='checked';
-                    $new='';
+                    $exists_contr='checked';
+                    $new_contr='';
                     ?>
                     <script>
                         $(document).ready(function(){
@@ -151,18 +187,18 @@
                         });
                     </script>
                     <style>
-                    .box.exists{display:block}
+                    .box.exists_contr{display:block}
                     </style>
                     <div class="row mb-3">
                         <div class="col-2">
-                            <label class="d-inline"><input type="radio" name="contraente[]" value="exists" <?=$exists?>> Cerca contraente</label>
+                            <label class="d-inline"><input type="radio" name="contraente[]" value="exists_contr" <?=$exists_contr?>> Cerca contraente</label>
                         </div>
                         <div class="col-2">
-                            <label class="d-inline"><input type="radio" name="contraente[]" value="new" <?=$new?>> Aggiungi contraente</label>
+                            <label class="d-inline"><input type="radio" name="contraente[]" value="new_contr" <?=$new_contr?>> Aggiungi contraente</label>
                         </div>
                     </div>
 
-                    <div class="exists box">
+                    <div class="exists_contr box">
                         <div class="row">
                             <div class="col-md-3">
                                 <label>Contraente <span class="text-danger">*</span></label>
@@ -191,249 +227,504 @@
                             </div> 
                         </div>
                     </div>
-                    <div class="new box">
+                    <div class="new_contr box">
                         <div class="row">
-                            form inserimento
+
+                            <div class="col-md-3">
+                                <label>Ragione sociale <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Ragione sociale"
+                                            name="ragione_sociale_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Nome <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Nome"
+                                            name="nome_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Cognome <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Cognome"
+                                            name="cognome_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <label>Indirizzo <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Indirizzo"
+                                            name="via_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Città <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Città"
+                                            name="citta_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>CAP <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="CAP"
+                                            name="cap_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Codice fiscale <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Codice fiscale"
+                                            name="codice_fiscale_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Partita IVA <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Partita IVA"
+                                            name="p_iva_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Telefono <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="telefono"
+                                            name="telefono_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Cellulare <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Cellulare"
+                                            name="cellulare_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Email <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="email"
+                                            class="form-control"
+                                            placeholder="Email"
+                                            name="email_contraente"
+                                            data-parsley-required="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
 
                        
-
-
-                       
-<!-- 
-                        <div class="col-md-3">
-                            <label>Beneficiario <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                    <?php
-                                        $cfa->table = 'beneficiario' ;
-                                        $benef = $cfa->showAll('id');                                                
-                                    ?>
-                                        <select class="choices form-select" data-parsley-required="true">
-                                        <?php
-                                            while($item = $benef->fetch(PDO::FETCH_ASSOC))
-                                            {
-                                        ?>
-                                            <option name="id_beneficiario[]" value="<?=$item['id']?>"><?=$item['ragione_sociale']?></option>
-                                        <?php
-                                            }
-                                        ?>
-                                    </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div> -->
-                    
                     <div class="row border-top mt-3 pt-3">
 
+                    <h4 class="card-title mb-3">Beneficiario</h4>
 
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-
-
-
-
-
-
-
-
-                    <div class="row border-top mt-3 pt-3">
-
-                        <h4 class="card-title">Dati finanziari</h4>
-
-                        <div class="col-md-3">
-                            <label>Netto <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Netto"
-                                        name="netto"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Imponibile <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Imponibile"
-                                        name="imponibile"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Lordo <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Lordo"
-                                        name="lordo"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
-
-                        <div class="col-md-3">
-                            <label>Spese <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Spese"
-                                        name="spese"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-3">
-                            <label>Provvigioni <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Provvigioni"
-                                        name="provv"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <style>
+                        .box_benef{display:none};
+                        </style>
 
                         <?php
-
-                        require "core/collaboratoreDetails.php";
-                        foreach($collaboratore_details as $item){
-
-                            $label = "account_add_$item";
-                            $item_label=ucfirst($item);
-
+                        $exists_benef='checked';
+                        $new_benef='';
                         ?>
-                        <div class="col-md-3">
-                            <label><?=$item_label?> <span class="text-danger">*</span></label>
+                        <script>
+                            $(document).ready(function(){
+                                $('input[name="beneficiario[]"]').click(function(){
+                                    var inputValue = $(this).attr("value");
+                                    var targetBox = $("." + inputValue);
+                                    $('.box_benef').not(targetBox).hide();
+                                    $(targetBox).show();
+                                });
+                            });
+                        </script>
+                        <style>
+                        .box_benef.exists_benef{display:block}
+                        </style>
+                        <div class="row mb-3">
+                            <div class="col-2">
+                                <label class="d-inline"><input type="radio" name="beneficiario[]" value="exists_benef" <?=$exists_benef?>> Cerca beneficiario</label>
+                            </div>
+                            <div class="col-2">
+                                <label class="d-inline"><input type="radio" name="beneficiario[]" value="new_benef" <?=$new_benef?>> Aggiungi beneficiario</label>
+                            </div>
                         </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <?php                                                              
-                                                $type="text";
-                                                if($item=="birth"){
-                                                    $type="date";
+
+                        <div class="exists_benef box_benef">
+                            <div class="row">
+                            <div class="col-md-3">
+                                <label>Beneficiario <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                        <?php
+                                            $cfa->table = 'beneficiario' ;
+                                            $benef = $cfa->showAll('id');                                                
+                                        ?>
+                                            <select class="choices form-select" data-parsley-required="true">
+                                            <?php
+                                                while($item = $benef->fetch(PDO::FETCH_ASSOC))
+                                                {
+                                            ?>
+                                                <option name="id_beneficiario[]" value="<?=$item['id']?>"><?=$item['ragione_sociale']?></option>
+                                            <?php
                                                 }
                                             ?>
-                                            <input
-                                            type="<?=$type?>"
-                                            class="form-control"
-                                            placeholder="<?=$item_label?>"
-                                            name="<?=$item?>"
-                                            data-parsley-required="true"
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            </div>
+                        </div>
+                        <div class="new_benef box_benef">
+                            <div class="row">
 
-                                            />
-                                            <?php
-                                            
-                                            ?>
+                                <div class="col-md-3">
+                                    <label>Ragione sociale <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div class="form-check mandatory">
+                                            <div class="position-relative">
+                                                <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Ragione sociale"
+                                                name="ragione_sociale_beneficiario"
+                                                data-parsley-required="true"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-md-3">
+                                    <label>Indirizzo <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div class="form-check mandatory">
+                                            <div class="position-relative">
+                                                <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Indirizzo"
+                                                name="via_beneficiario"
+                                                data-parsley-required="true"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Città <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div class="form-check mandatory">
+                                            <div class="position-relative">
+                                                <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Città"
+                                                name="citta_beneficiario"
+                                                data-parsley-required="true"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>CAP <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div class="form-check mandatory">
+                                            <div class="position-relative">
+                                                <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="CAP"
+                                                name="cap_beneficiario"
+                                                data-parsley-required="true"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Codice fiscale <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div class="form-check mandatory">
+                                            <div class="position-relative">
+                                                <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Codice fiscale"
+                                                name="codice_fiscale_beneficiario"
+                                                data-parsley-required="true"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Partita IVA <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div class="form-check mandatory">
+                                            <div class="position-relative">
+                                                <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Partita IVA"
+                                                name="p_iva_beneficiario"
+                                                data-parsley-required="true"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                       
+                    </div>
+
+                    <div class="row border-top mt-3 pt-3">
+
+                        <h4 class="card-title mb-3">Dati economici</h4>
+                        
+                        <div class="col-md-3">
+                            <label>Massimale <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Massimale"
+                                        name="massimale"
+                                        data-parsley-required="true"
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <?php
-
-                        }
-
-                        foreach($collaboratore_details_opt as $item){
-
-                            $label = "account_add_$item";
-                            $item_label=ucfirst($item);
-
-                        ?>
                         <div class="col-md-3">
-                            <label><?=$item?> <?=$account_add_optional?></label>
+                            <label>Data d'inizio <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="position-relative">
-                                    <?php
-                                        $type="text";
-                                        if($item=="birth"){
-                                            $type="date";
-                                        }
-                                    ?>
-                                    <input
-                                    type="<?=$type?>"
-                                    class="form-control"
-                                    placeholder="<?=$item_label?>"
-                                    name="<?=$item?>"
-
-                                    />
-
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="date"
+                                        class="startDate input form-control"
+                                        id="startDate"
+                                        name="st"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <?php
+                        <script>
+                            $('.startDate').change(function(){
+                            var startDate = $('.startDate').val();
+                            console.log(startDate)
 
-                        }
+                            if(startDate != ''){
+                                var d = new Date(Date.parse(startDate));      
+                                var dmy = [d.getDate(),d.getMonth() + 1,d.getFullYear()];
+                                
+                                // Format date
+                                for (var n = 0; n < 2; n++){
+                                if (dmy[n].toString().length < 2){
+                                    dmy[n] = "0" + dmy[n];
+                                }
+                                }
+                                
+                                $('.endDate').attr('min',(dmy[2] + "-" + dmy[1] + "-" + dmy[0]));
+                                
+                                if($('.dateRange select').val() == 'Between' && $('.endDate').val() != ''){
+                                $('.endDate').parsley().validate();
+                                }
+                            }
+                            });
+                        </script>
 
-                        ?>
+                        <div class="col-md-3">
+                            <label>Data di fine <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="date"
+                                        class="endDate form-control"
+                                        name="et"
+                                        data-parsley-required="true"
+                                        data-parsley-gt="#st"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        
+
 
                        
                         <input type="hidden" name="operation" value="add">
-                        <input type="hidden" name="origin" value="addPolizze">
+                        <input type="hidden" name="origin" value="addPolizza">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button
