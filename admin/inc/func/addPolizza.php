@@ -715,11 +715,82 @@
                             </div>
                         </div>
 
-
-
-
-
+                        <!-- calendar cat -->
                         
+                        <div class="col-md-3">
+                            <label>Consulenza <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Massimale"
+                                        name="massimale"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Data di incasso <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="date"
+                                        class="endDate form-control"
+                                        name="incasso_data"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                                
+                        <div class="col-md-3">
+                            <label>Modalità d'incasso <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Modalità d'incasso"
+                                        name="incasso_mod"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Pagato <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Pagato"
+                                        name="pagato"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                        
