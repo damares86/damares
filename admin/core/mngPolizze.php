@@ -41,20 +41,16 @@ if(filter_input(INPUT_POST,"idToMod"))
     $idToMod = filter_input(INPUT_POST,"idToMod");
     $cfa->id = $idToMod ;
 
-    // array
-    $cfa->id_collaboratore = filter_input(INPUT_POST, 'id_collaboratore') ;
-    $cfa->id_compagnia = filter_input(INPUT_POST, 'id_compagnia') ;
-    //
+    $cfa->id_collaboratore = $_POST['id_collaboratore'][0] ;
+    $cfa->id_compagnia = $_POST['id_compagnia'][0] ;    
     $cfa->numero = filter_input(INPUT_POST, 'numero') ;
     $cfa->tipologia = filter_input(INPUT_POST, 'tipologia') ;
     $cfa->descrizione = filter_input(INPUT_POST, 'descrizione') ;
     $cfa->importo_gara = filter_input(INPUT_POST, 'importo_gara') ;
     
-    $contraente = filter_input(INPUT_POST,'contraente') ;
-    if( $contraente[0] == 'exists_contr' )
+    if( $contraente == 'exists_contr' )
     {
-        // array
-        $cfa->id_contraente = filter_input(INPUT_POST,'id_contraente') ;
+        $cfa->id_contraente = $_POST['id_contraente'][0] ;
     }
     else
     {
@@ -70,11 +66,12 @@ if(filter_input(INPUT_POST,"idToMod"))
         $cfa->telefono_contraente = filter_input(INPUT_POST,'telefono_contraente');
         $cfa->cellulare_contraente = filter_input(INPUT_POST,'cellulare_contraente');
         $cfa->email_contraente = filter_input(INPUT_POST,'email_contraente');
-
+        
         $cfa->table = 'contraente' ;
         $err_contraente = '' ;
         if( !$cfa->insert(['ragione_sociale_contraente','nome_contraente','cognome_contraente','via_contraente','citta_contraente','cap_contraente','codice_fiscale_contraente','p_iva_contraente','telefono_contraente','cellulare_contraente','email_contraente']) )
         {
+
             $err_contraente = '&err=errContraente' ;
         }
         else
@@ -84,15 +81,13 @@ if(filter_input(INPUT_POST,"idToMod"))
             $stmt1 = $cfa->showAllWhere('id',['codice_fiscale_contraente']) ;
             $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
             extract($row1) ;
-            $cfa->id_contraente = $row1['id'] ;            
+            $cfa->id_contraente = $row1['id'] ;
         }
     }
 
-    $beneficiario = filter_input(INPUT_POST,'id_beneficiario') ;
-    if( $beneficiario[0] == 'exists_benef' )
+    if( $beneficiario == 'exists_benef' )
     {
-        // array
-        $cfa->id_beneficiario = filter_input(INPUT_POST,'id_beneficiario') ;
+        $cfa->id_beneficiario =  $_POST['id_contraente'][0] ;
     }   
     else
     {
@@ -136,7 +131,7 @@ if(filter_input(INPUT_POST,"idToMod"))
 
     if($cfa->update(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker'],'id'))
     {
-        header("Location: ../index.php?p=editPolizza&idToMod=$idtoMod&msg=polizzeEditSucc".$err_contraente.$err_beneficiario);
+        header("Location: ../index.php?p=editPolizza&idToMod=$idToMod&msg=polizzeEditSucc".$err_contraente.$err_beneficiario);
         exit;
     }
     else
@@ -149,10 +144,9 @@ if(filter_input(INPUT_POST,"idToMod"))
 }
 else if($operation == "add")
 {
-    // array
+    
     $cfa->id_collaboratore = $_POST['id_collaboratore'][0] ;
-    $cfa->id_compagnia = $_POST['id_compagnia'][0] ;
-    //
+    $cfa->id_compagnia = $_POST['id_compagnia'][0] ;    
     $cfa->numero = filter_input(INPUT_POST, 'numero') ;
     $cfa->tipologia = filter_input(INPUT_POST, 'tipologia') ;
     $cfa->descrizione = filter_input(INPUT_POST, 'descrizione') ;
@@ -160,7 +154,6 @@ else if($operation == "add")
     
     if( $contraente == 'exists_contr' )
     {
-        // array
         $cfa->id_contraente = $_POST['id_contraente'][0] ;
     }
     else
@@ -198,7 +191,6 @@ else if($operation == "add")
 
     if( $beneficiario == 'exists_benef' )
     {
-        // array
         $cfa->id_beneficiario =  $_POST['id_contraente'][0] ;
     }   
     else

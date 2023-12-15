@@ -8,6 +8,7 @@ $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
 extract($row1) ;
 
 ?>
+
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
@@ -23,7 +24,7 @@ extract($row1) ;
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Modifica una polizza
+          Modifica una polizza
           </li>
         </ol>
       </nav>
@@ -31,6 +32,8 @@ extract($row1) ;
   </div>
 </div>
 <br>
+
+<script src="script/parsley_validate_switch.js"></script>
 
 <section class="section">
     <div class="row">
@@ -55,19 +58,19 @@ extract($row1) ;
                                     <div class="position-relative">
                                     <?php
                                         $cfa->table = 'collaboratori' ;
-                                        $collab = $cfa->showAll('id');        
-                                        $sel_collab = '' ;                                        
+                                        $collab = $cfa->showAll('id');          
+                                        $sel_collab = '' ;                                                           
                                     ?>
-                                        <select class="choices form-select" data-parsley-required="true">
+                                        <select class="choices form-select" name="id_collaboratore[]" data-parsley-required="true">
                                         <?php
                                             while($item = $collab->fetch(PDO::FETCH_ASSOC))
                                             {
                                                 if($item['id'] == $row1['id_collaboratore'])
                                                 {
-                                                    $sel_collab = 'selected' ;
+                                                    $sel_collab = 'aria-selected="true"' ;
                                                 }
                                         ?>
-                                            <option name="id_collaboratore[]" value="<?=$item['id']?>" <?=$sel_collab?>><?=$item['cognome']?> <?=$item['nome']?></option>
+                                            <option value="<?=$item['id']?>"> <?=$item['cognome']?> <?=$item['nome']?></option>
                                         <?php
                                             }
                                         ?>
@@ -75,7 +78,7 @@ extract($row1) ;
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
 
                         <div class="col-md-3">
                             <label>Compagnia <span class="text-danger">*</span></label>
@@ -86,10 +89,10 @@ extract($row1) ;
                                     <div class="position-relative">
                                     <?php
                                         $cfa->table = 'compagnie' ;
-                                        $company = $cfa->showAll('id');                                                
-                                        $sel_company = '' ;
+                                        $company = $cfa->showAll('id');                                                 
+                                        $sel_company = '' ;                                               
                                     ?>
-                                        <select class="choices form-select" data-parsley-required="true">
+                                        <select class="choices form-select"  name="id_compagnia[]" data-parsley-required="true">
                                         <?php
                                             while($item = $company->fetch(PDO::FETCH_ASSOC))
                                             {
@@ -98,7 +101,7 @@ extract($row1) ;
                                                     $sel_company = 'selected' ;
                                                 }
                                         ?>
-                                            <option name="id_compagnia[]" value="<?=$item['id']?>" <?=$sel_company ?>><?=$item['nome']?></option>
+                                            <option value="<?=$item['id']?>" <?=$sel_company?>><?=$item['nome']?></option>
                                         <?php
                                             }
                                         ?>
@@ -159,9 +162,7 @@ extract($row1) ;
                             <div class="form-group">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
-                                        <textarea class="form-control" name="descrizione" rows="3" data-parsley-required="true">
-                                            <?=$row1['descrizione']?>
-                                        </textarea>
+                                        <textarea class="form-control" name="descrizione" rows="3" data-parsley-required="true"><?=$row1['descrizione']?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +203,7 @@ extract($row1) ;
                     ?>
                     <script>
                         $(document).ready(function(){
-                            $('input[name="contraente[]"]').click(function(){
+                            $('input[name="contraente"]').click(function(){
                                 var inputValue = $(this).attr("value");
                                 var targetBox = $("." + inputValue);
                                 $('.box').not(targetBox).hide();
@@ -212,13 +213,13 @@ extract($row1) ;
                     </script>
                     <style>
                     .box.exists_contr{display:block}
-                    </style>
+                    </style> 
                     <div class="row mb-3">
                         <div class="col-2">
-                            <label class="d-inline"><input type="radio" name="contraente[]" value="exists_contr" <?=$exists_contr?>> Cerca contraente</label>
+                            <label class="d-inline"><input type="radio" id="contr_exists" name="contraente" value="exists_contr" <?=$exists_contr?>> Cerca contraente</label>
                         </div>
                         <div class="col-2">
-                            <label class="d-inline"><input type="radio" name="contraente[]" value="new_contr" <?=$new_contr?>> Aggiungi contraente</label>
+                            <label class="d-inline"><input type="radio" id="contr_new" name="contraente" value="new_contr" <?=$new_contr?>> Aggiungi contraente</label>
                         </div>
                     </div>
 
@@ -234,7 +235,7 @@ extract($row1) ;
                                         <?php
                                             $cfa->table = 'contraente' ;
                                             $contr = $cfa->showAll('id');  
-                                            $sel_contraente = '' ;      
+                                            $sel_contraente = '' ;                                                    
                                         ?>
                                             <select class="choices form-select" name="id_contraente[]" data-parsley-required="true">
                                             <?php
@@ -271,7 +272,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Ragione sociale"
                                             name="ragione_sociale_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -290,7 +290,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Nome"
                                             name="nome_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -309,7 +308,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Cognome"
                                             name="cognome_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -329,7 +327,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Indirizzo"
                                             name="via_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -348,7 +345,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Città"
                                             name="citta_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -367,7 +363,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="CAP"
                                             name="cap_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -386,7 +381,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Codice fiscale"
                                             name="codice_fiscale_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -405,7 +399,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Partita IVA"
                                             name="p_iva_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -424,7 +417,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="telefono"
                                             name="telefono_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -443,7 +435,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Cellulare"
                                             name="cellulare_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -462,7 +453,6 @@ extract($row1) ;
                                             class="form-control"
                                             placeholder="Email"
                                             name="email_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -472,7 +462,6 @@ extract($row1) ;
                         </div>
 
                     </div>
-
                        
                     <div class="row border-top mt-3 pt-3">
 
@@ -488,12 +477,13 @@ extract($row1) ;
                         ?>
                         <script>
                             $(document).ready(function(){
-                                $('input[name="beneficiario[]"]').click(function(){
+                                $('input[name="beneficiario"]').click(function(){
                                     var inputValue = $(this).attr("value");
                                     var targetBox = $("." + inputValue);
                                     $('.box_benef').not(targetBox).hide();
                                     $(targetBox).show();
                                 });
+
                             });
                         </script>
                         <style>
@@ -501,10 +491,10 @@ extract($row1) ;
                         </style>
                         <div class="row mb-3">
                             <div class="col-2">
-                                <label class="d-inline"><input type="radio" name="beneficiario[]" value="exists_benef" <?=$exists_benef?>> Cerca beneficiario</label>
+                                <label class="d-inline"><input type="radio" name="beneficiario" value="exists_benef" <?=$exists_benef?>> Cerca beneficiario</label>
                             </div>
                             <div class="col-2">
-                                <label class="d-inline"><input type="radio" name="beneficiario[]" value="new_benef" <?=$new_benef?>> Aggiungi beneficiario</label>
+                                <label class="d-inline"><input type="radio" name="beneficiario" value="new_benef" <?=$new_benef?>> Aggiungi beneficiario</label>
                             </div>
                         </div>
 
@@ -519,8 +509,8 @@ extract($row1) ;
                                         <div class="position-relative">
                                         <?php
                                             $cfa->table = 'beneficiario' ;
-                                            $benef = $cfa->showAll('id');                 
-                                            $sel_beneficiario = '' ;
+                                            $benef = $cfa->showAll('id');                  
+                                            $sel_beneficiario = '' ;                                               
                                         ?>
                                             <select class="choices form-select"  name="id_beneficiario[]" data-parsley-required="true">
                                             <?php
@@ -531,7 +521,7 @@ extract($row1) ;
                                                         $sel_beneficiario =  'selected' ;
                                                     }
                                             ?>
-                                                <option value="<?=$item['id']?>" <?=$sel_beneficiario?>> <?=$item['ragione_sociale_beneficiario']?></option>
+                                                <option value="<?=$item['id']?>" <?=$sel_beneficiario?>><?=$item['ragione_sociale_beneficiario']?></option>
                                             <?php
                                                 }
                                             ?>
@@ -557,7 +547,6 @@ extract($row1) ;
                                                 class="form-control"
                                                 placeholder="Ragione sociale"
                                                 name="ragione_sociale_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -576,7 +565,6 @@ extract($row1) ;
                                                 class="form-control"
                                                 placeholder="Indirizzo"
                                                 name="via_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -595,7 +583,6 @@ extract($row1) ;
                                                 class="form-control"
                                                 placeholder="Città"
                                                 name="citta_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -614,7 +601,6 @@ extract($row1) ;
                                                 class="form-control"
                                                 placeholder="CAP"
                                                 name="cap_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -633,7 +619,6 @@ extract($row1) ;
                                                 class="form-control"
                                                 placeholder="Codice fiscale"
                                                 name="codice_fiscale_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -652,7 +637,6 @@ extract($row1) ;
                                                 class="form-control"
                                                 placeholder="Partita IVA"
                                                 name="p_iva_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -751,7 +735,6 @@ extract($row1) ;
                             </div>
                         </div>
 
-                        <!-- calendar cat -->
                         
                         <div class="col-md-3">
                             <label>Consulenza <span class="text-danger">*</span></label>
@@ -763,8 +746,8 @@ extract($row1) ;
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Massimale"
-                                        name="massimale"
+                                        placeholder="Consulenza"
+                                        name="consulenza"
                                         data-parsley-required="true"
                                         value="<?=$row1['consulenza']?>"
                                         />
@@ -854,8 +837,8 @@ extract($row1) ;
 
                        
                         <input type="hidden" name="operation" value="edit">
-                        <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
                         <input type="hidden" name="origin" value="editPolizza">
+                        <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button
