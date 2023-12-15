@@ -49,12 +49,12 @@
                                         $cfa->table = 'collaboratori' ;
                                         $collab = $cfa->showAll('id');                                                
                                     ?>
-                                        <select class="choices form-select" data-parsley-required="true">
+                                        <select class="choices form-select" name="id_collaboratore[]" data-parsley-required="true">
                                         <?php
                                             while($item = $collab->fetch(PDO::FETCH_ASSOC))
                                             {
                                         ?>
-                                            <option name="id_collaboratore[]" value="<?=$item['id']?>"><?=$item['cognome']?> <?=$item['nome']?></option>
+                                            <option value="<?=$item['id']?>"><?=$item['cognome']?> <?=$item['nome']?></option>
                                         <?php
                                             }
                                         ?>
@@ -75,12 +75,12 @@
                                         $cfa->table = 'compagnie' ;
                                         $company = $cfa->showAll('id');                                                
                                     ?>
-                                        <select class="choices form-select" data-parsley-required="true">
+                                        <select class="choices form-select"  name="id_compagnia[]" data-parsley-required="true">
                                         <?php
                                             while($item = $company->fetch(PDO::FETCH_ASSOC))
                                             {
                                         ?>
-                                            <option name="id_compagnia[]" value="<?=$item['id']?>"><?=$item['nome']?></option>
+                                            <option value="<?=$item['id']?>"><?=$item['nome']?></option>
                                         <?php
                                             }
                                         ?>
@@ -189,7 +189,7 @@
                     </script>
                     <style>
                     .box.exists_contr{display:block}
-                    </style>
+                    </style> 
                     <div class="row mb-3">
                         <div class="col-2">
                             <label class="d-inline"><input type="radio" id="contr_exists" name="contraente" value="exists_contr" <?=$exists_contr?>> Cerca contraente</label>
@@ -212,12 +212,12 @@
                                             $cfa->table = 'contraente' ;
                                             $contr = $cfa->showAll('id');                                                
                                         ?>
-                                            <select class="choices form-select" name="check_contraente" data-parsley-required="true">
+                                            <select class="choices form-select" name="id_contraente[]" data-parsley-required="true">
                                             <?php
                                                 while($item = $contr->fetch(PDO::FETCH_ASSOC))
                                                 {
                                             ?>
-                                                <option name="id_contraente[]" value="<?=$item['id']?>"><?=$item['cognome']?> <?=$item['nome']?></option>
+                                                <option value="<?=$item['id']?>"><?=$item['cognome']?> <?=$item['nome']?></option>
                                             <?php
                                                 }
                                             ?>
@@ -243,7 +243,6 @@
                                             class="form-control"
                                             placeholder="Ragione sociale"
                                             name="ragione_sociale_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -262,7 +261,6 @@
                                             class="form-control"
                                             placeholder="Nome"
                                             name="nome_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -281,7 +279,6 @@
                                             class="form-control"
                                             placeholder="Cognome"
                                             name="cognome_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -301,7 +298,6 @@
                                             class="form-control"
                                             placeholder="Indirizzo"
                                             name="via_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -320,7 +316,6 @@
                                             class="form-control"
                                             placeholder="Città"
                                             name="citta_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -339,7 +334,6 @@
                                             class="form-control"
                                             placeholder="CAP"
                                             name="cap_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -358,7 +352,6 @@
                                             class="form-control"
                                             placeholder="Codice fiscale"
                                             name="codice_fiscale_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -377,7 +370,6 @@
                                             class="form-control"
                                             placeholder="Partita IVA"
                                             name="p_iva_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -396,7 +388,6 @@
                                             class="form-control"
                                             placeholder="telefono"
                                             name="telefono_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -415,7 +406,6 @@
                                             class="form-control"
                                             placeholder="Cellulare"
                                             name="cellulare_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -434,7 +424,6 @@
                                             class="form-control"
                                             placeholder="Email"
                                             name="email_contraente"
-                                            data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -493,12 +482,12 @@
                                             $cfa->table = 'beneficiario' ;
                                             $benef = $cfa->showAll('id');                                                
                                         ?>
-                                            <select class="choices form-select"  name="check_beneficiario" data-parsley-required="true">
+                                            <select class="choices form-select"  name="id_beneficiario[]" data-parsley-required="true">
                                             <?php
                                                 while($item = $benef->fetch(PDO::FETCH_ASSOC))
                                                 {
                                             ?>
-                                                <option name="id_beneficiario[]" value="<?=$item['id']?>"><?=$item['ragione_sociale']?></option>
+                                                <option value="<?=$item['id']?>"><?=$item['ragione_sociale']?></option>
                                             <?php
                                                 }
                                             ?>
@@ -524,7 +513,6 @@
                                                 class="form-control"
                                                 placeholder="Ragione sociale"
                                                 name="ragione_sociale_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -543,7 +531,6 @@
                                                 class="form-control"
                                                 placeholder="Indirizzo"
                                                 name="via_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -562,7 +549,6 @@
                                                 class="form-control"
                                                 placeholder="Città"
                                                 name="citta_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -581,7 +567,6 @@
                                                 class="form-control"
                                                 placeholder="CAP"
                                                 name="cap_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -600,7 +585,6 @@
                                                 class="form-control"
                                                 placeholder="Codice fiscale"
                                                 name="codice_fiscale_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -619,7 +603,6 @@
                                                 class="form-control"
                                                 placeholder="Partita IVA"
                                                 name="p_iva_beneficiario"
-                                                data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>

@@ -58,7 +58,7 @@
             <td><?=$row['numero']?></td>
             <td>
               <?php
-                $cfa->id = $row['id'];
+                $cfa->id = $row['id_collaboratore'];
                 $cfa->table = 'collaboratori';
                 $stmt1 = $cfa->showAllWhere('id',['id']) ;
                 $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);

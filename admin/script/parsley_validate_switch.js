@@ -5,9 +5,10 @@ $(document).ready(function(){
     // Which option was welected?
     var val = $(this).val();
     console.log(val)
+    
     switch (val) {
         case 'exists_contr':
-        $("[name=check_contraente]").attr("data-parsley-required", "true");
+        $("[name=\"id_contraente[]\"]").attr("data-parsley-required", "true");
         $("[name=ragione_sociale_contraente]").removeAttr("data-parsley-required");
         $("[name=nome_contraente]").removeAttr("data-parsley-required");
         $("[name=cognome_contraente]").removeAttr("data-parsley-required");
@@ -21,7 +22,7 @@ $(document).ready(function(){
         $("[name=email_contraente]").removeAttr("data-parsley-required");
         break;
         case 'new_contr':
-        $("[name=check_contraente]").removeAttr("data-parsley-required");
+        $("[name=\"id_contraente[]\"").removeAttr("data-parsley-required");
         $("[name=ragione_sociale_contraente]").attr("data-parsley-required","true");
         $("[name=nome_contraente]").attr("data-parsley-required","true");
         $("[name=cognome_contraente]").attr("data-parsley-required","true");
@@ -45,7 +46,7 @@ $(document).ready(function(){
         console.log(val)
         switch (val) {
             case 'exists_benef':
-            $("[name=check_beneficiario]").attr("data-parsley-required", "true");
+            $("[name=\"id_beneficiario[]\"]").attr("data-parsley-required", "true");
             $("[name=ragione_sociale_beneficiario]").removeAttr("data-parsley-required");
             $("[name=via_beneficiario]").removeAttr("data-parsley-required");
             $("[name=citta_beneficiario]").removeAttr("data-parsley-required");
@@ -54,7 +55,7 @@ $(document).ready(function(){
             $("[name=p_iva_beneficiario]").removeAttr("data-parsley-required");
             break;
             case 'new_benef':
-            $("[name=check_beneficiario]").removeAttr("data-parsley-required");
+            $("[name=\"id_beneficiario[]\"]").removeAttr("data-parsley-required");
             $("[name=ragione_sociale_beneficiario]").attr("data-parsley-required","true");
             $("[name=via_beneficiario]").attr("data-parsley-required","true");
             $("[name=citta_beneficiario]").attr("data-parsley-required","true");

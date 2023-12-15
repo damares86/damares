@@ -125,7 +125,7 @@ extract($row1) ;
                                         placeholder="Numero"
                                         name="numero"
                                         data-parsley-required="true"
-                                        value="<?$row1['numero']?>"
+                                        value="<?=$row1['numero']?>"
                                         />
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@ extract($row1) ;
                                         placeholder="Tipologia"
                                         name="tipologia"
                                         data-parsley-required="true"
-                                        value="<?$row1['tipologia']?>"
+                                        value="<?=$row1['tipologia']?>"
                                         />
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@ extract($row1) ;
                                         class="form-control"
                                         placeholder="Importo gara"
                                         name="importo_gara"
-                                        value="<?$row1['importo_gara']?>"
+                                        value="<?=$row1['importo_gara']?>"
                                         />
                                     </div>
                                 </div>
@@ -233,19 +233,19 @@ extract($row1) ;
                                         <div class="position-relative">
                                         <?php
                                             $cfa->table = 'contraente' ;
-                                            $contr = $cfa->showAll('id');        
-                                            $sel_contraente = '' ;                                        
+                                            $contr = $cfa->showAll('id');  
+                                            $sel_contraente = '' ;      
                                         ?>
-                                            <select class="choices form-select" data-parsley-required="true">
+                                            <select class="choices form-select" name="id_contraente[]" data-parsley-required="true">
                                             <?php
                                                 while($item = $contr->fetch(PDO::FETCH_ASSOC))
                                                 {
                                                     if( $item['id'] == $row1['id_contraente'] )
                                                     {
-                                                        $sel_contraente = 'selected' ;
+                                                        $sel_contraente = 'aria-selected="true"' ;
                                                     }
                                             ?>
-                                                <option name="id_contraente[]" value="<?=$item['id']?>" <?=$sel_contraente?>><?=$item['cognome']?> <?=$item['nome']?></option>
+                                                <option value="<?=$item['id']?>" <?=$sel_contraente?>><?=$item['cognome_contraente']?> <?=$item['nome_contraente']?></option>
                                             <?php
                                                 }
                                             ?>
@@ -522,16 +522,16 @@ extract($row1) ;
                                             $benef = $cfa->showAll('id');                 
                                             $sel_beneficiario = '' ;
                                         ?>
-                                            <select class="choices form-select" data-parsley-required="true">
+                                            <select class="choices form-select"  name="id_beneficiario[]" data-parsley-required="true">
                                             <?php
                                                 while($item = $benef->fetch(PDO::FETCH_ASSOC))
                                                 {
-                                                    if( $item['id'] = $row1['id_beneficiario'] )
+                                                    if( $item['id'] == $row1['id_beneficiario'] )
                                                     {
-                                                        $sel_beneficiario = 'selected' ;
+                                                        $sel_beneficiario =  'selected' ;
                                                     }
                                             ?>
-                                                <option name="id_beneficiario[]" value="<?=$item['id']?>" <?=$sel_beneficiario?>><?=$item['ragione_sociale']?></option>
+                                                <option value="<?=$item['id']?>" <?=$sel_beneficiario?>> <?=$item['ragione_sociale_beneficiario']?></option>
                                             <?php
                                                 }
                                             ?>
@@ -680,7 +680,7 @@ extract($row1) ;
                                         placeholder="Massimale"
                                         name="massimale"
                                         data-parsley-required="true"
-                                        value="<?$row1['massimale']?>"
+                                        value="<?=$row1['massimale']?>"
                                         />
                                     </div>
                                 </div>
@@ -700,7 +700,7 @@ extract($row1) ;
                                         id="startDate"
                                         name="st"
                                         data-parsley-required="true"
-                                        value="<?$row1['st']?>"
+                                        value="<?=$row1['st']?>"
                                         />
                                     </div>
                                 </div>
@@ -744,7 +744,7 @@ extract($row1) ;
                                         name="et"
                                         data-parsley-required="true"
                                         data-parsley-gt="#st"
-                                        value="<?$row1['et']?>"
+                                        value="<?=$row1['et']?>"
                                         />
                                     </div>
                                 </div>
@@ -766,7 +766,7 @@ extract($row1) ;
                                         placeholder="Massimale"
                                         name="massimale"
                                         data-parsley-required="true"
-                                        value="<?$row1['consulenza']?>"
+                                        value="<?=$row1['consulenza']?>"
                                         />
                                     </div>
                                 </div>
@@ -785,7 +785,7 @@ extract($row1) ;
                                         class="endDate form-control"
                                         name="incasso_data"
                                         data-parsley-required="true"
-                                        value="<?$row1['incasso_data']?>"
+                                        value="<?=$row1['incasso_data']?>"
                                         />
                                     </div>
                                 </div>
@@ -805,7 +805,7 @@ extract($row1) ;
                                         placeholder="Modalità d'incasso"
                                         name="incasso_mod"
                                         data-parsley-required="true"
-                                        value="<?$row1['incasso_mod']?>"
+                                        value="<?=$row1['incasso_mod']?>"
                                         />
                                     </div>
                                 </div>
@@ -825,7 +825,7 @@ extract($row1) ;
                                         placeholder="Pagato"
                                         name="pagato"
                                         data-parsley-required="true"
-                                        value="<?$row1['pagato']?>"
+                                        value="<?=$row1['pagato']?>"
                                         />
                                     </div>
                                 </div>
