@@ -27,7 +27,7 @@ if(filter_input(INPUT_GET,"idToDel"))
     }
     else
     {
-        header("Location: ../index.php?p=allCompagnie&err=compagnieNoDel");
+        header("Location: ../index.php?p=allCompagnie&err=compagnieNotDel");
         exit;
     }
 

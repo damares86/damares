@@ -774,7 +774,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Pagato <span class="text-danger">*</span></label>
+                            <label>Pagato compagnia<span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -792,6 +792,24 @@
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <label>Consulenza (%)<span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="0.0"
+                                        name="broker"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                        
                         <input type="hidden" name="operation" value="add">

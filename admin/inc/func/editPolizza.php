@@ -813,7 +813,7 @@ extract($row1) ;
                         </div>
 
                         <div class="col-md-3">
-                            <label>Pagato <span class="text-danger">*</span></label>
+                            <label>Pagato compagnia<span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -832,10 +832,30 @@ extract($row1) ;
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <label>Consulenza (%)<span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="0.0"
+                                        name="broker"
+                                        data-parsley-required="true"
+                                        value="<?=$row1['broker']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                        
-                        <input type="hidden" name="operation" value="add">
-                        <input type="hidden" name="origin" value="addPolizza">
+                        <input type="hidden" name="operation" value="edit">
+                        <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
+                        <input type="hidden" name="origin" value="editPolizza">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

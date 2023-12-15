@@ -82,7 +82,8 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."collaboratori
       consulenza INT(20) NOT NULL,
       incasso_data DATE NOT NULL,
       incasso_mod VARCHAR(255) NOT NULL,
-      pagato INT(20) NOT NULL);
+      pagato INT(20) NOT NULL,
+      broker INT(20) DEFAULT NULL);
       ";
 
 $parent_table=[['link'=>'allCollaboratori',

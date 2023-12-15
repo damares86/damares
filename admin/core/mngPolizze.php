@@ -18,16 +18,16 @@ if(filter_input(INPUT_GET,"idToDel"))
 {
 
     $cfa->id = filter_input(INPUT_GET,"idToDel");
-    $cfa->table = 'collaboratori' ;
+    $cfa->table = 'polizze' ;
     
     if($cfa->delete('id'))
     {
-        header("Location: ../index.php?p=allCollaboratori&msg=collabDel");
+        header("Location: ../index.php?p=allPolizze&msg=polizzeDel");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allCollaboratori&err=collabNoDel");
+        header("Location: ../index.php?p=allPolizze&err=polizzaNotDel");
         exit;
     }
 
