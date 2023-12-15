@@ -125,6 +125,7 @@ extract($row1) ;
                                         placeholder="Numero"
                                         name="numero"
                                         data-parsley-required="true"
+                                        value="<?$row1['numero']?>"
                                         />
                                     </div>
                                 </div>
@@ -144,6 +145,7 @@ extract($row1) ;
                                         placeholder="Tipologia"
                                         name="tipologia"
                                         data-parsley-required="true"
+                                        value="<?$row1['tipologia']?>"
                                         />
                                     </div>
                                 </div>
@@ -158,6 +160,7 @@ extract($row1) ;
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <textarea class="form-control" name="descrizione" rows="3" data-parsley-required="true">
+                                            <?=$row1['descrizione']?>
                                         </textarea>
                                     </div>
                                 </div>
@@ -176,6 +179,7 @@ extract($row1) ;
                                         class="form-control"
                                         placeholder="Importo gara"
                                         name="importo_gara"
+                                        value="<?$row1['importo_gara']?>"
                                         />
                                     </div>
                                 </div>
@@ -676,6 +680,7 @@ extract($row1) ;
                                         placeholder="Massimale"
                                         name="massimale"
                                         data-parsley-required="true"
+                                        value="<?$row1['massimale']?>"
                                         />
                                     </div>
                                 </div>
@@ -695,6 +700,7 @@ extract($row1) ;
                                         id="startDate"
                                         name="st"
                                         data-parsley-required="true"
+                                        value="<?$row1['st']?>"
                                         />
                                     </div>
                                 </div>
@@ -704,7 +710,6 @@ extract($row1) ;
                         <script>
                             $('.startDate').change(function(){
                             var startDate = $('.startDate').val();
-                            console.log(startDate)
 
                             if(startDate != ''){
                                 var d = new Date(Date.parse(startDate));      
@@ -739,6 +744,7 @@ extract($row1) ;
                                         name="et"
                                         data-parsley-required="true"
                                         data-parsley-gt="#st"
+                                        value="<?$row1['et']?>"
                                         />
                                     </div>
                                 </div>
@@ -760,6 +766,7 @@ extract($row1) ;
                                         placeholder="Massimale"
                                         name="massimale"
                                         data-parsley-required="true"
+                                        value="<?$row1['consulenza']?>"
                                         />
                                     </div>
                                 </div>
@@ -778,6 +785,7 @@ extract($row1) ;
                                         class="endDate form-control"
                                         name="incasso_data"
                                         data-parsley-required="true"
+                                        value="<?$row1['incasso_data']?>"
                                         />
                                     </div>
                                 </div>
@@ -797,6 +805,7 @@ extract($row1) ;
                                         placeholder="Modalità d'incasso"
                                         name="incasso_mod"
                                         data-parsley-required="true"
+                                        value="<?$row1['incasso_mod']?>"
                                         />
                                     </div>
                                 </div>
@@ -816,6 +825,7 @@ extract($row1) ;
                                         placeholder="Pagato"
                                         name="pagato"
                                         data-parsley-required="true"
+                                        value="<?$row1['pagato']?>"
                                         />
                                     </div>
                                 </div>
