@@ -37,13 +37,25 @@ class Cfa extends Common{
     public $provv ;    
 
     // contraente
-    public $ragione_sociale ;
-    public $via ;
-    public $citta ;
-    public $cap ;
+    public $nome_contraente ;
+    public $cognome_contraente ;
+    public $ragione_sociale_contraente ;
+    public $via_contraente ;
+    public $citta_contraente ;
+    public $cap_contraente ;
+    public $codice_fiscale_contraente ;
+    public $p_iva_contraente ;
+    public $telefono_contraente ;
+    public $cellulare_contraente ;
+    public $email_contraente ;
 
     // beneficiario
-    // come sopra
+    public $ragione_sociale_beneficiario ;
+    public $via_beneficiario ;
+    public $citta_beneficiario ;
+    public $cap_beneficiario ;
+    public $codice_fiscale_beneficiario ;
+    public $p_iva_beneficiario ;
 
     // polizze
     public $id_collaboratore ;

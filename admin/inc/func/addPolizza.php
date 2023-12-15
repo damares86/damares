@@ -22,6 +22,8 @@
 </div>
 <br>
 
+<script src="script/parsley_validate_switch.js"></script>
+
 <section class="section">
     <div class="row">
         <div class="col-12">
@@ -60,7 +62,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
 
                         <div class="col-md-3">
                             <label>Compagnia <span class="text-danger">*</span></label>
@@ -137,8 +139,7 @@
                             <div class="form-group">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
-                                        <textarea class="form-control" name="descrizione" rows="3" data-parsley-required="true">
-                                        </textarea>
+                                        <textarea class="form-control" name="descrizione" rows="3" data-parsley-required="true"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +179,7 @@
                     ?>
                     <script>
                         $(document).ready(function(){
-                            $('input[name="contraente[]"]').click(function(){
+                            $('input[name="contraente"]').click(function(){
                                 var inputValue = $(this).attr("value");
                                 var targetBox = $("." + inputValue);
                                 $('.box').not(targetBox).hide();
@@ -191,10 +192,10 @@
                     </style>
                     <div class="row mb-3">
                         <div class="col-2">
-                            <label class="d-inline"><input type="radio" name="contraente[]" value="exists_contr" <?=$exists_contr?>> Cerca contraente</label>
+                            <label class="d-inline"><input type="radio" id="contr_exists" name="contraente" value="exists_contr" <?=$exists_contr?>> Cerca contraente</label>
                         </div>
                         <div class="col-2">
-                            <label class="d-inline"><input type="radio" name="contraente[]" value="new_contr" <?=$new_contr?>> Aggiungi contraente</label>
+                            <label class="d-inline"><input type="radio" id="contr_new" name="contraente" value="new_contr" <?=$new_contr?>> Aggiungi contraente</label>
                         </div>
                     </div>
 
@@ -211,7 +212,7 @@
                                             $cfa->table = 'contraente' ;
                                             $contr = $cfa->showAll('id');                                                
                                         ?>
-                                            <select class="choices form-select" data-parsley-required="true">
+                                            <select class="choices form-select" name="check_contraente" data-parsley-required="true">
                                             <?php
                                                 while($item = $contr->fetch(PDO::FETCH_ASSOC))
                                                 {
@@ -443,7 +444,6 @@
                         </div>
 
                     </div>
-
                        
                     <div class="row border-top mt-3 pt-3">
 
@@ -459,12 +459,13 @@
                         ?>
                         <script>
                             $(document).ready(function(){
-                                $('input[name="beneficiario[]"]').click(function(){
+                                $('input[name="beneficiario"]').click(function(){
                                     var inputValue = $(this).attr("value");
                                     var targetBox = $("." + inputValue);
                                     $('.box_benef').not(targetBox).hide();
                                     $(targetBox).show();
                                 });
+
                             });
                         </script>
                         <style>
@@ -472,10 +473,10 @@
                         </style>
                         <div class="row mb-3">
                             <div class="col-2">
-                                <label class="d-inline"><input type="radio" name="beneficiario[]" value="exists_benef" <?=$exists_benef?>> Cerca beneficiario</label>
+                                <label class="d-inline"><input type="radio" name="beneficiario" value="exists_benef" <?=$exists_benef?>> Cerca beneficiario</label>
                             </div>
                             <div class="col-2">
-                                <label class="d-inline"><input type="radio" name="beneficiario[]" value="new_benef" <?=$new_benef?>> Aggiungi beneficiario</label>
+                                <label class="d-inline"><input type="radio" name="beneficiario" value="new_benef" <?=$new_benef?>> Aggiungi beneficiario</label>
                             </div>
                         </div>
 
@@ -492,7 +493,7 @@
                                             $cfa->table = 'beneficiario' ;
                                             $benef = $cfa->showAll('id');                                                
                                         ?>
-                                            <select class="choices form-select" data-parsley-required="true">
+                                            <select class="choices form-select"  name="check_beneficiario" data-parsley-required="true">
                                             <?php
                                                 while($item = $benef->fetch(PDO::FETCH_ASSOC))
                                                 {
@@ -674,7 +675,6 @@
                         <script>
                             $('.startDate').change(function(){
                             var startDate = $('.startDate').val();
-                            console.log(startDate)
 
                             if(startDate != ''){
                                 var d = new Date(Date.parse(startDate));      
@@ -715,7 +715,6 @@
                             </div>
                         </div>
 
-                        <!-- calendar cat -->
                         
                         <div class="col-md-3">
                             <label>Consulenza <span class="text-danger">*</span></label>
@@ -727,8 +726,8 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Massimale"
-                                        name="massimale"
+                                        placeholder="Consulenza"
+                                        name="consulenza"
                                         data-parsley-required="true"
                                         />
                                     </div>
