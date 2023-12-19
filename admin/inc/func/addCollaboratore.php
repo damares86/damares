@@ -228,6 +228,8 @@
                                         id="first-name-icon"
                                         name="codice_fiscale"
                                         data-parsley-required="true"
+                                        maxlength="16"
+                                        data-parsley-maxlength="16"
                                         />
                                     </div>
                                 </div>

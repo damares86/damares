@@ -59,18 +59,18 @@ extract($row1) ;
                                     <?php
                                         $cfa->table = 'collaboratori' ;
                                         $collab = $cfa->showAll('id');          
-                                        $sel_collab = '' ;                                                           
-                                    ?>
+                                        ?>
                                         <select class="choices form-select" name="id_collaboratore[]" data-parsley-required="true">
-                                        <?php
+                                            <?php
                                             while($item = $collab->fetch(PDO::FETCH_ASSOC))
                                             {
+                                                $sel_collab = '' ;                                                           
                                                 if($item['id'] == $row1['id_collaboratore'])
                                                 {
-                                                    $sel_collab = 'aria-selected="true"' ;
+                                                    $sel_collab = 'selected' ;
                                                 }
                                         ?>
-                                            <option value="<?=$item['id']?>"> <?=$item['cognome']?> <?=$item['nome']?></option>
+                                            <option value="<?=$item['id']?>" <?=$sel_collab?>> <?=$item['cognome']?> <?=$item['nome']?></option>
                                         <?php
                                             }
                                         ?>
@@ -90,12 +90,13 @@ extract($row1) ;
                                     <?php
                                         $cfa->table = 'compagnie' ;
                                         $company = $cfa->showAll('id');                                                 
-                                        $sel_company = '' ;                                               
-                                    ?>
+                                        
+                                        ?>
                                         <select class="choices form-select"  name="id_compagnia[]" data-parsley-required="true">
-                                        <?php
+                                            <?php
                                             while($item = $company->fetch(PDO::FETCH_ASSOC))
                                             {
+                                                $sel_company = '' ;                                               
                                                 if( $item['id'] == $row1['id_compagnia'] )
                                                 {
                                                     $sel_company = 'selected' ;
@@ -235,15 +236,15 @@ extract($row1) ;
                                         <?php
                                             $cfa->table = 'contraente' ;
                                             $contr = $cfa->showAll('id');  
-                                            $sel_contraente = '' ;                                                    
-                                        ?>
+                                            ?>
                                             <select class="choices form-select" name="id_contraente[]" data-parsley-required="true">
-                                            <?php
+                                                <?php
                                                 while($item = $contr->fetch(PDO::FETCH_ASSOC))
                                                 {
+                                                    $sel_contraente = '' ; 
                                                     if( $item['id'] == $row1['id_contraente'] )
                                                     {
-                                                        $sel_contraente = 'aria-selected="true"' ;
+                                                        $sel_contraente = 'selected'  ;
                                                     }
                                             ?>
                                                 <option value="<?=$item['id']?>" <?=$sel_contraente?>><?=$item['cognome_contraente']?> <?=$item['nome_contraente']?></option>
@@ -510,12 +511,12 @@ extract($row1) ;
                                         <?php
                                             $cfa->table = 'beneficiario' ;
                                             $benef = $cfa->showAll('id');                  
-                                            $sel_beneficiario = '' ;                                               
-                                        ?>
+                                            ?>
                                             <select class="choices form-select"  name="id_beneficiario[]" data-parsley-required="true">
-                                            <?php
+                                                <?php
                                                 while($item = $benef->fetch(PDO::FETCH_ASSOC))
                                                 {
+                                                    $sel_beneficiario = '' ;                                               
                                                     if( $item['id'] == $row1['id_beneficiario'] )
                                                     {
                                                         $sel_beneficiario =  'selected' ;
@@ -523,6 +524,7 @@ extract($row1) ;
                                             ?>
                                                 <option value="<?=$item['id']?>" <?=$sel_beneficiario?>><?=$item['ragione_sociale_beneficiario']?></option>
                                             <?php
+
                                                 }
                                             ?>
                                         </select>

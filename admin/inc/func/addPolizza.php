@@ -210,14 +210,16 @@
                                         <div class="position-relative">
                                         <?php
                                             $cfa->table = 'contraente' ;
-                                            $contr = $cfa->showAll('id');                                                
+                                            $contr = $cfa->showAll('id');   
+
                                         ?>
                                             <select class="choices form-select" name="id_contraente[]" data-parsley-required="true">
                                             <?php
                                                 while($item = $contr->fetch(PDO::FETCH_ASSOC))
                                                 {
+                                                    extract($item) ;
                                             ?>
-                                                <option value="<?=$item['id']?>"><?=$item['cognome']?> <?=$item['nome']?></option>
+                                                <option value="<?=$item['id']?>"><?=$item['cognome_contraente']?> <?=$item['nome_contraente']?></option>
                                             <?php
                                                 }
                                             ?>
@@ -352,6 +354,8 @@
                                             class="form-control"
                                             placeholder="Codice fiscale"
                                             name="codice_fiscale_contraente"
+                                            maxlength="16"
+                                            data-parsley-maxlength="16"
                                             />
                                         </div>
                                     </div>
@@ -487,7 +491,7 @@
                                                 while($item = $benef->fetch(PDO::FETCH_ASSOC))
                                                 {
                                             ?>
-                                                <option value="<?=$item['id']?>"><?=$item['ragione_sociale']?></option>
+                                                <option value="<?=$item['id']?>"><?=$item['ragione_sociale_beneficiario']?></option>
                                             <?php
                                                 }
                                             ?>
@@ -585,6 +589,8 @@
                                                 class="form-control"
                                                 placeholder="Codice fiscale"
                                                 name="codice_fiscale_beneficiario"
+                                                maxlength="16"
+                                                data-parsley-maxlength="16"
                                                 />
                                             </div>
                                         </div>
