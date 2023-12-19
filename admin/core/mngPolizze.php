@@ -48,6 +48,8 @@ if(filter_input(INPUT_POST,"idToMod"))
     $cfa->descrizione = filter_input(INPUT_POST, 'descrizione') ;
     $cfa->importo_gara = filter_input(INPUT_POST, 'importo_gara') ;
     
+    $contraente = $_POST['contraente'] ;
+
     if( $contraente == 'exists_contr' )
     {
         $cfa->id_contraente = $_POST['id_contraente'][0] ;
@@ -85,9 +87,11 @@ if(filter_input(INPUT_POST,"idToMod"))
         }
     }
 
+    $beneficiario = $_POST['beneficiario'] ;
+
     if( $beneficiario == 'exists_benef' )
     {
-        $cfa->id_beneficiario =  $_POST['id_contraente'][0] ;
+        $cfa->id_beneficiario =  $_POST['id_beneficiario'][0] ;
     }   
     else
     {
@@ -152,6 +156,8 @@ else if($operation == "add")
     $cfa->descrizione = filter_input(INPUT_POST, 'descrizione') ;
     $cfa->importo_gara = filter_input(INPUT_POST, 'importo_gara') ;
     
+    $contraente = $_POST['contraente'] ;
+    
     if( $contraente == 'exists_contr' )
     {
         $cfa->id_contraente = $_POST['id_contraente'][0] ;
@@ -189,9 +195,12 @@ else if($operation == "add")
         }
     }
 
+
+    $beneficiario = $_POST['beneficiario'] ;
+
     if( $beneficiario == 'exists_benef' )
     {
-        $cfa->id_beneficiario =  $_POST['id_contraente'][0] ;
+        $cfa->id_beneficiario =  $_POST['id_beneficiario'][0] ;
     }   
     else
     {
