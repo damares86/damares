@@ -2,20 +2,35 @@
         TODO
 ------------------------------------------
 
-- filtri di ricerca sulle tabelle
+- inserimento dati calendario (vedi sotto)
+- modifica contraente e beneficiario
+- check sull'eliminazione?
+- cron email
+- export dati in excel
 
 ## CALENDARIO
 - vista calendario con pratiche
 - pallini/riquadri cliccabili con modale di dettaglio delle pratiche
 
 
-## TEST OK
-- import dati in excel
-- export risultati pdf e excel
 
+
+
+##################################################
 
 #####    AGGIUNTE FUTURE    #####
 
 ## REGISTER
 - aggiunta dell'approvazione di admin, ecc per registrazioni dal form
 - testare funzionalità di registrazione e reset password online
+
+
+########### codice calendar_settings.php
+<?php 
+$events = 
+  [
+     "table" => "polizze",
+     "url"   => ",\n url => '?p=editPolizza&idToMod=".$id_polizza."'", // opzionale
+     "title" => $compagnia
+  ];
+  

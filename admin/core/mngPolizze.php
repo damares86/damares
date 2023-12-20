@@ -244,6 +244,9 @@ else if($operation == "add")
 
     if($cfa->insert(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker']))
     {
+
+        // CALENDAR
+
         header("Location: ../index.php?p=allPolizze&msg=polizzeAddSucc".$err_contraente.$err_beneficiario);
         exit;
     }
