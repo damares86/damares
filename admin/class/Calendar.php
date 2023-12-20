@@ -37,6 +37,8 @@ class Calendar extends Common{
             // check if isset the url in calendarSettings
             $url = $events['url'] ? ",\n'url' => ".$events['url'].$item['id']."" : '' ;
 
+            // check if there is an external table for the title
+
             // create the event element
             $ev = array(
                 'title'	          => $item[''.$events['title'].''],

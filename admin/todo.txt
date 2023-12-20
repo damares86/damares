@@ -2,8 +2,10 @@
         TODO
 ------------------------------------------
 
-- inserimento dati calendario (vedi sotto)
+- polizze -> compagnie-> copia_direzione (radio)
 - modifica contraente e beneficiario
+
+- inserimento dati calendario (vedi sotto)
 - check sull'eliminazione?
 - cron email
 - export dati in excel
@@ -12,11 +14,18 @@
 - vista calendario con pratiche
 - pallini/riquadri cliccabili con modale di dettaglio delle pratiche
 
+########### codice calendar_settings.php
+<?php 
+$events = 
+  [
+     "table" => "polizze",
+     "url"   => "index.php?p=editPolizza&idToMod=", // opzionale
+     "title" => 'id_compagnia'
+  ];
 
 
 
-
-##################################################
+########################################################
 
 #####    AGGIUNTE FUTURE    #####
 
@@ -24,13 +33,3 @@
 - aggiunta dell'approvazione di admin, ecc per registrazioni dal form
 - testare funzionalità di registrazione e reset password online
 
-
-########### codice calendar_settings.php
-<?php 
-$events = 
-  [
-     "table" => "polizze",
-     "url"   => ",\n url => '?p=editPolizza&idToMod=".$id_polizza."'", // opzionale
-     "title" => $compagnia
-  ];
-  
