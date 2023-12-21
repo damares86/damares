@@ -37,7 +37,7 @@ class Calendar extends Common{
             extract($row2) ;
 
             // check if isset the url in calendarSettings
-            $url = $events['url'] ? "'url' => '".$events['url'].$item['id']."'" : '' ;
+            $url = $events['url'] ? $events['url'].$item['id'] : '' ;
             
             // set start date if set to true
             $start = '' ;

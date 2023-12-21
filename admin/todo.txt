@@ -2,17 +2,11 @@
         TODO
 ------------------------------------------
 
-- inserimento dati calendario (vedi sotto)
-
 - SEZIONE UTILI
 
 - check sull'eliminazione?
 - export dati in excel
 
-
-## CALENDARIO
-- vista calendario con pratiche
-- pallini/riquadri cliccabili con modale di dettaglio delle pratiche
 
 
 
