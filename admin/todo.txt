@@ -3,7 +3,7 @@
 ------------------------------------------
 
 - polizze -> compagnie-> copia_direzione (radio)
-- modifica contraente e beneficiario
+- modifica beneficiario
 
 - inserimento dati calendario (vedi sotto)
 - check sull'eliminazione?
