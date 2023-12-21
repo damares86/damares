@@ -30,23 +30,54 @@ class Calendar extends Common{
         {
             // check calendar category for color
             $id_cat = $item['id_calendar_cat'] ?  $item['id_calendar_cat'] : 1 ;
-            $stmt = $this->showAllWhere('id',['id']) ;
-            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
-            extract($row) ;
-            
+            $this->id = $id_cat ;
+            $this->table = "calendar_cat" ;
+            $stmt2 = $this->showAllWhere('id',['id']) ;
+            $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+            extract($row2) ;
+
             // check if isset the url in calendarSettings
-            $url = $events['url'] ? ",\n'url' => ".$events['url'].$item['id']."" : '' ;
+            $url = $events['url'] ? "'url' => '".$events['url'].$item['id']."'" : '' ;
+            
+            // set start date if set to true
+            $start = '' ;
+            $end = '' ;
+            if($events['start'])
+            {
+                $start = $item['st'] ;
+                $end = $item['et'] ;
+            }
+            else
+            {
+                $start = $item['et'] ;
+                $end = $item['et'] ;
+            }
 
             // check if there is an external table for the title
-
+            $title = '' ;
+            if( $events['title_table'] )
+            {
+                // get the record from the title_table
+                $this->id = $item[''.$events['title_id'].''] ;
+                $this->table = $events['title_table'] ;
+                $stmt1 = $this->showAllWhere('id',['id']) ;
+                $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
+                extract($row1) ;
+                $title = $row1[''.$events['title'].''] ;
+            }
+            else
+            {
+                $title = $row[''.$events['title'].''] ;
+            }
             // create the event element
             $ev = array(
-                'title'	          => $item[''.$events['title'].''],
-                'start'           => $item['st'],
-                'end'             => $item['et'],
-                'color'           => $row['cat_color'].$url
+                'title'	          => $title,
+                'color'           => ''.$row2['cat_color'].'',
+                'url'             => $url,
+                'start'           => $start,
+                'end'             => $end
             );
-            
+
             $events_arr[] = $ev ;
 
             $idx++ ;

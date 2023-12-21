@@ -143,6 +143,10 @@ if(filter_input(INPUT_POST,"idToMod"))
 
     if($cfa->update(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker','copia_direzione'],'id'))
     {
+
+        // CALENDAR
+        $calendar->updateCalendar() ;
+        
         header("Location: ../index.php?p=editPolizza&idToMod=$idToMod&msg=polizzeEditSucc".$err_contraente.$err_beneficiario);
         exit;
     }
@@ -262,6 +266,7 @@ else if($operation == "add")
     {
 
         // CALENDAR
+        $calendar->updateCalendar() ;
 
         header("Location: ../index.php?p=allPolizze&msg=polizzeAddSucc".$err_contraente.$err_beneficiario);
         exit;

@@ -3,15 +3,26 @@
 ------------------------------------------
 
 - inserimento dati calendario (vedi sotto)
+
+- SEZIONE UTILI
+
 - check sull'eliminazione?
 - export dati in excel
 
-### TESTATO IN LOCALE (fca.dmweblab.com)
-- cron email
 
 ## CALENDARIO
 - vista calendario con pratiche
 - pallini/riquadri cliccabili con modale di dettaglio delle pratiche
+
+
+
+
+### TESTATO IN LOCALE (fca.dmweblab.com)
+- cron email
+
+
+
+
 
 ########### codice calendar_settings.php
 <?php 
