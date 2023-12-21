@@ -95,17 +95,15 @@ $parent_table=[['link'=>'allCollaboratori',
             ['link'=>'allPolizze',
                   'label'=>'Polizze',
                   'icon'=>'file-post'],
+            ['link'=>'allContraenti',
+                  'label'=>'Contraenti',
+                  'icon'=>'person-fill-down'],
+            ['link'=>'allBeneficiari',
+                  'label'=>'Beneficiari',
+                  'icon'=>'person-fill-up'],
             ['link'=>'allUtili',
                   'label'=>'Utili',
                   'icon'=>'bank'],];
-
-// $child_table=[['link'=>'allCustomers',
-//                 'label'=>'All Customers',
-//                 'icon'=>'people-fill'],
-//                 ['link'=>'addCustomer',
-//                 'label'=>'Add a customer',
-//                 'icon'=>'person-plus-fill']
-//                ];
 
 $query_drop_table = "DROP TABLE  ".$prefix."collaboratori, ".$prefix."compagnie, ".$prefix."contraente, ".$prefix."beneficiario, ".$prefix."polizze";
 
