@@ -799,6 +799,16 @@
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <label>Copia direzione<span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check form-switch px-5">
+                                    <input class="form-check-input delete" type="checkbox" name="copia_direzione" id="flexSwitchCheckDefault">
+                                </div>
+                            </div>
+                        </div>
                        
                         <input type="hidden" name="operation" value="add">
                         <input type="hidden" name="origin" value="addPolizza">

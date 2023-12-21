@@ -74,6 +74,8 @@ class Cfa extends Common{
     public $incasso_data ;
     public $incasso_mod ;
     public $pagato ;
+    public $broker ;
+    public $copia_direzione ;
 
 
 }

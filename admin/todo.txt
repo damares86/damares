@@ -2,13 +2,12 @@
         TODO
 ------------------------------------------
 
-- polizze -> compagnie-> copia_direzione (radio)
-- modifica beneficiario
-
 - inserimento dati calendario (vedi sotto)
 - check sull'eliminazione?
-- cron email
 - export dati in excel
+
+### TESTATO IN LOCALE (fca.dmweblab.com)
+- cron email
 
 ## CALENDARIO
 - vista calendario con pratiche

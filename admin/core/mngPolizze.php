@@ -128,12 +128,20 @@ if(filter_input(INPUT_POST,"idToMod"))
     $cfa->incasso_mod = filter_input(INPUT_POST,'incasso_mod') ;
     $cfa->pagato = filter_input(INPUT_POST,'pagato') ;
     $cfa->broker = filter_input(INPUT_POST,'broker') ;
+    if(filter_input(INPUT_POST,'copia_direzione'))
+    {
+        $cfa->copia_direzione = 1 ;
+    }
+    else
+    {
+        $cfa->copia_direzione = 0 ;
+    }
 
     // details
 
     $cfa->table = 'polizze' ;
 
-    if($cfa->update(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker'],'id'))
+    if($cfa->update(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker','copia_direzione'],'id'))
     {
         header("Location: ../index.php?p=editPolizza&idToMod=$idToMod&msg=polizzeEditSucc".$err_contraente.$err_beneficiario);
         exit;
@@ -237,12 +245,20 @@ else if($operation == "add")
     $cfa->incasso_mod = filter_input(INPUT_POST,'incasso_mod') ;
     $cfa->pagato = filter_input(INPUT_POST,'pagato') ;
     $cfa->broker = filter_input(INPUT_POST,'broker') ;
+    if(filter_input(INPUT_POST,'copia_direzione'))
+    {
+        $cfa->copia_direzione = 1 ;
+    }
+    else
+    {
+        $cfa->copia_direzione = 0 ;
+    }
 
     // details
 
     $cfa->table = 'polizze' ;
 
-    if($cfa->insert(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker']))
+    if($cfa->insert(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker','copia_direzione']))
     {
 
         // CALENDAR

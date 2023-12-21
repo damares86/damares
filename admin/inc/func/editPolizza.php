@@ -837,6 +837,23 @@ extract($row1) ;
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <label>Copia direzione<span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check form-switch px-5">
+                                    <?php
+                                        $checked = '' ;
+                                        if( $row1['copia_direzione'] == 1 )
+                                        {
+                                            $checked = 'checked' ;
+                                        }
+                                    ?>
+                                    <input class="form-check-input delete" type="checkbox" name="copia_direzione" id="flexSwitchCheckDefault" <?=$checked?>>
+                                </div>
+                            </div>
+                        </div>
                        
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="origin" value="editPolizza">
