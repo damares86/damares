@@ -2,9 +2,10 @@
         TODO
 ------------------------------------------
 
-- SEZIONE UTILI
-
 - check sull'eliminazione?
+
+
+- SEZIONE UTILI
 - export dati in excel
 
 
