@@ -63,12 +63,12 @@ if(filter_input(INPUT_POST,"idToMod"))
 
     if($cfa->update(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','provvigioni_dare','provvigioni_avere'],'id'))
     {
-        header("Location: ../index.php?p=allCollaboratori&msg=collabEditSucc");
+        header("Location: ../index.php?p=allCollaboratori&msg=collabEdit");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allCollaboratori&err=collabEditFail");
+        header("Location: ../index.php?p=allCollaboratori&err=collabNoEdit");
         exit;
     }
 

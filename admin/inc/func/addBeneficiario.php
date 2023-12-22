@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Aggiungi un beneficiario</h3>
+      <h3><?=$cfa_benef_header ?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Aggiungi un beneficiario
+            <?=$cfa_benef_header ?>
           </li>
         </ol>
       </nav>
@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Aggiungi un nuovo beneficiario</h4>
+                <h4 class="card-title"><?=$cfa_benef_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -36,7 +36,7 @@
                     <div class="row">
                        
                         <div class="col-md-3">
-                            <label>Ragione sociale <span class="text-danger">*</span></label>
+                            <label><?=$cfa_ragione_sociale?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -45,7 +45,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Ragione sociale"
+                                        placeholder="<?=$cfa_ragione_sociale?>"
                                         name="ragione_sociale_beneficiario"
                                         />
                                     </div>
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Indirizzo <span class="text-danger">*</span></label>
+                            <label><?=$cfa_indirizzo?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -63,7 +63,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Indirizzo"
+                                        placeholder="<?=$cfa_indirizzo?>"
                                         name="via_beneficiario"
                                         />
                                     </div>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Città <span class="text-danger">*</span></label>
+                            <label><?=$cfa_citta?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -81,7 +81,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Città"
+                                        placeholder="<?=$cfa_citta?>"
                                         name="citta_beneficiario"
                                         />
                                     </div>
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>CAP <span class="text-danger">*</span></label>
+                            <label><?=$cfa_cap?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -99,7 +99,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="CAP"
+                                        placeholder="<?=$cfa_cap?>"
                                         name="cap_beneficiario"
                                         />
                                     </div>
@@ -108,7 +108,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Codice fiscale <span class="text-danger">*</span></label>
+                            <label><?=$cfa_codice_fiscale?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -117,7 +117,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Codice fiscale"
+                                        placeholder="<?=$cfa_codice_fiscale?>"
                                         name="codice_fiscale_beneficiario"
                                         maxlength="16"
                                         data-parsley-maxlength="16"
@@ -128,7 +128,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Partita IVA <span class="text-danger">*</span></label>
+                            <label><?=$cfa_piva?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -137,7 +137,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Partita IVA"
+                                        placeholder="<?=$cfa_piva?>"
                                         name="p_iva_beneficiario"
                                         />
                                     </div>

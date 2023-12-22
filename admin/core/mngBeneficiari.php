@@ -27,7 +27,7 @@ if(filter_input(INPUT_GET,"idToDel"))
     }
     else
     {
-        header("Location: ../index.php?p=allBeneficiari&err=benefNotDel");
+        header("Location: ../index.php?p=allBeneficiari&err=benefNoDel");
         exit;
     }
 
@@ -54,12 +54,12 @@ if(filter_input(INPUT_POST,"idToMod"))
     $err_contraente = '' ;
     if( $cfa->update(['ragione_sociale_beneficiario','via_beneficiario','citta_beneficiario','cap_beneficiario','codice_fiscale_beneficiario','p_iva_beneficiario'],'id') )
     {
-        header("Location: ../index.php?p=allBeneficiari&msg=benefEditSucc");
+        header("Location: ../index.php?p=allBeneficiari&msg=benefEdit");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allBeneficiari&err=benefEditFail");
+        header("Location: ../index.php?p=allBeneficiari&err=benefNoEdit");
         exit;
     }
 

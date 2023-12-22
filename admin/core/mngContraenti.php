@@ -27,7 +27,7 @@ if(filter_input(INPUT_GET,"idToDel"))
     }
     else
     {
-        header("Location: ../index.php?p=allContraenti&err=contrNotDel");
+        header("Location: ../index.php?p=allContraenti&err=contrNoDel");
         exit;
     }
 
@@ -59,12 +59,12 @@ if(filter_input(INPUT_POST,"idToMod"))
     $err_contraente = '' ;
     if( $cfa->update(['ragione_sociale_contraente','nome_contraente','cognome_contraente','via_contraente','citta_contraente','cap_contraente','codice_fiscale_contraente','p_iva_contraente','telefono_contraente','cellulare_contraente','email_contraente'],'id') )
     {
-        header("Location: ../index.php?p=allContraenti&msg=contrEditSucc");
+        header("Location: ../index.php?p=allContraenti&msg=contrEdit");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allContraenti&err=contrEditFail");
+        header("Location: ../index.php?p=allContraenti&err=contrNoEdit");
         exit;
     }
 

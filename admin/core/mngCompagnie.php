@@ -27,7 +27,7 @@ if(filter_input(INPUT_GET,"idToDel"))
     }
     else
     {
-        header("Location: ../index.php?p=allCompagnie&err=compagnieNotDel");
+        header("Location: ../index.php?p=allCompagnie&err=compagnieNoDel");
         exit;
     }
 
@@ -55,12 +55,12 @@ if(filter_input(INPUT_POST,"idToMod"))
 
     if($cfa->update(['nome','sede_legale','netto','imponibile','lordo','spese','provv'],'id'))
     {
-        header("Location: ../index.php?p=allCompagnie&msg=compagnieEditSucc");
+        header("Location: ../index.php?p=allCompagnie&msg=compagnieEdit");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allCompagnie&err=compagnieEditFail");
+        header("Location: ../index.php?p=allCompagnie&err=compagnieNoEdit");
         exit;
     }
 

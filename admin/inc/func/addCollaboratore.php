@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Aggiungi un collaboratore</h3>
+      <h3><?=$cfa_collab_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Aggiungi un collaboratore
+          <?=$cfa_collab_header?>
           </li>
         </ol>
       </nav>
@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Aggiungi un nuovo collaboratore</h4>
+                <h4 class="card-title"><?=$cfa_collab_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -37,7 +37,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label> Nome <span class="text-danger">*</span></label>
+                                    <label><?=$cfa_nome?> <span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group has-icon-left">
@@ -46,7 +46,7 @@
                                                 <input
                                                 type="text"
                                                 class="form-control"
-                                                placeholder="Nome"
+                                                placeholder="<?=$cfa_nome?>"
                                                 id="first-name-icon"
                                                 name="nome"
                                                 data-parsley-required="true"
@@ -64,7 +64,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label> Cognome <span class="text-danger">*</span></label>
+                                    <label><?=$cfa_cognome?> <span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group has-icon-left">
@@ -73,7 +73,7 @@
                                                 <input
                                                 type="text"
                                                 class="form-control"
-                                                placeholder="Cognome"
+                                                placeholder="<?=$cfa_cognome?>"
                                                 id="first-name-icon"
                                                 name="cognome"
                                                 data-parsley-required="true"
@@ -92,10 +92,10 @@
 
                     <div class="row border-top mt-3 pt-3">
 
-                        <h4 class="card-title">Anagrafica</h4>
+                        <h4 class="card-title"><?=$cfa_anagrafica?></h4>
 
                         <div class="col-md-3">
-                            <label>Sede legale <span class="text-danger">*</span></label>
+                            <label><?=$cfa_sede_legale?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -104,7 +104,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Sede legale"
+                                        placeholder="<?=$cfa_sede_legale?>"
                                         id="first-name-icon"
                                         name="sede_legale"
                                         data-parsley-required="true"
@@ -115,7 +115,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Sede operativa <span class="text-danger">*</span></label>
+                            <label><?=$cfa_sede_operativa?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -124,7 +124,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Sede operativa"
+                                        placeholder="<?=$cfa_sede_operativa?>"
                                         id="first-name-icon"
                                         name="sede_operativa"
                                         data-parsley-required="true"
@@ -135,7 +135,7 @@
                         </div>
                        
                         <div class="col-md-3">
-                            <label>Telefono <span class="text-danger">*</span></label>
+                            <label><?=$cfa_telefono?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -144,7 +144,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Telefono"
+                                        placeholder="<?=$cfa_telefono?>"
                                         id="first-name-icon"
                                         name="telefono"
                                         data-parsley-required="true"
@@ -155,7 +155,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Cellulare <span class="text-danger">*</span></label>
+                            <label><?=$cfa_cellulare?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -164,7 +164,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Cellulare"
+                                        placeholder="<?=$cfa_cellulare?>"
                                         id="first-name-icon"
                                         name="cellulare"
                                         data-parsley-required="true"
@@ -195,7 +195,7 @@
                         </div>                        
 
                         <div class="col-md-3">
-                            <label>PEC <span class="text-danger">*</span></label>
+                            <label><?=$cfa_pec?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -204,7 +204,7 @@
                                         <input
                                         type="email"
                                         class="form-control"
-                                        placeholder="PEC"
+                                        placeholder="<?=$cfa_pec?>"
                                         id="first-name-icon"
                                         name="pec"
                                         data-parsley-required="true"
@@ -215,7 +215,7 @@
                         </div>
                         
                         <div class="col-md-3">
-                            <label>Codice fiscale <span class="text-danger">*</span></label>
+                            <label>C<?=$cfa_codice_fiscale?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -224,7 +224,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Codice fiscale"
+                                        placeholder="<?=$cfa_codice_fiscale?>"
                                         id="first-name-icon"
                                         name="codice_fiscale"
                                         data-parsley-required="true"
@@ -237,7 +237,7 @@
                         </div>
                         
                         <div class="col-md-3">
-                            <label>Partita IVA <span class="text-danger">*</span></label>
+                            <label><?=$cfa_piva?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -246,7 +246,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Partita IVA"
+                                        placeholder="<?=$cfa_piva?>"
                                         id="first-name-icon"
                                         name="p_iva"
                                         data-parsley-required="true"
@@ -260,10 +260,10 @@
 
                     <div class="row border-top mt-3 pt-3">
 
-                        <h4 class="card-title">Dati finanziari</h4>
+                        <h4 class="card-title"><?=$cfa_dati_finanziari?></h4>
 
                         <div class="col-md-3">
-                            <label>Ritenuta d'acconto (%) <span class="text-danger">*</span></label>
+                            <label><?=$cfa_ritenuta_acconto?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -283,7 +283,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>IBAN <span class="text-danger">*</span></label>
+                            <label><?=$cfa_iban?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -292,7 +292,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="IBAN"
+                                        placeholder="<?=$cfa_iban?>"
                                         id="first-name-icon"
                                         name="iban"
                                         data-parsley-required="true"
@@ -303,7 +303,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Banca <span class="text-danger">*</span></label>
+                            <label><?=$cfa_banca?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -312,7 +312,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Banca"
+                                        placeholder="<?=$cfa_banca?>"
                                         id="first-name-icon"
                                         name="banca"
                                         data-parsley-required="true"
@@ -323,7 +323,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Provvigioni dare <span class="text-danger">*</span></label>
+                            <label><?=$cfa_provv_dare?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -332,7 +332,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Provvigioni dare"
+                                        placeholder="<?=$cfa_provv_dare?>"
                                         id="first-name-icon"
                                         name="provvigioni_dare"
                                         data-parsley-required="true"
@@ -343,7 +343,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Provvigioni avere <span class="text-danger">*</span></label>
+                            <label><?=$cfa_provv_avere?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -352,7 +352,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Provvigioni avere"
+                                        placeholder="<?=$cfa_provv_avere?>"
                                         id="first-name-icon"
                                         name="provvigioni_avere"
                                         data-parsley-required="true"

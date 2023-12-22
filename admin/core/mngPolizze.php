@@ -27,7 +27,7 @@ if(filter_input(INPUT_GET,"idToDel"))
     }
     else
     {
-        header("Location: ../index.php?p=allPolizze&err=polizzaNotDel");
+        header("Location: ../index.php?p=allPolizze&err=polizzaNoDel");
         exit;
     }
 
@@ -147,12 +147,12 @@ if(filter_input(INPUT_POST,"idToMod"))
         // CALENDAR
         $calendar->updateCalendar() ;
         
-        header("Location: ../index.php?p=editPolizza&idToMod=$idToMod&msg=polizzeEditSucc".$err_contraente.$err_beneficiario);
+        header("Location: ../index.php?p=editPolizza&idToMod=$idToMod&msg=polizzeEdit".$err_contraente.$err_beneficiario);
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=editPolizza&idToMod=$idtoMod&err=polizzaEditFail");
+        header("Location: ../index.php?p=editPolizza&idToMod=$idtoMod&err=polizzaNoEdit");
         exit;
     }
 

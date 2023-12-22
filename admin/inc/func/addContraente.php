@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Aggiungi un contraente</h3>
+      <h3><?=$cfa_contraente_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Aggiungi un contraente
+            <?=$cfa_contraente_header?>
           </li>
         </ol>
       </nav>
@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Aggiungi un nuovo contraente</h4>
+                <h4 class="card-title"><?=$cfa_contraente_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -35,7 +35,7 @@
                     <div class="form-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <label>Ragione sociale <span class="text-danger">*</span></label>
+                            <label><?=$cfa_ragione_sociale?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -44,7 +44,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Ragione sociale"
+                                        placeholder="<?=$cfa_ragione_sociale?>"
                                         name="ragione_sociale_contraente"
                                         />
                                     </div>
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Nome <span class="text-danger">*</span></label>
+                            <label><?=$cfa_nome?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -62,7 +62,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Nome"
+                                        placeholder="<?=$cfa_nome?>"
                                         name="nome_contraente"
                                         />
                                     </div>
@@ -71,7 +71,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Cognome <span class="text-danger">*</span></label>
+                            <label><?=$cfa_cognome?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -80,7 +80,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Cognome"
+                                        placeholder="<?=$cfa_cognome?>"
                                         name="cognome_contraente"
                                         />
                                     </div>
@@ -90,7 +90,7 @@
 
 
                         <div class="col-md-3">
-                            <label>Indirizzo <span class="text-danger">*</span></label>
+                            <label><?=$cfa_indirizzo?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -99,7 +99,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Indirizzo"
+                                        placeholder="<?=$cfa_indirizzo?>"
                                         name="via_contraente"
                                         />
                                     </div>
@@ -108,7 +108,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Città <span class="text-danger">*</span></label>
+                            <label><?=$cfa_citta?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -117,7 +117,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Città"
+                                        placeholder="<?=$cfa_citta?>"
                                         name="citta_contraente"
                                         />
                                     </div>
@@ -126,7 +126,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>CAP <span class="text-danger">*</span></label>
+                            <label><?=$cfa_cap?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -135,7 +135,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="CAP"
+                                        placeholder="<?=$cfa_cap?>"
                                         name="cap_contraente"
                                         />
                                     </div>
@@ -144,7 +144,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Codice fiscale <span class="text-danger">*</span></label>
+                            <label><?=$cfa_codice_fiscale?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -153,7 +153,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Codice fiscale"
+                                        placeholder="<?=$cfa_codice_fiscale?>"
                                         name="codice_fiscale_contraente"
                                         maxlength="16"
                                         data-parsley-maxlength="16"
@@ -164,7 +164,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Partita IVA <span class="text-danger">*</span></label>
+                            <label><?=$cfa_piva?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -173,7 +173,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Partita IVA"
+                                        placeholder="<?=$cfa_piva?>"
                                         name="p_iva_contraente"
                                         />
                                     </div>
@@ -182,7 +182,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Telefono <span class="text-danger">*</span></label>
+                            <label><?=$cfa_telefono?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -191,7 +191,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="telefono"
+                                        placeholder="<?=$cfa_telefono?>"
                                         name="telefono_contraente"
                                         />
                                     </div>
@@ -200,7 +200,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Cellulare <span class="text-danger">*</span></label>
+                            <label><?=$cfa_cellulare?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -209,7 +209,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Cellulare"
+                                        placeholder="<?=$cfa_cellulare?>"
                                         name="cellulare_contraente"
                                         />
                                     </div>
@@ -218,7 +218,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Email <span class="text-danger">*</span></label>
+                            <label><?=$common_email?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -227,7 +227,7 @@
                                         <input
                                         type="email"
                                         class="form-control"
-                                        placeholder="Email"
+                                        placeholder="<?=$common_email?>"
                                         name="email_contraente"
                                         />
                                     </div>

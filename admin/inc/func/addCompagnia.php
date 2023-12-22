@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Aggiungi una compagnia</h3>
+      <h3><?=$cfa_compagnia_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Aggiungi una compagnia
+            <?=$cfa_compagnia_header?>
           </li>
         </ol>
       </nav>
@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Aggiungi una nuova compagnia</h4>
+                <h4 class="card-title"><?=$cfa_compagnia_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -36,10 +36,10 @@
    
                     <div class="row ">
 
-                        <h4 class="card-title mb-3">Anagrafica</h4>
+                        <h4 class="card-title mb-3"><?=$cfa_anagrafica?></h4>
 
                         <div class="col-md-3">
-                                    <label> Ragione sociale <span class="text-danger">*</span></label>
+                                    <label><?=$cfa_ragione_sociale?> <span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="form-group">
@@ -48,7 +48,7 @@
                                                 <input
                                                 type="text"
                                                 class="form-control"
-                                                placeholder="Ragione sociale"
+                                                placeholder="<?=$cfa_ragione_sociale?>"
                                                 name="nome"
                                                 data-parsley-required="true"
 
@@ -59,7 +59,7 @@
                                 </div> 
 
                         <div class="col-md-3">
-                            <label>Sede legale <span class="text-danger">*</span></label>
+                            <label><?=$cfa_sede_legale?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -68,7 +68,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Sede legale"
+                                        placeholder="<?=$cfa_sede_legale?>"
                                         name="sede_legale"
                                         data-parsley-required="true"
                                         />
@@ -80,10 +80,10 @@
 
                     <div class="row border-top mt-3 pt-3">
 
-                        <h4 class="card-title">Dati finanziari</h4>
+                        <h4 class="card-title"><?=$cfa_dati_finanziari?></h4>
 
                         <div class="col-md-3">
-                            <label>Netto <span class="text-danger">*</span></label>
+                            <label><?=$cfa_netto?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -92,7 +92,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Netto"
+                                        placeholder="<?=$cfa_netto?>"
                                         name="netto"
                                         data-parsley-required="true"
                                         />
@@ -102,7 +102,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Imponibile <span class="text-danger">*</span></label>
+                            <label><?=$cfa_imponibile?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -111,7 +111,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Imponibile"
+                                        placeholder="<?=$cfa_imponibile?>"
                                         name="imponibile"
                                         data-parsley-required="true"
                                         />
@@ -121,7 +121,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Lordo <span class="text-danger">*</span></label>
+                            <label><?=$cfa_lordo?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -130,7 +130,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Lordo"
+                                        placeholder="<?=$cfa_lordo?>"
                                         name="lordo"
                                         data-parsley-required="true"
                                         />
@@ -140,7 +140,7 @@
                         </div>                        
 
                         <div class="col-md-3">
-                            <label>Spese <span class="text-danger">*</span></label>
+                            <label><?=$cfa_spese?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -159,7 +159,7 @@
                         </div>
                         
                         <div class="col-md-3">
-                            <label>Provvigioni <span class="text-danger">*</span></label>
+                            <label><?=$cfa_provv?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -168,7 +168,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Provvigioni"
+                                        placeholder="<?=$cfa_provv?>"
                                         name="provv"
                                         data-parsley-required="true"
                                         />
