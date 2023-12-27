@@ -19,7 +19,7 @@ DA PAGARE COLLABORATORE = 'Premio lordo' + 'Consulenza' - 'Pagato da collaborato
 DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
 UTILE NETTO CFA = 'Consulenza' + 'Provv. nette avere' - 'Tot provv nette dare'
 
-
+- chart con i dati
 - export dati in excel
 - check sull'eliminazione?
 
