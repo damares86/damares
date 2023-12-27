@@ -2,14 +2,7 @@
         TODO
 ------------------------------------------
 
-- check sull'eliminazione?
-
-
 - SEZIONE UTILI
-- export dati in excel
-
-
-
 
 ###
 
@@ -27,14 +20,11 @@ DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
 UTILE NETTO CFA = 'Consulenza' + 'Provv. nette avere' - 'Tot provv nette dare'
 
 
-
-
-
+- export dati in excel
+- check sull'eliminazione?
 
 ### TESTATO IN LOCALE (fca.dmweblab.com)
 - cron email
-
-
 
 
 
@@ -46,6 +36,14 @@ $events =
      "url"   => "index.php?p=editPolizza&idToMod=", // opzionale
      "title" => 'id_compagnia'
   ];
+
+
+
+
+
+
+
+
 
 
 
