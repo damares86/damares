@@ -11,6 +11,25 @@
 
 
 
+###
+
+DA PAGARE COMPAGNIA = 'Lordo' - 'Pagato compagnia'
+DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(?)'
+% PROVV. PREMIO DARE = #dove si inserisce
+PROVV. PREMIO DARE = 'Premio netto' * % Provv. premio dare
+% PROVV. CONSULENZA DARE = #dove si inserisce
+PROVV. CONSUL. DARE = 'Consulenza' * % Provv. consulenza dare
+TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare'
+TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(?))
+PAGATO DA COLLABORATORE = #dove si inserisce
+DA PAGARE COLLABORATORE = 'Premio lordo' + 'Consulenza' - 'Pagato da collaboratore'
+DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
+UTILE NETTO CFA = 'Consulenza' + 'Provv. nette avere' - 'Tot provv nette dare'
+
+
+
+
+
 
 ### TESTATO IN LOCALE (fca.dmweblab.com)
 - cron email
