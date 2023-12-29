@@ -7,15 +7,10 @@
 ###
 
 DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA)
-DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(?)'
+DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv%)?)'
 
-% PROVV. PREMIO DARE = #dove si inserisce
 
-PROVV. PREMIO DARE = 'Premio netto'(?) * % Provv. premio dare
 
-% PROVV. CONSULENZA DARE = #dove si inserisce
-
-PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
 TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
 TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(?))
 
@@ -24,6 +19,37 @@ PAGATO DA COLLABORATORE = #dove si inserisce
 DA PAGARE COLLABORATORE = 'Premio lordo'(COMPAGNIA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
 DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
 UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 'Provv. nette avere' - 'Tot provv nette dare'
+
+
+############# DA CAPIRE ################
+% PROVV. PREMIO DARE = #dove si inserisce
+PROVV. PREMIO DARE = 'Premio netto'(?) * % Provv. premio dare
+
+% PROVV. CONSULENZA DARE = #dove si inserisce
+PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
+
+
+PROVV PREMIO DARE %
+
+    Si parla di collaboratori, tutti allo stesso livello provvigione unica, ci sarà una piccola anagrafica per i collaboratori e su ciascuno si potrà determinare il premio in percentuale, il riferimento della cifra in percentuale parte sempre dal premio polizza NETTO ( provvigioni sono sempre sul NETTO ).
+
+PROVV. CONSULENZA DARE %
+
+    Non si tratta del collaboratore ma del broker o procacciatore di affari che ha segnalato la polizza o il prodotto assicurativo a cui viene riconosciuto un compenso sempre in % sul premio polizza NETTO.
+    Anche in questo caso ci sarà una piccola anagrafica del consulente/broker.
+
+PROVV. TOTALE NETTE
+
+    E’ un dato che uscirà in automatico sul conteggio del totale provvigioni sia per i collaboratori che per i broker/procacciatori , il totale comparirà in automatico sommando tutte le pratiche con cifra in euro netta, ogni ultimo giorno del mese lavorativo.
+
+PAGATO DA COLLABORATORE
+
+    Questa colonna/campo per il momento rimuoverla e fare finta che non esiste.
+
+
+
+
+
 
 - chart con i dati (decidere i campi)
 - export dati in excel

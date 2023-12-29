@@ -159,7 +159,7 @@ if(filter_input(INPUT_POST,"idToMod"))
 
 }
 else if($operation == 'query')
-{
+{  
 
     if( filter_input(INPUT_POST,'st') == null && filter_input(INPUT_POST,'st') == null )
     {

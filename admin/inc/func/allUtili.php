@@ -194,9 +194,8 @@
         <thead>
           <tr>
             <th>Compagnia</th>
-            <th>Sede legale</th>
-            <th>Provvigioni</th>
-            <th><?=$common_actions?></th>
+            <th>Da pagare compagnia</th>
+            <th>Dare/avere compagnia</th>
           </tr>
         </thead>
         <tbody>
@@ -206,10 +205,10 @@
         {
           extract($row);
           $cfa->id_compagnia = $row['id'] ;
+          $cfa->table = 'polizze' ;
           if(filter_input(INPUT_GET,'query'))
           {
             $where = [] ;
-            $cfa->table = 'polizze' ;
             $stmt1 = '' ;
 
             if( filter_input(INPUT_GET,'st') && filter_input(INPUT_GET,'et') )
@@ -253,7 +252,7 @@
                 $cfa->et = filter_input(INPUT_GET,'et') ;
                 $where[] = 'et' ;
             }
-            $cfa->table = 'polizze' ;
+            
             $stmt1 = $cfa->showAllWhereGtLt('id','>',$where) ;
 
           }
@@ -261,74 +260,26 @@
           {
             $stmt1 = $cfa->showAllWhere('id',['id_compagnia']);
           }
+
+          // variable
+
+          $da_pagare_compagnia = 0 ;
+
+          while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC) )
+          { 
+            extract($row1);
+            
+            $da_pagare_compagnia += $row['lordo'] + $row1['pagato'] ;
+          }
+
+          $dare_avere_compagnia = $da_pagare_compagnia - (($da_pagare_compagnia / 100) * $row['provv']) ;
+
         ?>
           <tr>
             <td><?=$row['nome']?></td>
-            <td><?=$row['sede_legale']?></td>
-            <td><?=$row['provv']?></td>
-            <td>
-              <a href="index.php?p=editCompagnia&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
-                ><i class="bi bi-pencil-square"></i
-              ></a>
-              &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
-                data-bs-toggle="modal"
-                data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
-              </a>
-                  <!--Danger theme Modal -->
-                  <div
-                              class="modal fade text-left"
-                              id="danger<?=$row['id']?>"
-                              tabindex="-1"
-                              role="dialog"
-                              aria-labelledby="myModalLabel120"
-                              aria-hidden="true"
-                            >
-                              <div
-                                class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                                role="document"
-                              >
-                                <div class="modal-content">
-                                  <div class="modal-header bg-danger">
-                                    <h5
-                                      class="modal-title white"
-                                      id="myModalLabel120"
-                                    >
-                                      <?=$common_modal_title_sure?>
-                                    </h5>
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-bs-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <i data-feather="x"></i>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <?=$account_all_modal_body?>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button
-                                      type="button"
-                                      class="btn btn-light-secondary"
-                                      data-bs-dismiss="modal"
-                                    >
-                                      <i class="bx bx-x d-block d-sm-none"></i>
-                                      <span class="d-none d-sm-block"
-                                        ><?=$common_modal_cancel?></span
-                                      >
-                                    </button>
-                                      <span class="d-none d-sm-block"
-                                        ><a href="core/mngCompagnie.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
-                                          <?=$common_modal_confirm?>
-                                        </a></span
-                                      >
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-            </td>
+            <td><?=$da_pagare_compagnia?></td>
+            <td><?=$dare_avere_compagnia?></td>
+            
           </tr>
                           
 
