@@ -196,6 +196,11 @@
             <th>Compagnia</th>
             <th>Da pagare compagnia</th>
             <th>Dare/avere compagnia</th>
+            <th>Provv. Consul. Dare</th>
+
+
+
+
           </tr>
         </thead>
         <tbody>
@@ -264,12 +269,21 @@
           // variable
 
           $da_pagare_compagnia = 0 ;
+          $provv_consul_dare = 0 ;
+          $provv_premio_dare = 0 ;
 
           while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC) )
           { 
             extract($row1);
             
             $da_pagare_compagnia += $row['lordo'] + $row1['pagato'] ;
+
+            $provv_consul_dare += ( $row1['consulenza'] / 100 ) * $row1['broker'] ;
+
+            // cercare collaboratore
+
+            // $provv_premio_dare += ( $row['netto'] / 100 ) 
+
           }
 
           $dare_avere_compagnia = $da_pagare_compagnia - (($da_pagare_compagnia / 100) * $row['provv']) ;
@@ -279,7 +293,11 @@
             <td><?=$row['nome']?></td>
             <td><?=$da_pagare_compagnia?></td>
             <td><?=$dare_avere_compagnia?></td>
-            
+            <td><?=$provv_consul_dare?></td>
+
+
+
+
           </tr>
                           
 

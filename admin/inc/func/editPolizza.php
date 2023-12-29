@@ -818,7 +818,7 @@ extract($row1) ;
                         </div>
 
                         <div class="col-md-3">
-                            <label>Consulenza (%)<span class="text-danger">*</span></label>
+                            <label>Broker (%)<span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
