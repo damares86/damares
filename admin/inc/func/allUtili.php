@@ -197,6 +197,7 @@
             <th>Da pagare compagnia</th>
             <th>Dare/avere compagnia</th>
             <th>Provv. Consul. Dare</th>
+            <th>Provv. Premio Dare</th>
 
 
 
@@ -280,9 +281,12 @@
 
             $provv_consul_dare += ( $row1['consulenza'] / 100 ) * $row1['broker'] ;
 
-            // cercare collaboratore
-
-            // $provv_premio_dare += ( $row['netto'] / 100 ) 
+            $cfa->table = 'collaboratori' ;
+            $cfa->id = $row1['id_collaboratore'] ;
+            $stmt2 = $cfa->showAllWhere('id',['id']) ;
+            $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+            
+            $provv_premio_dare += ( $row['netto'] / 100 ) * $row2['provvigioni_dare'] ;
 
           }
 
@@ -294,6 +298,7 @@
             <td><?=$da_pagare_compagnia?></td>
             <td><?=$dare_avere_compagnia?></td>
             <td><?=$provv_consul_dare?></td>
+            <td><?=$provv_premio_dare?></td>
 
 
 
