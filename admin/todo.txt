@@ -9,8 +9,7 @@
 ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA)
 ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%)?)'
 ---ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
-
-PROVV. PREMIO DARE = 'Premio netto'(COMPAGNIA) * % Provv. premio dare (COLLABORATORE)
+---ok--- PROVV. PREMIO DARE = 'Premio netto'(COMPAGNIA) * % Provv. premio dare (COLLABORATORE)
 
 
 ############# DA CAPIRE ################

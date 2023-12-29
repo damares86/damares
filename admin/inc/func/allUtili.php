@@ -198,6 +198,7 @@
             <th>Dare/avere compagnia</th>
             <th>Provv. Consul. Dare</th>
             <th>Provv. Premio Dare</th>
+            <th>Tot Provv. Dare</th>
 
 
 
@@ -272,6 +273,7 @@
           $da_pagare_compagnia = 0 ;
           $provv_consul_dare = 0 ;
           $provv_premio_dare = 0 ;
+          $tot_provv_dare = 0 ;
 
           while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC) )
           { 
@@ -288,6 +290,8 @@
             
             $provv_premio_dare += ( $row['netto'] / 100 ) * $row2['provvigioni_dare'] ;
 
+            $tot_provv_dare += $provv_consul_dare + $provv_premio_dare ;
+
           }
 
           $dare_avere_compagnia = $da_pagare_compagnia - (($da_pagare_compagnia / 100) * $row['provv']) ;
@@ -299,6 +303,7 @@
             <td><?=$dare_avere_compagnia?></td>
             <td><?=$provv_consul_dare?></td>
             <td><?=$provv_premio_dare?></td>
+            <td><?=$tot_provv_dare?></td>
 
 
 
