@@ -158,6 +158,30 @@ if(filter_input(INPUT_POST,"idToMod"))
 
 
 }
+else if($operation == 'query')
+{
+
+    if( filter_input(INPUT_POST,'st') == null && filter_input(INPUT_POST,'st') == null )
+    {
+        header("Location: ../index.php?p=allUtili&err=queryEmpty") ;
+    }
+
+    $str = '' ;
+
+    if( filter_input(INPUT_POST,'st') )
+    {
+        $str .= '&st='.filter_input(INPUT_POST,'st').'&st_op='.filter_input(INPUT_POST,'start_date') ;
+    }
+
+    if( filter_input(INPUT_POST,'et') )
+    {
+        $str .= '&et='.filter_input(INPUT_POST,'et').'&et_op='.filter_input(INPUT_POST,'end_date') ;
+    }
+
+    header("Location: ../index.php?p=allUtili&query=true$str");
+    exit;
+
+}    
 else if($operation == "add")
 {
     

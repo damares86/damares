@@ -87,3 +87,6 @@ $lang = $stmt['value'];
 foreach (glob("locale/$lang/*.php") as $row){
     require "$row";
 }
+
+// variable for require script for chart
+$apex='';

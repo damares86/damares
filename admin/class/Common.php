@@ -288,28 +288,54 @@ function showAllWhere($orderBy,$where){
     return $stmt;
 }
 
-function showAllWhereLimitDesc($orderBy,$where,$limit){
-    
+function showAllWhereGtLt($orderBy,$op,$where){
+      
     $this->where="";
 
     $i = 1;
     foreach($where as $item){
-        $this->where.="$item = :$item" ;
+        $this->where.="$item $op :$item" ;
         if($i<count($where)){
             $this->where.=" AND ";            
         }
         $i++;
-    }
-    
+    }    
+        
     $query = "SELECT *
         FROM " .$this->prx. $this->table."
         WHERE ".$this->where."
-        ORDER BY ".$orderBy."  DESC LIMIT ".$limit.""; 
-
+        ORDER BY ".$orderBy." ASC"; 
     $stmt = $this->conn->prepare( $query );
     
     foreach($where as $item){
+        $stmt->bindParam(":$item", $this->$item);
+    }
+    
+    $stmt->execute();
+    return $stmt;
+}
+
+function showAllWhereBetween($orderBy,$op1,$op2,$where){
+      
+    $this->where="";
+
+    $i = 1;
+    foreach($where as $item){
+        $op = 'op'.$i ;
+        $this->where.=''. $item. ' '. $$op . ' :' . $item . '' ;
+        if($i<count($where)){
+            $this->where.=" AND ";            
+        }
+        $i++;
+    }    
         
+    $query = "SELECT *
+        FROM " .$this->prx. $this->table."
+        WHERE ".$this->where."
+        ORDER BY ".$orderBy." ASC"; 
+    $stmt = $this->conn->prepare( $query );
+    
+    foreach($where as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
     
