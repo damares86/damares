@@ -14,7 +14,7 @@ class Post extends Common{
     public $content ;
     public $limit ;
     public $author ;
-    public $created ;
+    public $modified ;
     public $main_img ;
     public $gall ;
     public $category_id ;
