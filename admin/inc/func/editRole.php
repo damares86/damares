@@ -110,7 +110,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                                         $selected = "" ;
 
                                         // hide sections for non root users
-                                        $exclude_sections = [4];
+                                        $exclude_sections = [4,5];
                                         if($_SESSION['role_id']!=1 && in_array($row['id'], $exclude_sections)){
                                             continue;
                                         }
