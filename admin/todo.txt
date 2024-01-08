@@ -4,55 +4,41 @@
 
 - SEZIONE UTILI
 
-###
+    ###
 
----ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA)
----ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%)?)'
----ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
----ok--- PROVV. PREMIO DARE = 'Premio netto'(COMPAGNIA) * % Provv. premio dare (COLLABORATORE)
-
-
-############# DA CAPIRE ################
-
-TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
-TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(?))
-
-PAGATO DA COLLABORATORE = #dove si inserisce
-DA PAGARE COLLABORATORE = 'Premio lordo'(COMPAGNIA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
-
-DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
-UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 'Provv. nette avere' - 'Tot provv nette dare'
+        ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA)
+        ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%)?)'
+        ---ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
+        ---ok--- PROVV. PREMIO DARE = 'Premio netto'(COMPAGNIA) * % Provv. premio dare (COLLABORATORE)
+        ---ok--- TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
 
 
+        ############# DA CAPIRE ################
 
+        TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(?))
 
+        PAGATO DA COLLABORATORE = #dove si inserisce
+        DA PAGARE COLLABORATORE = 'Premio lordo'(COMPAGNIA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
 
+        DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
+        UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 'Provv. nette avere' - 'Tot provv nette dare'
 
------ RISPOSTA ------
-PROVV PREMIO DARE %
+        ----- RISPOSTA ------
 
-    Si parla di collaboratori, tutti allo stesso livello provvigione unica, ci sarà una piccola anagrafica per i collaboratori e su ciascuno si potrà determinare il premio in percentuale, il riferimento della cifra in percentuale parte sempre dal premio polizza NETTO ( provvigioni sono sempre sul NETTO ).
+        PROVV. TOTALE NETTE
+            E’ un dato che uscirà in automatico sul conteggio del totale provvigioni sia per i collaboratori 
+            che per i broker/procacciatori , il totale comparirà in automatico sommando tutte le pratiche 
+            con cifra in euro netta, ogni ultimo giorno del mese lavorativo.
 
-PROVV. CONSULENZA DARE %
+        PAGATO DA COLLABORATORE
+            Questa colonna/campo per il momento rimuoverla e fare finta che non esiste.
 
-    Non si tratta del collaboratore ma del broker o procacciatore di affari che ha segnalato la polizza o il prodotto assicurativo a cui viene riconosciuto un compenso sempre in % sul premio polizza NETTO.
-    Anche in questo caso ci sarà una piccola anagrafica del consulente/broker.
-
-PROVV. TOTALE NETTE
-
-    E’ un dato che uscirà in automatico sul conteggio del totale provvigioni sia per i collaboratori che per i broker/procacciatori , il totale comparirà in automatico sommando tutte le pratiche con cifra in euro netta, ogni ultimo giorno del mese lavorativo.
-
-PAGATO DA COLLABORATORE
-
-    Questa colonna/campo per il momento rimuoverla e fare finta che non esiste.
-
-
-
-
+    ###
 
 
 - chart con i dati (decidere i campi)
 - export dati in excel
+
 - check sull'eliminazione?
 
 ### TESTATO IN LOCALE (fca.dmweblab.com)

@@ -32,7 +32,7 @@ $exp_class = "CLASS_NAME" ;
 $exp_var = "VAR_QUERY_DATA" ;
 $exp_table = "TABLE_OF_DATA" ;
 $exp_origin = "ORIGIN_PAGE" ;
-// set the name of a field that need to be of type "date
+// set the name of a field that need to be of type "date"
 $exp_date_field = "FIELD_WITH_DATE" ;
 
 if($export)
