@@ -1,31 +1,16 @@
 <?php
 
-$customer->id = filter_input(INPUT_GET,"idToMod");
-$stmt1 = $customer->showAllWhere('id',['id']);
-
-$id="";
-$name="";
-$surname="";
-$details="";
-$details_opt="";
-
-    while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
-    extract($row1);
-    
-        $id=$row1['id'];
-        $name=$row1['name'];
-        $surname=$row1['surname'];
-        $details=unserialize($row1['details']);
-        $details_opt=unserialize($row1['details_opt']);
-    }
-
-
+$post->id = filter_input(INPUT_GET,"idToMod");
+$post->table = 'post_categories' ;
+$stmt1 = $post->showAllWhere('id',['id']);
+$row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+extract($row1) ;
 ?>
 
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$customer_edit_header?></h3>
+      <h3>Modifica categoria</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -37,7 +22,7 @@ $details_opt="";
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$customer_edit_header?>
+          Modifica categoria
           </li>
         </ol>
       </nav>
@@ -51,153 +36,38 @@ $details_opt="";
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title"><?=$customer_edit_title?></h4>
+                <h4 class="card-title">Modifica la categoria: <?=$row1['category_name']?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngCustomers.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngPostCat.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
-                        <div class="col-md-3">
-                            <label><?=$common_name?><span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group has-icon-left">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="<?=$customer_add_name_ph?>"
-                                        id="first-name"
-                                        name="name"
-                                        data-parsley-required="true"
-                                        value="<?=$name?>"
-                                        />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-person"></i>
+                            <div class="col-md-3">
+                                <label>Nome categoria<span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="form-check mandatory">
+                                        <div class="position-relative">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Categoria"
+                                            id="first-name"
+                                            name="category_name"
+                                            data-parsley-required="true"
+                                            value="<?=$row1['category_name']?>"
+                                            />
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label><?=$common_surname?><span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group has-icon-left">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="<?=$customer_add_surname_ph?>"
-                                        id="surname"
-                                        name="surname"
-                                        data-parsley-required="true"
-                                        value="<?=$surname?>"
-                                        />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-person"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-
-                        require "core/customersDetails.php";
-
-                        $counter=0;
-                        foreach($customers_details as $item){
-
-                            $label = "customer_add_$item";
-                            $item_label=ucfirst($item);
-                            $array_value = array_values($details[$counter]);
-                            $value = $array_value[0];
-
-                        ?>
-                        <div class="col-md-3">
-                            <label><?=$$label?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <?php
-                                            $type="text";
-                                            if($item=="birth"){
-                                                $type="date";
-                                            }
-                                        ?>
-                                        <input
-                                        type="<?=$type?>"
-                                        class="form-control"
-                                        placeholder="<?=$item_label?>"
-                                        name="<?=$item?>"
-                                        data-parsley-required="true"
-                                        value="<?=$value?>"
-
-                                        />
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-                            $counter++;
-
-                        }
-
-                        $counter=0;
-                        foreach($customers_details_opt as $item){
-
-                            $label = "customer_add_$item";
-                            $item_label=ucfirst($item);
-                            // if(array_values($details_opt[$counter])){
-                                $array_value = array_values($details_opt[$counter]);
-                                $value = $array_value[0];
-                            // }
-                        ?>
-                        <div class="col-md-3">
-                            <label><?=$$label?> <?=$customer_add_optional?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="position-relative">
-                                    <?php
-                                        $type="text";
-                                        if($item=="birth"){
-                                            $type="date";
-                                        }
-                                    ?>
-                                    <input
-                                    type="<?=$type?>"
-                                    class="form-control"
-                                    placeholder="<?=$item_label?>"
-                                    name="<?=$item?>"
-                                    value="<?=$value?>"
-
-                                    />
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-                                $counter++;
-
-                        }
-
-                        ?>
-
                         
                         <input type="hidden" name="idToMod" value="<?=$id?>">
                         <input type="hidden" name="operation" value="edit">
-                        <input type="hidden" name="origin" value="editCustomer">
+                        <input type="hidden" name="origin" value="editPostCat">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

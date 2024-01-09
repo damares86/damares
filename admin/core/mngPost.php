@@ -92,13 +92,13 @@ if($operation=="edit"){
         if($post->update(['main_img','gall','title','author','content','created','category_id'],'id')){
     
             //success
-            header("Location: ../index.php?p=allPosts&msg=postEditSucc$errImg");
+            header("Location: ../index.php?p=editPost&idToMod=$id&msg=postEditSucc$errImg");
             exit;
     
         }else{
     
             // fail
-            header("Location: ../index.php?p=allPosts&err=postEditFail$errImg");
+            header("Location: ../index.php?p=editPost&idToMod=$id&err=postEditFail$errImg");
             exit;
         }
     
