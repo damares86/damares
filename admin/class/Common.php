@@ -397,6 +397,27 @@ public function itemExists($item){
     }
 }
 
+public function countItem($item){
+        
+    // query to check if email exists
+    $query = "SELECT *
+    FROM " .$this->prx. $this->table . "
+    WHERE ".$item." = :".$item."
+    LIMIT 0,1";
+
+    $stmt = $this->conn->prepare( $query );
+
+    $stmt->bindParam(":".$item."", $this->$item);
+
+    // execute the query
+    $stmt->execute();
+
+    // get number of rows
+    $num = $stmt->rowCount();
+
+    return $num ;
+
+}
 
 
 // delete
