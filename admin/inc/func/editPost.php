@@ -1,6 +1,6 @@
 <?php
 
-$post_id = filter_input(INPUT_GET,'id') ;
+$post_id = filter_input(INPUT_GET,'idToMod') ;
 $post->id = $post_id ;
 $post->table = 'post' ;
 
@@ -59,7 +59,7 @@ extract($row1) ;
                                         class="form-control"
                                         placeholder="Titolo del post"
                                         id="first-name"
-                                        name="name"
+                                        name="title"
                                         data-parsley-required="true"
                                         value="<?=$row1['title']?>"
 
@@ -105,19 +105,20 @@ extract($row1) ;
                         </div>                        
 
                         <div class="col-md-3 mt-3">
-                            <label>Immagine principale <span class="text-danger">*</span></label>
+                            <label>Immagine principale </label>
                         </div>
                         <div class="col-md-9 mt-3">
                             <div class="form-group">
-                                <div class="form-check mandatory">
+                                <div class="form-check">
                                     <div class="position-relative">
+                                        <img src="../uploads/<?=$row1['main_img']?>" class="w-25 mb-3">
+                                        <br> <span class="mb-3">Carica una nuova immagine</span>
                                         <input
                                         class="form-control"
                                         type="file"
                                         id="formFile"
                                         name="myfile"
                                         placeholder="Carica nuovo file"
-                                        data-parsley-required="true"
                                     />
                                     </div>
                                 </div>
@@ -146,7 +147,9 @@ extract($row1) ;
                         </div>
 
 
-                        
+                        <input type="hidden" name="author" value="<?=$_SESSION['username']?>">
+                        <input type="hidden" name="old_main_img" value="<?=$row1['main_img']?>">
+                        <input type="hidden" name="idToMod" value="<?=$post_id?>">
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="origin" value="editPost">
                       

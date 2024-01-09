@@ -35,8 +35,7 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 if($operation=="edit"){
 
-        $id = filter_input(INPUT_POST,"idToMod") ;
-        
+        $id = filter_input(INPUT_POST,"idToMod") ;        
 
         if( filter_input(INPUT_POST,"gall") )
         {
@@ -84,21 +83,22 @@ if($operation=="edit"){
         }
         else
         {
-            $errImg = 'err=postImgEmpty';
+            $post->main_img = filter_input(INPUT_POST,'old_main_img') ;
         }
     
         $post->table = 'post' ;
+        $post->id = $id ;
 
-        if($post->insert(['main_img','gall','title','author','content','created','category_id'])){
+        if($post->update(['main_img','gall','title','author','content','created','category_id'],'id')){
     
             //success
-            header("Location: ../index.php?p=allPosts&msg=postSucc$errImg");
+            header("Location: ../index.php?p=allPosts&msg=postEditSucc$errImg");
             exit;
     
         }else{
     
             // fail
-            header("Location: ../index.php?p=allPosts&err=postFail$errImg");
+            header("Location: ../index.php?p=allPosts&err=postEditFail$errImg");
             exit;
         }
     
