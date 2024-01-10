@@ -81,85 +81,9 @@
                     <div class="row border-top mt-3 pt-3">
 
                         <h4 class="card-title"><?=$cfa_dati_finanziari?></h4>
-
-                        <div class="col-md-3">
-                            <label><?=$cfa_netto?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="<?=$cfa_netto?>"
-                                        name="netto"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label><?=$cfa_imponibile?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="<?=$cfa_imponibile?>"
-                                        name="imponibile"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label><?=$cfa_lordo?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="<?=$cfa_lordo?>"
-                                        name="lordo"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
-
-                        <div class="col-md-3">
-                            <label><?=$cfa_spese?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Spese"
-                                        name="spese"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         
                         <div class="col-md-3">
-                            <label><?=$cfa_provv?> <span class="text-danger">*</span></label>
+                            <label><?=$cfa_provv?> (%) <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">

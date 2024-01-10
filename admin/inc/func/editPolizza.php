@@ -111,6 +111,121 @@ extract($row1) ;
                                 </div>
                             </div>
                         </div> 
+
+                        <div class="col-md-3">
+                            <label><?=$cfa_netto?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="<?=$cfa_netto?>"
+                                        name="netto"
+                                        value="<?=$row1['netto']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Diritti</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Diritti"
+                                        name="diritti"
+                                        value="<?=$row1['diritti']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label><?=$cfa_imponibile?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="<?=$cfa_imponibile?>"
+                                        name="imponibile"
+                                        value="<?=$row1['imponibile']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label><?=$cfa_lordo?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="<?=$cfa_lordo?>"
+                                        name="lordo"
+                                        value="<?=$row1['lordo']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+
+                        <div class="col-md-3">
+                            <label><?=$cfa_spese?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Spese"
+                                        name="spese"
+                                        value="<?=$row1['spese']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Imposte</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Imposte"
+                                        name="imposte"
+                                        value="<?=$row1['imposte']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row border-top mt-3 pt-3">
@@ -820,22 +935,14 @@ extract($row1) ;
                         </div>
 
                         <div class="col-md-3">
-                            <label>Broker (%)<span class="text-danger">*</span></label>
+                            <label>Premio totale<span class="text-danger">*</span></label>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9 px-3">
                             <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="0.0"
-                                        name="broker"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['broker']?>"
-                                        />
-                                    </div>
-                                </div>
+                                <?php
+                                    $premio = $row1['imponibile'] + $row1['diritti'] + $row1['spese'] + $row['imposte'] ;
+                                ?>
+                                <p><?=$premio?> €</p>
                             </div>
                         </div>
 

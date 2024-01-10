@@ -89,8 +89,115 @@
                                 </div>
                             </div>
                         </div> 
-                    </div>
+                        
+                        <div class="col-md-3">
+                            <label><?=$cfa_netto?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="<?=$cfa_netto?>"
+                                        name="netto"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-md-3">
+                            <label>Diritti</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Diritti"
+                                        name="diritti"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label><?=$cfa_imponibile?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="<?=$cfa_imponibile?>"
+                                        name="imponibile"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label><?=$cfa_lordo?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="<?=$cfa_lordo?>"
+                                        name="lordo"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+
+                        <div class="col-md-3">
+                            <label><?=$cfa_spese?></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Spese"
+                                        name="spese"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Imposte</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Imposte"
+                                        name="imposte"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row border-top mt-3 pt-3">
 
                         <h4 class="card-title mb-3"><?=$cfa_polizza_dati?></h4>
@@ -772,25 +879,6 @@
                                         class="form-control"
                                         placeholder="Pagato"
                                         name="pagato"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Broker (%)<span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="0.0"
-                                        name="broker"
                                         data-parsley-required="true"
                                         />
                                     </div>
