@@ -703,27 +703,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        
-                        <div class="col-md-3">
-                            <label>Consulenza <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Consulenza"
-                                        name="consulenza"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+ 
                         <div class="col-md-3">
                             <label>Data di incasso <span class="text-danger">*</span></label>
                         </div>
@@ -754,6 +734,25 @@
                                         class="form-control"
                                         placeholder="Modalità d'incasso"
                                         name="incasso_mod"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Consulenza <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Consulenza"
+                                        name="consulenza"
                                         data-parsley-required="true"
                                         />
                                     </div>

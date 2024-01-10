@@ -739,26 +739,6 @@ extract($row1) ;
 
                         
                         <div class="col-md-3">
-                            <label>Consulenza <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Consulenza"
-                                        name="consulenza"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['consulenza']?>"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
                             <label>Data di incasso <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
@@ -796,6 +776,28 @@ extract($row1) ;
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="col-md-3">
+                            <label>Consulenza <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Consulenza"
+                                        name="consulenza"
+                                        data-parsley-required="true"
+                                        value="<?=$row1['consulenza']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="col-md-3">
                             <label>Pagato compagnia<span class="text-danger">*</span></label>

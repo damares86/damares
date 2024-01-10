@@ -2,6 +2,29 @@
         TODO
 ------------------------------------------
 
+- COLLABORATORI
+    - aggiungere "iscrizione R.U.I." (numero)
+    - aggiungere consulenza (%) -> provv. consulenza dare %  -> da calcolare sulla consulenza della polizza
+    - aggiungere provvigione sul premio % -> calcolata sul netto della polizza
+
+- COMPAGNIE
+    - aggiungere partita iva
+    - provvigioni(%)
+    - "netto, diritti, imponibile, lordo, spese notarili, imposte" -> in Polizze sotto la compagnia
+    - ritenuta d'acconto (non obbligatorio)
+
+- Polizze
+    - rimuovere broker
+    - data fine / data incasso / modalità incasso (sotto consulenza)
+    - aggiungere premio totale = imponibile + diritti + spese + imposte
+    - aggiungere Pagato da collaboratore 
+
+Compagnie/collaboratore
+    elenco delle polizze da pagare, con check se pagata
+    Nel caso sia pagata non viene mostrata
+    Esportabile mese/trimestre/annuale
+
+
 - SEZIONE UTILI
 
     ###
@@ -15,13 +38,13 @@
 
         ############# DA CAPIRE ################
 
-        TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(?))
+        TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(RITENUTA D'ACCONTO))
 
         PAGATO DA COLLABORATORE = #dove si inserisce
         DA PAGARE COLLABORATORE = 'Premio lordo'(COMPAGNIA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
 
         DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
-        UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 'Provv. nette avere' - 'Tot provv nette dare'
+        UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 'Provv. nette avere (% ritenuta d'acconto)' - 'Tot provv nette dare'
 
         ----- RISPOSTA ------
 
