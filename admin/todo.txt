@@ -15,21 +15,6 @@ Compagnie/collaboratore
     Nel caso sia pagata non viene mostrata
     Esportabile mese/trimestre/annuale
 
-
------------  OK  ---------------
-
-- COMPAGNIE
-    x aggiungere partita iva
-    x provvigioni(%)
-    x ritenuta d'acconto (non obbligatorio)
-    x "netto, diritti, imponibile, lordo, spese notarili, imposte" -> in Polizze sotto la compagnia
-
-- POLIZZE
-    x data fine / data incasso / modalità incasso (sotto consulenza)
-    x rimuovere broker
-    x aggiungere premio totale = imponibile + diritti + spese + imposte
-    x aggiungere Pagato da collaboratore 
-
 - SEZIONE UTILI
 
     ###
@@ -68,6 +53,22 @@ Compagnie/collaboratore
 - export dati in excel
 
 - check sull'eliminazione?
+
+-----------  OK  ---------------
+
+- COMPAGNIE
+    x aggiungere partita iva
+    x provvigioni(%)
+    x ritenuta d'acconto (non obbligatorio)
+    x "netto, diritti, imponibile, lordo, spese notarili, imposte" -> in Polizze sotto la compagnia
+
+- POLIZZE
+    x data fine / data incasso / modalità incasso (sotto consulenza)
+    x rimuovere broker
+    x aggiungere premio totale = imponibile + diritti + spese + imposte
+    x aggiungere Pagato da collaboratore 
+
+-----------  OK  ---------------
 
 ### TESTATO IN LOCALE (fca.dmweblab.com)
 - cron email
