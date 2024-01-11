@@ -42,11 +42,54 @@ if(filter_input(INPUT_POST,"idToMod"))
     $cfa->id = $idToMod ;
 
     $cfa->id_collaboratore = $_POST['id_collaboratore'][0] ;
-    $cfa->id_compagnia = $_POST['id_compagnia'][0] ;    
+    $cfa->id_compagnia = $_POST['id_compagnia'][0] ;        
+    $cfa->imponibile = filter_input(INPUT_POST, 'imponibile') ;
+    $cfa->imposte = filter_input(INPUT_POST, 'imposte') ;
+    $cfa->lordo = filter_input(INPUT_POST, 'lordo') ;
+
+    if( filter_input(INPUT_POST, 'netto') )
+    {
+        $cfa->netto = filter_input(INPUT_POST, 'netto') ;
+    }
+    else
+    {
+        $cfa->netto = 0 ;
+
+    }
+
+    if( filter_input(INPUT_POST, 'diritti') )
+    {
+        $cfa->diritti = filter_input(INPUT_POST, 'diritti') ;
+    }
+    else
+    {
+        $cfa->diritti = 0 ;
+
+    }
+
+    if( filter_input(INPUT_POST, 'spese') )
+    {
+        $cfa->spese = filter_input(INPUT_POST, 'spese') ;
+    }
+    else
+    {
+        $cfa->spese = 0 ;
+
+    }
+
     $cfa->numero = filter_input(INPUT_POST, 'numero') ;
     $cfa->tipologia = filter_input(INPUT_POST, 'tipologia') ;
     $cfa->descrizione = filter_input(INPUT_POST, 'descrizione') ;
-    $cfa->importo_gara = filter_input(INPUT_POST, 'importo_gara') ;
+
+    if( filter_input(INPUT_POST, 'importo_gara') )
+    {
+        $cfa->importo_gara = filter_input(INPUT_POST, 'importo_gara') ;
+    }
+    else
+    {
+        $cfa->importo_gara = 0 ;
+
+    }
     
     $contraente = $_POST['contraente'] ;
 
@@ -126,8 +169,35 @@ if(filter_input(INPUT_POST,"idToMod"))
     $cfa->consulenza = filter_input(INPUT_POST,'consulenza') ;
     $cfa->incasso_data = filter_input(INPUT_POST,'incasso_data') ;
     $cfa->incasso_mod = filter_input(INPUT_POST,'incasso_mod') ;
-    $cfa->pagato = filter_input(INPUT_POST,'pagato') ;
-    $cfa->broker = filter_input(INPUT_POST,'broker') ;
+    
+    if(filter_input(INPUT_POST,'pagato_da_collaboratore'))
+    {
+        $cfa->pagato_da_collaboratore = filter_input(INPUT_POST,'pagato_da_collaboratore') ;
+    }
+    else
+    {
+        $cfa->pagato_da_collaboratore = 0 ;
+    }
+  
+    if(filter_input(INPUT_POST,'collaboratore_pagato'))
+    {
+        $cfa->collaboratore_pagato = 1 ;
+    }
+    else
+    {
+        $cfa->collaboratore_pagato = 0 ;
+    }
+
+    if(filter_input(INPUT_POST,'compagnia_pagato'))
+    {
+        $cfa->compagnia_pagato = 1 ;
+    }
+    else
+    {
+        $cfa->compagnia_pagato = 0 ;
+    }
+
+
     if(filter_input(INPUT_POST,'copia_direzione'))
     {
         $cfa->copia_direzione = 1 ;
@@ -141,7 +211,32 @@ if(filter_input(INPUT_POST,"idToMod"))
 
     $cfa->table = 'polizze' ;
 
-    if($cfa->update(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker','copia_direzione'],'id'))
+    if($cfa->update([        
+        'id_collaboratore',
+        'id_compagnia',
+        'netto',
+        'diritti',
+        'imponibile',
+        'lordo',
+        'spese',
+        'imposte',
+        'numero',
+        'tipologia',
+        'id_contraente',
+        'id_beneficiario',
+        'descrizione',
+        'importo_gara',
+        'massimale',
+        'st',
+        'et',
+        'consulenza',
+        'incasso_data',
+        'incasso_mod',
+        'pagato_da_collaboratore',
+        'collaboratore_pagato',
+        'compagnia_pagato',
+        'copia_direzione'
+        ],'id'))
     {
 
         // CALENDAR
@@ -225,7 +320,16 @@ else if($operation == "add")
     $cfa->numero = filter_input(INPUT_POST, 'numero') ;
     $cfa->tipologia = filter_input(INPUT_POST, 'tipologia') ;
     $cfa->descrizione = filter_input(INPUT_POST, 'descrizione') ;
-    $cfa->importo_gara = filter_input(INPUT_POST, 'importo_gara') ;
+
+    if( filter_input(INPUT_POST, 'importo_gara') )
+    {
+        $cfa->importo_gara = filter_input(INPUT_POST, 'importo_gara') ;
+    }
+    else
+    {
+        $cfa->importo_gara = 0 ;
+
+    }
     
     $contraente = $_POST['contraente'] ;
     
@@ -306,7 +410,15 @@ else if($operation == "add")
     $cfa->consulenza = filter_input(INPUT_POST,'consulenza') ;
     $cfa->incasso_data = filter_input(INPUT_POST,'incasso_data') ;
     $cfa->incasso_mod = filter_input(INPUT_POST,'incasso_mod') ;
-    $cfa->pagato_da_collaboratore = filter_input(INPUT_POST,'pagato_da_collaboratore') ;
+
+    if(filter_input(INPUT_POST,'pagato_da_collaboratore'))
+    {
+        $cfa->pagato_da_collaboratore = filter_input(INPUT_POST,'pagato_da_collaboratore') ;
+    }
+    else
+    {
+        $cfa->pagato_da_collaboratore = 0 ;
+    }
   
     if(filter_input(INPUT_POST,'collaboratore_pagato'))
     {
@@ -340,7 +452,32 @@ else if($operation == "add")
 
     $cfa->table = 'polizze' ;
 
-    if($cfa->insert(['id_collaboratore','id_compagnia','numero','tipologia','id_contraente','id_beneficiario','descrizione','importo_gara','massimale','st','et','consulenza','incasso_data','incasso_mod','pagato','broker','copia_direzione']))
+    if($cfa->insert([
+        'id_collaboratore',
+        'id_compagnia',
+        'netto',
+        'diritti',
+        'imponibile',
+        'lordo',
+        'spese',
+        'imposte',
+        'numero',
+        'tipologia',
+        'id_contraente',
+        'id_beneficiario',
+        'descrizione',
+        'importo_gara',
+        'massimale',
+        'st',
+        'et',
+        'consulenza',
+        'incasso_data',
+        'incasso_mod',
+        'pagato_da_collaboratore',
+        'collaboratore_pagato',
+        'compagnia_pagato',
+        'copia_direzione'
+        ]))
     {
 
         // CALENDAR

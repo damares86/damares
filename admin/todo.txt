@@ -8,11 +8,7 @@
         - aggiungere consulenza (%) -> provv. consulenza dare %  -> da calcolare sulla consulenza della polizza
         - aggiungere provvigione sul premio % -> calcolata sul netto della polizza
 
-- Polizze
-    x data fine / data incasso / modalità incasso (sotto consulenza)
-    - rimuovere broker
-    x aggiungere premio totale = imponibile + diritti + spese + imposte
-    - aggiungere Pagato da collaboratore 
+
 
 Compagnie/collaboratore
     elenco delle polizze da pagare, con check se pagata
@@ -27,6 +23,12 @@ Compagnie/collaboratore
     x provvigioni(%)
     x ritenuta d'acconto (non obbligatorio)
     x "netto, diritti, imponibile, lordo, spese notarili, imposte" -> in Polizze sotto la compagnia
+
+- POLIZZE
+    x data fine / data incasso / modalità incasso (sotto consulenza)
+    x rimuovere broker
+    x aggiungere premio totale = imponibile + diritti + spese + imposte
+    x aggiungere Pagato da collaboratore 
 
 - SEZIONE UTILI
 

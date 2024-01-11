@@ -929,7 +929,7 @@ extract($row1) ;
                                             $checked = 'checked' ;
                                         }
                                     ?>
-                                    <input class="form-check-input delete" type="checkbox" name="compagnia_pagato" id="flexSwitchCheckDefault" <?=$checked?>>>
+                                    <input class="form-check-input delete" type="checkbox" name="compagnia_pagato" id="flexSwitchCheckDefault" <?=$checked?>>
                                 </div>
                             </div>
                         </div>
@@ -946,6 +946,7 @@ extract($row1) ;
                                         class="form-control"
                                         placeholder="Pagato"
                                         name="pagato_da_collaboratore"
+                                        value="<?=$row1['pagato_da_collaboratore']?>"
                                         />
                                     </div>
                                 </div>
@@ -965,20 +966,20 @@ extract($row1) ;
                                             $checked = 'checked' ;
                                         }
                                     ?>
-                                    <input class="form-check-input delete" type="checkbox" name="collaboratore_pagato" id="flexSwitchCheckDefault" <?=$checked?>>>
+                                    <input class="form-check-input delete" type="checkbox" name="collaboratore_pagato" id="flexSwitchCheckDefault" <?=$checked?>>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <label>Premio totale<span class="text-danger">*</span></label>
+                        <div class="col-md-3 mt-2">
+                            <label><b>Premio totale</b></label>
                         </div>
-                        <div class="col-md-9 px-3">
+                        <div class="col-md-9 px-3 mt-2">
                             <div class="form-group">
                                 <?php
-                                    $premio = $row1['imponibile'] + $row1['diritti'] + $row1['spese'] + $row['imposte'] ;
+                                    $premio = $row1['imponibile'] + $row1['diritti'] + $row1['spese'] + $row1['imposte'] ;
                                 ?>
-                                <p><?=$premio?> €</p>
+                                <p><b><?=$premio?> €</b></p>
                             </div>
                         </div>
 
