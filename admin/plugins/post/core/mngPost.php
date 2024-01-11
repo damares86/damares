@@ -16,13 +16,14 @@ require __DIR__."/coreConfig.php";
 
 if(filter_input(INPUT_GET,"idToDel")){
 
-    $customer->id = filter_input(INPUT_GET,"idToDel");
+    $post->table = 'post' ;
+    $post->id = filter_input(INPUT_GET,"idToDel");
 
-    if($customer->delete('id')){
-        header("Location: ../index.php?p=allCustomers&msg=customerDel");
+    if($post->delete('id')){
+        header("Location: ../index.php?p=allPosts&msg=postDel");
         exit;
     }else{
-        header("Location: ../index.php?p=allCustomers&err=customerNoDel");
+        header("Location: ../index.php?p=allPosts&err=postNoDel");
         exit;
     }
 
@@ -34,93 +35,141 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 if($operation=="edit"){
 
-        $id = filter_input(INPUT_POST,"idToMod") ;
-        
-        $customer->id = $id ;
-        $stmt = $customer->showAllWhere('id',['id']);
-               
-        $customer->name = filter_input(INPUT_POST,"name") ;
-        $customer->surname = filter_input(INPUT_POST,"surname") ;
+        $id = filter_input(INPUT_POST,"idToMod") ;        
 
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
+        if( filter_input(INPUT_POST,"gall") )
+        {
+            $post->gall = filter_input(INPUT_POST,"gall");
         }
-
-        if($details_arr){
-            $details_str = serialize($details_arr);
-            $customer->details = $details_str;
+        else
+        {
+            $post->gall = 'none' ;
         }
-
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
+        $post->title = filter_input(INPUT_POST,"title");
+        $post->author = filter_input(INPUT_POST,"author");
+        $post->content = filter_input(INPUT_POST,"content");
+        $post->created = date("Y-m-d");
+        $category = $_POST['categories'] ;
+        $post->category_id = implode(',',$category) ;
+    
+        $errImg = '' ;
+    
+        if($_FILES['myfile']['size'] > 0)
+        {
+            $file->filename = $_FILES['myfile']['name'] ;
+            $filename = $_FILES['myfile']['name'] ;
+    
+            if($file->countFile()>0){
+                
+                header("Location: ../index.php?p=allFiles&err=fileExists");
+                exit;
+            }
+            // set data for file uploading
+            $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
+            $file->label = 'post -> '.$post->title ;
+            $file->path = "../../uploads/" ;
+            $file->origin = filter_input(INPUT_POST,"origin");
+            
+            $file->operation = "add" ;
+            
+            if(!$file->uploadFile()){
+                $errImg = 'err=postImgErr';
+                $post->main_img = 'default.png' ;
+            }
+            else
+            {
+                $post->main_img = $filename ;
+            }
         }
-
-        if($details_opt_arr){
-            $details_opt_str = serialize($details_opt_arr);
-            $customer->details_opt = $details_opt_str ;
+        else
+        {
+            $post->main_img = filter_input(INPUT_POST,'old_main_img') ;
         }
+    
+        $post->table = 'post' ;
+        $post->id = $id ;
 
-        if($customer->update(['name','surname','details','details_opt'],'id')){
-
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=customerEdit");
-			exit; 
-		
-		}else{
-        
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&err=customerNoEdit");
-			exit;
-		
+        if($post->update(['main_img','gall','title','author','content','created','category_id'],'id')){
+    
+            //success
+            header("Location: ../index.php?p=editPost&idToMod=$id&msg=postEditSucc$errImg");
+            exit;
+    
+        }else{
+    
+            // fail
+            header("Location: ../index.php?p=editPost&idToMod=$id&err=postEditFail$errImg");
+            exit;
         }
+    
 
 }else if($operation == "add"){
 
-    $customer->name = filter_input(INPUT_POST,"name");
-    $customer->surname = filter_input(INPUT_POST,"surname");
+    if( filter_input(INPUT_POST,"gall") )
+    {
+        $post->gall = filter_input(INPUT_POST,"gall");
+    }
+    else
+    {
+        $post->gall = 'none' ;
+    }
+    $post->title = filter_input(INPUT_POST,"title");
+    $post->author = filter_input(INPUT_POST,"author");
+    $post->content = filter_input(INPUT_POST,"content");
+    $post->created = date("Y-m-d");
+    $category = $_POST['categories'] ;
+    $post->category_id = implode(',',$category) ;
 
-    if($customer->customerExists()){
-        header("Location: ../index.php?p=addCustomer&err=customerExist");
+    $errImg = '' ;
+
+    if($_FILES['myfile']['size'] > 0)
+    {
+        $file->filename = $_FILES['myfile']['name'] ;
+        $filename = $_FILES['myfile']['name'] ;
+
+        if($file->countFile()>0){
+            
+            header("Location: ../index.php?p=allFiles&err=fileExists");
+            exit;
+        }
+        // set data for file uploading
+        $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
+        $file->label = 'post -> '.$post->title ;
+        $file->path = "../../uploads/" ;
+        $file->origin = filter_input(INPUT_POST,"origin");
+        
+        $file->operation = "add" ;
+        
+        if(!$file->uploadFile()){
+            $errImg = 'err=postImgErr';
+            $post->main_img = 'default.png' ;
+        }
+        else
+        {
+            $post->main_img = $filename ;
+        }
+    }
+    else
+    {
+        $errImg = 'err=postImgEmpty';
+    }
+    
+    $post->table = 'post' ;
+
+    if($post->insert(['main_img','gall','title','author','content','created','category_id'])){
+
+        //success
+        header("Location: ../index.php?p=allPosts&msg=postSucc$errImg");
         exit;
+
     }else{
 
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        $details_str = serialize($details_arr);
-        $customer->details = $details_str;
-
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-        $details_opt_str = serialize($details_opt_arr);
-        $customer->details_opt = $details_opt_str ;
-
-        if($customer->insert(['name','surname','details','details_opt'])){
-
-            //success
-            header("Location: ../index.php?p=allCustomers&msg=customerSucc");
-            exit;
-
-        }else{
-
-            // fail
-            header("Location: ../index.php?p=allCustomers&err=customerFail");
-            exit;
-        }
-
+        // fail
+        header("Location: ../index.php?p=allPosts&err=postFail$errImg");
+        exit;
     }
 
 }else{
-    header("Location: ../index.php?p=allCustomers&err=noPost");
+    header("Location: ../index.php?p=allPosts&err=noPost");
     exit;
 }

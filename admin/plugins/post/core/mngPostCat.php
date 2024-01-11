@@ -14,16 +14,48 @@ require __DIR__."/coreConfig.php";
 
 // check if there's a customer to delete
 
-if(filter_input(INPUT_GET,"idToDel")){
+if(filter_input(INPUT_GET,"idToDel"))
+{
 
-    $customer->id = filter_input(INPUT_GET,"idToDel");
+    $idToDel = filter_input(INPUT_GET,"idToDel");
+    $post->id = $idToDel ;
+    
+    $post->table = 'post' ;
+    $stmt = $post->showAll('id') ;
+    
+    $num = 0 ; 
 
-    if($customer->delete('id')){
-        header("Location: ../index.php?p=allCustomers&msg=customerDel");
+    while( $row  = $stmt->fetch(PDO::FETCH_ASSOC) )
+    {
+        extract($row) ;
+
+        $catArr = explode(',',$row['category_id']) ;
+        if(in_array( $idToDel, $catArr ))
+        {
+            $num++ ;
+        }
+    }
+
+    if( $num >0 )
+    {
+        header("Location: ../index.php?p=allPostsCat&err=postCatCount");
         exit;
-    }else{
-        header("Location: ../index.php?p=allCustomers&err=customerNoDel");
-        exit;
+    }
+    else
+    {
+        
+        $post->table = 'post_categories' ;
+        
+        if($post->delete('id'))
+        {
+            header("Location: ../index.php?p=allPostsCat&msg=postCatDel");
+            exit;
+        }
+        else
+        {
+            header("Location: ../index.php?p=allPostsCat&err=postCatNoDel");
+            exit;
+        }
     }
 
 }
@@ -32,95 +64,54 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 // check if there's a customer to edit or add
 
-if($operation=="edit"){
+if($operation=="edit")
+{
 
         $id = filter_input(INPUT_POST,"idToMod") ;
         
-        $customer->id = $id ;
-        $stmt = $customer->showAllWhere('id',['id']);
-               
-        $customer->name = filter_input(INPUT_POST,"name") ;
-        $customer->surname = filter_input(INPUT_POST,"surname") ;
-
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
+        $post->id = $id ;
+        $post->category_name = filter_input(INPUT_POST,'category_name') ;
+        $post->table = 'post_categories' ;
+      
+        if($post->update(['category_name'],'id'))
+        {    
+            //success
+            header("Location: ../index.php?p=editPostCat&idToMod=$id&msg=postCatSucc");
+            exit;
+    
+        }
+        else
+        {
+    
+            // fail
+            header("Location: ../index.php?p=editPostCat&idToMod=$id&&err=postCatFail");
+            exit;
         }
 
-        if($details_arr){
-            $details_str = serialize($details_arr);
-            $customer->details = $details_str;
-        }
+}
+else if($operation == "add")
+{
 
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
-        }
+    $post->category_name = filter_input(INPUT_POST,'category_name') ;
+    $post->table = 'post_categories' ;
+  
+    if($post->insert(['category_name']))
+    {
 
-        if($details_opt_arr){
-            $details_opt_str = serialize($details_opt_arr);
-            $customer->details_opt = $details_opt_str ;
-        }
-
-        if($customer->update(['name','surname','details','details_opt'],'id')){
-
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=customerEdit");
-			exit; 
-		
-		}else{
-        
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&err=customerNoEdit");
-			exit;
-		
-        }
-
-}else if($operation == "add"){
-
-    $customer->name = filter_input(INPUT_POST,"name");
-    $customer->surname = filter_input(INPUT_POST,"surname");
-
-    if($customer->customerExists()){
-        header("Location: ../index.php?p=addCustomer&err=customerExist");
+        //success
+        header("Location: ../index.php?p=allPostsCat&msg=postCatSucc");
         exit;
+
     }else{
 
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        $details_str = serialize($details_arr);
-        $customer->details = $details_str;
-
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-        $details_opt_str = serialize($details_opt_arr);
-        $customer->details_opt = $details_opt_str ;
-
-        if($customer->insert(['name','surname','details','details_opt'])){
-
-            //success
-            header("Location: ../index.php?p=allCustomers&msg=customerSucc");
-            exit;
-
-        }else{
-
-            // fail
-            header("Location: ../index.php?p=allCustomers&err=customerFail");
-            exit;
-        }
-
+        // fail
+        header("Location: ../index.php?p=allPostsCat&err=postCatFail");
+        exit;
     }
 
-}else{
-    header("Location: ../index.php?p=allCustomers&err=noPost");
+}
+else
+{
+    header("Location: ../index.php?p=allPostsCat&err=noPost");
     exit;
 }
