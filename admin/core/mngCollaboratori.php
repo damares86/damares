@@ -54,14 +54,15 @@ if(filter_input(INPUT_POST,"idToMod"))
     $cfa->ritenuta_acconto = filter_input(INPUT_POST,'ritenuta_acconto') ;
     $cfa->iban = filter_input(INPUT_POST,'iban') ;
     $cfa->banca = filter_input(INPUT_POST,'banca') ;
-    $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
-    $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
+    $cfa->iscrizione_rui = filter_input(INPUT_POST,'iscrizione_rui') ;
+    // $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
+    // $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
 
     // details
 
     $cfa->table = 'collaboratori' ;
 
-    if($cfa->update(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','provvigioni_dare','provvigioni_avere'],'id'))
+    if($cfa->update(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','iscrizione_rui'],'id'))
     {
         header("Location: ../index.php?p=allCollaboratori&msg=collabEdit");
         exit;
@@ -89,14 +90,15 @@ else if($operation == "add")
     $cfa->ritenuta_acconto = filter_input(INPUT_POST,'ritenuta_acconto') ;
     $cfa->iban = filter_input(INPUT_POST,'iban') ;
     $cfa->banca = filter_input(INPUT_POST,'banca') ;
-    $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
-    $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
+    $cfa->iscrizione_rui = filter_input(INPUT_POST,'iscrizione_rui') ;
+    // $cfa->provvigioni_dare = filter_input(INPUT_POST,'provvigioni_dare') ;
+    // $cfa->provvigioni_avere = filter_input(INPUT_POST,'provvigioni_avere') ;
 
     // details
 
     $cfa->table = 'collaboratori' ;
 
-    if($cfa->insert(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','provvigioni_dare','provvigioni_avere']))
+    if($cfa->insert(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','iscrizione_rui']))
     {
         header("Location: ../index.php?p=allCollaboratori&msg=collabAddSucc");
         exit;

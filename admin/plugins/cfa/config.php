@@ -25,9 +25,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."collaboratori
       ritenuta_acconto INT(10) NOT NULL,
       iban VARCHAR(27) NOT NULL,
       banca VARCHAR(255) NOT NULL,
-      iscrizione_rui VARCHAR(255) NOT NULL,
-      provvigioni_dare INT(15) NOT NULL,
-      provvigioni_avere INT(15) NOT NULL,      
+      iscrizione_rui VARCHAR(255) NOT NULL,  
       details TEXT DEFAULT NULL,
       details_opt TEXT DEFAULT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."compagnie

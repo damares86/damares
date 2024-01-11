@@ -323,7 +323,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$cfa_provv_dare?> <span class="text-danger">*</span></label>
+                            <label>Iscrizioni RUI <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -332,39 +332,15 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$cfa_provv_dare?>"
+                                        placeholder="Iscrizioni RUI"
                                         id="first-name-icon"
-                                        name="provvigioni_dare"
+                                        name="iscrizione_rui"
                                         data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <label><?=$cfa_provv_avere?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="<?=$cfa_provv_avere?>"
-                                        id="first-name-icon"
-                                        name="provvigioni_avere"
-                                        data-parsley-required="true"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
 
                         <?php
 

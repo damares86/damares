@@ -342,29 +342,10 @@ extract($row1) ;
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <label>Provvigioni dare <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Provvigioni dare"
-                                        id="first-name-icon"
-                                        name="provvigioni_dare"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['provvigioni_dare']?>"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <div class="col-md-3">
-                            <label>Provvigioni avere <span class="text-danger">*</span></label>
+                            <label>Iscrizioni RUI <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -373,11 +354,11 @@ extract($row1) ;
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Provvigioni avere"
+                                        placeholder="Iscrizioni RUI"
                                         id="first-name-icon"
-                                        name="provvigioni_avere"
+                                        name="iscrizione_rui"
+                                        value="<?=$row1['iscrizione_rui']?>"
                                         data-parsley-required="true"
-                                        value="<?=$row1['provvigioni_avere']?>"
                                         />
                                     </div>
                                 </div>
