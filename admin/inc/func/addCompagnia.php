@@ -76,6 +76,26 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-3">
+                            <label>Partita IVA <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Partita IVA"
+                                        name="p_iva"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row border-top mt-3 pt-3">
@@ -95,6 +115,24 @@
                                         placeholder="<?=$cfa_provv?>"
                                         name="provv"
                                         data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Ritenuta d'acconto (%)</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="0"
+                                        name="ritenuta_acconto"
                                         />
                                     </div>
                                 </div>

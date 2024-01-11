@@ -88,92 +88,31 @@ extract($row1) ;
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <label>Partita IVA <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Partita IVA"
+                                        name="p_iva"
+                                        data-parsley-required="true"
+                                        value="<?=$row1['p_iva']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row border-top mt-3 pt-3">
 
                         <h4 class="card-title">Dati finanziari</h4>
-
-                        <div class="col-md-3">
-                            <label>Netto <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Netto"
-                                        name="netto"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['netto']?>"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Imponibile <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Imponibile"
-                                        name="imponibile"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['imponibile']?>"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label>Lordo <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Lordo"
-                                        name="lordo"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['lordo']?>"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
-
-                        <div class="col-md-3">
-                            <label>Spese <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Spese"
-                                        name="spese"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['spese']?>"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
                         <div class="col-md-3">
                             <label>Provvigioni (%) <span class="text-danger">*</span></label>
                         </div>
@@ -194,84 +133,25 @@ extract($row1) ;
                             </div>
                         </div>
 
-                        <?php
-
-                        require "core/collaboratoreDetails.php";
-                        foreach($collaboratore_details as $item){
-
-                            $label = "account_add_$item";
-                            $item_label=ucfirst($item);
-
-                        ?>
                         <div class="col-md-3">
-                            <label><?=$item_label?> <span class="text-danger">*</span></label>
+                            <label>Ritenuta d'acconto (%)</label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="form-check mandatory">
+                                <div class="form-check">
                                     <div class="position-relative">
-                                        <?php                                                              
-                                                $type="text";
-                                                if($item=="birth"){
-                                                    $type="date";
-                                                }
-                                            ?>
-                                            <input
-                                            type="<?=$type?>"
-                                            class="form-control"
-                                            placeholder="<?=$item_label?>"
-                                            name="<?=$item?>"
-                                            data-parsley-required="true"
-
-                                            />
-                                            <?php
-                                            
-                                            ?>
-
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="0"
+                                        name="ritenuta_acconto"
+                                        value="<?=$row1['ritenuta_acconto']?>"
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <?php
-
-                        }
-
-                        foreach($collaboratore_details_opt as $item){
-
-                            $label = "account_add_$item";
-                            $item_label=ucfirst($item);
-
-                        ?>
-                        <div class="col-md-3">
-                            <label><?=$item?> <?=$account_add_optional?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="position-relative">
-                                    <?php
-                                        $type="text";
-                                        if($item=="birth"){
-                                            $type="date";
-                                        }
-                                    ?>
-                                    <input
-                                    type="<?=$type?>"
-                                    class="form-control"
-                                    placeholder="<?=$item_label?>"
-                                    name="<?=$item?>"
-
-                                    />
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-
-                        }
-
-                        ?>
 
                        
                         <input type="hidden" name="operation" value="edit">
