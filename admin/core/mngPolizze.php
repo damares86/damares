@@ -187,6 +187,41 @@ else if($operation == "add")
     
     $cfa->id_collaboratore = $_POST['id_collaboratore'][0] ;
     $cfa->id_compagnia = $_POST['id_compagnia'][0] ;    
+    $cfa->imponibile = filter_input(INPUT_POST, 'imponibile') ;
+    $cfa->imposte = filter_input(INPUT_POST, 'imposte') ;
+    $cfa->lordo = filter_input(INPUT_POST, 'lordo') ;
+
+    if( filter_input(INPUT_POST, 'netto') )
+    {
+        $cfa->netto = filter_input(INPUT_POST, 'netto') ;
+    }
+    else
+    {
+        $cfa->netto = 0 ;
+
+    }
+
+    if( filter_input(INPUT_POST, 'diritti') )
+    {
+        $cfa->diritti = filter_input(INPUT_POST, 'diritti') ;
+    }
+    else
+    {
+        $cfa->diritti = 0 ;
+
+    }
+
+    if( filter_input(INPUT_POST, 'spese') )
+    {
+        $cfa->spese = filter_input(INPUT_POST, 'spese') ;
+    }
+    else
+    {
+        $cfa->spese = 0 ;
+
+    }
+
+
     $cfa->numero = filter_input(INPUT_POST, 'numero') ;
     $cfa->tipologia = filter_input(INPUT_POST, 'tipologia') ;
     $cfa->descrizione = filter_input(INPUT_POST, 'descrizione') ;
@@ -271,8 +306,27 @@ else if($operation == "add")
     $cfa->consulenza = filter_input(INPUT_POST,'consulenza') ;
     $cfa->incasso_data = filter_input(INPUT_POST,'incasso_data') ;
     $cfa->incasso_mod = filter_input(INPUT_POST,'incasso_mod') ;
-    $cfa->pagato = filter_input(INPUT_POST,'pagato') ;
-    $cfa->broker = filter_input(INPUT_POST,'broker') ;
+    $cfa->pagato_da_collaboratore = filter_input(INPUT_POST,'pagato_da_collaboratore') ;
+  
+    if(filter_input(INPUT_POST,'collaboratore_pagato'))
+    {
+        $cfa->collaboratore_pagato = 1 ;
+    }
+    else
+    {
+        $cfa->collaboratore_pagato = 0 ;
+    }
+
+    if(filter_input(INPUT_POST,'compagnia_pagato'))
+    {
+        $cfa->compagnia_pagato = 1 ;
+    }
+    else
+    {
+        $cfa->compagnia_pagato = 0 ;
+    }
+
+
     if(filter_input(INPUT_POST,'copia_direzione'))
     {
         $cfa->copia_direzione = 1 ;

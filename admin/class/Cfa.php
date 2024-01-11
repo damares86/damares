@@ -30,10 +30,6 @@ class Cfa extends Common{
     public $provvigioni_avere ;
 
     // compagnie
-    public $netto ;
-    public $imponibile ;
-    public $lordo ;
-    public $spese ;
     public $provv ;    
 
     // contraente
@@ -60,6 +56,12 @@ class Cfa extends Common{
     // polizze
     public $id_collaboratore ;
     public $id_compagnia ;
+    public $netto ;
+    public $diritti ;
+    public $imponibile ;
+    public $lordo ;
+    public $spese ;
+    public $imposte ;
     public $numero ;
     public $tipologia ;
     public $id_contraente ;
@@ -73,8 +75,9 @@ class Cfa extends Common{
     public $consulenza ;
     public $incasso_data ;
     public $incasso_mod ;
-    public $pagato ;
-    public $broker ;
+    public $pagato_da_collaboratore ;
+    public $collaboratore_pagato ;
+    public $compagnia_pagato ;
     public $copia_direzione ;
 
 

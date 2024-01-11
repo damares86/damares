@@ -127,17 +127,18 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$cfa_imponibile?></label>
+                            <label><?=$cfa_imponibile?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="form-check">
+                                <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
                                         type="text"
                                         class="form-control"
                                         placeholder="<?=$cfa_imponibile?>"
                                         name="imponibile"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -145,17 +146,18 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$cfa_lordo?></label>
+                            <label><?=$cfa_lordo?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="form-check">
+                                <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
                                         type="text"
                                         class="form-control"
                                         placeholder="<?=$cfa_lordo?>"
                                         name="lordo"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -181,17 +183,18 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Imposte</label>
+                            <label>Imposte <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="form-check">
+                                <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
                                         type="text"
                                         class="form-control"
                                         placeholder="Imposte"
                                         name="imposte"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -867,29 +870,50 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <label>Pagato compagnia<span class="text-danger">*</span></label>
+                        <div class="col-md-3 mt-2">
+                            <label>Compagnia pagata</label>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9 mt-2">
                             <div class="form-group">
-                                <div class="form-check mandatory">
+                                <div class="form-check form-switch px-5">
+                                    <input class="form-check-input delete" type="checkbox" name="compagnia_pagato" id="flexSwitchCheckDefault">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mt-2">
+                            <label>Pagato da collaboratore</label>
+                        </div>
+                        <div class="col-md-9 mt-2">
+                            <div class="form-group">
+                                <div class="form-check">
                                     <div class="position-relative">
                                         <input
                                         type="text"
                                         class="form-control"
                                         placeholder="Pagato"
-                                        name="pagato"
-                                        data-parsley-required="true"
+                                        name="pagato_da_collaboratore"
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <label>Copia direzione<span class="text-danger">*</span></label>
+                        <div class="col-md-3 mt-2">
+                            <label>Collaboratore pagato</label>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9 mt-2">
+                            <div class="form-group">
+                                <div class="form-check form-switch px-5">
+                                    <input class="form-check-input delete" type="checkbox" name="collaboratore_pagato" id="flexSwitchCheckDefault">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mt-2">
+                            <label>Copia direzione</label>
+                        </div>
+                        <div class="col-md-9 mt-2">
                             <div class="form-group">
                                 <div class="form-check form-switch px-5">
                                     <input class="form-check-input delete" type="checkbox" name="copia_direzione" id="flexSwitchCheckDefault">
