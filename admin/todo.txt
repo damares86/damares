@@ -12,10 +12,14 @@
         - aggiungere consulenza (%) -> provv. consulenza dare %  -> da calcolare sulla consulenza della polizza
         - aggiungere provvigione sul premio % -> calcolata sul netto della polizza
 
+
+
 Compagnie/collaboratore
     elenco delle polizze da pagare, con check se pagata
     Nel caso sia pagata non viene mostrata
     Esportabile mese/trimestre/annuale
+
+
 
 - SEZIONE UTILI
 
@@ -33,24 +37,10 @@ Compagnie/collaboratore
         ---ok--- DA PAGARE COLLABORATORE = 'Premio lordo'(POLIZZA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
         ---ok--- DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
 
-        UTILE NETTO CFA =   'Consulenza'(POLIZZA) + 
-                            'Provv. nette avere (% ritenuta d'acconto compagnia)' - 
-                            'Tot provv nette dare'
+? UTILE NETTO CFA =   'Consulenza'(POLIZZA) + 
+                    'Provv. nette avere (% ritenuta d'acconto compagnia)' - 
+                    'Tot provv nette dare'
 
-        ############# DA CAPIRE ################
-
-
-
-
-        ----- RISPOSTA ------
-
-        PROVV. TOTALE NETTE
-            E’ un dato che uscirà in automatico sul conteggio del totale provvigioni sia per i collaboratori 
-            che per i broker/procacciatori , il totale comparirà in automatico sommando tutte le pratiche 
-            con cifra in euro netta, ogni ultimo giorno del mese lavorativo.
-
-        PAGATO DA COLLABORATORE
-            Questa colonna/campo per il momento rimuoverla e fare finta che non esiste.
 
     ###
 

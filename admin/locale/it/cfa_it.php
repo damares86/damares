@@ -16,6 +16,7 @@ $label_utili = "Utili" ;
 $label_compagnie = "Compagnie" ;
 $label_contraenti = "Contraenti" ;
 $label_beneficiari = "Beneficiari" ;
+$label_utili_cfa = "Utili CFA" ;
 
 // common
 
