@@ -26,6 +26,8 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."collaboratori
       iban VARCHAR(27) NOT NULL,
       banca VARCHAR(255) NOT NULL,
       iscrizione_rui VARCHAR(255) NOT NULL,  
+      consulenza_collab INT(10) NOT NULL,  
+      premio_collab INT(10) NOT NULL,  
       details TEXT DEFAULT NULL,
       details_opt TEXT DEFAULT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."compagnie
@@ -114,9 +116,20 @@ $parent_table=[['link'=>'allCollaboratori',
             ['link'=>'allBeneficiari',
                   'label'=>'Beneficiari',
                   'icon'=>'person-fill-up'],
-            ['link'=>'allUtili',
+            ['link'=>'utili',
                   'label'=>'Utili',
                   'icon'=>'bank'],];
+
+$child_table=[['link'=>'allUtili',
+            'label'=>'Utili CFA',
+            'icon'=>'cash-coin'],
+            ['link'=>'allUtiliCollaboratori',
+            'label'=>'Collaboratori',
+            'icon'=>'person-vcard'],
+            ['link'=>'allUtiliCompagnie',
+            'label'=>'Compagnie',
+            'icon'=>'building']
+            ];
 
 $query_drop_table = "DROP TABLE  ".$prefix."collaboratori, ".$prefix."compagnie, ".$prefix."contraente, ".$prefix."beneficiario, ".$prefix."polizze";
 

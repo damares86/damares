@@ -215,7 +215,7 @@
                         </div>
                         
                         <div class="col-md-3">
-                            <label>C<?=$cfa_codice_fiscale?> <span class="text-danger">*</span></label>
+                            <label><?=$cfa_codice_fiscale?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -335,6 +335,44 @@
                                         placeholder="Iscrizioni RUI"
                                         id="first-name-icon"
                                         name="iscrizione_rui"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Consulenza (%) <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="0"
+                                        name="consulenza_collab"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Premio (%) <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="0"
+                                        name="premio_collab"
                                         data-parsley-required="true"
                                         />
                                     </div>

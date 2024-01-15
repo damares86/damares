@@ -28,6 +28,8 @@ class Cfa extends Common{
     public $banca ;
     public $provvigioni_dare ;
     public $provvigioni_avere ;
+    public $consulenza_collab ;
+    public $premio_collab ;
 
     // compagnie
     public $provv ;    
@@ -83,5 +85,5 @@ class Cfa extends Common{
 
 
 }
-
+ 
 ?>

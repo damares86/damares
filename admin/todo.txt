@@ -4,10 +4,10 @@
 
 - COLLABORATORI
     x aggiungere "iscrizione R.U.I." (numero)
+    x aggiungere Provvigione per premio
+    x aggiungere Provvigione per consulenza
     
     DOMANDE
-    - aggiungere Provvigione per premio
-    - aggiungere Provvigione per consulenza
     --- DA CALCOLARE IN CHE PERIODO? ---
         - aggiungere consulenza (%) -> provv. consulenza dare %  -> da calcolare sulla consulenza della polizza
         - aggiungere provvigione sul premio % -> calcolata sul netto della polizza
@@ -21,22 +21,26 @@ Compagnie/collaboratore
 
     ###
 
-        ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA)
-        ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%)?)'
+? 'pagato compagnia' ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA)
+        ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%))'
         ---ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
-        ---ok--- PROVV. PREMIO DARE = 'Premio netto'(COMPAGNIA) * % Provv. premio dare (COLLABORATORE)
-        ---ok--- TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
 
+? NETTO NON È MANDATORY ---ok--- PROVV. PREMIO DARE = 'Premio netto'(COMPAGNIA) * % Provv. premio dare (COLLABORATORE)
+
+        ---ok--- TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
+        ---ok--- TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(RITENUTA D'ACCONTO))
+        ---ok--- PAGATO DA COLLABORATORE = In polizza
+        ---ok--- DA PAGARE COLLABORATORE = 'Premio lordo'(POLIZZA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
+        ---ok--- DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
+
+        UTILE NETTO CFA =   'Consulenza'(POLIZZA) + 
+                            'Provv. nette avere (% ritenuta d'acconto compagnia)' - 
+                            'Tot provv nette dare'
 
         ############# DA CAPIRE ################
 
-        TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(RITENUTA D'ACCONTO))
 
-        PAGATO DA COLLABORATORE = #dove si inserisce
-        DA PAGARE COLLABORATORE = 'Premio lordo'(COMPAGNIA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
 
-        DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
-        UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 'Provv. nette avere (% ritenuta d'acconto compagnia)' - 'Tot provv nette dare'
 
         ----- RISPOSTA ------
 

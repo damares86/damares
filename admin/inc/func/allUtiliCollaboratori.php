@@ -199,10 +199,6 @@
             <th>Provv. Consul. Dare</th>
             <th>Provv. Premio Dare</th>
             <th>Tot Provv. Dare</th>
-            <th>Tot Provv. Nette Dare</th>
-            <th>Pagato da Collaboratore</th>
-            <th>Da pagare Collaboratore</th>
-            <th>Dare/avere Collaboratore</th>
 
 
 
@@ -272,34 +268,33 @@
             $stmt1 = $cfa->showAllWhere('id',['id_compagnia']);
           }
 
+          // variable
+
+          $da_pagare_compagnia = 0 ;
+          $provv_consul_dare = 0 ;
+          $provv_premio_dare = 0 ;
+          $tot_provv_dare = 0 ;
+
           while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC) )
           { 
             extract($row1);
-            $da_pagare_compagnia = $row1['lordo'] + $row1['pagato'] ;
-
             
+            $da_pagare_compagnia += $row['lordo'] + $row1['pagato'] ;
+
+            $provv_consul_dare += ( $row1['consulenza'] / 100 ) * $row1['broker'] ;
+
             $cfa->table = 'collaboratori' ;
             $cfa->id = $row1['id_collaboratore'] ;
             $stmt2 = $cfa->showAllWhere('id',['id']) ;
             $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+            
+            $provv_premio_dare += ( $row['netto'] / 100 ) * $row2['provvigioni_dare'] ;
 
-            $dare_avere_compagnia = $da_pagare_compagnia - (($da_pagare_compagnia / 100) * $row['provv']) ;
+            $tot_provv_dare += $provv_consul_dare + $provv_premio_dare ;
 
-            $provv_consul_dare = ( $row1['consulenza'] / 100 ) * $row2['consulenza_collab'] ;
+          }
 
-            $provv_premio_dare = $row1['netto'] * $row2['premio_collab'] ;
-
-            $tot_provv_dare = $provv_consul_dare + $provv_premio_dare ;
-
-            $tot_provv_nette_dare = $tot_provv_dare - (($tot_provv_dare/100) * $row2['ritenuta_acconto']);
-
-            $pagato_da_collab = $row1['pagato_da_collaboratore'] ;
-
-            $da_pagare_collab = $row1['lordo'] + $row1['consulenza'] - $pagato_da_collab ;
-
-            $dare_avere_collab = $da_pagare_collab - $tot_provv_nette_dare ;
-
-            $utile_netto = $row1['consulenza']
+          $dare_avere_compagnia = $da_pagare_compagnia - (($da_pagare_compagnia / 100) * $row['provv']) ;
 
         ?>
           <tr>
@@ -309,10 +304,6 @@
             <td><?=$provv_consul_dare?></td>
             <td><?=$provv_premio_dare?></td>
             <td><?=$tot_provv_dare?></td>
-            <td><?=$tot_provv_nette_dare?></td>
-            <td><?=$pagato_da_collab?></td>
-            <td><?=$da_pagare_collab?></td>
-            <td><?=$dare_avere_collab?></td>
 
 
 
@@ -323,7 +314,6 @@
                         
 
         <?php
-         }
         
       }
 

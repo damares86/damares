@@ -365,6 +365,46 @@ extract($row1) ;
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <label>Consulenza (%) <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="0"
+                                        id="first-name-icon"
+                                        name="consulenza_collab"
+                                        value="<?=$row1['consulenza_collab']?>"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                  
+                        
+                        <div class="col-md-3">
+                            <label>Premio (%) <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="0"
+                                        name="premio_collab"
+                                        value="<?=$premio_collab?>"
+                                        data-parsley-required="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
 
