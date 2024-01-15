@@ -25,7 +25,7 @@ Compagnie/collaboratore
 
     ###
 
-? 'pagato compagnia' ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA)
+? 'pagato compagnia?' ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA)
         ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%))'
         ---ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
 
@@ -37,7 +37,7 @@ Compagnie/collaboratore
         ---ok--- DA PAGARE COLLABORATORE = 'Premio lordo'(POLIZZA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
         ---ok--- DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
 
-? UTILE NETTO CFA =   'Consulenza'(POLIZZA) + 
+? UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 
                     'Provv. nette avere (% ritenuta d'acconto compagnia)' - 
                     'Tot provv nette dare'
 
