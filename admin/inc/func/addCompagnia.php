@@ -139,6 +139,34 @@
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <label>Provvigioni calcolate su</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group px-4">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input class="form-check-input" type="radio" name="provv_calcolate_su"  value="0" checked>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Imponibile
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="provv_calcolate_su"  value="1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                Netto
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="provv_calcolate_su"  value="2">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                Lordo
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <?php
 
                         require "core/collaboratoreDetails.php";

@@ -12,17 +12,6 @@
         - aggiungere consulenza (%) -> provv. consulenza dare %  -> da calcolare sulla consulenza della polizza
         - aggiungere provvigione sul premio % -> calcolata sul netto della polizza
 
-
-- COMPAGNIE
-    x aggiungere partita iva
-    x provvigioni(%)
-    x ritenuta d'acconto (non obbligatorio)
-    x "netto, diritti, imponibile, lordo, spese notarili, imposte" -> in Polizze sotto la compagnia
-    - aggiungere radio button "Provv. calcolate su:"
-        - imponibile
-        - netto
-        - lordo
-
 Compagnie/collaboratore
     elenco delle polizze da pagare, con check se pagata
     Nel caso sia pagata non viene mostrata
@@ -74,6 +63,17 @@ Compagnie/collaboratore
     x rimuovere broker
     x aggiungere premio totale = imponibile + diritti + spese + imposte
     x aggiungere Pagato da collaboratore 
+
+- COMPAGNIE
+    x aggiungere partita iva
+    x provvigioni(%)
+    x ritenuta d'acconto (non obbligatorio)
+    x "netto, diritti, imponibile, lordo, spese notarili, imposte" -> in Polizze sotto la compagnia
+    x aggiungere radio button "Provv. calcolate su:"
+        0 imponibile
+        1 netto
+        2 lordo
+
 
 -----------  OK  ---------------
 

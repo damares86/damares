@@ -152,8 +152,54 @@ extract($row1) ;
                             </div>
                         </div>
 
+                        <?php
 
-                       
+                        $checked0 = "" ;
+                        $checked1 = "" ;
+                        $checked2 = "" ;
+
+                        if( $row1['provv_calcolate_su'] == 0 )
+                        {
+                            $checked0 = 'checked' ;
+                        }
+                        else if( $row1['provv_calcolate_su'] == 1 )
+                        {
+                            $checked1 = 'checked' ;
+                        }
+                        else if( $row1['provv_calcolate_su'] == 2 )
+                        {
+                            $checked2 = 'checked' ;
+                        }
+
+                        ?>
+                        <div class="col-md-3">
+                            <label>Provvigioni calcolate su</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group px-4">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input class="form-check-input" type="radio" name="provv_calcolate_su"  value="0" <?=$checked0?>>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Imponibile
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="provv_calcolate_su"  value="1" <?=$checked1?>>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                Netto
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="provv_calcolate_su"  value="2" <?=$checked2?>>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                Lordo
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="idToMod" value="<?=$id?>">
                         <input type="hidden" name="origin" value="addCompagnia">

@@ -31,6 +31,7 @@ class Cfa extends Common{
 
     // compagnie
     public $provv ;    
+    public $provv_calcolate_su ;    
 
     // contraente
     public $nome_contraente ;

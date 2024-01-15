@@ -34,7 +34,8 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."collaboratori
       sede_legale VARCHAR(255) NOT NULL,
       p_iva VARCHAR(50) NOT NULL,
       provv INT(10) NOT NULL,
-      ritenuta_acconto INT(5) DEFAULT 0,   
+      ritenuta_acconto INT(5) DEFAULT 0, 
+      provv_calcolate_su INT(1) DEFAULT 0,  
       details TEXT DEFAULT NULL,
       details_opt TEXT DEFAULT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."contraente
