@@ -2,8 +2,8 @@
         TODO
 ------------------------------------------
 
-- calcolo utili collaboratori
-- calcolo utili compagnie
+x calcolo utili collaboratori
+x calcolo utili compagnie
 - da pagare collaboratori
 - da pagare compagnie
 
