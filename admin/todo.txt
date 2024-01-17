@@ -7,6 +7,7 @@
 - da pagare collaboratori
 - da pagare compagnie
 
+- da che anno in poi il filtro degli utili?
 
 - COLLABORATORI
     x aggiungere "iscrizione R.U.I." (numero)
@@ -35,7 +36,7 @@ Compagnie/collaboratore
         ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%))'
         ---ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
 
-? NETTO NON È MANDATORY ---ok--- PROVV. PREMIO DARE = 'Premio netto'(COMPAGNIA) * % Provv. premio dare (COLLABORATORE)
+? NETTO NON È MANDATORY ---ok--- PROVV. PREMIO DARE = 'Premio netto' * % Provv. premio dare (COLLABORATORE)
 
         ---ok--- TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
         ---ok--- TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(RITENUTA D'ACCONTO))

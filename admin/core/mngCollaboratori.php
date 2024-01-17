@@ -33,8 +33,41 @@ if(filter_input(INPUT_GET,"idToDel"))
 
 }
 
-$operation = filter_input(INPUT_POST,"operation") ;
+// query filter
 
+$query = filter_input(INPUT_POST,"query") ;
+
+if($query == 'mese')
+{
+    
+    $month = filter_input(INPUT_POST,'mese') ;
+    $year = filter_input(INPUT_POST,'anno') ; 
+    
+    header("Location: ../index.php?p=allUtiliCollaboratori&mese=$month&anno_mese=$year");
+    exit;
+    
+}
+else if($query == 'trimestre')
+{
+    $year = filter_input(INPUT_POST,'anno') ;
+    $trim = filter_input(INPUT_POST,'trimestre') ;
+
+    header("Location: ../index.php?p=allUtiliCollaboratori&trim=$trim&anno_trim=$year");
+    exit;
+}
+else if($query == 'anno')
+{
+
+    $year = filter_input(INPUT_POST,'anno') ;
+
+    header("Location: ../index.php?p=allUtiliCollaboratori&anno=$year");
+    exit;
+}
+
+
+// operations            
+
+$operation = filter_input(INPUT_POST,"operation") ;
 
 if(filter_input(INPUT_POST,"idToMod"))
 {

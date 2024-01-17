@@ -53,55 +53,263 @@
       <div class="row border-top border-bottom py-3 my-3">
         <div class="col">
           <h4>Filtra risultati &nbsp; &nbsp; &nbsp;</h4> 
+          <div class="row">
 
-          <form class="form form-horizontal" action="core/mngCollaboratori.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
-            <div class="form-body">
+            <div class="col-4">
+              <form class="form form-horizontal p-2 mb-5 border-bottom" action="core/mngCollaboratori.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+              <div class="form-body">
 
-              <div class="row">
+                <div class="row">
 
-                <div class="col-md-3">
-                    <label>Mese </label>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <div class="form-group">
-                      <div class="form-check">
-                          <div class="position-relative">
-                              <input
-                              type="date"
-                              class="startDate input form-control"
-                              id="startDate"
-                              name="st"
-                              />
+                  <div class="col-md-3">
+                      <label>Mese </label>
+                  </div>
+                  <div class="col-md-9 mb-3">
+                    <div class="form-group">
+                        <div class="form-check">
+                            <div class="position-relative">
+                              <select class="form-select" id="basicSelect" name="mese">
+                                  <option value="01">Gennaio</option>
+                                  <option value="02">Febbraio</option>
+                                  <option value="03">Marzo</option>
+                                  <option value="04">Aprile</option>
+                                  <option value="05">Maggio</option>
+                                  <option value="06">Giugno</option>
+                                  <option value="07">Luglio</option>
+                                  <option value="08">Agosto</option>
+                                  <option value="09">settembre</option>
+                                  <option value="10">Ottobre</option>
+                                  <option value="11">Novembre</option>
+                                  <option value="12">Dicembre</option>
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                        <label>Anno </label>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <div class="form-group">
+                          <div class="form-check">
+                              <div class="position-relative">
+                                <select class="form-select" name="anno">
+                                <?php
+
+                                  for($year=2012;$year<2050;$year++)
+                                  {
+                                ?>
+                                    <option value="<?=$year?>"><?=$year?></option>
+                                <?php
+                                  }
+                                ?>
+                                </select>
+                              </div>
                           </div>
                       </div>
+                    </div>
+
+                  <input type="hidden" name="query" value="mese">
+                  <input type="hidden" name="origin" value="allUtiliCollaboratori">
+
+
+                  <div class="col-12 d-flex justify-content-start">
+                    <button
+                    type="submit"
+                    class="btn btn-primary me-1 mb-1"
+                    >
+                    <?=$common_submit?>
+                    </button>
+                    <button
+                    type="reset"
+                    class="btn btn-light-secondary me-1 mb-1"
+                    >
+                    <?=$common_reset?>
+                    </button>
                   </div>
                 </div>
-                <!-- DA CORREGGERE -->
-                <input type="hidden" name="operation" value="query">
-                <input type="hidden" name="origin" value="allUtiliCollaboratori">
-
-
-                <div class="col-12 d-flex justify-content-end">
-                  <button
-                  type="submit"
-                  class="btn btn-primary me-1 mb-1"
-                  >
-                  <?=$common_submit?>
-                  </button>
-                  <button
-                  type="reset"
-                  class="btn btn-light-secondary me-1 mb-1"
-                  >
-                  <?=$common_reset?>
-                  </button>
               </div>
-              </div>
+            </form>
+
             </div>
-          </form>
-          
+
+            <div class="col-4">
+
+              <form class="form form-horizontal p-2 mb-5 border-bottom" action="core/mngCollaboratori.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                <div class="form-body">
+    
+                  <div class="row">
+                    <div class="col-md-3">
+                        <label>Trimestre </label>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <div class="form-group">
+                          <div class="form-check">
+                              <div class="position-relative">
+                                <select class="form-select" name="trimestre">
+                                    <option value="01">Gennaio-Marzo</option>
+                                    <option value="02">Aprile-Giugno</option>
+                                    <option value="03">Luglio-Settembre</option>
+                                    <option value="04">Ottobre-Dicembre</option>
+                                </select>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Anno </label>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <div class="form-group">
+                          <div class="form-check">
+                              <div class="position-relative">
+                                <select class="form-select" name="anno">
+                                <?php
+
+                                  for($year=2012;$year<2050;$year++)
+                                  {
+                                ?>
+                                    <option value="<?=$year?>"><?=$year?></option>
+                                <?php
+                                  }
+                                ?>
+                                </select>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <input type="hidden" name="query" value="trimestre">
+                    <input type="hidden" name="origin" value="allUtiliCollaboratori">
+    
+    
+                    <div class="col-12 d-flex justify-content-start">
+                      <button
+                      type="submit"
+                      class="btn btn-primary me-1 mb-1"
+                      >
+                      <?=$common_submit?>
+                      </button>
+                      <button
+                      type="reset"
+                      class="btn btn-light-secondary me-1 mb-1"
+                      >
+                      <?=$common_reset?>
+                      </button>
+                  </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+            <div class="col-4">
+
+              <form class="form form-horizontal p-2 mb-5 border-bottom" action="core/mngCollaboratori.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                <div class="form-body">
+
+                  <div class="row">
+                    <div class="col-md-3">
+                        <label>Anno </label>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <div class="form-group">
+                          <div class="form-check">
+                              <div class="position-relative">
+                              <select class="form-select" name="anno">
+                                <?php
+
+                                  for($year=2012;$year<2050;$year++)
+                                  {
+                                ?>
+                                    <option value="<?=$year?>"><?=$year?></option>
+                                <?php
+                                  }
+                                ?>
+                                </select>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    
+                    <input type="hidden" name="query" value="anno">
+                    <input type="hidden" name="origin" value="allUtiliCollaboratori">
+
+
+                    <div class="col-12 d-flex justify-content-start">
+                      <button
+                      type="submit"
+                      class="btn btn-primary me-1 mb-1"
+                      >
+                      <?=$common_submit?>
+                      </button>
+                      <button
+                      type="reset"
+                      class="btn btn-light-secondary me-1 mb-1"
+                      >
+                      <?=$common_reset?>
+                      </button>
+                  </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+
         </div>
       </div>
-      
+      <?php
+
+        $mese = '' ;
+        $anno_mese = '' ;
+        $trim = '' ;
+        $anno_trim = '' ;
+        $anno = '' ;
+        $periodo = '' ;
+
+        if(filter_input(INPUT_GET,'mese'))
+        {
+          $months_arr = array(
+            '01' => 'Gennaio', 
+            '02' => 'Febbraio',
+            '03' => 'Marzo',
+            '04' => 'Aprile',
+            '05' => 'Maggio',
+            '06' => 'Giugno',
+            '07' => 'Luglio',
+            '08' => 'Agosto',
+            '09' => 'Settembre',
+            '10' => 'Ottobre',
+            '11' => 'Novembre',
+            '02' => 'Dicembre');
+          $mese = filter_input(INPUT_GET,'mese') ;
+          $anno_mese = filter_input(INPUT_GET,'anno_mese') ;
+          $periodo = $months_arr[$mese] . ' ' . $anno_mese ;
+
+        }
+        else if(filter_input(INPUT_GET,'trim'))
+        {
+          // serve anche l'anno
+          $trim_arr = array(
+            '01' => "Gennaio-Marzo",
+            '02' => "Aprile-Giugno",
+            '03' => "Luglio-Settembre",
+            '04' => "Ottobre-Dicembre",
+          );
+          $trim = filter_input(INPUT_GET,'trim') ;
+          $anno_trim = filter_input(INPUT_GET,'anno_trim') ; 
+          $periodo = $trim_arr[$trim]. ' ' . $anno_trim  ;
+          
+        }
+        else if(filter_input(INPUT_GET,'anno'))
+        {
+          $anno = filter_input(INPUT_GET,'anno') ;
+          $periodo = 'anno '.$anno ;
+        }
+
+      ?>
+      <h4>Utili Collaboratori -  <?=$periodo?></h4>
       <!-- Basic Tables start -->
       <table class="table" id="table1">
         <thead>
@@ -120,30 +328,77 @@
           extract($row);
           $cfa->id_collaboratore = $row['id'] ;
           $cfa->table = 'polizze' ;
-          if(filter_input(INPUT_GET,'time'))
-          {
-
-            $time = filter_input(INPUT_GET,'time') ;
-
-            // FILTRI PER MESE, TRIMESTRE E ANNO
-
-          }
-          else
-          {
 
             $stmt1 = $cfa->showAllWhere('id',['id_collaboratore']);
+            
+            //conteggio polizze nel periodo
+           
             $count = $stmt1->rowCount();
             
-          }
 
+
+        
+          
           // ciclo polizze
+          
           while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
           {
+            $utili_consulenza = 0 ;
+            $utili_premio = 0 ;
 
             extract($row1) ;
 
-            
-          }
+
+            if($mese)
+            {
+
+              if($anno_mese != date("Y",strtotime($row1['st'])))
+              {
+                break ;
+              }
+              
+              if($mese != date("m",strtotime($row1['st'])))
+              {
+                break ;
+              }
+
+            }
+
+            if($trim)
+            {
+              $trim_check = array(
+                '01' => ['01','02','03'],
+                '02' => ['04','05','06'],
+                '03' => ['07','08','09'],
+                '04' => ['10','11','12']
+              );
+
+              if($anno_trim != date("Y",strtotime($row1['st'])))
+              {
+                break ;
+              }
+              
+              $mese = date("m",strtotime($row1['st']));
+              if(!in_array($mese,$trim_check[$trim]))
+              {
+                break;
+              }
+
+            }
+
+            if($anno && $anno != date("Y",strtotime($row1['st'])))
+            {
+              break;
+            }
+
+
+            // calcollo consulenza
+            $utili_consulenza += (($row1['consulenza']/100)*$row['consulenza_collab']) ;
+
+            // calcolo premio
+            // $utili_premio += ...
+
+            $tot_utili = $utili_consulenza + $utili_premio ;
         ?>
           <tr>
             <td>
@@ -153,7 +408,7 @@
               <?=$count?>
             </td>
             <td>
-              <!-- calcolo utili -->
+              <?=$tot_utili?>
             </td>
             <td>
               <!-- button -->
@@ -167,6 +422,7 @@
                         
 
         <?php
+          }
         
       }
 
