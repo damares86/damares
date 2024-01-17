@@ -403,8 +403,8 @@
             $utili_consulenza += (($row1['consulenza']/100)*$row['consulenza_collab']) ;
 
             // calcolo premio
-            // $utili_premio += ...
-
+            $utili_premio += ($row1['netto']/100)*$row['premio_collab'] ;
+            
             $tot_utili = $utili_consulenza + $utili_premio ;
         ?>
           <tr>

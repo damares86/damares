@@ -6,7 +6,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Utili collaboratori</h3>
+      <h3>Da pagare collaboratori</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Utili collaboratori
+          Da pagare collaboratori
           </li>
         </ol>
       </nav>
@@ -30,9 +30,9 @@
 
 <section class="section">
   <div class="card">
-    <div class="card-header">
-      <h4>Utili collaboratori &nbsp; &nbsp; &nbsp;</h4> 
-    </div>
+    <!-- <div class="card-header">
+      <h4>Da pagare collaboratori &nbsp; &nbsp; &nbsp;</h4>  
+    </div> -->
     <div class="card-body">
 
     <!-- chart -->
@@ -50,8 +50,8 @@
       </div> -->
 
       <!-- query form -->
-      <div class="row border-top border-bottom py-3 my-3">
-        <div class="col">
+      <div class="row  border-bottom py-3 my-3">
+        <!-- <div class="col">
           <h4>Filtra risultati &nbsp; &nbsp; &nbsp;</h4> 
           <div class="row">
 
@@ -258,72 +258,71 @@
           </div>
 
         </div>
-      </div>
+      </div> -->
       <?php
 
-        $mese = '' ;
-        $anno_mese = '' ;
-        $trim = '' ;
-        $anno_trim = '' ;
-        $anno = '' ;
-        $periodo = '' ;
+        // $mese = '' ;
+        // $anno_mese = '' ;
+        // $trim = '' ;
+        // $anno_trim = '' ;
+        // $anno = '' ;
+        // $periodo = '' ;
 
-        $months_arr = array(
-          '01' => 'Gennaio', 
-          '02' => 'Febbraio',
-          '03' => 'Marzo',
-          '04' => 'Aprile',
-          '05' => 'Maggio',
-          '06' => 'Giugno',
-          '07' => 'Luglio',
-          '08' => 'Agosto',
-          '09' => 'Settembre',
-          '10' => 'Ottobre',
-          '11' => 'Novembre',
-          '02' => 'Dicembre');
+        // $months_arr = array(
+        //   '01' => 'Gennaio', 
+        //   '02' => 'Febbraio',
+        //   '03' => 'Marzo',
+        //   '04' => 'Aprile',
+        //   '05' => 'Maggio',
+        //   '06' => 'Giugno',
+        //   '07' => 'Luglio',
+        //   '08' => 'Agosto',
+        //   '09' => 'Settembre',
+        //   '10' => 'Ottobre',
+        //   '11' => 'Novembre',
+        //   '02' => 'Dicembre');
 
-        if(filter_input(INPUT_GET,'mese'))
-        {
-          $mese = filter_input(INPUT_GET,'mese') ;
-          $anno_mese = filter_input(INPUT_GET,'anno_mese') ;
-          $periodo = $months_arr[$mese] . ' ' . $anno_mese ;
+        // if(filter_input(INPUT_GET,'mese'))
+        // {
+        //   $mese = filter_input(INPUT_GET,'mese') ;
+        //   $anno_mese = filter_input(INPUT_GET,'anno_mese') ;
+        //   $periodo = $months_arr[$mese] . ' ' . $anno_mese ;
 
-        }
-        else if(filter_input(INPUT_GET,'trim'))
-        {
-          // serve anche l'anno
-          $trim_arr = array(
-            '01' => "Gennaio-Marzo",
-            '02' => "Aprile-Giugno",
-            '03' => "Luglio-Settembre",
-            '04' => "Ottobre-Dicembre",
-          );
-          $trim = filter_input(INPUT_GET,'trim') ;
-          $anno_trim = filter_input(INPUT_GET,'anno_trim') ; 
-          $periodo = $trim_arr[$trim]. ' ' . $anno_trim  ;
+        // }
+        // else if(filter_input(INPUT_GET,'trim'))
+        // {
+        //   // serve anche l'anno
+        //   $trim_arr = array(
+        //     '01' => "Gennaio-Marzo",
+        //     '02' => "Aprile-Giugno",
+        //     '03' => "Luglio-Settembre",
+        //     '04' => "Ottobre-Dicembre",
+        //   );
+        //   $trim = filter_input(INPUT_GET,'trim') ;
+        //   $anno_trim = filter_input(INPUT_GET,'anno_trim') ; 
+        //   $periodo = $trim_arr[$trim]. ' ' . $anno_trim  ;
           
-        }
-        else if(filter_input(INPUT_GET,'anno'))
-        {
-          $anno = filter_input(INPUT_GET,'anno') ;
-          $periodo = 'anno '.$anno ;
-        }
-        else
-        {
-          $mese = date('m') ;
-          $anno_mese = date('Y');
-          $periodo = $months_arr[$mese] . ' ' . $anno_mese ;
-        }
+        // }
+        // else if(filter_input(INPUT_GET,'anno'))
+        // {
+        //   $anno = filter_input(INPUT_GET,'anno') ;
+        //   $periodo = 'anno '.$anno ;
+        // }
+        // else
+        // {
+        //   $mese = date('m') ;
+        //   $anno_mese = date('Y');
+        //   $periodo = $months_arr[$mese] . ' ' . $anno_mese ;
+        // }
 
       ?>
-      <h4>Utili Collaboratori -  <?=$periodo?></h4>
+      <h4>Da pagare Collaboratori</h4>
       <!-- Basic Tables start -->
       <table class="table" id="table1">
         <thead>
           <tr>
             <th>Collaboratore</th>
-            <th>Polizze stipulate</th>
-            <th>Utili totali</th>
+            <th>Da pagare</th>
             <th>Esporta XLSX</th>
           </tr>
         </thead>
@@ -338,15 +337,8 @@
 
             $stmt1 = $cfa->showAllWhere('id',['id_collaboratore']);
             
-            //conteggio polizze nel periodo
-           
-            $count = $stmt1->rowCount();
-            
-
-
-        
-            $utili_consulenza = 0 ;
-            $utili_premio = 0 ;
+            $pagare_consulenza = 0 ;
+            $pagare_premio = 0 ;
           
           // ciclo polizze
           
@@ -356,51 +348,51 @@
             extract($row1) ;
 
 
-            if($mese)
-            {
+            // if($mese)
+            // {
 
-              if($anno_mese != date("Y",strtotime($row1['st'])))
-              {
-                break ;
-              }
+            //   if($anno_mese != date("Y",strtotime($row1['st'])))
+            //   {
+            //     break ;
+            //   }
               
-              if($mese != date("m",strtotime($row1['st'])))
-              {
-                break ;
-              }
+            //   if($mese != date("m",strtotime($row1['st'])))
+            //   {
+            //     break ;
+            //   }
 
-            }
+            // }
 
-            if($trim)
-            {
-              $trim_check = array(
-                '01' => ['01','02','03'],
-                '02' => ['04','05','06'],
-                '03' => ['07','08','09'],
-                '04' => ['10','11','12']
-              );
+            // if($trim)
+            // {
+            //   $trim_check = array(
+            //     '01' => ['01','02','03'],
+            //     '02' => ['04','05','06'],
+            //     '03' => ['07','08','09'],
+            //     '04' => ['10','11','12']
+            //   );
 
-              if($anno_trim != date("Y",strtotime($row1['st'])))
-              {
-                break ;
-              }
+            //   if($anno_trim != date("Y",strtotime($row1['st'])))
+            //   {
+            //     break ;
+            //   }
               
-              $mese = date("m",strtotime($row1['st']));
-              if(!in_array($mese,$trim_check[$trim]))
-              {
-                break;
-              }
+            //   $mese = date("m",strtotime($row1['st']));
+            //   if(!in_array($mese,$trim_check[$trim]))
+            //   {
+            //     break;
+            //   }
 
-            }
+            // }
 
-            if($anno && $anno != date("Y",strtotime($row1['st'])))
-            {
-              break;
-            }
+            // if($anno && $anno != date("Y",strtotime($row1['st'])))
+            // {
+            //   break;
+            // }
 
 
             // calcollo consulenza
-            $utili_consulenza += (($row1['consulenza']/100)*$row['consulenza_collab']) ;
+            $pagare_consulenza += (($row1['consulenza']/100)*$row['consulenza_collab']) ;
 
             // calcolo premio
             // $utili_premio += ...

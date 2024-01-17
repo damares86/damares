@@ -102,6 +102,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_netto?>"
                                         name="netto"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>

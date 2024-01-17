@@ -125,6 +125,7 @@ extract($row1) ;
                                         placeholder="<?=$cfa_netto?>"
                                         name="netto"
                                         value="<?=$row1['netto']?>"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>

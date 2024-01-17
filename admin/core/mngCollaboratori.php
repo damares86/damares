@@ -36,6 +36,7 @@ if(filter_input(INPUT_GET,"idToDel"))
 // query filter
 
 $query = filter_input(INPUT_POST,"query") ;
+$origin = filter_input(INPUT_POST,"origin") ;
 
 if($query == 'mese')
 {
@@ -43,7 +44,7 @@ if($query == 'mese')
     $month = filter_input(INPUT_POST,'mese') ;
     $year = filter_input(INPUT_POST,'anno') ; 
     
-    header("Location: ../index.php?p=allUtiliCollaboratori&mese=$month&anno_mese=$year");
+    header("Location: ../index.php?p=$origin&mese=$month&anno_mese=$year");
     exit;
     
 }
@@ -52,7 +53,7 @@ else if($query == 'trimestre')
     $year = filter_input(INPUT_POST,'anno') ;
     $trim = filter_input(INPUT_POST,'trimestre') ;
 
-    header("Location: ../index.php?p=allUtiliCollaboratori&trim=$trim&anno_trim=$year");
+    header("Location: ../index.php?p=$origin&trim=$trim&anno_trim=$year");
     exit;
 }
 else if($query == 'anno')
@@ -60,7 +61,7 @@ else if($query == 'anno')
 
     $year = filter_input(INPUT_POST,'anno') ;
 
-    header("Location: ../index.php?p=allUtiliCollaboratori&anno=$year");
+    header("Location: ../index.php?p=$origin&anno=$year");
     exit;
 }
 
