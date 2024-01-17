@@ -2,6 +2,12 @@
         TODO
 ------------------------------------------
 
+- calcolo utili collaboratori
+- calcolo utili compagnie
+- da pagare collaboratori
+- da pagare compagnie
+
+
 - COLLABORATORI
     x aggiungere "iscrizione R.U.I." (numero)
     x aggiungere Provvigione per premio
