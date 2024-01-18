@@ -1,12 +1,12 @@
 <?php 
-  $cfa->table = 'collaboratori' ;
-  $collaboratori = $cfa->showAll('id');
+  $cfa->table = 'compagnie' ;
+  $compagnie = $cfa->showAll('id');
 ?>
 
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Da pagare collaboratori</h3>
+      <h3>Da pagare compagnie</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Da pagare collaboratori
+          Da pagare compagnie
           </li>
         </ol>
       </nav>
@@ -329,13 +329,13 @@
         <tbody>
           
         <?php
-        while($row = $collaboratori->fetch(PDO::FETCH_ASSOC))
+        while($row = $compagnie->fetch(PDO::FETCH_ASSOC))
         {
           extract($row);
-          $cfa->id_collaboratore = $row['id'] ;
+          $cfa->id_compagnia = $row['id'] ;
           $cfa->table = 'polizze' ;
 
-            $stmt1 = $cfa->showAllWhere('id',['id_collaboratore']);
+            $stmt1 = $cfa->showAllWhere('id',['id_compagnia']);
             
             $pagare_consulenza = 0 ;
             $pagare_premio = 0 ;
@@ -406,7 +406,7 @@
         ?>
           <tr>
             <td>
-              <?=$row['cognome']?> <?=$row['nome']?>
+              <?=$row['nome']?>
             </td>
             <td>
               <?=$tot_utili?>

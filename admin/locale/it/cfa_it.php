@@ -17,6 +17,9 @@ $label_compagnie = "Compagnie" ;
 $label_contraenti = "Contraenti" ;
 $label_beneficiari = "Beneficiari" ;
 $label_utili_cfa = "Utili CFA" ;
+$label_amministrazione = "Amministrazione" ;
+$label_da_pagare_compagnie = "Da pagare compagnie" ;
+$label_da_pagare_collaboratori = "Da pagare collaboratori" ;
 
 // common
 

@@ -118,7 +118,10 @@ $parent_table=[['link'=>'allCollaboratori',
                   'icon'=>'person-fill-up'],
             ['link'=>'utili',
                   'label'=>'Utili',
-                  'icon'=>'bank'],];
+                  'icon'=>'bank'],
+            ['link'=>'amministrazione',
+                  'label'=>'Amministrazione',
+                  'icon'=>'calculator']];
 
 $child_table=[['link'=>'allUtili',
             'label'=>'Utili CFA',
@@ -128,7 +131,13 @@ $child_table=[['link'=>'allUtili',
             'icon'=>'person-vcard'],
             ['link'=>'allUtiliCompagnie',
             'label'=>'Compagnie',
-            'icon'=>'building']
+            'icon'=>'building'],
+            ['link'=>'allPagareCompagnie',
+            'label'=>'Da pagare compagnie',
+            'icon'=>'building'],
+            ['link'=>'allPagareCollaboratori',
+            'label'=>'Da pagare collaboratori',
+            'icon'=>'person-vcard']
             ];
 
 $query_drop_table = "DROP TABLE  ".$prefix."collaboratori, ".$prefix."compagnie, ".$prefix."contraente, ".$prefix."beneficiario, ".$prefix."polizze";
