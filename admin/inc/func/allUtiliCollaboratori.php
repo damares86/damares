@@ -342,7 +342,10 @@
            
             $count = $stmt1->rowCount();
             
-
+            if( $count == 0 )
+            {
+              break;
+            }
 
         
             $utili_consulenza = 0 ;
@@ -404,6 +407,7 @@
 
             // calcolo premio
             $utili_premio += ($row1['netto']/100)*$row['premio_collab'] ;
+          }
             
             $tot_utili = $utili_consulenza + $utili_premio ;
         ?>
@@ -429,7 +433,6 @@
                         
 
         <?php
-          }
         
       }
 

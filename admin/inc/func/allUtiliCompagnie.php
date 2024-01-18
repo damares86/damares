@@ -341,7 +341,12 @@
             //conteggio polizze nel periodo
            
             $count = $stmt1->rowCount();
-          
+
+            if( $count == 0 )
+            {
+              break;
+            }
+
           // ciclo polizze
           
           $utili_consulenza = 0 ;
@@ -404,8 +409,7 @@
             // calcollo consulenza
             $utili_consulenza += (($row1[$provv]/100)*$row['provv']) ;
 
-            // calcolo premio
-            // $utili_premio += ...
+          }
 
             $tot_utili = $utili_consulenza + $utili_premio ;
         ?>
@@ -431,7 +435,6 @@
                         
 
         <?php
-          }
         
       }
 
