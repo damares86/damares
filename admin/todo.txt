@@ -2,12 +2,15 @@
         TODO
 ------------------------------------------
 
+
+- da che anno in poi il filtro degli utili?
+- chart con i dati (decidere i campi)
+
 x calcolo utili collaboratori
 x calcolo utili compagnie
 - da pagare collaboratori
 - da pagare compagnie
 
-- da che anno in poi il filtro degli utili?
 
 Compagnie/collaboratore
     elenco delle polizze da pagare, con check se pagata
@@ -41,7 +44,6 @@ Compagnie/collaboratore
 - export dati in excel
 
 - check sull'eliminazione?
-- chart con i dati (decidere i campi)
 
 -----------  OK  ---------------
 
