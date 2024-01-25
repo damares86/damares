@@ -188,6 +188,15 @@ if(filter_input(INPUT_POST,"idToMod"))
         $cfa->collaboratore_pagato = 0 ;
     }
 
+    if(filter_input(INPUT_POST,'pagato_da_compagnia'))
+    {
+        $cfa->pagato_da_compagnia = filter_input(INPUT_POST,'pagato_da_compagnia') ;
+    }
+    else
+    {
+        $cfa->pagato_da_compagnia = 0 ;
+    }
+
     if(filter_input(INPUT_POST,'compagnia_pagato'))
     {
         $cfa->compagnia_pagato = 1 ;
@@ -234,6 +243,7 @@ if(filter_input(INPUT_POST,"idToMod"))
         'incasso_mod',
         'pagato_da_collaboratore',
         'collaboratore_pagato',
+        'pagato_da_compagnia',
         'compagnia_pagato',
         'copia_direzione'
         ],'id'))
@@ -429,6 +439,15 @@ else if($operation == "add")
         $cfa->collaboratore_pagato = 0 ;
     }
 
+    if(filter_input(INPUT_POST,'pagato_da_compagnia'))
+    {
+        $cfa->pagato_da_compagnia = filter_input(INPUT_POST,'pagato_da_compagnia') ;
+    }
+    else
+    {
+        $cfa->pagato_da_compagnia = 0 ;
+    }
+
     if(filter_input(INPUT_POST,'compagnia_pagato'))
     {
         $cfa->compagnia_pagato = 1 ;
@@ -475,6 +494,7 @@ else if($operation == "add")
         'incasso_mod',
         'pagato_da_collaboratore',
         'collaboratore_pagato',
+        'pagato_da_compagnia',
         'compagnia_pagato',
         'copia_direzione'
         ]))

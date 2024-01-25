@@ -872,6 +872,24 @@
                         </div>
 
                         <div class="col-md-3 mt-2">
+                            <label>Pagato da compagnia</label>
+                        </div>
+                        <div class="col-md-9 mt-2">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Pagato"
+                                        name="pagato_da_compagnia"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mt-2">
                             <label>Compagnia pagata</label>
                         </div>
                         <div class="col-md-9 mt-2">

@@ -88,8 +88,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."collaboratori
       consulenza INT(20) NOT NULL,
       incasso_data DATE NOT NULL,
       incasso_mod VARCHAR(255) NOT NULL,
-      pagato_da_collaboratore INT(20) NOT NULL,
+      pagato_da_collaboratore INT(20) DEFAULT 0,
       collaboratore_pagato INT(1) DEFAULT 0,
+      pagato_da_compagnia INT(20) DEFAULT 0,
       compagnia_pagato INT(1) DEFAULT 0,
       copia_direzione INT(1) DEFAULT 0);
       CREATE TABLE IF NOT EXISTS ".$prefix."pag_collaboratore

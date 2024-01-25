@@ -78,9 +78,10 @@ class Cfa extends Common{
     public $consulenza ;
     public $incasso_data ;
     public $incasso_mod ;
+    public $pagato_da_compagnia ;
+    public $compagnia_pagato ;
     public $pagato_da_collaboratore ;
     public $collaboratore_pagato ;
-    public $compagnia_pagato ;
     public $copia_direzione ;
 
 
