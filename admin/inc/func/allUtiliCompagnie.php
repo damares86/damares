@@ -388,8 +388,8 @@
                 $check_break ++ ;
               }
               
-              $mese = date("m",strtotime($row1['st']));
-              if(!in_array($mese,$trim_check[$trim]))
+              $mese_trim = date("m",strtotime($row1['st']));
+              if(!in_array($mese_trim,$trim_check[$trim]))
               {
                 $check_break ++ ;
               }

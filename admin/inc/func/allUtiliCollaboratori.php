@@ -350,12 +350,12 @@
         
             $utili_consulenza = 0 ;
             $utili_premio = 0 ;
-            $check_break=0;
-          // ciclo polizze
-          
-          while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
-          {
-
+            // ciclo polizze
+            
+            while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
+            {
+              $check_break=0;
+              
             extract($row1) ;
             
             if($mese)
@@ -370,14 +370,7 @@
               {
                 $check_break ++ ;
               }
-
             }
-            
-            if($check_break != 0)
-            {
-              break;
-            }
-
 
             if($trim)
             {
@@ -393,31 +386,35 @@
                 $check_break ++ ;
               }
               
-              $mese = date("m",strtotime($row1['st']));
-              if(!in_array($mese,$trim_check[$trim]))
+              $mese_trim = date("m",strtotime($row1['st']));
+              if(!in_array($mese_trim,$trim_check[$trim]))
               {
                 $check_break ++ ;
               }
 
             }
 
+
+
             if($anno && $anno != date("Y",strtotime($row1['st'])))
             {
               $check_break ++ ;
             }
 
-
             // calcollo consulenza
+
+            if($check_break != 0)
+            {
+              break;
+            }
+
             $utili_consulenza += (($row1['consulenza']/100)*$row['consulenza_collab']) ;
 
             // calcolo premio
             $utili_premio += ($row1['netto']/100)*$row['premio_collab'] ;
           }
 
-          if($check_break != 0)
-          {
-            break;
-          }
+
 
             $tot_utili = $utili_consulenza + $utili_premio ;
         ?>

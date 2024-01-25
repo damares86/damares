@@ -66,129 +66,270 @@
       <div class="row border-top border-bottom py-3 my-3">
         <div class="col">
           <h4>Filtra risultati &nbsp; &nbsp; &nbsp;</h4> 
+          <div class="row">
 
-          <form class="form form-horizontal" action="core/mngPolizze.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
-            <div class="form-body">
+            <div class="col-4">
+              <form class="form form-horizontal p-2 mb-5 border-bottom" action="core/mngPolizze.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+              <div class="form-body">
 
-              <div class="row">
+                <div class="row">
 
-                <div class="col-md-3">
-                    <label>Data d'inizio </label>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <div class="form-group">
-                      <div class="form-check">
-                          <div class="position-relative">
-                              <input
-                              type="date"
-                              class="startDate input form-control"
-                              id="startDate"
-                              name="st"
-                              />
+                  <div class="col-md-3">
+                      <label>Mese </label>
+                  </div>
+                  <div class="col-md-9 mb-3">
+                    <div class="form-group">
+                        <div class="form-check">
+                            <div class="position-relative">
+                              <select class="form-select" id="basicSelect" name="mese">
+                                  <option value="01">Gennaio</option>
+                                  <option value="02">Febbraio</option>
+                                  <option value="03">Marzo</option>
+                                  <option value="04">Aprile</option>
+                                  <option value="05">Maggio</option>
+                                  <option value="06">Giugno</option>
+                                  <option value="07">Luglio</option>
+                                  <option value="08">Agosto</option>
+                                  <option value="09">settembre</option>
+                                  <option value="10">Ottobre</option>
+                                  <option value="11">Novembre</option>
+                                  <option value="12">Dicembre</option>
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                        <label>Anno </label>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <div class="form-group">
+                          <div class="form-check">
+                              <div class="position-relative">
+                                <select class="form-select" name="anno">
+                                <?php
+
+                                  for($year=2012;$year<2050;$year++)
+                                  {
+                                ?>
+                                    <option value="<?=$year?>"><?=$year?></option>
+                                <?php
+                                  }
+                                ?>
+                                </select>
+                              </div>
                           </div>
                       </div>
-                  </div>
-                </div>
-                <div class="col-6 px-5">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" 
-                    name="start_date" id="start_date1" value="before">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Prima di
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" 
-                    name="start_date" id="start_date2" value="after" checked>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Dopo
-                    </label>
-                  </div>
-                </div>
-                
-                <script>
-                    $('.startDate').change(function(){
-                    var startDate = $('.startDate').val();
+                    </div>
 
-                    if(startDate != ''){
-                        var d = new Date(Date.parse(startDate));      
-                        var dmy = [d.getDate(),d.getMonth() + 1,d.getFullYear()];
-                        
-                        // Format date
-                        for (var n = 0; n < 2; n++){
-                        if (dmy[n].toString().length < 2){
-                            dmy[n] = "0" + dmy[n];
-                        }
-                        }
-                        
-                        $('.endDate').attr('min',(dmy[2] + "-" + dmy[1] + "-" + dmy[0]));
-                        
-                        if($('.dateRange select').val() == 'Between' && $('.endDate').val() != ''){
-                        $('.endDate').parsley().validate();
-                        }
-                    }
-                    });
-                </script>
+                  <input type="hidden" name="query" value="mese">
+                  <input type="hidden" name="origin" value="allUtili">
 
-                <div class="col-md-3">
-                    <label>Data di fine </label>
+
+                  <div class="col-12 d-flex justify-content-start">
+                    <button
+                    type="submit"
+                    class="btn btn-primary me-1 mb-1"
+                    >
+                    <?=$common_submit?>
+                    </button>
+                    <button
+                    type="reset"
+                    class="btn btn-light-secondary me-1 mb-1"
+                    >
+                    <?=$common_reset?>
+                    </button>
+                  </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                      <div class="form-check">
-                        <div class="position-relative">
-                            <input
-                            type="date"
-                            class="endDate form-control"
-                            name="et"
-                            data-parsley-gt="#st"
-                            />
-                        </div>
+              </div>
+            </form>
+
+            </div>
+
+            <div class="col-4">
+
+              <form class="form form-horizontal p-2 mb-5 border-bottom" action="core/mngPolizze.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                <div class="form-body">
+    
+                  <div class="row">
+                    <div class="col-md-3">
+                        <label>Trimestre </label>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <div class="form-group">
+                          <div class="form-check">
+                              <div class="position-relative">
+                                <select class="form-select" name="trimestre">
+                                    <option value="01">Gennaio-Marzo</option>
+                                    <option value="02">Aprile-Giugno</option>
+                                    <option value="03">Luglio-Settembre</option>
+                                    <option value="04">Ottobre-Dicembre</option>
+                                </select>
+                              </div>
+                          </div>
                       </div>
                     </div>
-                </div>
-                <div class="col-6 px-5">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" 
-                    name="end_date" id="end_date1" value="before" checked>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Prima di
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" 
-                    name="end_date" id="end_date2" value="after">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Dopo
-                    </label>
-                  </div>
-                </div>
-               
-                <input type="hidden" name="operation" value="query">
-                <input type="hidden" name="origin" value="allUtili">
+                    <div class="col-md-3">
+                        <label>Anno </label>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <div class="form-group">
+                          <div class="form-check">
+                              <div class="position-relative">
+                                <select class="form-select" name="anno">
+                                <?php
 
+                                  for($year=2012;$year<2050;$year++)
+                                  {
+                                ?>
+                                    <option value="<?=$year?>"><?=$year?></option>
+                                <?php
+                                  }
+                                ?>
+                                </select>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
 
-                <div class="col-12 d-flex justify-content-end">
-                  <button
-                  type="submit"
-                  class="btn btn-primary me-1 mb-1"
-                  >
-                  <?=$common_submit?>
-                  </button>
-                  <button
-                  type="reset"
-                  class="btn btn-light-secondary me-1 mb-1"
-                  >
-                  <?=$common_reset?>
-                  </button>
-              </div>
-              </div>
+                    <input type="hidden" name="query" value="trimestre">
+                    <input type="hidden" name="origin" value="allUtili">
+    
+    
+                    <div class="col-12 d-flex justify-content-start">
+                      <button
+                      type="submit"
+                      class="btn btn-primary me-1 mb-1"
+                      >
+                      <?=$common_submit?>
+                      </button>
+                      <button
+                      type="reset"
+                      class="btn btn-light-secondary me-1 mb-1"
+                      >
+                      <?=$common_reset?>
+                      </button>
+                  </div>
+                  </div>
+                </div>
+              </form>
+
             </div>
-          </form>
-          
+
+            <div class="col-4">
+
+              <form class="form form-horizontal p-2 mb-5 border-bottom" action="core/mngPolizze.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                <div class="form-body">
+
+                  <div class="row">
+                    <div class="col-md-3">
+                        <label>Anno </label>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <div class="form-group">
+                          <div class="form-check">
+                              <div class="position-relative">
+                              <select class="form-select" name="anno">
+                                <?php
+
+                                  for($year=2012;$year<2050;$year++)
+                                  {
+                                ?>
+                                    <option value="<?=$year?>"><?=$year?></option>
+                                <?php
+                                  }
+                                ?>
+                                </select>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    
+                    <input type="hidden" name="query" value="anno">
+                    <input type="hidden" name="origin" value="allUtili">
+
+
+                    <div class="col-12 d-flex justify-content-start">
+                      <button
+                      type="submit"
+                      class="btn btn-primary me-1 mb-1"
+                      >
+                      <?=$common_submit?>
+                      </button>
+                      <button
+                      type="reset"
+                      class="btn btn-light-secondary me-1 mb-1"
+                      >
+                      <?=$common_reset?>
+                      </button>
+                  </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+
         </div>
       </div>
-      
+      <?php
+
+        $mese = '' ;
+        $anno_mese = '' ;
+        $trim = '' ;
+        $anno_trim = '' ;
+        $anno = '' ;
+        $periodo = '' ;
+
+        $months_arr = array(
+          '01' => 'Gennaio', 
+          '02' => 'Febbraio',
+          '03' => 'Marzo',
+          '04' => 'Aprile',
+          '05' => 'Maggio',
+          '06' => 'Giugno',
+          '07' => 'Luglio',
+          '08' => 'Agosto',
+          '09' => 'Settembre',
+          '10' => 'Ottobre',
+          '11' => 'Novembre',
+          '02' => 'Dicembre');
+
+        if(filter_input(INPUT_GET,'mese'))
+        {
+          $mese = filter_input(INPUT_GET,'mese') ;
+          $anno_mese = filter_input(INPUT_GET,'anno_mese') ;
+          $periodo = $months_arr[$mese] . ' ' . $anno_mese ;
+
+        }
+        else if(filter_input(INPUT_GET,'trim'))
+        {
+          // serve anche l'anno
+          $trim_arr = array(
+            '01' => "Gennaio-Marzo",
+            '02' => "Aprile-Giugno",
+            '03' => "Luglio-Settembre",
+            '04' => "Ottobre-Dicembre",
+          );
+          $trim = filter_input(INPUT_GET,'trim') ;
+          $anno_trim = filter_input(INPUT_GET,'anno_trim') ; 
+          $periodo = $trim_arr[$trim]. ' ' . $anno_trim  ;
+          
+        }
+        else if(filter_input(INPUT_GET,'anno'))
+        {
+          $anno = filter_input(INPUT_GET,'anno') ;
+          $periodo = 'anno '.$anno ;
+        }
+        else
+        {
+          $mese = date('m') ;
+          $anno_mese = date('Y');
+          $periodo = $months_arr[$mese] . ' ' . $anno_mese ;
+        }
+
+      ?>
+      <h4>Utili CFA -  <?=$periodo?></h4>
       <!-- Basic Tables start -->
       <table class="table" id="table1">
         <thead>
@@ -217,66 +358,65 @@
           extract($row);
           $cfa->id_compagnia = $row['id'] ;
           $cfa->table = 'polizze' ;
-          if(filter_input(INPUT_GET,'query'))
-          {
-            $where = [] ;
-            $stmt1 = '' ;
+          $stmt1 = $cfa->showAllWhere('id',['id_compagnia']);
 
-            if( filter_input(INPUT_GET,'st') && filter_input(INPUT_GET,'et') )
-            {
-
-              $cfa->st = filter_input(INPUT_GET,'st') ;
-              $where[] = 'st' ;
-              $op1 = '' ;
-              if( filter_input(INPUT_GET,'st_op') == 'before' )
-              {
-                $op1 = '<' ;
-              }
-              else
-              {
-                $op1 = '>' ;
-              }
-
-              $cfa->et = filter_input(INPUT_GET,'et') ;
-              $where[] = 'et' ;
-              $op2 = '' ;
-              if( filter_input(INPUT_GET,'et_op') == 'before' )
-              {
-                $op2 = '<' ;
-              }
-              else
-              {
-                $op2 = '>' ;
-              }
-
-              $cfa->showAllWhereBetween('id',$op1,$op2,$where);
-            }
-
-            if( filter_input(INPUT_GET,'st') )
-            {
-                $cfa->st = filter_input(INPUT_GET,'st') ;
-                $where[] = 'st' ;
-            }
-
-            if( filter_input(INPUT_GET,'et') )
-            {
-                $cfa->et = filter_input(INPUT_GET,'et') ;
-                $where[] = 'et' ;
-            }
-            
-            $stmt1 = $cfa->showAllWhereGtLt('id','>',$where) ;
-
-          }
-          else
-          {
-            $stmt1 = $cfa->showAllWhere('id',['id_compagnia']);
-          }
 
           while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC) )
           { 
             extract($row1);
-            $da_pagare_compagnia = $row1['lordo'] + $row1['pagato'] ;
+            
+            $check_break=0;
 
+            if($mese)
+            {
+
+              if($anno_mese != date("Y",strtotime($row1['st'])))
+              {
+                $check_break ++ ;
+              }
+              
+              if($mese != date("m",strtotime($row1['st'])))
+              {
+                $check_break ++ ;
+              }
+
+            }
+            
+            
+            if($trim)
+            {
+              $trim_check = array(
+                '01' => ['01','02','03'],
+                '02' => ['04','05','06'],
+                '03' => ['07','08','09'],
+                '04' => ['10','11','12']
+              );
+
+              if($anno_trim != date("Y",strtotime($row1['st'])))
+              {
+                $check_break ++ ;
+              }
+              
+              $mese_trim = date("m",strtotime($row1['st']));
+              if(!in_array($mese_trim,$trim_check[$trim]))
+              {
+                $check_break ++ ;
+              }
+
+            }
+
+            if($anno && $anno != date("Y",strtotime($row1['st'])))
+            {
+              $check_break ++ ;
+            }
+
+            if($check_break != 0)
+            {
+              break;
+            }
+
+
+            $da_pagare_compagnia = $row1['lordo'] + $row1['pagato'] ;
             
             $cfa->table = 'collaboratori' ;
             $cfa->id = $row1['id_collaboratore'] ;
