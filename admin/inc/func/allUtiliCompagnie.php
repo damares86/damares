@@ -351,6 +351,7 @@
           
           $utili_consulenza = 0 ;
           $utili_premio = 0 ;
+          $check_break=0;
 
           while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
           {
@@ -363,12 +364,12 @@
 
               if($anno_mese != date("Y",strtotime($row1['st'])))
               {
-                break ;
+                $check_break ++ ;
               }
               
               if($mese != date("m",strtotime($row1['st'])))
               {
-                break ;
+                $check_break ++ ;
               }
 
             }
@@ -384,20 +385,20 @@
 
               if($anno_trim != date("Y",strtotime($row1['st'])))
               {
-                break ;
+                $check_break ++ ;
               }
               
               $mese = date("m",strtotime($row1['st']));
               if(!in_array($mese,$trim_check[$trim]))
               {
-                break;
+                $check_break ++ ;
               }
 
             }
 
             if($anno && $anno != date("Y",strtotime($row1['st'])))
             {
-              break;
+              $check_break ++ ;
             }
 
             $provv_calc_arr = array(
@@ -409,6 +410,11 @@
             // calcollo consulenza
             $utili_consulenza += (($row1[$provv]/100)*$row['provv']) ;
 
+          }
+
+          if($check_break != 0)
+          {
+            break;
           }
 
             $tot_utili = $utili_consulenza + $utili_premio ;

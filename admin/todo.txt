@@ -3,9 +3,6 @@
 ------------------------------------------
 
 
-- da che anno in poi il filtro degli utili? OK COSI'
-- chart con i dati (decidere i campi)
-
 x calcolo utili collaboratori
 x calcolo utili compagnie
 - da pagare collaboratori
@@ -52,6 +49,8 @@ Compagnie/collaboratore
 - check sull'eliminazione?
 
 -----------  OK  ---------------
+
+x da che anno in poi il filtro degli utili? 2012
 
 - POLIZZE
     x data fine / data incasso / modalità incasso (sotto consulenza)
