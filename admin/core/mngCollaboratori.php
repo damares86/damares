@@ -134,7 +134,24 @@ else if($operation == "add")
 
     if($cfa->insert(['nome','cognome','sede_legale','sede_operativa','telefono','cellulare','email','pec','codice_fiscale','p_iva','ritenuta_acconto','iban','banca','iscrizione_rui','consulenza_collab','premio_collab']))
     {
-        header("Location: ../index.php?p=allCollaboratori&msg=collabAddSucc");
+
+        $pag_err = '' ;
+
+        $cfa->table = 'collaboratori' ;
+        $cfa->p_iva = filter_input(INPUT_POST,'p_iva') ;
+        $stmt = $cfa->showAllWhere('id',['p_iva']) ;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+        extract($row) ;
+
+        $cfa->id_collaboratore= $row['id'] ;
+        $cfa->da_pagare = 0 ;
+        $cfa->table = 'pag_collaboratore' ;
+        if(!$cfa->insert(['id_collaboratore','da_pagare']))
+        {
+            $pag_err = '&err=noPagIns' ;
+        }
+
+        header("Location: ../index.php?p=allCollaboratori&msg=collabAddSucc$pag_err");
         exit;
     }
     else
