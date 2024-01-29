@@ -57,6 +57,7 @@ class Cfa extends Common{
     public $p_iva_beneficiario ;
 
     // polizze
+    public $da_pagare ; 
     public $id_collaboratore ;
     public $id_compagnia ;
     public $netto ;

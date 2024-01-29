@@ -316,12 +316,12 @@
         // }
 
       ?>
-      <h4>Da pagare Collaboratori</h4>
+      <h4>Da pagare Compagnie</h4>
       <!-- Basic Tables start -->
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Collaboratore</th>
+            <th>Compagnia</th>
             <th>Da pagare</th>
             <th>Esporta XLSX</th>
           </tr>

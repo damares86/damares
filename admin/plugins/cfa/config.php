@@ -95,11 +95,11 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."collaboratori
       copia_direzione INT(1) DEFAULT 0);
       CREATE TABLE IF NOT EXISTS ".$prefix."pag_collaboratore
       ( id INT ( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      id_collab INT(10) NOT NULL,
+      id_collaboratore INT(10) NOT NULL,
       da_pagare INT(10) DEFAULT 0);
       CREATE TABLE IF NOT EXISTS ".$prefix."pag_compagnia
       ( id INT ( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      id_collab INT(10) NOT NULL,
+      id_compagnia INT(10) NOT NULL,
       da_pagare INT(10) DEFAULT 0);";
 
 $parent_table=[['link'=>'allCollaboratori',
