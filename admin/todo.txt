@@ -2,10 +2,6 @@
         TODO
 ------------------------------------------
 
-
-- da pagare collaboratori
-- da pagare compagnie
-
 - chart:
     per mese
     utile cfa
@@ -32,6 +28,8 @@ Compagnie/collaboratore
 x calcolo utili collaboratori
 x calcolo utili compagnie
 
+x da pagare collaboratori
+x da pagare compagnie
 
 x SEZIONE UTILI
 
