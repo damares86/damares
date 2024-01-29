@@ -115,7 +115,24 @@ else if($operation == "add")
 
     if($cfa->insert(['nome','sede_legale','p_iva','provv','ritenuta_acconto','provv_calcolate_su']))
     {
-        header("Location: ../index.php?p=allCompagnie&msg=compagnieAddSucc");
+
+        $pag_err = '' ;
+
+        $cfa->table = 'compagnie' ;
+        $cfa->p_iva = filter_input(INPUT_POST,'p_iva') ;
+        $stmt = $cfa->showAllWhere('id',['p_iva']) ;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+        extract($row) ;
+
+        $cfa->id_compagnia = $row['id'] ;
+        $cfa->da_pagare = 0 ;
+        $cfa->table = 'pag_compagnia' ;
+        if(!$cfa->insert(['id_compagnia','da_pagare']))
+        {
+            $pag_err = '&err=noPagIns' ;
+        }
+
+        header("Location: ../index.php?p=allCompagnie&msg=compagnieAddSucc$pag_err");
         exit;
     }
     else
