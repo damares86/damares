@@ -4,17 +4,9 @@
 
 - chart:
     per mese
-    utile cfa
-    utile compagnie
-    utile collaboratori
-
-Compagnie/collaboratore
-    elenco delle polizze da pagare, con check se pagata
-    Nel caso sia pagata non viene mostrata
-    Esportabile mese/trimestre/annuale
-
-    ###
-
+        utile cfa
+        utile compagnie
+        utile collaboratori
 
 - export dati in excel
 
