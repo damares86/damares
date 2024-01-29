@@ -344,6 +344,7 @@
             <th>Pagato da Collaboratore</th>
             <th>Da pagare Collaboratore</th>
             <th>Dare/avere Collaboratore</th>
+            <th>Utile Netto CFA</th>
 
 
 
@@ -416,7 +417,7 @@
             }
 
 
-            $da_pagare_compagnia = $row1['lordo'] + $row1['pagato'] ;
+            $da_pagare_compagnia = $row1['lordo'] - $row1['pagato_da_compagnia'] ;
             
             $cfa->table = 'collaboratori' ;
             $cfa->id = $row1['id_collaboratore'] ;
@@ -439,7 +440,24 @@
 
             $dare_avere_collab = $da_pagare_collab - $tot_provv_nette_dare ;
 
-            $utile_netto = $row1['consulenza']
+            $provv_calcolate = '' ;
+            if($row['provv_calcolate_su'] == 0)
+            {
+              $provv_calcolate = 'imponbile' ;
+            }
+            else if($row['provv_calcolate_su'] == 1)
+            {
+              $provv_calcolate = 'netto' ;
+            }
+
+            else if($row['provv_calcolate_su'] == 2)
+            {
+              $provv_calcolate = 'lordo' ;
+            }
+          
+            $provv_company = ($row1[$provv_calcolate]/100)*$row['provv'] ;
+
+            $utile_netto = $row1['consulenza'] + ($provv - (($provv/100)*$row['ritenuta_acconto'])) - $tot_provv_nette_dare ;
 
         ?>
           <tr>
@@ -453,6 +471,7 @@
             <td><?=$pagato_da_collab?></td>
             <td><?=$da_pagare_collab?></td>
             <td><?=$dare_avere_collab?></td>
+            <td><?=$utile_netto?></td>
 
 
 

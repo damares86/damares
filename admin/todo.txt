@@ -21,23 +21,6 @@ Compagnie/collaboratore
 
 
 
-- SEZIONE UTILI
-
-    ###
-
-        ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato compagnia' (POLIZZA) 
-        ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%))'
-        ---ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
-        ---ok--- PROVV. PREMIO DARE = 'Premio netto' * % Provv. premio dare (COLLABORATORE)
-        ---ok--- TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
-        ---ok--- TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(RITENUTA D'ACCONTO))
-        ---ok--- PAGATO DA COLLABORATORE = In polizza
-        ---ok--- DA PAGARE COLLABORATORE = 'Premio lordo'(POLIZZA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
-        ---ok--- DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
-
-? UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 
-                    'Provv. nette avere (% ritenuta d'acconto compagnia)' - 
-                    'Tot provv nette dare'
 
 
     ###
@@ -48,6 +31,25 @@ Compagnie/collaboratore
 - check sull'eliminazione?
 
 -----------  OK  ---------------
+
+
+x SEZIONE UTILI
+
+    ###
+
+        ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato da compagnia' (POLIZZA) 
+        ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%))'
+        ---ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
+        ---ok--- PROVV. PREMIO DARE = 'Premio netto' * % Provv. premio dare (COLLABORATORE)
+        ---ok--- TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
+        ---ok--- TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(RITENUTA D'ACCONTO))
+        ---ok--- PAGATO DA COLLABORATORE = In polizza
+        ---ok--- DA PAGARE COLLABORATORE = 'Premio lordo'(POLIZZA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
+        ---ok--- DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
+
+        ---ok--- UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 
+                    'Provv. nette avere (% ritenuta d'acconto compagnia)' - 
+                    'Tot provv nette dare'
 
 x da che anno in poi il filtro degli utili? 2012
 
