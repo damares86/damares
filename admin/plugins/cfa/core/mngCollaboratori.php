@@ -39,7 +39,7 @@ if(filter_input(INPUT_GET,"idToDel"))
     }
     else
     {
-        header("Location: ../index.php?p=allCollaboratori&err=collabNotDel");
+        header("Location: ../index.php?p=allCollaboratori&err=collabNoDel");
         exit;
     }
 

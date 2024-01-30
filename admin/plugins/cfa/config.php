@@ -141,6 +141,6 @@ $child_table=[['link'=>'allUtili',
             'icon'=>'person-vcard']
             ];
 
-$query_drop_table = "DROP TABLE  ".$prefix."collaboratori, ".$prefix."compagnie, ".$prefix."contraente, ".$prefix."beneficiario, ".$prefix."polizze";
+$query_drop_table = "DROP TABLE  ".$prefix."collaboratori, ".$prefix."compagnie, ".$prefix."contraente, ".$prefix."beneficiario, ".$prefix."polizze, ".$prefix."pag_collaboratore, ".$prefix."pag_compagnia";
 
 ?>
