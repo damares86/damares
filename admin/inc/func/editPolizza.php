@@ -942,6 +942,7 @@ extract($row1) ;
                         <div class="col-md-9 mt-2">
                             <div class="form-group">
                                 <div class="form-check form-switch px-5">
+                                    <input type="hidden" name="old_compagnia_pagato" value="<?=$row1['compagnia_pagato']?>">
                                     <?php
                                         $checked = '' ;
                                         if( $row1['compagnia_pagato'] == 1 )
@@ -979,6 +980,8 @@ extract($row1) ;
                         <div class="col-md-9 mt-2">
                             <div class="form-group">
                                 <div class="form-check form-switch px-5">
+                                <input type="hidden" name="old_collaboratore_pagato" value="<?=$row1['collaboratore_pagato']?>">
+
                                     <?php
                                         $checked = '' ;
                                         if( $row1['collaboratore_pagato'] == 1 )

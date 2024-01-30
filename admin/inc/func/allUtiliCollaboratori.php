@@ -317,14 +317,29 @@
 
       ?>
       <h4>Utili Collaboratori -  <?=$periodo?></h4>
+      <style>
+      .dataTables_filter label {
+        margin-left:5em;
+      } 
+    </style>
+    <script>
+      $(document).ready(function() {
+          $('#table2').DataTable( {
+            searching:true,
+              dom: 'Bfrtip',
+              buttons: [
+                  'excel','print'
+              ]
+          } );
+      } );
+    </script>
       <!-- Basic Tables start -->
-      <table class="table" id="table1">
+      <table class="table" id="table2">
         <thead>
           <tr>
             <th>Collaboratore</th>
             <th>Polizze stipulate</th>
             <th>Utili totali</th>
-            <th>Esporta XLSX</th>
           </tr>
         </thead>
         <tbody>
@@ -427,9 +442,6 @@
             </td>
             <td>
               <?=$tot_utili?>
-            </td>
-            <td>
-              <!-- button -->
             </td>
 
 

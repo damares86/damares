@@ -49,7 +49,7 @@
     <div class="card-body">
 
     <!-- chart -->
-      <!-- <div class="row">
+      <div class="row">
         <div class="col">
           <div class="card">
             <div class="card-header">
@@ -60,7 +60,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- query form -->
       <div class="row border-top border-bottom py-3 my-3">
@@ -272,12 +272,6 @@
 
         </div>
       </div>   
-       <style>
-      .dataTables_filter label {
-        margin-left:5em;
-      } 
-    </style>
-
 
       <?php
 
@@ -340,18 +334,22 @@
 
           
           <h4>Utili CFA -  <?=$periodo?></h4>
-    
+    <style>
+      .dataTables_filter label {
+        margin-left:5em;
+      } 
+    </style>
     <script>
       $(document).ready(function() {
-    $('#table2').DataTable( {
-      searching:true,
-        dom: 'Bfrtip',
-        buttons: [
-            'excel','print'
-        ]
-    } );
-} );
-</script>
+          $('#table2').DataTable( {
+            searching:true,
+              dom: 'Bfrtip',
+              buttons: [
+                  'excel','print'
+              ]
+          } );
+      } );
+    </script>
       <!-- Basic Tables start -->
       <table class="table" id="table2">
         <thead>

@@ -218,6 +218,7 @@ if(filter_input(INPUT_POST,"idToMod"))
         $cfa->pagato_da_collaboratore = 0 ;
     }
   
+    $old_collaboratore_pagato = filter_input(INPUT_POST,"old_collaboratore_pagato");
     if(filter_input(INPUT_POST,'collaboratore_pagato'))
     {
         $cfa->collaboratore_pagato = 1 ;
@@ -238,6 +239,7 @@ if(filter_input(INPUT_POST,"idToMod"))
     {
         $cfa->pagato_da_compagnia = 0 ;
     }
+    $old_compagnia_pagato = filter_input(INPUT_POST,"old_compagnia_pagato");
 
     if(filter_input(INPUT_POST,'compagnia_pagato'))
     {
@@ -308,24 +310,29 @@ if(filter_input(INPUT_POST,"idToMod"))
         $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
         extract($row1) ;
         $pag_compagnia = $row1['da_pagare'] ;
+        $pag_mod = '' ;
 
-        if($cfa->compagnia_pagato == 1)
-        {
-            $cfa->da_pagare = $pag_compagnia - $da_pagare_compagnia ;
-        }
-        else
-        {
-            $cfa->da_pagare = $pag_compagnia + $da_pagare_compagnia ;            
-        }
 
-        $cfa->id_compagnia = $_POST['id_compagnia'][0] ;
-        $cfa->table = 'pag_compagnia' ;
+        if($cfa->compagnia_pagato == 1 && $old_compagnia_pagato!=1)
+        {
+            $pag_mod  = $pag_compagnia - $da_pagare_compagnia ;
+        }
+        else if($cfa->compagnia_pagato == 0 && $old_compagnia_pagato!=0)
+        {
+            $pag_mod  = $pag_compagnia + $da_pagare_compagnia ;            
+        }
+        
         $err_pag_compagnia = '' ;
-        if(!$cfa->update(['da_pagare'],'id_compagnia'))
+        if($pag_mod)
         {
-            $err_pag_compagnia = '&err=noPagComp';
+            $cfa->da_pagare = $pag_mod ;
+            $cfa->id_compagnia = $_POST['id_compagnia'][0] ;
+            $cfa->table = 'pag_compagnia' ;
+            if(!$cfa->update(['da_pagare'],'id_compagnia'))
+            {
+                $err_pag_compagnia = '&err=noPagComp';
+            }
         }
-    
 
         $da_pagare_collaboratore = $lordo + $consulenza - $pagato_collab ;
         
@@ -335,22 +342,27 @@ if(filter_input(INPUT_POST,"idToMod"))
         $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
         extract($row3) ;
         $pag_collaboratore = $row3['da_pagare'] ;
+        $pag_mod = '' ;
 
-        if($cfa->collaboratore_pagato == 1)
+        if($cfa->collaboratore_pagato == 1 && $old_collaboratore_pagato!=1)
         {
-            $cfa->da_pagare = $pag_collaboratore - $da_pagare_collaboratore ;
+            $pag_mod = $pag_collaboratore - $da_pagare_collaboratore ;
         }
-        else
+        else if($cfa->collaboratore_pagato == 0 && $old_collaboratore_pagato!=0)
         {
-            $cfa->da_pagare = $pag_collaboratore + $da_pagare_collaboratore ;            
+            $pag_mod = $pag_collaboratore + $da_pagare_collaboratore ;            
         }
         
-        $cfa->id_collaboratore = $_POST['id_collaboratore'][0] ;
-        $cfa->table = 'pag_collaboratore' ;
         $err_pag_collaboratore = '' ;
-        if(!$cfa->update(['da_pagare'],'id_collaboratore'))
+        if($pag_mod)
         {
-            $err_pag_collaboratore = '&err=noPagCollab';
+            $cfa->da_pagare = $pag_mod ;
+            $cfa->id_collaboratore = $_POST['id_collaboratore'][0] ;
+            $cfa->table = 'pag_collaboratore' ;
+            if(!$cfa->update(['da_pagare'],'id_collaboratore'))
+            {
+                $err_pag_collaboratore = '&err=noPagCollab';
+            }
         }
     
         header("Location: ../index.php?p=editPolizza&idToMod=$idToMod&msg=polizzeEdit".$err_contraente.$err_beneficiario.$err_pag_compagnia.$err_pag_collaboratore);

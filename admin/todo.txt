@@ -8,14 +8,13 @@
         utile compagnie
         utile collaboratori
 
-- export dati in excel
 
 - check sull'eliminazione?
 
 
-
-
 -----------  OK  ---------------
+
+x export dati in excel
 
 x calcolo utili collaboratori
 x calcolo utili compagnie

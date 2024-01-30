@@ -35,8 +35,24 @@
       <div class="row  border-bottom py-3 my-3">
 
       <h4>Da pagare Collaboratori</h4>
+      <style>
+      .dataTables_filter label {
+        margin-left:5em;
+      } 
+    </style>
+    <script>
+      $(document).ready(function() {
+          $('#table2').DataTable( {
+            searching:true,
+              dom: 'Bfrtip',
+              buttons: [
+                  'excel','print'
+              ]
+          } );
+      } );
+    </script>
       <!-- Basic Tables start -->
-      <table class="table" id="table1">
+      <table class="table" id="table2">
         <thead>
           <tr>
             <th>Collaboratore</th>
