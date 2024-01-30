@@ -271,7 +271,14 @@
           </div>
 
         </div>
-      </div>
+      </div>   
+       <style>
+      .dataTables_filter label {
+        margin-left:5em;
+      } 
+    </style>
+
+
       <?php
 
         $mese = '' ;
@@ -327,11 +334,26 @@
           $anno_mese = date('Y');
           $periodo = $months_arr[$mese] . ' ' . $anno_mese ;
         }
-
+        $title_periodo = preg_replace('/\s+/','_',$periodo) ;
+        $title_periodo = strtolower($title_periodo);
       ?>
-      <h4>Utili CFA -  <?=$periodo?></h4>
+
+          
+          <h4>Utili CFA -  <?=$periodo?></h4>
+    
+    <script>
+      $(document).ready(function() {
+    $('#table2').DataTable( {
+      searching:true,
+        dom: 'Bfrtip',
+        buttons: [
+            'excel','print'
+        ]
+    } );
+} );
+</script>
       <!-- Basic Tables start -->
-      <table class="table" id="table1">
+      <table class="table" id="table2">
         <thead>
           <tr>
             <th>Compagnia</th>
@@ -443,7 +465,7 @@
             $provv_calcolate = '' ;
             if($row['provv_calcolate_su'] == 0)
             {
-              $provv_calcolate = 'imponbile' ;
+              $provv_calcolate = 'imponibile' ;
             }
             else if($row['provv_calcolate_su'] == 1)
             {
