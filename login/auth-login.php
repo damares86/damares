@@ -1,6 +1,13 @@
 <?php
 
 require "inc/header.php";
+$plugin->pluginname = "recaptcha" ;
+$mng = "mngAuth";
+
+if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+    $mng = "mngAuthRecap";
+    require "../admin/inc/recaptcha.php";
+}
 
 ?>
 
@@ -10,7 +17,7 @@ require "inc/header.php";
               <?=$login_desc?>
             </p>
 
-            <form action="../admin/core/mngAuth.php" method="POST">
+            <form action="../admin/core/<?=$mng?>.php" method="POST">
               <div class="form-group position-relative has-icon-left mb-4">
                 <input
                   type="email"

@@ -87,6 +87,10 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
       rel="stylesheet"
       href="assets/extensions/choices.js/public/assets/styles/choices.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+      
     <link rel="stylesheet" href="assets/css/shared/iconly.css" />
     <?php
 
@@ -96,4 +100,6 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
     <?php
     }
     ?>
+    <script src="assets/extensions/jquery/jquery.min.js"></script>
+
   </head>

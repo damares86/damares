@@ -11,12 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
         content_css: "default",
       }
 
-  tinymce.init({ selector: "#default", ...themeOptions })
+  // tinymce.init({ selector: "#default", ...themeOptions })
   tinymce.init({
-    selector: "#dark",
+    selector: "#default",
     toolbar:
       "undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code",
-    plugins: "code",
+    plugins: "code lists",
     ...themeOptions,
   })
 })

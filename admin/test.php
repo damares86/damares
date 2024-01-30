@@ -2,6 +2,31 @@
 
   require "inc/header.php" ;
 
+
+  // calcolo differenza date
+  $today = date("Y-m-d");
+  $date1 = new DateTime($today);
+  $end = date("Y-m-d",strtotime("+10 days"));
+  $date2 = new DateTime($end);
+
+  $res = $date1->diff($date2);
+  echo $res->days ;
+  exit;
+
+
+  if(($end - $today)  ) 
+  {
+    echo "Ok" ;
+  }
+  else
+  {
+    echo "Ko" ;
+  }
+
+
+
+  exit;
+
 $ch = curl_init('https://giornatecardiologichetorinesi.it/quiz/script.php');
 // $ch = curl_init('http://boots.local/salomon/quiz/script.php');
 

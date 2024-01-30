@@ -2,20 +2,104 @@
         TODO
 ------------------------------------------
 
-- filtri di ricerca sulle tabelle
+- chart:
+    per mese
+        utile cfa
+        utile compagnie
+        utile collaboratori
 
-## CALENDARIO
-- vista calendario con pratiche
-- pallini/riquadri cliccabili con modale di dettaglio delle pratiche
 
 
-## TEST OK
-- import dati in excel
-- export risultati pdf e excel
 
+-----------  OK  ---------------
+
+x check sull'eliminazione?
+
+x export dati in excel
+
+x calcolo utili collaboratori
+x calcolo utili compagnie
+
+x da pagare collaboratori
+x da pagare compagnie
+
+x SEZIONE UTILI
+
+    ###
+
+        ---ok--- DA PAGARE COMPAGNIA = 'Lordo' (COMPAGNIA) - 'Pagato da compagnia' (POLIZZA) 
+        ---ok--- DARE/AVERE COMPAGNIA = 'Da pagare compagnia' - 'Provv. Nette avere(Provv-(provv*provv avere%))'
+        ---ok--- PROVV. CONSUL. DARE = 'Consulenza' (POLIZZA) * % Provv. consulenza dare
+        ---ok--- PROVV. PREMIO DARE = 'Premio netto' * % Provv. premio dare (COLLABORATORE)
+        ---ok--- TOT PROVV DARE = 'Provv. premio dare' + 'Provv. consul. dare' 
+        ---ok--- TOT PROVV NETTE DARE = 'Tot provv dare' - ('Tot provv dare' * percentuale(RITENUTA D'ACCONTO))
+        ---ok--- PAGATO DA COLLABORATORE = In polizza
+        ---ok--- DA PAGARE COLLABORATORE = 'Premio lordo'(POLIZZA) + 'Consulenza' (POLIZZA) - 'Pagato da collaboratore'
+        ---ok--- DARE/AVERE COLLABORATORE = 'Da pagare collaboratore' - 'Tot provv nette dare'
+
+        ---ok--- UTILE NETTO CFA = 'Consulenza'(POLIZZA) + 
+                    'Provv. nette avere (% ritenuta d'acconto compagnia)' - 
+                    'Tot provv nette dare'
+
+x da che anno in poi il filtro degli utili? 2012
+
+- POLIZZE
+    x data fine / data incasso / modalità incasso (sotto consulenza)
+    x rimuovere broker
+    x aggiungere premio totale = imponibile + diritti + spese + imposte
+    x aggiungere Pagato da collaboratore 
+
+- COMPAGNIE
+    x aggiungere partita iva
+    x provvigioni(%)
+    x ritenuta d'acconto (non obbligatorio)
+    x "netto, diritti, imponibile, lordo, spese notarili, imposte" -> in Polizze sotto la compagnia
+    x aggiungere radio button "Provv. calcolate su:"
+        0 imponibile
+        1 netto
+        2 lordo
+
+- COLLABORATORI
+    x aggiungere "iscrizione R.U.I." (numero)
+    x aggiungere Provvigione per premio
+    x aggiungere Provvigione per consulenza
+    x aggiungere consulenza (%) -> provv. consulenza dare %  -> da calcolare sulla consulenza della polizza
+    x aggiungere provvigione sul premio % -> calcolata sul netto della polizza
+
+
+
+
+-----------  OK  ---------------
+
+### TESTATO IN LOCALE (fca.dmweblab.com)
+- cron email
+
+
+
+########### codice calendar_settings.php
+<?php 
+$events = 
+  [
+     "table" => "polizze",
+     "url"   => "index.php?p=editPolizza&idToMod=", // opzionale
+     "title" => 'id_compagnia'
+  ];
+
+
+
+
+
+
+
+
+
+
+
+########################################################
 
 #####    AGGIUNTE FUTURE    #####
 
 ## REGISTER
 - aggiunta dell'approvazione di admin, ecc per registrazioni dal form
 - testare funzionalità di registrazione e reset password online
+

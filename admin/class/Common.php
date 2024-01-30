@@ -52,7 +52,7 @@ function insert($fields){
     
     $query = "INSERT INTO " .$this->prx. $this->table."
     SET ".$this->fields.""; 
-
+    
     $stmt = $this->conn->prepare( $query );
 
     foreach($fields as $item){
@@ -279,7 +279,6 @@ function showAllWhere($orderBy,$where){
         WHERE ".$this->where."
         ORDER BY ".$orderBy." ASC"; 
     $stmt = $this->conn->prepare( $query );
-
     
     foreach($where as $item){
         $stmt->bindParam(":$item", $this->$item);
@@ -289,28 +288,54 @@ function showAllWhere($orderBy,$where){
     return $stmt;
 }
 
-function showAllWhereLimitDesc($orderBy,$where,$limit){
-    
+function showAllWhereGtLt($orderBy,$op,$where){
+      
     $this->where="";
 
     $i = 1;
     foreach($where as $item){
-        $this->where.="$item = :$item" ;
+        $this->where.="$item $op :$item" ;
         if($i<count($where)){
             $this->where.=" AND ";            
         }
         $i++;
-    }
-    
+    }    
+        
     $query = "SELECT *
         FROM " .$this->prx. $this->table."
         WHERE ".$this->where."
-        ORDER BY ".$orderBy."  DESC LIMIT ".$limit.""; 
-
+        ORDER BY ".$orderBy." ASC"; 
     $stmt = $this->conn->prepare( $query );
     
     foreach($where as $item){
+        $stmt->bindParam(":$item", $this->$item);
+    }
+    
+    $stmt->execute();
+    return $stmt;
+}
+
+function showAllWhereBetween($orderBy,$op1,$op2,$where){
+      
+    $this->where="";
+
+    $i = 1;
+    foreach($where as $item){
+        $op = 'op'.$i ;
+        $this->where.=''. $item. ' '. $$op . ' :' . $item . '' ;
+        if($i<count($where)){
+            $this->where.=" AND ";            
+        }
+        $i++;
+    }    
         
+    $query = "SELECT *
+        FROM " .$this->prx. $this->table."
+        WHERE ".$this->where."
+        ORDER BY ".$orderBy." ASC"; 
+    $stmt = $this->conn->prepare( $query );
+    
+    foreach($where as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
     
@@ -372,6 +397,27 @@ public function itemExists($item){
     }
 }
 
+public function countItem($item){
+        
+    // query to check if email exists
+    $query = "SELECT *
+    FROM " .$this->prx. $this->table . "
+    WHERE ".$item." = :".$item."
+    LIMIT 0,1";
+
+    $stmt = $this->conn->prepare( $query );
+
+    $stmt->bindParam(":".$item."", $this->$item);
+
+    // execute the query
+    $stmt->execute();
+
+    // get number of rows
+    $num = $stmt->rowCount();
+
+    return $num ;
+
+}
 
 
 // delete

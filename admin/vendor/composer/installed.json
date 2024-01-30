@@ -112,6 +112,6 @@
             "install-path": "../bdk/debug"
         }
     ],
-    "dev": false,
+    "dev": true,
     "dev-package-names": []
 }
