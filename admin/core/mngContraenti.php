@@ -17,6 +17,17 @@ require __DIR__."/coreConfig.php";
 if(filter_input(INPUT_GET,"idToDel"))
 {
 
+    $cfa->id_contraente = filter_input(INPUT_GET,"idToDel");
+    $cfa->table = 'polizze' ;
+    $stmt = $cfa->showAllWhere('id',['id_contraente']) ;
+    $count = $stmt->rowCount();
+            
+    if( $count > 0 )
+    {
+        header("Location: ../index.php?p=allContraenti&err=contrPolizzaExists");
+        exit;
+    }      
+    
     $cfa->id = filter_input(INPUT_GET,"idToDel");
     $cfa->table = 'contraente' ;
     

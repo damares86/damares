@@ -17,6 +17,18 @@ require __DIR__."/coreConfig.php";
 if(filter_input(INPUT_GET,"idToDel"))
 {
 
+    $cfa->id_collaboratore = filter_input(INPUT_GET,"idToDel");
+    $cfa->table = 'polizze' ;
+    $stmt = $cfa->showAllWhere('id',['id_collaboratore']) ;
+    $count = $stmt->rowCount();
+            
+    if( $count > 0 )
+    {
+        header("Location: ../index.php?p=allCollaboratori&err=collaboratorePolizzaExists");
+        exit;
+    }      
+
+
     $cfa->id = filter_input(INPUT_GET,"idToDel");
     $cfa->table = 'collaboratori' ;
     

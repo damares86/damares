@@ -9,10 +9,11 @@
         utile collaboratori
 
 
-- check sull'eliminazione?
 
 
 -----------  OK  ---------------
+
+x check sull'eliminazione?
 
 x export dati in excel
 
