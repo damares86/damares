@@ -22,22 +22,22 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."resource
       resource_date DATE);
       CREATE TABLE IF NOT EXISTS ".$prefix."resource_lang
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      lang VARCHAR(255) NOT NULL);
+      resource_lang VARCHAR(255) NOT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."resource_type
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      type VARCHAR(255) NOT NULL);";
+      resource_type VARCHAR(255) NOT NULL);";
 
 $parent_table=[['link'=>'xs_resources',
                   'label'=>'Resources',
                   'icon'=>'file-earmark-pdf']];
 
-$child_table=[['link'=>'allResources',
+$child_table=[['link'=>'allXSResources',
             'label'=>'All resources',
             'icon'=>'files'],
-            ['link'=>'allLangs',
+            ['link'=>'allXSLangs',
             'label'=>'Resources language',
             'icon'=>'translate'],
-            ['link'=>'allType',
+            ['link'=>'allXSType',
             'label'=>'Resources type',
             'icon'=>'bookmarks']
             ];
