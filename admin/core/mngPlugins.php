@@ -140,7 +140,6 @@ if($op=="add"){
   }
 
   $row = $section->showByLink($link_parent,"sectionParent");
-
   $pluginname = '';
   
   if($row){
@@ -148,6 +147,7 @@ if($op=="add"){
   }else{
     $pluginname = $link_parent ;
   }
+  print_r($pluginname);
 
   if($child_table){
     

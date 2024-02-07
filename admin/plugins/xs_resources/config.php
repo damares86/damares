@@ -27,7 +27,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."resource
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       type VARCHAR(255) NOT NULL);";
 
-$parent_table=[['link'=>'resources',
+$parent_table=[['link'=>'xs_resources',
                   'label'=>'Resources',
                   'icon'=>'file-earmark-pdf']];
 

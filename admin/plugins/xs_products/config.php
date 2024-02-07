@@ -4,7 +4,7 @@
 
 $pluginname = "xs_products" ;
 $description = "Manage XStream Products" ;
-$link_parent = "product" ;
+$link_parent = "xs_products" ;
 
 // query to create and drop the table
 
