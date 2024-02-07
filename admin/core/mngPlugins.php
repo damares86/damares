@@ -149,9 +149,6 @@ if($op=="add"){
     $pluginname = $link_parent ;
   }
 
-  print_r($pluginname);
-  exit;
-
   if($child_table){
     
     

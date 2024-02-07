@@ -4,7 +4,7 @@
 
 $pluginname = "xs_resources" ;
 $description = "Manage XStream Resources" ;
-$link_parent = "resources" ;
+$link_parent = "xs_resources" ;
 
 // query to create and drop the table
 
