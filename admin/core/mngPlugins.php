@@ -115,8 +115,6 @@ $path = "../plugins/$pluginFolder" ;
 require "$path/starter.php" ;
 $exclude = array('..', '.','alert','func','.gitkeep');
 
-
-
 if($op=="add"){
 
   // create table
@@ -150,6 +148,10 @@ if($op=="add"){
   }else{
     $pluginname = $link_parent ;
   }
+
+  print_r($pluginname);
+  exit;
+
   if($child_table){
     
     
