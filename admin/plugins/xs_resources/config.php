@@ -42,6 +42,6 @@ $child_table=[['link'=>'allXSResources',
             'icon'=>'bookmarks']
             ];
 
-$query_drop_table = "DROP TABLE  ".$prefix."product, ".$prefix."resource, ".$prefix."resource_lang, ".$prefix."resource_type";
+$query_drop_table = "DROP TABLE  ".$prefix."resource, ".$prefix."resource_lang, ".$prefix."resource_type";
 
 ?>
