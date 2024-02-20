@@ -76,6 +76,15 @@ $db = $database->getConnection();
 // recall of all the classes
 $files=glob("../class/*.php", GLOB_BRACE);
 rsort($files); 
+
+// prefix optionally given by user
+// and save it in a file
+
+$prefix="";
+if($_POST['prefix']){
+  $prefix=$_POST['prefix']."_";
+}
+
 // creation of the file with all the initialization of the classes
 if(!is_file('../inc/class_initialize.php')){
   $file_handle = fopen('../inc/class_initialize.php', 'w');
@@ -102,15 +111,6 @@ chmod('../inc/class_initialize.php',0777);
 $user_email=$_POST['email'];
 $password=$_POST['password'];
 $password_hash = password_hash($password, PASSWORD_BCRYPT);
-
-
-// prefix optionally given by user
-// and save it in a file
-
-$prefix="";
-if($_POST['prefix']){
-  $prefix=$_POST['prefix']."_";
-}
 
 $file_handle = fopen('../core/prefix.php', 'w');
 fwrite($file_handle, '<?php');

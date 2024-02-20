@@ -5,3 +5,8 @@ body{
 .sidebar-wrapper .sidebar-header{
     background-color:#f2f2f2 !important;
 }
+
+.stats-icon{
+    float:none;
+    margin:0 auto;
+}
