@@ -16,6 +16,17 @@ require __DIR__."/coreConfig.php";
 
 if(filter_input(INPUT_GET,"idToDel"))
 {
+    
+    $rsa->id = filter_input(INPUT_GET,"idToDel");
+    $rsa->table = 'pazientiFarmaci' ;
+    $stmt = $rsa->showAllWhere('id',['id']) ;
+    $count = $stmt->rowCount();
+            
+    if( $count > 0 )
+    {
+        header("Location: ../index.php?p=allFarmaci&err=farmaciPazientiExists");
+        exit;
+    }      
 
     $rsa->id = filter_input(INPUT_GET,"idToDel");
     $rsa->table = 'farmaci' ;
