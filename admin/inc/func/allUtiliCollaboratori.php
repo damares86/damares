@@ -280,7 +280,7 @@
           '09' => 'Settembre',
           '10' => 'Ottobre',
           '11' => 'Novembre',
-          '02' => 'Dicembre');
+          '12' => 'Dicembre');
 
         if(filter_input(INPUT_GET,'mese'))
         {

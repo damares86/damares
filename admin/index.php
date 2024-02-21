@@ -42,7 +42,8 @@
           -->
           
           <div class="page-heading">
-                <h3>Damares <?=$common_dashboard?></h3>
+                <h3>Piattaforma Gestione CFA</h3>
+                <!-- <h3>Damares <?=$common_dashboard?></h3> -->
               </div>
           <section class="row">
             

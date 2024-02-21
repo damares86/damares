@@ -49,7 +49,7 @@
     <div class="card-body">
 
     <!-- chart -->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col">
           <div class="card">
             <div class="card-header">
@@ -60,7 +60,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- query form -->
       <div class="row border-top border-bottom py-3 my-3">
@@ -294,7 +294,7 @@
           '09' => 'Settembre',
           '10' => 'Ottobre',
           '11' => 'Novembre',
-          '02' => 'Dicembre');
+          '12' => 'Dicembre');
 
         if(filter_input(INPUT_GET,'mese'))
         {
