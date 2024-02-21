@@ -3,7 +3,7 @@
 // plugin information
 
 $pluginname = "rsa" ;
-$description = "RSA Farmaci" ;
+$description = "Gestione Ordini Farmaci RSA" ;
 $link_parent = "rsa" ;
 
 // query to create and drop the table

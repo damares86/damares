@@ -112,6 +112,26 @@
 
     <?php
     
+    if($page=="addPaziente"||$page=="editPaziente"){
+      if(isset($count)){
+  ?>
+          <script>
+              var i=<?=$count?>-1;
+          </script>
+  <?php
+      }else{
+  ?>        
+      <script>
+          var i=1;
+      </script>
+  <?php
+      }
+  ?> 
+      <script src="script/mngFarmaci.js"></script>
+ 
+  <?php
+  }
+
     if($page=="addQuiz"||$page=="editQuiz"){
         if(isset($count)){
     ?>
