@@ -10,7 +10,20 @@
 
 class Rsa extends Common{
 
-  
+    # farmaci
+    public $principio ;
+    public $cpr_box ;
+    public $magazzino ;
+
+    # pazienti
+    public $cognome ;
+    public $nome ;
+
+    # pazientiFarmaci
+    public $id_pazienti ;
+    public $id_farmaci ;
+    public $cpr ;
+
 
 
 }
