@@ -110,10 +110,22 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                                         $selected = "" ;
 
                                         // hide sections for non root users
-                                        $exclude_sections = [4,5];
-                                        if($_SESSION['role_id']!=1 && in_array($row['id'], $exclude_sections)){
-                                            continue;
+                                        $role_id = $_SESSION['role_id'] ;
+                                        $rolessection->role_id = $role_id ;
+                                        $permission = $rolessection->showAllPermission('id',['role_id']) ;
+                                       
+                                        $sectionOk = [] ;
+                                        foreach($permission as $item){
+                                          if($item['role_id']==$role_id){
+                                            $sectionOk[] = $item['section_id'];
+                                          } 
                                         }
+                      
+                                        // if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
+                                          if($role_id==1 ||  in_array($row['id'],$sectionOk)){
+                                        // if($_SESSION['role_id']!=1 && in_array($row['id'], $exclude_sections)){
+                                        //     continue;
+                                        // }
 
                                         if(in_array($row['id'],$sections)){
                                             $selected = "selected";
@@ -124,7 +136,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 
                                 <?php
                                         $selected = "" ;
-
+                                    }
                                 }
                                 ?>
 

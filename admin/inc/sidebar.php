@@ -5,7 +5,8 @@
               <!-- <div class="logo"> -->
               <div class="logo px-5">
                 <a href="index.php">
-                  <img src="assets/images/logo/damares_logo.png" alt="Logo" srcset=""/>
+                  <img src="assets/images/logo/logo.jpg" alt="Logo" srcset="">
+                  <!-- <img src="assets/images/logo/damares_logo.png" alt="Logo" srcset=""/> -->
                 </a>
               </div>
               <!-- <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
@@ -78,7 +79,8 @@
                 <div class="card-body py-4 px-4">
                   <div class="d-flex align-items-center">
                     <div class="avatar avatar-xl">
-                      <img src="uploads/avatar/<?=$_SESSION['avatar']?>" alt="Face 1" />
+                      <!-- <img src="uploads/avatar/<?=$_SESSION['avatar']?>" alt="Face 1" /> -->
+                      <img src="assets/images/logo/profile.png" alt="Face 1" />
                     </div>
                     <div class="ms-3 name">
                       <h5 class="font-bold"><?=$_SESSION['rolename']?></h5>
@@ -136,7 +138,8 @@
                     } 
                   }
 
-                  if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
+                  // if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
+                    if($role_id==1 ||  in_array($row['id'],$sectionOk)){
               ?>
               <li class="sidebar-item <?=$active?> <?=$hasSub?>">
                 <a href="index.php<?=$link?>" class="sidebar-link">
