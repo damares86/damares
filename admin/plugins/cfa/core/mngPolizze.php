@@ -22,6 +22,9 @@ if(filter_input(INPUT_GET,"idToDel"))
     
     if($cfa->delete('id'))
     {
+        // CALENDAR
+        $calendar->updateCalendar() ;
+        
         header("Location: ../index.php?p=allPolizze&msg=polizzeDel");
         exit;
     }

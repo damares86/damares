@@ -65,7 +65,15 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
           extract($row);
           
           // hide sections for non root users
-          $exclude_roles = [1,2];
+          if($_SESSION['role_id'] == 1)
+          {
+            $exclude_roles = [1];
+          }
+          else
+          {
+            $exclude_roles = [1,2];
+          }
+          
           if(in_array($row['id'], $exclude_roles)){
               continue;
           }
