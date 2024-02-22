@@ -1,9 +1,15 @@
 <?php
-    require '../admin/vendor/autoload.php';		// If installed via composer
-    $debug = new \bdk\Debug(array(
-    	'collect' => true,
-    	'output' => true,
-    ));
+    // require '../admin/vendor/autoload.php';		// If installed via composer
+    // $debug = new \bdk\Debug(array(
+    // 	'collect' => true,
+    // 	'output' => true,
+    // ));
+
+    if(!is_file('class/Database.php')){
+      require "../admin/inc/dbdata.php";
+      exit;
+    }
+    
     spl_autoload_register('autoloader');
     
     function autoloader($class){

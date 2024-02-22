@@ -30,7 +30,7 @@ $parent_table=[['link'=>'allPazienti',
                   'icon'=>'person-vcard'],
             ['link'=>'allFarmaci',
                   'label'=>'Elenco farmaci',
-                  'icon'=>'building'],
+                  'icon'=>'capsule'],
             ['link'=>'addOrdini',
                   'label'=>'Calcola un ordine',
                   'icon'=>'box-seam']];
