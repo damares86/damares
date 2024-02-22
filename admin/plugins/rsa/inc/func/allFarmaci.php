@@ -1,12 +1,12 @@
 <?php 
-  $cfa->table = 'pag_compagnia' ;
-  $compagnie = $cfa->showAll('id');
+  $rsa->table = 'farmaci' ;
+  $farmaci = $rsa->showAll('id');
 ?>
 
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Da pagare compagnie</h3>
+      <h3>Farmaci</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Da pagare compagnie
+          Farmaci
           </li>
         </ol>
       </nav>
@@ -28,64 +28,98 @@
 <br>
 
 
+<!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    
+    <div class="card-header">Tutti i farmaci &nbsp; &nbsp; &nbsp; 
+    <a href="index.php?p=addFarmaco" class="btn icon icon-left btn-success"
+    ><i data-feather="plus-circle"></i> Aggiungi un farmaco</a>
+    </div>
     <div class="card-body">
-
-
-      <h4>Da pagare Compagnie</h4>
-      <style>
-      .dataTables_filter label {
-        margin-left:5em;
-      } 
-    </style>
-    <script>
-      $(document).ready(function() {
-          $('#table2').DataTable( {
-            searching:true,
-              dom: 'Bfrtip',
-              buttons: [
-                  'excel','print'
-              ]
-          } );
-      } );
-    </script>
-      <!-- Basic Tables start -->
-      <table class="table" id="table2">
+   
+      <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Compagnia</th>
-            <th>Da pagare</th>
+            <th>Principio attivo</th>
+            <th>Compresse per scatola</th>
+            <th>Confezioni a magazzino</th>
+            <th><?=$common_actions?></th>
           </tr>
         </thead>
         <tbody>
           
         <?php
-        while($row = $compagnie->fetch(PDO::FETCH_ASSOC))
+        while($row = $farmaci->fetch(PDO::FETCH_ASSOC))
         {
           extract($row);
-          if($row['da_pagare'] == 0 )
-          {
-            break;
-          }
-
-          $cfa->id = $row['id_compagnia'] ;
-          $cfa->table = 'compagnie' ;
-          $stmt1 = $cfa->showAllWhere('id',['id']) ;
-          $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-          extract($row1);
-
         ?>
           <tr>
+            <td><?=$row['principio']?></td>
+            <td><?=$row['cpr_box']?></td>
+            <td><?=$row['magazzino']?></td>
             <td>
-              <?=$row1['nome']?>
+              <a href="index.php?p=editFarmaco&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+                ><i class="bi bi-pencil-square"></i
+              ></a>
+              &nbsp; &nbsp;
+              <a href="#" class="btn icon btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
+              </a>
+                  <!--Danger theme Modal -->
+                  <div
+                              class="modal fade text-left"
+                              id="danger<?=$row['id']?>"
+                              tabindex="-1"
+                              role="dialog"
+                              aria-labelledby="myModalLabel120"
+                              aria-hidden="true"
+                            >
+                              <div
+                                class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                role="document"
+                              >
+                                <div class="modal-content">
+                                  <div class="modal-header bg-danger">
+                                    <h5
+                                      class="modal-title white"
+                                      id="myModalLabel120"
+                                    >
+                                      <?=$common_modal_title_sure?>
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      class="close"
+                                      data-bs-dismiss="modal"
+                                      aria-label="Close"
+                                    >
+                                      <i data-feather="x"></i>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <?=$farmaci_modal_body?>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-light-secondary"
+                                      data-bs-dismiss="modal"
+                                    >
+                                      <i class="bx bx-x d-block d-sm-none"></i>
+                                      <span class="d-none d-sm-block"
+                                        ><?=$common_modal_cancel?></span
+                                      >
+                                    </button>
+                                      <span class="d-none d-sm-block"
+                                        ><a href="core/mngFarmaci.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                          <?=$common_modal_confirm?>
+                                        </a></span
+                                      >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
             </td>
-            <td>
-              <?=$row['da_pagare']?>
-            </td>
-
-
           </tr>
                           
 

@@ -16,30 +16,29 @@ require __DIR__."/coreConfig.php";
 
 if(filter_input(INPUT_GET,"idToDel"))
 {
-
-    $cfa->id_beneficiario = filter_input(INPUT_GET,"idToDel");
-    $cfa->table = 'polizze' ;
-    $stmt = $cfa->showAllWhere('id',['id_beneficiario']) ;
+    
+    $rsa->id_farmaci = filter_input(INPUT_GET,"idToDel");
+    $rsa->table = 'pazientiFarmaci' ;
+    $stmt = $rsa->showAllWhere('id',['id_farmaci']) ;
     $count = $stmt->rowCount();
             
     if( $count > 0 )
     {
-        header("Location: ../index.php?p=allBeneficiari&err=beneficiarioPolizzaExists");
+        header("Location: ../index.php?p=allFarmaci&err=farmaciPazientiExists");
         exit;
     }      
 
-
-    $cfa->id = filter_input(INPUT_GET,"idToDel");
-    $cfa->table = 'beneficiario' ;
+    $rsa->id = filter_input(INPUT_GET,"idToDel");
+    $rsa->table = 'farmaci' ;
     
-    if($cfa->delete('id'))
+    if($rsa->delete('id'))
     {
-        header("Location: ../index.php?p=allBeneficiari&msg=benefDel");
+        header("Location: ../index.php?p=allFarmaci&msg=farmaciDel");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allBeneficiari&err=benefNoDel");
+        header("Location: ../index.php?p=allFarmaci&err=farmaciNoDel");
         exit;
     }
 
@@ -52,57 +51,48 @@ if(filter_input(INPUT_POST,"idToMod"))
 {
     
     $idToMod = filter_input(INPUT_POST,"idToMod");
-    $cfa->id = $idToMod ;
+    $rsa->id = $idToMod ;
 
-    // inserimento nuovo beneficiario
-    $cfa->ragione_sociale_beneficiario = filter_input(INPUT_POST,'ragione_sociale_beneficiario');
-    $cfa->via_beneficiario = filter_input(INPUT_POST,'via_beneficiario');
-    $cfa->citta_beneficiario = filter_input(INPUT_POST,'citta_beneficiario');
-    $cfa->cap_beneficiario = filter_input(INPUT_POST,'cap_beneficiario');
-    $cfa->codice_fiscale_beneficiario = filter_input(INPUT_POST,'codice_fiscale_beneficiario');
-    $cfa->p_iva_beneficiario = filter_input(INPUT_POST,'p_iva_beneficiario');
-    
-    $cfa->table = 'beneficiario' ;
-    $err_contraente = '' ;
-    if( $cfa->update(['ragione_sociale_beneficiario','via_beneficiario','citta_beneficiario','cap_beneficiario','codice_fiscale_beneficiario','p_iva_beneficiario'],'id') )
+    $rsa->principio = filter_input(INPUT_POST,'principio') ;
+    $rsa->cpr_box = filter_input(INPUT_POST,'cpr_box') ;
+    $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
+
+    $rsa->table = 'farmaci' ;
+
+    if( $rsa->update(['principio','cpr_box','magazzino'],'id') )
     {
-        header("Location: ../index.php?p=allBeneficiari&msg=benefEdit");
+        header("Location: ../index.php?p=allFarmaci&msg=farmaciEdit");
         exit;
     }
     else
     {
-        header("Location: ../index.php?p=allBeneficiari&err=benefNoEdit");
+        header("Location: ../index.php?p=allFarmaci&err=farmaciNoEdit");
         exit;
     }
 
 }
 else if($operation == "add")
 {
+        $rsa->principio = filter_input(INPUT_POST,'principio') ;
+        $rsa->cpr_box = filter_input(INPUT_POST,'cpr_box') ;
+        $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
 
-         // inserimento nuovo beneficiario
-         $cfa->ragione_sociale_beneficiario = filter_input(INPUT_POST,'ragione_sociale_beneficiario');
-         $cfa->via_beneficiario = filter_input(INPUT_POST,'via_beneficiario');
-         $cfa->citta_beneficiario = filter_input(INPUT_POST,'citta_beneficiario');
-         $cfa->cap_beneficiario = filter_input(INPUT_POST,'cap_beneficiario');
-         $cfa->codice_fiscale_beneficiario = filter_input(INPUT_POST,'codice_fiscale_beneficiario');
-         $cfa->p_iva_beneficiario = filter_input(INPUT_POST,'p_iva_beneficiario');
-         
-         $cfa->table = 'beneficiario' ;
-         $err_contraente = '' ;
-         if( $cfa->insert(['ragione_sociale_beneficiario','via_beneficiario','citta_beneficiario','cap_beneficiario','codice_fiscale_beneficiario','p_iva_beneficiario']) )
-         {
-            header("Location: ../index.php?p=allBeneficiari&msg=benefAddSucc");
+        $rsa->table = 'farmaci' ;
+
+        if( $rsa->insert(['principio','cpr_box','magazzino']) )
+        {
+            header("Location: ../index.php?p=allFarmaci&msg=farmaciAddSucc");
             exit;
-         }
-         else
-         {
-            header("Location: ../index.php?p=allBeneficiari&err=benefAddFail");
+        }
+        else
+        {
+            header("Location: ../index.php?p=allFarmaci&err=farmaciAddFail");
             exit;
-         }
+        }
 
 }
 else
 {
-    header("Location: ../index.php?p=allBeneficiari&err=noPost");
+    header("Location: ../index.php?p=allFarmaci&err=noPost");
     exit;
 }

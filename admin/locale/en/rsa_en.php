@@ -8,42 +8,30 @@
 #                                          #
 ############################################
 
-// add 
-
-$customer_add_header = "Add a customer" ;
-$customer_add_title = "Add customer" ;
-$customer_add_name_ph = "Customer name" ;
-$customer_add_surname_ph = "Customer surname" ;
-$customer_add_optional = "Optional" ;
-
-// edit
-
-$customer_edit_header = "Edit a customer" ;
-$customer_edit_title = "Edit customer" ;
-
-
-// all
-
-$customer_all_header = "All customers" ;
-$customer_all_title = "All customers" ;
-$customer_all_add = "Add a customer" ;
-$customer_all_surname_table = "Surname" ;
-$customer_all_name_table = "Name" ;
-$customer_all_modal_body = "If you confirm, you will completely delete this customer." ;
-
-
 // msg
 
-$msg_customerDel = "Customer successfully deleted" ;
-$msg_customerEdit = "Customer successfully modified" ;
-$msg_customerSucc = "Customer successfully created" ;
+$msg_farmaciDel = "Farmaco cancellato correttamente" ;
+$msg_farmaciEdit = "Farmaco modificato correttamente" ;
+$msg_farmaciAddSucc = "Farmaco aggiunto" ;
+$msg_pazienteDel = "Paziente cancellato" ;
+$msg_pazientiEdit = "Paziente modificato correttamente" ;
+$msg_pazientiFarmaciAddSucc = "Farmaco associato al paziente" ;
+$msg_pazientiAddSucc = "Paziente aggiunto" ;
+$msg_ordiniAddSucc = "Ordine completato" ;
 
 
 // err
 
-$err_customerNoDel = "Customer not deleted" ;
-$err_customerExist = "Customer already exists" ;
-$err_customerNoEdit = "Customer not modified" ;
-$err_customerFail = "Customer not created" ;
+$err_farmaciPazientiExists = "Farmaco non cancellato: è assegnato a qualche paziente" ;
+$err_farmaciNoDel = "Farmaco non cancellato" ;
+$err_farmaciNoEdit = "Farmaco non modificato" ;
+$err_farmaciAddFail = "Farmaco non aggiunto" ;
+$err_pazienteNoDel = "Paziente non cancellato" ;
+$err_farmaciPazientiEditErr = "Errore nella modifica dei farmaci del paziente" ;
+$err_pazientiNoEdit = "Paziente non modificato" ;
+$err_pazientiFarmaciAddFail = "Farmaco non associato al paziente" ;
+$err_farmaciPazientiErr = "Errore nell'associare il farmaco al paziente" ;
+$err_pazientiAddFail = "Paziente non aggiunto" ;
+$err_ordiniFail = "Errore nella creazione dell'ordine" ;
 
 ?>

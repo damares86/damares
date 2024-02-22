@@ -97,7 +97,7 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$account_all_modal_body?>
+                                    <?=$farmaci_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

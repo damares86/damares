@@ -1,12 +1,12 @@
 <?php 
-  $cfa->table = 'polizze' ;
-  $polizze = $cfa->showAll('id');
+  $rsa->table = 'pazienti' ;
+  $pazienti = $rsa->showAll('id');
 ?>
 
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Polizze</h3>
+      <h3>Pazienti</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Polizze
+          Pazienti
           </li>
         </ol>
       </nav>
@@ -31,45 +31,34 @@
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">Tutte le polizze &nbsp; &nbsp; &nbsp; 
-    <a href="index.php?p=addPolizza" class="btn icon icon-left btn-success"
-    ><i data-feather="plus-circle"></i> Aggiungi una polizza</a>
+    <div class="card-header">Tutti i pazienti &nbsp; &nbsp; &nbsp; 
+    <a href="index.php?p=addPaziente" class="btn icon icon-left btn-success"
+    ><i data-feather="plus-circle"></i> Aggiungi un paziente</a>
     </div>
     <div class="card-body">
    
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Numero polizza</th>
-            <th>Collaboratore</th>
-            <th>Tipologia</th>
-            <th>Scadenza</th>
+            <th>Cognome</th>
+            <th>Nome</th>
+            <th>Farmaci</th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
         <tbody>
           
         <?php
-        while($row = $polizze->fetch(PDO::FETCH_ASSOC))
+        while($row = $pazienti->fetch(PDO::FETCH_ASSOC))
         {
           extract($row);
         ?>
           <tr>
-            <td><?=$row['numero']?></td>
+            <td><?=$row['cognome']?></td>
+            <td><?=$row['nome']?></td>
+            <td>Farmaci</td>
             <td>
-              <?php
-                $cfa->id = $row['id_collaboratore'];
-                $cfa->table = 'collaboratori';
-                $stmt1 = $cfa->showAllWhere('id',['id']) ;
-                $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-                extract($row1);
-                echo $row1['cognome'].' '.$row1['nome'] ;
-              ?>
-            </td>
-            <td><?=$row['tipologia']?></td>
-            <td><?=$row['et']?></td>
-            <td>
-              <a href="index.php?p=editPolizza&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editPaziente&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -108,7 +97,7 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$account_all_modal_body?>
+                                    <?=$pazienti_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -122,7 +111,7 @@
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngPolizze.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngPazienti.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >

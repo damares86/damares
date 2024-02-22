@@ -17,30 +17,48 @@ require __DIR__."/coreConfig.php";
 if(filter_input(INPUT_GET,"idToDel"))
 {
 
-    $cfa->id_beneficiario = filter_input(INPUT_GET,"idToDel");
-    $cfa->table = 'polizze' ;
-    $stmt = $cfa->showAllWhere('id',['id_beneficiario']) ;
-    $count = $stmt->rowCount();
-            
-    if( $count > 0 )
+    $idToDel = filter_input(INPUT_GET,"idToDel");
+
+    // remove all pazientiFarmaci record
+    $rsa->id_pazienti = $idToDel ;
+    $rsa->table = 'pazientiFarmaci' ;
+    $stmt = $rsa->showAllWhere('id',['id_pazienti']) ;
+
+    $error = 0 ;
+    while( $row = $stmt->fetch(PDO::FETCH_ASSOC) )
     {
-        header("Location: ../index.php?p=allBeneficiari&err=beneficiarioPolizzaExists");
-        exit;
-    }      
+        extract($row);
 
+        $rsa->table = 'pazientiFarmaci' ;
+        $rsa->id = $row['id'] ;
 
-    $cfa->id = filter_input(INPUT_GET,"idToDel");
-    $cfa->table = 'beneficiario' ;
+        if(!$rsa->delete('id'))
+        {
+            $error++;
+        }
+        
+    }
     
-    if($cfa->delete('id'))
-    {
-        header("Location: ../index.php?p=allBeneficiari&msg=benefDel");
-        exit;
+    if ($error==0 )
+    {            
+        $rsa->id = $idToDel;
+        $rsa->table = 'pazienti' ;
+
+        if($rsa->delete('id'))
+        {
+            header("Location: ../index.php?p=allPazienti&msg=pazienteDel");
+            exit;
+        }
+        else
+        {
+            header("Location: ../index.php?p=allPazienti&err=pazienteNoDel");
+            exit;
+        }
     }
     else
     {
-        header("Location: ../index.php?p=allBeneficiari&err=benefNoDel");
-        exit;
+        header("Location: ../index.php?p=allPazienti&err=pazienteFarmaciNoDel");
+        exit; 
     }
 
 }
@@ -50,59 +68,146 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 if(filter_input(INPUT_POST,"idToMod"))
 {
-    
-    $idToMod = filter_input(INPUT_POST,"idToMod");
-    $cfa->id = $idToMod ;
 
-    // inserimento nuovo beneficiario
-    $cfa->ragione_sociale_beneficiario = filter_input(INPUT_POST,'ragione_sociale_beneficiario');
-    $cfa->via_beneficiario = filter_input(INPUT_POST,'via_beneficiario');
-    $cfa->citta_beneficiario = filter_input(INPUT_POST,'citta_beneficiario');
-    $cfa->cap_beneficiario = filter_input(INPUT_POST,'cap_beneficiario');
-    $cfa->codice_fiscale_beneficiario = filter_input(INPUT_POST,'codice_fiscale_beneficiario');
-    $cfa->p_iva_beneficiario = filter_input(INPUT_POST,'p_iva_beneficiario');
-    
-    $cfa->table = 'beneficiario' ;
-    $err_contraente = '' ;
-    if( $cfa->update(['ragione_sociale_beneficiario','via_beneficiario','citta_beneficiario','cap_beneficiario','codice_fiscale_beneficiario','p_iva_beneficiario'],'id') )
+    if($operation == 'edit')
     {
-        header("Location: ../index.php?p=allBeneficiari&msg=benefEdit");
-        exit;
+
+        $rsa->table = 'pazienti' ;
+        $id_paziente = filter_input(INPUT_POST,"idToMod") ;
+        $rsa->id = $id_paziente ;
+        $rsa->nome = filter_input(INPUT_POST,'nome') ;
+        $rsa->cognome = filter_input(INPUT_POST,'cognome') ;
+
+        if( $rsa->update(['cognome','nome'],'id') )
+        {
+
+            $counter = $_POST['counter'] ;
+            
+            $error = 0 ;
+            
+            for($i = 1 ; $i <= $counter; $i++)
+            {
+                $rsa->table = 'pazientiFarmaci' ;
+                $rsa->id_pazienti = $id_paziente ;
+                
+                $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco_'.$i.'');
+                print_r($rsa->id_farmaci);
+
+                $stmt = $rsa->showAllWhere('id',['id_pazienti','id_farmaci']) ;
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                extract($row) ;
+
+                $id_pazientiFarmaci = $row['id'] ;
+                
+                if(filter_input(INPUT_POST,'del_'.$i.''))
+                {
+                    $rsa->table = 'pazientiFarmaci' ;                    
+                    $rsa->id = $id_pazientiFarmaci ;
+                    
+                    if(!$rsa->delete('id'))
+                    {
+                        $error++ ;
+                    }
+                }
+                else
+                {
+                    $rsa->table = 'pazientiFarmaci' ;
+                    $rsa->id = $id_pazientiFarmaci ;
+                    $rsa->id_pazienti = $id_paziente ;
+                    $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco_'.$i.'');
+                    $rsa->cpr = filter_input(INPUT_POST,'cpr_'.$i.'');
+
+                    if(!$rsa->update(['id_pazienti','id_farmaci','cpr'],'id'))
+                    {
+                        $error++;
+                    }
+                }
+
+            }
+
+            if($error == 0 )
+            {
+                header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&msg=pazientiEdit");
+                exit;
+            }
+            else
+            {
+                header("Location: ../index.php?p=allPazienti&err=farmaciPazientiEditErr");
+                exit;
+            }
+
+        }
+        else
+        {
+            header("Location: ../index.php?p=allPazienti&err=pazientiNoEdit");
+            exit;
+        }
+
     }
-    else
+    else if($operation == 'addFarmaco')
     {
-        header("Location: ../index.php?p=allBeneficiari&err=benefNoEdit");
-        exit;
+        $rsa->table = 'pazientiFarmaci' ;
+        $id_paziente = filter_input(INPUT_POST,"idToMod") ;
+        $rsa->id_pazienti = $id_paziente ;
+        $rsa->id_farmaci = filter_input(INPUT_POST,"farmaco") ;
+        $rsa->cpr = filter_input(INPUT_POST,"cpr") ;
+
+        if($rsa->insert(['id_pazienti','id_farmaci','cpr']))
+        {
+            header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&msg=pazientiFarmaciAddSucc");
+            exit;
+        }
+        else
+        {
+            header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&err=pazientiFarmaciAddFail");
+            exit;
+        }
     }
 
 }
 else if($operation == "add")
 {
 
-         // inserimento nuovo beneficiario
-         $cfa->ragione_sociale_beneficiario = filter_input(INPUT_POST,'ragione_sociale_beneficiario');
-         $cfa->via_beneficiario = filter_input(INPUT_POST,'via_beneficiario');
-         $cfa->citta_beneficiario = filter_input(INPUT_POST,'citta_beneficiario');
-         $cfa->cap_beneficiario = filter_input(INPUT_POST,'cap_beneficiario');
-         $cfa->codice_fiscale_beneficiario = filter_input(INPUT_POST,'codice_fiscale_beneficiario');
-         $cfa->p_iva_beneficiario = filter_input(INPUT_POST,'p_iva_beneficiario');
-         
-         $cfa->table = 'beneficiario' ;
-         $err_contraente = '' ;
-         if( $cfa->insert(['ragione_sociale_beneficiario','via_beneficiario','citta_beneficiario','cap_beneficiario','codice_fiscale_beneficiario','p_iva_beneficiario']) )
+        $rsa->table = 'pazienti' ;
+        $rsa->nome = filter_input(INPUT_POST,'nome') ;
+        $rsa->cognome = filter_input(INPUT_POST,'cognome') ;
+
+         if( $rsa->insert(['cognome','nome']) )
          {
-            header("Location: ../index.php?p=allBeneficiari&msg=benefAddSucc");
-            exit;
+            $rsa->table = 'pazienti' ;
+            $rsa->nome = filter_input(INPUT_POST,'nome') ;
+            $rsa->cognome = filter_input(INPUT_POST,'cognome') ;
+            $stmt = $rsa->showAllWhere('id',['nome','cognome']) ;
+            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+            extract($row);
+
+            $rsa->table = 'pazientiFarmaci' ;
+            $id_paziente = $row['id'] ;
+            $rsa->id_pazienti = $id_paziente ;
+            $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco') ;
+            $rsa->cpr = filter_input(INPUT_POST,'cpr') ;
+
+            if($rsa->insert(['id_pazienti','id_farmaci','cpr']))
+            {
+                header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&msg=pazientiAddSucc");
+                exit;
+            }
+            else
+            {
+                header("Location: ../index.php?p=allPazienti&err=farmaciPazientiErr");
+                exit;
+            }
+
          }
          else
          {
-            header("Location: ../index.php?p=allBeneficiari&err=benefAddFail");
+            header("Location: ../index.php?p=allPazienti&err=pazientiAddFail");
             exit;
          }
 
 }
 else
 {
-    header("Location: ../index.php?p=allBeneficiari&err=noPost");
+    header("Location: ../index.php?p=allPazienti&err=noPost");
     exit;
 }

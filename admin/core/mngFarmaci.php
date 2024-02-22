@@ -17,9 +17,9 @@ require __DIR__."/coreConfig.php";
 if(filter_input(INPUT_GET,"idToDel"))
 {
     
-    $rsa->id = filter_input(INPUT_GET,"idToDel");
+    $rsa->id_farmaci = filter_input(INPUT_GET,"idToDel");
     $rsa->table = 'pazientiFarmaci' ;
-    $stmt = $rsa->showAllWhere('id',['id']) ;
+    $stmt = $rsa->showAllWhere('id',['id_farmaci']) ;
     $count = $stmt->rowCount();
             
     if( $count > 0 )

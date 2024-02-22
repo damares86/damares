@@ -17,18 +17,48 @@ require __DIR__."/coreConfig.php";
 if(filter_input(INPUT_GET,"idToDel"))
 {
 
-    $rsa->id = filter_input(INPUT_GET,"idToDel");
-    $rsa->table = 'pazienti' ;
+    $idToDel = filter_input(INPUT_GET,"idToDel");
 
-    if($rsa->delete('id'))
+    // remove all pazientiFarmaci record
+    $rsa->id_pazienti = $idToDel ;
+    $rsa->table = 'pazientiFarmaci' ;
+    $stmt = $rsa->showAllWhere('id',['id_pazienti']) ;
+
+    $error = 0 ;
+    while( $row = $stmt->fetch(PDO::FETCH_ASSOC) )
     {
-        header("Location: ../index.php?p=allPazienti&msg=pazienteDel");
-        exit;
+        extract($row);
+
+        $rsa->table = 'pazientiFarmaci' ;
+        $rsa->id = $row['id'] ;
+
+        if(!$rsa->delete('id'))
+        {
+            $error++;
+        }
+        
+    }
+    
+    if ($error==0 )
+    {            
+        $rsa->id = $idToDel;
+        $rsa->table = 'pazienti' ;
+
+        if($rsa->delete('id'))
+        {
+            header("Location: ../index.php?p=allPazienti&msg=pazienteDel");
+            exit;
+        }
+        else
+        {
+            header("Location: ../index.php?p=allPazienti&err=pazienteNoDel");
+            exit;
+        }
     }
     else
     {
-        header("Location: ../index.php?p=allPazienti&err=pazienteNoDel");
-        exit;
+        header("Location: ../index.php?p=allPazienti&err=pazienteFarmaciNoDel");
+        exit; 
     }
 
 }
