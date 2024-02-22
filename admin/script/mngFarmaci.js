@@ -15,16 +15,16 @@ $(document).ready(function(){
                     '<fieldset class="form-group">'+
                         '<select '+
                         'class="form-select"'+
-                        'name="f_'+i+'">'+                        
-                        '<\?php\n'+
+                        'name="f_'+i+'">\n'+                        
+                        '<?php\n'+
                             '\$rsa->table = "farmaci" ;\n'+
                             '\$stmt = \$rsa->showAll(\'id\');\n'+
                             'while(\$row = \$stmt-\>fetch(PDO::FETCH_ASSOC)){\n'+
-                        '\?>\n'+
+                        '?>\n'+
                             '<option value="<?=\$row[\'id\']?>"><?=\$row[\'principio\']?></option>'+
-                        '<\?php'+
+                        '<?php'+
                         '}'+
-                        '\?>'+
+                        '?>'+
                         '</select>'+
                     '</fieldset>'+
                     '</div>'+

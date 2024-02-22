@@ -88,7 +88,7 @@
                                                     <fieldset class="form-group">
                                                         <select
                                                         class="form-select"
-                                                        name="f_1"
+                                                        name="farmaco"
                                                         >
                                                         <?php
                                                             $rsa->table = "farmaci" ;
@@ -107,6 +107,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-1">
+                                            &nbsp;
+                                            <!-- <button type="button" name="remove" id="1" class="btn btn-danger btn_remove p-2 text-center">X</button> -->
+                                        </div>
                                         <div class="col-md-2">N° cpr die</div>
                                         <div class="col-md-2">
                                             <div class="form-group">
@@ -116,21 +120,19 @@
                                                         type="text"
                                                         class="form-control"
                                                         placeholder="0"
-                                                        name="cpr_1"
+                                                        name="cpr"
                                                         data-parsley-required="true"
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-1">
-                                            <button type="button" name="remove" id="1" class="btn btn-danger btn_remove p-2 text-center">X</button>
-                                        </div>
+
                                         <span class="mb-3"></span>
                                     </div>
                                 </div>
 
-                         <button type="button" name="add" id="add" class="btn btn-success w-25">Aggiungi farmaco</button>
+                         <!-- <button type="button" name="add" id="add" class="btn btn-success w-25">Aggiungi farmaco</button> -->
 
 
                         </div>

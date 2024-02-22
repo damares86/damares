@@ -30,7 +30,10 @@ $parent_table=[['link'=>'allPazienti',
                   'icon'=>'person-vcard'],
             ['link'=>'allFarmaci',
                   'label'=>'Elenco farmaci',
-                  'icon'=>'building']];
+                  'icon'=>'building'],
+            ['link'=>'addOrdini',
+                  'label'=>'Calcola un ordine',
+                  'icon'=>'box-seam']];
 
 $query_drop_table = "DROP TABLE  ".$prefix."pazienti, ".$prefix."farmaci, ".$prefix."pazientiFarmaci";
 
