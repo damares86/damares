@@ -22,7 +22,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."pazienti
       ( id INT ( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       id_pazienti INT(10) NOT NULL,
       id_farmaci INT(10) NOT NULL,
-      cpr INT(10) NOT NULL,
+      cpr FLOAT NOT NULL,
       magazzino INT(10) DEFAULT 0);";
 
 $parent_table=[['link'=>'allPazienti',

@@ -42,7 +42,6 @@
           <tr>
             <th>Principio attivo</th>
             <th>Compresse per scatola</th>
-            <th>Confezioni a magazzino</th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -56,7 +55,6 @@
           <tr>
             <td><?=$row['principio']?></td>
             <td><?=$row['cpr_box']?></td>
-            <td><?=$row['magazzino']?></td>
             <td>
               <a href="index.php?p=editFarmaco&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i

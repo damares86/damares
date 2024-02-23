@@ -64,7 +64,9 @@
         <thead>
           <tr>
             <th>Principio attivo</th>
+            <th>Totale compresse</th>
             <th>Scatole da ordinare</th>
+            <th>Pazienti</th>
           </tr>
         </thead>
         <tbody>
@@ -77,7 +79,21 @@
         ?>
           <tr>
             <td><?=$dataArr[$i]['farmaco']?></td>
+            <td>
+              <?php
+                $cpr = ceil($dataArr[$i]['compresse']);
+                echo $cpr ;
+                ?>
+            </td>
             <td><?=$dataArr[$i]['scatole']?></td>
+            <td>
+              <?php
+                for($idx = 0 ; $idx<(count($dataArr[$i]['pazienti'])); $idx++)
+                {
+                  echo $dataArr[$i]['pazienti'][$idx].'<br>';
+                }
+              ?>
+            </td>
           </tr>
         <?php
          }

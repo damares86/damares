@@ -112,7 +112,7 @@ extract($row1) ;
                                             <div class="col-md-2">
                                                 <label>Principio attivo <span class="text-danger">*</span></label>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="form-check mandatory">
                                                         <div class="position-relative">
@@ -144,7 +144,7 @@ extract($row1) ;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">N° cpr die</div>
+                                            <div class="col-md-1">N° cpr die</div>
                                             <div class="col-md-1">
                                                 <div class="form-group">
                                                     <div class="form-check mandatory">
@@ -161,7 +161,26 @@ extract($row1) ;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 ">
+                                            <div class="col-md-1">
+                                                Scatole
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <div class="form-check mandatory">
+                                                        <div class="position-relative">
+                                                            <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            placeholder="0"
+                                                            name="magazzino"
+                                                            data-parsley-required="true"
+                                                            value="<?=$row2['magazzino']?>"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
                                                 <div class="form-check form-switch px-5">
                                                     <input class="form-check-input delete" type="checkbox" name="del_<?=$i?>" id="flexSwitchCheckDefault" >
                                                     <label class="form-check-label text-danger" for="flexSwitchCheckDefault">Elimina </label>
@@ -220,7 +239,7 @@ extract($row1) ;
                                 <div class="col-md-2">
                                     <label>Principio attivo <span class="text-danger">*</span></label>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-check mandatory">
                                             <div class="position-relative">
@@ -251,8 +270,8 @@ extract($row1) ;
                                     &nbsp;
                                     <!-- <button type="button" name="remove" id="1" class="btn btn-danger btn_remove p-2 text-center">X</button> -->
                                 </div>
-                                <div class="col-md-2">N° cpr die</div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">N° cpr die</div>
+                                <div class="col-md-1">
                                     <div class="form-group">
                                         <div class="form-check mandatory">
                                             <div class="position-relative">
@@ -262,11 +281,31 @@ extract($row1) ;
                                                 placeholder="0"
                                                 name="cpr"
                                                 data-parsley-required="true"
-                                                value="<?=$row2['cpr']?>"
                                                 />
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-1">
+                                    Scatole
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <div class="form-check mandatory">
+                                            <div class="position-relative">
+                                                <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="0"
+                                                name="magazzino"
+                                                data-parsley-required="true"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    &nbsp;
                                 </div>
 
                                 <span class="mb-3"></span>

@@ -55,11 +55,10 @@ if(filter_input(INPUT_POST,"idToMod"))
 
     $rsa->principio = filter_input(INPUT_POST,'principio') ;
     $rsa->cpr_box = filter_input(INPUT_POST,'cpr_box') ;
-    $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
 
     $rsa->table = 'farmaci' ;
 
-    if( $rsa->update(['principio','cpr_box','magazzino'],'id') )
+    if( $rsa->update(['principio','cpr_box'],'id') )
     {
         header("Location: ../index.php?p=allFarmaci&msg=farmaciEdit");
         exit;
@@ -75,11 +74,10 @@ else if($operation == "add")
 {
         $rsa->principio = filter_input(INPUT_POST,'principio') ;
         $rsa->cpr_box = filter_input(INPUT_POST,'cpr_box') ;
-        $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
 
         $rsa->table = 'farmaci' ;
 
-        if( $rsa->insert(['principio','cpr_box','magazzino']) )
+        if( $rsa->insert(['principio','cpr_box']) )
         {
             header("Location: ../index.php?p=allFarmaci&msg=farmaciAddSucc");
             exit;

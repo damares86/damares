@@ -81,7 +81,7 @@
                                         <div class="col-md-2">
                                             <label>Principio attivo <span class="text-danger">*</span></label>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form-check mandatory">
                                                     <div class="position-relative">
@@ -107,12 +107,8 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-1">N° cpr die</div>
                                         <div class="col-md-1">
-                                            &nbsp;
-                                            <!-- <button type="button" name="remove" id="1" class="btn btn-danger btn_remove p-2 text-center">X</button> -->
-                                        </div>
-                                        <div class="col-md-2">N° cpr die</div>
-                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <div class="form-check mandatory">
                                                     <div class="position-relative">
@@ -126,6 +122,27 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            Scatole
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <div class="form-check mandatory">
+                                                    <div class="position-relative">
+                                                        <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        placeholder="0"
+                                                        name="magazzino"
+                                                        data-parsley-required="true"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            &nbsp;
                                         </div>
 
                                         <span class="mb-3"></span>

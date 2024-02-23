@@ -86,27 +86,6 @@ extract($row1) ;
                                 </div> 
                                 <div class="col-md-6">&nbsp;</div>
 
-                                <div class="col-md-3">
-                                    <label>Scatole a magazzino <span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <div class="form-check mandatory">
-                                            <div class="position-relative">
-                                                <input
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="Magazzino"
-                                                name="magazzino"
-                                                data-parsley-required="true"
-                                                value="<?=$row1['magazzino']?>"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <div class="col-md-6">&nbsp;</div>
-
                         </div>
                      
                         <input type="hidden" name="operation" value="edit">

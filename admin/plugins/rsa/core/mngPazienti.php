@@ -116,8 +116,9 @@ if(filter_input(INPUT_POST,"idToMod"))
                     $rsa->id_pazienti = $id_paziente ;
                     $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco_'.$i.'');
                     $rsa->cpr = filter_input(INPUT_POST,'cpr_'.$i.'');
+                    $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
 
-                    if(!$rsa->update(['id_pazienti','id_farmaci','cpr'],'id'))
+                    if(!$rsa->update(['id_pazienti','id_farmaci','cpr','magazzino'],'id'))
                     {
                         $error++;
                     }
@@ -151,8 +152,10 @@ if(filter_input(INPUT_POST,"idToMod"))
         $rsa->id_pazienti = $id_paziente ;
         $rsa->id_farmaci = filter_input(INPUT_POST,"farmaco") ;
         $rsa->cpr = filter_input(INPUT_POST,"cpr") ;
+        $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
 
-        if($rsa->insert(['id_pazienti','id_farmaci','cpr']))
+
+        if($rsa->insert(['id_pazienti','id_farmaci','cpr','magazzino']))
         {
             header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&msg=pazientiFarmaciAddSucc");
             exit;
@@ -185,9 +188,10 @@ else if($operation == "add")
             $id_paziente = $row['id'] ;
             $rsa->id_pazienti = $id_paziente ;
             $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco') ;
+            $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
             $rsa->cpr = filter_input(INPUT_POST,'cpr') ;
 
-            if($rsa->insert(['id_pazienti','id_farmaci','cpr']))
+            if($rsa->insert(['id_pazienti','id_farmaci','cpr','magazzino']))
             {
                 header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&msg=pazientiAddSucc");
                 exit;
