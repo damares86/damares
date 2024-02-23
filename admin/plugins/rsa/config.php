@@ -17,13 +17,13 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."pazienti
       CREATE TABLE IF NOT EXISTS ".$prefix."farmaci
       ( id INT ( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       principio VARCHAR(255) NOT NULL,
-      cpr_box INT(10) NOT NULL,
-      magazzino INT(10) DEFAULT 0);
+      cpr_box INT(10) NOT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."pazientiFarmaci
       ( id INT ( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       id_pazienti INT(10) NOT NULL,
       id_farmaci INT(10) NOT NULL,
-      cpr INT(10) NOT NULL);";
+      cpr INT(10) NOT NULL,
+      magazzino INT(10) DEFAULT 0);";
 
 $parent_table=[['link'=>'allPazienti',
                   'label'=>'Pazienti',
