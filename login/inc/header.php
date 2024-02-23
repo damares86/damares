@@ -5,7 +5,7 @@
     // 	'output' => true,
     // ));
 
-    if(!is_file('class/Database.php')){
+    if(!is_file('../admin/class/Database.php')){
       require "../admin/inc/dbdata.php";
       exit;
     }
