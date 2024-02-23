@@ -1,12 +1,15 @@
 
 <div class="card-header text-center">
 <script src='script/index.global.js'></script>
+
+<script src='script/it.global.js'></script>
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
+      locale:'it',
       headerToolbar: {
         left: 'prevYear,prev,next,nextYear today',
         center: 'title',

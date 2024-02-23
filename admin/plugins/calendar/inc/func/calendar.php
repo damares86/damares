@@ -3,12 +3,15 @@
 <head>
 <meta charset='utf-8' />
 <script src='script/index.global.js'></script>
+
+<script src='script/fc_locale/<?=$lang?>.global.js'></script>
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
+      locale:'<?=$lang?>',
       headerToolbar: {
         left: 'prevYear,prev,next,nextYear today',
         center: 'title',
