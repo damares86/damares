@@ -39,7 +39,7 @@ if($row_debug['value']==1){
     $cfa->table = "polizze" ;
     $stmt = $cfa->showAllWhere('id',['et']);
 
-    $from="info@dmweblab.com";
+    $from="info@fideiussioniecauzioni.biz";
     
     while($row = $stmt->fetch(PDO::FETCH_ASSOC))
     {
@@ -76,7 +76,7 @@ if($row_debug['value']==1){
         $output.='<br>';
         $output.='Compagnia: <b>'.$row2['nome'].'</b><br>' ;
         $output.= 'Scadenza: <b>'.$row['et'].'</b><br>' ;
-        $output.='<a href="http://minicms.altervista.org/admin/index.php?p=editPolizza&idToMod='.$row['id'].'">Link polizza</a>';
+        $output.='<a href="https://www.fideiussioniecauzioni.biz/piattaforma-cfa/admin/index.php?p=editPolizza&idToMod='.$row['id'].'">Link polizza</a>';
         $output.='<br>';
         $output.='</body></html>';
         
@@ -89,8 +89,8 @@ if($row_debug['value']==1){
 
     if( $error>0 )
     {
-        $from = "info@dmweblab.com" ;
-        $to = "davidemasera@gmail.com" ;
+        $from = "info@fideiussioniecauzioni.biz" ;
+        $to = "lavecchiaandrea@gmail.com" ;
         $subject = "Errore nell'invio delle email delle scadenze" ;
 
         $headers  = 'MIME-Version: 1.0' . "\r\n";
