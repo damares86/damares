@@ -60,6 +60,7 @@ extract($row1) ;
                                             placeholder="Ragione sociale"
                                             name="ragione_sociale_contraente"
                                             value=<?=$row1['ragione_sociale_contraente']?>
+                                        data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -79,6 +80,7 @@ extract($row1) ;
                                             placeholder="Nome"
                                             name="nome_contraente"
                                             value=<?=$row1['nome_contraente']?>
+                                        data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -98,6 +100,7 @@ extract($row1) ;
                                             placeholder="Cognome"
                                             name="cognome_contraente"
                                             value=<?=$row1['cognome_contraente']?>
+                                        data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -118,6 +121,7 @@ extract($row1) ;
                                             placeholder="Indirizzo"
                                             name="via_contraente"
                                             value=<?=$row1['via_contraente']?>
+                                        data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -137,6 +141,7 @@ extract($row1) ;
                                             placeholder="Città"
                                             name="citta_contraente"
                                             value=<?=$row1['citta_contraente']?>
+                                        data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -156,6 +161,7 @@ extract($row1) ;
                                             placeholder="CAP"
                                             name="cap_contraente"
                                             value=<?=$row1['cap_contraente']?>
+                                        data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -175,6 +181,7 @@ extract($row1) ;
                                             placeholder="Codice fiscale"
                                             name="codice_fiscale_contraente"
                                             value=<?=$row1['codice_fiscale_contraente']?>
+                                        data-parsley-required="true"
                                             />
                                         </div>
                                     </div>
@@ -194,6 +201,7 @@ extract($row1) ;
                                             placeholder="Partita IVA"
                                             name="p_iva_contraente"
                                             value=<?=$row1['p_iva_contraente']?>
+                                        data-parsley-required="true"
                                             />
                                         </div>
                                     </div>

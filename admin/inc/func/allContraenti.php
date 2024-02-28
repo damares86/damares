@@ -40,9 +40,9 @@
       <table class="table" id="table1">
         <thead>
           <tr>
+            <th>Ragione sociale</th>
             <th><?=$common_name?></th>
-            <th>Cellulare</th>
-            <th><?=$common_email?></th>
+            <th>Città</th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -54,9 +54,9 @@
           extract($row);
         ?>
           <tr>
-            <td><?=$row['cognome_bene']?> <?=$row['nome_contraente']?></td>
-            <td><?=$row['cellulare_contraente']?></td>
-            <td><?=$row['email_contraente']?></td>
+            <td><?=$row['ragione_sociale_contraente']?></td>
+            <td><?=$row['cognome_contraente']?> <?=$row['nome_contraente']?></td>
+            <td><?=$row['citta_contraente']?></td>
             <td>
               <a href="index.php?p=editContraente&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i

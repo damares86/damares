@@ -61,6 +61,7 @@ extract($row1) ;
                                                 placeholder="Ragione sociale"
                                                 name="ragione_sociale_beneficiario"
                                                 value=<?=$row1['ragione_sociale_beneficiario']?>
+                                        data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -80,6 +81,7 @@ extract($row1) ;
                                                 placeholder="Indirizzo"
                                                 name="via_beneficiario"
                                                 value=<?=$row1['via_beneficiario']?>
+                                        data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -99,6 +101,7 @@ extract($row1) ;
                                                 placeholder="Città"
                                                 name="citta_beneficiario"
                                                 value=<?=$row1['citta_beneficiario']?>
+                                        data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -118,6 +121,7 @@ extract($row1) ;
                                                 placeholder="CAP"
                                                 name="cap_beneficiario"
                                                 value=<?=$row1['cap_beneficiario']?>
+                                        data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -137,6 +141,7 @@ extract($row1) ;
                                                 placeholder="Codice fiscale"
                                                 name="codice_fiscale_beneficiario"
                                                 value=<?=$row1['codice_fiscale_beneficiario']?>
+                                        data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>
@@ -156,6 +161,7 @@ extract($row1) ;
                                                 placeholder="Partita IVA"
                                                 name="p_iva_beneficiario"
                                                 value=<?=$row1['p_iva_beneficiario']?>
+                                        data-parsley-required="true"
                                                 />
                                             </div>
                                         </div>

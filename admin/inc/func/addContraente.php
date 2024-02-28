@@ -46,6 +46,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_ragione_sociale?>"
                                         name="ragione_sociale_contraente"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -64,6 +65,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_nome?>"
                                         name="nome_contraente"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -82,6 +84,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_cognome?>"
                                         name="cognome_contraente"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -101,6 +104,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_indirizzo?>"
                                         name="via_contraente"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -119,6 +123,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_citta?>"
                                         name="citta_contraente"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -137,6 +142,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_cap?>"
                                         name="cap_contraente"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -157,6 +163,7 @@
                                         name="codice_fiscale_contraente"
                                         maxlength="16"
                                         data-parsley-maxlength="16"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -175,6 +182,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_piva?>"
                                         name="p_iva_contraente"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>

@@ -47,6 +47,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_ragione_sociale?>"
                                         name="ragione_sociale_beneficiario"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -65,6 +66,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_indirizzo?>"
                                         name="via_beneficiario"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -83,6 +85,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_citta?>"
                                         name="citta_beneficiario"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -101,6 +104,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_cap?>"
                                         name="cap_beneficiario"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -121,6 +125,7 @@
                                         name="codice_fiscale_beneficiario"
                                         maxlength="16"
                                         data-parsley-maxlength="16"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
@@ -139,6 +144,7 @@
                                         class="form-control"
                                         placeholder="<?=$cfa_piva?>"
                                         name="p_iva_beneficiario"
+                                        data-parsley-required="true"
                                         />
                                     </div>
                                 </div>
