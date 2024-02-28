@@ -9,17 +9,13 @@ $surname="";
 $details="";
 $details_opt="";
 
-    while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
-    extract($row1);
+    while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
+    {
+        extract($row1);
+
+        $customers_details=unserialize($row1['details']);
+        $customers_details_opt=unserialize($row1['details_opt']);
     
-        $id=$row1['id'];
-        $name=$row1['name'];
-        $surname=$row1['surname'];
-        $details=unserialize($row1['details']);
-        $details_opt=unserialize($row1['details_opt']);
-    }
-
-
 ?>
 
 <div class="page-title">
@@ -72,7 +68,7 @@ $details_opt="";
                                         id="first-name"
                                         name="name"
                                         data-parsley-required="true"
-                                        value="<?=$name?>"
+                                        value="<?=$row1['name']?>"
                                         />
                                         <div class="form-control-icon">
                                         <i class="bi bi-person"></i>
@@ -83,7 +79,7 @@ $details_opt="";
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$common_surname?><span class="text-danger">*</span></label>
+                            <label><?=$common_username?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -92,15 +88,55 @@ $details_opt="";
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$customer_add_surname_ph?>"
-                                        id="surname"
-                                        name="surname"
+                                        placeholder="<?=$common_username?>"
+                                        name="username"
                                         data-parsley-required="true"
-                                        value="<?=$surname?>"
+                                        value="<?=$row1['username']?>"                                        
                                         />
                                         <div class="form-control-icon">
                                         <i class="bi bi-person"></i>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Company<span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Company"
+                                        name="company"
+                                        data-parsley-required="true"
+                                        value="<?=$row1['company']?>"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Email<span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="email"
+                                        class="form-control"
+                                        placeholder="Email"
+                                        name="email"
+                                        data-parsley-required="true"
+                                        value="<?=$row1['email']?>"
+
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +151,7 @@ $details_opt="";
 
                             $label = "customer_add_$item";
                             $item_label=ucfirst($item);
-                            $array_value = array_values($details[$counter]);
+                            $array_value = array_values($customers_details[$counter]);
                             $value = $array_value[0];
 
                         ?>
@@ -158,7 +194,7 @@ $details_opt="";
                             $label = "customer_add_$item";
                             $item_label=ucfirst($item);
                             // if(array_values($details_opt[$counter])){
-                                $array_value = array_values($details_opt[$counter]);
+                                $array_value = array_values($customers_details_opt[$counter]);
                                 $value = $array_value[0];
                             // }
                         ?>
@@ -191,11 +227,10 @@ $details_opt="";
                                 $counter++;
 
                         }
-
                         ?>
 
                         
-                        <input type="hidden" name="idToMod" value="<?=$id?>">
+                        <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="origin" value="editCustomer">
                       
@@ -227,6 +262,64 @@ $details_opt="";
                 </div>
                 <div class="card-content">
                     <div class="card-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="row">
+        <div class="col-md-8 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Modifica la password per questo cliente</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-horizontal" action="core/mngCustomers.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label><?=$common_password?> <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group has-icon-left">
+                                            <div class="form-check mandatory">
+                                                <div class="position-relative">
+                                                    <input
+                                                    type="password"
+                                                    class="form-control"
+                                                    placeholder="Password"
+                                                    name="password"
+                                                    data-parsley-required="true"
+                                                    />
+                                                    <div class="form-control-icon">
+                                                    <i class="bi bi-lock"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="operation" value="password">
+                                    <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
+                                    <input type="hidden" name="origin" value="editCustomer">
+                                    <?php
+                                    }
+                                    ?>
+                            
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary me-1 mb-1"
+                                            >
+                                            <?=$common_submit?>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -13,7 +13,9 @@ class Customer extends Common{
     public $table = 'customers' ;
     public $id ;
     public $name ;
-    public $surname ;
+    public $username ;
+    public $email ;
+    public $company ;
     public $details ;
     public $details_opt ;
 
@@ -22,14 +24,14 @@ class Customer extends Common{
         // query to check if email exists
         $query = "SELECT *
         FROM " .$this->prx. $this->table . "
-        WHERE name = :name AND
-              surname = :surname
+        WHERE username = :username AND
+              email = :email
         LIMIT 0,1";
     
         $stmt = $this->conn->prepare( $query );
     
-        $stmt->bindParam(":name", $this->name);
-        $stmt->bindParam(":surname", $this->surname);
+        $stmt->bindParam(":username", $this->username);
+        $stmt->bindParam(":email", $this->email);
     
         // execute the query
         $stmt->execute();
