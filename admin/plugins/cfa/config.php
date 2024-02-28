@@ -50,9 +50,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."collaboratori
       cap_contraente VARCHAR(6) NOT NULL,
       codice_fiscale_contraente VARCHAR(16) NOT NULL,
       p_iva_contraente VARCHAR(255) NOT NULL,
-      telefono_contraente VARCHAR(15) NOT NULL,
-      cellulare_contraente VARCHAR(15) NOT NULL,
-      email_contraente VARCHAR(255) NOT NULL, 
+      telefono_contraente VARCHAR(15) DEFAULT NULL,
+      cellulare_contraente VARCHAR(15) DEFAULT NULL,
+      email_contraente VARCHAR(255) DEFAULT NULL, 
       details TEXT DEFAULT NULL,
       details_opt TEXT DEFAULT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."beneficiario

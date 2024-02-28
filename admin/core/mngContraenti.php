@@ -62,9 +62,32 @@ if(filter_input(INPUT_POST,"idToMod"))
     $cfa->cap_contraente = filter_input(INPUT_POST,'cap_contraente');
     $cfa->codice_fiscale_contraente = filter_input(INPUT_POST,'codice_fiscale_contraente');
     $cfa->p_iva_contraente = filter_input(INPUT_POST,'p_iva_contraente');
-    $cfa->telefono_contraente = filter_input(INPUT_POST,'telefono_contraente');
-    $cfa->cellulare_contraente = filter_input(INPUT_POST,'cellulare_contraente');
-    $cfa->email_contraente = filter_input(INPUT_POST,'email_contraente');
+    if(filter_input(INPUT_POST,'telefono_contraente'))
+    {
+        $cfa->telefono_contraente = filter_input(INPUT_POST,'telefono_contraente');
+    }
+    else
+    {
+        $cfa->telefono_contraente = 0;
+    }
+
+    if(filter_input(INPUT_POST,'cellulare_contraente'))
+    {
+        $cfa->cellulare_contraente = filter_input(INPUT_POST,'cellulare_contraente');
+    }
+    else
+    {
+        $cfa->cellulare_contraente = 0;
+    }
+
+    if(filter_input(INPUT_POST,'email_contraente'))
+    {
+        $cfa->email_contraente = filter_input(INPUT_POST,'email_contraente');
+    }
+    else
+    {
+        $cfa->email_contraente = 0;
+    }
     
     $cfa->table = 'contraente' ;
     $err_contraente = '' ;
@@ -92,9 +115,32 @@ else if($operation == "add")
          $cfa->cap_contraente = filter_input(INPUT_POST,'cap_contraente');
          $cfa->codice_fiscale_contraente = filter_input(INPUT_POST,'codice_fiscale_contraente');
          $cfa->p_iva_contraente = filter_input(INPUT_POST,'p_iva_contraente');
-         $cfa->telefono_contraente = filter_input(INPUT_POST,'telefono_contraente');
-         $cfa->cellulare_contraente = filter_input(INPUT_POST,'cellulare_contraente');
-         $cfa->email_contraente = filter_input(INPUT_POST,'email_contraente');
+         if(filter_input(INPUT_POST,'telefono_contraente'))
+         {
+             $cfa->telefono_contraente = filter_input(INPUT_POST,'telefono_contraente');
+         }
+         else
+         {
+             $cfa->telefono_contraente = 0;
+         }
+     
+         if(filter_input(INPUT_POST,'cellulare_contraente'))
+         {
+             $cfa->cellulare_contraente = filter_input(INPUT_POST,'cellulare_contraente');
+         }
+         else
+         {
+             $cfa->cellulare_contraente = 0;
+         }
+     
+         if(filter_input(INPUT_POST,'email_contraente'))
+         {
+             $cfa->email_contraente = filter_input(INPUT_POST,'email_contraente');
+         }
+         else
+         {
+             $cfa->email_contraente = 0;
+         }
          
          $cfa->table = 'contraente' ;
          $err_contraente = '' ;

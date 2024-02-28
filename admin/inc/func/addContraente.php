@@ -182,11 +182,11 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$cfa_telefono?> <span class="text-danger">*</span></label>
+                            <label><?=$cfa_telefono?> </label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="form-check mandatory">
+                                <div class="form-check">
                                     <div class="position-relative">
                                         <input
                                         type="text"
@@ -200,11 +200,11 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$cfa_cellulare?> <span class="text-danger">*</span></label>
+                            <label><?=$cfa_cellulare?></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="form-check mandatory">
+                                <div class="form-check">
                                     <div class="position-relative">
                                         <input
                                         type="text"
@@ -218,11 +218,11 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$common_email?> <span class="text-danger">*</span></label>
+                            <label><?=$common_email?></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="form-check mandatory">
+                                <div class="form-check">
                                     <div class="position-relative">
                                         <input
                                         type="email"

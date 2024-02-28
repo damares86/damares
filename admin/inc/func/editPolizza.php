@@ -526,11 +526,11 @@ extract($row1) ;
                             </div>
 
                             <div class="col-md-3">
-                                <label>Telefono <span class="text-danger">*</span></label>
+                                <label>Telefono</label>
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <div class="form-check mandatory">
+                                    <div class="form-check">
                                         <div class="position-relative">
                                             <input
                                             type="text"
@@ -544,11 +544,11 @@ extract($row1) ;
                             </div>
 
                             <div class="col-md-3">
-                                <label>Cellulare <span class="text-danger">*</span></label>
+                                <label>Cellulare</label>
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <div class="form-check mandatory">
+                                    <div class="form-check">
                                         <div class="position-relative">
                                             <input
                                             type="text"
@@ -562,11 +562,11 @@ extract($row1) ;
                             </div>
 
                             <div class="col-md-3">
-                                <label>Email <span class="text-danger">*</span></label>
+                                <label>Email </label>
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <div class="form-check mandatory">
+                                    <div class="form-check">
                                         <div class="position-relative">
                                             <input
                                             type="email"
