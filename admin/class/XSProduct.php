@@ -1,0 +1,23 @@
+<?php 
+
+##############    Damares    ###############
+#                                          #
+#    A backend project by DM WebLab        #
+#   Website: https://www.dmweblab.com      #
+#   GitHub: https://github.com/damares86   #
+#                                          #
+############################################
+
+class XSProduct extends Common{
+
+    public $product_name ;
+    public $product_files_name ;
+    public $product_files_label ;
+    public $product_files_cat_id ;
+    public $product_id ;
+    public $cat_name ;
+
+
+}
+
+?>

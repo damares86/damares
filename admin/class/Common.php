@@ -123,6 +123,7 @@ function update($fields,$where){
         foreach($fields as $item){
             $stmt->bindParam(":$item", $this->$item);
         }
+        print_r($query);
         
     $stmt->bindParam(":$where",$this->$where);
 

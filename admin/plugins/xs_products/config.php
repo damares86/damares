@@ -13,15 +13,26 @@ $link_parent = "xs_products" ;
 $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."product
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       product_name VARCHAR(255) NOT NULL);
-      CREATE TABLE IF NOT EXISTS ".$prefix."product_doc
+      CREATE TABLE IF NOT EXISTS ".$prefix."product_files
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      product_doc_name VARCHAR(255) NOT NULL,
-      product_doc_label VARCHAR(255) NOT NULL,
-      product_id INT ( 5 ) NOT NULL)";
+      product_files_name VARCHAR(255) NOT NULL,
+      product_files_label VARCHAR(255) NOT NULL,
+      product_files_cat_id INT ( 5 ) NOT NULL,
+      product_id INT ( 5 ) NOT NULL);
+      CREATE TABLE IF NOT EXISTS ".$prefix."product_files_cat
+      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      cat_name VARCHAR(255) NOT NULL)";
 
-$parent_table=[['link'=>'allXSProduct',
+$parent_table=[['link'=>'xs_products',
                   'label'=>'Products',
                   'icon'=>'display']];
+
+$child_table=[['link'=>'allXSProduct',
+                  'label'=>'All products',
+                  'icon'=>'display'],
+                  ['link'=>'allXSProductCat',
+                  'label'=>'Files categories',
+                  'icon'=>'bookmarks']] ;
 
 
 $query_drop_table = "DROP TABLE  ".$prefix."product, ".$prefix."product_doc";
