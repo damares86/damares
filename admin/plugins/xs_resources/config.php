@@ -37,7 +37,7 @@ $child_table=[['link'=>'allXSResources',
             ['link'=>'allXSLangs',
             'label'=>'Resources language',
             'icon'=>'translate'],
-            ['link'=>'allXSType',
+            ['link'=>'allXSTypes',
             'label'=>'Resources type',
             'icon'=>'bookmarks']
             ];
