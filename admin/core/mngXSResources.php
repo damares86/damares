@@ -14,20 +14,57 @@ require __DIR__."/coreConfig.php";
 
 if(filter_input(INPUT_GET,"idLangToDel")){
 
-    // delete diviso per tipologia  (risorsa, tipo, lingua)
+    // check if there are resources with this lang
+    $xsresources->lang_id = filter_input(INPUT_GET,"idLangToDel");
+    $xsresources->table = 'resources' ;
+    $stmt = $xsresources->countItem('lang_id') ;
 
-    $xsresources->id = filter_input(INPUT_GET,"idToDel");
+    if($stmt>0)
+    {
+        header("Location: ../index.php?p=allXSLangs&err=resLangExists");
+        exit; 
+    }
+    
+    // delete the lang
+    $xsresources->id = filter_input(INPUT_GET,"idLangToDel");
     $xsresources->table = 'resource_lang' ;
 
-    if($customer->delete('id')){
-        header("Location: ../index.php?p=allCustomers&msg=customerDel");
+    if($xsresources->delete('id')){
+        header("Location: ../index.php?p=allXSLangs&msg=resLangDel");
         exit;
     }else{
-        header("Location: ../index.php?p=allCustomers&err=customerNoDel");
+        header("Location: ../index.php?p=allXSLangs&err=resLangNoDel");
         exit;
     }
 
 }
+else if(filter_input(INPUT_GET,"idTypeToDel")){
+
+    // check if there are resources with this lang
+    $xsresources->lang_id = filter_input(INPUT_GET,"idTypeToDel");
+    $xsresources->table = 'resources' ;
+    $stmt = $xsresources->countItem('type_id') ;
+
+    if($stmt>0)
+    {
+        header("Location: ../index.php?p=allXSTypes&err=resTypeExists");
+        exit; 
+    }
+    
+    // delete the lang
+    $xsresources->id = filter_input(INPUT_GET,"idTypeToDel");
+    $xsresources->table = 'resource_type' ;
+
+    if($xsresources->delete('id')){
+        header("Location: ../index.php?p=allXSTypes&msg=resTypeDel");
+        exit;
+    }else{
+        header("Location: ../index.php?p=allXSTypes&err=resTypeNoDel");
+        exit;
+    }
+
+}
+
 
 $operation = filter_input(INPUT_POST,"operation") ;
 
