@@ -10,7 +10,7 @@ $link_parent = "xs_resources" ;
 
 // REMEMBER: add all pages to section tables and also settings pages
 
-$query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."resource
+$query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."resources
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       resource_name VARCHAR(255) NOT NULL,
       title VARCHAR(255) NOT NULL,
@@ -18,14 +18,14 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."resource
       product_id INT ( 5 ) NOT NULL,
       lang_id INT ( 5 ) NOT NULL,
       type_id INT ( 5 ) NOT NULL,
-      img VARCHAR(255) NOT NULL,
       resource_date DATE);
       CREATE TABLE IF NOT EXISTS ".$prefix."resource_lang
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       resource_lang VARCHAR(255) NOT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."resource_type
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      resource_type VARCHAR(255) NOT NULL);";
+      resource_type VARCHAR(255) NOT NULL,
+      img VARCHAR(255) NOT NULL);";
 
 $parent_table=[['link'=>'xs_resources',
                   'label'=>'Resources',

@@ -1,5 +1,5 @@
 <?php
-$xsresources->table = 'resource' ;
+$xsresources->table = 'resources' ;
 $stmt = $xsresources->showAll('id');
 
 ?>
@@ -32,7 +32,7 @@ $stmt = $xsresources->showAll('id');
 <section class="section">
   <div class="card">
     <div class="card-header">All resources &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addXSResources" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addXSResource" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> Add resource</a
                       ></div>
     <div class="card-body">
@@ -54,8 +54,12 @@ $stmt = $xsresources->showAll('id');
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         ?>
           <tr <?=$class?>>
-            <td><?=$row['surname']?></td>
-            <td><?=$row['name']?></td>
+            <td><?=$row['title']?></td>
+            <td><?=$row['resource_date']?></td>
+            <td><?=$row['product_id']?></td>
+            <td><?=$row['lang_id']?></td>
+            <td><?=$row['type_id']?></td>
+            <td><a href="uploads/<?=$row['resource_name']?>">Link</a></td>
             <td>
               <a href="index.php?p=editXSResources&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i

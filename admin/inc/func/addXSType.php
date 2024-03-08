@@ -38,7 +38,7 @@
                             <label>Tipo<span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
-                            <div class="form-group has-icon-left">
+                            <div class="form-group">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
@@ -50,9 +50,6 @@
                                         data-parsley-required="true"
 
                                         />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-person"></i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

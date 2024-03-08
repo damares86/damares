@@ -18,6 +18,7 @@ class Common{
     public $id ;
     public $prx ;
     public $operation ;
+    public $origin ;
 
 
 // constructor

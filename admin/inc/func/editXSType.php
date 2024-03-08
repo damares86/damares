@@ -52,7 +52,7 @@ $stmt1 = $xsresources->showAllWhere('id',['id']);
                                 extract($row1);
                                 ?>
                         <div class="col-md-9">
-                            <div class="form-group has-icon-left">
+                            <div class="form-group">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
@@ -64,9 +64,6 @@ $stmt1 = $xsresources->showAllWhere('id',['id']);
                                         data-parsley-required="true"
                                         value="<?=$row1['resource_type']?>"
                                         />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-person"></i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

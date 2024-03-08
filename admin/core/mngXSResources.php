@@ -84,7 +84,7 @@ if($operation=="editType")
         exit;
     }else{
         // fail
-        header("Location: ../index.php?p=editXSType&idToMod=$id&msg=resEditTypeFail");
+        header("Location: ../index.php?p=editXSType&idToMod=$id&err=resEditTypeFail");
         exit;
     }
 
@@ -103,7 +103,7 @@ else if($operation=="editLang")
         exit;
     }else{
         // fail
-        header("Location: ../index.php?p=editXSLang&idToMod=$id&msg=resEditLangFail");
+        header("Location: ../index.php?p=editXSLang&idToMod=$id&err=resEditLangFail");
         exit;
     }
 
@@ -188,6 +188,58 @@ else if($operation == "addLang")
         exit;
     }
 
+}
+else if($operation == "add")
+{
+
+    if($_FILES['myfile']['size'] > 0)
+    {
+        $resource_name = $_FILES['myfile']['name'] ;
+        $file->filename = $resource_name ;
+        $file->label = filter_input(INPUT_POST,"title");
+        $filename = $_FILES['myfile']['name'] ;
+        $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
+        $file->path = "../uploads/" ;
+        $file->origin = filter_input(INPUT_POST,"origin");
+        
+        $file->operation = $operation ;
+        
+        // check sull'esistenza del file?
+        
+        if($file->uploadFile())
+        {
+
+            $xsresources->table = 'resources' ;
+            $xsresources->resource_name = $resource_name ;
+            $xsresources->title = filter_input(INPUT_POST,"title");
+            $xsresources->description = filter_input(INPUT_POST,"content");
+            $xsresources->product_id = filter_input(INPUT_POST,"product_id");
+            $xsresources->lang_id = filter_input(INPUT_POST,"lang_id");
+            $xsresources->type_id = filter_input(INPUT_POST,"type_id");
+            $xsresources->resource_date = date("Y-m-d");
+
+            if($xsresources->insert(['resource_name','title','description','product_id','lang_id','type_id','resource_date']))
+            {
+                header("Location: ../index.php?p=allXSResources&msg=resSucc");
+                exit;
+            }
+            else
+            {
+                header("Location: ../index.php?p=allXSResources&err=resFail");
+                exit;
+            }
+            
+        }
+        else
+        {
+            header("Location: ../index.php?p=allXSResources&err=fileResFail");
+            exit;        
+        }
+
+    }else{
+        header("Location: ../index.php?p=allXSResources&err=fileResEmpty");
+        exit;        
+    }
 }
 else
 {

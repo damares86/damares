@@ -20,7 +20,8 @@ class XSResources extends Common{
     public $resource_date ; 
     public $resource_lang ;
     public $resource_type ;
-
+    
+    
 }
 
 ?>
