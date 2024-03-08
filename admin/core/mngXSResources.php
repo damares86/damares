@@ -12,9 +12,9 @@
 
 require __DIR__."/coreConfig.php";
 
-// check if there's a customer to delete
-
 if(filter_input(INPUT_GET,"idToDel")){
+
+    // delete diviso per tipologia  (risorsa, tipo, lingua)
 
     $customer->id = filter_input(INPUT_GET,"idToDel");
 
@@ -32,7 +32,26 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 // check if there's a customer to edit or add
 
-if($operation=="edit"){
+if($operation=="editType")
+{
+
+    $id = filter_input(INPUT_POST,"idToMod") ;
+    $xsresources->table = 'resource_type' ;
+    $xsresources->id = $id ;
+    $xsresources->resource_type = filter_input(INPUT_POST,"name") ;
+
+    if($xsresources->update(['resource_type'],'id')){
+        //success
+        header("Location: ../index.php?p=editXSType&idToMod=$id&msg=resEditTypeSucc");
+        exit;
+    }else{
+        // fail
+        header("Location: ../index.php?p=editXSType&idToMod=$id&msg=resEditTypeFail");
+        exit;
+    }
+}
+else if($operation=="edit")
+{
 
         $id = filter_input(INPUT_POST,"idToMod") ;
         
@@ -77,50 +96,29 @@ if($operation=="edit"){
 		
         }
 
-}else if($operation == "add"){
+}
+else if($operation == "addType")
+{
 
-    $customer->name = filter_input(INPUT_POST,"name");
-    $customer->surname = filter_input(INPUT_POST,"surname");
+    $xsresources->resource_type = filter_input(INPUT_POST,"name");
+    $xsresources->table = 'resource_type';
 
-    if($customer->customerExists()){
-        header("Location: ../index.php?p=addCustomer&err=customerExist");
+    if($xsresources->insert(['resource_type'])){
+        //success
+        header("Location: ../index.php?p=allXSTypes&msg=resTypeSucc");
         exit;
     }else{
-
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-
-        $details_str = serialize($details_arr);
-        $customer->details = $details_str;
-
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
-        }
-        $details_opt_str = serialize($details_opt_arr);
-        $customer->details_opt = $details_opt_str ;
-
-        if($customer->insert(['name','surname','details','details_opt'])){
-
-            //success
-            header("Location: ../index.php?p=allCustomers&msg=customerSucc");
-            exit;
-
-        }else{
-
-            // fail
-            header("Location: ../index.php?p=allCustomers&err=customerFail");
-            exit;
-        }
-
+        // fail
+        header("Location: ../index.php?p=allXSTypes&err=resTypeFail");
+        exit;
     }
 
-}else{
+}
+else if($operation == "addLang")
+{
+
+}
+else{
     header("Location: ../index.php?p=allCustomers&err=noPost");
     exit;
 }
