@@ -12,11 +12,12 @@
 
 require __DIR__."/coreConfig.php";
 
-if(filter_input(INPUT_GET,"idToDel")){
+if(filter_input(INPUT_GET,"idLangToDel")){
 
     // delete diviso per tipologia  (risorsa, tipo, lingua)
 
-    $customer->id = filter_input(INPUT_GET,"idToDel");
+    $xsresources->id = filter_input(INPUT_GET,"idToDel");
+    $xsresources->table = 'resource_lang' ;
 
     if($customer->delete('id')){
         header("Location: ../index.php?p=allCustomers&msg=customerDel");
@@ -49,6 +50,26 @@ if($operation=="editType")
         header("Location: ../index.php?p=editXSType&idToMod=$id&msg=resEditTypeFail");
         exit;
     }
+
+}
+else if($operation=="editLang")
+{
+
+    $id = filter_input(INPUT_POST,"idToMod") ;
+    $xsresources->table = 'resource_lang' ;
+    $xsresources->id = $id ;
+    $xsresources->resource_lang = filter_input(INPUT_POST,"name") ;
+
+    if($xsresources->update(['resource_lang'],'id')){
+        //success
+        header("Location: ../index.php?p=editXSLang&idToMod=$id&msg=resEditLangSucc");
+        exit;
+    }else{
+        // fail
+        header("Location: ../index.php?p=editXSLang&idToMod=$id&msg=resEditLangFail");
+        exit;
+    }
+
 }
 else if($operation=="edit")
 {
@@ -117,8 +138,22 @@ else if($operation == "addType")
 else if($operation == "addLang")
 {
 
+    $xsresources->resource_lang = filter_input(INPUT_POST,"name");
+    $xsresources->table = 'resource_lang';
+
+    if($xsresources->insert(['resource_lang'])){
+        //success
+        header("Location: ../index.php?p=allXSLangs&msg=resLangSucc");
+        exit;
+    }else{
+        // fail
+        header("Location: ../index.php?p=allXSLangs&err=resLangFail");
+        exit;
+    }
+
 }
-else{
+else
+{
     header("Location: ../index.php?p=allCustomers&err=noPost");
     exit;
 }
