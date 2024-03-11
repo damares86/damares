@@ -101,20 +101,27 @@ else if($operation=="editCat")
 }
 else if($operation=="edit")
 {
+ 
+    $xsproduct->product_name = filter_input(INPUT_POST,"name");
+    $product_id = filter_input(INPUT_POST,"idToMod");
+    $xsproduct->id = $product_id ;
+    $xsproduct->table = 'product' ;
 
+    if($xsproduct->update(['product_name'],'id'))
+    {
 
-
-        if($customer->update(['name','surname','details','details_opt'],'id')){
-
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=customerEdit");
-			exit; 
-		
-		}else{
+        //success
+        header("Location: ../index.php?p=editXSProduct&idToMod=$product_id&msg=productEditSucc");
+        exit;
         
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&err=customerNoEdit");
-			exit;
-		
-        }
+    }
+    else
+    {
+        
+        // fail
+        header("Location: ../index.php?p=editXSProduct&idToMod=$product_id&err=productEditFail");
+        exit;
+    }    
 
 }
 else if($operation == "add")
