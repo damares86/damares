@@ -127,12 +127,70 @@ else if($operation=="edit")
 else if($operation == "add")
 {
     
-    $xsproduct->product_name = filter_input(INPUT_POST,"name");
+    $product_name = filter_input(INPUT_POST,"name");
+    $xsproduct->product_name = $product_name ;
     $xsproduct->table = 'product' ;
 
     if($xsproduct->insert(['product_name']))
     {
+        // BASE FOLDER 'PRODUCT' CREATION
+        $base_directory = '../../product';
+        
+        if(!is_dir($base_directory))
+        {
+            $oldmask = umask(0);
+            mkdir($target_directory, 0777, true);
+            umask($oldmask);
+        }
+        else
+        {
+            $oldmask = umask(0);
+            chmod($base_directory, 0777);
+            umask($oldmask);
+        }
+        
+        // SPECIFIC PRODUCT FOLDER CREATION
+        $target_directory = "$base_directory/$product_name";
 
+        if(!is_dir($target_directory))
+        {
+            $oldmask = umask(0);
+            mkdir($target_directory, 0777, true);
+            umask($oldmask);
+        }
+        else
+        {
+            $oldmask = umask(0);
+            chmod($target_directory, 0777);
+            umask($oldmask);
+        }
+        
+        // CYCLE ALL THE PRODUCT FILES CAT AND CREATE THE FOLDERS
+        $xsproduct->table = 'product_files_cat' ;
+        $stmt = $xsproduct->showAll('id') ;
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            extract($row);
+            $file_dir = $row['cat_name'] ;
+            $file_dir = strtolower($file_dir) ;
+            $file_directory = "$target_directory/$file_dir" ;
+
+            if(!is_dir($file_directory))
+            {
+                $oldmask = umask(0);
+                mkdir($file_directory, 0777, true);
+                umask($oldmask);
+            }
+            else
+            {
+                $oldmask = umask(0);
+                chmod($file_directory, 0777);
+                umask($oldmask);
+            }
+        }
+
+        
         //success
         header("Location: ../index.php?p=allXSProduct&msg=productSucc");
         exit;

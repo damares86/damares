@@ -99,15 +99,48 @@ $stmt = $xsproduct->showAllWhere('id',['id']);
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title"><?=$common_info?></h4>
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title"><?=$common_info?></h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
                 </div>
-                <div class="card-content">
-                    <div class="card-body">
-                    </div>
-                </div>
+              </div>
             </div>
         </div>
+
+        <?php
+          $xsproduct->table = "product_files_cat" ;
+          $stmt1 = $xsproduct->showAll('id') ;
+
+          while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
+          {
+            extract($row1) ;
+
+            $cat_name = ucfirst($row1['cat_name'])
+          
+        ?>
+
+        <div class="col-md-8 col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title"><?=$cat_name?></h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4 col-12">
+            &nbsp;
+          </div>
+          <?php
+          }
+          ?>
+
     </div>
 </section>
