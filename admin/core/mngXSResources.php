@@ -12,7 +12,8 @@
 
 require __DIR__."/coreConfig.php";
 
-if(filter_input(INPUT_GET,"idLangToDel")){
+if(filter_input(INPUT_GET,"idLangToDel"))
+{
 
     // check if there are resources with this lang
     $xsresources->lang_id = filter_input(INPUT_GET,"idLangToDel");
@@ -38,7 +39,8 @@ if(filter_input(INPUT_GET,"idLangToDel")){
     }
 
 }
-else if(filter_input(INPUT_GET,"idTypeToDel")){
+else if(filter_input(INPUT_GET,"idTypeToDel"))
+{
 
     // check if there are resources with this lang
     $xsresources->lang_id = filter_input(INPUT_GET,"idTypeToDel");
@@ -60,6 +62,21 @@ else if(filter_input(INPUT_GET,"idTypeToDel")){
         exit;
     }else{
         header("Location: ../index.php?p=allXSTypes&err=resTypeNoDel");
+        exit;
+    }
+
+}
+else if(filter_input(INPUT_GET,"idToDel"))
+{
+
+    $xsresources->id = filter_input(INPUT_GET,"idToDel");
+    $xsresources->table = 'resources' ;
+
+    if($xsresources->delete('id')){
+        header("Location: ../index.php?p=allXSResources&msg=resDel");
+        exit;
+    }else{
+        header("Location: ../index.php?p=allXSResources&err=resNoDel");
         exit;
     }
 
