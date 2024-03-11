@@ -84,9 +84,9 @@ $stmt = $xsresources->showAll('id');
                 echo $row3['resource_type'] ;
               ?>
             </td>
-            <td><a href="uploads/<?=$row['resource_name']?>">Link</a></td>
+            <td><a href="uploads/<?=$row['resource_name']?>" target="_blank">Link</a></td>
             <td>
-              <a href="index.php?p=editXSResources&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editXSResource&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;

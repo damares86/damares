@@ -113,46 +113,52 @@ else if($operation=="edit")
 
         $id = filter_input(INPUT_POST,"idToMod") ;
         
-        $customer->id = $id ;
-        $stmt = $customer->showAllWhere('id',['id']);
-               
-        $customer->name = filter_input(INPUT_POST,"name") ;
-        $customer->surname = filter_input(INPUT_POST,"surname") ;
-
-        require "customersDetails.php";
-
-        $details_arr = [] ;
-        $details_opt_arr = [] ;
-
-        foreach($customers_details as $item){
-            $details_arr[] = array("$item" => "".$_POST[$item]."");
+        if($_FILES['myfile']['size'] > 0)
+        {
+            $resource_name = $_FILES['myfile']['name'] ;
+            $file->filename = $resource_name ;
+            $file->label = filter_input(INPUT_POST,"title");
+            $filename = $_FILES['myfile']['name'] ;
+            $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
+            $file->path = "../uploads/" ;
+            $file->origin = filter_input(INPUT_POST,"origin");
+            
+            $file->operation = $operation ;
+            
+            // check sull'esistenza del file?
+            
+            if(!$file->uploadFile())
+            {
+                header("Location: ../index.php?p=allXSResources&err=fileResFail");
+                exit;        
+            }
         }
-
-        if($details_arr){
-            $details_str = serialize($details_arr);
-            $customer->details = $details_str;
+        else
+        {
+            $resource_name = filter_input(INPUT_POST,"oldFilename");
         }
+    
+        $xsresources->table = 'resources' ;
+        $xsresources->id = $id ;
+        $xsresources->resource_name = $resource_name ;
+        $xsresources->title = filter_input(INPUT_POST,"title");
+        $xsresources->description = filter_input(INPUT_POST,"content");
+        $xsresources->product_id = filter_input(INPUT_POST,"product_id");
+        $xsresources->lang_id = filter_input(INPUT_POST,"lang_id");
+        $xsresources->type_id = filter_input(INPUT_POST,"type_id");
+        $xsresources->resource_date = date("Y-m-d");
 
-        foreach($customers_details_opt as $item){
-            $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
+        if($xsresources->update(['resource_name','title','description','product_id','lang_id','type_id','resource_date'],'id'))
+        {
+            header("Location: ../index.php?p=allXSResources&msg=resEditSucc");
+            exit;
         }
-
-        if($details_opt_arr){
-            $details_opt_str = serialize($details_opt_arr);
-            $customer->details_opt = $details_opt_str ;
+        else
+        {
+            header("Location: ../index.php?p=allXSResources&err=resEditFail");
+            exit;
         }
-
-        if($customer->update(['name','surname','details','details_opt'],'id')){
-
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=customerEdit");
-			exit; 
-		
-		}else{
-        
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&err=customerNoEdit");
-			exit;
-		
-        }
+                
 
 }
 else if($operation == "addType")
