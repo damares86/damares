@@ -51,14 +51,39 @@ $stmt = $xsresources->showAll('id');
         <tbody>
           
         <?php
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
         ?>
-          <tr <?=$class?>>
+          <tr>
             <td><?=$row['title']?></td>
             <td><?=$row['resource_date']?></td>
-            <td><?=$row['product_id']?></td>
-            <td><?=$row['lang_id']?></td>
-            <td><?=$row['type_id']?></td>
+            <td>
+              <?php
+                $xsresources->table = 'product' ;
+                $xsresources->id = $row['product_id'] ; 
+                $stmt1 = $xsresources->showAllWhere('id',['id']) ;
+                $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
+                echo $row1['product_name'] ;
+              ?>
+            </td>
+            <td>
+              <?php
+                $xsresources->table = 'resource_lang' ;
+                $xsresources->id = $row['lang_id'] ; 
+                $stmt2 = $xsresources->showAllWhere('id',['id']) ;
+                $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+                echo $row2['resource_lang'] ;
+              ?>
+            </td>
+            <td>
+              <?php
+                $xsresources->table = 'resource_type' ;
+                $xsresources->id = $row['type_id'] ; 
+                $stmt3 = $xsresources->showAllWhere('id',['id']) ;
+                $row3 = $stmt3->fetch(PDO::FETCH_ASSOC) ;
+                echo $row3['resource_type'] ;
+              ?>
+            </td>
             <td><a href="uploads/<?=$row['resource_name']?>">Link</a></td>
             <td>
               <a href="index.php?p=editXSResources&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
