@@ -12,6 +12,15 @@
 
 require __DIR__."/coreConfig.php";
 
+function rmdir_recursive($dir) {
+    foreach(scandir($dir) as $file) {
+        if ('.' === $file || '..' === $file) continue;
+        if (is_dir($dir.'/'.$file)) rmdir_recursive($dir.'/'.$file);
+        else unlink($dir.'/'.$file);
+    }
+    rmdir($dir);
+}
+
 // check if there's a customer to delete
 
 if(filter_input(INPUT_GET,"idToDel"))
@@ -20,15 +29,63 @@ if(filter_input(INPUT_GET,"idToDel"))
     $xsproduct->id = filter_input(INPUT_GET,"idToDel");
     $xsproduct->table = 'product' ;
 
-    if($xsproduct->delete('id'))
+    $stmt = $xsproduct->showAllWhere('id',['id']);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+    extract($row) ;
+
+    $prod_name = $row['product_name'] ;
+
+    $count_files = 0 ;
+
+    $exclude = array('..', '.');
+    foreach (scandir("../../product/$prod_name") as $row1)
     {
-        header("Location: ../index.php?p=allXSProduct&msg=prodDel");
+        $cat_dir = "../../product/$prod_name/$row1" ;
+
+        if(!in_array($row1,$exclude))
+        {
+            $folder = scandir($cat_dir) ;
+
+            foreach($folder as $row2)
+            {
+                if(!in_array($row2,$exclude))
+                {
+                        $count_files++;
+                }
+            }
+        }
+    }
+
+    if($count_files>0)
+    {
+        header("Location: ../index.php?p=allXSProduct&err=prodFileExistsNoDel");
         exit;
     }
     else
-    {
-        header("Location: ../index.php?p=allXSProduct&err=prodNoDel");
-        exit;
+    {        
+        if($xsproduct->delete('id'))
+        {
+
+            $errDelFolder = '' ; 
+
+            $dir="../../product/$prod_name" ;
+            rmdir_recursive($dir);
+            
+            $old_folder = scandir("../../product/$prod_name");
+            if($old_folder)
+            {
+                $errDelFolder = '&err=prodFolderNoDel' ;
+            }
+
+            header("Location: ../index.php?p=allXSProduct&msg=prodDel$errDelFolder");
+            exit;
+ 
+        }
+        else
+        {
+            header("Location: ../index.php?p=allXSProduct&err=prodNoDel");
+            exit;
+        }
     }
 
 }
@@ -38,10 +95,10 @@ else if(filter_input(INPUT_GET,"idToDelCat"))
     $xsproduct->id = filter_input(INPUT_GET,"idToDelCat");
     $xsproduct->table = 'product_files_cat' ;
     $stmt = $xsproduct->showAllWhere('id',['id']);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
-    extract($row) ;
+    $row2= $stmt->fetch(PDO::FETCH_ASSOC) ;
+    extract($row2) ;
 
-    $cat_name = $row['cat_name'] ;
+    $cat_name = $row2['cat_name'] ;
     $cat_name = strtolower($cat_name) ;
     
     $count_files = 0 ;
@@ -82,15 +139,13 @@ else if(filter_input(INPUT_GET,"idToDelCat"))
             foreach (scandir("../../product") as $row)
             {
                 $cat_dir = "../../product/$row/$cat_name" ;
-                
+
                 if(!in_array($row,$exclude))
                 {
-                    echo $cat_dir.'<br>';
-                   unlink($cat_dir);
+                   rmdir($cat_dir);
                 }
                 
             }
-            exit;
             header("Location: ../index.php?p=allXSProductCat&msg=prodCatDel");
             exit;
         }
