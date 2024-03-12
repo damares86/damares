@@ -231,6 +231,50 @@ if($operation == "addCat")
     }    
 
 }
+else if($operation=='addFilesCat')
+{
+
+    $id =  filter_input(INPUT_POST,"idToMod");
+
+    $files_cat_name = $_FILES['myfile']['name'] ;
+    $file->filename = $files_cat_name ;
+    $file->label = filter_input(INPUT_POST,"label");
+    $filename = $_FILES['myfile']['name'] ;
+    $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
+    $cat_name = filter_input(INPUT_POST,'filesCatName');
+    $prod_name = filter_input(INPUT_POST,'productName');
+    $file->path = "../../product/$prod_name/$cat_name" ;
+    $file->origin = filter_input(INPUT_POST,"origin");
+
+    $file->operation = 'add' ;
+
+    if($file->uploadFile())
+    {
+        $xsproduct->table = 'product_files' ;
+        $xsproduct->product_files_name = $files_cat_name ;
+        $xsproduct->product_files_label = filter_input(INPUT_POST,"label");
+        $xsproduct->product_files_cat_id = filter_input(INPUT_POST,"filesCatId"); 
+        $xsproduct->product_id = filter_input(INPUT_POST,"productId");
+
+        if($xsproduct->insert(['product_files_name','product_files_label','product_files_cat_id','product_id']))
+        {
+            header("Location: ../index.php?p=editXSProduct&idToMod=$id&msg=productFilesCatAdd");
+            exit; 
+        }
+        else
+        {
+            header("Location: ../index.php?p=editXSProduct&idToMod=$id&err=productFilesCatFail");
+            exit; 
+        }
+
+    }
+    else
+    {
+        header("Location: ../index.php?p=editXSProduct&idToMod=$id&err=productFilesCatUploadFail");
+        exit; 
+    }
+
+}
 else if($operation=="editCat")
 {
 

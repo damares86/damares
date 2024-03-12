@@ -8,6 +8,7 @@ $stmt = $xsproduct->showAllWhere('id',['id']);
 $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
 extract($row);
 $prod_name = $row['product_name'];
+$prod_id = $row['id'];
 ?>
 
 <div class="page-title">
@@ -131,7 +132,73 @@ $prod_name = $row['product_name'];
             </div>
             <div class="card-content">
               <div class="card-body">
-                
+                <h6>Aggiungi un nuovo file</h6>
+                <form class="form form-horizontal mb-5 pb-3 border-bottom" action="core/mngXSProduct.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                  <div class="form-body">
+                      <div class="row">
+                      <div class="col-md-3">
+                          <label>Label<span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                              <div class="form-check mandatory">
+                                  <div class="position-relative">
+                                      <input
+                                      type="text"
+                                      class="form-control"
+                                      placeholder="Titolo della risorsa"
+                                      id="first-name"
+                                      name="label"
+                                      data-parsley-required="true"
+
+                                      />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <label><?=$file_add_file?> <span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                              <div class="form-check mandatory">
+                                  <div class="position-relative">
+                                      <input
+                                      class="form-control"
+                                      type="file"
+                                      id="formFile1"
+                                      name="myfile"
+                                      data-parsley-required="true"
+                                  />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <input type="hidden" name="operation" value="addFilesCat">
+                      <input type="hidden" name="filesCatName" value="<?=$cat_name?>">
+                      <input type="hidden" name="filesCatId" value="<?=$row1['id']?>">
+                      <input type="hidden" name="productName" value="<?=$prod_name?>">
+                      <input type="hidden" name="productId" value="<?=$prod_id?>">
+                      <input type="hidden" name="origin" value="editXSResource">
+
+                      <div class="col-12 d-flex justify-content-end">
+                            <button
+                            type="submit"
+                            class="btn btn-primary me-1 mb-1"
+                            >
+                            <?=$common_submit?>
+                            </button>
+                            <button
+                            type="reset"
+                            class="btn btn-light-secondary me-1 mb-1"
+                            >
+                            <?=$common_reset?>
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    </form>
+
               <table class="table" id="table<?=$idx_prod?>">
               <thead>
                 <tr>
@@ -147,7 +214,7 @@ $prod_name = $row['product_name'];
                   $xsproduct->product_id = $product_id ;
                   $xsproduct->product_files_cat_id = $row1['id'];
                   $xsproduct->table = 'product_files' ;
-                  $idx_prod++;
+                  $idx_prod++; 
                   
                   $stmt2 = $xsproduct->showAllWhere('id',['product_id','product_files_cat_id']) ;
                   while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC))
