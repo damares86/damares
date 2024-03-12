@@ -51,7 +51,14 @@ $stmt = $xsresources->showAll('id');
         ?>
           <tr <?=$class?>>
             <td><?=$row['resource_lang']?></td>
-            <td>numero</td>
+            <td>              
+            <?php
+              $xsresources->table = 'resources' ;
+              $xsresources->lang_id = $row['id'] ;
+              $stmt1 = $xsresources->countItem('lang_id');
+              echo $stmt1 ;
+            ?>
+            </td>
             <td>
               <a href="index.php?p=editXSLang&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
