@@ -37,16 +37,68 @@ else if(filter_input(INPUT_GET,"idToDelCat"))
 
     $xsproduct->id = filter_input(INPUT_GET,"idToDelCat");
     $xsproduct->table = 'product_files_cat' ;
+    $stmt = $xsproduct->showAllWhere('id',['id']);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+    extract($row) ;
 
-    if($xsproduct->delete('id'))
+    $cat_name = $row['cat_name'] ;
+    $cat_name = strtolower($cat_name) ;
+    
+    $count_files = 0 ;
+
+    $exclude = array('..', '.');
+    foreach (scandir("../../product") as $row)
     {
-        header("Location: ../index.php?p=allXSProductCat&msg=prodCatDel");
-        exit;
+        $cat_dir = "../../product/$row/$cat_name" ;
+        
+        if(!in_array($row,$exclude))
+        {
+            $folder = scandir($cat_dir) ;
+
+            foreach($folder as $row1)
+            {
+                if(!in_array($row1,$exclude))
+                {
+                        $count_files++;
+                }
+            }
+        }
+        
+    }
+
+    if($count_files>0)
+    {
+        header("Location: ../index.php?p=allXSProductCat&err=prodCatExistsNoDel");
+        exit; 
     }
     else
     {
-        header("Location: ../index.php?p=allXSProductCat&err=prodCatNoDel");
-        exit;
+        $xsproduct->id = filter_input(INPUT_GET,"idToDelCat");
+        $xsproduct->table = 'product_files_cat' ;
+
+        if($xsproduct->delete('id'))
+        {
+            $exclude = array('..', '.');
+            foreach (scandir("../../product") as $row)
+            {
+                $cat_dir = "../../product/$row/$cat_name" ;
+                
+                if(!in_array($row,$exclude))
+                {
+                    echo $cat_dir.'<br>';
+                   unlink($cat_dir);
+                }
+                
+            }
+            exit;
+            header("Location: ../index.php?p=allXSProductCat&msg=prodCatDel");
+            exit;
+        }
+        else
+        {
+            header("Location: ../index.php?p=allXSProductCat&err=prodCatNoDel");
+            exit;
+        }
     }
 
 }
@@ -75,28 +127,32 @@ if($operation == "addCat")
     {
 
         $error = 0 ;
-        $$exclude = array('..', '.');
+        $exclude = array('..', '.');
         foreach (scandir("../../product") as $row)
         {
             $cat_dir = "../../product/$row/$cat_name" ;
-            
-            if(!is_dir($cat_dir))
+            echo $cat_dir.'<br>';
+            if(!in_array($row, $exclude))
             {
-                $oldmask = umask(0);
-                if(!mkdir($cat_dir, 0777, true))
+
+                if(!is_dir($cat_dir))
                 {
-                    $error++;
+                    $oldmask = umask(0);
+                    if(!mkdir($cat_dir, 0777, true))
+                    {
+                        $error++;
+                    }
+                    else
+                    {
+                        umask($oldmask);
+                    }
                 }
                 else
                 {
+                    $oldmask = umask(0);
+                    chmod($cat_dir, 0777);
                     umask($oldmask);
                 }
-            }
-            else
-            {
-                $oldmask = umask(0);
-                chmod($cat_dir, 0777);
-                umask($oldmask);
             }
         }
 
@@ -125,10 +181,35 @@ else if($operation=="editCat")
 
     $id = filter_input(INPUT_POST,'idToMod');
     $xsproduct->id = $id ;
-    $xsproduct->cat_name = filter_input(INPUT_POST,'name');
+    $cat_name = filter_input(INPUT_POST,'name');
+    $xsproduct->cat_name = $cat_name;
+    $old_cat_name = filter_input(INPUT_POST,'oldCatName');
+    $xsproduct->old_cat_name = $old_cat_name ;
     $xsproduct->table = 'product_files_cat' ;
 
     if($xsproduct->update(['cat_name'],'id')){
+
+        $error = 0 ;
+        $exclude = array('..', '.');
+        foreach (scandir("../../product") as $row)
+        {
+            $item=pathinfo($row);
+            if(!in_array($item['basename'],$exclude)){
+                $prod_folder = $item['basename'];
+                echo "../../product/$prod_folder/$old_cat_name <br>";
+                if(!rename("../../product/$prod_folder/$old_cat_name" ,"../../product/$prod_folder/$cat_name"))
+                {
+                    $error++;
+                }
+            }
+
+        }
+        
+        $errRename = '' ;
+        if($error>0)
+        {
+            $errRename = '&err=productCatFolderEditErr' ;
+        }
 
         header("Location: ../index.php?p=editXSProductCat&idToMod=$id&msg=productCatEdit");
         exit; 
@@ -144,7 +225,11 @@ else if($operation=="editCat")
 else if($operation=="edit")
 {
  
-    $xsproduct->product_name = filter_input(INPUT_POST,"name");
+    $product_name = filter_input(INPUT_POST,"name");
+    $xsproduct->product_name = $product_name ;
+    $old_product_name = filter_input(INPUT_POST,"oldProdName");
+    $xsproduct->old_product_name = $old_product_name ;
+    
     $product_id = filter_input(INPUT_POST,"idToMod");
     $xsproduct->id = $product_id ;
     $xsproduct->table = 'product' ;
@@ -152,8 +237,20 @@ else if($operation=="edit")
     if($xsproduct->update(['product_name'],'id'))
     {
 
+        $error = 0 ;
+       
+        if(!rename("../../product/$old_product_name" ,"../../product/$product_name"))
+        {
+            $error++;
+        }
+       
+        $errEdit = '' ;
+        if($error>0)
+        {
+            $errEdit = "&err=productEditFolderFail" ;
+        }
         //success
-        header("Location: ../index.php?p=editXSProduct&idToMod=$product_id&msg=productEditSucc");
+        header("Location: ../index.php?p=editXSProduct&idToMod=$product_id&msg=productEditSucc$errEdit");
         exit;
         
     }

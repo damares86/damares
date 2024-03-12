@@ -5,7 +5,9 @@ foreach (scandir("../../product") as $row) {
 
   $item=pathinfo($row);
   if(!in_array($item['basename'],$exclude)){
-    print_r($item['basename']);
+    $folder = $item['basename'];
+
+    rename("../../product/$folder","../../product/".$folder."_old");
     echo "<br>" ;
   }
 

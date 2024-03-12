@@ -73,6 +73,7 @@ $stmt1 = $xsproduct->showAllWhere('id',['id']);
 
                         
                         <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
+                        <input type="hidden" name="oldCatName" value="<?=$row1['cat_name']?>">
                         <input type="hidden" name="operation" value="editCat">
                         <input type="hidden" name="origin" value="editXSProductCat">
                       
