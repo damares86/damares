@@ -1,5 +1,19 @@
 <?php
 
+$exclude = array('..', '.');
+foreach (scandir("../../product") as $row) {
+
+  $item=pathinfo($row);
+  if(!in_array($item['basename'],$exclude)){
+    print_r($item['basename']);
+    echo "<br>" ;
+  }
+
+}
+
+exit;
+
+
   require "inc/header.php" ;
 
 

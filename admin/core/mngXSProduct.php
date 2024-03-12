@@ -58,14 +58,56 @@ $operation = filter_input(INPUT_POST,"operation") ;
 if($operation == "addCat")
 {
 
-    $xsproduct->cat_name = filter_input(INPUT_POST,"name");
+    $cat_name = filter_input(INPUT_POST,"name");
+    $xsproduct->cat_name = $cat_name ;
     $xsproduct->table = 'product_files_cat' ;
+
+    // check if already exists 
+    $stmt = $xsproduct->countItem('cat_name') ;
+
+    if($stmt>0)
+    {
+        header("Location: ../index.php?p=allXSProductCat&err=prodCatExists");
+        exit; 
+    }
 
     if($xsproduct->insert(['cat_name']))
     {
 
+        $error = 0 ;
+        $$exclude = array('..', '.');
+        foreach (scandir("../../product") as $row)
+        {
+            $cat_dir = "../../product/$row/$cat_name" ;
+            
+            if(!is_dir($cat_dir))
+            {
+                $oldmask = umask(0);
+                if(!mkdir($cat_dir, 0777, true))
+                {
+                    $error++;
+                }
+                else
+                {
+                    umask($oldmask);
+                }
+            }
+            else
+            {
+                $oldmask = umask(0);
+                chmod($cat_dir, 0777);
+                umask($oldmask);
+            }
+        }
+
+        $errFolder = '' ;
+
+        if($error>0)
+        {
+            $errFolder = "&err=productCatFolderErr" ;
+        }
         //success
-        header("Location: ../index.php?p=allXSProductCat&msg=productCatSucc");
+        header("Location: ../index.php?p=allXSProductCat&msg=productCatSucc$errFolder");
         exit;
 
     }
@@ -134,12 +176,21 @@ else if($operation == "add")
     if($xsproduct->insert(['product_name']))
     {
         // BASE FOLDER 'PRODUCT' CREATION
-        $base_directory = '../../product';
         
+        $error= 0 ;
+
+        $base_directory = '../../product';
         if(!is_dir($base_directory))
         {
             $oldmask = umask(0);
-            mkdir($target_directory, 0777, true);
+            if(!mkdir($base_directory, 0777, true))
+            {
+                $error++;
+            }
+            else
+            {
+                umask($oldmask);
+            }
             umask($oldmask);
         }
         else
@@ -155,7 +206,14 @@ else if($operation == "add")
         if(!is_dir($target_directory))
         {
             $oldmask = umask(0);
-            mkdir($target_directory, 0777, true);
+            if(!mkdir($target_directory, 0777, true))
+            {
+                $error++;
+            }
+            else
+            {
+                umask($oldmask);
+            }
             umask($oldmask);
         }
         else
@@ -179,7 +237,14 @@ else if($operation == "add")
             if(!is_dir($file_directory))
             {
                 $oldmask = umask(0);
-                mkdir($file_directory, 0777, true);
+                if(!mkdir($file_directory, 0777, true))
+                {
+                    $error++;
+                }
+                else
+                {
+                    umask($oldmask);
+                }
                 umask($oldmask);
             }
             else
@@ -189,7 +254,6 @@ else if($operation == "add")
                 umask($oldmask);
             }
         }
-
         
         //success
         header("Location: ../index.php?p=allXSProduct&msg=productSucc");
