@@ -39,8 +39,9 @@ $stmt = $customer->showAll('id');
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th><?=$customer_all_surname_table?></th>
             <th><?=$customer_all_name_table?></th>
+            <th>Username</th>
+            <th>Company</th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -50,8 +51,9 @@ $stmt = $customer->showAll('id');
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         ?>
           <tr <?=$class?>>
-            <td><?=$row['surname']?></td>
             <td><?=$row['name']?></td>
+            <td><?=$row['username']?></td>
+            <td><?=$row['company']?></td>
             <td>
               <a href="index.php?p=editCustomer&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
