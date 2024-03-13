@@ -94,16 +94,16 @@ if(filter_input(INPUT_POST,"idToMod"))
         if($customer->update(['name','username','company', 'email','details','details_opt'],'id')){
 
             // permissions update
-
-            print_r($_POST);
             
             $xsproduct->table = 'product' ;
             $stmt = $xsproduct->showAll('id');
 
             $error = 0 ;
+            $error_prod = 0 ;
 
             while($row = $stmt->fetch(PDO::FETCH_ASSOC))
             {
+
                 extract($row);
 
                 $prod_id = $row['id'] ;
@@ -163,15 +163,49 @@ if(filter_input(INPUT_POST,"idToMod"))
                             $error++;
                         }
                     }
-            }
+                }
+                else
+                {
+                    // non è spuntato il permesso al prodotto
+                    // query se esiste il record su db e nel caso delete
+                    $xsproduct->table = 'product_permissions';
+                    $xsproduct->customers_id = $idToMod;
+                    $xsproduct->product_id = $prod_id ;
+
+                    $stmt2 = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
+                    $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+
+                    if($stmt2->rowCount()>0)
+                    {
+                        $xsproduct->table = 'product_permissions';
+                        $xsproduct->id = $row2['id'];
+                        if(!$xsproduct->delete('id'))
+                        {
+                            $error_prod++;
+                        }
+                    }
+
+                }
             
 
             }
 
             $err_file = '' ;
-            
 
-			header("Location: ../index.php?p=editCustomer&idToMod=$idToMod&msg=customerEdit");
+            if($error>0)
+            {
+                $err_file = '&err=filePermissionFail';
+            }
+
+            $err_prod = '' ;
+
+            if($error_prod>0)
+            {
+                $err_file = '&err=prodPermissionFail';
+            }
+
+
+			header("Location: ../index.php?p=editCustomer&idToMod=$idToMod&msg=customerEdit$err_file");
 			exit; 
 		
 		}else{
