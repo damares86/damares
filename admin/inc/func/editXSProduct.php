@@ -133,6 +133,7 @@ $prod_id = $row['id'];
             </div>
             <div class="card-content">
               <div class="card-body">
+              
                 <h6>Aggiungi un nuovo file</h6>
                 <form class="form form-horizontal mb-5 pb-3 border-bottom" action="core/mngXSProduct.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                   <div class="form-body">
@@ -276,7 +277,7 @@ $prod_id = $row['id'];
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngXSProduct.php?idFileToDel=<?=$row2['id']?>&fileName=<?=$row2['product_files_name']?>&cat=<?=$lc_cat_name?>&prod=<?=$prod_name?>&prodId=<?=$prod_id?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngXSProduct.php?idFileToDel=<?=$row2['id']?>&fileName=<?=$row2['product_files_name']?>&cat=<?=$lc_cat_name?>&prod=<?=$prod_name?>&prodId=<?=$prod_id?>" target="_blank" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >

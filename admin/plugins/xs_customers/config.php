@@ -17,7 +17,6 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."customers
       company VARCHAR(255) NOT NULL,
       password VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
-      permission TEXT DEFAULT NULL,
       details TEXT DEFAULT NULL,
       details_opt TEXT DEFAULT NULL)";
 

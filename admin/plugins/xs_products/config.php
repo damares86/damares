@@ -21,7 +21,12 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."product
       product_id INT ( 5 ) NOT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."product_files_cat
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      cat_name VARCHAR(255) NOT NULL)";
+      cat_name VARCHAR(255) NOT NULL;
+      CREATE TABLE IF NOT EXISTS ".$prefix."product_permissions
+      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      customers_id INT(5) NOT NULL,
+      product_id INT(5) NOT NULL,
+      product_files_cat_id TEXT DEFAULT NULL)";
 
 $parent_table=[['link'=>'xs_products',
                   'label'=>'Products',
