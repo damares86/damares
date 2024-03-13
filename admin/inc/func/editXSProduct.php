@@ -119,8 +119,9 @@ $prod_id = $row['id'];
           {
             extract($row1) ;
 
+            $lc_cat_name = $row1['cat_name'] ;
             $cat_name = ucfirst($row1['cat_name']);
-
+            $cat_id = $row1['id'] ;
             $folder_cat = strtolower($cat_name);
           
         ?>
@@ -224,16 +225,16 @@ $prod_id = $row['id'];
                 <tr>
                   <td><?=$row2['product_files_label']?></td>
                   <td><?=$row2['product_files_name']?></td>
-                  <td><a href="../product/<?=$prod_name?>/<?=$cat_name?>/<?=$row2['product_files_name']?>">Link</a></td>
+                  <td><a href="../product/<?=$prod_name?>/<?=$lc_cat_name?>/<?=$row2['product_files_name']?>">Link</a></td>
                   <td>
                     <a href="#" class="btn icon btn-danger"
                       data-bs-toggle="modal"
-                      data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
+                      data-bs-target="#danger<?=$row2['id']?>"><i class="bi bi-trash"></i>
                     </a>
                         <!--Danger theme Modal -->
                         <div
                               class="modal fade text-left"
-                              id="danger<?=$row['id']?>"
+                              id="danger<?=$row2['id']?>"
                               tabindex="-1"
                               role="dialog"
                               aria-labelledby="myModalLabel120"
@@ -275,7 +276,7 @@ $prod_id = $row['id'];
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngXSProduct.php?idFileToDel=<?=$row['id']?>&cat=<?=$cat_name?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngXSProduct.php?idFileToDel=<?=$row2['id']?>&fileName=<?=$row2['product_files_name']?>&cat=<?=$lc_cat_name?>&prod=<?=$prod_name?>&prodId=<?=$prod_id?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >

@@ -157,6 +157,37 @@ else if(filter_input(INPUT_GET,"idToDelCat"))
     }
 
 }
+else if(filter_input(INPUT_GET,"idFileToDel"))
+{
+
+    $xsproduct->id = filter_input(INPUT_GET,'idFileToDel') ;
+    $xsproduct->table = 'product_files' ;
+
+    $prod = filter_input(INPUT_GET,'prod') ;
+    $prodId = filter_input(INPUT_GET,'prodId') ;
+    $cat = filter_input(INPUT_GET,'cat') ;
+    $file = filter_input(INPUT_GET,'fileName') ;
+
+    if($xsproduct->delete('id'))
+    {
+        if(!unlink("../../product/$prod/$cat/$file"))
+        {
+            header("Location: ../index.php?p=editXSProduct&idToMod=$prodId&err=prodFileFolderNoDel");
+            exit;
+        }
+        else
+        {
+            header("Location: ../index.php?p=editXSProduct&idToMod=$prodId&msg=prodFileDel");
+            exit;
+        }
+    }
+    else
+    {
+        header("Location: ../index.php?p=editXSProduct&idToMod=$prodId&err=prodFileNoDel");
+        exit;
+    }
+
+}
 
 $operation = filter_input(INPUT_POST,"operation") ;
 
@@ -234,7 +265,7 @@ if($operation == "addCat")
 else if($operation=='addFilesCat')
 {
 
-    $id =  filter_input(INPUT_POST,"idToMod");
+    $id =  filter_input(INPUT_POST,"productId");
 
     $files_cat_name = $_FILES['myfile']['name'] ;
     $file->filename = $files_cat_name ;
@@ -243,7 +274,8 @@ else if($operation=='addFilesCat')
     $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
     $cat_name = filter_input(INPUT_POST,'filesCatName');
     $prod_name = filter_input(INPUT_POST,'productName');
-    $file->path = "../../product/$prod_name/$cat_name" ;
+    $lc_cat_name = strtolower($cat_name) ;
+    $file->path = "../../product/$prod_name/$lc_cat_name/" ;
     $file->origin = filter_input(INPUT_POST,"origin");
 
     $file->operation = 'add' ;
