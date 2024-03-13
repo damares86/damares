@@ -216,6 +216,43 @@
 
                         ?>
 
+                        <!-- product permissions -->
+
+                        <?php
+
+
+                        ?>
+
+                        <div class="col-md-3">
+                            <label>Autorizza prodotti  <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                         <div class="form-group">
+                                <select
+                                class="choices form-select multiple-remove"
+                                multiple="multiple" name="product[]"
+                                >
+                                <?php
+                                    $xsproduct->table = 'product' ;
+                                    $stmt = $xsproduct->showAll('id') ; 
+                                    
+                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                                    {
+                                        extract($row);
+                                ?>
+
+                                    <option value="<?=$row['id']?>" <?=$selected?>><?=$row['product_name']?></option>
+
+                                <?php
+                                    }
+                                
+                                ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+
                         
                         <input type="hidden" name="operation" value="add">
                         <input type="hidden" name="origin" value="addCustomer">

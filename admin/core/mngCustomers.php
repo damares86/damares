@@ -109,7 +109,8 @@ else if($operation == "add")
 {
 
     $customer->name = filter_input(INPUT_POST,"name");
-    $customer->username = filter_input(INPUT_POST,"username");
+    $username = filter_input(INPUT_POST,"username");
+    $customer->username = $username ;
     $customer->company = filter_input(INPUT_POST,"company");
     $customer->email = filter_input(INPUT_POST,"email");
 
@@ -117,7 +118,8 @@ else if($operation == "add")
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
     $customer->password = $password_hash ;
 
-    if($customer->customerExists()){
+    if($customer->customerExists())
+    {
         header("Location: ../index.php?p=addCustomer&err=customerExist");
         exit;
     }else{
@@ -127,26 +129,59 @@ else if($operation == "add")
         $details_arr = [] ;
         $details_opt_arr = [] ;
 
-        foreach($customers_details as $item){
+        foreach($customers_details as $item)
+        {
             $details_arr[] = array("$item" => "".$_POST[$item]."");
         }
 
         $details_str = serialize($details_arr);
         $customer->details = $details_str;
 
-        foreach($customers_details_opt as $item){
+        foreach($customers_details_opt as $item)
+        {
             $details_opt_arr[] = array("$item" => "".$_POST[$item]."");
         }
         $details_opt_str = serialize($details_opt_arr);
         $customer->details_opt = $details_opt_str ;
 
-        if($customer->insert(['name','username','company','password', 'email','details','details_opt'])){
+        if($customer->insert(['name','username','company','password', 'email','details','details_opt']))
+        {
+
+            $customer->table = 'customers' ;
+            $customer->username = $username ;
+
+            $stmt = $customer->showAllWhere('id',['username']) ;
+            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+            extract($row) ;
+
+            $cust_id = $row['id'] ;
+            
+            $error = 0 ;
+            foreach($_POST['product'] as $item)
+            {
+                $xsproduct->table = 'product_permissions' ;
+                $xsproduct->customers_id = $cust_id ;
+                $xsproduct->product_id = $item ;
+
+                if(!$xsproduct->insert(['customers_id','product_id']))
+                {
+                    $error++;
+                }
+            }
+
+            $error_perm = '' ;
+            if($error>0)
+            {
+                $error_perm = '&err=customerPermErr' ;
+            }
 
             //success
-            header("Location: ../index.php?p=allCustomers&msg=customerSucc");
+            header("Location: ../index.php?p=editCustomer&idToMod=$cust_id&msg=customerSucc$error_perm");
             exit;
 
-        }else{
+        }
+        else
+        {
 
             // fail
             header("Location: ../index.php?p=allCustomers&err=customerFail");
