@@ -229,6 +229,56 @@ $details_opt="";
                         }
                         ?>
 
+                        <h5 class="border-top mb-3 pt-3 mt-2">Product permissions</h5>
+
+                        <?php
+                            $xsproduct->table = 'product' ;
+                            $stmt = $xsproduct->showAll('id') ; 
+                            
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                            {
+                                extract($row);
+                                
+                                $xsproduct->table = 'product_permissions' ;
+                                $xsproduct->customers_id = $row1['id'] ;
+                                $xsproduct->product_id = $row['id'] ;
+
+                                $stmt2 = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
+
+                                $checked = '' ;
+                                $bg_class = 'danger' ;
+
+                                if($stmt2->rowCount()>0)
+                                {
+                                    $checked = 'checked' ;
+                                    $bg_class = 'success' ;
+                                }
+
+                        ?>
+                            <div class="col-12 rounded py-3 my-1 bg-<?=$bg_class?> text-white">
+                                <div class="row">
+                                    <!-- switch permission -->
+                                    <div class="col-md-4">
+                                        <h6 class="text-white"><?=$row['product_name']?></h6>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check form-switch quiz">
+                                            <input class="form-check-input delete" type="checkbox" name="check_<?=$count?>" id="flexSwitchCheckDefault" <?=$checked?>>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Permesso </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">&nbsp;</div>
+
+                                    <!-- select cat files -->
+                                    
+                                </div>
+                            </div>
+                        <?php
+
+                            }
+
+                        ?>
+                        
                         
                         <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
                         <input type="hidden" name="operation" value="edit">
