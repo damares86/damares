@@ -34,10 +34,9 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 if(filter_input(INPUT_POST,"idToMod"))
 {
-
-        $id = filter_input(INPUT_POST,"idToMod") ;
+        $idToMod = filter_input(INPUT_POST,"idToMod") ;
         
-        $customer->id = $id ;
+        $customer->id = $idToMod ;
 
 
         // $stmt = $customer->showAllWhere('id',['id']);
@@ -49,10 +48,10 @@ if(filter_input(INPUT_POST,"idToMod"))
             $customer->password = $password_hash ;
     
             if($customer->update(['password'],'id')){
-                header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=passMod");
+                header("Location: ../index.php?p=editCustomer&idToMod=$idToMod&msg=passMod");
                 exit;
             }else{
-                header("Location: ../index.php?p=editCustomer&idToMod=$id&err=passNoMod");
+                header("Location: ../index.php?p=editCustomer&idToMod=$idToMod&err=passNoMod");
                 exit;
             }
     
@@ -94,12 +93,90 @@ if(filter_input(INPUT_POST,"idToMod"))
 
         if($customer->update(['name','username','company', 'email','details','details_opt'],'id')){
 
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&msg=customerEdit");
+            // permissions update
+
+            print_r($_POST);
+            
+            $xsproduct->table = 'product' ;
+            $stmt = $xsproduct->showAll('id');
+
+            $error = 0 ;
+
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+            {
+                extract($row);
+
+                $prod_id = $row['id'] ;
+
+                if(filter_input(INPUT_POST,'prod_'.$prod_id.''))
+                {
+
+                    $xsproduct->table = 'product_files_cat' ;
+                    $stmt1 = $xsproduct->showAll('id');
+
+                    $cat_arr = [] ;
+                    $cat_arr_str = '' ;
+
+                    while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
+                    {
+                        $files_arr = [] ;
+
+                        $cat_files = $_POST['files_'.$prod_id.'_'.$row1['id']];
+                        foreach($cat_files as $file)
+                        {
+                            $files_arr[] = $file;
+                        }
+                        
+                        $cat_arr[] = array($row1['id'] => $files_arr) ;
+                    }
+                    
+
+                    $cat_arr_str = serialize($cat_arr) ;
+                    
+                    $xsproduct->table = 'product_permissions';
+                    $xsproduct->customers_id = $idToMod;
+                    $xsproduct->product_id = $prod_id ;
+
+                    $stmt2 = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
+                    $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+
+                    if($stmt2->rowCount()>0)
+                    {
+
+                        $xsproduct->table = 'product_permissions';
+                        $xsproduct->id = $row2['id'];
+                        $xsproduct->product_files_cat_id = $cat_arr_str ;
+
+                        if(!$xsproduct->update(['product_files_cat_id'],'id'))
+                        {
+                            $error++;
+                        }
+                    }
+                    else
+                    {
+                        $xsproduct->table = 'product_permissions';
+                        $xsproduct->customers_id = $idToMod;
+                        $xsproduct->product_id = $prod_id ;
+                        $xsproduct->product_files_cat_id = $cat_arr_str ;
+                        if(!$xsproduct->insert(['customers_id','product_id','product_files_cat_id']))
+                        {
+                            $error++;
+                        }
+                    }
+            }
+            
+
+            }
+
+            $err_file = '' ;
+            
+
+			header("Location: ../index.php?p=editCustomer&idToMod=$idToMod&msg=customerEdit");
 			exit; 
 		
 		}else{
         
-			header("Location: ../index.php?p=editCustomer&idToMod=$id&err=customerNoEdit");
+			header("Location: ../index.php?p=editCustomer&idToMod=$idToMod&err=customerNoEdit");
 			exit;
 		
         }

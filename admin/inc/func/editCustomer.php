@@ -241,21 +241,26 @@ $details_opt="";
                                 
                                 $xsproduct->table = 'product_permissions' ;
                                 $xsproduct->customers_id = $row1['id'] ;
-                                $xsproduct->product_id = $row['id'] ;
+                                $product_id = $row['id'] ;
+                                $xsproduct->product_id = $product_id ;
 
                                 $stmt2 = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
-
-                                $checked = '' ;
+                                $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+                                if($row2['product_files_cat_id'])
+                                {
+                                    $permissions=unserialize($row2['product_files_cat_id']);
+                                }
+                                $checked_prod = '' ;
                                 $bg_class = 'danger' ;
 
                                 if($stmt2->rowCount()>0)
                                 {
-                                    $checked = 'checked' ;
+                                    $checked_prod = 'checked' ;
                                     $bg_class = 'success' ;
                                 }
 
                         ?>
-                            <div class="col-12 rounded py-3 my-1 bg-<?=$bg_class?> text-white">
+                            <div class="col-12 rounded p-3 my-1 bg-<?=$bg_class?> text-white">
                                 <div class="row">
                                     <!-- switch permission -->
                                     <div class="col-md-4">
@@ -263,14 +268,77 @@ $details_opt="";
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-check form-switch quiz">
-                                            <input class="form-check-input delete" type="checkbox" name="check_<?=$count?>" id="flexSwitchCheckDefault" <?=$checked?>>
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Permesso </label>
+                                            <input class="form-check-input delete" type="checkbox" name="prod_<?=$row['id']?>" id="flexSwitchCheckDefault" <?=$checked_prod?>>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Autorizza </label>
                                         </div>
                                     </div>
                                     <div class="col-md-5">&nbsp;</div>
 
                                     <!-- select cat files -->
-                                    
+                                <?php
+                                    $xsproduct->table = 'product_files_cat' ;
+                                    $stmt3 = $xsproduct->showAll('id');
+                                    while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC))
+                                    {
+                                        extract($row3) ;
+                                        $product_files_cat_id = $row3['id'] ;
+                                ?>
+                                    <div class="col-md-6 p-2">
+                                        <div class="row bg-light rounded text-dark m-2">
+                                            <div class="col-12">
+                                                <p><strong><?=$row3['cat_name']?></strong></p>
+                                                <div class="form-group">
+                                                        <div class="form-check">
+                                                            <div class="checkbox mx-5">
+                                                                <?php
+                                                                    
+                                                                    $xsproduct->table = 'product_files' ;
+                                                                    $xsproduct->product_id = $product_id ;
+                                                                    $xsproduct->product_files_cat_id = $product_files_cat_id ;
+                                                                    $stmt4 = $xsproduct->showAllWhere('id',['product_id','product_files_cat_id']) ;
+                                                                    
+                                                                    while($row4 = $stmt4->fetch(PDO::FETCH_ASSOC))
+                                                                    {
+
+                                                                        extract($row4);
+                                                                        $checked="";
+                                                                        $product_files_id = $row4['id'] ;
+
+                                                                        if($permissions)
+                                                                        {
+                                                                            for($idx_perm=0; $idx_perm<count($permissions); $idx_perm++)
+                                                                            {
+                                                                                foreach($permissions[$idx_perm][$product_files_cat_id ] as $item)
+                                                                                {
+
+                                                                                    if($product_files_id == $item)
+                                                                                    {
+                                                                                        $checked = "checked" ;
+                                                                                    }
+                                                                                }
+                                                                            }
+
+                                                                        }
+                                                                ?>
+                                                                <input type="checkbox" name="files_<?=$product_id?>_<?=$product_files_cat_id?>[]" value="<?=$product_files_id?>" class="form-check-input" <?=$checked?>>
+                                                                <label for="checkbox1"><?=$row4['product_files_label']?></label>
+                                                                <br>
+
+                                                                <?php
+                                                                    }
+
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        
+                                <?php
+                                    }
+                                ?>
+
                                 </div>
                             </div>
                         <?php
@@ -284,7 +352,7 @@ $details_opt="";
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="origin" value="editCustomer">
                       
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 mt-2 d-flex justify-content-end">
                             <button
                             type="submit"
                             class="btn btn-primary me-1 mb-1"
