@@ -166,8 +166,6 @@ if(filter_input(INPUT_POST,"idToMod"))
                 }
                 else
                 {
-                    // non è spuntato il permesso al prodotto
-                    // query se esiste il record su db e nel caso delete
                     $xsproduct->table = 'product_permissions';
                     $xsproduct->customers_id = $idToMod;
                     $xsproduct->product_id = $prod_id ;

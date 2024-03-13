@@ -4,8 +4,8 @@
 
 XS
 
-- permission ai clienti
 - permission sul caricamento dei file
+- controlli su lowercase folder cat
 
 
 ########################################################

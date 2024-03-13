@@ -158,6 +158,44 @@ $prod_id = $row['id'];
                               </div>
                           </div>
                       </div>
+           
+                      <div class="col-md-3">
+                            <label>Visibile a  <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                         <div class="form-group">
+                                <select
+                                class="choices form-select multiple-remove"
+                                multiple="multiple" name="product[]"
+                                >
+                                <?php
+                                    $xsproduct->table = 'product_permissions' ;
+                                    $xsproduct->product_id = $prod_id ;
+                                    $stmt = $xsproduct->showAllWhere('id',['product_id']) ; 
+                                    
+                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                                    {
+                                        extract($row);
+                                        $customer->table = 'customers';
+                                        $customer->id = $row['customers_id'];
+                                        $stmt1 = $customer->showAllWhere('id',['id']);
+
+                                        $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
+                                        extract($row1) ;
+                                ?>
+
+                                    <option value="<?=$row1['id']?>" <?=$selected?>><?=$row1['name']?> (<?=$row1['company']?>)</option>
+
+                                <?php
+                                    }
+                                
+                                ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+
                       <div class="col-md-3">
                           <label><?=$file_add_file?> <span class="text-danger">*</span></label>
                       </div>
