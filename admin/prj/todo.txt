@@ -4,6 +4,7 @@
 
 XS
 
+- rifare permissions su editCustomer
 - permission sul caricamento dei file
 - controlli su lowercase folder cat
 - gestire spazi con '_' nei nomi delle categorie dei file

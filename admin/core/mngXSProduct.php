@@ -281,17 +281,25 @@ else if($operation=='addFilesCat')
     $file->operation = 'add' ;
     if($file->uploadFile())
     {
-        $xsproduct->table = 'product_files' ;
+        
         $xsproduct->product_files_name = $files_cat_name ;
         $xsproduct->product_files_label = filter_input(INPUT_POST,"label");
         $xsproduct->product_files_cat_id = filter_input(INPUT_POST,"filesCatId"); 
         $xsproduct->product_id = filter_input(INPUT_POST,"productId");
-        
-        if($xsproduct->insert(['product_files_name','product_files_label','product_files_cat_id','product_id']))
+
+        $cust_id = [] ;
+        foreach($_POST['permissions'] as $item)
         {
-            // permission
-            print_r($_POST);
-            exit;
+            $cust_id[] = $item ;       
+        }
+
+        $cust_id_str = implode(',',$cust_id) ;
+        $xsproduct->permissions = $cust_id_str ;
+        
+        $xsproduct->table = 'product_files' ;
+
+        if($xsproduct->insert(['product_files_name','product_files_label','product_files_cat_id','product_id','permissions']))
+        {
             header("Location: ../index.php?p=editXSProduct&idToMod=$id&msg=productFilesCatAdd");
             exit; 
         }
