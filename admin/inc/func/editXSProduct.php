@@ -114,11 +114,9 @@ $prod_id = $row['id'];
 
           $table_counter = $stmt1->rowCount();
 
-          $idx_prod=1;
           while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
           {
             extract($row1) ;
-
             $lc_cat_name = $row1['cat_name'] ;
             $cat_name = ucfirst($row1['cat_name']);
             $cat_id = $row1['id'] ;
@@ -166,25 +164,25 @@ $prod_id = $row['id'];
                          <div class="form-group">
                                 <select
                                 class="choices form-select multiple-remove"
-                                multiple="multiple" name="product[]"
+                                multiple="multiple" name="permissions[]"
                                 >
                                 <?php
                                     $xsproduct->table = 'product_permissions' ;
                                     $xsproduct->product_id = $prod_id ;
-                                    $stmt = $xsproduct->showAllWhere('id',['product_id']) ; 
+                                    $stmt2 = $xsproduct->showAllWhere('id',['product_id']) ; 
                                     
-                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                                    while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC))
                                     {
-                                        extract($row);
+                                        extract($row2);
                                         $customer->table = 'customers';
-                                        $customer->id = $row['customers_id'];
-                                        $stmt1 = $customer->showAllWhere('id',['id']);
+                                        $customer->id = $row2['customers_id'];
+                                        $stmt3 = $customer->showAllWhere('id',['id']);
 
-                                        $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
-                                        extract($row1) ;
+                                        $row3 = $stmt3->fetch(PDO::FETCH_ASSOC) ;
+                                        extract($row3) ;
                                 ?>
 
-                                    <option value="<?=$row1['id']?>" <?=$selected?>><?=$row1['name']?> (<?=$row1['company']?>)</option>
+                                    <option value="<?=$row3['id']?>" ><?=$row3['name']?> (<?=$row3['company']?>)</option>
 
                                 <?php
                                     }
@@ -239,7 +237,7 @@ $prod_id = $row['id'];
                     </div>
                     </form>
 
-              <table class="table" id="table<?=$idx_prod?>">
+              <table class="table">
               <thead>
                 <tr>
                   <th>Label</th>
@@ -254,7 +252,6 @@ $prod_id = $row['id'];
                   $xsproduct->product_id = $product_id ;
                   $xsproduct->product_files_cat_id = $row1['id'];
                   $xsproduct->table = 'product_files' ;
-                  $idx_prod++; 
                   
                   $stmt2 = $xsproduct->showAllWhere('id',['product_id','product_files_cat_id']) ;
                   while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC))

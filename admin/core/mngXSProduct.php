@@ -279,7 +279,6 @@ else if($operation=='addFilesCat')
     $file->origin = filter_input(INPUT_POST,"origin");
 
     $file->operation = 'add' ;
-
     if($file->uploadFile())
     {
         $xsproduct->table = 'product_files' ;
@@ -287,9 +286,12 @@ else if($operation=='addFilesCat')
         $xsproduct->product_files_label = filter_input(INPUT_POST,"label");
         $xsproduct->product_files_cat_id = filter_input(INPUT_POST,"filesCatId"); 
         $xsproduct->product_id = filter_input(INPUT_POST,"productId");
-
+        
         if($xsproduct->insert(['product_files_name','product_files_label','product_files_cat_id','product_id']))
         {
+            // permission
+            print_r($_POST);
+            exit;
             header("Location: ../index.php?p=editXSProduct&idToMod=$id&msg=productFilesCatAdd");
             exit; 
         }
