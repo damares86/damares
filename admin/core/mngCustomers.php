@@ -182,13 +182,7 @@ if(filter_input(INPUT_POST,"idToMod"))
                 {
                     // il prodotto non è checkato
                     // devo eliminare il record da product_permissions
-                    // devo ciclare tutti i prodotti da product_files ed eliminare l'id del customers da permissions
 
-
-
-
-
-                    
                     $xsproduct->table = 'product_permissions';
                     $xsproduct->customers_id = $idToMod;
                     $xsproduct->product_id = $prod_id ;
@@ -205,6 +199,13 @@ if(filter_input(INPUT_POST,"idToMod"))
                             $error_prod++;
                         }
                     }
+                    
+                    // devo ciclare tutti i prodotti da product_files ed eliminare l'id del customers da permissions
+
+                    
+
+
+                    
 
                 }
             
