@@ -94,12 +94,12 @@ if(filter_input(INPUT_POST,"idToMod"))
         if($customer->update(['name','username','company', 'email','details','details_opt'],'id')){
 
             // permissions update
-            
+           
             $xsproduct->table = 'product' ;
             $stmt = $xsproduct->showAll('id');
 
-            $error = 0 ;
             $error_prod = 0 ;
+            $error_file = 0 ;
 
             while($row = $stmt->fetch(PDO::FETCH_ASSOC))
             {
@@ -110,6 +110,33 @@ if(filter_input(INPUT_POST,"idToMod"))
 
                 if(filter_input(INPUT_POST,'prod_'.$prod_id.''))
                 {
+                    // il prodotto è checkato
+                    //    - se già presente passo oltre
+                    //    - se no insert product_permissions
+
+                    $xsproduct->table = 'product_permissions';
+                    $xsproduct->customers_id = $idToMod;
+                    $xsproduct->product_id = $prod_id ;
+
+                    $stmt = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
+
+                    if($stmt->rowCount()==0)
+                    {
+                        $xsproduct->table = 'product_permissions';
+                        $xsproduct->customers_id = $idToMod;
+                        $xsproduct->product_id = $prod_id ;
+                        if(!$xsproduct->insert(['customers_id','product_id']))
+                        {
+                            $error_prod++;
+                        }
+                    }
+
+                    // permessi file
+                    //    - get da product_files dove c'è product_id
+                    //    - explode permissions[]
+                    //    - ciclo file
+                    //        - aggiungo all'array
+                    //    - update product_files
 
                     $xsproduct->table = 'product_files_cat' ;
                     $stmt1 = $xsproduct->showAll('id');
@@ -124,48 +151,44 @@ if(filter_input(INPUT_POST,"idToMod"))
                         $cat_files = $_POST['files_'.$prod_id.'_'.$row1['id']];
                         foreach($cat_files as $file)
                         {
-                            $files_arr[] = $file;
+                    
+                            $xsproduct->table = 'product_files' ;
+                            $xsproduct->id = $file ;
+
+                            $stmt2 = $xsproduct->showAllWhere('id',['id']) ;
+                            $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+
+                            $perm_arr = explode(',',$row2['permissions']) ;
+
+                            $perm_arr[] = $idToMod ;
+
+                            $perm_str = implode(',',$perm_arr) ;
+                            
+                            $xsproduct->table = 'product_files' ;
+                            $xsproduct->id = $file ;
+                            $xsproduct->permissions = $perm_str ;
+
+                            if(!$xsproduct->update(['permissions'],'id'))
+                            {
+                                $error_file++;
+                            }
+                            
                         }
                         
-                        $cat_arr[] = array($row1['id'] => $files_arr) ;
                     }
-                    
-
-                    $cat_arr_str = serialize($cat_arr) ;
-                    
-                    $xsproduct->table = 'product_permissions';
-                    $xsproduct->customers_id = $idToMod;
-                    $xsproduct->product_id = $prod_id ;
-
-                    $stmt2 = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
-                    $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
-
-                    if($stmt2->rowCount()>0)
-                    {
-
-                        $xsproduct->table = 'product_permissions';
-                        $xsproduct->id = $row2['id'];
-                        $xsproduct->product_files_cat_id = $cat_arr_str ;
-
-                        if(!$xsproduct->update(['product_files_cat_id'],'id'))
-                        {
-                            $error++;
-                        }
-                    }
-                    else
-                    {
-                        $xsproduct->table = 'product_permissions';
-                        $xsproduct->customers_id = $idToMod;
-                        $xsproduct->product_id = $prod_id ;
-                        $xsproduct->product_files_cat_id = $cat_arr_str ;
-                        if(!$xsproduct->insert(['customers_id','product_id','product_files_cat_id']))
-                        {
-                            $error++;
-                        }
-                    }
+                   
                 }
                 else
                 {
+                    // il prodotto non è checkato
+                    // devo eliminare il record da product_permissions
+                    // devo ciclare tutti i prodotti da product_files ed eliminare l'id del customers da permissions
+
+
+
+
+
+                    
                     $xsproduct->table = 'product_permissions';
                     $xsproduct->customers_id = $idToMod;
                     $xsproduct->product_id = $prod_id ;
