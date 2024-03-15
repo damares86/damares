@@ -246,10 +246,10 @@ $details_opt="";
 
                                 $stmt2 = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
                                 $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
-                                if($row2['product_files_cat_id'])
-                                {
-                                    $permissions=unserialize($row2['product_files_cat_id']);
-                                }
+                                // if($row2['product_files_cat_id'])
+                                // {
+                                //     $permissions=unserialize($row2['product_files_cat_id']);
+                                // }
                                 $checked_prod = '' ;
                                 $bg_class = 'danger' ;
 
@@ -304,21 +304,18 @@ $details_opt="";
                                                                         $checked="";
                                                                         $product_files_id = $row4['id'] ;
 
-                                                                        if($permissions)
+                                                                        $perm_str = $row4['permissions'] ;
+                                                                        $perm_arr = explode(',',$perm_str) ;
+
+                                                                        if(is_array($perm_arr))
                                                                         {
-                                                                            for($idx_perm=0; $idx_perm<count($permissions); $idx_perm++)
+                                                                            if(in_array($row1['id'],$perm_arr))
                                                                             {
-                                                                                foreach($permissions[$idx_perm][$product_files_cat_id ] as $item)
-                                                                                {
-
-                                                                                    if($product_files_id == $item)
-                                                                                    {
-                                                                                        $checked = "checked" ;
-                                                                                    }
-                                                                                }
+                                                                                $checked = "checked" ;
                                                                             }
-
                                                                         }
+
+                                                         
                                                                 ?>
                                                                 <input type="checkbox" name="files_<?=$product_id?>_<?=$product_files_cat_id?>[]" value="<?=$product_files_id?>" class="form-check-input" <?=$checked?>>
                                                                 <label for="checkbox1"><?=$row4['product_files_label']?></label>

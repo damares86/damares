@@ -93,6 +93,7 @@ if(filter_input(INPUT_POST,"idToMod"))
 
         if($customer->update(['name','username','company', 'email','details','details_opt'],'id')){
 
+            
             // permissions update
            
             $xsproduct->table = 'product' ;
@@ -143,12 +144,12 @@ if(filter_input(INPUT_POST,"idToMod"))
 
                     $cat_arr = [] ;
                     $cat_arr_str = '' ;
-
                     while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
                     {
                         $files_arr = [] ;
-
+                        
                         $cat_files = $_POST['files_'.$prod_id.'_'.$row1['id']];
+
                         foreach($cat_files as $file)
                         {
                     
@@ -201,11 +202,39 @@ if(filter_input(INPUT_POST,"idToMod"))
                     }
                     
                     // devo ciclare tutti i prodotti da product_files ed eliminare l'id del customers da permissions
+                             
+                    $xsproduct->table = 'product_files';
+                    $xsproduct->product_id = $prod_id ;
 
-                    
+                    $stmt3 = $xsproduct->showAllWhere('id',['product_id']) ;
 
+                    while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC))
+                    {
 
-                    
+                        extract($row3) ;
+                        
+                        $perm_arr = explode(',',$row3['permissions']) ;
+                        $new_perm_arr = [] ;
+
+                        foreach($perm_arr as $perm)
+                        {
+                            if($perm != $idToMod)
+                            {
+                                $new_perm_arr[] = $perm ;
+                            }
+                        }
+
+                        $new_perm_str = implode(',',$new_perm_arr) ;
+                        
+                        $xsproduct->table = 'product_files' ;
+                        $xsproduct->id = $row3['id'] ;
+                        $xsproduct->permissions = $new_perm_str ;
+
+                        if(!$xsproduct->update(['permissions'],'id'))
+                        {
+                            $error_file++;
+                        }
+                    }
 
                 }
             
