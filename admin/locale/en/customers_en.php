@@ -29,7 +29,7 @@ $customer_edit_title = "Edit customer" ;
 $customer_all_header = "All customers" ;
 $customer_all_title = "All customers" ;
 $customer_all_add = "Add a customer" ;
-$customer_all_surname_table = "Surname" ;
+// $customer_all_surname_table = "Surname" ;
 $customer_all_name_table = "Name" ;
 $customer_all_modal_body = "If you confirm, you will completely delete this customer." ;
 

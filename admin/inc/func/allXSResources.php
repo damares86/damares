@@ -6,7 +6,7 @@ $stmt = $xsresources->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>All resources</h3>
+      <h3><?=$xs_res_all_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $xsresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          All resources
+          <?=$xs_res_all_header?>
           </li>
         </ol>
       </nav>
@@ -31,20 +31,20 @@ $stmt = $xsresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">All resources &nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$xs_res_all_title?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addXSResource" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Add resource</a
+                        ><i data-feather="plus-circle"></i> <?=$xs_res_all_add_button?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Product</th>
-            <th>Language</th>
-            <th>Type</th>
-            <th>Link</th>
+            <th><?=$xs_res_add_title_res?></th>
+            <th><?=$xs_res_all_date?></th>
+            <th><?=$xs_res_all_prod?></th>
+            <th><?=$xs_res_add_lang?></th>
+            <th><?=$xs_res_add_type?></th>
+            <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -125,7 +125,7 @@ $stmt = $xsresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    Testo modale risorse
+                                    <?=$xs_res_all_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

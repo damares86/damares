@@ -40,8 +40,8 @@ $stmt = $customer->showAll('id');
         <thead>
           <tr>
             <th><?=$customer_all_name_table?></th>
-            <th>Username</th>
-            <th>Company</th>
+            <th><?=$common_username?></th>
+            <th><?=$customer_add_company?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
