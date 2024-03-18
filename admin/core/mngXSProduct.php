@@ -197,6 +197,8 @@ if($operation == "addCat")
 {
 
     $cat_name = filter_input(INPUT_POST,"name");
+    $cat_name = str_replace(' ','_',$cat_name);
+    $cat_name = strtolower($cat_name);
     $xsproduct->cat_name = $cat_name ;
     $xsproduct->table = 'product_files_cat' ;
 

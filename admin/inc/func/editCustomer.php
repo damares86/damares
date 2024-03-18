@@ -282,11 +282,12 @@ $details_opt="";
                                     {
                                         extract($row3) ;
                                         $product_files_cat_id = $row3['id'] ;
+                                        $cat_name = ucfirst($row3['cat_name']);
                                 ?>
                                     <div class="col-md-6 p-2">
                                         <div class="row bg-light rounded text-dark m-2">
                                             <div class="col-12">
-                                                <p><strong><?=$row3['cat_name']?></strong></p>
+                                                <p><strong><?=$cat_name?></strong></p>
                                                 <div class="form-group">
                                                         <div class="form-check">
                                                             <div class="checkbox mx-5">

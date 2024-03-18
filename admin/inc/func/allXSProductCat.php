@@ -47,9 +47,13 @@ $stmt = $xsproduct->showAll('id');
           
         <?php
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        ?>
+          
+            $cat_name = $row['cat_name'] ;
+            $cat_name = str_replace('_',' ',$cat_name) ;
+            $cat_name = ucfirst($cat_name) ;
+          ?>
           <tr>
-            <td><?=$row['cat_name']?></td>
+            <td><?=$cat_name?></td>
             <td>
               <a href="index.php?p=editXSProductCat&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
