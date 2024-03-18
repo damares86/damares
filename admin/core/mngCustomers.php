@@ -164,7 +164,7 @@ if(filter_input(INPUT_POST,"idToMod"))
                                     $indice = null ;
                                     $indice = array_search($idToMod,$perm_prod_arr);
 
-                                    if(!isset($indice))
+                                    if($indice==null)
                                     {
                                         $perm_prod_arr[] = $idToMod ;
                                     }
@@ -176,11 +176,12 @@ if(filter_input(INPUT_POST,"idToMod"))
                                     
                                     $indice = array_search($idToMod,$perm_prod_arr);
                                     
-                                    if(isset($indice))
+                                    if($indice !== null)
                                     {
                                         unset($perm_prod_arr[$indice]) ;
                                     }
                                 }
+
                                 
                                 $new_perm_str = implode(',',$perm_prod_arr) ;
                             
