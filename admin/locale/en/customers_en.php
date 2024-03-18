@@ -8,13 +8,15 @@
 #                                          #
 ############################################
 
-// add 
+// add customer
 
 $customer_add_header = "Add a customer" ;
 $customer_add_title = "Add customer" ;
 $customer_add_name_ph = "Customer name" ;
 $customer_add_surname_ph = "Customer surname" ;
 $customer_add_optional = "Optional" ;
+$customer_add_company = "Company" ;
+$customer_add_authorize = "Authorize products" ;
 
 // edit
 

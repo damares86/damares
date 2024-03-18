@@ -8,42 +8,21 @@
 #                                          #
 ############################################
 
-// add 
+// add resource
 
-$customer_add_header = "Add a customer" ;
-$customer_add_title = "Add customer" ;
-$customer_add_name_ph = "Customer name" ;
-$customer_add_surname_ph = "Customer surname" ;
-$customer_add_optional = "Optional" ;
+$xs_res_add_header = "Add a resource" ;
+$xs_res_add_title = "Add a new resource" ;
+$xs_res_add_title_res = "Title" ;
+$xs_res_add_description = "Description" ;
+$xs_res_add_product = "Product" ;
+$xs_res_add_type = "Type" ;
+$xs_res_add_lang = "Language" ;
 
-// edit
+// add type
 
-$customer_edit_header = "Edit a customer" ;
-$customer_edit_title = "Edit customer" ;
-
-
-// all
-
-$customer_all_header = "All customers" ;
-$customer_all_title = "All customers" ;
-$customer_all_add = "Add a customer" ;
-$customer_all_surname_table = "Surname" ;
-$customer_all_name_table = "Name" ;
-$customer_all_modal_body = "If you confirm, you will completely delete this customer." ;
+$xs_type_add_header = "Add resource type" ;
+$xs_type_add_title = "Add a new resource type" ;
 
 
-// msg
-
-$msg_customerDel = "Customer successfully deleted" ;
-$msg_customerEdit = "Customer successfully modified" ;
-$msg_customerSucc = "Customer successfully created" ;
-
-
-// err
-
-$err_customerNoDel = "Customer not deleted" ;
-$err_customerExist = "Customer already exists" ;
-$err_customerNoEdit = "Customer not modified" ;
-$err_customerFail = "Customer not created" ;
 
 ?>

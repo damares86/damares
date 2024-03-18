@@ -83,7 +83,7 @@
 
 
                         <div class="col-md-3">
-                            <label>Company<span class="text-danger">*</span></label>
+                            <label><?=$customer_add_company?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Password<span class="text-danger">*</span></label>
+                            <label><?=$common_password?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -123,7 +123,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label>Email<span class="text-danger">*</span></label>
+                            <label><?=$common_email?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -224,7 +224,7 @@
                         ?>
 
                         <div class="col-md-3">
-                            <label>Autorizza prodotti  <span class="text-danger">*</span></label>
+                            <label><?=$customer_add_authorize?>  <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                          <div class="form-group">
