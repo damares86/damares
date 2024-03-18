@@ -1,5 +1,26 @@
 <?php
 
+
+
+$array = [1, 3, 5, 8];
+
+// Valore da cercare e rimuovere
+$valore_da_rimuovere = 5;
+
+// Trova l'indice del valore nel tuo array
+$indice = array_search($valore_da_rimuovere, $array);
+
+// Se l'indice esiste, rimuovi l'elemento dall'array
+if ($indice !== false) {
+    unset($array[$indice]);
+}
+
+// Stampa l'array aggiornato
+print_r($array);
+
+exit;
+
+
 $exclude = array('..', '.');
 foreach (scandir("../../product") as $row) {
 

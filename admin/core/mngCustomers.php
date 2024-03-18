@@ -108,9 +108,10 @@ if(filter_input(INPUT_POST,"idToMod"))
                 extract($row);
 
                 $prod_id = $row['id'] ;
-
+                
                 if(filter_input(INPUT_POST,'prod_'.$prod_id.''))
                 {
+
                     // il prodotto è checkato
                     //    - se già presente passo oltre
                     //    - se no insert product_permissions
@@ -119,9 +120,9 @@ if(filter_input(INPUT_POST,"idToMod"))
                     $xsproduct->customers_id = $idToMod;
                     $xsproduct->product_id = $prod_id ;
 
-                    $stmt = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
+                    $stmt2 = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
 
-                    if($stmt->rowCount()==0)
+                    if($stmt2->rowCount()==0)
                     {
                         $xsproduct->table = 'product_permissions';
                         $xsproduct->customers_id = $idToMod;
@@ -132,13 +133,6 @@ if(filter_input(INPUT_POST,"idToMod"))
                         }
                     }
 
-                    // permessi file
-                    //    - get da product_files dove c'è product_id
-                    //    - explode permissions[]
-                    //    - ciclo file
-                    //        - aggiungo all'array
-                    //    - update product_files
-
                     $xsproduct->table = 'product_files_cat' ;
                     $stmt1 = $xsproduct->showAll('id');
 
@@ -146,34 +140,95 @@ if(filter_input(INPUT_POST,"idToMod"))
                     $cat_arr_str = '' ;
                     while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
                     {
-                        $files_arr = [] ;
-                        
-                        $cat_files = $_POST['files_'.$prod_id.'_'.$row1['id']];
 
-                        foreach($cat_files as $file)
+                        if($_POST['files_'.$prod_id.'_'.$row1['id']])
                         {
-                    
+
+                            $files_cat_arr = $_POST['files_'.$prod_id.'_'.$row1['id']] ;
+
                             $xsproduct->table = 'product_files' ;
-                            $xsproduct->id = $file ;
+                            $xsproduct->product_id = $prod_id ;
+                            $xsproduct->product_files_cat_id = $row1['id'] ;
 
-                            $stmt2 = $xsproduct->showAllWhere('id',['id']) ;
-                            $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
-
-                            $perm_arr = explode(',',$row2['permissions']) ;
-
-                            $perm_arr[] = $idToMod ;
-
-                            $perm_str = implode(',',$perm_arr) ;
+                            $stmt3 = $xsproduct->showAllWhere('id',['product_id','product_files_cat_id']) ;
                             
-                            $xsproduct->table = 'product_files' ;
-                            $xsproduct->id = $file ;
-                            $xsproduct->permissions = $perm_str ;
-
-                            if(!$xsproduct->update(['permissions'],'id'))
+                            while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC))
                             {
-                                $error_file++;
-                            }
+
+                                extract($row3) ;
+
+                                $perm_prod_arr = explode(',',$row3['permissions']) ;
+
+                                if(in_array($row3['id'],$files_cat_arr))
+                                {
+                                    $indice = null ;
+                                    $indice = array_search($idToMod,$perm_prod_arr);
+
+                                    if(!isset($indice))
+                                    {
+                                        $perm_prod_arr[] = $idToMod ;
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    $indice = null ;
+                                    
+                                    $indice = array_search($idToMod,$perm_prod_arr);
+                                    
+                                    if(isset($indice))
+                                    {
+                                        unset($perm_prod_arr[$indice]) ;
+                                    }
+                                }
+                                
+                                $new_perm_str = implode(',',$perm_prod_arr) ;
                             
+                                $xsproduct->table = 'product_files' ;
+                                $xsproduct->id = $row3['id'] ;
+                                $xsproduct->permissions = $new_perm_str ;
+                                
+                                if(!$xsproduct->update(['permissions'],'id'))
+                                {
+                                    $error_file++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // non c'è nessun file checkato
+
+                            $xsproduct->table = 'product_files' ;
+                            $xsproduct->product_id = $prod_id ;
+                            $xsproduct->product_files_cat_id = $row1['id'] ;
+
+                            $stmt3 = $xsproduct->showAllWhere('id',['product_id','product_files_cat_id']) ;
+                            
+                            while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC))
+                            {
+
+                                extract($row3) ;
+                                $indice = null ;
+                                $perm_prod_arr = explode(',',$row3['permissions']) ;
+                                
+                                $indice = array_search($idToMod,$perm_prod_arr);
+                                
+                                if(isset($indice))
+                                {
+                                    unset($perm_prod_arr[$indice]) ;
+                                }
+
+                                $new_perm_str = implode(',',$perm_prod_arr) ;
+                            
+                                $xsproduct->table = 'product_files' ;
+                                $xsproduct->id = $row3['id'] ;
+                                $xsproduct->permissions = $new_perm_str ;
+                                
+                                if(!$xsproduct->update(['permissions'],'id'))
+                                {
+                                    $error_file++;
+                                }
+                            }
                         }
                         
                     }
@@ -181,6 +236,7 @@ if(filter_input(INPUT_POST,"idToMod"))
                 }
                 else
                 {
+                    
                     // il prodotto non è checkato
                     // devo eliminare il record da product_permissions
 
