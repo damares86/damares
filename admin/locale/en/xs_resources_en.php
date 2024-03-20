@@ -18,6 +18,13 @@ $xs_res_add_product = "Product" ;
 $xs_res_add_type = "Type" ;
 $xs_res_add_lang = "Language" ;
 
+// edit xs resource
+
+$xs_res_edit_header = "Edit resource" ;
+$xs_res_edit_current_file = "Current file" ;
+$xs_res_edit_replace_file = "Replace file" ;
+
+
 
 // all resources 
 
@@ -33,6 +40,11 @@ $xs_res_all_modal_body = "If you confirm, you will completely delete this resour
 
 $xs_type_add_header = "Add resource type" ;
 $xs_type_add_title = "Add a new resource type" ;
+
+
+// edit resource type
+
+$xs_type_edit_header = "Edit resource type" ;
 
 
 // all resource type
@@ -58,5 +70,35 @@ $xs_lang_lang = "Language" ;
 $xs_lang_number = "Number of resources" ;
 $xs_lang_modal_body = "If you confirm, you will completely delete this language." ;
 
+
+// msg
+
+$msg_resLangDel = "Language deleted" ;
+$msg_resTypeDel = "Type deleted" ;
+$msg_resDel = "Resource deleted" ;
+$msg_resEditTypeSucc = "Type modified" ;
+$msg_resEditLangSucc = "Language modified" ;
+$msg_resEditSucc = "Resource modified" ;
+$msg_resTypeSucc = "Type added" ;
+$msg_resLangSucc = "Language added" ;
+$msg_resSucc = "Resource added" ;
+
+
+// err
+
+$err_resLangExists = "Language not deleted. There are some resource with this language" ;
+$err_resLangNoDel = "Language not deleted" ;
+$err_resTypeExists = "Type not deleted. There are some resource with this type" ;
+$err_resTypeNoDel = "Type not deleted" ;
+$err_resNoDel = "Resource not deleted" ;
+$err_resEditTypeFail = "Type not modified" ;
+$err_resEditLangFail = "Language not modified" ;
+$err_fileResFail = "File not uploaded" ;
+$err_resEditFail = "Resource not modified" ;
+$err_resTypeFail = "Type not added" ;
+$err_resLangFail = "Language not added" ;
+$err_resFail = "Resource not added" ;
+$err_fileResFail = "Resource file not uploaded" ;
+$err_fileResEmpty = "File not provided" ;
 
 ?>

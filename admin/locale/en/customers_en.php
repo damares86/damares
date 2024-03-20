@@ -50,5 +50,9 @@ $err_customerNoDel = "Customer not deleted" ;
 $err_customerExist = "Customer already exists" ;
 $err_customerNoEdit = "Customer not modified" ;
 $err_customerFail = "Customer not created" ;
+$err_filePermissionFail = "Error on setting permissions on files" ;
+$err_prodPermissionFail = "Error on setting permissions on product" ;
+$err_customerPermErr = "Error on setting permissions on product" ;
+
 
 ?>

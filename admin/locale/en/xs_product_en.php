@@ -53,4 +53,36 @@ $xs_all_prod_log = "Log" ;
 $xs_all_prod_modal_body ="If you confirm, you will completely delete this product." ; 
 
 
+// msg
+
+$msg_prodDel = "Product deleted" ;
+$msg_prodCatDel = "Product category deleted" ;
+$msg_prodFileDel = "Product file deleted" ;
+$msg_productCatSucc = "Category createrd" ;
+$msg_productFilesCatAdd = "Files uploaded" ;
+$msg_productCatEdit = "Product category modified" ;
+$msg_productEditSucc = "Product modified" ;
+$msg_productSucc = "Product added" ;
+
+
+// err
+
+$err_prodFileExistsNoDel = "Error! There are some files associated with this product" ;
+$err_prodFolderNoDel = "Some folder of this product not deleted" ;
+$err_prodNoDel = "Product not deleted" ;
+$err_prodCatExistsNoDel = "Error! There are some files associated with this category" ;
+$err_prodCatNoDel = "Product category not deleted" ;
+$err_prodFileFolderNoDel = "Error on deleting file" ;
+$err_prodFileNoDel = "Product file not deleted" ;
+$err_prodCatExists = "Category already exists" ;
+$err_productCatFolderErr = "Error on creating category folder" ;
+$err_productCatFail = "Category not created" ;
+$err_productFilesCatFail = "File uploaded. but not inserted in the database" ;
+$err_productFilesCatUploadFail = "File not uploaded" ;
+$err_productCatNoEdit = "Product category not modified" ;
+$err_productEditFolderFail = "Product folder's name not modified" ;
+$err_productEditFail = "Product not modified" ;
+$err_productFail = "Product not added" ;
+
+
 ?>

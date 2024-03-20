@@ -21,7 +21,6 @@ function rmdir_recursive($dir) {
     rmdir($dir);
 }
 
-// check if there's a customer to delete
 
 if(filter_input(INPUT_GET,"idToDel"))
 {
