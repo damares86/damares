@@ -14,7 +14,7 @@ $prod_id = $row['id'];
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Modifica prodotto</h3>
+      <h3><?=$xs_prod_edit_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -26,7 +26,7 @@ $prod_id = $row['id'];
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Modifica prodotto
+          <?=$xs_prod_edit_header?>
           </li>
         </ol>
       </nav>
@@ -40,7 +40,7 @@ $prod_id = $row['id'];
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Modifica un prodotto</h4>
+                <h4 class="card-title"><?=$xs_prod_edit_header?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -132,12 +132,12 @@ $prod_id = $row['id'];
             <div class="card-content">
               <div class="card-body">
               
-                <h6>Aggiungi un nuovo file</h6>
+                <h6><?=$xs_prod_edit_add_file?></h6>
                 <form class="form form-horizontal mb-5 pb-3 border-bottom" action="core/mngXSProduct.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                   <div class="form-body">
                       <div class="row">
                       <div class="col-md-3">
-                          <label>Label<span class="text-danger">*</span></label>
+                          <label><?=$xs_prod_edit_add_file_label?> <span class="text-danger">*</span></label>
                       </div>
                       <div class="col-md-9">
                           <div class="form-group">
@@ -158,7 +158,7 @@ $prod_id = $row['id'];
                       </div>
            
                       <div class="col-md-3">
-                            <label>Visibile a  <span class="text-danger">*</span></label>
+                            <label><?=$xs_prod_edit_add_file_auth?>  <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                          <div class="form-group">
@@ -240,9 +240,9 @@ $prod_id = $row['id'];
               <table class="table">
               <thead>
                 <tr>
-                  <th>Label</th>
-                  <th>Filename</th>
-                  <th>Link</th>
+                  <th><?=$xs_prod_edit_add_file_label ?></th>
+                  <th><?=$xs_prod_edit_add_file_name?></th>
+                  <th><?=$common_link?></th>
                   <th><?=$common_actions?></th>
                 </tr>
               </thead>
@@ -261,7 +261,7 @@ $prod_id = $row['id'];
                 <tr>
                   <td><?=$row2['product_files_label']?></td>
                   <td><?=$row2['product_files_name']?></td>
-                  <td><a href="../product/<?=$prod_name?>/<?=$lc_cat_name?>/<?=$row2['product_files_name']?>">Link</a></td>
+                  <td><a href="../product/<?=$prod_name?>/<?=$lc_cat_name?>/<?=$row2['product_files_name']?>"><?=$common_link?></a></td>
                   <td>
                     <a href="#" class="btn icon btn-danger"
                       data-bs-toggle="modal"
@@ -298,7 +298,7 @@ $prod_id = $row['id'];
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    Testo modale risorse
+                                    <?=$xs_prod_edit__modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

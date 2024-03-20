@@ -10,7 +10,7 @@ $stmt1 = $xsresources->showAllWhere('id',['id']);
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Modifica lingua risorsa</h3>
+      <h3><?=$xs_res_lang_edit_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -22,7 +22,7 @@ $stmt1 = $xsresources->showAllWhere('id',['id']);
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Modifica lingua risorsa
+          <?=$xs_res_lang_edit_header?>
           </li>
         </ol>
       </nav>
@@ -36,7 +36,7 @@ $stmt1 = $xsresources->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Modifica lingua risorsa</h4>
+                <h4 class="card-title"><?=$xs_res_lang_edit_header?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -44,7 +44,7 @@ $stmt1 = $xsresources->showAllWhere('id',['id']);
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Tipo<span class="text-danger">*</span></label>
+                            <label><?=$xs_lang_lang?><span class="text-danger">*</span></label>
                         </div>
                         <?php
 

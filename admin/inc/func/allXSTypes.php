@@ -6,7 +6,7 @@ $stmt = $xsresources->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>All resources type</h3>
+      <h3><?=$xs_res_type_all_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $xsresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          All resources type
+          <?=$xs_res_type_all_header?>
           </li>
         </ol>
       </nav>
@@ -31,16 +31,16 @@ $stmt = $xsresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">All resources type&nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$xs_res_type_all_title?>&nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addXSType" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Add type</a
+                        ><i data-feather="plus-circle"></i> <?=$xs_type_add_header?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Type</th>
-            <th># of resources</th>
+            <th><?=$xs_res_type_all_type?></th>
+            <th><?=$xs_res_all_type_number?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -99,7 +99,7 @@ $stmt = $xsresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    Testo modale risorse
+                                    <?=$xs_type_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

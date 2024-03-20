@@ -22,6 +22,9 @@ $customer_add_authorize = "Authorize products" ;
 
 $customer_edit_header = "Edit a customer" ;
 $customer_edit_title = "Edit customer" ;
+$customer_prod_permission = "Product permissions" ;
+$customer_prod_auth = "Authorize" ;
+$customer_edit_password = "Edit password for this customer" ;
 
 
 // all

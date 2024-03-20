@@ -102,7 +102,7 @@ $details_opt="";
                         </div>
 
                         <div class="col-md-3">
-                            <label>Company<span class="text-danger">*</span></label>
+                            <label><?=$customer_add_company?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -122,7 +122,7 @@ $details_opt="";
                         </div>
 
                         <div class="col-md-3">
-                            <label>Email<span class="text-danger">*</span></label>
+                            <label><?=$common_email?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -229,7 +229,7 @@ $details_opt="";
                         }
                         ?>
 
-                        <h5 class="border-top mb-3 pt-3 mt-2">Product permissions</h5>
+                        <h5 class="border-top mb-3 pt-3 mt-2"><?=$customer_prod_permission?></h5>
 
                         <?php
                             $xsproduct->table = 'product' ;
@@ -269,7 +269,7 @@ $details_opt="";
                                     <div class="col-md-3">
                                         <div class="form-check form-switch quiz">
                                             <input class="form-check-input delete" type="checkbox" name="prod_<?=$row['id']?>" id="flexSwitchCheckDefault" <?=$checked_prod?>>
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Autorizza </label>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"><?=$customer_prod_auth?> </label>
                                         </div>
                                     </div>
                                     <div class="col-md-5">&nbsp;</div>
@@ -390,7 +390,7 @@ $details_opt="";
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Modifica la password per questo cliente</h4>
+                    <h4 class="card-title"><?=$customer_edit_password?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">

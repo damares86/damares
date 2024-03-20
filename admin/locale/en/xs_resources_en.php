@@ -35,6 +35,20 @@ $xs_type_add_header = "Add resource type" ;
 $xs_type_add_title = "Add a new resource type" ;
 
 
+// all resource type
+
+$xs_res_type_all_header = "Resources type" ;
+$xs_res_type_all_title = "All resources type" ;
+$xs_res_type_all_type = "Type" ;
+$xs_res_all_type_number = "Number of resources" ;
+$xs_type_modal_body = "If you confirm, you will completely delete this language." ;
+
+
+// edit lang
+
+$xs_res_lang_edit_header = "Edit resource language" ;
+
+
 // all lang
 
 $xs_lang_header = "Resources language" ;

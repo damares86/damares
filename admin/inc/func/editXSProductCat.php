@@ -10,7 +10,7 @@ $stmt1 = $xsproduct->showAllWhere('id',['id']);
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Modifica categoria di prodotto</h3>
+      <h3><?=$xs_prod_edit_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -22,7 +22,7 @@ $stmt1 = $xsproduct->showAllWhere('id',['id']);
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Modifica categoria di prodotto
+          <?=$xs_prod_edit_header?>
           </li>
         </ol>
       </nav>
@@ -36,7 +36,7 @@ $stmt1 = $xsproduct->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Modifica categoria di prodotto</h4>
+                <h4 class="card-title"><?=$xs_prod_edit_header?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
