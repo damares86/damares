@@ -1,3 +1,103 @@
+<?php
+
+session_start();
+
+
+spl_autoload_register('autoloader');
+
+function autoloader($class){
+    include("class/$class.php");
+}
+
+$database = new Database();
+$db = $database->getConnection();
+
+// recall of all the classes
+$files=glob("admin/class/*.php", GLOB_BRACE);
+rsort($files); 
+
+// creation of the file with all the initialization of the classes
+if(!is_file('inc/class_initialize.php')){
+    $file_handle = fopen('inc/class_initialize.php', 'w');
+    fwrite($file_handle, '<?php');
+    fwrite($file_handle, "\n");
+    foreach ($files as $filename) {
+        $nomefile = pathinfo($filename);
+    $file=$nomefile['filename'];
+    if($file!="PhpXlsxGenerator")
+    {
+        $file_var = strtolower($file);
+        fwrite($file_handle, '$'.$file_var.' = new '.$file.'($db);');
+        fwrite($file_handle, "\n");
+    }
+}
+if($prefix){
+    fwrite($file_handle,'$common->prx = "'.$prefix.'_";') ;
+    fwrite($file_handle, "\n");
+}
+fwrite($file_handle,"?>");
+chmod('inc/class_initialize.php',0777);
+}
+
+include "inc/class_initialize.php";
+
+
+$setting->name = "debug" ;
+$dbg = $setting->showAllWhere('id',['name']);
+$row_debug = $dbg->fetch(PDO::FETCH_ASSOC);
+extract($row_debug);
+
+if($row_debug['value']==1){
+	require 'admin/vendor/autoload.php';		// If installed via composer
+	$debug = new \bdk\Debug(array(
+		'collect' => true,
+		'output' => true,
+	));
+}
+
+$setting->name="lang" ;
+$stmt = $setting->showByName();
+$lang = $stmt['value'];
+
+foreach (glob("locale/$lang/*.php") as $row){
+    require "$row";
+}
+
+// TODO:SEPARARE ADMIN DA CUSTOMER
+
+if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
+    require "admin/inc/check_cookie.php" ;
+    header('Location: login/auth-login.php?err=noLogin');
+    exit;
+  }else if(isset($_COOKIE['damares-login'])){
+    $pieces = explode(",", $_COOKIE['damares-login']);
+    $auth->id = $pieces[0];
+    $id = $pieces[0];
+    $auth->auth_token = $pieces[1];
+  
+    if(!$auth->checkCookie()>0){
+      header("Location: login/auth-login.php?err=noLogin");
+      exit;
+    }
+  
+    $role->id = $_SESSION['role_id'] ;
+  
+    $plugin->pluginname = "role_redirect" ;
+    
+    if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+        $stmt = $role->showAllWhere('id',['id']);
+        foreach($stmt as $row){
+            if($row['redirect']!="none"){
+                header("Location: ".$row['redirect']."");
+                exit;
+            }
+        }
+    }
+  }
+
+
+?>
+
 <!DOCTYPE html>
 	<html dir="ltr" lang="en-US">
 	<head>
@@ -208,10 +308,24 @@
 											<div class="tab-content clearfix" id="cStream-2">
 												<b>Fatpack</b><br><br>
 
-												
-													<a href="file/download.php?user=<?=$name?>&type=bin&product=<?=$prod->product?>&filename=<?=$file?>" class="button button-xlarge button-circle button-border button-xstream">
-														<i class="icon-arrow-down2"></i>Download
-													</a>													
+												<table class="table table-bordered w-100">
+													<thead class="thead-light">
+														<th>File</th>
+														<th>Download</th>
+													</thead>
+													<tbody>
+													
+													<tr>
+														<td>file name</td>
+														<td>
+															<a href="file/download.php?user=<?=$name?>&type=jar&product=<?=$prod->product?>&filename=<?=$nomefile['basename']?>" class="button button-small button-circle button-border button-xstream">
+																<i class="icon-arrow-down2"></i>Download
+															</a>
+														</td>
+													</tr>		
+
+													</tbody>
+												</table>												
 											</div>
 
 										
