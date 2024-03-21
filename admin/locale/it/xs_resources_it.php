@@ -8,104 +8,97 @@
 #                                          #
 ############################################
 
-// label sidebar
-
-$label_customers="Clienti" ;
-$label_all_customers = "Tutti i clienti" ;
-$label_add_a_customer = "Aggiungi un cliente" ;
-
-
 // add resource
 
-$xs_res_add_header = "Add a resource" ;
-$xs_res_add_title = "Add a new resource" ;
-$xs_res_add_title_res = "Title" ;
-$xs_res_add_description = "Description" ;
-$xs_res_add_product = "Product" ;
-$xs_res_add_type = "Type" ;
-$xs_res_add_lang = "Language" ;
+$xs_res_add_header = "Aggiungi una risorsa" ;
+$xs_res_add_title = "Aggiungi una nuova risorsa" ;
+$xs_res_add_title_res = "Titolo" ;
+$xs_res_add_description = "Descrizione" ;
+$xs_res_add_product = "Prodotto" ;
+$xs_res_add_type = "Tipo" ;
+$xs_res_add_lang = "Lingua" ;
 
 // edit xs resource
 
-$xs_res_edit_header = "Edit resource" ;
-$xs_res_edit_current_file = "Current file" ;
-$xs_res_edit_replace_file = "Replace file" ;
+$xs_res_edit_header = "Modifica risorsa" ;
+$xs_res_edit_current_file = "File attuale" ;
+$xs_res_edit_replace_file = "Sostituisci file" ;
 
 
 
 // all resources 
 
-$xs_res_all_header = "Resources" ;
-$xs_res_all_title = "All resources" ;
-$xs_res_all_add_button = "Add resource" ;
-$xs_res_all_date = "Date" ;
-$xs_res_all_prod = "Product" ;
-$xs_res_all_modal_body = "If you confirm, you will completely delete this resource." ;
+$xs_res_all_header = "Risorse" ;
+$xs_res_all_title = "Tutte le risorse" ;
+$xs_res_all_add_button = "Aggiungi risorsa" ;
+$xs_res_all_date = "Data" ;
+$xs_res_all_prod = "Prodotto" ;
+$xs_res_all_modal_body = "Se confermi, questa risorsa verrà eliminata definitivamente." ;
 
 
 // add type
 
-$xs_type_add_header = "Add resource type" ;
-$xs_type_add_title = "Add a new resource type" ;
+$xs_type_add_header = "Aggiungi tipo di risorsa" ;
+$xs_type_add_title = "Aggiungi un nuovo tipo di risorsa" ;
 
 
 // edit resource type
 
-$xs_type_edit_header = "Edit resource type" ;
+$xs_type_edit_header = "Modifica tipo di risorsa" ;
 
 
 // all resource type
 
-$xs_res_type_all_header = "Resources type" ;
-$xs_res_type_all_title = "All resources type" ;
-$xs_res_type_all_type = "Type" ;
-$xs_res_all_type_number = "Number of resources" ;
-$xs_type_modal_body = "If you confirm, you will completely delete this language." ;
+$xs_res_type_all_header = "Tipi di risorsa" ;
+$xs_res_type_all_title = "Tutti i tipi di risorsa" ;
+$xs_res_type_all_type = "Tipo" ;
+$xs_res_all_type_number = "Numero di risorse" ;
+$xs_type_modal_body = "Se confermi, questa risorsa verrà eliminata definitivamente." ;
 
 
 // edit lang
 
-$xs_res_lang_edit_header = "Edit resource language" ;
+$xs_res_lang_edit_header = "Modifica lingua risorsa" ;
 
 
 // all lang
 
-$xs_lang_header = "Resources language" ;
-$xs_lang_title = "All resources language" ;
-$xs_lang_add_button = "Add language" ;
-$xs_lang_lang = "Language" ;
-$xs_lang_number = "Number of resources" ;
-$xs_lang_modal_body = "If you confirm, you will completely delete this language." ;
+$xs_lang_header = "Lingue risorse" ;
+$xs_lang_title = "Tutte le lingue delle risorse" ;
+$xs_lang_add_button = "Aggiungi lingua" ;
+$xs_lang_lang = "Lingua" ;
+$xs_lang_number = "Numero di risorse" ;
+$xs_lang_modal_body = "Se confermi, questa lingua verrà eliminata definitivamente." ;
 
 
 // msg
 
-$msg_resLangDel = "Language deleted" ;
-$msg_resTypeDel = "Type deleted" ;
-$msg_resDel = "Resource deleted" ;
-$msg_resEditTypeSucc = "Type modified" ;
-$msg_resEditLangSucc = "Language modified" ;
-$msg_resEditSucc = "Resource modified" ;
-$msg_resTypeSucc = "Type added" ;
-$msg_resLangSucc = "Language added" ;
-$msg_resSucc = "Resource added" ;
+$msg_resLangDel = "Lingua eliminata" ;
+$msg_resTypeDel = "Tipo eliminato" ;
+$msg_resDel = "Risorsa eliminata" ;
+$msg_resEditTypeSucc = "Tipo modificato" ;
+$msg_resEditLangSucc = "Lingua modificata" ;
+$msg_resEditSucc = "Risorsa modificata" ;
+$msg_resTypeSucc = "Tipo aggiunto" ;
+$msg_resLangSucc = "Lingua aggiunta" ;
+$msg_resSucc = "Risorsa aggiuinta" ;
 
 
 // err
 
-$err_resLangExists = "Language not deleted. There are some resource with this language" ;
-$err_resLangNoDel = "Language not deleted" ;
-$err_resTypeExists = "Type not deleted. There are some resource with this type" ;
-$err_resTypeNoDel = "Type not deleted" ;
-$err_resNoDel = "Resource not deleted" ;
-$err_resEditTypeFail = "Type not modified" ;
-$err_resEditLangFail = "Language not modified" ;
-$err_fileResFail = "File not uploaded" ;
-$err_resEditFail = "Resource not modified" ;
-$err_resTypeFail = "Type not added" ;
-$err_resLangFail = "Language not added" ;
-$err_resFail = "Resource not added" ;
-$err_fileResFail = "Resource file not uploaded" ;
-$err_fileResEmpty = "File not provided" ;
+$err_resLangExists = "Lingua non eliminata! Sono presenti alcune risorse con questa lingua." ;
+$err_resLangNoDel = "Lingua non eliminata" ;
+$err_resTypeExists = "Tipo non eliminato! Sono presenti alcune risorse con questo tipo." ;
+$err_resTypeNoDel = "Tipo non eliminato" ;
+$err_resNoDel = "Risorsa non eliminata" ;
+$err_resEditTypeFail = "Tipo non modificato" ;
+$err_resEditLangFail = "Lingua non modificata" ;
+$err_fileResFail = "File non caricato" ;
+$err_resEditFail = "Risorsa non modificata" ;
+$err_resTypeFail = "Tipo non aggiunto" ;
+$err_resLangFail = "Lingua non aggiunta" ;
+$err_resFail = "Risorsa non aggiunta" ;
+$err_fileResFail = "File risorsa non caricato" ;
+$err_fileResEmpty = "File non fornito" ;
 
 ?>

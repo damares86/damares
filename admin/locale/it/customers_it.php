@@ -8,58 +8,51 @@
 #                                          #
 ############################################
 
-// label sidebar
-
-$label_customers="Clienti" ;
-$label_all_customers = "Tutti i clienti" ;
-$label_add_a_customer = "Aggiungi un cliente" ;
-
-
 // add customer
 
-$customer_add_header = "Add a customer" ;
-$customer_add_title = "Add customer" ;
-$customer_add_name_ph = "Customer name" ;
-$customer_add_surname_ph = "Customer surname" ;
-$customer_add_optional = "Optional" ;
-$customer_add_company = "Company" ;
-$customer_add_authorize = "Authorize products" ;
+$customer_add_header = "Aggiungi un cliente" ;
+$customer_add_title = "Aggiungi un nuovo cliente" ;
+$customer_add_name_ph = "Nome del cliente" ;
+// $customer_add_surname_ph = "Customer surname" ;
+$customer_add_optional = "Opzionale" ;
+$customer_add_company = "Società" ;
+$customer_add_authorize = "Autorizza prodotti" ;
 
 // edit
 
-$customer_edit_header = "Edit a customer" ;
-$customer_edit_title = "Edit customer" ;
-$customer_prod_permission = "Product permissions" ;
-$customer_prod_auth = "Authorize" ;
-$customer_edit_password = "Edit password for this customer" ;
+$customer_edit_header = "Modifica cliente" ;
+$customer_edit_title = "Modifica cliente" ;
+$customer_prod_permission = "Permessi prodotti" ;
+$customer_prod_auth = "Autorizza" ;
+$customer_edit_password = "Modifica password cliente" ;
 
 
 // all
 
-$customer_all_header = "All customers" ;
-$customer_all_title = "All customers" ;
-$customer_all_add = "Add a customer" ;
+$customer_all_header = "Tutti i clienti" ;
+$customer_all_title = "Tutti i clienti" ;
+$customer_all_add = "Aggiungi un cliente" ;
 // $customer_all_surname_table = "Surname" ;
-$customer_all_name_table = "Name" ;
-$customer_all_modal_body = "If you confirm, you will completely delete this customer." ;
+$customer_all_name_table = "Nome" ;
+$customer_all_modal_body = "Se confermi, questo cliente verrà eliminato definitivamente." ;
 
 
 // msg
 
-$msg_customerDel = "Customer successfully deleted" ;
-$msg_customerEdit = "Customer successfully modified" ;
-$msg_customerSucc = "Customer successfully created" ;
+$msg_customerDel = "Cliente cancellato" ;
+$msg_customerEdit = "Cliente modificato" ;
+$msg_customerSucc = "Cliente creato" ;
 
 
 // err
 
-$err_customerNoDel = "Customer not deleted" ;
-$err_customerExist = "Customer already exists" ;
-$err_customerNoEdit = "Customer not modified" ;
-$err_customerFail = "Customer not created" ;
-$err_filePermissionFail = "Error on setting permissions on files" ;
-$err_prodPermissionFail = "Error on setting permissions on product" ;
-$err_customerPermErr = "Error on setting permissions on product" ;
+$err_customerNoDel = "Cliente non eliminato" ;
+$err_customerExist = "Il cliente esiste già" ;
+$err_customerNoEdit = "Cliente non modificato" ;
+$err_customerFail = "Cliente non creato" ;
+$err_filePermissionFail = "Errore nel salvare i permessi sui file" ;
+$err_prodPermissionFail = "Errore nel salvare i permessi sui prodotti" ;
+$err_customerPermErr = "Errore nel salvare i permessi sui prodotti" ;
 
 
 ?>
