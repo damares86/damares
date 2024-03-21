@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="262" height="146" viewBox="0 0 262 146">
+    <defs>
+        <style>
+            .cls-planning {
+            fill: url(#planning);
+            }
+        </style>
+        <linearGradient id="planning" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fcdc30"/>
+            <stop offset="1" stop-color="#e83943"/>
+        </linearGradient>
+    </defs>
+    <g id="Symbol_1_1" data-name="Symbol 1 – 1" transform="translate(-57 -40)">
+        <g id="Group_2" data-name="Group 2" transform="translate(57 40)">
+            <rect id="Rectangle" class="cls-planning" width="7" height="120" rx="3.5" transform="translate(0 18)"/>
+            <rect id="Rectangle-2" data-name="Rectangle" class="cls-planning" width="7" height="120" rx="3.5" transform="translate(0 18)"/>
+            <rect id="Rectangle-3" data-name="Rectangle" class="cls-planning" width="7" height="69" rx="3.5" transform="translate(17 43)"/>
+            <rect id="Rectangle_Copy_3" data-name="Rectangle Copy 3" class="cls-planning" width="7" height="97" rx="3.5" transform="translate(34 30)"/>
+            <rect id="Rectangle_Copy_4" data-name="Rectangle Copy 4" class="cls-planning" width="7" height="146" rx="3.5" transform="translate(51)"/>
+            <rect id="Rectangle_Copy_5" data-name="Rectangle Copy 5" class="cls-planning" width="7" height="120" rx="3.5" transform="translate(68 15)"/>
+            <rect id="Rectangle_Copy_6" data-name="Rectangle Copy 6" class="cls-planning" width="7" height="93" rx="3.5" transform="translate(85 27)"/>
+            <rect id="Rectangle_Copy_7" data-name="Rectangle Copy 7" class="cls-planning" width="7" height="93" rx="3.5" transform="translate(102 40)"/>
+            <rect id="Rectangle_Copy_9" data-name="Rectangle Copy 9" class="cls-planning" width="7" height="79" rx="3.5" transform="translate(119 25)"/>
+        </g>
+        <g id="Group_2_Copy" data-name="Group 2 Copy" transform="translate(193 40)">
+            <rect id="Rectangle-4" data-name="Rectangle" class="cls-planning" width="7" height="120" rx="3.5" transform="translate(0 18)"/>
+            <rect id="Rectangle-5" data-name="Rectangle" class="cls-planning" width="7" height="120" rx="3.5" transform="translate(0 18)"/>
+            <rect id="Rectangle-6" data-name="Rectangle" class="cls-planning" width="7" height="69" rx="3.5" transform="translate(17 43)"/>
+            <rect id="Rectangle_Copy_3-2" data-name="Rectangle Copy 3" class="cls-planning" width="7" height="97" rx="3.5" transform="translate(34 30)"/>
+            <rect id="Rectangle_Copy_4-2" data-name="Rectangle Copy 4" class="cls-planning" width="7" height="146" rx="3.5" transform="translate(51)"/>
+            <rect id="Rectangle_Copy_5-2" data-name="Rectangle Copy 5" class="cls-planning" width="7" height="120" rx="3.5" transform="translate(68 15)"/>
+            <rect id="Rectangle_Copy_6-2" data-name="Rectangle Copy 6" class="cls-planning" width="7" height="93" rx="3.5" transform="translate(85 27)"/>
+            <rect id="Rectangle_Copy_7-2" data-name="Rectangle Copy 7" class="cls-planning" width="7" height="93" rx="3.5" transform="translate(102 40)"/>
+            <rect id="Rectangle_Copy_9-2" data-name="Rectangle Copy 9" class="cls-planning" width="7" height="79" rx="3.5" transform="translate(119 25)"/>
+        </g>
+    </g>
+</svg>
