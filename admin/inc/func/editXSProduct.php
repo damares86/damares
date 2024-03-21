@@ -298,7 +298,7 @@ $prod_id = $row['id'];
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$xs_prod_edit__modal_body?>
+                                    <?=$xs_prod_edit_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

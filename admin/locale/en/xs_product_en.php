@@ -40,7 +40,7 @@ $xs_prod_edit_add_file = "Add a new file" ;
 $xs_prod_edit_add_file_label = "Label" ;
 $xs_prod_edit_add_file_auth = "Authorizations" ;
 $xs_prod_edit_add_file_name = "File name" ;
-$xs_prod_edit__modal_body ="If you confirm, you will completely delete this files." ; 
+$xs_prod_edit_modal_body ="If you confirm, you will completely delete this files." ; 
 
 
 // all product
@@ -58,7 +58,7 @@ $xs_all_prod_modal_body ="If you confirm, you will completely delete this produc
 $msg_prodDel = "Product deleted" ;
 $msg_prodCatDel = "Product category deleted" ;
 $msg_prodFileDel = "Product file deleted" ;
-$msg_productCatSucc = "Category createrd" ;
+$msg_productCatSucc = "Category created" ;
 $msg_productFilesCatAdd = "Files uploaded" ;
 $msg_productCatEdit = "Product category modified" ;
 $msg_productEditSucc = "Product modified" ;
