@@ -109,7 +109,7 @@ foreach (glob("../admin/locale/$lang/*.php") as $row){
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?=$login_titlebar?> - damares</title>
+    <title>Login - damares</title>
     <link rel="stylesheet" href="admin/assets/css/main/app.css" />
     <link rel="stylesheet" href="admin/assets/css/pages/auth.css" />
     <link rel="stylesheet" href="admin/assets/css/custom.css">
@@ -137,18 +137,13 @@ foreach (glob("../admin/locale/$lang/*.php") as $row){
   </head>
 
   <body>
-    <div id="auth">
-      <div class="row h-100">
-        <div class="col-lg-5 col-12">
-          <div id="auth-left">
-            <div class="auth-logo">
+    <div class="container">
+      <div class="row p-3">
+        <div class="col-12 p-3 text-center">
               <a href="../index.php"
-                ><img src="admin/assets/images/logo/damares_logo.png" alt="Logo"
+                ><img src="admin/assets/images/logo/damares_logo.png" alt="Logo" class="w-25"
               /></a>
-            </div>
+        </div>
 
-            <?php
-
-            // require of all alert files
-            require "login-alert.php";
-            ?>
+      </div>
+    </div>

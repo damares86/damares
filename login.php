@@ -10,12 +10,20 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 }
 
 ?>
+   <div class="row p-3">
+    
 
-            <h1 class="auth-title"><?=$login_title?></h1>
+             <?php
+ 
+             // require of all alert files
+             require "login-alert.php";
+             ?>
+
+            <h1 class="auth-title">Login</h1>
             
-            <p class="auth-subtitle mb-5">
+            <!-- <p class="auth-subtitle mb-5">
               <?=$login_desc?>
-            </p>
+            </p> -->
 
             <form action="../admin/core/<?=$mng?>.php" method="POST">
               <div class="form-group position-relative has-icon-left mb-4">
@@ -52,11 +60,11 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                     class="form-check-label text-gray-600"
                     for="flexCheckDefault"
                   >
-                  <?=$login_remember?>
+                  Ricordami su questo computer 
                   </label>
                 </div>
               <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
-                <?=$login_button?>
+                Login
               </button>
             </form>
             <div class="text-center mt-3 text-lg fs-4">
@@ -72,7 +80,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                 ?>
                <p>
                 <a class="font-bold" href="auth-forgot-password.php"
-                  ><?=$login_forgot?></a
+                  >Password dimenticata</a
                 >
               </p>
             </div>
@@ -84,7 +92,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
             <!-- <img src="img/visual.jpg" class="h-100"> -->
           </div>
         </div>
-        
+        </div>
       </div>
     </div>
     <?php
