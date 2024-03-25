@@ -183,22 +183,31 @@ else if($operation == "add")
             $stmt = $rsa->showAllWhere('id',['nome','cognome']) ;
             $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
             extract($row);
-
-            $rsa->table = 'pazientiFarmaci' ;
             $id_paziente = $row['id'] ;
-            $rsa->id_pazienti = $id_paziente ;
-            $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco') ;
-            $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
-            $rsa->cpr = filter_input(INPUT_POST,'cpr') ;
 
-            if($rsa->insert(['id_pazienti','id_farmaci','cpr','magazzino']))
+            if(filter_input(INPUT_POST,'cpr'))
             {
-                header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&msg=pazientiAddSucc");
-                exit;
+
+                $rsa->table = 'pazientiFarmaci' ;
+                $rsa->id_pazienti = $id_paziente ;
+                $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco') ;
+                $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
+                $rsa->cpr = filter_input(INPUT_POST,'cpr') ;
+
+                if($rsa->insert(['id_pazienti','id_farmaci','cpr','magazzino']))
+                {
+                    header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&msg=pazientiAddSucc");
+                    exit;
+                }
+                else
+                {
+                    header("Location: ../index.php?p=allPazienti&err=farmaciPazientiErr");
+                    exit;
+                }
             }
             else
             {
-                header("Location: ../index.php?p=allPazienti&err=farmaciPazientiErr");
+                header("Location: ../index.php?p=editPaziente&idToMod=$id_paziente&msg=pazientiAddSucc");
                 exit;
             }
 
