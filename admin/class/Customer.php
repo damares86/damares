@@ -18,6 +18,8 @@ class Customer extends Common{
     public $company ;
     public $details ;
     public $details_opt ;
+    public $auth_token ;
+    public $last_login ;
 
     public function customerExists(){
         

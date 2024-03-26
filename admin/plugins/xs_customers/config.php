@@ -18,7 +18,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."customers
       password VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
       details TEXT DEFAULT NULL,
-      details_opt TEXT DEFAULT NULL)";
+      details_opt TEXT DEFAULT NULL,
+      auth_token VARCHAR(255) DEFAULT 'none',
+      last_login datetime DEFAULT CURRENT_TIMESTAMP)";
 
 $parent_table=[['link'=>'xs_customers',
                   'label'=>'Customers',
