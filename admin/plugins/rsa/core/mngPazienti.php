@@ -65,7 +65,6 @@ if(filter_input(INPUT_GET,"idToDel"))
 
 $operation = filter_input(INPUT_POST,"operation") ;
 
-
 if(filter_input(INPUT_POST,"idToMod"))
 {
 
@@ -82,23 +81,22 @@ if(filter_input(INPUT_POST,"idToMod"))
         {
 
             $counter = $_POST['counter'] ;
-            
             $error = 0 ;
             
             for($i = 1 ; $i <= $counter; $i++)
             {
+                
                 $rsa->table = 'pazientiFarmaci' ;
                 $rsa->id_pazienti = $id_paziente ;
                 
                 $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco_'.$i.'');
-                print_r($rsa->id_farmaci);
-
+                
                 $stmt = $rsa->showAllWhere('id',['id_pazienti','id_farmaci']) ;
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 extract($row) ;
-
-                $id_pazientiFarmaci = $row['id'] ;
                 
+                $id_pazientiFarmaci = $row['id'] ;
+
                 if(filter_input(INPUT_POST,'del_'.$i.''))
                 {
                     $rsa->table = 'pazientiFarmaci' ;                    
@@ -116,14 +114,14 @@ if(filter_input(INPUT_POST,"idToMod"))
                     $rsa->id_pazienti = $id_paziente ;
                     $rsa->id_farmaci = filter_input(INPUT_POST,'farmaco_'.$i.'');
                     $rsa->cpr = filter_input(INPUT_POST,'cpr_'.$i.'');
-                    $rsa->magazzino = filter_input(INPUT_POST,'magazzino') ;
-
+                    $rsa->magazzino = filter_input(INPUT_POST,'magazzino_'.$i.'') ;
+                    
                     if(!$rsa->update(['id_pazienti','id_farmaci','cpr','magazzino'],'id'))
                     {
                         $error++;
                     }
                 }
-
+                
             }
 
             if($error == 0 )

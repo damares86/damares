@@ -172,7 +172,7 @@ extract($row1) ;
                                                             type="text"
                                                             class="form-control"
                                                             placeholder="0"
-                                                            name="magazzino"
+                                                            name="magazzino_<?=$i?>"
                                                             data-parsley-required="true"
                                                             value="<?=$row2['magazzino']?>"
                                                             />
