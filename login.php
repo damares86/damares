@@ -49,7 +49,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
             <i class="bi bi-shield-lock"></i>
           </div>
         </div>
-          <div class="form-check form-check-lg d-flex align-items-end">
+          <!-- <div class="form-check form-check-lg d-flex align-items-end">
             <input
               class="form-check-input remember me-2"
               type="checkbox"
@@ -63,7 +63,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
             >
             Ricordami su questo computer 
             </label>
-          </div>
+          </div> -->
         <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
           Invia
         </button>

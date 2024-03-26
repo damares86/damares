@@ -2,11 +2,10 @@
 
 session_start();
 
-
 spl_autoload_register('autoloader');
 
 function autoloader($class){
-    include("class/$class.php");
+    include("admin/class/$class.php");
 }
 
 $database = new Database();
@@ -17,7 +16,7 @@ $files=glob("admin/class/*.php", GLOB_BRACE);
 rsort($files); 
 
 // creation of the file with all the initialization of the classes
-if(!is_file('inc/class_initialize.php')){
+if(!is_file('admin/inc/class_initialize.php')){
     $file_handle = fopen('inc/class_initialize.php', 'w');
     fwrite($file_handle, '<?php');
     fwrite($file_handle, "\n");
@@ -36,11 +35,10 @@ if($prefix){
     fwrite($file_handle, "\n");
 }
 fwrite($file_handle,"?>");
-chmod('inc/class_initialize.php',0777);
+chmod('admin/inc/class_initialize.php',0777);
 }
 
-include "inc/class_initialize.php";
-
+include "admin/inc/class_initialize.php";
 
 $setting->name = "debug" ;
 $dbg = $setting->showAllWhere('id',['name']);
@@ -63,37 +61,43 @@ foreach (glob("locale/$lang/*.php") as $row){
     require "$row";
 }
 
-// TODO:SEPARARE ADMIN DA CUSTOMER
+// echo "Err";
+// exit;	
+if (!isset($_SESSION['customer_loggedin'])) 
+{
+//   require 'admin/inc/customer_check_cookie.php';
+  header('Location: login.php?err=noLogin');
+  exit;
+}
+// else if (isset($_COOKIE['damares-customer-login']))
+// {
 
-if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
-    require "admin/inc/check_cookie.php" ;
-    header('Location: login/auth-login.php?err=noLogin');
-    exit;
-  }else if(isset($_COOKIE['damares-login'])){
-    $pieces = explode(",", $_COOKIE['damares-login']);
-    $auth->id = $pieces[0];
-    $id = $pieces[0];
-    $auth->auth_token = $pieces[1];
-  
-    if(!$auth->checkCookie()>0){
-      header("Location: login/auth-login.php?err=noLogin");
-      exit;
-    }
-  
-    $role->id = $_SESSION['role_id'] ;
-  
-    $plugin->pluginname = "role_redirect" ;
+//     $pieces = explode(",", $_COOKIE['damares-customer-login']);
+//     $customer->id = $pieces[0];
+//     $id = $pieces[0];
+//     $customer->auth_token = $pieces[1];
+//     if (!$customer->checkCookie() > 0) {
+//       header("Location: login.php?err=noLogin");
+//       exit;
+//     }
     
-    if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-        $stmt = $role->showAllWhere('id',['id']);
-        foreach($stmt as $row){
-            if($row['redirect']!="none"){
-                header("Location: ".$row['redirect']."");
-                exit;
-            }
-        }
-    }
-  }
+//       // redirect tofix
+//       // $plugin->pluginname = "role_redirect";
+
+//       // if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+//       //   $stmt = $role->showAllWhere('id', ['id']);
+//       //   foreach ($stmt as $row) {
+//       //     if ($row['redirect'] != "none") {
+//       //       header("Location: " . $row['redirect'] . "");
+//       //       exit;
+//       //     }
+//       //   }
+//       // }
+
+//       // header("Location: index_xs.php");
+//       // exit;
+   
+//   }
 
 
 ?>
@@ -235,7 +239,7 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=$cust_modal_canc?></button>
-											<button type="button" class="btn btn-primary"><a href="admin/core/logout.php?lang=<?=$lang?>" class="modalOk">Ok</a></button>
+											<button type="button" class="btn btn-primary"><a href="admin/core/customer_logout.php?lang=<?=$lang?>" class="modalOk">Ok</a></button>
 										</div>
 									</div>
 								</div>

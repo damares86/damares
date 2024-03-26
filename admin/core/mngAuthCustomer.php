@@ -44,8 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ){
         $username = $_POST['username'];
         $customer->username = $username;
         
-        // check if the given email exist in db
-        // $email_exists = $auth->emailExists();
         $customer->table = 'customers' ;
 
         $stmt = $customer->showAllWhere('id',['username']) ;
@@ -55,28 +53,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ){
         // match the email and the password
         if($stmt->rowCount()>0 && password_verify($postpass,$row['password'])){
     
-            if($_POST['remember']){
-                $token = md5($username);
-                $addToken= substr(md5(uniqid(rand(),1)),3,10);
-                $token = $token . $addToken;
+            // if($_POST['remember']){
+            //     $token = md5($username);
+            //     $addToken= substr(md5(uniqid(rand(),1)),3,10);
+            //     $token = $token . $addToken;
                 
-                $customer->table = 'customers' ;
-                $customer->username = $username ;
-                $customer->auth_token =  $token ;
-            
-                $time=date("Y.m.d, G:i:s");
-                $customer->last_login =  $time ;
-
-                $customer->update(['auth_token','last_login'],'username') ;
-
-                setcookie("damares-customer-login", $auth->id . "," . $token, time()+(60 * 60 *24 * 365 *10 ),"/");
+            //     $customer->table = 'customers' ;
+            //     $customer->username = $username ;
+            //     $customer->auth_token =  $token ;
                 
-            }
+            //     // auth token and last login update
+            //     $time=date("Y.m.d, G:i:s");
+            //     $customer->last_login =  $time ;
+
+            //     $customer->update(['auth_token','last_login'],'username') ;
+
+            //     setcookie("damares-customer-login", $auth->id . "," . $token, time()+(60 * 60 *24 * 365 *10 ),"/");
+                
+            // }
             
             session_start();
                         
             // set session data
-            $_SESSION['customer-loggedin'] = true ;
+            $_SESSION['customer_loggedin'] = true ;
             $_SESSION['customer_id'] = $row['id'];
             $_SESSION['customer_username'] = $username;
             $_SESSION['customer_name'] = $row['name'];
@@ -99,13 +98,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ){
                 // TODO
                 // spostamento su una pagina con i file
             }
-                
+
             header("Location: ../../index_xs.php");
             exit;
             
         } else {
             
-            header("Location: ../../login.php?msg=errUserPsw");
+            header("Location: ../../login.php?err=errUserPsw");
             exit;
         }
     // }else{

@@ -46,12 +46,12 @@ if(isset($_COOKIE['damares-login'])){
         //     header("Location: admin/");
         //     exit;
         // }else{
-        //     header("Location: home.php");
-        //     exit;
+            // header("Location: index_xs.php");
+            // exit;
         // }
       
     } else {
-    header("Location: login/auth-login.php?err=noLogin");
+    header("Location: login.php?err=noLogin");
     exit;
     }
 }
