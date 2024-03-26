@@ -109,7 +109,7 @@ foreach (glob("../admin/locale/$lang/*.php") as $row){
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - damares</title>
+    <title>Login - XStream Labs</title>
     <link rel="stylesheet" href="admin/assets/css/main/app.css" />
     <link rel="stylesheet" href="admin/assets/css/pages/auth.css" />
     <link rel="stylesheet" href="admin/assets/css/custom.css">
@@ -146,4 +146,3 @@ foreach (glob("../admin/locale/$lang/*.php") as $row){
         </div>
 
       </div>
-    </div>
