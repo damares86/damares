@@ -298,7 +298,7 @@ if (!isset($_SESSION['customer_loggedin'])) {
 
 									<!-- TAB -->
 
-									<div class="tabs side-tabs tabs-bordered clearfix" id="tab-<?=$prod_id?>">
+									<div class="tabs side-tabs tabs-bordered clearfix" id="tab-<?= $prod_id ?>">
 
 										<ul class="tab-nav clearfix">
 
@@ -354,9 +354,9 @@ if (!isset($_SESSION['customer_loggedin'])) {
 														while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
 														?>
 															<tr>
-																<td><?=$row4['product_files_label']?></td>
+																<td><?= $row4['product_files_label'] ?></td>
 																<td>
-																	<a href="file/download.php?user=<?=$_SESSION['customer_username']?>&type=<?=$row3['cat_name']?>&product=<?= $row1['product_name'] ?>&filename=<?= $row4['product_files_name'] ?>" class="button button-small button-circle button-border button-xstream">
+																	<a href="file/download.php?user=<?= $_SESSION['customer_username'] ?>&type=<?= $row3['cat_name'] ?>&product=<?= $row1['product_name'] ?>&filename=<?= $row4['product_files_name'] ?>" class="button button-small button-circle button-border button-xstream">
 																		<i class="icon-arrow-down2"></i>Download
 																	</a>
 																</td>
@@ -386,7 +386,7 @@ if (!isset($_SESSION['customer_loggedin'])) {
 						</div>
 					</div>
 
-			
+
 				<?php
 
 				}
@@ -399,60 +399,60 @@ if (!isset($_SESSION['customer_loggedin'])) {
 
 				<br>
 			</div>
-	
 
-	</section>
-	<!-- Footer
+
+		</section>
+		<!-- Footer
 		============================================= -->
-	<footer id="footer" class="grafite" data-scrollto-settings="{&quot;offset&quot;:100,&quot;speed&quot;:1250,&quot;easing&quot;:&quot;easeOutQuad&quot;}">
-		<!-- Copyrights
+		<footer id="footer" class="grafite" data-scrollto-settings="{&quot;offset&quot;:100,&quot;speed&quot;:1250,&quot;easing&quot;:&quot;easeOutQuad&quot;}">
+			<!-- Copyrights
 			============================================= -->
-		<div id="copyrights">
-			<div class="container">
-				<div class="row">
-					<div class="col-12 col-md-6 mb-3">
-						<div class="col-12 col-lg-auto text-center text-lg-left order-last order-lg-first">
-							<!-- <img src="../assets/img/XStream_logo_horizontal.png" alt="XStream Labs Logo" class="mb-2"><br> -->
-							<img src="assets/img/XStream_logo_horizontal.png" alt="XStream Labs Logo" class="mb-2"><br>
-							Copyright 2018 - <?php echo date('Y'); ?> © XStream Labs
+			<div id="copyrights">
+				<div class="container">
+					<div class="row">
+						<div class="col-12 col-md-6 mb-3">
+							<div class="col-12 col-lg-auto text-center text-lg-left order-last order-lg-first">
+								<!-- <img src="../assets/img/XStream_logo_horizontal.png" alt="XStream Labs Logo" class="mb-2"><br> -->
+								<img src="assets/img/XStream_logo_horizontal.png" alt="XStream Labs Logo" class="mb-2"><br>
+								Copyright 2018 - <?php echo date('Y'); ?> © XStream Labs
+							</div>
 						</div>
-					</div>
 
-					<div class="col-6 col-md-3">
-						<div>
-							<address>
-								<strong>Indirizzo</strong><br>
-								XStream S.r.l.<br>
-								Corso Svizzera, 185<br>
-								10149 Torino<br>
-							</address>
-							<div class="pointer" data-toggle="modal" data-target=".bs-privacy-modal-scrollable">Privacy Policy</div>
+						<div class="col-6 col-md-3">
+							<div>
+								<address>
+									<strong>Indirizzo</strong><br>
+									XStream S.r.l.<br>
+									Corso Svizzera, 185<br>
+									10149 Torino<br>
+								</address>
+								<div class="pointer" data-toggle="modal" data-target=".bs-privacy-modal-scrollable">Privacy Policy</div>
+							</div>
 						</div>
-					</div>
 
-					<div class="col-6 col-md-3">
-						<strong>Telefono</strong>
-						+39 011 0168800<br>
-						<strong>Email</strong>
-						company@xstream-labs.com<br>
-						<strong>VAT</strong>
-						11975670016
-						<div class="widget clearfix">
-							<a href="https://it.linkedin.com/company/xstream-labs" target="_blank" class="social-icon si-small si-rounded si-linkedin">
-								<i class="icon-linkedin"></i>
-								<i class="icon-linkedin"></i>
-							</a>
-							&nbsp; &nbsp;
-							<a href="https://twitter.com/Xstream_Labs" target="_blank" class="social-icon si-small si-rounded si-twitter">
-								<i class="icon-twitter"></i>
-								<i class="icon-twitter"></i>
-							</a>
+						<div class="col-6 col-md-3">
+							<strong>Telefono</strong>
+							+39 011 0168800<br>
+							<strong>Email</strong>
+							company@xstream-labs.com<br>
+							<strong>VAT</strong>
+							11975670016
+							<div class="widget clearfix">
+								<a href="https://it.linkedin.com/company/xstream-labs" target="_blank" class="social-icon si-small si-rounded si-linkedin">
+									<i class="icon-linkedin"></i>
+									<i class="icon-linkedin"></i>
+								</a>
+								&nbsp; &nbsp;
+								<a href="https://twitter.com/Xstream_Labs" target="_blank" class="social-icon si-small si-rounded si-twitter">
+									<i class="icon-twitter"></i>
+									<i class="icon-twitter"></i>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div><!-- #copyrights end -->
-	</footer>
+			</div><!-- #copyrights end -->
+		</footer>
 
 	</div><!-- #wrapper end -->
 
