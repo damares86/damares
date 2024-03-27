@@ -68,7 +68,7 @@ $setting->name = "lang";
 $stmt = $setting->showByName();
 $lang = $stmt['value'];
 
-foreach (glob("../admin/locale/$lang/*.php") as $row) {
+foreach (glob("admin/locale/$lang/*.php") as $row) {
   require "$row";
 }
 

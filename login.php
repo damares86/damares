@@ -1,13 +1,6 @@
 <?php
 
 require "login-header.php";
-$plugin->pluginname = "recaptcha" ;
-$mng = "mngAuth";
-
-if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-    $mng = "mngAuthRecap";
-    require "admin/inc/recaptcha.php";
-}
 
 ?>
    <div class="row p-3">
@@ -20,7 +13,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
         require "login-alert.php";
         ?>
 
-      <h1 class="auth-title">Login</h1>
+      <h1 class="auth-title"><?=$login_button?></h1>
       <br>
       <!-- <p class="auth-subtitle mb-5">
         <?=$login_desc?>
@@ -65,14 +58,14 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
             </label>
           </div> -->
         <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
-          Invia
+          <?=$common_submit?>
         </button>
       </form>
       <br>
       
           <p>
           <a class="font-bold" href="forgot-password.php"
-            >Password dimenticata?</a
+            ><?=$login_forgot?></a
           >
         </p>
       </div>

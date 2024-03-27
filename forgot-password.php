@@ -1,16 +1,17 @@
 <?php
 
-require "inc/header.php" ;
-
-$plugin->pluginname = "recaptcha" ;
-$mng = "mngPass";
-
-if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-    $mng = "mngPassRecap";
-    require "../admin/inc/recaptcha.php";
-}
+require "login-header.php" ;
 
 ?>
+   <div class="row p-3">
+    <div class="col-3 d-none d-md-block">&nbsp;</div>
+
+    <div class="col-6">
+        <?php
+
+        // require of all alert files
+        require "login-alert.php";
+        ?>
 
 <?php
                 if($op==""){
@@ -33,7 +34,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                 <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"><?=$forgot_button?></button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
-                <p class='text-gray-600'><a href="auth-login.php" class="font-bold"><-- <?=$login_title?></a>
+                <p class='text-gray-600'><a href="login.php" class="font-bold"><-- <?=$login_title?></a>
                 </p>
             </div> 
            
@@ -65,7 +66,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 
             <h1 class="auth-title"><?=$forgot_choose?></h1>
 
-            <form action="../admin/core/<?=$mng?>.php" method="POST"  data-parsley-validate>
+            <form action="admin/core/<?=$mng?>.php" method="POST"  data-parsley-validate>
               <div class="form-group position-relative has-icon-left mb-4">
                 <div class="form-check mandatory">
                     <input
@@ -103,19 +104,14 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                 $account->deleteFromTable('email','password_reset_temp');
             } 
          ?>
-        </div>
-    </div>
-    <div class="col-lg-7 d-none d-lg-block">
-          <div id="auth-right">
-            &nbsp;
-            <!-- <img src="img/visual.jpg" class="h-100"> -->
-          </div>
-        </div>
-</div>
-    <?php
-        require "inc/footer.php" ;
-    ?>
-    </div>
-</body>
+ </div>
+      <div class="col-3 d-none d-md-block">&nbsp;</div>
 
+    </div>
+
+    
+    <?php
+    require "login-footer.php";
+    ?>
+  </body>
 </html>
