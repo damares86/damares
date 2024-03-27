@@ -326,7 +326,7 @@ if (!isset($_SESSION['customer_loggedin'])) {
 														<tr>
 															<td><?= $row4['product_files_label'] ?></td>
 															<td>
-																<a href="file/download.php?user=<?= $_SESSION['customer_username'] ?>&type=<?= $row3['cat_name'] ?>&product=<?= $row1['product_name'] ?>&filename=<?= $row4['product_files_name'] ?>" class="button button-small button-circle button-border button-xstream">
+																<a href="product/download.php?user=<?= $_SESSION['customer_username'] ?>&cat=<?= $row3['cat_name'] ?>&product=<?= $row1['product_name'] ?>&filename=<?= $row4['product_files_name'] ?>" class="button button-small button-circle button-border button-xstream">
 																	<i class="icon-arrow-down2"></i>Download
 																</a>
 															</td>
