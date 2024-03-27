@@ -40,6 +40,6 @@ $child_table=[['link'=>'allXSProduct',
                   'icon'=>'bookmarks']] ;
 
 
-$query_drop_table = "DROP TABLE  ".$prefix."product, ".$prefix."product_doc";
+$query_drop_table = "DROP TABLE  ".$prefix."product, ".$prefix."product_files, ".$prefix."product_files_cat, ".$prefix."product_permissions";
 
 ?>
