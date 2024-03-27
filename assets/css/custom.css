@@ -533,9 +533,9 @@ span.realtime{
 	padding: 20px 0;
 }
 
-.container.login{
+/* .container.login{
 	padding:0 !important;
-}
+} */
 
 .portfolio-desc h3 a:hover{
 	color:#008db1;
@@ -690,6 +690,14 @@ span.realtime{
 
 .team_devel img{
 	height:180px;
+}
+
+.prod_res_area{
+	background-color: #f7f7f7 ;
+}
+
+.prod_res_area_block{
+	background-color: #fff ;
 }
 
 /* MEDIA QUERIES*/

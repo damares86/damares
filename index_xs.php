@@ -144,7 +144,7 @@ if (!isset($_SESSION['customer_loggedin'])) {
 
 	<!-- Document Title
 			============================================= -->
-	<title><?= $cust_title ?> - Xstream-Labs</title>
+	<title>Area Riservata - Xstream-Labs</title>
 
 </head>
 
@@ -221,7 +221,7 @@ if (!isset($_SESSION['customer_loggedin'])) {
 
 		<section>
 			<div class="content-wrap noPadding" id="azienda">
-				<div class="container clearfix login">
+				<div class="container clearfix login p-0">
 					<img src="assets/img/XStream_Login_Cover.png" class="desktopVisual">
 					<img src="assets/img/XStream_Login_Cover.png" class="mobileVisual">
 					<!-- <img src="../assets/img/XStream_Login_Cover.png" class="desktopVisual">	
@@ -254,7 +254,7 @@ if (!isset($_SESSION['customer_loggedin'])) {
 		<!-- Content
 				============================================= -->
 		<section id="content" class="mb-5">
-			<div class="container login clearfix p-5">
+			<div class="container login clearfix py-5 px-0">
 				<h1 class="text-center">Area Riservata Clienti</h1>
 				<p class="my-5 text-center">
 					Benvenuto <strong> <?= $_SESSION['customer_name'] ?></strong><br>
@@ -284,120 +284,69 @@ if (!isset($_SESSION['customer_loggedin'])) {
 					extract($row1);
 				?>
 
-					<div class="row mb-5 align-items-center px-5">
-						<div class="col-12 border-bottom ">
-							<div class="row py-3">
-
-								<div class="col-12 col-md-3">
-									<!-- <img src="assets/img/products/XStream_cStream_Box.png"> -->
-									<img src="assets/img/products/XStream_<?= $row1['product_name'] ?>_Box.png">
-									<!-- <img src="../assets/img/products/XStream_<?= $row1['product_name'] ?>_Box.png"> -->
-								</div>
-
-								<div class="col-12 col-md-9 ">
-
-									<!-- TAB -->
-
-									<div class="tabs side-tabs tabs-bordered clearfix" id="tab-<?= $prod_id ?>">
-
-										<ul class="tab-nav clearfix">
-
-											<?php
-
-											$xsproduct->table = "product_files_cat";
-											$stmt2 = $xsproduct->showAll('id');
-
-											while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-
-												extract($row2);
-												$category = ucfirst($row2['cat_name']);
-											?>
-
-												<li><a href="#<?= $row1['product_name'] ?>-<?= $row2['id'] ?>"><?= $category ?></a></li>
-
-											<?php
-
-											}
-
-											?>
-										</ul>
-									</div>
-
-									<!-- SCHEDE -->
-									<div class="tab-container p-5">
-										<?php
-
-										$xsproduct->table = "product_files_cat";
-										$stmt3 = $xsproduct->showAll('id');
-
-										while ($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)) {
-
-											extract($row3);
-											$category = ucfirst($row3['cat_name']);
-										?>
-											<div class="tab-content clearfix" id="<?= $row1['product_name'] ?>-<?= $row3['id'] ?>">
-												<b><?= $category ?></b><br><br>
-
-												<table class="table table-bordered w-100">
-													<thead class="thead-light">
-														<th>File</th>
-														<th>Download</th>
-													</thead>
-													<tbody>
-														<?php
-														$xsproduct->table = 'product_files';
-														$xsproduct->product_files_cat_id = $row3['id'];
-														$xsproduct->product_id = $prod_id;
-
-														$stmt4 = $xsproduct->showAllWhere('id', ['product_files_cat_id', 'product_id']);
-
-														while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-														?>
-															<tr>
-																<td><?= $row4['product_files_label'] ?></td>
-																<td>
-																	<a href="file/download.php?user=<?= $_SESSION['customer_username'] ?>&type=<?= $row3['cat_name'] ?>&product=<?= $row1['product_name'] ?>&filename=<?= $row4['product_files_name'] ?>" class="button button-small button-circle button-border button-xstream">
-																		<i class="icon-arrow-down2"></i>Download
-																	</a>
-																</td>
-															</tr>
-														<?php
-														}
-														?>
-													</tbody>
-												</table>
-
-											</div>
-										<?php
-
-										}
-
-										?>
-
-
-
-									</div>
-
-								</div>
-
-
-							</div>
-
+					<div class="row prod_res_area rounded mx-5 mb-5 p-3">
+						<div class="col-12 text-center">
+							<img src="assets/img/products/XStream_<?= $row1['product_name'] ?>_Box.png">
 						</div>
+						<?php
+
+						$xsproduct->table = "product_files_cat";
+						$stmt3 = $xsproduct->showAll('id');
+
+						while ($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)) {
+
+							$xsproduct->table = 'product_files';
+							$xsproduct->product_files_cat_id = $row3['id'];
+							$xsproduct->product_id = $prod_id;
+
+							$stmt4 = $xsproduct->showAllWhere('id', ['product_files_cat_id', 'product_id']);
+
+							if ($stmt4->rowCount() > 0) {
+
+								extract($row3);
+								$category = ucfirst($row3['cat_name']);
+						?>
+								<div class="col-md-12 p-3 ">
+									<div class="row prod_res_area_block">
+										<div class="col-md-12 px-5 py-2 rounded mx-3">
+
+											<h1><?= $category ?></h1>
+
+											<table class="table table-bordered w-100">
+												<thead class="thead-light">
+													<th>File</th>
+													<th>Download</th>
+												</thead>
+												<tbody>
+													<?php
+
+
+													while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+													?>
+														<tr>
+															<td><?= $row4['product_files_label'] ?></td>
+															<td>
+																<a href="file/download.php?user=<?= $_SESSION['customer_username'] ?>&type=<?= $row3['cat_name'] ?>&product=<?= $row1['product_name'] ?>&filename=<?= $row4['product_files_name'] ?>" class="button button-small button-circle button-border button-xstream">
+																	<i class="icon-arrow-down2"></i>Download
+																</a>
+															</td>
+														</tr>
+													<?php
+													}
+													?>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+						<?php
+							}
+						}
+						?>
 					</div>
-
-
 				<?php
-
 				}
-
 				?>
-
-
-
-
-
-				<br>
 			</div>
 
 
