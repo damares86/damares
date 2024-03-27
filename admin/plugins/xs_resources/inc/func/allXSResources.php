@@ -1,12 +1,12 @@
 <?php
-$xsresources->table = 'resource' ;
+$xsresources->table = 'resources' ;
 $stmt = $xsresources->showAll('id');
 
 ?>
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>All resources</h3>
+      <h3><?=$xs_res_all_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $xsresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          All resources
+          <?=$xs_res_all_header?>
           </li>
         </ol>
       </nav>
@@ -31,33 +31,62 @@ $stmt = $xsresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">All resources &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addXSResources" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Add resource</a
+    <div class="card-header"><?=$xs_res_all_title?> &nbsp; &nbsp; &nbsp; 
+                    <a href="index.php?p=addXSResource" class="btn icon icon-left btn-success"
+                        ><i data-feather="plus-circle"></i> <?=$xs_res_all_add_button?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Product</th>
-            <th>Language</th>
-            <th>Type</th>
-            <th>Link</th>
+            <th><?=$xs_res_add_title_res?></th>
+            <th><?=$xs_res_all_date?></th>
+            <th><?=$xs_res_all_prod?></th>
+            <th><?=$xs_res_add_lang?></th>
+            <th><?=$xs_res_add_type?></th>
+            <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
         <tbody>
           
         <?php
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
         ?>
-          <tr <?=$class?>>
-            <td><?=$row['surname']?></td>
-            <td><?=$row['name']?></td>
+          <tr>
+            <td><?=$row['title']?></td>
+            <td><?=$row['resource_date']?></td>
             <td>
-              <a href="index.php?p=editXSResources&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <?php
+                $xsresources->table = 'product' ;
+                $xsresources->id = $row['product_id'] ; 
+                $stmt1 = $xsresources->showAllWhere('id',['id']) ;
+                $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
+                echo $row1['product_name'] ;
+              ?>
+            </td>
+            <td>
+              <?php
+                $xsresources->table = 'resource_lang' ;
+                $xsresources->id = $row['lang_id'] ; 
+                $stmt2 = $xsresources->showAllWhere('id',['id']) ;
+                $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+                echo $row2['resource_lang'] ;
+              ?>
+            </td>
+            <td>
+              <?php
+                $xsresources->table = 'resource_type' ;
+                $xsresources->id = $row['type_id'] ; 
+                $stmt3 = $xsresources->showAllWhere('id',['id']) ;
+                $row3 = $stmt3->fetch(PDO::FETCH_ASSOC) ;
+                echo $row3['resource_type'] ;
+              ?>
+            </td>
+            <td><a href="uploads/<?=$row['resource_name']?>" target="_blank">Link</a></td>
+            <td>
+              <a href="index.php?p=editXSResource&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -96,7 +125,7 @@ $stmt = $xsresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    Testo modale risorse
+                                    <?=$xs_res_all_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

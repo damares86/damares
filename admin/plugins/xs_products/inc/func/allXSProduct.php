@@ -6,7 +6,7 @@ $stmt = $xsproduct->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>All products</h3>
+      <h3><?=$xs_all_prod_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $xsproduct->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          All products
+            <?=$xs_all_prod_header?>
           </li>
         </ol>
       </nav>
@@ -31,16 +31,16 @@ $stmt = $xsproduct->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">All products &nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$xs_all_prod_title?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addXSProduct" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Add product</a
+                        ><i data-feather="plus-circle"></i> <?=$xs_all_prod_add_button?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Product name</th>
-            <th>Log</th>
+            <th><?=$xs_all_prod_name?></th>
+            <th><?=$xs_all_prod_log?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -92,7 +92,7 @@ $stmt = $xsproduct->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    Testo modale
+                                    <?=$xs_all_prod_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

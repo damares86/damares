@@ -1,31 +1,21 @@
 <?php
 
-$customer->id = filter_input(INPUT_GET,"idToMod");
-$stmt1 = $customer->showAllWhere('id',['id']);
+$product_id = filter_input(INPUT_GET,"idToMod");
+$xsproduct->id = $product_id ;
+$xsproduct->table = 'product' ;
 
-$id="";
-$name="";
-$surname="";
-$details="";
-$details_opt="";
-
-    while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
-    extract($row1);
-    
-        $id=$row1['id'];
-        $name=$row1['name'];
-        $surname=$row1['surname'];
-        $details=unserialize($row1['details']);
-        $details_opt=unserialize($row1['details_opt']);
-    }
-
-
+$stmt = $xsproduct->showAllWhere('id',['id']);
+$row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+extract($row);
+$prod_name = $row['product_name'];
+$prod_folder_name = strtolower($prod_name);
+$prod_id = $row['id'];
 ?>
 
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$customer_edit_header?></h3>
+      <h3><?=$xs_prod_edit_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -37,7 +27,7 @@ $details_opt="";
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$customer_edit_header?>
+          <?=$xs_prod_edit_header?>
           </li>
         </ol>
       </nav>
@@ -51,154 +41,41 @@ $details_opt="";
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title"><?=$customer_edit_title?></h4>
+                <h4 class="card-title"><?=$xs_prod_edit_header?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngCustomers.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngXSProduct.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
                             <label><?=$common_name?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
-                            <div class="form-group has-icon-left">
+                            <div class="form-group">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$customer_add_name_ph?>"
+                                        placeholder="Nome"
                                         id="first-name"
                                         name="name"
                                         data-parsley-required="true"
-                                        value="<?=$name?>"
+                                        value="<?=$prod_name?>"
                                         />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-person"></i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <label><?=$common_surname?><span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group has-icon-left">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="<?=$customer_add_surname_ph?>"
-                                        id="surname"
-                                        name="surname"
-                                        data-parsley-required="true"
-                                        value="<?=$surname?>"
-                                        />
-                                        <div class="form-control-icon">
-                                        <i class="bi bi-person"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-
-                        require "core/customersDetails.php";
-
-                        $counter=0;
-                        foreach($customers_details as $item){
-
-                            $label = "customer_add_$item";
-                            $item_label=ucfirst($item);
-                            $array_value = array_values($details[$counter]);
-                            $value = $array_value[0];
-
-                        ?>
-                        <div class="col-md-3">
-                            <label><?=$$label?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <?php
-                                            $type="text";
-                                            if($item=="birth"){
-                                                $type="date";
-                                            }
-                                        ?>
-                                        <input
-                                        type="<?=$type?>"
-                                        class="form-control"
-                                        placeholder="<?=$item_label?>"
-                                        name="<?=$item?>"
-                                        data-parsley-required="true"
-                                        value="<?=$value?>"
-
-                                        />
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-                            $counter++;
-
-                        }
-
-                        $counter=0;
-                        foreach($customers_details_opt as $item){
-
-                            $label = "customer_add_$item";
-                            $item_label=ucfirst($item);
-                            // if(array_values($details_opt[$counter])){
-                                $array_value = array_values($details_opt[$counter]);
-                                $value = $array_value[0];
-                            // }
-                        ?>
-                        <div class="col-md-3">
-                            <label><?=$$label?> <?=$customer_add_optional?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="position-relative">
-                                    <?php
-                                        $type="text";
-                                        if($item=="birth"){
-                                            $type="date";
-                                        }
-                                    ?>
-                                    <input
-                                    type="<?=$type?>"
-                                    class="form-control"
-                                    placeholder="<?=$item_label?>"
-                                    name="<?=$item?>"
-                                    value="<?=$value?>"
-
-                                    />
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-                                $counter++;
-
-                        }
-
-                        ?>
 
                         
-                        <input type="hidden" name="idToMod" value="<?=$id?>">
                         <input type="hidden" name="operation" value="edit">
-                        <input type="hidden" name="origin" value="editCustomer">
-                      
+                        <input type="hidden" name="idToMod" value="<?=$product_id?>">
+                        <input type="hidden" name="oldProdName" value="<?=$prod_folder_name?>">
+                        <input type="hidden" name="origin" value="editXSProduct">
+
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"
@@ -221,15 +98,248 @@ $details_opt="";
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title"><?=$common_info?></h4>
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title"><?=$common_info?></h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
                 </div>
-                <div class="card-content">
-                    <div class="card-body">
-                    </div>
-                </div>
+              </div>
             </div>
         </div>
+
+        <?php
+          $xsproduct->table = "product_files_cat" ;
+          $stmt1 = $xsproduct->showAll('id') ;
+
+          $table_counter = $stmt1->rowCount();
+
+          while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
+          {
+            extract($row1) ;
+            $lc_cat_name = $row1['cat_name'] ;
+            $cat_name = ucfirst($row1['cat_name']);
+            $cat_id = $row1['id'] ;
+            $folder_cat = strtolower($cat_name);
+          
+        ?>
+
+        <div class="col-md-8 col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title"><?=$cat_name?></h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+              
+                <h6><?=$xs_prod_edit_add_file?></h6>
+                <form class="form form-horizontal mb-5 pb-3 border-bottom" action="core/mngXSProduct.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                  <div class="form-body">
+                      <div class="row">
+                      <div class="col-md-3">
+                          <label><?=$xs_prod_edit_add_file_label?> <span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                              <div class="form-check mandatory">
+                                  <div class="position-relative">
+                                      <input
+                                      type="text"
+                                      class="form-control"
+                                      placeholder="Titolo della risorsa"
+                                      id="first-name"
+                                      name="label"
+                                      data-parsley-required="true"
+
+                                      />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+           
+                      <div class="col-md-3">
+                            <label><?=$xs_prod_edit_add_file_auth?>  <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                         <div class="form-group">
+                                <select
+                                class="choices form-select multiple-remove"
+                                multiple="multiple" name="permissions[]"
+                                >
+                                <?php
+                                    $xsproduct->table = 'product_permissions' ;
+                                    $xsproduct->product_id = $prod_id ;
+                                    $stmt2 = $xsproduct->showAllWhere('id',['product_id']) ; 
+                                    
+                                    while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC))
+                                    {
+                                        extract($row2);
+                                        $customer->table = 'customers';
+                                        $customer->id = $row2['customers_id'];
+                                        $stmt3 = $customer->showAllWhere('id',['id']);
+
+                                        $row3 = $stmt3->fetch(PDO::FETCH_ASSOC) ;
+                                        extract($row3) ;
+                                ?>
+
+                                    <option value="<?=$row3['id']?>" ><?=$row3['name']?> (<?=$row3['company']?>)</option>
+
+                                <?php
+                                    }
+                                
+                                ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+                      <div class="col-md-3">
+                          <label><?=$file_add_file?> <span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-md-9">
+                          <div class="form-group">
+                              <div class="form-check mandatory">
+                                  <div class="position-relative">
+                                      <input
+                                      class="form-control"
+                                      type="file"
+                                      id="formFile1"
+                                      name="myfile"
+                                      data-parsley-required="true"
+                                  />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <input type="hidden" name="operation" value="addFilesCat">
+                      <input type="hidden" name="filesCatName" value="<?=$cat_name?>">
+                      <input type="hidden" name="filesCatId" value="<?=$row1['id']?>">
+                      <input type="hidden" name="productName" value="<?=$prod_name?>">
+                      <input type="hidden" name="productId" value="<?=$prod_id?>">
+                      <input type="hidden" name="origin" value="editXSResource">
+
+                      <div class="col-12 d-flex justify-content-end">
+                            <button
+                            type="submit"
+                            class="btn btn-primary me-1 mb-1"
+                            >
+                            <?=$common_submit?>
+                            </button>
+                            <button
+                            type="reset"
+                            class="btn btn-light-secondary me-1 mb-1"
+                            >
+                            <?=$common_reset?>
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    </form>
+
+              <table class="table">
+              <thead>
+                <tr>
+                  <th><?=$xs_prod_edit_add_file_label ?></th>
+                  <th><?=$xs_prod_edit_add_file_name?></th>
+                  <th><?=$common_link?></th>
+                  <th><?=$common_actions?></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+
+                  $xsproduct->product_id = $product_id ;
+                  $xsproduct->product_files_cat_id = $row1['id'];
+                  $xsproduct->table = 'product_files' ;
+                  
+                  $stmt2 = $xsproduct->showAllWhere('id',['product_id','product_files_cat_id']) ;
+                  while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC))
+                  {
+                    // extract($row2);
+                ?>
+                <tr>
+                  <td><?=$row2['product_files_label']?></td>
+                  <td><?=$row2['product_files_name']?></td>
+                  <td><a href="../product/<?=$prod_name?>/<?=$lc_cat_name?>/<?=$row2['product_files_name']?>"><?=$common_link?></a></td>
+                  <td>
+                    <a href="#" class="btn icon btn-danger"
+                      data-bs-toggle="modal"
+                      data-bs-target="#danger<?=$row2['id']?>"><i class="bi bi-trash"></i>
+                    </a>
+                        <!--Danger theme Modal -->
+                        <div
+                              class="modal fade text-left"
+                              id="danger<?=$row2['id']?>"
+                              tabindex="-1"
+                              role="dialog"
+                              aria-labelledby="myModalLabel120"
+                              aria-hidden="true"
+                            >
+                              <div
+                                class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                role="document"
+                              >
+                                <div class="modal-content">
+                                  <div class="modal-header bg-danger">
+                                    <h5
+                                      class="modal-title white"
+                                      id="myModalLabel120"
+                                    >
+                                      <?=$common_modal_title_sure?>
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      class="close"
+                                      data-bs-dismiss="modal"
+                                      aria-label="Close"
+                                    >
+                                      <i data-feather="x"></i>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <?=$xs_prod_edit_modal_body?>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-light-secondary"
+                                      data-bs-dismiss="modal"
+                                    >
+                                      <i class="bx bx-x d-block d-sm-none"></i>
+                                      <span class="d-none d-sm-block"
+                                        ><?=$common_modal_cancel?></span
+                                      >
+                                    </button>
+                                      <span class="d-none d-sm-block"
+                                        ><a href="core/mngXSProduct.php?idFileToDel=<?=$row2['id']?>&fileName=<?=$row2['product_files_name']?>&cat=<?=$lc_cat_name?>&prod=<?=$prod_name?>&prodId=<?=$prod_id?>" target="_blank" class="btn btn-danger ml-1">
+                                          <?=$common_modal_confirm?>
+                                        </a></span
+                                      >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                    </td>
+                </tr>
+                
+                <?php
+                  }
+                  ?>
+                  </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+          <div class="col-md-4 col-12">
+            &nbsp;
+          </div>
+          <?php
+          }
+          ?>
+
+</div>
     </div>
 </section>

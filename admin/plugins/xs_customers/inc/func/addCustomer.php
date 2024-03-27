@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$common_surname?><span class="text-danger">*</span></label>
+                            <label><?=$common_username?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group has-icon-left">
@@ -68,15 +68,75 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$customer_add_surname_ph?>"
-                                        id="surname"
-                                        name="surname"
+                                        placeholder="<?=$common_username?>"
+                                        name="username"
                                         data-parsley-required="true"
 
                                         />
                                         <div class="form-control-icon">
                                         <i class="bi bi-person"></i>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <label><?=$customer_add_company?><span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Company"
+                                        name="company"
+                                        data-parsley-required="true"
+
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label><?=$common_password?><span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Password"
+                                        name="password"
+                                        data-parsley-required="true"
+
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label><?=$common_email?><span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                        <input
+                                        type="email"
+                                        class="form-control"
+                                        placeholder="Email"
+                                        name="email"
+                                        data-parsley-required="true"
+
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -155,6 +215,43 @@
                         }
 
                         ?>
+
+                        <!-- product permissions -->
+
+                        <?php
+
+
+                        ?>
+
+                        <div class="col-md-3">
+                            <label><?=$customer_add_authorize?>  <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                         <div class="form-group">
+                                <select
+                                class="choices form-select multiple-remove"
+                                multiple="multiple" name="product[]"
+                                >
+                                <?php
+                                    $xsproduct->table = 'product' ;
+                                    $stmt = $xsproduct->showAll('id') ; 
+                                    
+                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                                    {
+                                        extract($row);
+                                ?>
+
+                                    <option value="<?=$row['id']?>" <?=$selected?>><?=$row['product_name']?></option>
+
+                                <?php
+                                    }
+                                
+                                ?>
+
+                                </select>
+                            </div>
+                        </div>
+
 
                         
                         <input type="hidden" name="operation" value="add">

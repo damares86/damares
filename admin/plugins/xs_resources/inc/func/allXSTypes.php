@@ -1,12 +1,12 @@
 <?php
-
-$stmt = $customer->showAll('id');
+$xsresources->table = 'resource_type' ;
+$stmt = $xsresources->showAll('id');
 
 ?>
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$customer_all_header?></h3>
+      <h3><?=$xs_res_type_all_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $customer->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          <?=$customer_all_header?>
+          <?=$xs_res_type_all_header?>
           </li>
         </ol>
       </nav>
@@ -31,17 +31,16 @@ $stmt = $customer->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header"><?=$customer_all_title?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addCustomer" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> <?=$customer_all_add?></a
+    <div class="card-header"><?=$xs_res_type_all_title?>&nbsp; &nbsp; &nbsp; 
+                    <a href="index.php?p=addXSType" class="btn icon icon-left btn-success"
+                        ><i data-feather="plus-circle"></i> <?=$xs_type_add_header?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th><?=$customer_all_name_table?></th>
-            <th><?=$common_username?></th>
-            <th><?=$customer_add_company?></th>
+            <th><?=$xs_res_type_all_type?></th>
+            <th><?=$xs_res_all_type_number?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -51,11 +50,17 @@ $stmt = $customer->showAll('id');
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         ?>
           <tr <?=$class?>>
-            <td><?=$row['name']?></td>
-            <td><?=$row['username']?></td>
-            <td><?=$row['company']?></td>
+            <td><?=$row['resource_type']?></td>
+            <td>              
+            <?php
+              $xsresources->table = 'resources' ;
+              $xsresources->type_id = $row['id'] ;
+              $stmt1 = $xsresources->countItem('type_id');
+              echo $stmt1 ;
+            ?>
+            </td>
             <td>
-              <a href="index.php?p=editCustomer&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editXSType&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -94,7 +99,7 @@ $stmt = $customer->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$customer_all_modal_body?>
+                                    <?=$xs_type_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -108,7 +113,7 @@ $stmt = $customer->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngCustomers.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngXSResources.php?idTypeToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >
