@@ -275,8 +275,9 @@ else if($operation=='addFilesCat')
     $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
     $cat_name = filter_input(INPUT_POST,'filesCatName');
     $prod_name = filter_input(INPUT_POST,'productName');
+    $prod_folder_name = strtolower($prod_name) ;
     $lc_cat_name = strtolower($cat_name) ;
-    $file->path = "../../product/$prod_name/$lc_cat_name/" ;
+    $file->path = "../../product/$prod_folder_name/$lc_cat_name/" ;
     $file->origin = filter_input(INPUT_POST,"origin");
 
     $file->operation = 'add' ;
@@ -369,6 +370,7 @@ else if($operation=="edit")
  
     $product_name = filter_input(INPUT_POST,"name");
     $xsproduct->product_name = $product_name ;
+    $product_folder_name = strtolower($product_name);
     $old_product_name = filter_input(INPUT_POST,"oldProdName");
     $xsproduct->old_product_name = $old_product_name ;
     
@@ -381,7 +383,7 @@ else if($operation=="edit")
 
         $error = 0 ;
        
-        if(!rename("../../product/$old_product_name" ,"../../product/$product_name"))
+        if(!rename("../../product/$old_product_name" ,"../../product/$product_folder_name"))
         {
             $error++;
         }
@@ -438,9 +440,11 @@ else if($operation == "add")
             chmod($base_directory, 0777);
             umask($oldmask);
         }
+
+        $product_folder_name = strtolower($product_name);
         
         // SPECIFIC PRODUCT FOLDER CREATION
-        $target_directory = "$base_directory/$product_name";
+        $target_directory = "$base_directory/$product_folder_name";
 
         if(!is_dir($target_directory))
         {

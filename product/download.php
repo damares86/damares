@@ -20,12 +20,12 @@ $product=filter_input(INPUT_GET,"product");
 $file=filter_input(INPUT_GET,"filename");
 $product=strtolower($product);
 
-
 $filename = $product.'/'.$cat.'/'.$file ;
+
 
 if(is_file($filename))
 {
-  $fp=fopen($product.'download.log','a');
+  $fp=fopen($product.'/download.log','a');
   fwrite($fp,"\n");
   fwrite($fp,$user." ".$product." ".$file." ".date("d/m/Y-H:i:s"));
   fclose($fp);

@@ -8,6 +8,7 @@ $stmt = $xsproduct->showAllWhere('id',['id']);
 $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
 extract($row);
 $prod_name = $row['product_name'];
+$prod_folder_name = strtolower($prod_name);
 $prod_id = $row['id'];
 ?>
 
@@ -72,7 +73,7 @@ $prod_id = $row['id'];
                         
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="idToMod" value="<?=$product_id?>">
-                        <input type="hidden" name="oldProdName" value="<?=$row['product_name']?>">
+                        <input type="hidden" name="oldProdName" value="<?=$prod_folder_name?>">
                         <input type="hidden" name="origin" value="editXSProduct">
 
                         <div class="col-12 d-flex justify-content-end">
