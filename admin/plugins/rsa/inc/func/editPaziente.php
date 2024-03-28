@@ -250,7 +250,7 @@ extract($row1) ;
                                                 >
                                                 <?php
                                                     $rsa->table = "farmaci" ;
-                                                    $stmt = $rsa->showAll('id');
+                                                    $stmt = $rsa->showAll('principio');
                                                     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
                                                 ?>

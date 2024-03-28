@@ -1,6 +1,6 @@
 <?php 
   $rsa->table = 'farmaci' ;
-  $farmaci = $rsa->showAll('id');
+  $farmaci = $rsa->showAll('principio');
 ?>
 
 <div class="page-title">

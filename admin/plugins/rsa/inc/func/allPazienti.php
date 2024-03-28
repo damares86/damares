@@ -1,6 +1,6 @@
 <?php 
   $rsa->table = 'pazienti' ;
-  $pazienti = $rsa->showAll('id');
+  $pazienti = $rsa->showAll('cognome');
 ?>
 
 <div class="page-title">
