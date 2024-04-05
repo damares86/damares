@@ -92,27 +92,25 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 if($operation=="editType")
 {
-//////////////////////////////////////////
 
     $id = filter_input(INPUT_POST,"idToMod") ;
     $gamresources->table = 'resource_type' ;
     $gamresources->id = $id ;
-    $gamresources->resource_type = filter_input(INPUT_POST,"name") ;
+    $gamresources->type = filter_input(INPUT_POST,"name") ;
 
-    if($gamresources->update(['resource_type'],'id')){
+    if($gamresources->update(['type'],'id')){
         //success
-        header("Location: ../index.php?p=editXSType&idToMod=$id&msg=resEditTypeSucc");
+        header("Location: ../index.php?p=editGamType&idToMod=$id&msg=resEditTypeSucc");
         exit;
     }else{
         // fail
-        header("Location: ../index.php?p=editXSType&idToMod=$id&err=resEditTypeFail");
+        header("Location: ../index.php?p=editGamType&idToMod=$id&err=resEditTypeFail");
         exit;
     }
 
 }
 else if($operation=="editCat")
 {
-//////////////////////////////////////////
 
     $id = filter_input(INPUT_POST,"idToMod") ;
     $gamresources->table = 'resource_cat' ;
@@ -186,17 +184,17 @@ else if($operation=="edit")
 }
 else if($operation == "addType")
 {
-//////////////////////////////////////////
-    $gamresources->resource_type = filter_input(INPUT_POST,"name");
+    
+    $gamresources->type = filter_input(INPUT_POST,"name");
     $gamresources->table = 'resource_type';
 
-    if($gamresources->insert(['resource_type'])){
+    if($gamresources->insert(['type'])){
         //success
-        header("Location: ../index.php?p=allXSTypes&msg=resTypeSucc");
+        header("Location: ../index.php?p=allGamTypes&msg=resTypeSucc");
         exit;
     }else{
         // fail
-        header("Location: ../index.php?p=allXSTypes&err=resTypeFail");
+        header("Location: ../index.php?p=allGamTypes&err=resTypeFail");
         exit;
     }
 

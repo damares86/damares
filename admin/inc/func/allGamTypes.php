@@ -1,12 +1,12 @@
 <?php
-$xsresources->table = 'resource_type' ;
-$stmt = $xsresources->showAll('id');
+$gamresources->table = 'resource_type' ;
+$stmt = $gamresources->showAll('id');
 
 ?>
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$xs_res_type_all_header?></h3>
+      <h3>Tutti i tipi di file</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $xsresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          <?=$xs_res_type_all_header?>
+          Tutti i tipi di file
           </li>
         </ol>
       </nav>
@@ -31,16 +31,16 @@ $stmt = $xsresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header"><?=$xs_res_type_all_title?>&nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addXSType" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> <?=$xs_type_add_header?></a
+    <div class="card-header">Tutti i tipi di file &nbsp; &nbsp; &nbsp; 
+                    <a href="index.php?p=addGamType" class="btn icon icon-left btn-success"
+                        ><i data-feather="plus-circle"></i> Aggiungi tipo file</a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th><?=$xs_res_type_all_type?></th>
-            <th><?=$xs_res_all_type_number?></th>
+            <th>Nome tipo</th>
+            <th>Numero di file</th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -50,17 +50,17 @@ $stmt = $xsresources->showAll('id');
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         ?>
           <tr <?=$class?>>
-            <td><?=$row['resource_type']?></td>
+            <td><?=$row['type']?></td>
             <td>              
             <?php
-              $xsresources->table = 'resources' ;
-              $xsresources->type_id = $row['id'] ;
-              $stmt1 = $xsresources->countItem('type_id');
+              $gamresources->table = 'resources' ;
+              $gamresources->type_id = $row['id'] ;
+              $stmt1 = $gamresources->countItem('type_id');
               echo $stmt1 ;
             ?>
             </td>
             <td>
-              <a href="index.php?p=editXSType&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editGamType&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -99,7 +99,7 @@ $stmt = $xsresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$xs_type_modal_body?>
+                                    Se confermi questo tipo di file verrà eliminato definitivamente
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -113,7 +113,7 @@ $stmt = $xsresources->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngXSResources.php?idTypeToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngGamResources.php?idTypeToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >
