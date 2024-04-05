@@ -62,16 +62,19 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                         <?php
                                         $section->table = 'sectionParent' ;
                                         $stmt = $section->showAll('id');
+
+                                        $role_id = $_SESSION['role_id'];
+                                        $rolessection->role_id = $role_id;
+                                        $permission = $rolessection->showAllPermission('id', ['role_id']);
+                                        
+                                        $sectionOk = [];
+
                                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
                                         {
                                             extract($row);
 
                                             // hide sections for non root users
-                                            $role_id = $_SESSION['role_id'];
-                                            $rolessection->role_id = $role_id;
-                                            $permission = $rolessection->showAllPermission('id', ['role_id']);
 
-                                            $sectionOk = [];
                                             foreach ($permission as $item) 
                                             {
                                                 if ($item['role_id'] == $role_id) {
@@ -81,7 +84,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
 
                                             // if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
                                             if ($role_id == 1 ||  in_array($row['id'], $sectionOk)) {
-
+                                        
 
                                         ?>
                                                 <div class="col-md-12 rounded bg-light px-5 py-2 my-1">
@@ -139,7 +142,6 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                         <?php
                                             }
                                         }
-
                                         ?>
 
                                         <?php
