@@ -51,7 +51,7 @@ if(isset($_COOKIE['damares-login'])){
         // }
       
     } else {
-    header("Location: login.php?err=noLogin");
-    exit;
+        header("Location: ../login/auth-login.php?err=noLogin");
+        exit;
     }
 }
