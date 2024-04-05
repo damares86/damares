@@ -13,13 +13,12 @@ class GAMResources extends Common{
     public $resource_name ;
     public $title ;
     public $description ;
-    public $product_id ;
-    public $lang_id ;
+    public $cat_id ;
     public $type_id ;
     public $img ;
     public $resource_date ; 
-    public $resource_lang ;
-    public $resource_type ;
+    public $cat ;
+    public $type ;
 
 }
 

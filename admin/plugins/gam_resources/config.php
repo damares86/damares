@@ -21,11 +21,10 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS ".$prefix."resources
       resource_date DATE);
       CREATE TABLE IF NOT EXISTS ".$prefix."resource_cat
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      resource_lang VARCHAR(255) NOT NULL);
+      cat VARCHAR(255) NOT NULL);
       CREATE TABLE IF NOT EXISTS ".$prefix."resource_type
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      resource_type VARCHAR(255) NOT NULL,
-      img VARCHAR(255) NOT NULL);";
+      type VARCHAR(255) NOT NULL);";
 
 $parent_table=[['link'=>'gam_resources',
                   'label'=>'GAM Resources',
