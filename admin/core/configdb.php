@@ -184,6 +184,11 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
                     section_id INT ( 5 ) NOT NULL,
                     role_id INT (5) NOT NULL)");
 
+$db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSectionChild
+                    ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                      section_id INT ( 5 ) NOT NULL,
+                      role_id INT (5) NOT NULL)");
+
                  
 $db->query("CREATE TABLE IF NOT EXISTS  ".$prefix."password_reset_temp (
                     email VARCHAR(250) NOT NULL PRIMARY KEY,
