@@ -1,12 +1,12 @@
 <?php
-$xsresources->table = 'resources' ;
-$stmt = $xsresources->showAll('id');
+$gamresources->table = 'resources' ;
+$stmt = $gamresources->showAll('id');
 
 ?>
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$xs_res_all_header?></h3>
+      <h3>Tutti i file</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $xsresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          <?=$xs_res_all_header?>
+          Tutti i file
           </li>
         </ol>
       </nav>
@@ -31,19 +31,18 @@ $stmt = $xsresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header"><?=$xs_res_all_title?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addXSResource" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> <?=$xs_res_all_add_button?></a
+    <div class="card-header">Tutti i file &nbsp; &nbsp; &nbsp; 
+                    <a href="index.php?p=addGamResource" class="btn icon icon-left btn-success"
+                        ><i data-feather="plus-circle"></i> Aggiungi un nuovo file</a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th><?=$xs_res_add_title_res?></th>
-            <th><?=$xs_res_all_date?></th>
-            <th><?=$xs_res_all_prod?></th>
-            <th><?=$xs_res_add_lang?></th>
-            <th><?=$xs_res_add_type?></th>
+            <th>Titolo</th>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Categoria</th>
             <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
@@ -59,34 +58,26 @@ $stmt = $xsresources->showAll('id');
             <td><?=$row['resource_date']?></td>
             <td>
               <?php
-                $xsresources->table = 'product' ;
-                $xsresources->id = $row['product_id'] ; 
-                $stmt1 = $xsresources->showAllWhere('id',['id']) ;
-                $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
-                echo $row1['product_name'] ;
-              ?>
-            </td>
-            <td>
-              <?php
-                $xsresources->table = 'resource_lang' ;
-                $xsresources->id = $row['lang_id'] ; 
-                $stmt2 = $xsresources->showAllWhere('id',['id']) ;
-                $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
-                echo $row2['resource_lang'] ;
-              ?>
-            </td>
-            <td>
-              <?php
-                $xsresources->table = 'resource_type' ;
-                $xsresources->id = $row['type_id'] ; 
-                $stmt3 = $xsresources->showAllWhere('id',['id']) ;
+                $gamresources->table = 'resource_type' ;
+                $gamresources->id = $row['type_id'] ; 
+                $stmt3 = $gamresources->showAllWhere('id',['id']) ;
                 $row3 = $stmt3->fetch(PDO::FETCH_ASSOC) ;
-                echo $row3['resource_type'] ;
+                echo $row3['type'] ;
               ?>
             </td>
+            <td>
+              <?php
+                $gamresources->table = 'resource_cat' ;
+                $gamresources->id = $row['cat_id'] ; 
+                $stmt2 = $gamresources->showAllWhere('id',['id']) ;
+                $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+                echo $row2['cat'] ;
+              ?>
+            </td>
+
             <td><a href="uploads/<?=$row['resource_name']?>" target="_blank">Link</a></td>
             <td>
-              <a href="index.php?p=editXSResource&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editGamResource&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -125,7 +116,7 @@ $stmt = $xsresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$xs_res_all_modal_body?>
+                                    Se confermi questo file verrà eliminato completamente
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -139,7 +130,7 @@ $stmt = $xsresources->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngXSResources.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngGamResources.php?idToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >

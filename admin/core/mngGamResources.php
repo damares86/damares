@@ -130,7 +130,6 @@ else if($operation=="editCat")
 }
 else if($operation=="edit")
 {
-//////////////////////////////////////////
 
         $id = filter_input(INPUT_POST,"idToMod") ;
         
@@ -164,19 +163,18 @@ else if($operation=="edit")
         $gamresources->resource_name = $resource_name ;
         $gamresources->title = filter_input(INPUT_POST,"title");
         $gamresources->description = filter_input(INPUT_POST,"content");
-        $gamresources->product_id = filter_input(INPUT_POST,"product_id");
-        $gamresources->lang_id = filter_input(INPUT_POST,"lang_id");
+        $gamresources->cat_id = filter_input(INPUT_POST,"cat_id");
         $gamresources->type_id = filter_input(INPUT_POST,"type_id");
         $gamresources->resource_date = date("Y-m-d");
 
-        if($gamresources->update(['resource_name','title','description','product_id','lang_id','type_id','resource_date'],'id'))
+        if($gamresources->update(['resource_name','title','description','cat_id','type_id','resource_date'],'id'))
         {
-            header("Location: ../index.php?p=allXSResources&msg=resEditSucc");
+            header("Location: ../index.php?p=editGamResource&idToMod=$id&msg=resEditSucc");
             exit;
         }
         else
         {
-            header("Location: ../index.php?p=allXSResources&err=resEditFail");
+            header("Location: ../index.php?p=editGamResource&idToMod=$id&err=resEditFail");
             exit;
         }
                 
@@ -218,7 +216,6 @@ else if($operation == "addCat")
 }
 else if($operation == "add")
 {
-//////////////////////////////////////////
 
     if($_FILES['myfile']['size'] > 0)
     {
@@ -241,31 +238,30 @@ else if($operation == "add")
             $gamresources->resource_name = $resource_name ;
             $gamresources->title = filter_input(INPUT_POST,"title");
             $gamresources->description = filter_input(INPUT_POST,"content");
-            $gamresources->product_id = filter_input(INPUT_POST,"product_id");
-            $gamresources->lang_id = filter_input(INPUT_POST,"lang_id");
+            $gamresources->cat_id = filter_input(INPUT_POST,"cat_id");
             $gamresources->type_id = filter_input(INPUT_POST,"type_id");
             $gamresources->resource_date = date("Y-m-d");
 
-            if($gamresources->insert(['resource_name','title','description','product_id','lang_id','type_id','resource_date']))
+            if($gamresources->insert(['resource_name','title','description','cat_id','type_id','resource_date']))
             {
-                header("Location: ../index.php?p=allXSResources&msg=resSucc");
+                header("Location: ../index.php?p=allGamResources&msg=resSucc");
                 exit;
             }
             else
             {
-                header("Location: ../index.php?p=allXSResources&err=resFail");
+                header("Location: ../index.php?p=allGamResources&err=resFail");
                 exit;
             }
             
         }
         else
         {
-            header("Location: ../index.php?p=allXSResources&err=fileResFail");
+            header("Location: ../index.php?p=allGamResources&err=fileResFail");
             exit;        
         }
 
     }else{
-        header("Location: ../index.php?p=allXSResources&err=fileResEmpty");
+        header("Location: ../index.php?p=allGamResources&err=fileResEmpty");
         exit;        
     }
 }
