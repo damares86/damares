@@ -12,46 +12,44 @@
 
 require __DIR__."/coreConfig.php";
 
-if(filter_input(INPUT_GET,"idLangToDel"))
+if(filter_input(INPUT_GET,"idCatToDel"))
 {
-//////////////////////////////////////////
 
-    // check if there are resources with this lang
-    $gamresources->lang_id = filter_input(INPUT_GET,"idLangToDel");
+    // check if there are resources with this cat
+    $gamresources->cat_id = filter_input(INPUT_GET,"idCatToDel");
     $gamresources->table = 'resources' ;
-    $stmt = $gamresources->countItem('lang_id') ;
+    $stmt = $gamresources->countItem('cat_id') ;
 
     if($stmt>0)
     {
-        header("Location: ../index.php?p=allXSLangs&err=resLangExists");
+        header("Location: ../index.php?p=allGamCats&err=resCatExists");
         exit; 
     }
     
-    // delete the lang
-    $gamresources->id = filter_input(INPUT_GET,"idLangToDel");
-    $gamresources->table = 'resource_lang' ;
+    // delete the cat
+    $gamresources->id = filter_input(INPUT_GET,"idCatToDel");
+    $gamresources->table = 'resource_cat' ;
 
     if($gamresources->delete('id')){
-        header("Location: ../index.php?p=allXSLangs&msg=resLangDel");
+        header("Location: ../index.php?p=allGamCats&msg=resCatDel");
         exit;
     }else{
-        header("Location: ../index.php?p=allXSLangs&err=resLangNoDel");
+        header("Location: ../index.php?p=allGamCats&err=resCatNoDel");
         exit;
     }
 
 }
 else if(filter_input(INPUT_GET,"idTypeToDel"))
 {
-//////////////////////////////////////////
 
-    // check if there are resources with this lang
-    $gamresources->lang_id = filter_input(INPUT_GET,"idTypeToDel");
+    // check if there are resources with this type
+    $gamresources->type_id = filter_input(INPUT_GET,"idTypeToDel");
     $gamresources->table = 'resources' ;
     $stmt = $gamresources->countItem('type_id') ;
 
     if($stmt>0)
     {
-        header("Location: ../index.php?p=allXSTypes&err=resTypeExists");
+        header("Location: ../index.php?p=allGamTypes&err=resTypeExists");
         exit; 
     }
     
@@ -60,26 +58,39 @@ else if(filter_input(INPUT_GET,"idTypeToDel"))
     $gamresources->table = 'resource_type' ;
 
     if($gamresources->delete('id')){
-        header("Location: ../index.php?p=allXSTypes&msg=resTypeDel");
+        header("Location: ../index.php?p=allGamTypes&msg=resTypeDel");
         exit;
     }else{
-        header("Location: ../index.php?p=allXSTypes&err=resTypeNoDel");
+        header("Location: ../index.php?p=allGamTypes&err=resTypeNoDel");
         exit;
     }
 
 }
 else if(filter_input(INPUT_GET,"idToDel"))
 {
-//////////////////////////////////////////
 
-    $gamresources->id = filter_input(INPUT_GET,"idToDel");
     $gamresources->table = 'resources' ;
+    $gamresources->id = filter_input(INPUT_GET,"idToDel");
+    $stmt = $gamresources->showAllWhere('id',['id']) ;
+    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+    $filename = $row['resource_name'] ;
+    
+    $gamresources->table = 'resources' ;
+    $gamresources->id = filter_input(INPUT_GET,"idToDel");
 
     if($gamresources->delete('id')){
-        header("Location: ../index.php?p=allXSResources&msg=resDel");
+
+        $errFile = '' ;
+
+        if(!unlink('../uploads/'.$filename))
+        {
+            $errFile = '&err=fileNotDel' ;
+        }
+
+        header("Location: ../index.php?p=allGamResources&msg=resDel$errFile");
         exit;
     }else{
-        header("Location: ../index.php?p=allXSResources&err=resNoDel");
+        header("Location: ../index.php?p=allGamResources&err=resNoDel");
         exit;
     }
 
@@ -132,6 +143,7 @@ else if($operation=="edit")
 {
 
         $id = filter_input(INPUT_POST,"idToMod") ;
+        $errOldFile = '' ;
         
         if($_FILES['myfile']['size'] > 0)
         {
@@ -146,11 +158,17 @@ else if($operation=="edit")
             $file->operation = $operation ;
             
             // check sull'esistenza del file?
-            
             if(!$file->uploadFile())
             {
                 header("Location: ../index.php?p=allXSResources&err=fileResFail");
                 exit;        
+            }
+            else
+            {
+                if(!unlink('../uploads/'.filter_input(INPUT_POST,"oldFilename")))
+                {
+                    $errOldFile = '&err=oldFileDelFail' ;
+                }
             }
         }
         else
@@ -169,12 +187,12 @@ else if($operation=="edit")
 
         if($gamresources->update(['resource_name','title','description','cat_id','type_id','resource_date'],'id'))
         {
-            header("Location: ../index.php?p=editGamResource&idToMod=$id&msg=resEditSucc");
+            header("Location: ../index.php?p=editGamResource&idToMod=$id&msg=resEditSucc$errOldFile");
             exit;
         }
         else
         {
-            header("Location: ../index.php?p=editGamResource&idToMod=$id&err=resEditFail");
+            header("Location: ../index.php?p=editGamResource&idToMod=$id&err=resEditFail$errOldFile");
             exit;
         }
                 
@@ -267,6 +285,6 @@ else if($operation == "add")
 }
 else
 {
-    header("Location: ../index.php?p=allCustomers&err=noPost");
+    header("Location: ../index.php?p=allGamResources&err=noPost");
     exit;
 }
