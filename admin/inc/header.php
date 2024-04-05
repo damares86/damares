@@ -9,7 +9,7 @@ if(!is_file('class/Database.php')){
 
 session_start();
 
-   
+
 // check if the user is logged in
 require __DIR__."/config.php";
 
@@ -22,26 +22,26 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
   $auth->id = $pieces[0];
   $id = $pieces[0];
   $auth->auth_token = $pieces[1];
-
+  
   if(!$auth->checkCookie()>0){
     header("Location: ../login/auth-login.php?err=noLogin");
     exit;
   }
-
+  
   $role->id = $_SESSION['role_id'] ;
-
+  
   $plugin->pluginname = "role_redirect" ;
   
   if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-      $stmt = $role->showAllWhere('id',['id']);
-      foreach($stmt as $row){
-          if($row['redirect']!="none"){
-              header("Location: ".$row['redirect']."");
-              exit;
-          }
+    $stmt = $role->showAllWhere('id',['id']);
+    foreach($stmt as $row){
+      if($row['redirect']!="none"){
+        header("Location: ".$row['redirect']."");
+        exit;
       }
+    }
   }
-
+  
   $export = false ;
   $plugin->pluginname = "export_xlsx" ;
   
@@ -49,9 +49,8 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
   {
     $export = true ;
   }
-
+  
 }
-
 ?>
 
 <!DOCTYPE html>

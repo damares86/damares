@@ -22,20 +22,20 @@ if(!is_file('inc/class_initialize.php')){
     fwrite($file_handle, "\n");
     foreach ($files as $filename) {
         $nomefile = pathinfo($filename);
-    $file=$nomefile['filename'];
-    if($file!="PhpXlsxGenerator")
-    {
-        $file_var = strtolower($file);
-        fwrite($file_handle, '$'.$file_var.' = new '.$file.'($db);');
+        $file=$nomefile['filename'];
+        if($file!="PhpXlsxGenerator")
+        {
+            $file_var = strtolower($file);
+            fwrite($file_handle, '$'.$file_var.' = new '.$file.'($db);');
+            fwrite($file_handle, "\n");
+        }
+    }
+    if($prefix){
+        fwrite($file_handle,'$common->prx = "'.$prefix.'_";') ;
         fwrite($file_handle, "\n");
     }
-}
-if($prefix){
-    fwrite($file_handle,'$common->prx = "'.$prefix.'_";') ;
-    fwrite($file_handle, "\n");
-}
-fwrite($file_handle,"?>");
-chmod('inc/class_initialize.php',0777);
+    fwrite($file_handle,"?>");
+    chmod('inc/class_initialize.php',0777);
 }
 
 include "inc/class_initialize.php";
