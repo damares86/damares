@@ -103,6 +103,18 @@
                 </a>
               </li>
               <?php
+
+                $role_id = $_SESSION['role_id'] ;
+
+                $rolessection->table = 'rolesSectionChild' ;
+                $rolessection->role_id = $role_id ;
+                $permissionChild = $rolessection->showAllWhere('id',['role_id']) ;
+                $sectionChild = [] ;
+                foreach($permissionChild as $item)
+                {           
+                  $sectionChild[] = $item['section_id'];
+                }
+
                 $stmt = $section->showAllTable('id','sectionParent') ;
 
                 
@@ -115,7 +127,21 @@
                   
                   $link="?p=".$row['link']."";
                   
-                  if($section->countChild($row['id'])>0){
+                  $section->table = 'sectionChild' ;
+                  $section->parent_id = $row['id'] ;
+                  $child = $section->showAllWhere('id',['parent_id']);
+                  $countChildPermissions = 0 ;
+                  
+                  while($row2 = $child->fetch(PDO::FETCH_ASSOC))
+                  {
+                                        
+                    if(in_array($row2['id'],$sectionChild))
+                    {
+                      $countChildPermissions++;
+                    }
+                  }
+
+                  if($section->countChild($row['id'])>0 && $countChildPermissions>0){
                     $hasSub = "has-sub" ;
                     $link="#";
                   }
@@ -125,7 +151,6 @@
                   }
 
               // SECTION PERMISSIONS
-                  $role_id = $_SESSION['role_id'] ;
                   $rolessection->role_id = $role_id ;
                   $rolessection->table = 'rolesSection' ;
                   $permissionParent = $rolessection->showAllWhere('id',['role_id']) ;
@@ -133,19 +158,10 @@
                   $sectionParent = [] ;
                   foreach($permissionParent as $item)
                   {                    
-                      $sectionParent[] = $item['section_id'];
-                    }
+                    $sectionParent[] = $item['section_id'];
+                  }
 
-                  $rolessection->table = 'rolesSectionChild' ;
-                  $permissionChild = $rolessection->showAllWhere('id',['role_id']) ;
-                  $sectionChild = [] ;
-                  foreach($permissionChild as $item)
-                  {                    
-                      $sectionChild[] = $item['section_id'];
-                    }
-
-                  // if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
-                    if($role_id==1 ||  in_array($row['id'],$sectionParent)){
+                  if($role_id==1 ||  in_array($row['id'],$sectionParent)){
               ?>
               <li class="sidebar-item <?=$active?> <?=$hasSub?>">
                 <a href="index.php<?=$link?>" class="sidebar-link">
@@ -170,7 +186,7 @@
                     $section->parent_id = $row['id'];
                     
                     $child = $section->showAllChild();
-                    if(count($sectionChild)>0)
+                    if($role_id==1 || count($sectionChild)>0)
                     {
                       ?>
                     <ul class="submenu">
