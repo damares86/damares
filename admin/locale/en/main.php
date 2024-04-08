@@ -161,3 +161,4 @@ $err_pluginDisErr = "Module not disabled" ;
 $err_pluginRmErr = "Module not removed" ;
 $err_settingUpdateErr = "Settings not updated" ;
 $err_debugUpdateErr = "Debug not activated" ;
+$err_rolePermFail = "Error on setting permissions for this role" ;

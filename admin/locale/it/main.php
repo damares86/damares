@@ -175,3 +175,4 @@ $err_pluginDisErr = "Modulo non disattivato" ;
 $err_pluginRmErr = "Modulo non rimosso" ;
 $err_settingUpdateErr = "Impostazioni non modificate" ;
 $err_debugUpdateErr = "Debug non attivato" ;
+$err_rolePermFail = "Errore durante la configurazione dei permessi per questo ruolo" ;

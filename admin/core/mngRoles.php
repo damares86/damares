@@ -90,44 +90,78 @@ $idToMod = filter_input(INPUT_POST,"idToMod");
         }
     
 
-}else if($operation == "add"){
+}
+else if($operation == "add")
+{
     $role->rolename = filter_input(INPUT_POST,"rolename");
 
-    if($role->roleExists()){
+    if($role->roleExists())
+    {
         header("Location: ../index.php?p=addRole&err=roleExist");
         exit;
-    }else{
-
+    }
+    else
+    {
         $role->rolename = filter_input(INPUT_POST,"rolename") ; 
-        if(filter_input(INPUT_POST,"redirect") ){
+        if(filter_input(INPUT_POST,"redirect") )
+        {
             $role->redirect = filter_input(INPUT_POST,"redirect") ; 
-        }else{
+        }
+        else
+        {
             $role->redirect = "none" ;
         }
         
-        if($role->insert(['rolename','redirect'])){
+        if($role->insert(['rolename','redirect']))
+        {
+            $sectionParent = $_POST['section'] ;
+            $sectionChild = $_POST['sectionChild'] ;
 
-            $role->rolename = filter_input(INPUT_POST,"rolename") ; 
+            $role->rolename = filter_input(INPUT_POST,"rolename") ;             
+            $role->table = 'roles' ;
             
-            
-            $sectionId = $_POST['section'] ;
-            $stmt = $role->showIdByRolename();
-           $roleId="";
-           while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $stmt = $role->showAllWhere('id',['rolename']);
+
+            $error = 0 ;
+
+           while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+           {
                extract($row);
-               $roleId=$row['id'];
                
-               foreach($sectionId as $item){
-                    print_r($item);
+               // parents permissions
+               foreach($sectionParent as $item)
+               {
                     $rolessection->role_id = $row['id'];
                     $rolessection->section_id = $item ;
-                    $rolessection->insertRoleSection(['section_id','role_id']);
+                    $rolessection->table = 'rolesSection' ;
+                    if(!$rolessection->insert(['section_id','role_id']))
+                    {   
+                        $error++;
+                    }
                 }
+
+                // children permissions
+                foreach($sectionChild as $item)
+                {
+                     $rolessection->role_id = $row['id'];
+                     $rolessection->section_id = $item ;
+                     $rolessection->table = 'rolesSectionChild' ;
+                     if(!$rolessection->insert(['section_id','role_id']))
+                     {   
+                         $error++;
+                     }
+                 }
             }
-                
+            
+            $errMsg = '' ;
+
+            if($error>0)
+            {
+                $errMsg = 'err=rolePermFail' ;
+            }
 
             //success
-            header("Location: ../index.php?p=allRoles&msg=roleSucc");
+            header("Location: ../index.php?p=allRoles&msg=roleSucc$errMsg");
             exit;
         }else{
             //success

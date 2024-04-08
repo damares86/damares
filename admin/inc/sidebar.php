@@ -127,17 +127,25 @@
               // SECTION PERMISSIONS
                   $role_id = $_SESSION['role_id'] ;
                   $rolessection->role_id = $role_id ;
-                  $permission = $rolessection->showAllPermission('id',['role_id']) ;
-                 
-                  $sectionOk = [] ;
-                  foreach($permission as $item){
-                    if($item['role_id']==$role_id){
-                      $sectionOk[] = $item['section_id'];
-                    } 
-                  }
+                  $rolessection->table = 'rolesSection' ;
+                  $permissionParent = $rolessection->showAllWhere('id',['role_id']) ;
+
+                  $sectionParent = [] ;
+                  foreach($permissionParent as $item)
+                  {                    
+                      $sectionParent[] = $item['section_id'];
+                    }
+
+                  $rolessection->table = 'rolesSectionChild' ;
+                  $permissionChild = $rolessection->showAllWhere('id',['role_id']) ;
+                  $sectionChild = [] ;
+                  foreach($permissionChild as $item)
+                  {                    
+                      $sectionChild[] = $item['section_id'];
+                    }
 
                   // if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
-                    if($role_id==1 ||  in_array($row['id'],$sectionOk)){
+                    if($role_id==1 ||  in_array($row['id'],$sectionParent)){
               ?>
               <li class="sidebar-item <?=$active?> <?=$hasSub?>">
                 <a href="index.php<?=$link?>" class="sidebar-link">
@@ -162,10 +170,15 @@
                     $section->parent_id = $row['id'];
                     
                     $child = $section->showAllChild();
-                ?>
-                  <ul class="submenu">
-                <?php
+                    if(count($sectionChild)>0)
+                    {
+                      ?>
+                    <ul class="submenu">
+                      <?php
                     while ($row1 = $child->fetch(PDO::FETCH_ASSOC)){
+                      if($role_id==1 ||  in_array($row1['id'],$sectionChild)){
+
+              
 
                       $active1 ="" ;
 
@@ -196,9 +209,11 @@
 
                 <?php
                     }
+                  }
                 ?>
                   </ul>
                 <?php 
+                    }
                   }
                 ?>
               </li>
