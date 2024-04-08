@@ -118,11 +118,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                         
                                         // hide sections for non root users
                                         
-                                        foreach ($permission as $item) {
-                                            $sectionOk[] = $item['section_id'];
-                                        }
-                                        
-                                        if ($role_id == 1 ||  in_array($row['id'], $sectionOk)) {
+                                        if ($role_id == 1 ||  in_array($row['id'], $sectionParent)) {
                                             $checkedParent = '' ;
                                             if(in_array($row['id'],$sectionParent))
                                             {

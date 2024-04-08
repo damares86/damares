@@ -82,6 +82,7 @@ if($operation=="edit"){
                     }
                 }
             }
+            $sectionChildStr = implode(',',$sectionChildArr);
 
             $role->rolename = filter_input(INPUT_POST,"rolename") ;             
             $role->table = 'roles' ;
@@ -150,7 +151,9 @@ if($operation=="edit"){
 }
 else if($operation == "add")
 {
-    $role->rolename = filter_input(INPUT_POST,"rolename");
+
+    $rolename = filter_input(INPUT_POST,"rolename");
+    $role->rolename = $rolename ;
 
     if($role->roleExists())
     {
@@ -160,6 +163,7 @@ else if($operation == "add")
     else
     {
         $role->rolename = filter_input(INPUT_POST,"rolename") ; 
+
         if(filter_input(INPUT_POST,"redirect") )
         {
             $role->redirect = filter_input(INPUT_POST,"redirect") ; 
@@ -171,6 +175,13 @@ else if($operation == "add")
         
         if($role->insert(['rolename','redirect']))
         {
+
+            $role->rolename = $rolename;
+            $role->table = "roles" ;
+            $stmt1 = $role->showAllWhere('id',['rolename']) ;
+            $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
+            extract($row1) ;
+
             $sectionParent = $_POST['section'] ;
             $sectionParentStr = implode(',',$sectionParent);
             $sectionChild = $_POST['sectionChild'] ;
@@ -192,16 +203,13 @@ else if($operation == "add")
                     }
                 }
 
-                print_r($sectionChildArr);
-                exit;
-
                 $sectionChildStr = implode(',',$sectionChildArr);
             }
 
             $error = 0 ;
 
             $rolessection->table = 'rolesSection' ;
-            $rolessection->role_id = $row['id'] ;
+            $rolessection->role_id = $row1['id'] ;
             $rolessection->section_id = $sectionParentStr ;
 
             if(!$rolessection->insert(['section_id','role_id']))
@@ -209,18 +217,15 @@ else if($operation == "add")
                 $error ++ ;
             }     
 
-
-
-
             $rolessection->table = 'rolesSectionChild' ;
-            $rolessection->role_id = $row['id'] ;
+            $rolessection->role_id = $row1['id'] ;
             $rolessection->section_id = $sectionChildStr ;
 
             if(!$rolessection->insert(['section_id','role_id']))
             {
                 $error ++ ;
             }     
-        
+            
             $errMsg = '' ;
 
             if($error>0)

@@ -106,17 +106,14 @@
 
                 $role_id = $_SESSION['role_id'] ;
 
-                $rolessection->table = 'rolesSectionChild' ;
-                $rolessection->role_id = $role_id ;
-                $permissionChild = $rolessection->showAllWhere('id',['role_id']) ;
-                $sectionChild = [] ;
-                foreach($permissionChild as $item)
-                {           
-                  $sectionChild[] = $item['section_id'];
-                }
+                $rolessection->table = 'rolesSectionChild';
+                $rolessection->role_id = $role_id;
+                $permissionChild = $rolessection->showAllWhere('id', ['role_id']);
+                $permChildArr = $permissionChild->fetch(PDO::FETCH_ASSOC);
+                extract($permChildArr) ;
+                $sectionChild = explode(',',$permChildArr['section_id']);
 
                 $stmt = $section->showAllTable('id','sectionParent') ;
-
                 
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                   
