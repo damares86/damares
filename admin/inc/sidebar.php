@@ -124,7 +124,6 @@
                   
                   $hasSub = "" ;
                   $active = "" ;
-                  
                   $link="?p=".$row['link']."";
                   
                   $section->table = 'sectionChild' ;
@@ -141,7 +140,7 @@
                     }
                   }
 
-                  if($section->countChild($row['id'])>0 && $countChildPermissions>0){
+                if($section->countChild($row['id'])>0 && $countChildPermissions>0 ){
                     $hasSub = "has-sub" ;
                     $link="#";
                   }

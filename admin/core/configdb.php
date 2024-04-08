@@ -236,13 +236,13 @@ $db->query("INSERT INTO ".$prefix."roles
                             (id, rolename)
                             VALUES ('2','Admin')");
 
-$db->query("INSERT INTO ".$prefix."roles
-                            (id, rolename)
-                            VALUES ('3','Manager')");
+// $db->query("INSERT INTO ".$prefix."roles
+//                             (id, rolename)
+//                             VALUES ('3','Manager')");
 
-$db->query("INSERT INTO ".$prefix."roles
-                            (id, rolename)
-                            VALUES ('4','Subscriber')");
+// $db->query("INSERT INTO ".$prefix."roles
+//                             (id, rolename)
+//                             VALUES ('4','Subscriber')");
 
 $db->query("INSERT INTO ".$prefix."accountsRoles
                             (id, account_id,role_id)
@@ -352,6 +352,57 @@ $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
                             VALUES ('8','3','2')");
 
+$db->query("INSERT INTO ".$prefix."rolesSection
+                            (id, section_id,role_id)
+                            VALUES ('9','4','2')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('1','1','1')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('2','2','1')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('3','3','1')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('4','4','1')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('5','5','1')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('6','6','1')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('7','1','2')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('8','2','2')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('9','3','2')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('10','4','2')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('11','5','2')");
+
+$db->query("INSERT INTO ".$prefix."rolesSectionChild
+                            (id, section_id,role_id)
+                            VALUES ('12','6','2')");
 // homepage blocks                            
 
 $db->query("INSERT INTO ".$prefix."home

@@ -93,7 +93,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                                             <div class="col-md-5">
                                                                 <div class="form-check">
                                                                     <div class="checkbox">
-                                                                        <input type="checkbox" name="section[]" class="form-check-input" value="<?= $row['id'] ?>">
+                                                                        <input type="checkbox" name="section[]" class="form-check-input" value="<?= $row['id'] ?>" data-parsley-required data-parsley-mincheck="1">
                                                                         <label><?= $row['label'] ?></label>
                                                                     </div>
                                                                 </div>
@@ -120,7 +120,6 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                                                         }
                                                                     }
                         
-                                                                    // if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
                                                                     if ($role_id == 1 ||  in_array($row1['id'], $sectionChildOk)) {
                         
                                                                 ?>
@@ -142,9 +141,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                         <?php
                                             }
                                         }
-                                        ?>
-
-                                        <?php
+                                        
                                         if ($redir) {
                                         ?>
                                             <div class="col-md-3">

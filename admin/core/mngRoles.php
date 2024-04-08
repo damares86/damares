@@ -45,13 +45,12 @@ $operation = filter_input(INPUT_POST,"operation") ;
 
 // check if there's a role to edit or add
 
+   
+if($operation=="edit"){
 
-
-    
-$idToMod = filter_input(INPUT_POST,"idToMod");
+    $idToMod = filter_input(INPUT_POST,"idToMod");
     $role->id = $idToMod;
     
-    if($operation=="edit"){
         
         $role->rolename = filter_input(INPUT_POST,"rolename") ;
         if(filter_input(INPUT_POST,"redirect") ){
@@ -62,26 +61,84 @@ $idToMod = filter_input(INPUT_POST,"idToMod");
         }
         
         if($role->update(['rolename','redirect'],'id')){
-            $rolessection->role_id = $idToMod ;
-            $stmt = $rolessection->showAllWhere('id',['role_id']);
+            $sectionParent = $_POST['section'] ;
+            $sectionParentStr = implode(',',$sectionParent);
+            $sectionChild = $_POST['sectionChild'] ;
 
-            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                extract($row);
-        
-                $rolessection->id = $row['id'] ;
-                $rolessection->delete('id');
+            $sectionChildStr = '' ;
+            if(is_array($sectionChild))
+            {
+                $sectionChildArr = [] ;
+                foreach($sectionChild as $item)
+                {
+                    $rolessection->table = 'sectionChild' ;
+                    $rolessection->id = $item ;
+                    $stmt = $rolessection->showAllWhere('id',['id']);
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+                    extract($row);
+                    if(in_array($row['parent_id'],$sectionParent))
+                    {
+                        $sectionChildArr[] = $item ;
+                    }
+                }
             }
 
-            $sectionId = $_POST['section'];
+            $role->rolename = filter_input(INPUT_POST,"rolename") ;             
+            $role->table = 'roles' ;
+            
+            $stmt = $role->showAllWhere('id',['rolename']);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+            extract($row);
+            
+            $error = 0 ;
 
-            foreach($sectionId as $item){
-                $rolessection->role_id = $idToMod;
-                $rolessection->section_id = $item;
-                $rolessection->insertRoleSection(['section_id','role_id']);
-                
+            $rolessection->table = 'rolesSection' ;
+            $rolessection->role_id = $row['id'] ;
+            $rolessection->section_id = $sectionParentStr ;
+            
+            if($rolessection->itemExists('role_id'))
+            {
+                if(!$rolessection->update(['section_id'],'role_id'))
+                {
+                    $error ++ ;
+                }                
+            }
+            else
+            {
+                if(!$rolessection->insert(['section_id','role_id']))
+                {
+                    $error ++ ;
+                }     
             }
 
-            header("Location: ../index.php?p=allRoles&msg=roleEdit");
+            $rolessection->table = 'rolesSectionChild' ;
+            $rolessection->role_id = $row['id'] ;
+            $rolessection->section_id = $sectionChildStr ;
+            
+            if($rolessection->itemExists('role_id'))
+            {
+                if(!$rolessection->update(['section_id'],'role_id'))
+                {
+                    $error ++ ;
+                }                
+            }
+            else
+            {
+                if(!$rolessection->insert(['section_id','role_id']))
+                {
+                    $error ++ ;
+                }     
+            }
+            
+            $errMsg = '' ;
+
+            if($error>0)
+            {
+                $errMsg = 'err=rolePermFail' ;
+            }
+
+
+            header("Location: ../index.php?p=editRole&idToMod=$idToMod&msg=roleEdit$errMsg ");
             exit;
 
         }else{
@@ -115,44 +172,55 @@ else if($operation == "add")
         if($role->insert(['rolename','redirect']))
         {
             $sectionParent = $_POST['section'] ;
+            $sectionParentStr = implode(',',$sectionParent);
             $sectionChild = $_POST['sectionChild'] ;
 
-            $role->rolename = filter_input(INPUT_POST,"rolename") ;             
-            $role->table = 'roles' ;
-            
-            $stmt = $role->showAllWhere('id',['rolename']);
-
-            $error = 0 ;
-
-           while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-           {
-               extract($row);
-               
-               // parents permissions
-               foreach($sectionParent as $item)
-               {
-                    $rolessection->role_id = $row['id'];
-                    $rolessection->section_id = $item ;
-                    $rolessection->table = 'rolesSection' ;
-                    if(!$rolessection->insert(['section_id','role_id']))
-                    {   
-                        $error++;
+            $sectionChildStr = '' ;
+            if(is_array($sectionChild))
+            {
+                $sectionChildArr = [] ;
+                foreach($sectionChild as $item)
+                {
+                    $rolessection->table = 'sectionChild' ;
+                    $rolessection->id = $item ;
+                    $stmt = $rolessection->showAllWhere('id',['id']);
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+                    extract($row);
+                    if(in_array($row['parent_id'],$sectionParent))
+                    {
+                        $sectionChildArr[] = $item ;
                     }
                 }
 
-                // children permissions
-                foreach($sectionChild as $item)
-                {
-                     $rolessection->role_id = $row['id'];
-                     $rolessection->section_id = $item ;
-                     $rolessection->table = 'rolesSectionChild' ;
-                     if(!$rolessection->insert(['section_id','role_id']))
-                     {   
-                         $error++;
-                     }
-                 }
+                print_r($sectionChildArr);
+                exit;
+
+                $sectionChildStr = implode(',',$sectionChildArr);
             }
-            
+
+            $error = 0 ;
+
+            $rolessection->table = 'rolesSection' ;
+            $rolessection->role_id = $row['id'] ;
+            $rolessection->section_id = $sectionParentStr ;
+
+            if(!$rolessection->insert(['section_id','role_id']))
+            {
+                $error ++ ;
+            }     
+
+
+
+
+            $rolessection->table = 'rolesSectionChild' ;
+            $rolessection->role_id = $row['id'] ;
+            $rolessection->section_id = $sectionChildStr ;
+
+            if(!$rolessection->insert(['section_id','role_id']))
+            {
+                $error ++ ;
+            }     
+        
             $errMsg = '' ;
 
             if($error>0)
