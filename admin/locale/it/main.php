@@ -92,6 +92,8 @@ $role_add_header = "Aggiungi ruolo" ;
 $role_add_title = "Crea un nuovo ruolo" ;
 $role_edit_header = "Modifica ruolo" ;
 $role_edit_title = "Modifica la informazioni per " ;
+$role_header_parent = "Sezioni" ;
+$role_header_child = "Sottosezioni" ;
 
 
 //////  FILE  //////
@@ -176,3 +178,4 @@ $err_pluginRmErr = "Modulo non rimosso" ;
 $err_settingUpdateErr = "Impostazioni non modificate" ;
 $err_debugUpdateErr = "Debug non attivato" ;
 $err_rolePermFail = "Errore durante la configurazione dei permessi per questo ruolo" ;
+$errPermPlugin = "Errori durante l'aggiornamento dei permessi di sezione per l'utente" ;

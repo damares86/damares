@@ -11,7 +11,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Modifica file</h3>
+      <h3><?=$gam_res_edit_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -23,7 +23,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Modifica file
+          <?=$gam_res_edit_header?>
           </li>
         </ol>
       </nav>
@@ -37,7 +37,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Modifica file</h4>
+                <h4 class="card-title"><?=$gam_res_edit_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -50,7 +50,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Titolo <span class="text-danger">*</span></label>
+                            <label><?=$gam_res_edit_title_res?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -71,7 +71,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
                         </div>
 
                         <div class="col-md-3 my-3">
-                            <label>Descrizione</label>
+                            <label><?=$gam_res_edit_description?></label>
                         </div>
                         <div class="col-md-9 my-3">
                             <div class="form-group">
@@ -86,7 +86,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
                         </div>
                                            
                         <div class="col-md-3 mb-3">
-                            <label>Tipo file <span class="text-danger">*</span></label>
+                            <label><?=$gam_res_edit_type?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9 mb-3">
                             <div class="form-group">
@@ -121,7 +121,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
                         </div>
                      
                         <div class="col-md-3 mb-3">
-                            <label>Categoria <span class="text-danger">*</span></label>
+                            <label><?=$gam_res_edit_cat?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9 mb-3">
                             <div class="form-group">
@@ -156,7 +156,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
                         </div>
 
                      <div class="col-md-3">
-                        <label>File attuale</label>
+                        <label><?=$gam_res_edit_current?></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -165,7 +165,7 @@ $stmt = $gamresources->showAllWhere('id',['id']);
                     </div>
 
                      <div class="col-md-3 my-3">
-                            <label>Sostituisci file</label>
+                            <label><?=$gam_res_edit_new_file ?></label>
                         </div>
                         <div class="col-md-9 my-3">
                             <div class="form-group">

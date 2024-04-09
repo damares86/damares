@@ -6,7 +6,7 @@ $stmt = $gamresources->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutti i tipi di file</h3>
+      <h3><?=$gam_all_type_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $gamresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Tutti i tipi di file
+          <?=$gam_all_type_header?>
           </li>
         </ol>
       </nav>
@@ -31,16 +31,16 @@ $stmt = $gamresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">Tutti i tipi di file &nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$gam_all_type_title?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addGamType" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Aggiungi tipo file</a
+                        ><i data-feather="plus-circle"></i> <?=$gam_all_type_add?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Nome tipo</th>
-            <th>Numero di file</th>
+            <th><?=$gam_all_type_name?></th>
+            <th><?=$gam_all_type_number?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -49,7 +49,7 @@ $stmt = $gamresources->showAll('id');
         <?php
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         ?>
-          <tr <?=$class?>>
+          <tr>
             <td><?=$row['type']?></td>
             <td>              
             <?php
@@ -99,7 +99,7 @@ $stmt = $gamresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    Se confermi questo tipo di file verrà eliminato definitivamente
+                                    <?=$gam_all_type_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

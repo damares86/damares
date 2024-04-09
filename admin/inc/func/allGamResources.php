@@ -6,7 +6,7 @@ $stmt = $gamresources->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutti i file</h3>
+      <h3><?=$gam_all_file_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $gamresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Tutti i file
+          <?=$gam_all_file_header?>
           </li>
         </ol>
       </nav>
@@ -31,18 +31,18 @@ $stmt = $gamresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">Tutti i file &nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$gam_all_file_title?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addGamResource" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Aggiungi un nuovo file</a
+                        ><i data-feather="plus-circle"></i> <?=$gam_all_file_add?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Titolo</th>
-            <th>Data</th>
-            <th>Tipo</th>
-            <th>Categoria</th>
+            <th><?=$gam_all_file_name?></th>
+            <th><?=$gam_all_file_date?></th>
+            <th><?=$gam_all_file_type?></th>
+            <th><?=$gam_all_file_cat?></th>
             <th><?=$common_link?></th>
             <th><?=$common_actions?></th>
           </tr>
@@ -116,7 +116,7 @@ $stmt = $gamresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    Se confermi questo file verrà eliminato completamente
+                                    <?=$gam_all_file_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

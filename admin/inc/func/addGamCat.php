@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Aggiungi categoria di file</h3>
+      <h3><?=$gam_cat_add_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Aggiungi categoria di file
+          <?=$gam_cat_add_header?>
           </li>
         </ol>
       </nav>
@@ -27,7 +27,7 @@
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Aggiungi una nuova categoria di file</h4>
+                <h4 class="card-title"><?=$gam_cat_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -35,7 +35,7 @@
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Nome categoria<span class="text-danger">*</span></label>
+                            <label><?=$gam_cat_add_name?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">

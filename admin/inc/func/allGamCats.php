@@ -6,7 +6,7 @@ $stmt = $gamresources->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutte le categorie di file</h3>
+      <h3><?=$gam_all_cat_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $gamresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Tutte le categorie di file
+          <?=$gam_all_cat_header?>
           </li>
         </ol>
       </nav>
@@ -31,16 +31,16 @@ $stmt = $gamresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header">Categorie file&nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$gam_type_add_title?>&nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addGamCat" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> Aggiungi una nuova categoria</a
+                        ><i data-feather="plus-circle"></i> <?=$gam_all_cat_add?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th>Nome categoria</th>
-            <th>Numero di file</th>
+            <th><?=$gam_all_cat_name?></th>
+            <th><?=$gam_all_cat_number?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -99,7 +99,7 @@ $stmt = $gamresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    Se confermi questa categoria verrà eliminata definitivamente
+                                    <?=$gam_all_cat_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

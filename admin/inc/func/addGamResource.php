@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Aggiungi un file</h3>
+      <h3><?=$gam_res_add_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Aggiungi un file
+          <?=$gam_res_add_header?>
           </li>
         </ol>
       </nav>
@@ -27,7 +27,7 @@
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title">Aggiungi un nuovo file</h4>
+                <h4 class="card-title"><?=$gam_res_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -35,7 +35,7 @@
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label>Titolo<span class="text-danger">*</span></label>
+                            <label><?=$gam_res_add_title_res?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -44,7 +44,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$xs_res_add_title_res?>"
+                                        placeholder="<?=$gam_res_add_title_res?>"
                                         id="first-name"
                                         name="title"
                                         data-parsley-required="true"
@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="col-md-3 my-3">
-                            <label>Descrizione </label>
+                            <label><?=$gam_res_add_description?> </label>
                         </div>
                         <div class="col-md-9 my-3">
                             <div class="form-group">
@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <label>Tipo file <span class="text-danger">*</span></label>
+                            <label><?=$gam_res_add_type?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9 mb-3">
                             <div class="form-group">
@@ -99,7 +99,7 @@
                         </div>
                      
                         <div class="col-md-3 mb-3">
-                            <label>Categoria <span class="text-danger">*</span></label>
+                            <label><?=$gam_res_add_cat ?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9 mb-3">
                             <div class="form-group">

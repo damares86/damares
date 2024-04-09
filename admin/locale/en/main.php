@@ -77,6 +77,8 @@ $role_add_header = "Add role" ;
 $role_add_title = "Create a new role" ;
 $role_edit_header = "Edit Role" ;
 $role_edit_title = "Edit the information for" ;
+$role_header_parent = "Sections" ;
+$role_header_child = "Subsections" ;
 
 
 //////  FILE  //////
@@ -162,3 +164,4 @@ $err_pluginRmErr = "Module not removed" ;
 $err_settingUpdateErr = "Settings not updated" ;
 $err_debugUpdateErr = "Debug not activated" ;
 $err_rolePermFail = "Error on setting permissions for this role" ;
+$errPermPlugin = "Error on updating the section permission for the role" ;

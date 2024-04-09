@@ -160,7 +160,7 @@ else if($operation=="edit")
             // check sull'esistenza del file?
             if(!$file->uploadFile())
             {
-                header("Location: ../index.php?p=allXSResources&err=fileResFail");
+                header("Location: ../index.php?p=allGamResources&err=fileResFail");
                 exit;        
             }
             else
