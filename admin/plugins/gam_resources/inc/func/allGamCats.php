@@ -1,12 +1,12 @@
 <?php
-$xsresources->table = 'resource_lang' ;
-$stmt = $xsresources->showAll('id');
+$gamresources->table = 'resource_cat' ;
+$stmt = $gamresources->showAll('id');
 
 ?>
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$xs_lang_header?></h3>
+      <h3><?=$gam_all_cat_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $xsresources->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          <?=$xs_lang_header?>
+          <?=$gam_all_cat_header?>
           </li>
         </ol>
       </nav>
@@ -31,16 +31,16 @@ $stmt = $xsresources->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card">
-    <div class="card-header"><?=$xs_lang_title?>&nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addXSLang" class="btn icon icon-left btn-success"
-                        ><i data-feather="plus-circle"></i> <?=$xs_lang_add_button ?></a
+    <div class="card-header"><?=$gam_type_add_title?>&nbsp; &nbsp; &nbsp; 
+                    <a href="index.php?p=addGamCat" class="btn icon icon-left btn-success"
+                        ><i data-feather="plus-circle"></i> <?=$gam_all_cat_add?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
         <thead>
           <tr>
-            <th><?=$xs_lang_lang?></th>
-            <th><?=$xs_lang_number?></th>
+            <th><?=$gam_all_cat_name?></th>
+            <th><?=$gam_all_cat_number?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -50,17 +50,17 @@ $stmt = $xsresources->showAll('id');
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         ?>
           <tr <?=$class?>>
-            <td><?=$row['resource_lang']?></td>
+            <td><?=$row['cat']?></td>
             <td>              
             <?php
-              $xsresources->table = 'resources' ;
-              $xsresources->lang_id = $row['id'] ;
-              $stmt1 = $xsresources->countItem('lang_id');
+              $gamresources->table = 'resources' ;
+              $gamresources->cat_id = $row['id'] ;
+              $stmt1 = $gamresources->countItem('cat_id');
               echo $stmt1 ;
             ?>
             </td>
             <td>
-              <a href="index.php?p=editXSLang&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editGamCat&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
@@ -99,7 +99,7 @@ $stmt = $xsresources->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <?=$xs_lang_modal_body?>
+                                    <?=$gam_all_cat_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -113,7 +113,7 @@ $stmt = $xsresources->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngXSResources.php?idLangToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
+                                        ><a href="core/mngGamResources.php?idCatToDel=<?=$row['id']?>" class="btn btn-danger ml-1">
                                           <?=$common_modal_confirm?>
                                         </a></span
                                       >

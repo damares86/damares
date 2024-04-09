@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$xs_type_add_header?></h3>
+      <h3><?=$gam_type_add_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          <?=$xs_type_add_header?>
+          <?=$gam_type_add_header?>
           </li>
         </ol>
       </nav>
@@ -27,15 +27,15 @@
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title"><?=$xs_type_add_title?></h4>
+                <h4 class="card-title"><?=$gam_type_add_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngXSResources.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngGamResources.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label><?=$xs_res_add_type ?> <span class="text-danger">*</span></label>
+                            <label><?=$gam_type_add_name?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -44,7 +44,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$xs_res_add_type ?>"
+                                        placeholder="Nome tipo"
                                         id="first-name"
                                         name="name"
                                         data-parsley-required="true"
@@ -56,7 +56,7 @@
                         </div>
                       
                         <input type="hidden" name="operation" value="addType">
-                        <input type="hidden" name="origin" value="addXSType">
+                        <input type="hidden" name="origin" value="addGamType">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

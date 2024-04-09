@@ -12,29 +12,29 @@
 
 require __DIR__."/coreConfig.php";
 
-if(filter_input(INPUT_GET,"idLangToDel"))
+if(filter_input(INPUT_GET,"idCatToDel"))
 {
 
-    // check if there are resources with this lang
-    $xsresources->lang_id = filter_input(INPUT_GET,"idLangToDel");
-    $xsresources->table = 'resources' ;
-    $stmt = $xsresources->countItem('lang_id') ;
+    // check if there are resources with this cat
+    $gamresources->cat_id = filter_input(INPUT_GET,"idCatToDel");
+    $gamresources->table = 'resources' ;
+    $stmt = $gamresources->countItem('cat_id') ;
 
     if($stmt>0)
     {
-        header("Location: ../index.php?p=allXSLangs&err=resLangExists");
+        header("Location: ../index.php?p=allGamCats&err=resCatExists");
         exit; 
     }
     
-    // delete the lang
-    $xsresources->id = filter_input(INPUT_GET,"idLangToDel");
-    $xsresources->table = 'resource_lang' ;
+    // delete the cat
+    $gamresources->id = filter_input(INPUT_GET,"idCatToDel");
+    $gamresources->table = 'resource_cat' ;
 
-    if($xsresources->delete('id')){
-        header("Location: ../index.php?p=allXSLangs&msg=resLangDel");
+    if($gamresources->delete('id')){
+        header("Location: ../index.php?p=allGamCats&msg=resCatDel");
         exit;
     }else{
-        header("Location: ../index.php?p=allXSLangs&err=resLangNoDel");
+        header("Location: ../index.php?p=allGamCats&err=resCatNoDel");
         exit;
     }
 
@@ -42,26 +42,26 @@ if(filter_input(INPUT_GET,"idLangToDel"))
 else if(filter_input(INPUT_GET,"idTypeToDel"))
 {
 
-    // check if there are resources with this lang
-    $xsresources->lang_id = filter_input(INPUT_GET,"idTypeToDel");
-    $xsresources->table = 'resources' ;
-    $stmt = $xsresources->countItem('type_id') ;
+    // check if there are resources with this type
+    $gamresources->type_id = filter_input(INPUT_GET,"idTypeToDel");
+    $gamresources->table = 'resources' ;
+    $stmt = $gamresources->countItem('type_id') ;
 
     if($stmt>0)
     {
-        header("Location: ../index.php?p=allXSTypes&err=resTypeExists");
+        header("Location: ../index.php?p=allGamTypes&err=resTypeExists");
         exit; 
     }
     
     // delete the lang
-    $xsresources->id = filter_input(INPUT_GET,"idTypeToDel");
-    $xsresources->table = 'resource_type' ;
+    $gamresources->id = filter_input(INPUT_GET,"idTypeToDel");
+    $gamresources->table = 'resource_type' ;
 
-    if($xsresources->delete('id')){
-        header("Location: ../index.php?p=allXSTypes&msg=resTypeDel");
+    if($gamresources->delete('id')){
+        header("Location: ../index.php?p=allGamTypes&msg=resTypeDel");
         exit;
     }else{
-        header("Location: ../index.php?p=allXSTypes&err=resTypeNoDel");
+        header("Location: ../index.php?p=allGamTypes&err=resTypeNoDel");
         exit;
     }
 
@@ -69,14 +69,28 @@ else if(filter_input(INPUT_GET,"idTypeToDel"))
 else if(filter_input(INPUT_GET,"idToDel"))
 {
 
-    $xsresources->id = filter_input(INPUT_GET,"idToDel");
-    $xsresources->table = 'resources' ;
+    $gamresources->table = 'resources' ;
+    $gamresources->id = filter_input(INPUT_GET,"idToDel");
+    $stmt = $gamresources->showAllWhere('id',['id']) ;
+    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+    $filename = $row['resource_name'] ;
+    
+    $gamresources->table = 'resources' ;
+    $gamresources->id = filter_input(INPUT_GET,"idToDel");
 
-    if($xsresources->delete('id')){
-        header("Location: ../index.php?p=allXSResources&msg=resDel");
+    if($gamresources->delete('id')){
+
+        $errFile = '' ;
+
+        if(!unlink('../uploads/'.$filename))
+        {
+            $errFile = '&err=fileNotDel' ;
+        }
+
+        header("Location: ../index.php?p=allGamResources&msg=resDel$errFile");
         exit;
     }else{
-        header("Location: ../index.php?p=allXSResources&err=resNoDel");
+        header("Location: ../index.php?p=allGamResources&err=resNoDel");
         exit;
     }
 
@@ -91,36 +105,36 @@ if($operation=="editType")
 {
 
     $id = filter_input(INPUT_POST,"idToMod") ;
-    $xsresources->table = 'resource_type' ;
-    $xsresources->id = $id ;
-    $xsresources->resource_type = filter_input(INPUT_POST,"name") ;
+    $gamresources->table = 'resource_type' ;
+    $gamresources->id = $id ;
+    $gamresources->type = filter_input(INPUT_POST,"name") ;
 
-    if($xsresources->update(['resource_type'],'id')){
+    if($gamresources->update(['type'],'id')){
         //success
-        header("Location: ../index.php?p=editXSType&idToMod=$id&msg=resEditTypeSucc");
+        header("Location: ../index.php?p=editGamType&idToMod=$id&msg=resEditTypeSucc");
         exit;
     }else{
         // fail
-        header("Location: ../index.php?p=editXSType&idToMod=$id&err=resEditTypeFail");
+        header("Location: ../index.php?p=editGamType&idToMod=$id&err=resEditTypeFail");
         exit;
     }
 
 }
-else if($operation=="editLang")
+else if($operation=="editCat")
 {
 
     $id = filter_input(INPUT_POST,"idToMod") ;
-    $xsresources->table = 'resource_lang' ;
-    $xsresources->id = $id ;
-    $xsresources->resource_lang = filter_input(INPUT_POST,"name") ;
+    $gamresources->table = 'resource_cat' ;
+    $gamresources->id = $id ;
+    $gamresources->cat = filter_input(INPUT_POST,"name") ;
 
-    if($xsresources->update(['resource_lang'],'id')){
+    if($gamresources->update(['cat'],'id')){
         //success
-        header("Location: ../index.php?p=editXSLang&idToMod=$id&msg=resEditLangSucc");
+        header("Location: ../index.php?p=editGamCat&idToMod=$id&msg=resEditCatSucc");
         exit;
     }else{
         // fail
-        header("Location: ../index.php?p=editXSLang&idToMod=$id&err=resEditLangFail");
+        header("Location: ../index.php?p=editGamCat&idToMod=$id&err=resEditCatFail");
         exit;
     }
 
@@ -129,6 +143,7 @@ else if($operation=="edit")
 {
 
         $id = filter_input(INPUT_POST,"idToMod") ;
+        $errOldFile = '' ;
         
         if($_FILES['myfile']['size'] > 0)
         {
@@ -143,11 +158,17 @@ else if($operation=="edit")
             $file->operation = $operation ;
             
             // check sull'esistenza del file?
-            
             if(!$file->uploadFile())
             {
-                header("Location: ../index.php?p=allXSResources&err=fileResFail");
+                header("Location: ../index.php?p=allGamResources&err=fileResFail");
                 exit;        
+            }
+            else
+            {
+                if(!unlink('../uploads/'.filter_input(INPUT_POST,"oldFilename")))
+                {
+                    $errOldFile = '&err=oldFileDelFail' ;
+                }
             }
         }
         else
@@ -155,24 +176,23 @@ else if($operation=="edit")
             $resource_name = filter_input(INPUT_POST,"oldFilename");
         }
     
-        $xsresources->table = 'resources' ;
-        $xsresources->id = $id ;
-        $xsresources->resource_name = $resource_name ;
-        $xsresources->title = filter_input(INPUT_POST,"title");
-        $xsresources->description = filter_input(INPUT_POST,"content");
-        $xsresources->product_id = filter_input(INPUT_POST,"product_id");
-        $xsresources->lang_id = filter_input(INPUT_POST,"lang_id");
-        $xsresources->type_id = filter_input(INPUT_POST,"type_id");
-        $xsresources->resource_date = date("Y-m-d");
+        $gamresources->table = 'resources' ;
+        $gamresources->id = $id ;
+        $gamresources->resource_name = $resource_name ;
+        $gamresources->title = filter_input(INPUT_POST,"title");
+        $gamresources->description = filter_input(INPUT_POST,"content");
+        $gamresources->cat_id = filter_input(INPUT_POST,"cat_id");
+        $gamresources->type_id = filter_input(INPUT_POST,"type_id");
+        $gamresources->resource_date = date("Y-m-d");
 
-        if($xsresources->update(['resource_name','title','description','product_id','lang_id','type_id','resource_date'],'id'))
+        if($gamresources->update(['resource_name','title','description','cat_id','type_id','resource_date'],'id'))
         {
-            header("Location: ../index.php?p=allXSResources&msg=resEditSucc");
+            header("Location: ../index.php?p=editGamResource&idToMod=$id&msg=resEditSucc$errOldFile");
             exit;
         }
         else
         {
-            header("Location: ../index.php?p=allXSResources&err=resEditFail");
+            header("Location: ../index.php?p=editGamResource&idToMod=$id&err=resEditFail$errOldFile");
             exit;
         }
                 
@@ -180,34 +200,34 @@ else if($operation=="edit")
 }
 else if($operation == "addType")
 {
+    
+    $gamresources->type = filter_input(INPUT_POST,"name");
+    $gamresources->table = 'resource_type';
 
-    $xsresources->resource_type = filter_input(INPUT_POST,"name");
-    $xsresources->table = 'resource_type';
-
-    if($xsresources->insert(['resource_type'])){
+    if($gamresources->insert(['type'])){
         //success
-        header("Location: ../index.php?p=allXSTypes&msg=resTypeSucc");
+        header("Location: ../index.php?p=allGamTypes&msg=resTypeSucc");
         exit;
     }else{
         // fail
-        header("Location: ../index.php?p=allXSTypes&err=resTypeFail");
+        header("Location: ../index.php?p=allGamTypes&err=resTypeFail");
         exit;
     }
 
 }
-else if($operation == "addLang")
+else if($operation == "addCat")
 {
 
-    $xsresources->resource_lang = filter_input(INPUT_POST,"name");
-    $xsresources->table = 'resource_lang';
+    $gamresources->cat = filter_input(INPUT_POST,"name");
+    $gamresources->table = 'resource_cat';
 
-    if($xsresources->insert(['resource_lang'])){
+    if($gamresources->insert(['cat'])){
         //success
-        header("Location: ../index.php?p=allXSLangs&msg=resLangSucc");
+        header("Location: ../index.php?p=allGamCats&msg=resCatSucc");
         exit;
     }else{
         // fail
-        header("Location: ../index.php?p=allXSLangs&err=resLangFail");
+        header("Location: ../index.php?p=allGamCats&err=resCatFail");
         exit;
     }
 
@@ -232,40 +252,39 @@ else if($operation == "add")
         if($file->uploadFile())
         {
 
-            $xsresources->table = 'resources' ;
-            $xsresources->resource_name = $resource_name ;
-            $xsresources->title = filter_input(INPUT_POST,"title");
-            $xsresources->description = filter_input(INPUT_POST,"content");
-            $xsresources->product_id = filter_input(INPUT_POST,"product_id");
-            $xsresources->lang_id = filter_input(INPUT_POST,"lang_id");
-            $xsresources->type_id = filter_input(INPUT_POST,"type_id");
-            $xsresources->resource_date = date("Y-m-d");
+            $gamresources->table = 'resources' ;
+            $gamresources->resource_name = $resource_name ;
+            $gamresources->title = filter_input(INPUT_POST,"title");
+            $gamresources->description = filter_input(INPUT_POST,"content");
+            $gamresources->cat_id = filter_input(INPUT_POST,"cat_id");
+            $gamresources->type_id = filter_input(INPUT_POST,"type_id");
+            $gamresources->resource_date = date("Y-m-d");
 
-            if($xsresources->insert(['resource_name','title','description','product_id','lang_id','type_id','resource_date']))
+            if($gamresources->insert(['resource_name','title','description','cat_id','type_id','resource_date']))
             {
-                header("Location: ../index.php?p=allXSResources&msg=resSucc");
+                header("Location: ../index.php?p=allGamResources&msg=resSucc");
                 exit;
             }
             else
             {
-                header("Location: ../index.php?p=allXSResources&err=resFail");
+                header("Location: ../index.php?p=allGamResources&err=resFail");
                 exit;
             }
             
         }
         else
         {
-            header("Location: ../index.php?p=allXSResources&err=fileResFail");
+            header("Location: ../index.php?p=allGamResources&err=fileResFail");
             exit;        
         }
 
     }else{
-        header("Location: ../index.php?p=allXSResources&err=fileResEmpty");
+        header("Location: ../index.php?p=allGamResources&err=fileResEmpty");
         exit;        
     }
 }
 else
 {
-    header("Location: ../index.php?p=allCustomers&err=noPost");
+    header("Location: ../index.php?p=allGamResources&err=noPost");
     exit;
 }

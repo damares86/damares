@@ -1,17 +1,17 @@
 <?php
 
 $resource_id = filter_input(INPUT_GET,"idToMod");
-$xsresources->id = $resource_id ;
-$xsresources->table = 'resources' ;
+$gamresources->id = $resource_id ;
+$gamresources->table = 'resources' ;
 
-$stmt = $xsresources->showAllWhere('id',['id']);
+$stmt = $gamresources->showAllWhere('id',['id']);
 
 ?>
 
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$xs_res_edit_header?></h3>
+      <h3><?=$gam_res_edit_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -23,7 +23,7 @@ $stmt = $xsresources->showAllWhere('id',['id']);
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          <?=$xs_res_edit_header?>
+          <?=$gam_res_edit_header?>
           </li>
         </ol>
       </nav>
@@ -37,11 +37,11 @@ $stmt = $xsresources->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="card-title"><?=$xs_res_edit_header?></h4>
+                <h4 class="card-title"><?=$gam_res_edit_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngXSResources.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngGamResources.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <?php
                         while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                         {
@@ -50,7 +50,7 @@ $stmt = $xsresources->showAllWhere('id',['id']);
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
-                            <label><?=$xs_res_add_title_res?><span class="text-danger">*</span></label>
+                            <label><?=$gam_res_edit_title_res?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -71,11 +71,11 @@ $stmt = $xsresources->showAllWhere('id',['id']);
                         </div>
 
                         <div class="col-md-3 my-3">
-                            <label><?=$xs_res_add_description?><span class="text-danger">*</span></label>
+                            <label><?=$gam_res_edit_description?></label>
                         </div>
                         <div class="col-md-9 my-3">
                             <div class="form-group">
-                                <div class="form-check mandatory">
+                                <div class="form-check">
                                     <div class="position-relative">
                                         <textarea name="content" id="default" cols="30" rows="10">
                                         <?=$row['description']?>
@@ -84,43 +84,9 @@ $stmt = $xsresources->showAllWhere('id',['id']);
                                 </div>
                             </div>
                         </div>
+                                           
                         <div class="col-md-3 mb-3">
-                            <label><?=$xs_res_add_product?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9 mb-3">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                    <fieldset class="form-group">
-                                        <select
-                                        class="form-select"
-                                        name="product_id"
-                                        >
-                                        <?php
-                                            $xsproduct->table = 'product';
-                                            $stmt1 = $xsproduct->showAll('id');
-                                            while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
-                                            $selected = '' ;
-                                            if($row['product_id'] == $row1['id'])
-                                            {
-                                                $selected = 'selected' ;
-                                            }
-                                        ?>
-
-                                            <option value="<?=$row1['id']?>" <?=$selected?>><?=$row1['product_name']?></option>
-
-                                        <?php
-                                        }
-                                        ?>
-                                        </select>
-                                    </fieldset>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                     
-                        <div class="col-md-3 mb-3">
-                            <label><?=$xs_res_add_type?> <span class="text-danger">*</span></label>
+                            <label><?=$gam_res_edit_type?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9 mb-3">
                             <div class="form-group">
@@ -132,17 +98,17 @@ $stmt = $xsresources->showAllWhere('id',['id']);
                                         name="type_id"
                                         >
                                         <?php
-                                            $xsresources->table = 'resource_type';
-                                            $stmt2 = $xsresources->showAll('id');
+                                            $gamresources->table = 'resource_type';
+                                            $stmt2 = $gamresources->showAll('id');
                                             while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-                                                $selected = '' ;
+                                                $selected_type = 0 ;
                                                 if($row['type_id'] == $row2['id'])
                                                 {
-                                                    $selected = 'selected' ;
+                                                    $selected_type = 'selected' ;
                                                 }
                                         ?>
 
-                                            <option value="<?=$row2['id']?>" <?=$selected?>><?=$row2['resource_type']?></option>
+                                            <option value="<?=$row2['id']?>" <?=$selected_type?>><?=$row2['type']?></option>
 
                                         <?php
                                         }
@@ -154,43 +120,43 @@ $stmt = $xsresources->showAllWhere('id',['id']);
                             </div>
                         </div>
                      
-                     <div class="col-md-3 mb-3">
-                         <label><?=$xs_res_add_lang?><span class="text-danger">*</span></label>
-                     </div>
-                     <div class="col-md-9 mb-3">
-                         <div class="form-group">
-                             <div class="form-check mandatory">
-                                 <div class="position-relative">
-                                 <fieldset class="form-group">
-                                     <select
-                                     class="form-select"
-                                     name="lang_id"
-                                     >
-                                     <?php
-                                         $xsresources->table = 'resource_lang';
-                                         $stmt3 = $xsresources->showAll('id');
-                                         while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)){
-                                            $selected = '' ;
-                                            if($row['lang_id'] == $row3['id'])
-                                            {
-                                                $selected = 'selected' ;
-                                            }
-                                     ?>
+                        <div class="col-md-3 mb-3">
+                            <label><?=$gam_res_edit_cat?> <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9 mb-3">
+                            <div class="form-group">
+                                <div class="form-check mandatory">
+                                    <div class="position-relative">
+                                    <fieldset class="form-group">
+                                        <select
+                                        class="form-select"
+                                        name="cat_id"
+                                        >
+                                        <?php
+                                            $gamresources->table = 'resource_cat';
+                                            $stmt3 = $gamresources->showAll('id');
+                                            while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)){
+                                                $selected_cat = 0 ;
+                                                if($row['cat_id'] == $row3['id'])
+                                                {
+                                                    $selected_cat = 'selected' ;
+                                                }
+                                        ?>
 
-                                         <option value="<?=$row3['id']?>" <?=$selected?>><?=$row3['resource_lang']?></option>
+                                            <option value="<?=$row3['id']?>" <?=$selected_cat?>><?=$row3['cat']?></option>
 
-                                     <?php
-                                     }
-                                     ?>
-                                     </select>
-                                 </fieldset>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
+                                        <?php
+                                        }
+                                        ?>
+                                        </select>
+                                    </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                      <div class="col-md-3">
-                        <label><?=$xs_res_edit_current_file?></label>
+                        <label><?=$gam_res_edit_current?></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -199,7 +165,7 @@ $stmt = $xsresources->showAllWhere('id',['id']);
                     </div>
 
                      <div class="col-md-3 my-3">
-                            <label><?=$xs_res_edit_replace_file?></label>
+                            <label><?=$gam_res_edit_new_file ?></label>
                         </div>
                         <div class="col-md-9 my-3">
                             <div class="form-group">
@@ -220,13 +186,13 @@ $stmt = $xsresources->showAllWhere('id',['id']);
                             <div class="progress"></div>
                             <div class="result"></div>
                         </div> -->
-                        <?php
-                        }
-                        ?>
                         <input type="hidden" name="operation" value="edit">
                         <input type="hidden" name="oldFilename" value="<?=$row['resource_name']?>">
                         <input type="hidden" name="idToMod" value="<?=$resource_id?>">
-                        <input type="hidden" name="origin" value="editXSResource">
+                        <input type="hidden" name="origin" value="editGamResource">
+                        <?php
+                        }
+                        ?>
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button
