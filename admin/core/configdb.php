@@ -181,12 +181,12 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."sectionChild
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    section_id INT ( 5 ) NOT NULL,
+                    section_id VARCHAR(255) NOT NULL,
                     role_id INT (5) NOT NULL)");
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSectionChild
                     ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                      section_id INT ( 5 ) NOT NULL,
+                      section_id VARCHAR(255) NOT NULL,
                       role_id INT (5) NOT NULL)");
 
                  
@@ -322,87 +322,19 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 
 $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
-                            VALUES ('1','1','1')");
+                            VALUES ('1','1,2,3,4,5','1')");
            
 $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
-                            VALUES ('2','2','1')");      
-
-$db->query("INSERT INTO ".$prefix."rolesSection
-                            (id, section_id,role_id)
-                            VALUES ('3','3','1')");
-           
-$db->query("INSERT INTO ".$prefix."rolesSection
-                            (id, section_id,role_id)
-                            VALUES ('4','4','1')"); 
-
-$db->query("INSERT INTO ".$prefix."rolesSection
-                            (id, section_id,role_id)
-                            VALUES ('5','5','1')"); 
-
-$db->query("INSERT INTO ".$prefix."rolesSection
-                            (id, section_id,role_id)
-                            VALUES ('6','1','2')");
-           
-$db->query("INSERT INTO ".$prefix."rolesSection
-                            (id, section_id,role_id)
-                            VALUES ('7','2','2')");      
-
-$db->query("INSERT INTO ".$prefix."rolesSection
-                            (id, section_id,role_id)
-                            VALUES ('8','3','2')");
-
-$db->query("INSERT INTO ".$prefix."rolesSection
-                            (id, section_id,role_id)
-                            VALUES ('9','4','2')");
+                            VALUES ('2','1,2,3','2')");      
 
 $db->query("INSERT INTO ".$prefix."rolesSectionChild
                             (id, section_id,role_id)
-                            VALUES ('1','1','1')");
+                            VALUES ('1','1,2,3,4,5,6','1')");
 
 $db->query("INSERT INTO ".$prefix."rolesSectionChild
                             (id, section_id,role_id)
-                            VALUES ('2','2','1')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('3','3','1')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('4','4','1')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('5','5','1')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('6','6','1')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('7','1','2')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('8','2','2')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('9','3','2')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('10','4','2')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('11','5','2')");
-
-$db->query("INSERT INTO ".$prefix."rolesSectionChild
-                            (id, section_id,role_id)
-                            VALUES ('12','6','2')");
+                            VALUES ('2','1,2,3,4,5,6','2')");
 // homepage blocks                            
 
 $db->query("INSERT INTO ".$prefix."home
