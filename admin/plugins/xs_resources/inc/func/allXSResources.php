@@ -30,9 +30,9 @@ $stmt = $xsresources->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$xs_res_all_title?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addXSResource" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addXSResource" class="btn icon icon-left btn-success shadow"
                         ><i data-feather="plus-circle"></i> <?=$xs_res_all_add_button?></a
                       ></div>
     <div class="card-body">

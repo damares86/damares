@@ -32,7 +32,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
     <section class="section">
         <div class="row">
             <div class="col-md-8 col-12">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header">
                         <h4 class="card-title"><?= $role_add_title ?></h4>
                     </div>
@@ -59,13 +59,13 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                         <div class="col-md-12">
                                             <label><?= $common_section_auth ?> <span class="text-danger">*</span></label>
                                         </div>
-                                        <div class="col-md-12 rounded bg-light px-5 py-2 my-1">
+                                        <div class="col-md-12 rounded px-5 py-2 my-1 border" style="background-color: #008db1;">
                                             <div class="row">
                                                 <div class="col-md-5">
-                                                    <h5><?=$role_header_parent?></h5>
+                                                    <h5 class="text-white"><?=$role_header_parent?></h5>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <h5><?=$role_header_child?></h5>
+                                                    <h5 class="text-white"><?=$role_header_child?></h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,7 +97,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                         
 
                                         ?>
-                                                <div class="col-md-12 rounded bg-light px-5 py-2 my-1">
+                                                <div class="col-md-12 rounded bg-light px-5 py-2 my-1 border">
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-5">
@@ -175,10 +175,10 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                         <input type="hidden" name="origin" value="addRole">
 
                                         <div class="col-12 mt-3 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">
+                                            <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
                                                 <?= $common_submit ?>
                                             </button>
-                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1">
+                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
                                                 <?= $common_reset ?>
                                             </button>
                                         </div>
@@ -190,7 +190,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                 </div>
             </div>
             <div class="col-md-4 col-12">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header">
                         <h4 class="card-title"><?= $common_info ?></h4>
                     </div>

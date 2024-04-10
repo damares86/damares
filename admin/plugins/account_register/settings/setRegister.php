@@ -11,7 +11,7 @@ $reg_role = $row['value'];
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title"><?=$regset_title?></h4>
                 </div>
@@ -65,7 +65,7 @@ $reg_role = $row['value'];
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"
-                            class="btn btn-primary me-1 mb-1"
+                            class="btn btn-primary me-1 mb-1 shadow"
                             >
                             <?=$common_submit?>
                             </button>
@@ -78,7 +78,7 @@ $reg_role = $row['value'];
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title"><?=$common_info?></h4>
                 </div>

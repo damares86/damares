@@ -30,9 +30,9 @@
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header">Tutti i pazienti &nbsp; &nbsp; &nbsp; 
-    <a href="index.php?p=addPaziente" class="btn icon icon-left btn-success"
+    <a href="index.php?p=addPaziente" class="btn icon icon-left btn-success shadow"
     ><i data-feather="plus-circle"></i> Aggiungi un paziente</a>
     </div>
     <div class="card-body">
@@ -58,11 +58,11 @@
             <td><?=$row['nome']?></td>
             <td>Farmaci</td>
             <td>
-              <a href="index.php?p=editPaziente&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editPaziente&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>

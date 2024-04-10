@@ -10,7 +10,7 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title"><?=$recap_title?></h4>
                 </div>
@@ -71,7 +71,7 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"
-                            class="btn btn-primary me-1 mb-1"
+                            class="btn btn-primary me-1 mb-1 shadow"
                             >
                             <?=$common_submit?>
                             </button>
@@ -85,7 +85,7 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title"><?=$common_info?></h4>
                 </div>

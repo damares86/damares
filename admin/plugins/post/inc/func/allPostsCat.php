@@ -30,9 +30,9 @@ $stmt = $post->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header">Tutte le categorie &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addPostCat" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addPostCat" class="btn icon icon-left btn-success shadow"
                         ><i data-feather="plus-circle"></i> Aggiungi una categoria</a
                       ></div>
     <div class="card-body">
@@ -68,11 +68,11 @@ $stmt = $post->showAll('id');
             <td><?=$row['category_name']?></td>
             <td><?=$num?></td>
             <td>
-              <a href="index.php?p=editPostCat&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editPostCat&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>

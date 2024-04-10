@@ -25,7 +25,7 @@
 <section class="section">
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title">Farmaco</h4>
                 </div>
@@ -83,13 +83,13 @@
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"
-                            class="btn btn-primary me-1 mb-1"
+                            class="btn btn-primary me-1 mb-1 shadow"
                             >
                             <?=$common_submit?>
                             </button>
                             <button
                             type="reset"
-                            class="btn btn-light-secondary me-1 mb-1"
+                            class="btn btn-light-secondary me-1 mb-1 shadow"
                             >
                             <?=$common_reset?>
                             </button>

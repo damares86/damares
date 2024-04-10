@@ -34,7 +34,7 @@ $stmt1 = $xsproduct->showAllWhere('id',['id']);
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title"><?=$xs_prod_edit_header?></h4>
                 </div>
@@ -85,13 +85,13 @@ $stmt1 = $xsproduct->showAllWhere('id',['id']);
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"
-                            class="btn btn-primary me-1 mb-1"
+                            class="btn btn-primary me-1 mb-1 shadow"
                             >
                             <?=$common_submit?>
                             </button>
                             <button
                             type="reset"
-                            class="btn btn-light-secondary me-1 mb-1"
+                            class="btn btn-light-secondary me-1 mb-1 shadow"
                             >
                             <?=$common_reset?>
                             </button>

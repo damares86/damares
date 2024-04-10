@@ -29,9 +29,9 @@
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$account_all_title ?> &nbsp; &nbsp; &nbsp; 
-    <a href="index.php?p=addAccount" class="btn icon icon-left btn-success"
+    <a href="index.php?p=addAccount" class="btn icon icon-left btn-success shadow"
     ><i data-feather="plus-circle"></i> <?=$account_all_add?></a>
     </div>
     <div class="card-body">
@@ -67,11 +67,11 @@
             </td>
             <td><?=$row['last_login']?></td>
             <td>
-              <a href="index.php?p=editAccount&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editAccount&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>

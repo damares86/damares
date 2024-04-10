@@ -30,9 +30,9 @@ $stmt = $xsproduct->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$xs_all_prod_title?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addXSProduct" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addXSProduct" class="btn icon icon-left btn-success shadow"
                         ><i data-feather="plus-circle"></i> <?=$xs_all_prod_add_button?></a
                       ></div>
     <div class="card-body">
@@ -53,11 +53,11 @@ $stmt = $xsproduct->showAll('id');
             <td><?=$row['product_name']?></td>
             <td>Log link</td>
             <td>
-              <a href="index.php?p=editXSProduct&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editXSProduct&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>

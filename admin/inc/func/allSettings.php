@@ -7,7 +7,7 @@ require "inc/funcHeader.php";
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title"><?=$settings_all_title?></h4>
                 </div>
@@ -84,6 +84,46 @@ require "inc/funcHeader.php";
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="col-md-3 border-top mt-3 pt-3">
+                                <label><?=$settings_layout_title ?> </label>
+                            </div>
+                            <div class="col-md-9 border-top mt-3 pt-3">
+                                <div class="form-group">
+                                    <div class="position-relative">
+                                    <fieldset class="form-group">
+                                        <select
+                                        class="form-select"
+                                        id="layout"
+                                        name="layout"
+                                        >
+                                        <?php
+                                            $selHoriz = '' ;
+                                            $selVert = '' ;
+                                            $setting->name="layout";
+                                            $stmt=$setting->showAllWhere('id',['name']);
+                                            $row=$stmt->fetch(PDO::FETCH_ASSOC);
+                                            $layout = $row['value'];
+                                            
+                                            if($layout=='h')
+                                            {
+                                                $selHoriz="selected" ;
+                                            }                                              
+                                            else if($layout=='v')
+                                            {
+                                                $selVert="selected" ;
+                                            }
+                                        ?>
+
+                                            <option value="h" <?=$selHoriz?>><?=$settings_layout_horizontal?></option>
+                                            <option value="v" <?=$selVert?>><?=$settings_layout_vertical?></option>
+                                        </select>
+                                    </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+
                         <br>
                             <br>
                             <br>
@@ -91,7 +131,7 @@ require "inc/funcHeader.php";
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"
-                            class="btn btn-primary me-1 mb-1"
+                            class="btn btn-primary me-1 mb-1 shadow"
                             >
                             <?=$common_submit?>
                             </button>
@@ -105,7 +145,7 @@ require "inc/funcHeader.php";
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title"><?=$common_info?></h4>
                 </div>

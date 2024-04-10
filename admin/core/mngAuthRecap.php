@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
             $_SESSION['account_id'] = $auth->id;
             $_SESSION['role_id'] = $role_id;
             $_SESSION['rolename'] = $role->showRolenameById();
-            // $_SESSION['username'] = $auth->username;
+            $_SESSION['username'] = $auth->username;
             $_SESSION['avatar'] = $auth->avatar;
             
             // update the login log time

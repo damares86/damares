@@ -2,7 +2,7 @@
 
     if(filter_input(INPUT_GET,"msg")){
     ?>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
       <i class="bi bi-check-circle"></i>
       <?php
       $msg = filter_input(INPUT_GET,"msg");
@@ -17,7 +17,7 @@
 
     if(filter_input(INPUT_GET,"err")){
       ?>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
         <i class="bi bi-x-circle"></i>
         <?php
         $err= filter_input(INPUT_GET,"err");
