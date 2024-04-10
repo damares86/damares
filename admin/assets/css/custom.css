@@ -149,3 +149,11 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
   float:none;
   margin:0 auto;
 }
+
+.layout-horizontal .header-top .logo img{
+  height:40px;
+}
+
+#main{
+  min-height: 0;
+}

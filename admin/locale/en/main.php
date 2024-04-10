@@ -32,6 +32,7 @@ $common_info = "Info" ;
 $common_rolename = "Rolename" ;
 $common_section_auth = "Section authorized" ;
 $common_number_user = "Number of users" ;
+$common_profile = "My profile" ;
 
 
 //////  HOMEPAGE  //////

@@ -20,7 +20,7 @@ $label_settings = "Impostazioni";
 $label_all_settings = "Generali";
 $label_modules = "Moduli";
 $label_all_accounts = "Tutti gli utenti";
-$label_profile = "Modifica il tuo profilo";
+// $label_profile = "Modifica il tuo profilo";
 $label_add_account = "Aggiungi utente";
 $label_all_roles = "Tutti i ruoli";
 $label_damares = "Damares" ;
@@ -48,6 +48,7 @@ $common_info = "Info" ;
 $common_rolename = "Nome del ruolo" ;
 $common_section_auth = "Sezioni autorizzate" ;
 $common_number_user = "Numero di utenti" ;
+$common_profile = "Il mio profilo" ;
 
 
 //////  HOMEPAGE  //////
