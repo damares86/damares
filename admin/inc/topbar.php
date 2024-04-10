@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <nav class="main-navbar">
+  <nav class="main-navbar shadow">
     <div class="container">
       <ul>
 
@@ -44,7 +44,7 @@
         }
         ?>
         <li class="menu-item  <?=$active?>">
-          <a href="index.html" class='menu-link'>
+          <a href="index.php" class='menu-link'>
             <i class="bi bi-grid-fill"></i>
             <span><?=$common_dashboard?></span>
           </a>

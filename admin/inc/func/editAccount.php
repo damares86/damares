@@ -69,7 +69,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title"><?=$account_edit_title?> <b><?=$username?></b>  </h4>
                 </div>
@@ -297,7 +297,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title"><?=$common_info?></h4>
                 </div>
@@ -313,7 +313,7 @@ $stmt1 = $account->showAllWhere('id',['id']);
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title"><?=$account_edit_password?></h4>
                 </div>

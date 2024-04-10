@@ -7,7 +7,7 @@ require "inc/funcHeader.php";
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title"><?=$settings_all_title?></h4>
                 </div>

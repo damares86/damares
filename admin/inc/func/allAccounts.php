@@ -29,7 +29,7 @@
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$account_all_title ?> &nbsp; &nbsp; &nbsp; 
     <a href="index.php?p=addAccount" class="btn icon icon-left btn-success"
     ><i data-feather="plus-circle"></i> <?=$account_all_add?></a>

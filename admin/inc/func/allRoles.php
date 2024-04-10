@@ -36,7 +36,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$role_all_title?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addRole" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> <?=$role_all_add?></a

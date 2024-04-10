@@ -113,6 +113,9 @@ $plugin_all_modal_body = "If you confirm, you will completely delete all the fil
 $settings_all_title = "All settings" ;
 $settings_all_lang = "Language" ;
 $settings_all_noreply = "Password reset email" ;
+$settings_layout_title = "Layout" ;
+$settings_layout_horizontal = "Horizontal" ;
+$settings_layout_vertical = "Vertical" ;
 
 
 

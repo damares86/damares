@@ -266,7 +266,11 @@ $db->query("INSERT INTO ".$prefix."settings
 
 $db->query("INSERT INTO ".$prefix."settings
                             (id, name,value)
-                            VALUES ('4','debug','0')");         
+                            VALUES ('4','debug','0')");                 
+
+$db->query("INSERT INTO ".$prefix."settings
+                            (id, name,value)
+                            VALUES ('5','layout','h')");               
 
 // insert the section for the sidebar / home link management
 
@@ -280,15 +284,11 @@ $db->query("INSERT INTO ".$prefix."sectionChild
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('2','editProfile','Profile','person-circle','1')");
+                            VALUES ('2','addAccount','Add account','person-plus-fill','1')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('3','addAccount','Add account','person-plus-fill','1')");
-
-$db->query("INSERT INTO ".$prefix."sectionChild
-                            (id, link,label,icon,parent_id)
-                            VALUES ('4','allRoles','All Roles','key-fill','1')");
+                            VALUES ('3','allRoles','All Roles','key-fill','1')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
@@ -296,7 +296,7 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('5','allFiles','All files','folder-fill','2')");
+                            VALUES ('4','allFiles','All files','folder-fill','2')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
@@ -304,7 +304,7 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('6','allSettings','All settings','gear-fill','3')");
+                            VALUES ('5','allSettings','All settings','gear-fill','3')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
@@ -330,11 +330,11 @@ $db->query("INSERT INTO ".$prefix."rolesSection
 
 $db->query("INSERT INTO ".$prefix."rolesSectionChild
                             (id, section_id,role_id)
-                            VALUES ('1','1,2,3,4,5,6','1')");
+                            VALUES ('1','1,2,3,4,5','1')");
 
 $db->query("INSERT INTO ".$prefix."rolesSectionChild
                             (id, section_id,role_id)
-                            VALUES ('2','1,2,3,4,5,6','2')");
+                            VALUES ('2','1,2,3,4,5','2')");
 // homepage blocks                            
 
 $db->query("INSERT INTO ".$prefix."home

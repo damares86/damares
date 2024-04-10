@@ -9,7 +9,7 @@ $allplugins = $plugin->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"> 
     <div class="row">
       <div class="col-md-5">
