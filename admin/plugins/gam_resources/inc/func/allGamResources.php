@@ -32,7 +32,7 @@ $stmt = $gamresources->showAll('id');
 <section class="section">
   <div class="card shadow">
     <div class="card-header"><?=$gam_all_file_title?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addGamResource" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addGamResource" class="btn icon icon-left btn-success shadow"
                         ><i data-feather="plus-circle"></i> <?=$gam_all_file_add?></a
                       ></div>
     <div class="card-body">
@@ -77,11 +77,11 @@ $stmt = $gamresources->showAll('id');
 
             <td><a href="uploads/<?=$row['resource_name']?>" target="_blank">Link</a></td>
             <td>
-              <a href="index.php?p=editGamResource&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editGamResource&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>

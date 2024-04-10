@@ -79,13 +79,13 @@ $stmt1 = $xsresources->showAllWhere('id',['id']);
                         <div class="col-12 d-flex justify-content-end">
                             <button
                             type="submit"
-                            class="btn btn-primary me-1 mb-1"
+                            class="btn btn-primary me-1 mb-1 shadow"
                             >
                             <?=$common_submit?>
                             </button>
                             <button
                             type="reset"
-                            class="btn btn-light-secondary me-1 mb-1"
+                            class="btn btn-light-secondary me-1 mb-1 shadow"
                             >
                             <?=$common_reset?>
                             </button>

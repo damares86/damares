@@ -32,7 +32,7 @@
 <section class="section">
   <div class="card shadow">
     <div class="card-header">Tutti i farmaci &nbsp; &nbsp; &nbsp; 
-    <a href="index.php?p=addFarmaco" class="btn icon icon-left btn-success"
+    <a href="index.php?p=addFarmaco" class="btn icon icon-left btn-success shadow"
     ><i data-feather="plus-circle"></i> Aggiungi un farmaco</a>
     </div>
     <div class="card-body">
@@ -56,11 +56,11 @@
             <td><?=$row['principio']?></td>
             <td><?=$row['cpr_box']?></td>
             <td>
-              <a href="index.php?p=editFarmaco&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editFarmaco&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>

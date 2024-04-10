@@ -32,7 +32,7 @@ $events_cat = $calendar->showAll('id');
 <section class="section">
   <div class="card shadow">
     <div class="card-header"><?=$cal_event_cat_all_header?> &nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addCalendar" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addCalendar" class="btn icon icon-left btn-success shadow"
                         ><i data-feather="plus-circle"></i>  <?=$cal_event_add_cat_header?></a
                       ></div>
     <div class="card-body">
@@ -57,11 +57,11 @@ $events_cat = $calendar->showAll('id');
               <?php
                 if($row['id']>1){
               ?>
-              <a href="index.php?p=editCalendar&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editCalendar&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>

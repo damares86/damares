@@ -32,7 +32,7 @@ $stmt = $xsresources->showAll('id');
 <section class="section">
   <div class="card shadow">
     <div class="card-header"><?=$xs_res_type_all_title?>&nbsp; &nbsp; &nbsp; 
-                    <a href="index.php?p=addXSType" class="btn icon icon-left btn-success"
+                    <a href="index.php?p=addXSType" class="btn icon icon-left btn-success shadow"
                         ><i data-feather="plus-circle"></i> <?=$xs_type_add_header?></a
                       ></div>
     <div class="card-body">
@@ -60,11 +60,11 @@ $stmt = $xsresources->showAll('id');
             ?>
             </td>
             <td>
-              <a href="index.php?p=editXSType&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editXSType&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>
