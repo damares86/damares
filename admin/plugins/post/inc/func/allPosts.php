@@ -30,7 +30,7 @@ $stmt = $post->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header">Tutti i post &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addPost" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> Aggiungi un post</a

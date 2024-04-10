@@ -25,7 +25,7 @@
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title">Aggiungi un nuovo post</h4>
                 </div>
@@ -153,7 +153,7 @@
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title"><?=$common_info?></h4>
                 </div>

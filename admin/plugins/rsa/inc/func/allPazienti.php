@@ -30,7 +30,7 @@
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header">Tutti i pazienti &nbsp; &nbsp; &nbsp; 
     <a href="index.php?p=addPaziente" class="btn icon icon-left btn-success"
     ><i data-feather="plus-circle"></i> Aggiungi un paziente</a>

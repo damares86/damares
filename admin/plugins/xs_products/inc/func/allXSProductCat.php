@@ -30,7 +30,7 @@ $stmt = $xsproduct->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$all_prod_cat_title?>&nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addXSProductCat" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> <?=$all_prod_cat_add_button?></a

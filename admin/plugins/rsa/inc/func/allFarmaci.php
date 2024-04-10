@@ -30,7 +30,7 @@
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header">Tutti i farmaci &nbsp; &nbsp; &nbsp; 
     <a href="index.php?p=addFarmaco" class="btn icon icon-left btn-success"
     ><i data-feather="plus-circle"></i> Aggiungi un farmaco</a>

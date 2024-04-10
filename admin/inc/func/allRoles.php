@@ -107,11 +107,11 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
               ?>
             </td>
             <td>
-              <a href="index.php?p=editRole&idToMod=<?=$row['id']?>" class="btn icon btn-warning"
+              <a href="index.php?p=editRole&idToMod=<?=$row['id']?>" class="btn icon btn-warning shadow"
                 ><i class="bi bi-pencil-square"></i
               ></a>
               &nbsp; &nbsp;
-              <a href="#" class="btn icon btn-danger"
+              <a href="#" class="btn icon btn-danger shadow"
                 data-bs-toggle="modal"
                 data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i>
               </a>

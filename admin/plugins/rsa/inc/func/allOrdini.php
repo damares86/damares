@@ -36,7 +36,7 @@
 
 
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header">
     </div>
     <div class="card-body">

@@ -30,7 +30,7 @@ $stmt = $customer->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$customer_all_title?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addCustomer" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> <?=$customer_all_add?></a

@@ -30,7 +30,7 @@ $events_cat = $calendar->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$cal_event_cat_all_header?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addCalendar" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i>  <?=$cal_event_add_cat_header?></a

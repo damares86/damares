@@ -37,9 +37,16 @@ $layout = $row['value'];
       }
       ?>
 
+      <?php 
+      if($page == 'dashboard')
+      {
+      ?>
         <div class="page-heading">
           <h3>Damares <?= $common_dashboard ?></h3>
         </div>
+      <?php
+      }
+      ?>
         <div class="page-content">
 
           <?php
@@ -61,7 +68,7 @@ $layout = $row['value'];
               foreach ($homeBlocks as $block) {
               ?>
                 <div class="col-12 col-lg-<?= $block['size'] ?>">
-                  <div class="card">
+                  <div class="card shadow">
                     <?php
                     require "inc/home/" . $block['content'];
                     ?>

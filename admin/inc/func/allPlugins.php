@@ -38,13 +38,13 @@ $allplugins = $plugin->showAll('id');
               <div class="col-12 d-flex justify-content-end">
                 <button
                 type="submit"
-                class="btn btn-primary me-1 mb-1"
+                class="btn btn-primary me-1 mb-1 shadow"
                 >
                 <?=$common_submit?>
                 </button>
                 <button
                 type="reset"
-                class="btn btn-light-secondary me-1 mb-1"
+                class="btn btn-light-secondary me-1 mb-1 shadow"
                 >
                 <?=$common_reset?>
                 </button>
@@ -74,11 +74,11 @@ $allplugins = $plugin->showAll('id');
           extract($row);
             
         $background="#c7fac1";
-        $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=dis\" class=\"btn icon btn-warning\"><i class=\"bi bi-dash-circle\"></i></a>" ;
+        $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=dis\" class=\"btn icon btn-warning shadow\"><i class=\"bi bi-dash-circle\"></i></a>" ;
         
         if($row['active']==0){             
           $background="none";
-          $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=add\" class=\"btn icon btn-success\"><i class=\"bi bi-plus-circle\"></i></a>" ;
+          $button = "<a href=\"core/mngPlugins.php?idPlugin=".$row['id']."&op=add\" class=\"btn icon btn-success shadow\"><i class=\"bi bi-plus-circle\"></i></a>" ;
         }
         ?>
           <tr style="background:<?=$background?>">
@@ -101,7 +101,7 @@ $allplugins = $plugin->showAll('id');
               <?php
               if($row['installed']==1){
               ?>
-                <a href="#" class="btn icon btn-danger" data-bs-toggle="modal" data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i></a>
+                <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?=$row['id']?>"><i class="bi bi-trash"></i></a>
               <?php
               }
               ?>
@@ -152,7 +152,7 @@ $allplugins = $plugin->showAll('id');
                                       >
                                     </button>
                                       <span class="d-none d-sm-block"
-                                        ><a href="core/mngPlugins.php?idPlugin=<?=$row['id']?>&op=rm" class="btn btn-danger ml-1"><?=$common_modal_confirm?></a></span
+                                        ><a href="core/mngPlugins.php?idPlugin=<?=$row['id']?>&op=rm" class="btn btn-danger ml-1 shadow"><?=$common_modal_confirm?></a></span
                                       >
                                   </div>
                                 </div>

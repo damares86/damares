@@ -30,7 +30,7 @@ $stmt = $gamresources->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$gam_type_add_title?>&nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addGamCat" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> <?=$gam_all_cat_add?></a

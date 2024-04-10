@@ -45,7 +45,7 @@ $details_opt="";
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title"><?=$customer_edit_title?></h4>
                 </div>
@@ -372,7 +372,7 @@ $details_opt="";
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title"><?=$common_info?></h4>
                 </div>
@@ -388,7 +388,7 @@ $details_opt="";
 <section class="section">
     <div class="row">
         <div class="col-md-8 col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title"><?=$customer_edit_password?></h4>
                 </div>

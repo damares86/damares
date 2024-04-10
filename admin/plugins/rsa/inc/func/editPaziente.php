@@ -36,7 +36,7 @@ extract($row1) ;
 <section class="section">
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title">Modifica il paziente <b><?=$row1['cognome']?> <?=$row1['nome']?></b></h4>
                 </div>

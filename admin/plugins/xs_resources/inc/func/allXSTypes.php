@@ -30,7 +30,7 @@ $stmt = $xsresources->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$xs_res_type_all_title?>&nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addXSType" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> <?=$xs_type_add_header?></a

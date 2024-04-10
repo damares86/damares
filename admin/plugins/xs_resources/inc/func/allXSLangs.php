@@ -30,7 +30,7 @@ $stmt = $xsresources->showAll('id');
 
 <!-- Basic Tables start -->
 <section class="section">
-  <div class="card">
+  <div class="card shadow">
     <div class="card-header"><?=$xs_lang_title?>&nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addXSLang" class="btn icon icon-left btn-success"
                         ><i data-feather="plus-circle"></i> <?=$xs_lang_add_button ?></a
