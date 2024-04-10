@@ -128,6 +128,9 @@ $plugin_all_modal_body = "Se confermi, cancellerai definitivamente questo modulo
 $settings_all_title = "Tutte le impostazioni" ;
 $settings_all_lang = "Lingua" ;
 $settings_all_noreply = "Email per reset password" ;
+$settings_layout_title = "Layout" ;
+$settings_layout_horizontal = "Orizzontale" ;
+$settings_layout_vertical = "Verticale" ;
 
 
 
