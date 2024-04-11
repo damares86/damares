@@ -93,6 +93,34 @@
                     </div>
                     <div class="card-body px-0 py-1">
                         <ul class="widget-todo-list-wrapper" id="widget-todo-list">
+
+                            <li class="widget-todo-item" id="list1">
+                                <i data-feather="list" class="cursor-move"></i>
+                                voce 1
+                            </li>
+                            <li class="widget-todo-item" id="list2">
+                                <i data-feather="list" class="cursor-move"></i>
+                                voce 2
+                            </li>
+                            <li class="widget-todo-item" id="list3">
+                                <i data-feather="list" class="cursor-move"></i>
+                                voce 3
+                            </li>
+                            <li class="widget-todo-item" id="list4">
+                                <i data-feather="list" class="cursor-move"></i>
+                                voce 4
+                            </li>
+                            <li class="widget-todo-item" id="list5">
+                                <i data-feather="list" class="cursor-move"></i>
+                                voce 5
+                            </li>
+                            <li class="widget-todo-item" id="list6">
+                                <i data-feather="list" class="cursor-move"></i>
+                                voce 6
+                            </li>
+
+<!-- 
+
                             <li class="widget-todo-item">
                                 <div
                                     class="widget-todo-title-wrapper d-flex justify-content-between align-items-center mb-50">
@@ -218,7 +246,7 @@
                                         <i class="bx bx-dots-vertical-rounded font-medium-3 cursor-pointer"></i>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
 
@@ -249,8 +277,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $("#save").click(function() {
-            const data = $('.widget-todo > ul').map(function() {
-                return $(this).text()
+            const data = $('.widget-todo-list-wrapper > li').map(function(index,el) {
+                console.log(el.id)
+                return el.id
+                // return $(this).text()
             }).get()
 
             console.log(data)
