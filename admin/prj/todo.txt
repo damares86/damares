@@ -2,11 +2,18 @@
         TODO
 ------------------------------------------
 
-XS
+########################################################
 
-Frontend
-        - download
-        - log download
+LUNA PORTAL
+- gestione prodotti
+- gestione pagine parent
+- gestione pagine child
+- gestione paragrafi
+- ordinamento con dragula
+- gestione users
+- settings (es utenti, mail, ecc)
+
+########################################################
 
 
 ########################################################
@@ -19,12 +26,3 @@ Frontend
 
 
 ########################################################
-
-CFA
-
- chart:
-    per mese
-        utile cfa
-        utile compagnie
-        utile collaboratori
-
