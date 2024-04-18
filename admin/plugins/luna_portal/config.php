@@ -12,7 +12,8 @@ $link_parent = "luna_portal";
 
 $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      name VARCHAR(255) NOT NULL);
+      name VARCHAR(255) NOT NULL,
+      version VARCHAR(20) DEFAULT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_parent
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
@@ -54,7 +55,10 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       company VARCHAR(255) DEFAULT NULL,
       password VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
-      permissions VARCHAR(255) DEFAULT NULL);";
+      permissions VARCHAR(255) DEFAULT NULL);
+      INSERT INTO ".$prefix."luna_settings
+      (name, value)
+      VALUES ('users','0');";
 
 $parent_table = [[
       'link' => 'luna_portal',

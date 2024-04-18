@@ -19,6 +19,7 @@ class Luna extends Common{
     public $details_opt ;
     public $auth_token ;
     public $last_login ;
+    public $version ;
 
     public function customerExists(){
         
