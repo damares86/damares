@@ -40,8 +40,8 @@ $stmt = $luna->showAll('id');
           <div class='wrapper'>
 
             <div id='parent-block' class='container-pages'>
-
-              <div id="p_1" class='container-pages'> <!-- p_1 deve essere l'id della pagina-->
+              <div id="parent_1" class='container-pages'> <!-- p_1 deve essere l'id della pagina-->
+                
                 pagina parent 1
                 <div id="child_1" class='container-pages'> <!-- 1 deve essere l'id della pagina-->
                   <div id="p_1_c_1">
@@ -63,9 +63,8 @@ $stmt = $luna->showAll('id');
                   </div>
                   <div id="p_1_c_4">pagina child 4</div>
                 </div>
-
               </div>
-              <div id="p_2" class='container-pages'> <!-- p_1 deve essere l'id della pagina-->
+              <div id="parent_2" class='container-pages'> <!-- p_1 deve essere l'id della pagina-->
                 pagina parent 2
                 <div id="child_2" class='container-pages'> <!-- 1 deve essere l'id della pagina-->
                   <div id="p_2_c_5">
@@ -76,17 +75,17 @@ $stmt = $luna->showAll('id');
                       <div id="c_5_p_3">paragraph 3</div>
                     </div>
                   </div>
-                  <div id="p_2_c_7">pagina child 2</div>
-                  pagina child 7
-                  <div id="paragraph_7" class='container-pages'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                    <div id="c_7_p_1">paragraph 1</div>
-                    <div id="c_7_p_2">paragraph 2</div>
-                    <div id="c_7_p_3">paragraph 3</div>
+                  <div id="p_2_c_7">pagina child 7
+                    <div id="paragraph_7" class='container-pages'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                      <div id="c_7_p_1">paragraph 1</div>
+                      <div id="c_7_p_2">paragraph 2</div>
+                      <div id="c_7_p_3">paragraph 3</div>
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
+            <!-- </div> -->
 
           </div>
           <!-- <div id='left-events' class='container-pages'>
@@ -127,30 +126,30 @@ $stmt = $luna->showAll('id');
 
 <script src='script/dragula.js'></script>
 <script>
+  var blocks_array = [];
 
-var blocks_array = [] ;
+  // ciclo tutti i parent, poi i relativi child e per ogni child i relativi paragraph
+  // ogni volta che ho un id devo creare la variabile tipo c_1 e pushare l'id dell'elemento nell'array 'blocks_array'
+  // es ho l'id della pagina child 2 quindi
+  // var c_2 = 'child_2';
+  // blocks_array.push(c_2);
 
-// ciclo tutti i parent, poi i relativi child e per ogni child i relativi paragraph
-// ogni volta che ho un id devo creare la variabile tipo c_1 e pushare l'id dell'elemento nell'array 'blocks_array'
-// es ho l'id della pagina child 2 quindi
-// var c_2 = 'child_2';
-// blocks_array.push(c_2);
-
-var p = 'parent-block';
-blocks_array.push(p);
-var c_1 ='child_1';
-blocks_array.push(c_1);
-var c_2 = 'child_2';
-blocks_array.push(c_2);
-var p_1 = 'paragraph_1';
-blocks_array.push(p_1);
-var p_3 = 'paragraph_3';
-blocks_array.push(p_3);
-var p_5 = 'paragraph_5';
-blocks_array.push(p_5);
-var p_7 = 'paragraph_7';
-blocks_array.push(p_7);
-</script>
+  var p = 'parent-block';
+  blocks_array.push(p);
+  var c_1 = 'child_1';
+  blocks_array.push(c_1);
+  var c_2 = 'child_2';
+  blocks_array.push(c_2);
+  var p_1 = 'paragraph_1';
+  blocks_array.push(p_1);
+  var p_3 = 'paragraph_3';
+  blocks_array.push(p_3);
+  var p_5 = 'paragraph_5';
+  blocks_array.push(p_5);
+  var p_7 = 'paragraph_7';
+  blocks_array.push(p_7);
+  console.log(blocks_array)
+  </script>
 <script src='script/example.min.js'></script>
 
 <script>
