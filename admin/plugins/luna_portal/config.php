@@ -77,9 +77,9 @@ $child_table = [
             'icon' => 'journal-bookmark-fill'
       ],
       [
-            'link' => 'addLunaPage',
-            'label' => 'Add a new page',
-            'icon' => 'journal-plus'
+            'link' => 'allLunaUsers',
+            'label' => 'Manage Users',
+            'icon' => 'people-fill'
       ]
 ];
 

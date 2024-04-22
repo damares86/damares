@@ -5,7 +5,7 @@
 ########################################################
 
 LUNA PORTAL
-- gestione prodotti
+# gestione prodotti
 - gestione pagine parent
 - gestione pagine child
 - gestione paragrafi
