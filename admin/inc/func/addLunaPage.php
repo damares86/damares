@@ -27,7 +27,7 @@ if (filter_input(INPUT_GET, 'child')) {
     $title = 'paragraph';
     // $type = 'paragraph';
 }
-print_r($_SESSION);
+
 ?>
 
 <div class="page-title">
@@ -79,7 +79,7 @@ print_r($_SESSION);
                                     </div>
                                     <div class="col-12 pb-3 mt-2">
 
-                                        <div id="summernote" name="content"></div>
+                                        <textarea id="summernote" name="content"></textarea>
 
                                     </div>
 

@@ -35,6 +35,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       last_edit_time datetime DEFAULT CURRENT_TIMESTAMP);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_parent_order
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      luna_products_id INT (5) NOT NULL,
       parent_pages_id_arr TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_parent_child
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,

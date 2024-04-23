@@ -265,7 +265,7 @@ function showAllTable($orderBy,$table){
 function showAllWhere($orderBy,$where){
     
     $this->where="";
-
+    
     $i = 1;
     foreach($where as $item){
         $this->where.="$item = :$item" ;
@@ -275,13 +275,13 @@ function showAllWhere($orderBy,$where){
         $i++;
     }
     
-        
     $query = "SELECT *
         FROM " .$this->prx. $this->table."
         WHERE ".$this->where."
         ORDER BY ".$orderBy." ASC"; 
+        
     $stmt = $this->conn->prepare( $query );
-    
+    // print_r($stmt);
     foreach($where as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
