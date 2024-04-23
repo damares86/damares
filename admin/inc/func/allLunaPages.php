@@ -33,91 +33,81 @@ $stmt = $luna->showAll('id');
       <a href="index.php?p=addLunaPage" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a new parent page</a>
     </div>
     <div class="card-body">
-      <div class='examples'>
 
-        <div class='parent'>
-          <label for='hy'>There are plenty of events along the lifetime of a drag event. Check out <a href='https://github.com/bevacqua/dragula#drakeon-events'>all of them</a> in the docs!</label>
-          <div class='wrapper'>
+      <div class='wrapper'>
 
-            <div id='parent-block' class='container-pages'>
-              <div id="parent_1" class='container-pages'> <!-- p_1 deve essere l'id della pagina-->
-                
-                pagina parent 1
-                <div id="child_1" class='container-pages'> <!-- 1 deve essere l'id della pagina-->
-                  <div id="p_1_c_1">
-                    pagina child 1
-                    <div id="paragraph_1" class='container-pages'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                      <div id="c_1_p_1">paragraph 1</div> <!-- 1 deve essere l'id del paragrafo-->
-                      <div id="c_1_p_2">paragraph 2</div>
-                      <div id="c_1_p_3">paragraph 3</div>
-                    </div>
-                  </div>
-                  <div id="p_1_c_2">pagina child 2</div>
-                  <div id="p_1_c_3">
-                    pagina child 3
-                    <div id="paragraph_3" class='container-pages'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                      <div id="c_3_p_1">paragraph 1</div>
-                      <div id="c_3_p_2">paragraph 2</div>
-                      <div id="c_3_p_3">paragraph 3</div>
-                    </div>
-                  </div>
-                  <div id="p_1_c_4">pagina child 4</div>
+        <div id='parent-block' class='container-pages p-3'>
+          Nome prodotto
+          <div id="parent_1" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
+
+            pagina parent 1
+            <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#child_1" role="button" aria-expanded="false" aria-controls="child_1">
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div id="child_1" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
+              <div id="p_1_c_1" class="child_item rounded m-2">
+                pagina child 1
+                <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#paragraph_1" role="button" aria-expanded="false" aria-controls="child_1">
+                  <i class="bi bi-chevron-down"></i>
+                </a>
+                <div id="paragraph_1" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                  <div id="c_1_p_1" class="paragraph_item rounded m-2">paragraph 1</div> <!-- 1 deve essere l'id del paragrafo-->
+                  <div id="c_1_p_2" class="paragraph_item rounded m-2">paragraph 2</div>
+                  <div id="c_1_p_3" class="paragraph_item rounded m-2">paragraph 3</div>
                 </div>
               </div>
-              <div id="parent_2" class='container-pages'> <!-- p_1 deve essere l'id della pagina-->
-                pagina parent 2
-                <div id="child_2" class='container-pages'> <!-- 1 deve essere l'id della pagina-->
-                  <div id="p_2_c_5">
-                    pagina child 5
-                    <div id="paragraph_5" class='container-pages'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                      <div id="c_5_p_1">paragraph 1</div> <!-- 1 deve essere l'id del paragrafo-->
-                      <div id="c_5_p_2">paragraph 2</div>
-                      <div id="c_5_p_3">paragraph 3</div>
-                    </div>
-                  </div>
-                  <div id="p_2_c_7">pagina child 7
-                    <div id="paragraph_7" class='container-pages'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                      <div id="c_7_p_1">paragraph 1</div>
-                      <div id="c_7_p_2">paragraph 2</div>
-                      <div id="c_7_p_3">paragraph 3</div>
-                    </div>
-                  </div>
+              <div id="p_1_c_2" class="child_item rounded m-2">pagina child 2</div>
+              <div id="p_1_c_3" class="child_item rounded m-2">
+                pagina child 3
+                <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#paragraph_3" role="button" aria-expanded="false" aria-controls="child_1">
+                  <i class="bi bi-chevron-down"></i>
+                </a>
+                <div id="paragraph_3" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                  <div id="c_3_p_1" class="paragraph_item rounded m-2">paragraph 1</div>
+                  <div id="c_3_p_2" class="paragraph_item rounded m-2">paragraph 2</div>
+                  <div id="c_3_p_3" class="paragraph_item rounded m-2">paragraph 3</div>
+                </div>
+              </div>
+              <div id="p_1_c_4" class="child_item rounded m-2">pagina child 4</div>
+            </div>
+          </div>
+          <div id="parent_2" class='container-pages parent_item rounded px-5 m-2'> <!-- p_1 deve essere l'id della pagina-->
+            pagina parent 2
+            <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#child_2" role="button" aria-expanded="false" aria-controls="child_1">
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div id="child_2" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
+              <div id="p_2_c_5" class="child_item rounded m-2">
+                pagina child 5
+                <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#paragraph_5" role="button" aria-expanded="false" aria-controls="child_1">
+                  <i class="bi bi-chevron-down"></i>
+                </a>
+                <div id="paragraph_5" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                  <div id="c_5_p_1" class="paragraph_item rounded m-2">paragraph 1</div> <!-- 1 deve essere l'id del paragrafo-->
+                  <div id="c_5_p_2" class="paragraph_item rounded m-2">paragraph 2</div>
+                  <div id="c_5_p_3" class="paragraph_item rounded m-2">paragraph 3</div>
+                </div>
+              </div>
+              <div id="p_2_c_7" class="child_item rounded m-2">pagina child 7
+                <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#paragraph_7" role="button" aria-expanded="false" aria-controls="child_1">
+                  <i class="bi bi-chevron-down"></i>
+                </a>
+                <div id="paragraph_7" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                  <div id="c_7_p_1" class="paragraph_item rounded m-2">paragraph 1</div>
+                  <div id="c_7_p_2" class="paragraph_item rounded m-2">paragraph 2</div>
+                  <div id="c_7_p_3" class="paragraph_item rounded m-2">paragraph 3</div>
                 </div>
               </div>
             </div>
-            <!-- </div> -->
-
           </div>
-          <!-- <div id='left-events' class='container-pages'>
-              <div id="1">
-                As soon as you start dragging an element, a <code>drag</code> event is fired
-                <div id='center-events' class='container-pages'>
-                  <div>
-                    <div id='right-events' class='container-pages'>
-                      <div>If the element gets removed from the DOM as a result of dropping outside of any containers, a <code>remove</code> event gets fired</div>
-                      <div>A <code>cancel</code> event is fired when an element would be dropped onto an invalid target, but retains its original placement instead</div>
-                      <div>The <code>over</code> event fires when you drag something over a container, and <code>out</code> fires when you drag it away from the container</div>
-                      <div>Lastly, a <code>dragend</code> event is fired whenever a drag operation ends, regardless of whether it ends in a cancellation, removal, or drop</div>
-                    </div>
-                  </div>
-                  <div>A <code>cancel</code> event is fired when an element would be dropped onto an invalid target, but retains its original placement instead</div>
-                  <div>The <code>over</code> event fires when you drag something over a container, and <code>out</code> fires when you drag it away from the container</div>
-                  <div>Lastly, a <code>dragend</code> event is fired whenever a drag operation ends, regardless of whether it ends in a cancellation, removal, or drop</div>
-                </div>
-              </div>
-              <div id="2">Whenever an element is cloned because <code>copy: true</code>, a <code>cloned</code> event fires</div>
-              <div id="3">The <code>shadow</code> event fires whenever the placeholder showing where an element would be dropped is moved to a different container or position</div>
-              <div id="4">A <code>drop</code> event is fired whenever an element is dropped anywhere other than its origin <em>(where it was initially dragged from)</em></div>
-
-            </div> -->
-
         </div>
 
       </div>
+
     </div>
 
 
-    <button id="save">Save</button>
+    <button id="save" class="btn btn-success m-3 w-25">Save</button>
 
   </div>
   </div>
@@ -149,7 +139,7 @@ $stmt = $luna->showAll('id');
   var p_7 = 'paragraph_7';
   blocks_array.push(p_7);
   console.log(blocks_array)
-  </script>
+</script>
 <script src='script/example.min.js'></script>
 
 <script>
