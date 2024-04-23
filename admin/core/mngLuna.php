@@ -291,6 +291,81 @@ else if($operation == 'addPage')
     }
 
 }
+else if($operation == 'editPage')
+{
+
+    $idToMod = filter_input(INPUT_POST,'idToMod') ;
+
+    $prod_id = filter_input(INPUT_POST,'product_id') ;
+    $title = filter_input(INPUT_POST,'title') ;
+    $content = filter_input(INPUT_POST,'content') ;
+    
+    if(filter_input(INPUT_POST,'child_id'))
+    {
+        // è un paragrafo
+        $luna->id = $idToMod ;               
+        $luna->title = $title ;
+        $luna->content = $content ;
+        $luna->last_editor = $_SESSION['account_id'] ;
+        $luna->table = 'luna_paragraph' ;
+
+        if($luna->update(['title','content','last_editor'],'id'))
+        {
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentEditSucc");
+            exit ;
+        }
+        else
+        {
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
+            exit ;
+        }
+       
+    }
+    else if(filter_input(INPUT_POST,'parent_id'))
+    {
+        // è un child
+        $luna->id = $idToMod ;               
+        $luna->title = $title ;
+        $luna->content = $content ;
+        $luna->last_editor = $_SESSION['account_id'] ;
+        $luna->table = 'luna_child' ;
+
+        if($luna->update(['title','content','last_editor'],'id'))
+        {
+            
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentEditSucc");
+            exit ;
+        }
+        else
+        {
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
+            exit ;
+        }
+    }
+    else
+    {
+        // it's a parent
+        $luna->id = $idToMod ;               
+        $luna->title = $title ;
+        $luna->content = $content ;
+        $luna->luna_products_id = $prod_id  ;
+        $luna->last_editor = $_SESSION['account_id'] ;
+        $luna->table = 'luna_parent' ;
+
+        if($luna->update(['title','content','luna_products_id','last_editor'],'id'))
+        {
+
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentEditSucc");
+            exit ;
+        }
+        else
+        {
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
+            exit ;
+        }
+    }            
+
+}
 else
 {
     header("Location: ../index.php?err=noPost");

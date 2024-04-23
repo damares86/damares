@@ -2,6 +2,8 @@
 
 $summernote = true;
 
+$prod_id = filter_input(INPUT_GET,'prod') ;
+
 // get the product data
 $page_id = filter_input(INPUT_GET, 'parent');
 $luna->table = 'luna_parent';
@@ -20,6 +22,8 @@ if (filter_input(INPUT_GET, 'paragraph')) {
     $luna->table = 'luna_paragraph';    
     $child_id = true ;
 }
+
+$idToMod = $page_id ;
 
 $luna->id = $page_id;
 $stmt = $luna->showAllWhere('id', ['id']);
@@ -83,7 +87,8 @@ extract($row);
 
 
 
-                                    <input type="hidden" name="operation" value="addPage">
+                                    <input type="hidden" name="operation" value="editPage">
+                                    <input type="hidden" name="idToMod" value="<?=$idToMod?>">
                                     <!-- <input type="hidden" name="type" value="<?= $type ?>"> -->
                                     <input type="hidden" name="product_id" value="<?= $prod_id ?>">
                                     <?php
