@@ -71,10 +71,6 @@ $child_table = [
             'link' => 'allLunaProducts',
             'label' => 'Manage Products',
             'icon' => 'clipboard2-plus-fill'
-      ], [
-            'link' => 'allLunaPages',
-            'label' => 'Manage Pages',
-            'icon' => 'journal-bookmark-fill'
       ],
       [
             'link' => 'allLunaUsers',
