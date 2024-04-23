@@ -48,125 +48,100 @@ extract($row);
       <div class='wrapper'>
 
         <div id='parent-block' class='container-pages p-3'>
-          <div id="parent_1" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
 
-            pagina parent 1
-            <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#child_1" role="button" aria-expanded="false" aria-controls="child_1">
-              <i class="bi bi-chevron-down"></i>
-            </a> &nbsp;
-            <a href="index.php?p=editLunaPage&prod=1&parent=1" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
-            &nbsp;
-            <a href="index.php?p=addLunaPage&prod=1&parent=1" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a child page</a>
-            <div id="child_1" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
-              <div id="p_1_c_1" class="child_item rounded m-2">
-                pagina child 1 &nbsp;
-                <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#paragraph_1" role="button" aria-expanded="false" aria-controls="child_1">
+          <?php
+            $luna->table = 'luna_parent' ;
+            $luna->luna_products_id = $prod_id ;
+            $stmt1 = $luna->showAllWhere('id',['luna_products_id']) ;
+            while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
+            {
+              extract($row1) ;
+
+              // check if there are some children
+              $disable = '' ;
+
+              $luna->table = 'luna_parent_child' ;
+              $luna->parent_pages_id = $row1['id'] ;
+              $stmt2 = $luna->showAllWhere('id',['parent_pages_id']) ;
+              if($stmt2->rowCount() == 0 )
+              {
+                $disable = 'disable' ;
+              }
+          ?>
+            <div id="parent_<?=$row1['id']?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
+              <?=$row1['title']?>
+              <a class="btn icon btn-sm btn-info mx-2 <?=$disable?>" data-bs-toggle="collapse" href="#child_<?=$row1['id']?>" role="button" aria-expanded="false" aria-controls="child_<?=$row1['id']?>">
+                <i class="bi bi-chevron-down"></i>
+              </a> &nbsp;
+              <a href="index.php?p=editLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
+              &nbsp;
+              <a href="index.php?p=addLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a child page</a>
+            <?php
+              if($stmt2->rowCount() == 0 )
+              {
+            ?>
+              <div id="child_<?=$row1['id']?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
+            <?php
+                while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC))
+                {
+                  extract($row2);
+            ?>
+                <div id="p_<?=$row1['id']?>_c_<?=$row2['id']?>" class="child_item rounded m-2">
+                <?=$row2['title']?> &nbsp;
+            
+            <?php
+              $disable = '' ;
+
+              $luna->table = 'luna_child_paragraph';
+              $luna->child_pages_id = $row2['id'] ;
+              $stmt3 = $luna->showAllWhere('id',['child_pages_id']) ;
+              if($stmt3->rowCount() == 0)
+              {
+                $disable = 'disable' ;
+              }
+            ?>
+                <a class="btn icon btn-sm btn-info mx-2 <?=$disable?>" data-bs-toggle="collapse" href="#paragraph_<?=$row2['id']?>" role="button" aria-expanded="false" aria-controls="paragraph_<?=$row2['id']?>">
                   <i class="bi bi-chevron-down"></i>
                 </a> &nbsp;
-                <a href="index.php?p=editLunaPage&prod=1&parent=1&child=1" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
+                <a href="index.php?p=editLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row2['id']?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
                 &nbsp;
-                <a href="index.php?p=addLunaPage&prod=1&parent=1&child=1" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
-                <div id="paragraph_1" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                  <div id="c_1_p_1" class="paragraph_item rounded m-2">paragraph 1 <!-- 1 deve essere l'id del paragrafo--> &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=1&child=1&paragraph=1" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
+                <a href="index.php?p=addLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row2['id']?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
+            <?php
+              if($stmt3->rowCount() > 0)
+              {
+                while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC))
+                {
+                  extract($row3) ;
+            ?>
+                <div id="paragraph_<?=$row2['id']?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                  <div id="c_<?=$row2['id']?>_p_<?=$row3['id']?>" class="paragraph_item rounded m-2">
+                    <?=$row3['title']?> <!-- 1 deve essere l'id del paragrafo--> &nbsp;
+                    <a href="index.php?p=editLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row2['id']?>&paragraph=<?=$row3['id']?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
                   </div>
-                  <div id="c_1_p_2" class="paragraph_item rounded m-2">paragraph 2 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=1&child=1&paragraph=2" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                  <div id="c_1_p_3" class="paragraph_item rounded m-2">paragraph 3 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=1&child=1&paragraph=3" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                </div>
               </div>
-              <div id="p_1_c_2" class="child_item rounded m-2">pagina child 2 &nbsp;
-                <a class="btn icon btn-sm btn-info mx-2 disabled" data-bs-toggle="collapse" href="#paragraph_3" role="button" aria-expanded="false" aria-controls="child_1">
-                  <i class="bi bi-chevron-down"></i>
-                </a> &nbsp;
-                <a href="index.php?p=editLunaPage&prod=1&parent=1&child=2" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
-                &nbsp;
-                <a href="index.php?p=addLunaPage&prod=1&parent=1&child=2" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
+
+            <?php
+                }
+
+              }
+            ?>
               </div>
-              <div id="p_1_c_3" class="child_item rounded m-2">
-                pagina child 3 &nbsp;
-                <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#paragraph_3" role="button" aria-expanded="false" aria-controls="child_1">
-                  <i class="bi bi-chevron-down"></i>
-                </a> &nbsp;
-                <a href="index.php?p=editLunaPage&prod=1&parent=1&child=3" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
-                &nbsp;
-                <a href="index.php?p=addLunaPage&prod=1&parent=1&child=3" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
-                <div id="paragraph_3" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                  <div id="c_3_p_1" class="paragraph_item rounded m-2">paragraph 1 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=1&child=3&paragraph=1" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                  <div id="c_3_p_2" class="paragraph_item rounded m-2">paragraph 2 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=1&child=3&paragraph=1" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                  <div id="c_3_p_3" class="paragraph_item rounded m-2">paragraph 3 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=1&child=3&paragraph=3" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                </div>
-              </div>
-              <div id="p_1_c_4" class="child_item rounded m-2">pagina child 4 &nbsp;
-                <a class="btn icon btn-sm btn-info mx-2 disabled" data-bs-toggle="collapse" href="#paragraph_3" role="button" aria-expanded="false" aria-controls="child_1">
-                  <i class="bi bi-chevron-down"></i>
-                </a> &nbsp;
-                <a href="index.php?p=editLunaPage&prod=1&parent=1&child=4" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
-                &nbsp;
-                <a href="index.php?p=addLunaPage&prod=1&parent=1&child=4" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
-              </div>
+            <?php
+                }
+            ?>
+
+
+
+
             </div>
-          </div>
-          <div id="parent_2" class='container-pages parent_item rounded px-5 m-2'> <!-- p_1 deve essere l'id della pagina-->
-            pagina parent 2
-            <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#child_2" role="button" aria-expanded="false" aria-controls="child_1">
-              <i class="bi bi-chevron-down"></i>
-            </a> &nbsp;
-            <a href="index.php?p=editLunaPage&prod=1&parent=2" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a> &nbsp;
-            <a href="index.php?p=addLunaPage&prod=1&parent=2" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a child page</a>
 
-            <div id="child_2" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
-              <div id="p_2_c_5" class="child_item rounded m-2">
-                pagina child 5
-                <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#paragraph_5" role="button" aria-expanded="false" aria-controls="child_1">
-                  <i class="bi bi-chevron-down"></i>
-                </a> &nbsp;
-                <a href="index.php?p=editLunaPage&prod=1&parent=2&child=5" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a> &nbsp;
-                <a href="index.php?p=addLunaPage&prod=1&parent=2&child=5" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
-
-                <div id="paragraph_5" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                  <div id="c_5_p_1" class="paragraph_item rounded m-2">paragraph 1 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=2&child=5&paragraph=1" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div> <!-- 1 deve essere l'id del paragrafo-->
-                  <div id="c_5_p_2" class="paragraph_item rounded m-2">paragraph 2 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=2&child=5&paragraph=2" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                  <div id="c_5_p_3" class="paragraph_item rounded m-2">paragraph 3 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=2&child=5&paragraph=3" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                </div>
-              </div>
-              <div id="p_2_c_7" class="child_item rounded m-2">pagina child 7
-                <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#paragraph_7" role="button" aria-expanded="false" aria-controls="child_1">
-                  <i class="bi bi-chevron-down"></i>
-                </a> &nbsp;
-                <a href="index.php?p=editLunaPage&prod=1&parent=2&child=7" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a> &nbsp;
-                <a href="index.php?p=addLunaPage&prod=1&parent=2&child=7" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
-
-                <div id="paragraph_7" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                  <div id="c_7_p_1" class="paragraph_item rounded m-2">paragraph 1 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=2&child=7&paragraph=1" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                  <div id="c_7_p_2" class="paragraph_item rounded m-2">paragraph 2 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=2&child=7&paragraph=2" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                  <div id="c_7_p_3" class="paragraph_item rounded m-2">paragraph 3 &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=1&parent=2&child=7&paragraph=3" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
-                  </div>
-                </div>
-              </div>
+          <?php
+              }
+          ?>
             </div>
-          </div>
-        </div>
+          <?php
+            }
+          ?>
 
       </div>
 
