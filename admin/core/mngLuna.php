@@ -196,27 +196,47 @@ else if($operation == 'addPage')
             // get the paragraphs of the child page
             $luna->table = 'luna_parent_order' ;
             $luna->luna_products_id = $prod_id ;
-            $stmt = $luna->showAllWhere('id',['luna_products_id']) ;
-            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
-            extract($row) ;
 
-            $arr = explode(',',$row['parent_pages_id_arr']) ;
-            $arr[] = $row1['id'] ;
-            $str = implode(',',$arr) ;
-
-            $luna->table = 'luna_parent_order' ;
-            $luna->id = $row['id'] ;
-            $luna->parent_pages_id_arr = $str ;
-
-            if($luna->update(['parent_pages_id_arr'],'id'))
-            {
-                header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-                exit ;
+            if($luna->itemExists('luna_products_id'))
+            {                
+                $stmt = $luna->showAllWhere('id',['luna_products_id']) ;
+                $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+                extract($row) ;
+                
+                $arr = explode(',',$row['parent_pages_id_arr']) ;
+                $arr[] = $row1['id'] ;
+                $str = implode(',',$arr) ;
+                
+                $luna->table = 'luna_parent_order' ;
+                $luna->id = $row['id'] ;
+                $luna->parent_pages_id_arr = $str ;
+                
+                if($luna->update(['parent_pages_id_arr'],'id'))
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                    exit ;
+                }
+                else
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                    exit ;
+                }
             }
             else
             {
-                header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-                exit ;
+                $luna->table = 'luna_parent_order' ;
+                $luna->luna_products_id = $prod_id ;
+                $luna->parent_pages_id_arr = $row1['id'] ;
+                if($luna->insert(['parent_pages_id_arr','luna_products_id']))
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                    exit ;
+                }
+                else
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                    exit ;
+                }
             }
         }
         else
