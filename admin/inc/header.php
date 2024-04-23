@@ -77,8 +77,10 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
   <link rel="stylesheet" href="assets/css/shared/iconly.css" />
+  <link rel="stylesheet" href="assets/css/pages/summernote.css">
+  <link rel="stylesheet" href="assets/extensions/summernote/summernote-lite.css">
 
-<?php
+  <?php
 
   foreach (glob("assets/css/*.css") as $row) {
   ?>

@@ -117,8 +117,21 @@ if ($apex) {
 <script src="assets/js/pages/<?= $lang ?>.extra.js"></script>
 <script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
 <script src="assets/js/pages/form-element-select.js"></script>
-<script src="assets/extensions/tinymce/tinymce.min.js"></script>
-<script src="assets/js/pages/tinymce.js"></script>
+
+<?php
+if ($summernote) {
+?>
+
+  <script src="assets/extensions/summernote/summernote-lite.min.js"></script>
+  <script src="assets/js/pages/summernote.js"></script>
+<?php
+} else {
+?>
+  <script src="assets/extensions/tinymce/tinymce.min.js"></script>
+  <script src="assets/js/pages/tinymce.js"></script>
+<?php
+}
+?>
 
 
 

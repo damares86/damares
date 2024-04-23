@@ -50,6 +50,8 @@ $stmt = $luna->showAll('id');
               <td><?= $row['name'] ?></td>
               <td><?= $row['version'] ?></td>
               <td>
+                <a href="index.php?p=allLunaPages&prod=<?= $row['id'] ?>" class="btn icon btn-primary shadow">Manage pages <i class="bi bi-book"></i></a>
+                &nbsp; &nbsp;
                 <a href="index.php?p=editLunaProduct&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow">Edit <i class="bi bi-pencil-square"></i></a>
                 &nbsp; &nbsp;
                 <a href="#" class="btn icon btn-info shadow" data-bs-toggle="modal" data-bs-target="#clone<?= $row['id'] ?>">Clone <i class="bi bi-plus-circle"></i></a>
