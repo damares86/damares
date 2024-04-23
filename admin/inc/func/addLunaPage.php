@@ -11,7 +11,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 extract($row);
 
 $title = 'parent page';
-$operation = 'addParent';
+// $type = 'parent';
 
 $parent_id = '';
 $child_id = '';
@@ -19,15 +19,15 @@ $child_id = '';
 if (filter_input(INPUT_GET, 'parent')) {
     $parent_id = filter_input(INPUT_GET, 'parent');
     $title = 'child page';
-    $operation = 'addChild';
+    // $type = 'child';
 }
 
 if (filter_input(INPUT_GET, 'child')) {
     $child_id = filter_input(INPUT_GET, 'child');
     $title = 'paragraph';
-    $operation = 'addParagraph';
+    // $type = 'paragraph';
 }
-
+print_r($_SESSION);
 ?>
 
 <div class="page-title">
@@ -65,14 +65,28 @@ if (filter_input(INPUT_GET, 'child')) {
                         <form class="form form-horizontal" action="core/mngLuna.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
                             <div class="form-body">
                                 <div class="row">
-                                    <div class="col-12 pb-3">
+                                    <div class="col-md-2">
+                                        <label>Title <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="form-check mandatory">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" id="first-name-icon" name="title" data-parsley-required="true" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 pb-3 mt-2">
 
-                                        <div id="summernote"></div>
+                                        <div id="summernote" name="content"></div>
+
                                     </div>
 
 
 
-                                    <input type="hidden" name="operation" value="<?= $operation ?>">
+                                    <input type="hidden" name="operation" value="addPage">
+                                    <!-- <input type="hidden" name="type" value="<?= $type ?>"> -->
                                     <input type="hidden" name="product_id" value="<?= $prod_id ?>">
                                     <?php
                                     if ($parent_id) {
@@ -81,7 +95,7 @@ if (filter_input(INPUT_GET, 'child')) {
                                         <input type="hidden" name="parent_id" value="<?= $parent_id ?>">
                                     <?php
                                     }
-                                    
+
                                     if ($child_id) {
                                         // è un paragrafo
                                     ?>

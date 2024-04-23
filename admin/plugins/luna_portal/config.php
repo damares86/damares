@@ -35,15 +35,15 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       last_edit_time datetime DEFAULT CURRENT_TIMESTAMP);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_parent_order
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      parent_pages_id TEXT NOT NULL);
+      parent_pages_id_arr TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_parent_child
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       parent_pages_id INT (5) NOT NULL,
-      child_pages_id TEXT NOT NULL);
+      child_pages_id_arr TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_child_paragraph
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       child_pages_id INT (5) NOT NULL,
-      paragraph_id TEXT NOT NULL);
+      paragraph_id_arr TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_settings
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,

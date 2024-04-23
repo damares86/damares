@@ -20,6 +20,17 @@ class Luna extends Common{
     public $auth_token ;
     public $last_login ;
     public $version ;
+    public $luna_products_id ;
+    public $title ;
+    public $content ;
+    public $last_editor ;
+    public $last_edit_time ;
+    public $parent_pages_id ;
+    public $parent_pages_id_arr ;
+    public $child_pages_id ;
+    public $child_pages_id_arr ;
+    public $paragraph_id ;
+    public $paragraph_id_arr ;
 
     public function customerExists(){
         

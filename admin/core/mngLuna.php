@@ -16,15 +16,7 @@ require __DIR__."/coreConfig.php";
 
 if(filter_input(INPUT_GET,"idToDel")){
 
-    $customer->id = filter_input(INPUT_GET,"idToDel");
-
-    if($customer->delete('id')){
-        header("Location: ../index.php?p=allCustomers&msg=customerDel");
-        exit;
-    }else{
-        header("Location: ../index.php?p=allCustomers&err=customerNoDel");
-        exit;
-    }
+    // TODO
 
 }
 
@@ -73,8 +65,91 @@ else if($operation == "addLunaProduct")
    }
 
 }
+else if($operation == 'addPage')
+{
+    // $type = filter_input(INPUT_POST,'type') ;
+    $prod_id = filter_input(INPUT_POST,'product_id') ;
+    $title = filter_input(INPUT_POST,'title') ;
+    $content = filter_input(INPUT_POST,'content') ;
+
+
+    if(filter_input(INPUT_POST,'child_id'))
+    {
+        // è un paragrafo
+        $child_id = filter_input(INPUT_POST,'child_id') ;
+        
+        $luna->title = $title ;
+        $luna->content = $content ;
+        $luna->last_editor = $_SESSION['account_id'] ;
+        $luna->table = 'luna_paragraph' ;
+
+        if($stmt->insert(['title','content','last_editor']))
+        {
+            $luna->table = 'luna_paragraph' ;
+            $luna->title = $title ;
+            $stmt1 = $luna->showAllWhere(['title'],'id') ;
+            $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
+            extract($row1) ;
+            
+            // get the paragraphs of the child page
+            $luna->table = 'luna_child_paragraph' ;
+            $luna->child_pages_id = $child_id ;
+            $stmt = $luna->showAllWhere(['child_pages_id'],'id') ;
+            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+            extract($row) ;
+
+            $arr = explode(',',$row['paragraph_id_arr']) ;
+            $arr[] = $row1['id'] ;
+            $str = implode(',',$arr) ;
+
+            $luna->table = 'luna_child_paragraph' ;
+            $luna->id = $row['id'] ;
+            $luna->paragraph_id_arr = $str ;
+
+            if($luna->update(['paragraph_id_arr'],'id'))
+            {
+                header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                exit ;
+            }
+            else
+            {
+                header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                exit ;
+            }
+
+
+        }
+        else
+        {
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentFail");
+            exit ;
+        }
+       
+    }
+    else if(filter_input(INPUT_POST,'parent_id'))
+    {
+        // è un child
+        $parent_id = filter_input(INPUT_POST,'parent_id') ;
+
+
+
+
+
+
+    }
+    else
+    {
+        // è un parent
+    }
+
+
+
+
+
+
+}
 else
 {
-    header("Location: ../index.php?p=allCustomers&err=noPost");
+    header("Location: ../index.php?err=noPost");
     exit;
 }
