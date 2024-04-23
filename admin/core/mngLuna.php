@@ -82,7 +82,7 @@ else if($operation == 'addPage')
         $luna->last_editor = $_SESSION['account_id'] ;
         $luna->table = 'luna_paragraph' ;
 
-        if($stmt->insert(['title','content','last_editor']))
+        if($luna->insert(['title','content','last_editor']))
         {
             $luna->table = 'luna_paragraph' ;
             $luna->title = $title ;
@@ -93,27 +93,48 @@ else if($operation == 'addPage')
             // get the paragraphs of the child page
             $luna->table = 'luna_child_paragraph' ;
             $luna->child_pages_id = $child_id ;
-            $stmt = $luna->showAllWhere('id',['child_pages_id']) ;
-            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
-            extract($row) ;
 
-            $arr = explode(',',$row['paragraph_id_arr']) ;
-            $arr[] = $row1['id'] ;
-            $str = implode(',',$arr) ;
+            if($luna->itemExists('child_pages_id'))
+            {   
 
-            $luna->table = 'luna_child_paragraph' ;
-            $luna->id = $row['id'] ;
-            $luna->paragraph_id_arr = $str ;
-
-            if($luna->update(['paragraph_id_arr'],'id'))
-            {
-                header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-                exit ;
+                $stmt = $luna->showAllWhere('id',['child_pages_id']) ;
+                $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+                extract($row) ;
+                
+                $arr = explode(',',$row['paragraph_id_arr']) ;
+                $arr[] = $row1['id'] ;
+                $str = implode(',',$arr) ;
+                
+                $luna->table = 'luna_child_paragraph' ;
+                $luna->id = $row['id'] ;
+                $luna->paragraph_id_arr = $str ;
+                
+                if($luna->update(['paragraph_id_arr'],'id'))
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                    exit ;
+                }
+                else
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                    exit ;
+                }
             }
             else
             {
-                header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-                exit ;
+                $luna->table = 'luna_child_paragraph' ;
+                $luna->child_pages_id = $child_id ;
+                $luna->paragraph_id_arr = $row1['id'] ;
+                if($luna->insert(['child_pages_id','paragraph_id_arr']))
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                    exit ;
+                }
+                else
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                    exit ;
+                }
             }
 
         }
@@ -134,7 +155,7 @@ else if($operation == 'addPage')
         $luna->last_editor = $_SESSION['account_id'] ;
         $luna->table = 'luna_child' ;
 
-        if($stmt->insert(['title','content','last_editor']))
+        if($luna->insert(['title','content','last_editor']))
         {
             $luna->table = 'luna_child' ;
             $luna->title = $title ;
@@ -145,27 +166,46 @@ else if($operation == 'addPage')
             // get the paragraphs of the child page
             $luna->table = 'luna_parent_child' ;
             $luna->parent_pages_id = $parent_id ;
-            $stmt = $luna->showAllWhere('id',['parent_pages_id']) ;
-            $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
-            extract($row) ;
+            if($luna->itemExists('parent_pages_id'))
+            {   
+                $stmt = $luna->showAllWhere('id',['parent_pages_id']) ;
+                $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+                extract($row) ;
+                
+                $arr = explode(',',$row['child_pages_id_arr']) ;
+                $arr[] = $row1['id'] ;
+                $str = implode(',',$arr) ;
+                
+                $luna->table = 'luna_parent_child' ;
+                $luna->id = $row['id'] ;
+                $luna->child_pages_id_arr = $str ;
 
-            $arr = explode(',',$row['child_pages_id_arr']) ;
-            $arr[] = $row1['id'] ;
-            $str = implode(',',$arr) ;
-
-            $luna->table = 'luna_parent_child' ;
-            $luna->id = $row['id'] ;
-            $luna->child_pages_id_arr = $str ;
-
-            if($luna->update(['child_pages_id_arr'],'id'))
-            {
-                header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-                exit ;
+                if($luna->update(['child_pages_id_arr'],'id'))
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                    exit ;
+                }
+                else
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                    exit ;
+                }
             }
             else
             {
-                header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-                exit ;
+                $luna->table = 'luna_parent_child' ;
+                $luna->parent_pages_id = $parent_id ;
+                $luna->child_pages_id_arr = $row1['id'] ;
+                if($luna->insert(['parent_pages_id','child_pages_id_arr']))
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                    exit ;
+                }
+                else
+                {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                    exit ;
+                }
             }
         }
         else
@@ -177,7 +217,7 @@ else if($operation == 'addPage')
     }
     else
     {
-        // è un parent
+        // it's a parent
         $luna->title = $title ;
         $luna->content = $content ;
         $luna->luna_products_id = $prod_id  ;
@@ -193,16 +233,18 @@ else if($operation == 'addPage')
             $row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
             extract($row1) ;
             
-            // get the paragraphs of the child page
+            // get the parent order for the product
             $luna->table = 'luna_parent_order' ;
             $luna->luna_products_id = $prod_id ;
 
             if($luna->itemExists('luna_products_id'))
             {                
+                // there are already parent pages for this product
                 $stmt = $luna->showAllWhere('id',['luna_products_id']) ;
                 $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
                 extract($row) ;
                 
+                // add the page to the other parent pages
                 $arr = explode(',',$row['parent_pages_id_arr']) ;
                 $arr[] = $row1['id'] ;
                 $str = implode(',',$arr) ;
@@ -224,6 +266,7 @@ else if($operation == 'addPage')
             }
             else
             {
+                // it's the first parent page for the product
                 $luna->table = 'luna_parent_order' ;
                 $luna->luna_products_id = $prod_id ;
                 $luna->parent_pages_id_arr = $row1['id'] ;
