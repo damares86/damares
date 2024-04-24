@@ -208,18 +208,6 @@ extract($row);
 </script>
 <script src='script/example.min.js'></script>
 
-<!-- <script>
-  // da modificare per intercettare tutti i container in ordine
-  $("#save").click(function() {
-    const data = $('#left-events > div').map(function(index, el) {
-      return el.id
-    }).get()
-
-    console.log(data)
-  })
-</script> -->
-
-
 <script>
   $("#save").click(function() {
     // Array per raccogliere tutti gli ID degli elementi
@@ -227,7 +215,9 @@ extract($row);
 
     // Recupera l'ordine corrente degli elementi per tutti i div e i loro discendenti all'interno di parent-block
     $('#parent-block').find('*').each(function() {
-      orderedItems.push(this.id);
+      if(this.id){
+        orderedItems.push(this.id);
+      }
     });
 
     // Invia l'array al server per salvarlo nel database o in un file JSON
