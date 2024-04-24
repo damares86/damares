@@ -120,14 +120,22 @@ extract($row);
             <?php
               if($stmt3->rowCount() > 0)
               {
-                while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC))
+                $row3 = $stmt3->fetch(PDO::FETCH_ASSOC) ;
+                extract($row3);
+                $par_arr = explode(',',$row3['paragraph_id_arr']) ;
+
+                foreach($par_arr as $par)
                 {
-                  extract($row3) ;
+                  $luna->table = 'luna_paragraph' ;
+                  $luna->id = $par ;
+                  $stmt5 = $luna->showAllWhere('id',['id']) ;
+                  $row5 = $stmt5->fetch(PDO::FETCH_ASSOC) ;
+                  extract($row5) ;
             ?>
-                <div id="paragraph_<?=$row2['id']?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                  <div id="c_<?=$row2['id']?>_p_<?=$row3['id']?>" class="paragraph_item rounded m-2">
-                    <?=$row3['title']?> <!-- 1 deve essere l'id del paragrafo--> &nbsp;
-                    <a href="index.php?p=editLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row2['id']?>&paragraph=<?=$row3['id']?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
+                <div id="paragraph_<?=$row4['id']?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                  <div id="c_<?=$row4['id']?>_p_<?=$row5['id']?>" class="paragraph_item rounded m-2">
+                    <?=$row5['title']?> <!-- 1 deve essere l'id del paragrafo--> &nbsp;
+                    <a href="index.php?p=editLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row4['id']?>&paragraph=<?=$row5['id']?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
                   </div>
               </div>
 
