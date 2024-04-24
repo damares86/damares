@@ -50,11 +50,19 @@ extract($row);
         <div id='parent-block' class='container-pages p-3'>
 
           <?php
+
+          $parent_div_arr = [] ;
+          $child_div_arr = [] ;
+          $paragraph_div_arr = [] ;
+
           $luna->table = 'luna_parent';
           $luna->luna_products_id = $prod_id;
           $stmt1 = $luna->showAllWhere('id', ['luna_products_id']);
           while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
             extract($row1);
+
+            $parent_div_arr[] = $row1['id'] ;
+            $child_div_arr[] = $row1['id'] ;
 
             // check if there are some children
             $disable = '';
@@ -114,6 +122,7 @@ extract($row);
                       <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row1['id'] ?>&child=<?= $row4['id'] ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
                       <?php
                       if ($stmt3->rowCount() > 0) {
+                        $paragraph_div_arr[] = $row4['id'] ;
                         ?>
                         <div id="paragraph_<?= $row4['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
                         <?php
@@ -169,39 +178,37 @@ extract($row);
   </div>
 </section>
 
-
 <script src='script/dragula.js'></script>
 <script>
   var blocks_array = [];
 
-  // ciclo tutti i parent, poi i relativi child e per ogni child i relativi paragraph
-  // ogni volta che ho un id devo creare la variabile tipo c_1 e pushare l'id dell'elemento nell'array 'blocks_array'
-  // es ho l'id della pagina child 2 quindi
-  // var c_2 = 'child_2';
-  // blocks_array.push(c_2);
-
   var p = 'parent-block';
   blocks_array.push(p);
-  // var parent_13 = 'parent_13';
-  // blocks_array.push(parent_13);
+  <?php
+    foreach($parent_div_arr as $item)
+    {
+  ?>
+  var child_<?=$item?> = 'child_<?=$item?>';
+  blocks_array.push(child_<?=$item?>) ;
+  <?php
+    }
+  ?>
 
-  // var parent_15 = 'parent_15';
-  // blocks_array.push(parent_15);
-  var c_1 = 'child_13';
-  blocks_array.push(c_1);
-  var p_1 = 'paragraph_1';
-  blocks_array.push(p_1);
-  var p_3 = 'paragraph_2';
-  blocks_array.push(p_3);
-  // var p_5 = 'paragraph_5';
-  // blocks_array.push(p_5);
-  // var p_7 = 'paragraph_7';
-  // blocks_array.push(p_7);
-  console.log(blocks_array)
+  <?php
+      foreach($paragraph_div_arr as $item_paragraph)
+      {
+        ?>
+    
+  var paragraph_<?=$item_paragraph?> = 'paragraph_<?=$item_paragraph?>';    
+  blocks_array.push(paragraph_<?=$item_paragraph?>) ;
+  <?php
+      }
+  ?>
+
 </script>
 <script src='script/example.min.js'></script>
 
-<script>
+<!-- <script>
   // da modificare per intercettare tutti i container in ordine
   $("#save").click(function() {
     const data = $('#left-events > div').map(function(index, el) {
@@ -210,58 +217,8 @@ extract($row);
 
     console.log(data)
   })
-</script>
+</script> -->
 
-
-<!-- TOFIX -->
-<!-- <script>
-  var blocks_array = [];
-
-  // ciclo tutti i parent, poi i relativi child e per ogni child i relativi paragraph
-  // ogni volta che ho un id devo creare la variabile tipo c_1 e pushare l'id dell'elemento nell'array 'blocks_array'
-  // es ho l'id della pagina child 2 quindi
-  // var c_2 = 'child_2';
-  // blocks_array.push(c_2);
-
-  var p = 'parent-block';
-  blocks_array.push(p);
-
-  <?php
-    foreach($parent_div_arr as $item)
-    {
-  ?>
-    var parent_<?=$item?> = 'parent_<?=$item?>' ;
-    blocks_array.push(parent_<?=$item?>) ;
-    var child_<?=$item?> = 'child_<?=$item?>';
-    blocks_array.push(child_<?=$item?>) ;
-    <?php
-      foreach($child_div_arr as $item_child)
-      {
-        ?>
-    // var p_<?=$item?>_c_<?=$item_child?> = 'p_<?=$item?>_c_<?=$item_child?>';
-    // blocks_array.push(p_<?=$item?>_c_<?=$item_child?>) ;
-    var paragraph_<?=$item_child?> = 'paragraph_<?=$item_child?>'
-    blocks_array.push(paragraph_<?=$item_child?>) ;
-    <?php
-      foreach($paragraph_div_arr as $item_paragraph)
-      {
-        ?>
-    
-    // var c_<?=$item_child?>_p_<?=$item_paragraph?> = 'c_<?=$item_child?>_p_<?=$item_paragraph?>';    
-    // blocks_array.push(c_<?=$item_child?>_p_<?=$item_paragraph?>) ;
-  <?php
-      }
-  ?>
-  <?php
-      }
-    }
-  ?>
-
-  console.log(blocks_array)
-</script>
-<script src='script/dragula.js'></script>
-
-<script src='script/example.min.js'></script>
 
 <script>
   $("#save").click(function() {
@@ -276,16 +233,4 @@ extract($row);
     // Invia l'array al server per salvarlo nel database o in un file JSON
     console.log('Ordine degli elementi:', orderedItems);
   });
-</script> -->
-
-
-<!-- <script>
-  // da modificare per intercettare tutti i container in ordine
-  $("#save").click(function() {
-    const data = $('#left-events > div').map(function(index, el) {
-      return el.id
-    }).get()
-
-    console.log(data)
-  })
-</script> -->
+</script>
