@@ -86,7 +86,6 @@ if (filter_input(INPUT_GET, 'child')) {
 
 
                                     <input type="hidden" name="operation" value="addPage">
-                                    <!-- <input type="hidden" name="type" value="<?= $type ?>"> -->
                                     <input type="hidden" name="product_id" value="<?= $prod_id ?>">
                                     <?php
                                     if ($parent_id) {
