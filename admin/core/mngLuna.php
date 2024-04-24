@@ -20,6 +20,9 @@ if(filter_input(INPUT_GET,"idToDel")){
 
 }
 
+print_r($_POST) ;
+exit;
+
 $operation = filter_input(INPUT_POST,"operation") ;
 
 // check if there's a customer to edit or add

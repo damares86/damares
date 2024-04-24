@@ -225,6 +225,20 @@ $("#save").click(function() {
       }
     });
 
+    $.ajax({
+        url: 'core/mngLuna.php', // URL della pagina PHP per il salvataggio
+        method: 'POST', // Metodo HTTP da utilizzare
+        data: { orderedItems: JSON.stringify(orderedItems) }, // Dati da inviare (convertiti in stringa JSON)
+        success: function(response) {
+            console.log('Dati inviati con successo al server');
+            // Puoi gestire la risposta del server qui
+        },
+        error: function(xhr, status, error) {
+            console.error('Si è verificato un errore durante l\'invio dei dati al server:', error);
+            // Gestisci gli errori qui, se necessario
+        }
+    });
+
     // Invia l'array al server per salvarlo nel database o in un file JSON
     console.log('Ordine degli elementi con livello di innestamento:', orderedItems);
 });
