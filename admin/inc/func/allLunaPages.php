@@ -209,18 +209,24 @@ extract($row);
 <script src='script/example.min.js'></script>
 
 <script>
-  $("#save").click(function() {
-    // Array per raccogliere tutti gli ID degli elementi
+$("#save").click(function() {
+    // Array per raccogliere tutti gli ID degli elementi e i loro livelli di innestamento
     let orderedItems = [];
 
     // Recupera l'ordine corrente degli elementi per tutti i div e i loro discendenti all'interno di parent-block
     $('#parent-block').find('*').each(function() {
       if(this.id){
-        orderedItems.push(this.id);
+        // Recupera l'ID e il livello di innestamento dell'elemento corrente
+        let elementId = this.id;
+        let elementLevel = $(this).parents('.container-pages').length; // Calcola il livello di innestamento
+
+        // Aggiungi l'ID e il livello di innestamento all'array
+        orderedItems.push({ id: elementId, livello: elementLevel });
       }
     });
 
     // Invia l'array al server per salvarlo nel database o in un file JSON
-    console.log('Ordine degli elementi:', orderedItems);
-  });
+    console.log('Ordine degli elementi con livello di innestamento:', orderedItems);
+});
+
 </script>
