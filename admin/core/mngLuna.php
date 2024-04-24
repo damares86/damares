@@ -195,7 +195,7 @@ else if($operation == 'addPage')
             {
                 $luna->table = 'luna_parent_child' ;
                 $luna->parent_pages_id = $parent_id ;
-                $luna->child_pages_id_arr = $row1['id'] ;
+                $luna->child_pages_id_arr =  $row1['id'] ;
                 if($luna->insert(['parent_pages_id','child_pages_id_arr']))
                 {
                     header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
@@ -269,7 +269,7 @@ else if($operation == 'addPage')
                 // it's the first parent page for the product
                 $luna->table = 'luna_parent_order' ;
                 $luna->luna_products_id = $prod_id ;
-                $luna->parent_pages_id_arr = $row1['id'] ;
+                $luna->parent_pages_id_arr =  $row1['id'] ;
                 if($luna->insert(['parent_pages_id_arr','luna_products_id']))
                 {
                     header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");

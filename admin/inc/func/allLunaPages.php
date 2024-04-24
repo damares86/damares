@@ -63,10 +63,13 @@ extract($row);
               $luna->table = 'luna_parent_child' ;
               $luna->parent_pages_id = $row1['id'] ;
               $stmt2 = $luna->showAllWhere('id',['parent_pages_id']) ;
+              
               if($stmt2->rowCount() == 0 )
               {
                 $disable = 'disable' ;
+
               }
+
           ?>
             <div id="parent_<?=$row1['id']?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
               <?=$row1['title']?>
@@ -77,17 +80,25 @@ extract($row);
               &nbsp;
               <a href="index.php?p=addLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a child page</a>
             <?php
-              if($stmt2->rowCount() == 0 )
+              if($stmt2->rowCount() > 0 )
               {
-            ?>
+                $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
+                extract($row2);
+                $child_arr = explode(',',$row2['child_pages_id_arr']) ;
+
+                ?>
               <div id="child_<?=$row1['id']?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
-            <?php
-                while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC))
+              <?php
+                foreach($child_arr as $item)
                 {
-                  extract($row2);
+                  $luna->table = 'luna_child' ;
+                  $luna->id = $item ;
+                  $stmt4 = $luna->showAllWhere('id',['id']) ;
+                  $row4 = $stmt4->fetch(PDO::FETCH_ASSOC) ;
+                  extract($row4) ;
             ?>
-                <div id="p_<?=$row1['id']?>_c_<?=$row2['id']?>" class="child_item rounded m-2">
-                <?=$row2['title']?> &nbsp;
+                <div id="p_<?=$row1['id']?>_c_<?=$row4['id']?>" class="child_item rounded m-2">
+                <?=$row4['title']?> &nbsp;
             
             <?php
               $disable = '' ;
@@ -100,12 +111,12 @@ extract($row);
                 $disable = 'disable' ;
               }
             ?>
-                <a class="btn icon btn-sm btn-info mx-2 <?=$disable?>" data-bs-toggle="collapse" href="#paragraph_<?=$row2['id']?>" role="button" aria-expanded="false" aria-controls="paragraph_<?=$row2['id']?>">
+                <a class="btn icon btn-sm btn-info mx-2 <?=$disable?>" data-bs-toggle="collapse" href="#paragraph_<?=$row4['id']?>" role="button" aria-expanded="false" aria-controls="paragraph_<?=$row4['id']?>">
                   <i class="bi bi-chevron-down"></i>
                 </a> &nbsp;
-                <a href="index.php?p=editLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row2['id']?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
+                <a href="index.php?p=editLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row4['id']?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
                 &nbsp;
-                <a href="index.php?p=addLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row2['id']?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
+                <a href="index.php?p=addLunaPage&prod=<?=$prod_id?>&parent=<?=$row1['id']?>&child=<?=$row4['id']?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
             <?php
               if($stmt3->rowCount() > 0)
               {

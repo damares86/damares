@@ -49,6 +49,7 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
     $export = true;
   }
 }
+$summernote='';
 ?>
 
 <!DOCTYPE html>
