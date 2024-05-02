@@ -51,9 +51,9 @@ extract($row);
 
           <?php
 
-          $parent_div_arr = [] ;
-          $child_div_arr = [] ;
-          $paragraph_div_arr = [] ;
+          $parent_div_arr = [];
+          $child_div_arr = [];
+          $paragraph_div_arr = [];
 
           $luna->table = 'luna_parent';
           $luna->luna_products_id = $prod_id;
@@ -61,8 +61,8 @@ extract($row);
           while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
             extract($row1);
 
-            $parent_div_arr[] = $row1['id'] ;
-            $child_div_arr[] = $row1['id'] ;
+            $parent_div_arr[] = $row1['id'];
+            $child_div_arr[] = $row1['id'];
 
             // check if there are some children
             $disable = '';
@@ -71,16 +71,21 @@ extract($row);
             $luna->parent_pages_id = $row1['id'];
             $stmt2 = $luna->showAllWhere('id', ['parent_pages_id']);
 
-            if ($stmt2->rowCount() == 0) {
-              $disable = 'disable';
-            }
+
 
           ?>
             <div id="parent_<?= $row1['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
               <?= $row1['title'] ?>
-              <a class="btn icon btn-sm btn-info mx-2 <?= $disable ?>" data-bs-toggle="collapse" href="#child_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row1['id'] ?>">
-                <i class="bi bi-chevron-down"></i>
-              </a> &nbsp;
+              <?php
+              if ($stmt2->rowCount() > 0) {
+              ?>
+                <a class="btn icon btn-sm btn-info mx-2 <?= $disable ?>" data-bs-toggle="collapse" href="#child_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row1['id'] ?>">
+                  <i class="bi bi-chevron-down"></i>
+                </a>
+              <?php
+              }
+              ?>
+               &nbsp;
               <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&parent=<?= $row1['id'] ?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
               &nbsp;
               <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row1['id'] ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a child page</a>
@@ -99,7 +104,7 @@ extract($row);
                     $stmt4 = $luna->showAllWhere('id', ['id']);
                     $row4 = $stmt4->fetch(PDO::FETCH_ASSOC);
                     extract($row4);
-                    
+
                   ?>
                     <div id="p_<?= $row1['id'] ?>_c_<?= $row4['id'] ?>" class="child_item rounded m-2">
                       <?= $row4['title'] ?> &nbsp;
@@ -122,31 +127,31 @@ extract($row);
                       <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row1['id'] ?>&child=<?= $row4['id'] ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
                       <?php
                       if ($stmt3->rowCount() > 0) {
-                        $paragraph_div_arr[] = $row4['id'] ;
-                        ?>
-                        <div id="paragraph_<?= $row4['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-                        <?php
-                        $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
-                        extract($row3);
-                        $par_arr = explode(',', $row3['paragraph_id_arr']);
-
-                        foreach ($par_arr as $par) {
-                          $luna->table = 'luna_paragraph';
-                          $luna->id = $par;
-                          $stmt5 = $luna->showAllWhere('id', ['id']);
-                          $row5 = $stmt5->fetch(PDO::FETCH_ASSOC);
-                          extract($row5);
+                        $paragraph_div_arr[] = $row4['id'];
                       ?>
+                        <div id="paragraph_<?= $row4['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                          <?php
+                          $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+                          extract($row3);
+                          $par_arr = explode(',', $row3['paragraph_id_arr']);
+
+                          foreach ($par_arr as $par) {
+                            $luna->table = 'luna_paragraph';
+                            $luna->id = $par;
+                            $stmt5 = $luna->showAllWhere('id', ['id']);
+                            $row5 = $stmt5->fetch(PDO::FETCH_ASSOC);
+                            extract($row5);
+                          ?>
                             <div id="c_<?= $row4['id'] ?>_p_<?= $row5['id'] ?>" class="paragraph_item rounded m-2">
                               <?= $row5['title'] ?> <!-- 1 deve essere l'id del paragrafo--> &nbsp;
                               <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&parent=<?= $row1['id'] ?>&child=<?= $row4['id'] ?>&paragraph=<?= $row5['id'] ?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit paragraph</a>
                             </div>
-                            
-                            <?php
-                        }
-                        ?>
+
+                          <?php
+                          }
+                          ?>
                         </div>
-                        <?php
+                      <?php
                       }
                       ?>
                     </div>
@@ -185,62 +190,63 @@ extract($row);
   var p = 'parent-block';
   blocks_array.push(p);
   <?php
-    foreach($parent_div_arr as $item)
-    {
+  foreach ($parent_div_arr as $item) {
   ?>
-  var child_<?=$item?> = 'child_<?=$item?>';
-  blocks_array.push(child_<?=$item?>) ;
+    var child_<?= $item ?> = 'child_<?= $item ?>';
+    blocks_array.push(child_<?= $item ?>);
   <?php
-    }
-  ?>
-
-  <?php
-      foreach($paragraph_div_arr as $item_paragraph)
-      {
-        ?>
-    
-  var paragraph_<?=$item_paragraph?> = 'paragraph_<?=$item_paragraph?>';    
-  blocks_array.push(paragraph_<?=$item_paragraph?>) ;
-  <?php
-      }
+  }
   ?>
 
+  <?php
+  foreach ($paragraph_div_arr as $item_paragraph) {
+  ?>
+
+    var paragraph_<?= $item_paragraph ?> = 'paragraph_<?= $item_paragraph ?>';
+    blocks_array.push(paragraph_<?= $item_paragraph ?>);
+  <?php
+  }
+  ?>
 </script>
 <script src='script/example.min.js'></script>
 
 <script>
-$("#save").click(function() {
+  $("#save").click(function() {
     // Array per raccogliere tutti gli ID degli elementi e i loro livelli di innestamento
     let orderedItems = [];
 
     // Recupera l'ordine corrente degli elementi per tutti i div e i loro discendenti all'interno di parent-block
     $('#parent-block').find('*').each(function() {
-      if(this.id){
+      if (this.id) {
         // Recupera l'ID e il livello di innestamento dell'elemento corrente
         let elementId = this.id;
         let elementLevel = $(this).parents('.container-pages').length; // Calcola il livello di innestamento
 
         // Aggiungi l'ID e il livello di innestamento all'array
-        orderedItems.push({ id: elementId, livello: elementLevel });
+        orderedItems.push({
+          id: elementId,
+          livello: elementLevel
+        });
       }
     });
 
     $.ajax({
-        url: 'core/mngLuna.php', // URL della pagina PHP per il salvataggio
-        method: 'POST', // Metodo HTTP da utilizzare
-        data: { orderedItems: JSON.stringify(orderedItems) }, // Dati da inviare (convertiti in stringa JSON)
-        success: function(response) {
-            console.log('Dati inviati con successo al server');
-            // Puoi gestire la risposta del server qui
-        },
-        error: function(xhr, status, error) {
-            console.error('Si è verificato un errore durante l\'invio dei dati al server:', error);
-            // Gestisci gli errori qui, se necessario
-        }
+      url: 'core/mngLuna.php', // URL della pagina PHP per il salvataggio
+      method: 'POST', // Metodo HTTP da utilizzare
+      data: {
+        orderedItems: JSON.stringify(orderedItems)
+      }, // Dati da inviare (convertiti in stringa JSON)
+      success: function(response) {
+        console.log('Dati inviati con successo al server');
+        // Puoi gestire la risposta del server qui
+      },
+      error: function(xhr, status, error) {
+        console.error('Si è verificato un errore durante l\'invio dei dati al server:', error);
+        // Gestisci gli errori qui, se necessario
+      }
     });
 
     // Invia l'array al server per salvarlo nel database o in un file JSON
     console.log('Ordine degli elementi con livello di innestamento:', orderedItems);
-});
-
+  });
 </script>

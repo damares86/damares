@@ -14,37 +14,13 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       version VARCHAR(20) DEFAULT NULL);
-      CREATE TABLE IF NOT EXISTS " . $prefix . "luna_parent
+      CREATE TABLE IF NOT EXISTS " . $prefix . "luna_pages
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
       content TEXT NOT NULL,
       luna_products_id INT (5) NOT NULL,
       last_editor INT(5) NOT NULL,
       last_edit_time datetime DEFAULT CURRENT_TIMESTAMP);
-      CREATE TABLE IF NOT EXISTS " . $prefix . "luna_child
-      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      title VARCHAR(255) NOT NULL,
-      content TEXT NOT NULL,
-      last_editor INT(5) NOT NULL,
-      last_edit_time datetime DEFAULT CURRENT_TIMESTAMP);
-      CREATE TABLE IF NOT EXISTS " . $prefix . "luna_paragraph
-      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      title VARCHAR(255) NOT NULL,
-      content TEXT NOT NULL,
-      last_editor INT(5) NOT NULL,
-      last_edit_time datetime DEFAULT CURRENT_TIMESTAMP);
-      CREATE TABLE IF NOT EXISTS " . $prefix . "luna_parent_order
-      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      luna_products_id INT (5) NOT NULL,
-      parent_pages_id_arr TEXT NOT NULL);
-      CREATE TABLE IF NOT EXISTS " . $prefix . "luna_parent_child
-      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      parent_pages_id INT (5) NOT NULL,
-      child_pages_id_arr TEXT NOT NULL);
-      CREATE TABLE IF NOT EXISTS " . $prefix . "luna_child_paragraph
-      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      child_pages_id INT (5) NOT NULL,
-      paragraph_id_arr TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_settings
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
@@ -80,4 +56,4 @@ $child_table = [
       ]
 ];
 
-$query_drop_table = "DROP TABLE  " . $prefix . "luna_products, " . $prefix . "luna_parent, " . $prefix . "luna_child, " . $prefix . "luna_paragraph, " . $prefix . "luna_parent_order, " . $prefix . "luna_parent_child, " . $prefix . "luna_child_paragraph, " . $prefix . "luna_settings, " . $prefix . "luna_users ";
+$query_drop_table = "DROP TABLE  " . $prefix . "luna_products, " . $prefix . "luna_pages, " . $prefix . "luna_settings, " . $prefix . "luna_users ";
