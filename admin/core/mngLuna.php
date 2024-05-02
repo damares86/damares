@@ -20,9 +20,6 @@ if(filter_input(INPUT_GET,"idToDel")){
 
 }
 
-print_r($_POST) ;
-exit;
-
 $operation = filter_input(INPUT_POST,"operation") ;
 
 // check if there's a customer to edit or add
@@ -58,8 +55,33 @@ else if($operation == "addLunaProduct")
 
    if($luna->insert(['name','version']))
    {
-        header('Location:../index.php?p=allLunaProducts&msg=lunaProdSucc');
-        exit ;
+        $luna->table = 'luna_products' ;
+        $luna->name = filter_input(INPUT_POST,'name') ; 
+        $stmt = $luna->showAllWhere('id',['name']) ;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+        extract($row);
+
+        $query_text = "CREATE TABLE IF NOT EXISTS luna_pages_".$row['id']."
+        ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        content TEXT NOT NULL,
+        last_editor INT(5) NOT NULL,
+        last_edit_time datetime DEFAULT CURRENT_TIMESTAMP)";
+
+        if(!$db->query($query_text))
+        {
+            $luna->table = 'luna_products' ;
+            $luna->id = $row['id'] ;
+            $luna->delete('id') ;
+            header('Location:../index.php?p=allLunaProducts&err=lunaProdFailDb');
+            exit ;
+        }
+        else
+        {
+            header('Location:../index.php?p=allLunaProducts&msg=lunaProdSucc');
+            exit ;
+        }
+
    }
    else
    {

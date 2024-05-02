@@ -14,13 +14,6 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       version VARCHAR(20) DEFAULT NULL);
-      CREATE TABLE IF NOT EXISTS " . $prefix . "luna_pages
-      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      title VARCHAR(255) NOT NULL,
-      content TEXT NOT NULL,
-      luna_products_id INT (5) NOT NULL,
-      last_editor INT(5) NOT NULL,
-      last_edit_time datetime DEFAULT CURRENT_TIMESTAMP);
       CREATE TABLE IF NOT EXISTS " . $prefix . "luna_settings
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,

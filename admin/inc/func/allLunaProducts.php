@@ -46,7 +46,7 @@ $stmt = $luna->showAll('id');
           <?php
           while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           ?>
-            <tr <?= $class ?>>
+            <tr>
               <td><?= $row['name'] ?></td>
               <td><?= $row['version'] ?></td>
               <td>

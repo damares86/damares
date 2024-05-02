@@ -2,9 +2,8 @@
 
 // get the product data
 $prod_id = filter_input(INPUT_GET, 'prod');
-$luna->table = 'luna_products';
-$luna->id = $prod_id;
-$stmt = $luna->showAllWhere('id', ['id']);
+$luna->table = 'luna_pages_'.$prod_id;
+$stmt = $luna->showAll('id');
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 extract($row);
 
