@@ -32,6 +32,14 @@ if(!is_dir($portal_dir)){
 	umask($oldmask);
 }
 
+$json_dir = '../inc/luna_pages/bck' ;
+
+if(!is_dir($portal_dir)){
+	$oldmask = umask(0);
+	mkdir($portal_dir, 0777, true);
+	umask($oldmask);
+}
+
 
 // copy portal files
 foreach (glob("../plugins/luna_portal/portal/*") as $row) {

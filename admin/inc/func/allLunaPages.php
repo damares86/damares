@@ -2,25 +2,25 @@
 
 // get the product data
 $prod_id = filter_input(INPUT_GET, 'prod');
-$luna->table = 'luna_pages_'.$prod_id;
-$stmt = $luna->showAll('id');
-if($stmt->rowCount()>0)
-{
-  $row = $stmt->fetch(PDO::FETCH_ASSOC);
-  extract($row);
-}
+// $luna->table = 'luna_pages_'.$prod_id;
+// $stmt = $luna->showAll('id');
+// if($stmt->rowCount()>0)
+// {
+//   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+//   extract($row);
+// }
 
-$luna->table = 'luna_products' ;
-$luna->id = $prod_id ;
-$stmt1 = $luna->showAllWhere('id',['id']) ;
-$row1 = $stmt1->fetch(PDO::FETCH_ASSOC) ;
-extract($row1) ;
+$luna->table = 'luna_products';
+$luna->id = $prod_id;
+$stmt1 = $luna->showAllWhere('id', ['id']);
+$row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+extract($row1);
 
 ?>
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$row1['name']?> - Pages Management</h3>
+      <h3><?= $row1['name'] ?> - Pages Management</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -47,20 +47,50 @@ extract($row1) ;
   <div class="card shadow">
     <div class="card-header">
       <h4 class="d-inline"><?= $row['name'] ?></h4> &nbsp; &nbsp; &nbsp;
-      <a href="index.php?p=addLunaPage&prod=<?=$prod_id?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a new parent page</a>
+      <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a new parent page</a>
     </div>
     <div class="card-body">
+
+    <div class='wrapper'>
+
+    <div id='parent-block' class='container-pages p-3'>
       <?php
-        if(!file_exists('inc/luna_pages/pages_'.$prod_id.'.php'))
-        {
-          echo "Nessuna pagina presente" ;
+      if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.php') || !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.php')) {
+        echo "Nessuna pagina presente";
+      } else {
+        if (file_exists('inc/luna_pages/pages_' . $prod_id . '.php')) {
+          require 'inc/luna_pages/pages_' . $prod_id . '.php';
+        } else {
+          require 'inc/luna_pages/bck/pages_' . $prod_id . '.php';
         }
-        else
-        {
-          // qui inizia il bello
+
+
+        foreach ($pages as $page) {
+
+          $luna->table = 'luna_pages_' . $prod_id;
+          $luna->id = $page;
+          $stmt = $luna->showAllWhere('id', ['id']);
+
+          $row = $stmt->fetch(PDO::FETCH_ASSOC);
+          extract($row);
+
+      ?>
+
+          <div id="parent_<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
+            <?= $row['title'] ?>
+          </div>
+
+      <?php
+
         }
+      }
       ?>
     </div>
+
+    </div>
+    </div>
+    <button id="save" class="btn btn-success m-3 w-25">Save</button>
+
   </div>
 </section>
 
