@@ -50,44 +50,53 @@ extract($row1);
       <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a new parent page</a>
     </div>
     <div class="card-body">
+      <!-- Alert di successo (da mostrare quando il salvataggio è riuscito) -->
+      <div class="alert alert-success" style="display: none;" role="alert">
+        Salvataggio riuscito!
+      </div>
 
-    <div class='wrapper'>
+      <!-- Alert di errore (da mostrare quando si verifica un errore durante il salvataggio) -->
+      <div class="alert alert-danger" style="display: none;" role="alert">
+        Si è verificato un errore durante il salvataggio.
+      </div>
 
-    <div id='parent-block' class='container-pages p-3'>
-      <?php
-      if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.php') || !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.php')) {
-        echo "Nessuna pagina presente";
-      } else {
-        if (file_exists('inc/luna_pages/pages_' . $prod_id . '.php')) {
-          require 'inc/luna_pages/pages_' . $prod_id . '.php';
-        } else {
-          require 'inc/luna_pages/bck/pages_' . $prod_id . '.php';
-        }
+      <div class='wrapper'>
+
+        <div id='parent-block' class='container-pages p-3'>
+          <?php
+          if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.php') || !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.php')) {
+            echo "Nessuna pagina presente";
+          } else {
+            if (file_exists('inc/luna_pages/pages_' . $prod_id . '.php')) {
+              require 'inc/luna_pages/pages_' . $prod_id . '.php';
+            } else {
+              require 'inc/luna_pages/bck/pages_' . $prod_id . '.php';
+            }
 
 
-        foreach ($pages as $page) {
+            foreach ($pages as $page) {
 
-          $luna->table = 'luna_pages_' . $prod_id;
-          $luna->id = $page;
-          $stmt = $luna->showAllWhere('id', ['id']);
+              $luna->table = 'luna_pages_' . $prod_id;
+              $luna->id = $page;
+              $stmt = $luna->showAllWhere('id', ['id']);
 
-          $row = $stmt->fetch(PDO::FETCH_ASSOC);
-          extract($row);
+              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+              extract($row);
 
-      ?>
+          ?>
 
-          <div id="parent_<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
-            <?= $row['title'] ?>
-          </div>
+              <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
+                <?= $row['title'] ?>
+              </div>
 
-      <?php
+          <?php
 
-        }
-      }
-      ?>
-    </div>
+            }
+          }
+          ?>
+        </div>
 
-    </div>
+      </div>
     </div>
     <button id="save" class="btn btn-success m-3 w-25">Save</button>
 
@@ -123,17 +132,13 @@ extract($row1);
 
 <script>
   $("#save").click(function() {
-    // Array per raccogliere tutti gli ID degli elementi e i loro livelli di innestamento
     let orderedItems = [];
 
-    // Recupera l'ordine corrente degli elementi per tutti i div e i loro discendenti all'interno di parent-block
     $('#parent-block').find('*').each(function() {
       if (this.id) {
-        // Recupera l'ID e il livello di innestamento dell'elemento corrente
         let elementId = this.id;
-        let elementLevel = $(this).parents('.container-pages').length; // Calcola il livello di innestamento
+        let elementLevel = $(this).parents('.container-pages').length;
 
-        // Aggiungi l'ID e il livello di innestamento all'array
         orderedItems.push({
           id: elementId,
           livello: elementLevel
@@ -141,23 +146,32 @@ extract($row1);
       }
     });
 
+    let additionalData = {
+      luna_product_id: <?= $prod_id ?>
+    };
+
+    let postData = {
+      orderedItems: JSON.stringify(orderedItems),
+      additionalData: JSON.stringify(additionalData)
+    };
+
+    // Invia l'array al server utilizzando AJAX
     $.ajax({
-      url: 'core/mngLuna.php', // URL della pagina PHP per il salvataggio
+      url: 'core/mngLunaOrder.php', // URL della pagina PHP per il salvataggio
       method: 'POST', // Metodo HTTP da utilizzare
-      data: {
-        orderedItems: JSON.stringify(orderedItems)
-      }, // Dati da inviare (convertiti in stringa JSON)
+      data: postData, // Dati da inviare (convertiti in stringa JSON)
       success: function(response) {
-        console.log('Dati inviati con successo al server');
-        // Puoi gestire la risposta del server qui
+        console.log(response)
+        if (response && response.success) {
+          $('.alert-success').html(response.message).fadeIn();
+        } else {
+          $('.alert-danger').html(response.message || 'Si è verificato un errore durante il salvataggio.').fadeIn();
+        }
       },
       error: function(xhr, status, error) {
-        console.error('Si è verificato un errore durante l\'invio dei dati al server:', error);
-        // Gestisci gli errori qui, se necessario
+        console.error('Errore AJAX:', error);
+        $('.alert-danger').html('Si è verificato un errore durante la richiesta AJAX.').fadeIn();
       }
     });
-
-    // Invia l'array al server per salvarlo nel database o in un file JSON
-    console.log('Ordine degli elementi con livello di innestamento:', orderedItems);
   });
 </script>

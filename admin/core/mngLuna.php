@@ -20,6 +20,48 @@ if (filter_input(INPUT_GET, "idToDel")) {
 
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && filter_input(INPUT_POST,'page_prod_id')) {
+
+    // Funzione ricorsiva per costruire la struttura gerarchica dell'array
+function buildHierarchy($items, $parentId = null) {
+    $branch = array();
+
+    foreach ($items as $item) {
+        if ($item['livello'] == $parentId) {
+            $children = buildHierarchy($items, $item['livello'] + 1);
+            if ($children) {
+                $item['child'] = $children;
+            }
+            $branch[] = $item;
+        }
+    }
+
+    return $branch;
+}
+if (isset($_POST['orderedItems'])) {
+    // Decodifica i dati JSON inviati e ottieni l'array $orderedItems
+    $orderedItems = json_decode($_POST['orderedItems'], true);
+}
+// Chiama la funzione per costruire la struttura gerarchica dell'array
+$hierarchy = buildHierarchy($orderedItems);
+
+$pages = "<?php".PHP_EOL.$hierarchy.PHP_EOL."?>";
+
+if (file_put_contents('../inc/luna_pages/prova.php', $pages, FILE_APPEND)) {
+
+    chmod($real_file, 0777);
+ 
+    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+    exit;
+
+} 
+// Output dell'array gerarchico
+echo "<pre>";
+print_r($hierarchy);
+echo "</pre>";
+
+} 
+
 $operation = filter_input(INPUT_POST, "operation");
 
 // check if there's a customer to edit or add
