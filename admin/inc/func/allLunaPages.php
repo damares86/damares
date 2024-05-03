@@ -2,13 +2,6 @@
 
 // get the product data
 $prod_id = filter_input(INPUT_GET, 'prod');
-// $luna->table = 'luna_pages_'.$prod_id;
-// $stmt = $luna->showAll('id');
-// if($stmt->rowCount()>0)
-// {
-//   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-//   extract($row);
-// }
 
 $luna->table = 'luna_products';
 $luna->id = $prod_id;
@@ -64,24 +57,33 @@ extract($row1);
 
         <div id='parent-block' class='container-pages p-3'>
           <?php
-          if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.php') || !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.php')) {
+            if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.json') && !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.json')) {
             echo "Nessuna pagina presente";
           } else {
-            if (file_exists('inc/luna_pages/pages_' . $prod_id . '.php')) {
-              require 'inc/luna_pages/pages_' . $prod_id . '.php';
+            if (file_exists('inc/luna_pages/pages_' . $prod_id . '.json')) {
+
+              $pages_json = file_get_contents('inc/luna_pages/pages_' . $prod_id . '.json') ;
+              $pages_data = json_decode($pages_json,true);
+
             } else {
-              require 'inc/luna_pages/bck/pages_' . $prod_id . '.php';
+              
+              $pages_json = file_get_contents('inc/luna_pages/bck/pages_' . $prod_id . '.json') ;
+              $pages_data = json_decode($pages_json,true);
             }
 
+            print_r($pages_data[1][0]);
 
-            foreach ($pages as $page) {
+            for($idx = 1; $idx < 4; $idx++){
 
-              $luna->table = 'luna_pages_' . $prod_id;
-              $luna->id = $page;
-              $stmt = $luna->showAllWhere('id', ['id']);
+              foreach($pages_data[$idx] as $parent){
 
-              $row = $stmt->fetch(PDO::FETCH_ASSOC);
-              extract($row);
+                $luna->table = 'luna_pages_' . $prod_id;
+                $luna->id = $parent;
+                $stmt = $luna->showAllWhere('id', ['id']);
+                
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                extract($row);
+              }
 
           ?>
 
