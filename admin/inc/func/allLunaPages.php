@@ -57,39 +57,38 @@ extract($row1);
 
         <div id='parent-block' class='container-pages p-3'>
           <?php
-            if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.json') && !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.json')) {
+          if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.json') && !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.json')) {
             echo "Nessuna pagina presente";
           } else {
             if (file_exists('inc/luna_pages/pages_' . $prod_id . '.json')) {
 
-              $pages_json = file_get_contents('inc/luna_pages/pages_' . $prod_id . '.json') ;
-              $pages_data = json_decode($pages_json,true);
-
+              $pages_json = file_get_contents('inc/luna_pages/pages_' . $prod_id . '.json');
+              $pages_data = json_decode($pages_json, true);
             } else {
-              
-              $pages_json = file_get_contents('inc/luna_pages/bck/pages_' . $prod_id . '.json') ;
-              $pages_data = json_decode($pages_json,true);
+
+              $pages_json = file_get_contents('inc/luna_pages/bck/pages_' . $prod_id . '.json');
+              $pages_data = json_decode($pages_json, true);
             }
 
-            print_r($pages_data[1][0]);
+            for ($idx = 1; $idx < 4; $idx++) {
 
-            for($idx = 1; $idx < 4; $idx++){
-
-              foreach($pages_data[$idx] as $parent){
+              foreach ($pages_data[$idx] as $parent) {
 
                 $luna->table = 'luna_pages_' . $prod_id;
                 $luna->id = $parent;
                 $stmt = $luna->showAllWhere('id', ['id']);
-                
+
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 extract($row);
+          ?>
+                <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
+                  <?= $row['title'] ?>
+                </div>
+              <?php
               }
 
-          ?>
+              ?>
 
-              <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
-                <?= $row['title'] ?>
-              </div>
 
           <?php
 

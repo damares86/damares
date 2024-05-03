@@ -1,6 +1,16 @@
 <?php
 
 
+$pages_json = file_get_contents('../inc/luna_pages/pages_2.json');
+$pages_data = json_decode($pages_json, true);
+
+array_push($pages_data[1],8);
+print_r($pages_data);
+exit;
+
+
+
+
 
 $array = [1, 3, 5, 8];
 

@@ -20,47 +20,46 @@ if (filter_input(INPUT_GET, "idToDel")) {
 
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && filter_input(INPUT_POST,'page_prod_id')) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && filter_input(INPUT_POST, 'page_prod_id')) {
 
     // Funzione ricorsiva per costruire la struttura gerarchica dell'array
-function buildHierarchy($items, $parentId = null) {
-    $branch = array();
+    function buildHierarchy($items, $parentId = null)
+    {
+        $branch = array();
 
-    foreach ($items as $item) {
-        if ($item['livello'] == $parentId) {
-            $children = buildHierarchy($items, $item['livello'] + 1);
-            if ($children) {
-                $item['child'] = $children;
+        foreach ($items as $item) {
+            if ($item['livello'] == $parentId) {
+                $children = buildHierarchy($items, $item['livello'] + 1);
+                if ($children) {
+                    $item['child'] = $children;
+                }
+                $branch[] = $item;
             }
-            $branch[] = $item;
         }
+
+        return $branch;
     }
+    if (isset($_POST['orderedItems'])) {
+        // Decodifica i dati JSON inviati e ottieni l'array $orderedItems
+        $orderedItems = json_decode($_POST['orderedItems'], true);
+    }
+    // Chiama la funzione per costruire la struttura gerarchica dell'array
+    $hierarchy = buildHierarchy($orderedItems);
 
-    return $branch;
+    $pages = "<?php" . PHP_EOL . $hierarchy . PHP_EOL . "?>";
+
+    if (file_put_contents('../inc/luna_pages/prova.php', $pages, FILE_APPEND)) {
+
+        chmod($real_file, 0777);
+
+        header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+        exit;
+    }
+    // Output dell'array gerarchico
+    echo "<pre>";
+    print_r($hierarchy);
+    echo "</pre>";
 }
-if (isset($_POST['orderedItems'])) {
-    // Decodifica i dati JSON inviati e ottieni l'array $orderedItems
-    $orderedItems = json_decode($_POST['orderedItems'], true);
-}
-// Chiama la funzione per costruire la struttura gerarchica dell'array
-$hierarchy = buildHierarchy($orderedItems);
-
-$pages = "<?php".PHP_EOL.$hierarchy.PHP_EOL."?>";
-
-if (file_put_contents('../inc/luna_pages/prova.php', $pages, FILE_APPEND)) {
-
-    chmod($real_file, 0777);
- 
-    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-    exit;
-
-} 
-// Output dell'array gerarchico
-echo "<pre>";
-print_r($hierarchy);
-echo "</pre>";
-
-} 
 
 $operation = filter_input(INPUT_POST, "operation");
 
@@ -130,8 +129,8 @@ if ($operation == "editLunaProduct") {
         extract($row);
         $page_id = $row['id'];
 
-        $real_file = '../inc/luna_pages/pages_' . $prod_id . '.php';
-        $bck_file = '../inc/luna_pages/bck/pages_' . $prod_id . '.php';
+        $real_file = '../inc/luna_pages/pages_' . $prod_id . '.json';
+        $bck_file = '../inc/luna_pages/bck/pages_' . $prod_id . '.json';
 
         if (file_exists($real_file)) {
             //   - leggo il file
@@ -147,6 +146,31 @@ if ($operation == "editLunaProduct") {
             //      - ripristino il file originale dal bck
             //      - cosa ne faccio della pagina?
 
+
+            $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
+            $pages_data = json_decode($pages_json, true);
+            if(filter_input(INPUT_POST,'parent_id')){
+                // è una pagina child
+            }else if(filter_input(INPUT_POST,'child_id')){
+                // è un paragrafo
+            }else{
+                // è una pagina parent
+
+                array_push($pages_data[1],$page_id);
+
+                $jsonContent = json_encode($pages_data);
+
+
+                if(file_put_contents($real_file, $jsonContent)){
+                    unlink($bck_file);
+                    copy($real_file, $bck_file);
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                    exit;
+                } else {
+                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                    exit;
+                }
+            }
 
 
 
@@ -164,7 +188,7 @@ if ($operation == "editLunaProduct") {
             //   - composizione array
             //   - creo il file nella cartella principale e in quella bck
 
-            $pages = "<?php".PHP_EOL."\$pages = [0 => ".$row['id']."];".PHP_EOL."?>";
+            $pages = "<?php" . PHP_EOL . "\$pages = [0 => " . $row['id'] . "];" . PHP_EOL . "?>";
             if (file_put_contents($real_file, $pages, FILE_APPEND)) {
 
                 chmod($real_file, 0777);
@@ -176,7 +200,6 @@ if ($operation == "editLunaProduct") {
 
                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
                 exit;
-
             } else {
             }
         }
