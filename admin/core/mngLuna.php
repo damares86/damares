@@ -106,8 +106,8 @@ if ($operation == "editLunaProduct") {
             //   SE FALLISCE QUALCOSA:
             //      - ripristino il file originale dal bck
             //      - cosa ne faccio della pagina?
-
-
+            
+            
             $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
             $pages_data = json_decode($pages_json, true);
 
@@ -118,7 +118,8 @@ if ($operation == "editLunaProduct") {
                 $parent_id = filter_input(INPUT_POST, 'parent_id');
                 $inserted = '' ;
 
-                foreach( $pages_data['child'] as $item){
+                echo "ciao";
+                foreach( $pages_data[0]['child'] as $item){
                     
                     if($item['parent_id'] == $parent_id ){
                         $item['id'][] = $page_id ;                        
@@ -129,10 +130,11 @@ if ($operation == "editLunaProduct") {
                 }
                 
                 if(!$inserted){
-                    $pages_data['child'][] = ['parent_id' => $parent_id,'id' => [$page_id]];
+                    $pages_data[0]['child'][] = ['parent_id' => $parent_id,'id' => [$page_id]];
                 }
 
-                $new_pages_data[] = ['parent' =>$pages_data['parent'],'child' => $child_arr,'paragraph' =>$pages_data['paragraph']] ;
+
+                $new_pages_data[] = ['parent' =>$pages_data[0]['parent'],'child' => $child_arr,'paragraph' =>$pages_data[0]['paragraph']] ;
 
 
             } else if (filter_input(INPUT_POST, 'child_id')) {
@@ -146,10 +148,11 @@ if ($operation == "editLunaProduct") {
                 $pages_data['parent'][] = $page_id ;
 
             }
-
+            
             $jsonContent = json_encode($new_pages_data);
 
             if (file_put_contents($real_file, $jsonContent)) {
+                chmod($real_file, 0777);
                 unlink($bck_file);
                 copy($real_file, $bck_file);
                 chmod($bck_file, 0777);
