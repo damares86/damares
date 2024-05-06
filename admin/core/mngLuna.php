@@ -9,6 +9,7 @@
 #                                          #
 ############################################
 
+use Composer\InstalledVersions;
 
 require __DIR__ . "/coreConfig.php";
 
@@ -111,13 +112,19 @@ if ($operation == "editLunaProduct") {
             $pages_data = json_decode($pages_json, true);
 
             if (filter_input(INPUT_POST, 'parent_id')) {
-                
                 $parent_id = filter_input(INPUT_POST, 'parent_id');
+                $inserted = '' ;
                 foreach( $pages_data['child'] as $item){
                     if($item['parent_id'] == $parent_id ){
                         $item['child'][] = $page_id ;
+                        $inserted = true ;
                     }
                 }
+                
+                if(!$inserted){
+                    $pages_data['child'][] = ['parent_id' => $parent_id,'id' => [$page_id]];
+                }
+
 
             } else if (filter_input(INPUT_POST, 'child_id')) {
                 
@@ -130,12 +137,11 @@ if ($operation == "editLunaProduct") {
                 $pages_data['parent'][] = $page_id ;
 
             }
-
+            
             $jsonContent = json_encode($pages_data);
 
 
 
-            print_r($pages_data);
 
             if (file_put_contents($real_file, $jsonContent)) {
                 unlink($bck_file);

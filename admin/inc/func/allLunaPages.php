@@ -75,11 +75,7 @@ extract($row1);
               $pages_data = json_decode($pages_json, true);
             }
 
-            // print_r($pages_data['child']);
-            foreach($pages_data['child'] as $child){
-              print_r($child);
-            }
-            exit;
+      
             foreach ($pages_data['parent'] as $parent) {
 
               $luna->table = 'luna_pages_' . $prod_id;
@@ -135,11 +131,11 @@ extract($row1);
               <?php
                 }
               ?>
-                </div>
               <?php
               }
               ?>
               <!-- fine div pagine -->
+            </div>
 
             <?php
           }
