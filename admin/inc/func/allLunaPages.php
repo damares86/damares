@@ -85,7 +85,7 @@ extract($row1);
               extract($row);
               $parent_div_arr[] = $row['id'];
           ?>
-              <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
+              <div id="parent_<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
                 <?= $row['title'] ?>
 
                 &nbsp;
@@ -132,8 +132,8 @@ extract($row1);
                               <a class="btn icon btn-sm btn-info mx-2 " data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">
                                 <i class="bi bi-chevron-down"></i>
                               </a> &nbsp;
+                              
                               <div id="paragraph_<?= $row1['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
-
                                 <?php
 
                                 foreach ($par['id'] as $par_id) {
@@ -144,7 +144,7 @@ extract($row1);
 
                                   $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                                   extract($row2);
-                                  $paragraph_div_arr[] = $row2['id'];
+                                  $paragraph_div_arr[] = $row1['id'];
                                 ?>
                                   <div id="c_<?= $row1['id'] ?>_p_<?= $row2['id'] ?>" class="paragraph_item rounded m-2">
                                     <?= $row2['title'] ?>
