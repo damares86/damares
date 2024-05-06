@@ -70,32 +70,66 @@ extract($row1);
               $pages_data = json_decode($pages_json, true);
             }
 
-            for ($idx = 1; $idx < 4; $idx++) {
-
-              foreach ($pages_data[$idx] as $parent) {
-
-                $luna->table = 'luna_pages_' . $prod_id;
-                $luna->id = $parent;
-                $stmt = $luna->showAllWhere('id', ['id']);
-
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                extract($row);
-          ?>
-                <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
-                  <?= $row['title'] ?>
-                </div>
-              <?php
+            foreach ($pages_data['parent'] as $parent) {
+              if(is_array($parent)){
+                echo 'yes';
               }
 
-              ?>
+              $luna->table = 'luna_pages_' . $prod_id;
+              $luna->id = $parent;
+              $stmt = $luna->showAllWhere('id', ['id']);
 
-
-          <?php
-
-            }
-          }
+              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+              extract($row);
           ?>
-        </div>
+              <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
+                <?= $row['title'] ?>
+                <?php
+                // check se esistono dei child
+                if (is_array($parent)) {
+                  foreach ($parent['child'] as $child) {
+                    $luna->table = 'luna_pages_' . $prod_id;
+                    $luna->id = $child;
+                    $stmt1 = $luna->showAllWhere('id', ['id']);
+
+                    $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+                    extract($row1);
+                ?>
+                    <div id="child_<?= $row1['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
+                      <?= $row1['title'] ?>
+                      <?php
+                      if (is_array($child)) {
+                        foreach ($child['paragraph'] as $par) {
+                          $luna->table = 'luna_pages_' . $prod_id;
+                          $luna->id = $par;
+                          $stmt2 = $luna->showAllWhere('id', ['id']);
+
+                          $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                          extract($row2);
+                      ?>
+                          <div id="p_<?= $row1['id'] ?>_c_<?= $row4['id'] ?>" class="child_item rounded m-2">
+                            <?= $row2['title'] ?>
+                          </div>
+                      <?php
+                        }
+                      }
+                      ?>
+                      <!-- fine child -->
+                    </div>
+              <?php
+                  }
+                }
+              ?>
+                <!-- fine div pagine -->
+      
+            </div>
+            <?php
+              }
+              ?>
+              </div>
+            <?php
+          }
+            ?>
 
       </div>
     </div>

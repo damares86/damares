@@ -109,7 +109,7 @@ function createTree($orderedItems)
                 if ($level == 1) {
 
                     // è una pagina parent, va al livello principale
-                    $tree[] = $id;
+                    $tree['parent'][] = $id;
 
                 }else if($level == 2){
 
@@ -117,27 +117,27 @@ function createTree($orderedItems)
                     if($previous_level == 1){
                         
                         // la pagina precedente era un parent, quindi è una sua child
-                        if(!isset($tree[$previous_id]['child'])){
-                            $tree[$previous_id]['child'] = [];
+                        if(!isset($tree['parent'][$previous_id]['child'])){
+                            $tree['parent'][$previous_id]['child'] = [];
                         }
-                        $tree[$previous_id]['child'][] = $id;
+                        $tree['parent'][$previous_id]['child'][] = $id;
 
                     }else if($previous_level == 3){
 
                         // la pagina precedente era un paragrafo, quindi torna su di un livello
-                        if(!isset($tree[$previous_parent]['child'])){
-                            $tree[$previous_parent]['child'] = [];
+                        if(!isset($tree['parent'][$previous_parent]['child'])){
+                            $tree['parent'][$previous_parent]['child'] = [];
                         }
-                        $tree[$previous_parent]['child'][] = $id;
+                        $tree['parent'][$previous_parent]['child'][] = $id;
 
                     }
                 }else if($level == 3){
                     
                     // è un paragrafo
-                    if(!isset($tree[$previous_parent][$previous_child]['paragraph'])){
-                        $tree[$previous_parent][$previous_child]['paragraph'] = [];
+                    if(!isset($tree['parent'][$previous_parent][$previous_child]['paragraph'])){
+                        $tree['parent'][$previous_parent][$previous_child]['paragraph'] = [];
                     }
-                    $tree[$previous_parent][$previous_child]['paragraph'] = $id;
+                    $tree['parent'][$previous_parent][$previous_child]['paragraph'] = $id;
                 }
 
             } else if ($previous_level == $level) {
@@ -145,17 +145,17 @@ function createTree($orderedItems)
                 if($level == 1){
 
                     // è un parent
-                    $tree[] = $id;
+                    $tree['parent'][] = $id;
 
                 }else if($level == 2){
 
                     // è un child
-                    $tree[$previous_parent]['child'][] = $id;
+                    $tree['parent'][$previous_parent]['child'][] = $id;
                     
                 }else if($level == 3){
                     
                     // è un paragrafo
-                    $tree[$previous_parent][$previous_child]['paragraph'][] = $id;
+                    $tree['parent'][$previous_parent][$previous_child]['paragraph'][] = $id;
                     
                 }
 
@@ -163,8 +163,8 @@ function createTree($orderedItems)
         } else {
 
             // è il primo giro
-            $tree[] = [];
-            $tree[] = $id;
+            $tree['parent'][] = [];
+            $tree['parent'][] = $id;
         }
 
         $previous_id = $id;
