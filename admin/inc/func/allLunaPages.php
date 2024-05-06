@@ -88,25 +88,35 @@ extract($row1);
           ?>
               <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
                 <?= $row['title'] ?>
+
+               &nbsp;
+              <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
+              &nbsp;
+              <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a child page</a>
+              
                 <?php
                 // check se esistono dei child
 
-                for($idx = 0; $idx < count($pages_data['child']) ; $idx++){
-                echo "child: ".$pages_data['child'][$idx]."<br>";
-                echo "parent: ".$parent."<br>";
-                if($pages_data['child'][$parent][$idx] == $parent) {
-                  
+                foreach($pages_data['child'] as $child){
+
+                if($child['parent_id'] == $parent) {
+                ?>
+                <a class="btn icon btn-sm btn-info mx-2 <?= $disable ?>" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row1['id'] ?>">
+                  <i class="bi bi-chevron-down"></i>
+                </a>
+                <?php
+                  foreach($child['id'] as $item){
+
                     $luna->table = 'luna_pages_' . $prod_id;
-                    $luna->id = $child;
+                    $luna->id = $item;
                     $stmt1 = $luna->showAllWhere('id', ['id']);
-                    print_r($pages_data);
 
 
                     $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
                     extract($row1);
                     $child_div_arr[] = $row1['id'];
                 ?>
-                    <div id="child_<?= $row1['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
+                    <div id="child_<?= $row['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
                       <?= $row1['title'] ?>
                       <?php
                       if (is_array($child)) {
@@ -124,7 +134,8 @@ extract($row1);
                           </div>
                       <?php
                         }
-                      }
+                  }
+                }
                       ?>
                       <!-- fine child -->
                     </div>
