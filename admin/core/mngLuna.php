@@ -111,19 +111,28 @@ if ($operation == "editLunaProduct") {
             $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
             $pages_data = json_decode($pages_json, true);
 
+            $new_pages_data = [] ;
+
             if (filter_input(INPUT_POST, 'parent_id')) {
+
                 $parent_id = filter_input(INPUT_POST, 'parent_id');
                 $inserted = '' ;
+
                 foreach( $pages_data['child'] as $item){
+                    
                     if($item['parent_id'] == $parent_id ){
-                        $item['child'][] = $page_id ;
+                        $item['id'][] = $page_id ;                        
                         $inserted = true ;
                     }
+
+                    $child_arr[] = $item ;
                 }
                 
                 if(!$inserted){
                     $pages_data['child'][] = ['parent_id' => $parent_id,'id' => [$page_id]];
                 }
+
+                $new_pages_data[] = ['parent' =>$pages_data['parent'],'child' => $child_arr,'paragraph' =>$pages_data['paragraph']] ;
 
 
             } else if (filter_input(INPUT_POST, 'child_id')) {
@@ -137,11 +146,8 @@ if ($operation == "editLunaProduct") {
                 $pages_data['parent'][] = $page_id ;
 
             }
-            
-            $jsonContent = json_encode($pages_data);
 
-
-
+            $jsonContent = json_encode($new_pages_data);
 
             if (file_put_contents($real_file, $jsonContent)) {
                 unlink($bck_file);
