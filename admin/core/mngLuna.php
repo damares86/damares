@@ -20,46 +20,6 @@ if (filter_input(INPUT_GET, "idToDel")) {
 
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && filter_input(INPUT_POST, 'page_prod_id')) {
-
-    // Funzione ricorsiva per costruire la struttura gerarchica dell'array
-    function buildHierarchy($items, $parentId = null)
-    {
-        $branch = array();
-
-        foreach ($items as $item) {
-            if ($item['livello'] == $parentId) {
-                $children = buildHierarchy($items, $item['livello'] + 1);
-                if ($children) {
-                    $item['child'] = $children;
-                }
-                $branch[] = $item;
-            }
-        }
-
-        return $branch;
-    }
-    if (isset($_POST['orderedItems'])) {
-        // Decodifica i dati JSON inviati e ottieni l'array $orderedItems
-        $orderedItems = json_decode($_POST['orderedItems'], true);
-    }
-    // Chiama la funzione per costruire la struttura gerarchica dell'array
-    $hierarchy = buildHierarchy($orderedItems);
-
-    $pages = "<?php" . PHP_EOL . $hierarchy . PHP_EOL . "?>";
-
-    if (file_put_contents('../inc/luna_pages/prova.php', $pages, FILE_APPEND)) {
-
-        chmod($real_file, 0777);
-
-        header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-        exit;
-    }
-    // Output dell'array gerarchico
-    echo "<pre>";
-    print_r($hierarchy);
-    echo "</pre>";
-}
 
 $operation = filter_input(INPUT_POST, "operation");
 
@@ -136,7 +96,7 @@ if ($operation == "editLunaProduct") {
             //   - leggo il file
             //   - ricompongo l'array:
             //      - se pagina parent la metto al fondo
-            //      - se pagina child o pragrafo, recupero l'id di riferimento e quando lo 
+            //      - se pagina child o paragrafo, recupero l'id di riferimento e quando lo 
             //            incontro ciclando l'array inserisco la pagina appena aggiunta al posto giusto
             //   - elimino il file di backup
             //   - copio in bck il file esistente
@@ -151,6 +111,12 @@ if ($operation == "editLunaProduct") {
             $pages_data = json_decode($pages_json, true);
             if(filter_input(INPUT_POST,'parent_id')){
                 // è una pagina child
+                foreach($pages_data['parent'] as $parent){
+                    if(is_array($parent) && $parent == filter_input(INPUT_POST,'parent_id')){
+                        $parent['child'][] = $page_id ;
+                    }
+                }            
+
             }else if(filter_input(INPUT_POST,'child_id')){
                 // è un paragrafo
             }else{
