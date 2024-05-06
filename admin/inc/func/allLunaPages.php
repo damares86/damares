@@ -39,7 +39,7 @@ extract($row1);
 <section class="section">
   <div class="card shadow">
     <div class="card-header">
-      <h4 class="d-inline"><?= $row['name'] ?></h4> &nbsp; &nbsp; &nbsp;
+      <h4 class="d-inline"><?= $row1['name'] ?></h4> &nbsp; &nbsp; &nbsp;
       <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a new parent page</a>
     </div>
     <div class="card-body">
@@ -57,6 +57,11 @@ extract($row1);
 
         <div id='parent-block' class='container-pages p-3'>
           <?php
+
+          $parent_div_arr = [];
+          $child_div_arr = [];
+          $paragraph_div_arr = [];
+
           if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.json') && !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.json')) {
             echo "Nessuna pagina presente";
           } else {
@@ -70,10 +75,12 @@ extract($row1);
               $pages_data = json_decode($pages_json, true);
             }
 
+            // print_r($pages_data['child']);
+            foreach($pages_data['child'] as $child){
+              print_r($child);
+            }
+            exit;
             foreach ($pages_data['parent'] as $parent) {
-              if(is_array($parent)){
-                echo 'yes';
-              }
 
               $luna->table = 'luna_pages_' . $prod_id;
               $luna->id = $parent;
@@ -81,19 +88,27 @@ extract($row1);
 
               $row = $stmt->fetch(PDO::FETCH_ASSOC);
               extract($row);
+              $parent_div_arr[] = $row['id'];
           ?>
               <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
                 <?= $row['title'] ?>
                 <?php
                 // check se esistono dei child
-                if (is_array($parent)) {
-                  foreach ($parent['child'] as $child) {
+
+                for($idx = 0; $idx < count($pages_data['child']) ; $idx++){
+                echo "child: ".$pages_data['child'][$idx]."<br>";
+                echo "parent: ".$parent."<br>";
+                if($pages_data['child'][$parent][$idx] == $parent) {
+                  
                     $luna->table = 'luna_pages_' . $prod_id;
                     $luna->id = $child;
                     $stmt1 = $luna->showAllWhere('id', ['id']);
+                    print_r($pages_data);
+
 
                     $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
                     extract($row1);
+                    $child_div_arr[] = $row1['id'];
                 ?>
                     <div id="child_<?= $row1['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
                       <?= $row1['title'] ?>
@@ -106,6 +121,7 @@ extract($row1);
 
                           $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                           extract($row2);
+                          $paragraph_div_arr[] = $row2['id'];
                       ?>
                           <div id="p_<?= $row1['id'] ?>_c_<?= $row4['id'] ?>" class="child_item rounded m-2">
                             <?= $row2['title'] ?>
@@ -117,20 +133,19 @@ extract($row1);
                       <!-- fine child -->
                     </div>
               <?php
-                  }
                 }
               ?>
-                <!-- fine div pagine -->
-      
-            </div>
-            <?php
+                </div>
+              <?php
               }
               ?>
-              </div>
+              <!-- fine div pagine -->
+
             <?php
           }
+        }
             ?>
-
+        </div>
       </div>
     </div>
     <button id="save" class="btn btn-success m-3 w-25">Save</button>

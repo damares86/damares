@@ -109,45 +109,79 @@ if ($operation == "editLunaProduct") {
 
             $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
             $pages_data = json_decode($pages_json, true);
-            if(filter_input(INPUT_POST,'parent_id')){
-                // è una pagina child
-                foreach($pages_data['parent'] as $parent){
-                    if(is_array($parent) && $parent == filter_input(INPUT_POST,'parent_id')){
-                        $parent['child'][] = $page_id ;
+
+            if (filter_input(INPUT_POST, 'parent_id')) {
+                
+                $parent_id = filter_input(INPUT_POST, 'parent_id');
+                foreach( $pages_data['child'] as $item){
+                    if($item['parent_id'] == $parent_id ){
+                        $item['child'][] = $page_id ;
                     }
-                }            
-
-            }else if(filter_input(INPUT_POST,'child_id')){
-                // è un paragrafo
-            }else{
-                // è una pagina parent
-
-                array_push($pages_data[1],$page_id);
-
-                $jsonContent = json_encode($pages_data);
-
-
-                if(file_put_contents($real_file, $jsonContent)){
-                    unlink($bck_file);
-                    copy($real_file, $bck_file);
-                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-                    exit;
-                } else {
-                    header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-                    exit;
                 }
+
+            } else if (filter_input(INPUT_POST, 'child_id')) {
+                
+                $child_id = filter_input(INPUT_POST, 'child_id');
+
+                $pages_data['paragraph'][$child_id][] = $page_id ;
+
+            }else{
+
+                $pages_data['parent'][] = $page_id ;
+
+            }
+
+            $jsonContent = json_encode($pages_data);
+
+
+
+            print_r($pages_data);
+
+            if (file_put_contents($real_file, $jsonContent)) {
+                unlink($bck_file);
+                copy($real_file, $bck_file);
+                chmod($bck_file, 0777);
+                header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+                exit;
+            } else {
+                header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+                exit;
             }
 
 
+            // if(filter_input(INPUT_POST,'parent_id')){
+            //     // è una pagina child
+            //     foreach($pages_data['parent'] as $parent){
 
+            //         $new_pages_data[]
 
-        } else if (file_exists('../inc/luna_pages/pages_' . $prod_id . '.php')) {
-            // stessa cosa di sopra
-            // alla fine però creo il file nella cartella principale
-            // e se va bene elimino il bck e copio quello principale in bck
+            //         print_r($parent) ;
+            //         echo "<br>";
+            //         if($parent == filter_input(INPUT_POST,'parent_id')){
+            //             if(!is_array($parent)){
+            //                 $parent_arr = [] ;
+            //             }
+            //             echo "<br>";
+            //             $parent_arr[] = $page_id ;
+            //             print_r($parent_arr) ;
+            //         }
+            //     }    
 
+            // }else if(filter_input(INPUT_POST,'child_id')){
+            //     // è un paragrafo
+            //     $parent_id = filter_input(INPUT_POST,'parent_id') ;
+            //     $child_id = filter_input(INPUT_POST,'child_id') ;
+            //     foreach($pages_data['parent'][$parent_id]['child'] as $child){
+            //         if(is_array($child)){
+            //             $child['paragraph'][] = $page_id ;
+            //         }
+            //     }
+            // }else{
+            //     // è una pagina parent
 
+            //     array_push($pages_data[1],$page_id);
 
+            // }
 
         } else {
             // non esiste:
