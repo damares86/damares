@@ -100,7 +100,7 @@ extract($row1);
 
                   if ($child['parent_id'] == $parent) {
                 ?>
-                    <a class="btn icon btn-sm btn-info mx-2 <?= $disable ?>" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
+                    <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
                       <i class="bi bi-chevron-down"></i>
                     </a>
                     <div id="child_<?= $row['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
@@ -120,45 +120,65 @@ extract($row1);
                         <div id="p_<?= $row['id'] ?>_c_<?= $row1['id'] ?>" class="child_item rounded m-2">
 
                           <?= $row1['title'] ?>
+                          <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>&child=<?= $row1['id'] ?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
+                          &nbsp;
+                          <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>&child=<?= $row1['id'] ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
                           <?php
-                          if (is_array($child)) {
-                            foreach ($child['paragraph'] as $par) {
-                              $luna->table = 'luna_pages_' . $prod_id;
-                              $luna->id = $par;
-                              $stmt2 = $luna->showAllWhere('id', ['id']);
 
-                              $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-                              extract($row2);
-                              $paragraph_div_arr[] = $row2['id'];
+                          foreach ($pages_data[0]['paragraph'] as $par) {
+
+                            if ($par['child_id'] == $row1['id']) {
                           ?>
-                              <div id="p_<?= $row1['id'] ?>_c_<?= $row4['id'] ?>" class="child_item rounded m-2">
-                                <?= $row2['title'] ?>
+                              <a class="btn icon btn-sm btn-info mx-2 " data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">
+                                <i class="bi bi-chevron-down"></i>
+                              </a> &nbsp;
+                              <div id="paragraph_<?= $row1['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+
+                                <?php
+
+                                foreach ($par['id'] as $par_id) {
+
+                                  $luna->table = 'luna_pages_' . $prod_id;
+                                  $luna->id = $par_id;
+                                  $stmt2 = $luna->showAllWhere('id', ['id']);
+
+                                  $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                                  extract($row2);
+                                  $paragraph_div_arr[] = $row2['id'];
+                                ?>
+                                  <div id="c_<?= $row1['id'] ?>_p_<?= $row2['id'] ?>" class="paragraph_item rounded m-2">
+                                    <?= $row2['title'] ?>
+                                  </div>
+                                <?php
+                                }
+                                ?>
+
                               </div>
-                        <?php
+                          <?php
                             }
                           }
-                        ?>
-                          </div>
-                        <?php
-                        }
-                        ?>
-                        <!-- fine child -->
+                          ?>
+                        </div>
+                      <?php
+                      }
+                      ?>
+                      <!-- fine child -->
                     </div>
                 <?php
                   }
                 }
                 ?>
                 <!-- fine div pagine -->
-        </div>
+              </div>
 
-    <?php
+          <?php
             }
           }
-    ?>
+          ?>
+        </div>
       </div>
     </div>
-  </div>
-  <button id="save" class="btn btn-success m-3 w-25">Save</button>
+    <button id="save" class="btn btn-success m-3 w-25">Save</button>
 
   </div>
 </section>

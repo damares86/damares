@@ -113,12 +113,33 @@ if ($operation == "editLunaProduct") {
 
             $new_pages_data = [] ;
 
-            if (filter_input(INPUT_POST, 'parent_id')) {
+            if (filter_input(INPUT_POST, 'child_id')) {
+                
+                $child_id = filter_input(INPUT_POST, 'child_id');
+                $inserted = '' ;
+
+                foreach( $pages_data[0]['paragraph'] as $item){
+                    
+                    if($item['child_id'] == $child_id ){
+                        $item['id'][] = $page_id ;                        
+                        $inserted = true ;
+                    }
+
+                    $par_arr[] = $item ;
+                }
+                
+                if(!$inserted){
+                    $par_arr[] = ['child_id' => $child_id,'id' => [$page_id]];
+                }
+
+
+                $new_pages_data[] = ['parent' =>$pages_data[0]['parent'],'child' => $pages_data[0]['child'],'paragraph' =>$par_arr] ;
+
+            }else if (filter_input(INPUT_POST, 'parent_id')) {
 
                 $parent_id = filter_input(INPUT_POST, 'parent_id');
                 $inserted = '' ;
 
-                echo "ciao";
                 foreach( $pages_data[0]['child'] as $item){
                     
                     if($item['parent_id'] == $parent_id ){
@@ -130,20 +151,14 @@ if ($operation == "editLunaProduct") {
                 }
                 
                 if(!$inserted){
-                    $pages_data[0]['child'][] = ['parent_id' => $parent_id,'id' => [$page_id]];
+                    $child_arr[] = ['parent_id' => $parent_id,'id' => [$page_id]];
                 }
 
 
                 $new_pages_data[] = ['parent' =>$pages_data[0]['parent'],'child' => $child_arr,'paragraph' =>$pages_data[0]['paragraph']] ;
 
 
-            } else if (filter_input(INPUT_POST, 'child_id')) {
-                
-                $child_id = filter_input(INPUT_POST, 'child_id');
-
-                $pages_data['paragraph'][$child_id][] = $page_id ;
-
-            }else{
+            } else{
 
                 $pages_data['parent'][] = $page_id ;
 
