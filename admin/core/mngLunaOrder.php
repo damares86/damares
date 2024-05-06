@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Ad esempio, puoi creare l'array gerarchico qui
 
         // Creazione di una struttura gerarchica degli ID delle pagine
-        $hierarchicalStructure = createHierarchicalStructure($orderedItems);
+        $hierarchicalStructure = createTree($orderedItems);
 
         // Converte la struttura gerarchica in formato JSON
         $jsonContent = json_encode($hierarchicalStructure);
@@ -87,22 +87,95 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Funzione per creare una struttura gerarchica degli ID delle pagine
-function createHierarchicalStructure($orderedItems)
+function createTree($orderedItems)
 {
-    $hierarchicalStructure = [];
+    $tree = [];
+    $previous_id = '';
+    $previous_parent = '';
+    $previous_child = '';
+    $previous_level = '';
 
     foreach ($orderedItems as $item) {
         $id = $item['id'];
         $level = $item['livello'];
 
-        // Inizializza la struttura gerarchica per questo livello se non esiste già
-        if (!isset($hierarchicalStructure[$level])) {
-            $hierarchicalStructure[$level] = [];
+        if (isset($previous_level)) {
+            // non è il primo giro
+
+            if ($previous_level != $level) {
+
+                // è cambiato il livello
+
+                if ($level == 1) {
+
+                    // è una pagina parent, va al livello principale
+                    $tree[] = $id;
+
+                }else if($level == 2){
+
+                    // è una pagina di livello child
+                    if($previous_level == 1){
+                        
+                        // la pagina precedente era un parent, quindi è una sua child
+                        if(!isset($tree[$previous_id]['child'])){
+                            $tree[$previous_id]['child'] = [];
+                        }
+                        $tree[$previous_id]['child'][] = $id;
+
+                    }else if($previous_level == 3){
+
+                        // la pagina precedente era un paragrafo, quindi torna su di un livello
+                        if(!isset($tree[$previous_parent]['child'])){
+                            $tree[$previous_parent]['child'] = [];
+                        }
+                        $tree[$previous_parent]['child'][] = $id;
+
+                    }
+                }else if($level == 3){
+                    
+                    // è un paragrafo
+                    if(!isset($tree[$previous_parent][$previous_child]['paragraph'])){
+                        $tree[$previous_parent][$previous_child]['paragraph'] = [];
+                    }
+                    $tree[$previous_parent][$previous_child]['paragraph'] = $id;
+                }
+
+            } else if ($previous_level == $level) {
+
+                if($level == 1){
+
+                    // è un parent
+                    $tree[] = $id;
+
+                }else if($level == 2){
+
+                    // è un child
+                    $tree[$previous_parent]['child'][] = $id;
+                    
+                }else if($level == 3){
+                    
+                    // è un paragrafo
+                    $tree[$previous_parent][$previous_child]['paragraph'][] = $id;
+                    
+                }
+
+            }
+        } else {
+
+            // è il primo giro
+            $tree[] = [];
+            $tree[] = $id;
         }
 
-        // Aggiungi l'ID alla struttura gerarchica corrispondente al livello
-        $hierarchicalStructure[$level][] = $id;
+        $previous_id = $id;
+        $previous_level = $level;
+        if($level == 1){
+            $previous_parent = $id ;
+        }else if($level == 2){
+            $previous_child = $id ;
+        }
+
     }
 
-    return $hierarchicalStructure;
+    return $tree;
 }
