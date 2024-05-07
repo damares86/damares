@@ -85,7 +85,7 @@ extract($row1);
               extract($row);
               $parent_div_arr[] = $row['id'];
           ?>
-              <div id="parent_<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
+              <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
                 <?= $row['title'] ?>
 
                 &nbsp;
@@ -117,7 +117,7 @@ extract($row1);
                         extract($row1);
                         $child_div_arr[] = $row1['id'];
                       ?>
-                        <div id="p_<?= $row['id'] ?>_c_<?= $row1['id'] ?>" class="child_item rounded m-2">
+                        <div id="<?= $row1['id'] ?>" class="child_item rounded m-2">
 
                           <?= $row1['title'] ?>
                           <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>&child=<?= $row1['id'] ?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
@@ -132,7 +132,7 @@ extract($row1);
                               <a class="btn icon btn-sm btn-info mx-2 " data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">
                                 <i class="bi bi-chevron-down"></i>
                               </a> &nbsp;
-                              
+
                               <div id="paragraph_<?= $row1['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
                                 <?php
 
@@ -146,7 +146,7 @@ extract($row1);
                                   extract($row2);
                                   $paragraph_div_arr[] = $row1['id'];
                                 ?>
-                                  <div id="c_<?= $row1['id'] ?>_p_<?= $row2['id'] ?>" class="paragraph_item rounded m-2">
+                                  <div id="<?= $row2['id'] ?>" class="paragraph_item rounded m-2">
                                     <?= $row2['title'] ?>
                                   </div>
                                 <?php
@@ -215,7 +215,9 @@ extract($row1);
     let orderedItems = [];
 
     $('#parent-block').find('*').each(function() {
-      if (this.id) {
+      // Utilizza una regex per verificare se l'ID è numerico
+      let id = this.id;
+      if (id && /^[0-9]+$/.test(id)) {
         let elementId = this.id;
         let elementLevel = $(this).parents('.container-pages').length;
 
@@ -235,23 +237,8 @@ extract($row1);
       additionalData: JSON.stringify(additionalData)
     };
 
+    console.log(orderedItems);
     // Invia l'array al server utilizzando AJAX
-    $.ajax({
-      url: 'core/mngLunaOrder.php', // URL della pagina PHP per il salvataggio
-      method: 'POST', // Metodo HTTP da utilizzare
-      data: postData, // Dati da inviare (convertiti in stringa JSON)
-      success: function(response) {
-        console.log(response)
-        if (response && response.success) {
-          $('.alert-success').html(response.message).fadeIn();
-        } else {
-          $('.alert-danger').html(response.message || 'Si è verificato un errore durante il salvataggio.').fadeIn();
-        }
-      },
-      error: function(xhr, status, error) {
-        console.error('Errore AJAX:', error);
-        $('.alert-danger').html('Si è verificato un errore durante la richiesta AJAX.').fadeIn();
-      }
-    });
+
   });
 </script>
