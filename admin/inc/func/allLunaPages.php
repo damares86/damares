@@ -183,6 +183,7 @@ extract($row1);
   </div>
 </section>
 
+
 <script src='script/dragula.js'></script>
 <script>
   var blocks_array = [];
@@ -221,6 +222,9 @@ extract($row1);
         let elementId = this.id;
         let elementLevel = $(this).parents('.container-pages').length;
 
+        if(elementLevel>1){
+          elementLevel = elementLevel-1
+        }
         orderedItems.push({
           id: elementId,
           livello: elementLevel
@@ -241,4 +245,22 @@ extract($row1);
     // Invia l'array al server utilizzando AJAX
 
   });
+
+  $.ajax({
+     url: 'core/mngLunaOrder.php', // URL della pagina PHP per il salvataggio
+      method: 'POST', // Metodo HTTP da utilizzare
+      data: postData, // Dati da inviare (convertiti in stringa JSON)
+      success: function(response) {
+        console.log(response)
+        if (response && response.success) {
+          $('.alert-success').html(response.message).fadeIn();
+        } else {
+          $('.alert-danger').html(response.message || 'Si è verificato un errore durante il salvataggio.').fadeIn();
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error('Errore AJAX:', error);
+        $('.alert-danger').html('Si è verificato un errore durante la richiesta AJAX.').fadeIn();
+      }
+    });
 </script>
