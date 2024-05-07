@@ -11,20 +11,31 @@
 
 require __DIR__ . "/coreConfig.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['orderedItems'])) {
-        $orderedItems = json_decode($_POST['orderedItems'], true);
-        // $orderedItems = array(
-        //     array('id' => 1, 'livello' => 1),
-        //     array('id' => 2, 'livello' => 1),
-        //     array('id' => 3, 'livello' => 2),
-        //     array('id' => 4, 'livello' => 1),
-        //     array('id' => 5, 'livello' => 2),
-        //     array('id' => 6, 'livello' => 3)
-        // );
-        $prod_arr = json_decode($_POST['additionalData'], true);
+// ORIG
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//     if (isset($_POST['orderedItems'])) {
 
-        $prod_id = $prod_arr['luna_product_id'];
+
+        $orderedItems = json_decode($_POST['orderedItems'], true);
+        $orderedItems = array(
+            array('id' => 6, 'livello' => 1),
+            array('id' => 51, 'livello' => 2),
+            array('id' => 69, 'livello' => 2),
+            array('id' => 85, 'livello' => 2),
+            array('id' => 91, 'livello' => 3),
+            array('id' => 88, 'livello' => 2),
+            array('id' => 9, 'livello' => 1),
+            array('id' => 52, 'livello' => 2),
+            array('id' => 90, 'livello' => 3),
+            array('id' => 70, 'livello' => 2),
+            array('id' => 86, 'livello' => 2)
+        );
+
+        // ORIG        
+        // $prod_arr = json_decode($_POST['additionalData'], true);
+        // $prod_id = $prod_arr['luna_product_id'];
+
+
 
         // In questo punto, $orderedItems contiene l'array dei dati gerarchici delle pagine
         // Puoi procedere con la manipolazione e l'elaborazione dei dati come desideri
@@ -33,6 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Creazione di una struttura gerarchica degli ID delle pagine
         $hierarchicalStructure = createTree($orderedItems);
 
+        echo "finale: ";
+        print_r($hierarchicalStructure);
+        echo "<br>";
+        exit;
         // Converte la struttura gerarchica in formato JSON
         $jsonContent = json_encode($hierarchicalStructure);
 
@@ -67,24 +82,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Invia la risposta come JSON
             echo json_encode($response);
         }
-    } else {
-        // Se il parametro 'orderedItems' non è presente nella richiesta POST, invia una risposta JSON con un messaggio di errore
-        $response = [
-            'success' => false,
-            'message' => 'Parametro "orderedItems" non trovato nella richiesta POST.'
-        ];
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    }
-} else {
-    // Se il metodo HTTP non è consentito, invia una risposta JSON con un messaggio di errore
-    $response = [
-        'success' => false,
-        'message' => 'Metodo HTTP non consentito. Si prega di utilizzare il metodo POST.'
-    ];
-    header('Content-Type: application/json');
-    echo json_encode($response);
-}
+
+// ORIG
+//     } else {
+//         // Se il parametro 'orderedItems' non è presente nella richiesta POST, invia una risposta JSON con un messaggio di errore
+//         $response = [
+//             'success' => false,
+//             'message' => 'Parametro "orderedItems" non trovato nella richiesta POST.'
+//         ];
+//         header('Content-Type: application/json');
+//         echo json_encode($response);
+//     }
+// } else {
+//     // Se il metodo HTTP non è consentito, invia una risposta JSON con un messaggio di errore
+//     $response = [
+//         'success' => false,
+//         'message' => 'Metodo HTTP non consentito. Si prega di utilizzare il metodo POST.'
+//     ];
+//     header('Content-Type: application/json');
+//     echo json_encode($response);
+// }
 
 // Funzione per creare una struttura gerarchica degli ID delle pagine
 function createTree($orderedItems)
@@ -117,29 +134,70 @@ function createTree($orderedItems)
                     if($previous_level == 1){
                         
                         // la pagina precedente era un parent, quindi è una sua child
-                        if(!isset($tree['parent'][$previous_id]['child'])){
-                            $tree['parent'][$previous_id]['child'] = [];
+                        if(!isset($tree['child'])){
+                            $tree['child'] = [];
                         }
-                        $tree['parent'][$previous_id]['child'][] = $id;
+
+                        $inserted = 0 ;
+                        foreach($tree['child'] as $item){
+                            print_r($item);
+                            echo "<br>";
+                            if($item['parent_id'] == $previous_parent){
+                                $item['id'][] = $id ;
+                                $inserted ++;
+                            }
+                        }
+
+                        echo "previous parent: ".$previous_parent ;
+                        echo "<br>";
+                        echo "id: ".$id ;
+                        echo "<br>";
+                        echo "inserted: ".$inserted ;
+                        echo "<br>";
+
+                        if($inserted == 0){
+                            $tree['child'][] = array("parent_id" => $previous_parent, "id" => [$id]) ;
+                        }
 
                     }else if($previous_level == 3){
 
-                        // la pagina precedente era un paragrafo, quindi torna su di un livello
-                        if(!isset($tree['parent'][$previous_parent]['child'])){
-                            $tree['parent'][$previous_parent]['child'] = [];
+                        if(!isset($tree['paragraph'])){
+                            $tree['paragraph'] = [];
                         }
-                        $tree['parent'][$previous_parent]['child'][] = $id;
+
+                        $inserted = 0 ;
+                        foreach($tree['paragraph'] as $item){
+                            if($item['child_id'] == $previous_child){
+                                $item['id'][] = $id ;
+                                $inserted ++;
+                            }
+                        }
+
+                        if($inserted == 0){
+                            $tree['paragraph'][] = array("child_id" => $previous_child, "id" => [$id]) ;
+                        }
 
                     }
                 }else if($level == 3){
                     
-                    // è un paragrafo
-                    if(!isset($tree['parent'][$previous_parent][$previous_child]['paragraph'])){
-                        $tree['parent'][$previous_parent][$previous_child]['paragraph'] = [];
+                    if(!isset($tree['paragraph'])){
+                        $tree['paragraph'] = [];
                     }
-                    $tree['parent'][$previous_parent][$previous_child]['paragraph'] = $id;
-                }
 
+                    $inserted = 0 ;
+                    foreach($tree['paragraph'] as $item){
+                        if($item['child_id'] == $previous_child){
+                            $item['id'][] = $id ;
+                            $inserted ++;
+                        }
+                    }
+
+                    if($inserted == 0){
+                        $tree['paragraph'][] = array("child_id" => $previous_child, "id" => [$id]) ;
+                    }
+
+                }
+                echo "------------------------------<br>";
             } else if ($previous_level == $level) {
 
                 if($level == 1){
@@ -148,18 +206,48 @@ function createTree($orderedItems)
                     $tree['parent'][] = $id;
 
                 }else if($level == 2){
+                    echo "id stesso livello: ".$id;
+                    echo "<br>";
+                    $inserted = 0 ;
+                    foreach($tree['child'] as $item){
+                        print_r($item);
+                        if($item['parent_id'] == $previous_parent){
+                            $item['id'][] = $id ;
+                            echo "<br>item dopo: ";
+                            print_r($item);
+                            echo "<br>";
+                            $inserted ++;
+                        }
+                    }
 
-                    // è un child
-                    $tree['parent'][$previous_parent]['child'][] = $id;
+                    // if($inserted == 0){
+                    //     $tree['child'][] = array("parent_id" => $previous_parent, "id" => [$id]) ;
+                    // }
                     
                 }else if($level == 3){
                     
-                    // è un paragrafo
-                    $tree['parent'][$previous_parent][$previous_child]['paragraph'][] = $id;
+                    if(!isset($tree['paragraph'])){
+                        $tree['paragraph'] = [];
+                    }
+
+                    $inserted = 0 ;
+                    foreach($tree['paragraph'] as $item){
+                        if($item['child_id'] == $previous_child){
+                            $item['id'][] = $id ;
+                            $inserted ++;
+                        }
+                    }
+
+                    if($inserted == 0){
+                        $tree['paragraph'][] = array("child_id" => $previous_child, "id" => [$id]) ;
+                    }
                     
                 }
 
             }
+            echo "------------------------------<br>";
+
+
         } else {
 
             // è il primo giro
@@ -167,7 +255,7 @@ function createTree($orderedItems)
             $tree['parent'][] = $id;
         }
 
-        $previous_id = $id;
+        // $previous_id = $id;
         $previous_level = $level;
         if($level == 1){
             $previous_parent = $id ;

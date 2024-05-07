@@ -75,7 +75,7 @@ extract($row1);
               $pages_data = json_decode($pages_json, true);
             }
 
-            foreach ($pages_data[0]['parent'] as $parent) {
+            foreach ($pages_data['parent'] as $parent) {
 
               $luna->table = 'luna_pages_' . $prod_id;
               $luna->id = $parent;
@@ -96,7 +96,7 @@ extract($row1);
                 <?php
                 // check se esistono dei child
 
-                foreach ($pages_data[0]['child'] as $child) {
+                foreach ($pages_data['child'] as $child) {
 
                   if ($child['parent_id'] == $parent) {
                 ?>
@@ -125,7 +125,7 @@ extract($row1);
                           <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>&child=<?= $row1['id'] ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
                           <?php
 
-                          foreach ($pages_data[0]['paragraph'] as $par) {
+                          foreach ($pages_data['paragraph'] as $par) {
 
                             if ($par['child_id'] == $row1['id']) {
                           ?>
@@ -244,7 +244,6 @@ extract($row1);
     console.log(orderedItems);
     // Invia l'array al server utilizzando AJAX
 
-  });
 
   $.ajax({
      url: 'core/mngLunaOrder.php', // URL della pagina PHP per il salvataggio
@@ -263,4 +262,6 @@ extract($row1);
         $('.alert-danger').html('Si è verificato un errore durante la richiesta AJAX.').fadeIn();
       }
     });
+  });
+
 </script>

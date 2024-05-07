@@ -111,7 +111,7 @@ if ($operation == "editLunaProduct") {
             $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
             $pages_data = json_decode($pages_json, true);
 
-            $new_pages_data = [] ;
+            // $new_pages_data = [] ;
 
             if (filter_input(INPUT_POST, 'child_id')) {
                 
@@ -133,7 +133,7 @@ if ($operation == "editLunaProduct") {
                 }
 
 
-                $new_pages_data[] = ['parent' =>$pages_data[0]['parent'],'child' => $pages_data[0]['child'],'paragraph' =>$par_arr] ;
+                $new_pages_data = ['parent' =>$pages_data[0]['parent'],'child' => $pages_data[0]['child'],'paragraph' =>$par_arr] ;
 
             }else if (filter_input(INPUT_POST, 'parent_id')) {
 
@@ -155,7 +155,7 @@ if ($operation == "editLunaProduct") {
                 }
 
 
-                $new_pages_data[] = ['parent' =>$pages_data[0]['parent'],'child' => $child_arr,'paragraph' =>$pages_data[0]['paragraph']] ;
+                $new_pages_data = ['parent' =>$pages_data[0]['parent'],'child' => $child_arr,'paragraph' =>$pages_data[0]['paragraph']] ;
 
 
             } else{
@@ -177,41 +177,6 @@ if ($operation == "editLunaProduct") {
                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
                 exit;
             }
-
-
-            // if(filter_input(INPUT_POST,'parent_id')){
-            //     // è una pagina child
-            //     foreach($pages_data['parent'] as $parent){
-
-            //         $new_pages_data[]
-
-            //         print_r($parent) ;
-            //         echo "<br>";
-            //         if($parent == filter_input(INPUT_POST,'parent_id')){
-            //             if(!is_array($parent)){
-            //                 $parent_arr = [] ;
-            //             }
-            //             echo "<br>";
-            //             $parent_arr[] = $page_id ;
-            //             print_r($parent_arr) ;
-            //         }
-            //     }    
-
-            // }else if(filter_input(INPUT_POST,'child_id')){
-            //     // è un paragrafo
-            //     $parent_id = filter_input(INPUT_POST,'parent_id') ;
-            //     $child_id = filter_input(INPUT_POST,'child_id') ;
-            //     foreach($pages_data['parent'][$parent_id]['child'] as $child){
-            //         if(is_array($child)){
-            //             $child['paragraph'][] = $page_id ;
-            //         }
-            //     }
-            // }else{
-            //     // è una pagina parent
-
-            //     array_push($pages_data[1],$page_id);
-
-            // }
 
         } else {
             // non esiste:
@@ -235,179 +200,6 @@ if ($operation == "editLunaProduct") {
         }
     }
 
-
-    // if (filter_input(INPUT_POST, 'child_id')) {
-    //     // è un paragrafo
-    //     $child_id = filter_input(INPUT_POST, 'child_id');
-
-    //     $luna->title = $title;
-    //     $luna->content = $content;
-    //     $luna->last_editor = $_SESSION['account_id'];
-    //     $luna->table = 'luna_paragraph';
-
-    //     if ($luna->insert(['title', 'content', 'last_editor'])) {
-    //         $luna->table = 'luna_paragraph';
-    //         $luna->title = $title;
-    //         $stmt1 = $luna->showAllWhere('id', ['title']);
-    //         $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-    //         extract($row1);
-
-    //         // get the paragraphs of the child page
-    //         $luna->table = 'luna_child_paragraph';
-    //         $luna->child_pages_id = $child_id;
-
-    //         if ($luna->itemExists('child_pages_id')) {
-
-    //             $stmt = $luna->showAllWhere('id', ['child_pages_id']);
-    //             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    //             extract($row);
-
-    //             $arr = explode(',', $row['paragraph_id_arr']);
-    //             $arr[] = $row1['id'];
-    //             $str = implode(',', $arr);
-
-    //             $luna->table = 'luna_child_paragraph';
-    //             $luna->id = $row['id'];
-    //             $luna->paragraph_id_arr = $str;
-
-    //             if ($luna->update(['paragraph_id_arr'], 'id')) {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-    //                 exit;
-    //             } else {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-    //                 exit;
-    //             }
-    //         } else {
-    //             $luna->table = 'luna_child_paragraph';
-    //             $luna->child_pages_id = $child_id;
-    //             $luna->paragraph_id_arr = $row1['id'];
-    //             if ($luna->insert(['child_pages_id', 'paragraph_id_arr'])) {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-    //                 exit;
-    //             } else {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-    //                 exit;
-    //             }
-    //         }
-    //     } else {
-    //         header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentFail");
-    //         exit;
-    //     }
-    // } else if (filter_input(INPUT_POST, 'parent_id')) {
-    //     // è un child
-    //     $parent_id = filter_input(INPUT_POST, 'parent_id');
-
-    //     $luna->title = $title;
-    //     $luna->content = $content;
-    //     $luna->last_editor = $_SESSION['account_id'];
-    //     $luna->table = 'luna_child';
-
-    //     if ($luna->insert(['title', 'content', 'last_editor'])) {
-    //         $luna->table = 'luna_child';
-    //         $luna->title = $title;
-    //         $stmt1 = $luna->showAllWhere('id', ['title']);
-    //         $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-    //         extract($row1);
-
-    //         // get the paragraphs of the child page
-    //         $luna->table = 'luna_parent_child';
-    //         $luna->parent_pages_id = $parent_id;
-    //         if ($luna->itemExists('parent_pages_id')) {
-    //             $stmt = $luna->showAllWhere('id', ['parent_pages_id']);
-    //             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    //             extract($row);
-
-    //             $arr = explode(',', $row['child_pages_id_arr']);
-    //             $arr[] = $row1['id'];
-    //             $str = implode(',', $arr);
-
-    //             $luna->table = 'luna_parent_child';
-    //             $luna->id = $row['id'];
-    //             $luna->child_pages_id_arr = $str;
-
-    //             if ($luna->update(['child_pages_id_arr'], 'id')) {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-    //                 exit;
-    //             } else {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-    //                 exit;
-    //             }
-    //         } else {
-    //             $luna->table = 'luna_parent_child';
-    //             $luna->parent_pages_id = $parent_id;
-    //             $luna->child_pages_id_arr =  $row1['id'];
-    //             if ($luna->insert(['parent_pages_id', 'child_pages_id_arr'])) {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-    //                 exit;
-    //             } else {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-    //                 exit;
-    //             }
-    //         }
-    //     } else {
-    //         header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentFail");
-    //         exit;
-    //     }
-    // } else {
-    //     // it's a parent
-    //     $luna->title = $title;
-    //     $luna->content = $content;
-    //     $luna->luna_products_id = $prod_id;
-    //     $luna->last_editor = $_SESSION['account_id'];
-    //     $luna->table = 'luna_parent';
-
-    //     if ($luna->insert(['title', 'content', 'luna_products_id', 'last_editor'])) {
-    //         $luna->table = 'luna_parent';
-    //         $luna->title = $title;
-
-    //         $stmt1 = $luna->showAllWhere('id', ['title']);
-    //         $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-    //         extract($row1);
-
-    //         // get the parent order for the product
-    //         $luna->table = 'luna_parent_order';
-    //         $luna->luna_products_id = $prod_id;
-
-    //         if ($luna->itemExists('luna_products_id')) {
-    //             // there are already parent pages for this product
-    //             $stmt = $luna->showAllWhere('id', ['luna_products_id']);
-    //             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    //             extract($row);
-
-    //             // add the page to the other parent pages
-    //             $arr = explode(',', $row['parent_pages_id_arr']);
-    //             $arr[] = $row1['id'];
-    //             $str = implode(',', $arr);
-
-    //             $luna->table = 'luna_parent_order';
-    //             $luna->id = $row['id'];
-    //             $luna->parent_pages_id_arr = $str;
-
-    //             if ($luna->update(['parent_pages_id_arr'], 'id')) {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-    //                 exit;
-    //             } else {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-    //                 exit;
-    //             }
-    //         } else {
-    //             // it's the first parent page for the product
-    //             $luna->table = 'luna_parent_order';
-    //             $luna->luna_products_id = $prod_id;
-    //             $luna->parent_pages_id_arr =  $row1['id'];
-    //             if ($luna->insert(['parent_pages_id_arr', 'luna_products_id'])) {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-    //                 exit;
-    //             } else {
-    //                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
-    //                 exit;
-    //             }
-    //         }
-    //     } else {
-    //         header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentFail");
-    //         exit;
-    //     }
-    // }
 } else if ($operation == 'editPage') {
 
     $idToMod = filter_input(INPUT_POST, 'idToMod');
