@@ -1,0 +1,9 @@
+{
+  "parent": ["1", "2", "3", 5],
+  "child": [
+    { "parent_id": "1", "id": [6] },
+    { "parent_id": "2", "id": [7] },
+    { "parent_id": "5", "id": [9] }
+  ],
+  "paragraph": [{ "child_id": "7", "id": [8] }]
+}

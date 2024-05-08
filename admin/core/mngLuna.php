@@ -111,14 +111,13 @@ if ($operation == "editLunaProduct") {
             $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
             $pages_data = json_decode($pages_json, true);
 
-            // $new_pages_data = [] ;
 
             if (filter_input(INPUT_POST, 'child_id')) {
                 
                 $child_id = filter_input(INPUT_POST, 'child_id');
                 $inserted = '' ;
 
-                foreach( $pages_data[0]['paragraph'] as $item){
+                foreach( $pages_data['paragraph'] as $item){
                     
                     if($item['child_id'] == $child_id ){
                         $item['id'][] = $page_id ;                        
@@ -133,14 +132,14 @@ if ($operation == "editLunaProduct") {
                 }
 
 
-                $new_pages_data = ['parent' =>$pages_data[0]['parent'],'child' => $pages_data[0]['child'],'paragraph' =>$par_arr] ;
+                $new_pages_data = ['parent' =>$pages_data['parent'],'child' => $pages_data['child'],'paragraph' =>$par_arr] ;
 
             }else if (filter_input(INPUT_POST, 'parent_id')) {
 
                 $parent_id = filter_input(INPUT_POST, 'parent_id');
                 $inserted = '' ;
 
-                foreach( $pages_data[0]['child'] as $item){
+                foreach( $pages_data['child'] as $item){
                     
                     if($item['parent_id'] == $parent_id ){
                         $item['id'][] = $page_id ;                        
@@ -155,12 +154,14 @@ if ($operation == "editLunaProduct") {
                 }
 
 
-                $new_pages_data = ['parent' =>$pages_data[0]['parent'],'child' => $child_arr,'paragraph' =>$pages_data[0]['paragraph']] ;
+                $new_pages_data = ['parent' =>$pages_data['parent'],'child' => $child_arr,'paragraph' =>$pages_data['paragraph']] ;
 
 
             } else{
 
                 $pages_data['parent'][] = $page_id ;
+                $new_pages_data = ['parent' =>$pages_data['parent'],'child' => $pages_data['child'],'paragraph' =>$pages_data['paragraph']] ;
+
 
             }
             
@@ -183,8 +184,10 @@ if ($operation == "editLunaProduct") {
             //   - composizione array
             //   - creo il file nella cartella principale e in quella bck
 
-            $pages = "<?php" . PHP_EOL . "\$pages = [0 => " . $row['id'] . "];" . PHP_EOL . "?>";
-            if (file_put_contents($real_file, $pages, FILE_APPEND)) {
+            $new_pages_data = ['parent' =>[$page_id],'child' => [],'paragraph' =>[]] ;
+            $jsonContent = json_encode($new_pages_data);
+
+            if (file_put_contents($real_file, $jsonContent, FILE_APPEND)) {
 
                 chmod($real_file, 0777);
                 $err_bck = '';
