@@ -87,12 +87,45 @@ extract($row1);
           ?>
               <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
                 <?= $row['title'] ?>
-
+                <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
+                  <i class="bi bi-chevron-down"></i>
+                </a>
                 &nbsp;
-                <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
+                Operations: &nbsp;
+                <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&idToMod=<?= $row['id'] ?>" class="btn btn-sm icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i></a>
                 &nbsp;
-                <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a child page</a>
-
+                <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>" class="btn btn-sm icon icon-left btn-success shadow"><i class="bi bi-plus-circle"></i></a>
+                &nbsp;
+                <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row['id'] ?>"><i class="bi bi-trash"></i>
+                </a>
+                <!--Danger theme Modal -->
+                <div class="modal fade text-left" id="danger<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header bg-danger">
+                        <h5 class="modal-title white" id="myModalLabel120">
+                          <?= $common_modal_title_sure ?>
+                        </h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                          <i data-feather="x"></i>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        !!! ATTENZIONE !!!<br>
+                        Eliminando questa pagina verranno eliminate definitivamente <b>anche le pagine nested</b>!
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                          <i class="bx bx-x d-block d-sm-none"></i>
+                          <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
+                        </button>
+                        <span class="d-none d-sm-block"><a href="mngLuna.php?idPageToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
+                            <?= $common_modal_confirm ?>
+                          </a></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <?php
                 // check se esistono dei child
 
@@ -100,9 +133,7 @@ extract($row1);
 
                   if ($child['parent_id'] == $parent) {
                 ?>
-                    <a class="btn icon btn-sm btn-info mx-2" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
-                      <i class="bi bi-chevron-down"></i>
-                    </a>
+
                     <div id="child_<?= $row['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
 
                       <?php
@@ -120,18 +151,52 @@ extract($row1);
                         <div id="<?= $row1['id'] ?>" class="child_item rounded m-2">
 
                           <?= $row1['title'] ?>
-                          <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>&child=<?= $row1['id'] ?>" class="btn icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i> Edit page</a>
+
+                          &nbsp; Operations: &nbsp;
+                          <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">
+                            <i class="bi bi-chevron-down"></i>
+                          </a> &nbsp;
+                          <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&idToMod=<?= $row1['id'] ?>" class="btn icon icon-left btn-sm btn-warning shadow"> <i class="bi bi-pencil-square"></i></a>
                           &nbsp;
-                          <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>&child=<?= $row1['id'] ?>" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a paragraph</a>
+                          <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>&child=<?= $row1['id'] ?>" class="btn btn-sm icon icon-left btn-success shadow"><i class="bi bi-plus-circle"></i></a>
+                          &nbsp;
+                          <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row1['id'] ?>"><i class="bi bi-trash"></i>
+                          </a>
+                          <!--Danger theme Modal -->
+                          <div class="modal fade text-left" id="danger<?= $row1['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header bg-danger">
+                                  <h5 class="modal-title white" id="myModalLabel120">
+                                    <?= $common_modal_title_sure ?>
+                                  </h5>
+                                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i data-feather="x"></i>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  !!! ATTENZIONE !!!<br>
+                                  Eliminando questa pagina verranno eliminate definitivamente <b>anche le pagine nested</b>!
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                    <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
+                                  </button>
+                                  <span class="d-none d-sm-block"><a href="core/mngLuna.php?idPageToDel=<?= $row1['id'] ?>" class="btn btn-danger ml-1">
+                                      <?= $common_modal_confirm ?>
+                                    </a></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           <?php
 
                           foreach ($pages_data['paragraph'] as $par) {
 
                             if ($par['child_id'] == $row1['id']) {
                           ?>
-                              <a class="btn icon btn-sm btn-info mx-2 " data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">
-                                <i class="bi bi-chevron-down"></i>
-                              </a> &nbsp;
+
 
                               <div id="paragraph_<?= $row1['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
                                 <?php
@@ -146,7 +211,46 @@ extract($row1);
                                   $paragraph_div_arr[] = $row1['id'];
                                 ?>
                                   <div id="<?= $row2['id'] ?>" class="paragraph_item rounded m-2 p-2">
+                                    <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&idToMod=<?= $row2['id'] ?>" class="btn btn-sm icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i></a>
+                                    &nbsp;
                                     <?= $row2['title'] ?>
+                                    &nbsp; Operations: &nbsp;
+                                    <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">
+                                      <i class="bi bi-chevron-down"></i>
+                                    </a> &nbsp;
+                                    <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&idToMod=<?= $row2['id'] ?>" class="btn icon icon-left btn-sm btn-warning shadow"> <i class="bi bi-pencil-square"></i></a>
+                                    &nbsp;
+                                    <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row2['id'] ?>"><i class="bi bi-trash"></i>
+                                    </a>
+                                    <!--Danger theme Modal -->
+                                    <div class="modal fade text-left" id="danger<?= $row2['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header bg-danger">
+                                            <h5 class="modal-title white" id="myModalLabel120">
+                                              <?= $common_modal_title_sure ?>
+                                            </h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                              <i data-feather="x"></i>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            !!! ATTENZIONE !!!<br>
+                                            Eliminando questa pagina verranno eliminate definitivamente <b>anche le pagine nested</b>!
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                              <i class="bx bx-x d-block d-sm-none"></i>
+                                              <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
+                                            </button>
+                                            <span class="d-none d-sm-block"><a href="core/mngLuna.php?idPageToDel=<?= $row2['id'] ?>" class="btn btn-danger ml-1">
+                                                <?= $common_modal_confirm ?>
+                                              </a></span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
                                   </div>
                                 <?php
                                 }
@@ -221,8 +325,8 @@ extract($row1);
         let elementId = this.id;
         let elementLevel = $(this).parents('.container-pages').length;
 
-        if(elementLevel>1){
-          elementLevel = elementLevel-1
+        if (elementLevel > 1) {
+          elementLevel = elementLevel - 1
         }
         orderedItems.push({
           id: elementId,
@@ -244,8 +348,8 @@ extract($row1);
     // Invia l'array al server utilizzando AJAX
 
 
-  $.ajax({
-     url: 'core/mngLunaOrder.php', // URL della pagina PHP per il salvataggio
+    $.ajax({
+      url: 'core/mngLunaOrder.php', // URL della pagina PHP per il salvataggio
       method: 'POST', // Metodo HTTP da utilizzare
       data: postData, // Dati da inviare (convertiti in stringa JSON)
       success: function(response) {
@@ -262,5 +366,4 @@ extract($row1);
       }
     });
   });
-
 </script>

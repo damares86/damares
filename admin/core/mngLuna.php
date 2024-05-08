@@ -106,65 +106,60 @@ if ($operation == "editLunaProduct") {
             //   SE FALLISCE QUALCOSA:
             //      - ripristino il file originale dal bck
             //      - cosa ne faccio della pagina?
-            
-            
+
+
             $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
             $pages_data = json_decode($pages_json, true);
 
 
             if (filter_input(INPUT_POST, 'child_id')) {
-                
-                $child_id = filter_input(INPUT_POST, 'child_id');
-                $inserted = '' ;
 
-                foreach( $pages_data['paragraph'] as $item){
-                    
-                    if($item['child_id'] == $child_id ){
-                        $item['id'][] = $page_id ;                        
-                        $inserted = true ;
+                $child_id = filter_input(INPUT_POST, 'child_id');
+                $inserted = '';
+
+                foreach ($pages_data['paragraph'] as $item) {
+
+                    if ($item['child_id'] == $child_id) {
+                        $item['id'][] = $page_id;
+                        $inserted = true;
                     }
 
-                    $par_arr[] = $item ;
-                }
-                
-                if(!$inserted){
-                    $par_arr[] = ['child_id' => $child_id,'id' => [$page_id]];
+                    $par_arr[] = $item;
                 }
 
+                if (!$inserted) {
+                    $par_arr[] = ['child_id' => $child_id, 'id' => [$page_id]];
+                }
 
-                $new_pages_data = ['parent' =>$pages_data['parent'],'child' => $pages_data['child'],'paragraph' =>$par_arr] ;
 
-            }else if (filter_input(INPUT_POST, 'parent_id')) {
+                $new_pages_data = ['parent' => $pages_data['parent'], 'child' => $pages_data['child'], 'paragraph' => $par_arr];
+            } else if (filter_input(INPUT_POST, 'parent_id')) {
 
                 $parent_id = filter_input(INPUT_POST, 'parent_id');
-                $inserted = '' ;
+                $inserted = '';
 
-                foreach( $pages_data['child'] as $item){
-                    
-                    if($item['parent_id'] == $parent_id ){
-                        $item['id'][] = $page_id ;                        
-                        $inserted = true ;
+                foreach ($pages_data['child'] as $item) {
+
+                    if ($item['parent_id'] == $parent_id) {
+                        $item['id'][] = $page_id;
+                        $inserted = true;
                     }
 
-                    $child_arr[] = $item ;
-                }
-                
-                if(!$inserted){
-                    $child_arr[] = ['parent_id' => $parent_id,'id' => [$page_id]];
+                    $child_arr[] = $item;
                 }
 
-
-                $new_pages_data = ['parent' =>$pages_data['parent'],'child' => $child_arr,'paragraph' =>$pages_data['paragraph']] ;
-
-
-            } else{
-
-                $pages_data['parent'][] = $page_id ;
-                $new_pages_data = ['parent' =>$pages_data['parent'],'child' => $pages_data['child'],'paragraph' =>$pages_data['paragraph']] ;
+                if (!$inserted) {
+                    $child_arr[] = ['parent_id' => $parent_id, 'id' => [$page_id]];
+                }
 
 
+                $new_pages_data = ['parent' => $pages_data['parent'], 'child' => $child_arr, 'paragraph' => $pages_data['paragraph']];
+            } else {
+
+                $pages_data['parent'][] = $page_id;
+                $new_pages_data = ['parent' => $pages_data['parent'], 'child' => $pages_data['child'], 'paragraph' => $pages_data['paragraph']];
             }
-            
+
             $jsonContent = json_encode($new_pages_data);
 
             if (file_put_contents($real_file, $jsonContent)) {
@@ -178,13 +173,12 @@ if ($operation == "editLunaProduct") {
                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
                 exit;
             }
-
         } else {
             // non esiste:
             //   - composizione array
             //   - creo il file nella cartella principale e in quella bck
 
-            $new_pages_data = ['parent' =>[$page_id],'child' => [],'paragraph' =>[]] ;
+            $new_pages_data = ['parent' => [$page_id], 'child' => [], 'paragraph' => []];
             $jsonContent = json_encode($new_pages_data);
 
             if (file_put_contents($real_file, $jsonContent, FILE_APPEND)) {
@@ -202,7 +196,6 @@ if ($operation == "editLunaProduct") {
             }
         }
     }
-
 } else if ($operation == 'editPage') {
 
     $idToMod = filter_input(INPUT_POST, 'idToMod');
@@ -211,54 +204,18 @@ if ($operation == "editLunaProduct") {
     $title = filter_input(INPUT_POST, 'title');
     $content = filter_input(INPUT_POST, 'content');
 
-    if (filter_input(INPUT_POST, 'child_id')) {
-        // è un paragrafo
-        $luna->id = $idToMod;
-        $luna->title = $title;
-        $luna->content = $content;
-        $luna->last_editor = $_SESSION['account_id'];
-        $luna->table = 'luna_paragraph';
+    $luna->id = $idToMod;
+    $luna->title = $title;
+    $luna->content = $content;
+    $luna->last_editor = $_SESSION['account_id'];
+    $luna->table = 'luna_pages_' . $prod_id;
 
-        if ($luna->update(['title', 'content', 'last_editor'], 'id')) {
-            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentEditSucc");
-            exit;
-        } else {
-            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
-            exit;
-        }
-    } else if (filter_input(INPUT_POST, 'parent_id')) {
-        // è un child
-        $luna->id = $idToMod;
-        $luna->title = $title;
-        $luna->content = $content;
-        $luna->last_editor = $_SESSION['account_id'];
-        $luna->table = 'luna_child';
-
-        if ($luna->update(['title', 'content', 'last_editor'], 'id')) {
-
-            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentEditSucc");
-            exit;
-        } else {
-            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
-            exit;
-        }
+    if ($luna->update(['title', 'content', 'last_editor'], 'id')) {
+        header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentEditSucc");
+        exit;
     } else {
-        // it's a parent
-        $luna->id = $idToMod;
-        $luna->title = $title;
-        $luna->content = $content;
-        $luna->luna_products_id = $prod_id;
-        $luna->last_editor = $_SESSION['account_id'];
-        $luna->table = 'luna_parent';
-
-        if ($luna->update(['title', 'content', 'luna_products_id', 'last_editor'], 'id')) {
-
-            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentEditSucc");
-            exit;
-        } else {
-            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
-            exit;
-        }
+        header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
+        exit;
     }
 } else {
     header("Location: ../index.php?err=noPost");

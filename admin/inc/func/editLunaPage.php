@@ -5,23 +5,11 @@ $summernote = true;
 $prod_id = filter_input(INPUT_GET,'prod') ;
 
 // get the product data
-$page_id = filter_input(INPUT_GET, 'parent');
-$luna->table = 'luna_parent';
+$page_id = filter_input(INPUT_GET, 'idToMod');
+$luna->table = 'luna_pages_'.$prod_id;
 
 $parent_id = '' ;
 $child_id = '' ;
-
-if (filter_input(INPUT_GET, 'child')) {
-    $page_id = filter_input(INPUT_GET, 'child');
-    $luna->table = 'luna_child';    
-    $parent_id = true ;
-}
-
-if (filter_input(INPUT_GET, 'paragraph')) {
-    $page_id = filter_input(INPUT_GET, 'paragraph');
-    $luna->table = 'luna_paragraph';    
-    $child_id = true ;
-}
 
 $idToMod = $page_id ;
 
