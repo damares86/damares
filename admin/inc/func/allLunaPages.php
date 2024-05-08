@@ -137,7 +137,6 @@ extract($row1);
                                 <?php
 
                                 foreach ($par['id'] as $par_id) {
-
                                   $luna->table = 'luna_pages_' . $prod_id;
                                   $luna->id = $par_id;
                                   $stmt2 = $luna->showAllWhere('id', ['id']);
@@ -146,7 +145,7 @@ extract($row1);
                                   extract($row2);
                                   $paragraph_div_arr[] = $row1['id'];
                                 ?>
-                                  <div id="<?= $row2['id'] ?>" class="paragraph_item rounded m-2">
+                                  <div id="<?= $row2['id'] ?>" class="paragraph_item rounded m-2 p-2">
                                     <?= $row2['title'] ?>
                                   </div>
                                 <?php

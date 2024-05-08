@@ -166,9 +166,7 @@ function createTree($orderedItems)
 
     foreach ($child_tot as $item1) {
         $par_arr = 'paragraph_' . $item1;
-        if (isset($$par_arr)) {
-            $paragraph_tree[] = array("child_id" => $item1, "id" => $$par_arr);
-        }
+        $paragraph_tree[] = array("child_id" => $item1, "id" => $$par_arr);
     }
 
     $tree = ['parent' => $parent, 'child' => $child_tree, 'paragraph' => $paragraph_tree];
