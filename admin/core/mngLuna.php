@@ -13,11 +13,81 @@ use Composer\InstalledVersions;
 
 require __DIR__ . "/coreConfig.php";
 
-// check if there's a customer to delete
 
-if (filter_input(INPUT_GET, "idToDel")) {
+if (filter_input(INPUT_GET, "idPageToDel")) {
 
-    // TODO
+    $idToDel = filter_input(INPUT_GET, "idPageToDel") ;
+    $prod_id = filter_input(INPUT_GET, "prod") ;
+
+    $luna->table = "luna_pages_$prod_id" ;
+    $luna->id = $idToDel ;
+    $stmt = $luna->showAllWhere('id',['id']) ;
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    extract($row) ;
+
+    // provo a rifare il file dell'ordine
+    // se va bene sostituisco il bck e poi cancello dal db
+    // se va male ripristino il bck 
+
+    $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
+    $pages_data = json_decode($pages_json, true);
+
+    // ciclo i parent
+    $parent_arr = [] ;
+    $parent_delete = '' ;
+    if(filter_input(INPUT_GET,'type')){
+
+        $parent_delete = $row['id'];
+
+        foreach($pages_data['parent'] as $parent){
+            if($parent != $row['id']){
+                $parent_arr[] = $parent ;
+            }
+        }
+    }else{
+        $parent_arr = $pages_data['parent'] ;
+    }
+
+    // ciclo i child   
+    $child_arr = [] ;
+    $child_delete = '' ;
+    if(filter_input(INPUT_GET,'parent')){
+        
+        $child_delete = $row['id'] ;
+
+        foreach($pages_data['child'] as $child){
+            if(!in_array($row['id'],$child['id']) && $child['parent_id'] != $parent_delete){
+                $child_arr[] = $child ;
+            }
+        }
+
+    }else{
+        $child_arr = $pages_data['child'];
+    }
+
+    // ciclo i paragraph
+    $paragraph_arr = [] ;
+    if(filter_input(INPUT_GET,'child_id')){
+
+        foreach($pages_data['paragraph'] as $paragraph){
+
+            if(!in_array($row['id'],$paragraph['id']) && $paragraph['child_id'] != $child_delete ){
+                $paragraph_arr[] = $paragraph ;
+            }
+
+        }
+
+    }
+
+
+    print_r($child_arr) ;
+    exit;
+
+
+
+
+
+
 
 }
 

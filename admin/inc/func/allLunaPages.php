@@ -119,7 +119,7 @@ extract($row1);
                           <i class="bx bx-x d-block d-sm-none"></i>
                           <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
                         </button>
-                        <span class="d-none d-sm-block"><a href="mngLuna.php?idPageToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
+                        <span class="d-none d-sm-block"><a href="core/mngLuna.php?idPageToDel=<?= $row['id'] ?>&prod=<?= $prod_id ?>&type=parent" class="btn btn-danger ml-1">
                             <?= $common_modal_confirm ?>
                           </a></span>
                       </div>
@@ -183,7 +183,7 @@ extract($row1);
                                     <i class="bx bx-x d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
                                   </button>
-                                  <span class="d-none d-sm-block"><a href="core/mngLuna.php?idPageToDel=<?= $row1['id'] ?>" class="btn btn-danger ml-1">
+                                  <span class="d-none d-sm-block"><a href="core/mngLuna.php?idPageToDel=<?= $row1['id'] ?>&prod=<?= $prod_id ?>&parent_id=<?=$row['id']?>" class="btn btn-danger ml-1">
                                       <?= $common_modal_confirm ?>
                                     </a></span>
                                 </div>
@@ -243,7 +243,7 @@ extract($row1);
                                               <i class="bx bx-x d-block d-sm-none"></i>
                                               <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
                                             </button>
-                                            <span class="d-none d-sm-block"><a href="core/mngLuna.php?idPageToDel=<?= $row2['id'] ?>" class="btn btn-danger ml-1">
+                                            <span class="d-none d-sm-block"><a href="core/mngLuna.php?idPageToDel=<?= $row2['id'] ?>&prod=<?= $prod_id ?>&child_id=<?=$row1['id']?>" class="btn btn-danger ml-1">
                                                 <?= $common_modal_confirm ?>
                                               </a></span>
                                           </div>
