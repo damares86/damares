@@ -1,6 +1,6 @@
 <?php
 // Connessione al database
-$conn = new mysqli("localhost", "root", "admin", "wp");
+$conn = new mysqli("localhost", "root", "admin", "test");
 
 // Controlla la connessione
 if ($conn->connect_error) {
@@ -11,10 +11,10 @@ if ($conn->connect_error) {
 $provincia = $_POST['provincia'];
 
 $provincia = strtolower($provincia);
-$table_name = 'provincia_'.$provincia ;
+$table_name = 'db_provincia_'.$provincia ;
 
 // Esegui la query per recuperare i comuni in base alla provincia
-$sql = "SELECT COMUNE FROM $table_name WHERE PROVINCIA = ?";
+$sql = "SELECT DISTINCT COMUNE FROM $table_name WHERE PROVINCIA = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $provincia);
 $stmt->execute();
@@ -23,7 +23,7 @@ $result = $stmt->get_result();
 // Costruisci le opzioni per il select dei comuni
 $options = '<option value="">Seleziona un comune</option>';
 while ($row = $result->fetch_assoc()) {
-    $options .= '<option value="' . $row['COMUNE'] . '">' . $row['COMUNE'] . '</option>';
+    $options .= '<option value="'.$provincia .'_' . $row['COMUNE'] . '">' . $row['COMUNE'] . '</option>';
 }
 
 echo $options;

@@ -1,3 +1,11 @@
+<?php
+	require '../../vendor/autoload.php';		// If installed via composer
+	$debug = new \bdk\Debug(array(
+		'collect' => true,
+		'output' => true,
+	));
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -55,13 +63,15 @@
           <form id="myForm">
             <label for="provincia">Provincia:</label>
             <select id="provincia" name="provincia">
+              <option value="">&nbsp;</option>
               <option value="cuneo">Cuneo</option>
               <option value="torino">Torino</option>
             </select>
 
             <label for="comune">Comune:</label>
             <select id="comune" name="comune"></select>
-
+            <br>
+            <br>
             <label for="indirizzo">Indirizzo:</label>
             <select id="indirizzo" name="indirizzo"></select>
           </form>
