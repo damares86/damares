@@ -37,7 +37,7 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
     $parent_delete = '' ;
     if(filter_input(INPUT_GET,'type')){
 
-        $parent_delete = $row['id'];
+        $parent_delete = $idToDel;
 
         foreach($pages_data['parent'] as $parent){
             if($parent != $row['id']){
@@ -51,20 +51,44 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
     // ciclo i child   
     $child_arr = [] ;
     $child_delete = '' ;
-    if(filter_input(INPUT_GET,'parent')){
+    if(filter_input(INPUT_GET,'parent_id')){
         
-        $child_delete = $row['id'] ;
-
+        // sto cancellando un child
+       
+        $child_delete = $idToDel;
+        $counter=0;
         foreach($pages_data['child'] as $child){
-            if(!in_array($row['id'],$child['id']) && $child['parent_id'] != $parent_delete){
-                $child_arr[] = $child ;
+            if(is_array($child['id']) && in_array($child_delete,$child['id'])){
+                // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare (vedi sotto la label)
+                continue;
+            }else{
+                // butto dentro l'array così com'è
+                $child_label = 'child_'.$child['parent_id'] ;
+                $$child_label[] = $child ;
             }
         }
 
     }else{
-        $child_arr = $pages_data['child'];
-    }
+        
+        // replicare child, tenendo conto di parent_delete o child_delete
 
+        // sto cancellando un parent o un paragrafo
+        if(isset($parent_delete)){
+            
+            foreach($pages_data['child'] as $child){
+                if($child['parent_id']!=$parent_delete){
+                    // non è il child del parent che sto eliminando
+                    $child_arr[] = $child ;
+                }
+            }
+        }else{
+            // non sto cancellando nè un parent nè un paragrafo
+            $child_arr = $pages_data['child'];
+
+        }
+    }
+    print_r($child_arr);
+    exit;
     // ciclo i paragraph
     $paragraph_arr = [] ;
     if(filter_input(INPUT_GET,'child_id')){
