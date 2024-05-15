@@ -157,12 +157,14 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
     } else {
         // sto cancellando un parent o un child
             foreach ($pages_data['paragraph'] as $paragraph) {
-                if (is_array($paragraph['id']) && in_array($paragraph['child_id'],$child_tot)) {
+                if (in_array($paragraph['child_id'],$child_tot)) {
                     $paragraph_label = 'paragraph_' . $paragraph['child_id'];
-                    // non è il child del parent che sto eliminando
-
-                    foreach ($paragraph['id'] as $item) {
-                        $$paragraph_label[] = $item;
+                    if(is_array($paragraph['id'])){
+                        foreach ($paragraph['id'] as $item) {
+                            $$paragraph_label[] = $item;
+                        }
+                    }else{
+                        $$paragraph_label[] = null;
                     }
                 }
             }
@@ -179,7 +181,7 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
 
     $real_file = '../inc/luna_pages/pages_' . $prod_id . '.json';
     $bck_file = '../inc/luna_pages/bck/pages_' . $prod_id . '.json';
-    
+
     if (file_put_contents($real_file, $jsonContent)) {
         chmod($real_file, 0777);
         unlink($bck_file);
