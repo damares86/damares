@@ -211,8 +211,6 @@ extract($row1);
                                   $paragraph_div_arr[] = $row1['id'];
                                 ?>
                                   <div id="<?= $row2['id'] ?>" class="paragraph_item rounded m-2 p-2">
-                                    <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&idToMod=<?= $row2['id'] ?>" class="btn btn-sm icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i></a>
-                                    &nbsp;
                                     <?= $row2['title'] ?>
                                     &nbsp; Operations: &nbsp;
                                     <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">

@@ -16,14 +16,14 @@ require __DIR__ . "/coreConfig.php";
 
 if (filter_input(INPUT_GET, "idPageToDel")) {
 
-    $idToDel = filter_input(INPUT_GET, "idPageToDel") ;
-    $prod_id = filter_input(INPUT_GET, "prod") ;
+    $idToDel = filter_input(INPUT_GET, "idPageToDel");
+    $prod_id = filter_input(INPUT_GET, "prod");
 
-    $luna->table = "luna_pages_$prod_id" ;
-    $luna->id = $idToDel ;
-    $stmt = $luna->showAllWhere('id',['id']) ;
+    $luna->table = "luna_pages_$prod_id";
+    $luna->id = $idToDel;
+    $stmt = $luna->showAllWhere('id', ['id']);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    extract($row) ;
+    extract($row);
 
     // provo a rifare il file dell'ordine
     // se va bene sostituisco il bck e poi cancello dal db
@@ -33,86 +33,158 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
     $pages_data = json_decode($pages_json, true);
 
     // ciclo i parent
-    $parent_arr = [] ;
-    $parent_delete = '' ;
-    if(filter_input(INPUT_GET,'type')){
+    $parent_arr = [];
+    $parent_delete = '';
+    if (filter_input(INPUT_GET, 'type')) {
 
         $parent_delete = $idToDel;
 
-        foreach($pages_data['parent'] as $parent){
-            if($parent != $row['id']){
-                $parent_arr[] = $parent ;
+        foreach ($pages_data['parent'] as $parent) {
+            if ($parent != $row['id']) {
+                $parent_arr[] = $parent;
             }
         }
-    }else{
-        $parent_arr = $pages_data['parent'] ;
+    } else {
+        $parent_arr = $pages_data['parent'];
     }
 
     // ciclo i child   
-    $child_arr = [] ;
-    $child_delete = '' ;
-    if(filter_input(INPUT_GET,'parent_id')){
-        
+    $child_tree = [];
+    $child_tot = [];
+    $child_delete = '';
+    $paragraph_tree = [];
+    if (filter_input(INPUT_GET, 'parent_id')) {
+
         // sto cancellando un child
-       
+
         $child_delete = $idToDel;
-        $counter=0;
-        foreach($pages_data['child'] as $child){
-            if(is_array($child['id']) && in_array($child_delete,$child['id'])){
-                // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare (vedi sotto la label)
-                continue;
-            }else{
+        $counter = 0;
+        foreach ($pages_data['child'] as $child) {
+            $child_label = 'child_' . $child['parent_id'];
+            if (is_array($child['id']) && in_array($child_delete, $child['id'])) {
+
+                // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare
+                foreach ($child['id'] as $item) {
+                    if ($item != $idToDel) {
+                        $$child_label[] = $item;
+                        $child_tot[] = $item;
+                    }
+                }
+            } else {
                 // butto dentro l'array così com'è
-                $child_label = 'child_'.$child['parent_id'] ;
-                $$child_label[] = $child ;
+
+                $$child_label[] = $child['id'];
+                foreach($child['id'] as $item){
+                    $child_tot[] = $item ;
+                }
             }
         }
 
-    }else{
-        
+        // ricreo l'array di array dei child
+
+        foreach ($parent_arr as $item) {
+            $child_arr = 'child_' . $item;
+            $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
+        }
+    } else {
         // replicare child, tenendo conto di parent_delete o child_delete
 
         // sto cancellando un parent o un paragrafo
-        if(isset($parent_delete)){
-            
-            foreach($pages_data['child'] as $child){
-                if($child['parent_id']!=$parent_delete){
+        if ($parent_delete) {
+
+            foreach ($pages_data['child'] as $child) {
+                if ($child['parent_id'] != $parent_delete) {
+                    $child_label = 'child_' . $child['parent_id'];
                     // non è il child del parent che sto eliminando
-                    $child_arr[] = $child ;
+                    foreach ($child['id'] as $item) {
+                        $$child_label[] = $item;
+                    }
+                } else {
+                    $child_tot[] = $child['id'];
                 }
             }
-        }else{
-            // non sto cancellando nè un parent nè un paragrafo
-            $child_arr = $pages_data['child'];
 
+            foreach ($parent_arr as $item) {
+                $child_arr = 'child_' . $item;
+                $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
+            }
+        } else {
+            // non sto cancellando nè un parent nè un paragrafo
+            foreach ($pages_data['child'] as $item) {
+                $child_tree[] = array("parent_id" => $item['parent_id'], "id" => $item['id']);
+                $child_tot[] = $item['id'];
+            }
         }
     }
-    print_r($child_arr);
-    exit;
-    // ciclo i paragraph
-    $paragraph_arr = [] ;
-    if(filter_input(INPUT_GET,'child_id')){
 
-        foreach($pages_data['paragraph'] as $paragraph){
+    // ciclo i paragraph   
+    $paragraph_tree = [];
+    if (filter_input(INPUT_GET, 'child_id')) {
 
-            if(!in_array($row['id'],$paragraph['id']) && $paragraph['child_id'] != $child_delete ){
-                $paragraph_arr[] = $paragraph ;
+        // sto cancellando un paragrafo
+
+        $counter = 0;
+        foreach ($pages_data['paragraph'] as $paragraph) {
+
+            if (in_array($paragraph['child_id'], $child_tot)) {
+                // è paragrafo di un child che non è stato cancellato
+                $paragraph_label = 'paragraph_' . $paragraph['child_id'];
+
+                if (is_array($paragraph['id']) && in_array($idToDel, $paragraph['id'])) {
+
+                    // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare
+                    foreach ($paragraph['id'] as $item) {
+                        if ($item != $idToDel) {
+                            $$paragraph_label[] = $item;
+                        }
+                    }
+                } else {
+                    // butto dentro l'array così com'è
+                    $$paragraph_label[] = $paragraph['id'];
+                }
+            }
+        }
+
+        // ricreo l'array di array dei child
+
+        foreach ($child_tot as $item) {
+            $paragraph_arr = 'paragraph_' . $item;
+            $paragraph_tree[] = array("child_id" => $item, "id" => $$paragraph_arr);
+        }
+    } else {
+
+        // TODO
+
+        // sto cancellando un parent o un child
+        if ($parent_delete) {
+
+            foreach ($pages_data['child'] as $child) {
+                if ($child['parent_id'] != $parent_delete) {
+                    $child_label = 'child_' . $child['parent_id'];
+                    // non è il child del parent che sto eliminando
+
+                    foreach ($child['id'] as $item) {
+                        $$child_label[] = $item;
+                    }
+                }
             }
 
+            foreach ($parent_arr as $item) {
+                $child_arr = 'child_' . $item;
+                $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
+            }
+        } else {
+            // non sto cancellando nè un parent nè un paragrafo
+            foreach ($pages_data['child'] as $item) {
+                $child_tree[] = array("parent_id" => $item['parent_id'], "id" => $item['id']);
+            }
         }
-
     }
 
 
-    print_r($child_arr) ;
+
+    print_r($child_arr);
     exit;
-
-
-
-
-
-
-
 }
 
 
