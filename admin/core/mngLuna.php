@@ -100,7 +100,9 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
                         $$child_label[] = $item;
                     }
                 } else {
-                    $child_tot[] = $child['id'];
+                    foreach($child['id'] as $item){
+                        $child_tot[] = $item ;
+                    }
                 }
             }
 
@@ -115,6 +117,7 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
                 $child_tot[] = $item['id'];
             }
         }
+        
     }
 
     // ciclo i paragraph   
@@ -152,39 +155,42 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
             $paragraph_tree[] = array("child_id" => $item, "id" => $$paragraph_arr);
         }
     } else {
-
-        // TODO
-
         // sto cancellando un parent o un child
-        if ($parent_delete) {
-
-            foreach ($pages_data['child'] as $child) {
-                if ($child['parent_id'] != $parent_delete) {
-                    $child_label = 'child_' . $child['parent_id'];
+            foreach ($pages_data['paragraph'] as $paragraph) {
+                if (is_array($paragraph['id']) && in_array($paragraph['child_id'],$child_tot)) {
+                    $paragraph_label = 'paragraph_' . $paragraph['child_id'];
                     // non è il child del parent che sto eliminando
 
-                    foreach ($child['id'] as $item) {
-                        $$child_label[] = $item;
+                    foreach ($paragraph['id'] as $item) {
+                        $$paragraph_label[] = $item;
                     }
                 }
             }
 
-            foreach ($parent_arr as $item) {
-                $child_arr = 'child_' . $item;
-                $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
+            foreach ($child_tot as $item) {
+                $paragraph_arr = 'paragraph_' . $item;
+                $paragraph_tree[] = array("child_id" => $item, "id" => $$paragraph_arr);
             }
-        } else {
-            // non sto cancellando nè un parent nè un paragrafo
-            foreach ($pages_data['child'] as $item) {
-                $child_tree[] = array("parent_id" => $item['parent_id'], "id" => $item['id']);
-            }
-        }
+     
     }
 
+    $new_pages_data = ['parent' => $parent_arr, 'child' => $child_tree, 'paragraph' => $paragraph_tree];
+    $jsonContent = json_encode($new_pages_data);
 
-
-    print_r($child_arr);
-    exit;
+    $real_file = '../inc/luna_pages/pages_' . $prod_id . '.json';
+    $bck_file = '../inc/luna_pages/bck/pages_' . $prod_id . '.json';
+    
+    if (file_put_contents($real_file, $jsonContent)) {
+        chmod($real_file, 0777);
+        unlink($bck_file);
+        copy($real_file, $bck_file);
+        chmod($bck_file, 0777);
+        header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
+        exit;
+    } else {
+        header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+        exit;
+    }
 }
 
 
