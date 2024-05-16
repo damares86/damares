@@ -62,7 +62,7 @@ extract($row1);
           $child_div_arr = [];
           $paragraph_div_arr = [];
 
-          if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.json') && !file_exists('inc/luna_pages/bck/pages_' . $prod_id . '.json')) {
+          if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.json') && !file_exists('inc/luna_pages_bck/pages_' . $prod_id . '.json')) {
             echo "Nessuna pagina presente";
           } else {
             if (file_exists('inc/luna_pages/pages_' . $prod_id . '.json')) {
@@ -71,7 +71,7 @@ extract($row1);
               $pages_data = json_decode($pages_json, true);
             } else {
 
-              $pages_json = file_get_contents('inc/luna_pages/bck/pages_' . $prod_id . '.json');
+              $pages_json = file_get_contents('inc/luna_pages_bck/pages_' . $prod_id . '.json');
               $pages_data = json_decode($pages_json, true);
             }
 

@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Salva il contenuto JSON su un file
         $real_file = '../inc/luna_pages/pages_' . $prod_id . '.json';
-        $bck_file = '../inc/luna_pages/bck/pages_' . $prod_id . '.json';
+        $bck_file = '../inc/luna_pages_bck/pages_' . $prod_id . '.json';
 
         if (file_put_contents($real_file, $jsonContent)) {
 

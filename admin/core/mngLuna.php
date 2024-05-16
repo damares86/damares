@@ -22,152 +22,154 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
     $luna->table = "luna_pages_$prod_id";
     $luna->id = $idToDel;
     $stmt = $luna->showAllWhere('id', ['id']);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    extract($row);
+    $page_content = $stmt->fetch(PDO::FETCH_ASSOC);
+    extract($page_content);
 
-    // provo a rifare il file dell'ordine
-    // se va bene sostituisco il bck e poi cancello dal db
-    // se va male ripristino il bck 
+    $luna->table = "luna_pages_$prod_id";
+    $luna->id = $idToDel;
 
-    $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
-    $pages_data = json_decode($pages_json, true);
+    if ($luna->delete('id')) {
+        // provo a rifare il file dell'ordine
+        // se va bene sostituisco il bck e poi cancello dal db
+        // se va male ripristino il bck 
 
-    // ciclo i parent
-    $parent_arr = [];
-    $parent_delete = '';
-    if (filter_input(INPUT_GET, 'type')) {
+        $pages_json = file_get_contents('../inc/luna_pages/pages_' . $prod_id . '.json');
+        $pages_data = json_decode($pages_json, true);
 
-        $parent_delete = $idToDel;
+        // ciclo i parent
+        $parent_arr = [];
+        $parent_delete = '';
+        if (filter_input(INPUT_GET, 'type')) {
 
-        foreach ($pages_data['parent'] as $parent) {
-            if ($parent != $row['id']) {
-                $parent_arr[] = $parent;
+            $parent_delete = $idToDel;
+
+            foreach ($pages_data['parent'] as $parent) {
+                if ($parent != $row['id']) {
+                    $parent_arr[] = $parent;
+                }
             }
+        } else {
+            $parent_arr = $pages_data['parent'];
         }
-    } else {
-        $parent_arr = $pages_data['parent'];
-    }
 
-    // ciclo i child   
-    $child_tree = [];
-    $child_tot = [];
-    $child_delete = '';
-    $paragraph_tree = [];
-    if (filter_input(INPUT_GET, 'parent_id')) {
+        // ciclo i child   
+        $child_tree = [];
+        $child_tot = [];
+        $child_delete = '';
+        $paragraph_tree = [];
+        if (filter_input(INPUT_GET, 'parent_id')) {
 
-        // sto cancellando un child
+            // sto cancellando un child
 
-        $child_delete = $idToDel;
-        $counter = 0;
-        foreach ($pages_data['child'] as $child) {
-            $child_label = 'child_' . $child['parent_id'];
-            if (is_array($child['id']) && in_array($child_delete, $child['id'])) {
+            $child_delete = $idToDel;
+            $counter = 0;
+            foreach ($pages_data['child'] as $child) {
+                $child_label = 'child_' . $child['parent_id'];
+                if (is_array($child['id']) && in_array($child_delete, $child['id'])) {
 
-                // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare
-                foreach ($child['id'] as $item) {
-                    if ($item != $idToDel) {
-                        $$child_label[] = $item;
+                    // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare
+                    foreach ($child['id'] as $item) {
+                        if ($item != $idToDel) {
+                            $$child_label[] = $item;
+                            $child_tot[] = $item;
+                        }
+                    }
+                } else {
+                    // butto dentro l'array così com'è
+
+                    if (is_array($child['id'])) {
+                        $$child_label = $child['id'];
+                    } else {
+                        $$child_label = null;
+                    }
+                    foreach ($child['id'] as $item) {
                         $child_tot[] = $item;
                     }
                 }
-            } else {
-                // butto dentro l'array così com'è
-
-                if(is_array($child['id'])){
-                    $$child_label = $child['id'];                    
-                }else{
-                    $$child_label = null;                    
-
-                }
-                foreach($child['id'] as $item){
-                    $child_tot[] = $item ;
-                }
             }
-        }
 
-        // ricreo l'array di array dei child
-
-        foreach ($parent_arr as $item) {
-            $child_arr = 'child_' . $item;
-            $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
-        }
-    } else {
-        // replicare child, tenendo conto di parent_delete o child_delete
-
-        // sto cancellando un parent o un paragrafo
-        if ($parent_delete) {
-
-            foreach ($pages_data['child'] as $child) {
-                if ($child['parent_id'] != $parent_delete) {
-                    $child_label = 'child_' . $child['parent_id'];
-                    // non è il child del parent che sto eliminando
-                    foreach ($child['id'] as $item) {
-                        $$child_label[] = $item;
-                        $child_tot[] = $item ;
-                    }
-                } 
-            }
+            // ricreo l'array di array dei child
 
             foreach ($parent_arr as $item) {
                 $child_arr = 'child_' . $item;
                 $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
             }
         } else {
-            // non sto cancellando nè un parent nè un paragrafo
-            foreach ($pages_data['child'] as $item) {
-                $child_tree[] = array("parent_id" => $item['parent_id'], "id" => $item['id']);
-                foreach($item['id'] as $id){
-                    $child_tot[] = $id;
-                }
-            }
-        }
-        
-    }
+            // replicare child, tenendo conto di parent_delete o child_delete
 
-    // ciclo i paragraph   
-    $paragraph_tree = [];
-    if (filter_input(INPUT_GET, 'child_id')) {
+            // sto cancellando un parent o un paragrafo
+            if ($parent_delete) {
 
-        // sto cancellando un paragrafo
-
-        $counter = 0;
-        foreach ($pages_data['paragraph'] as $paragraph) {
-
-            if (in_array($paragraph['child_id'], $child_tot)) {
-                // è paragrafo di un child che non è stato cancellato
-                $paragraph_label = 'paragraph_' . $paragraph['child_id'];
-
-                if (is_array($paragraph['id'])) {
-
-                    // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare
-                    foreach ($paragraph['id'] as $item) {
-                        if ($item != $idToDel) {
-                            $$paragraph_label[] = $item;
+                foreach ($pages_data['child'] as $child) {
+                    if ($child['parent_id'] != $parent_delete) {
+                        $child_label = 'child_' . $child['parent_id'];
+                        // non è il child del parent che sto eliminando
+                        foreach ($child['id'] as $item) {
+                            $$child_label[] = $item;
+                            $child_tot[] = $item;
                         }
                     }
-                } else {
-                    // butto dentro l'array così com'è
-                    $$paragraph_label = null;
+                }
+
+                foreach ($parent_arr as $item) {
+                    $child_arr = 'child_' . $item;
+                    $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
+                }
+            } else {
+                // non sto cancellando nè un parent nè un paragrafo
+                foreach ($pages_data['child'] as $item) {
+                    $child_tree[] = array("parent_id" => $item['parent_id'], "id" => $item['id']);
+                    foreach ($item['id'] as $id) {
+                        $child_tot[] = $id;
+                    }
                 }
             }
         }
 
-        // ricreo l'array di array dei child
+        // ciclo i paragraph   
+        $paragraph_tree = [];
+        if (filter_input(INPUT_GET, 'child_id')) {
 
-        foreach ($child_tot as $item) {
-            $paragraph_arr = 'paragraph_' . $item;
-            $paragraph_tree[] = array("child_id" => $item, "id" => $$paragraph_arr);
-        }
-    } else {
-        // sto cancellando un parent o un child
+            // sto cancellando un paragrafo
+
+            $counter = 0;
             foreach ($pages_data['paragraph'] as $paragraph) {
-                if (in_array($paragraph['child_id'],$child_tot)) {
+
+                if (in_array($paragraph['child_id'], $child_tot)) {
+                    // è paragrafo di un child che non è stato cancellato
                     $paragraph_label = 'paragraph_' . $paragraph['child_id'];
-                    if(is_array($paragraph['id'])){
+
+                    if (is_array($paragraph['id'])) {
+
+                        // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare
+                        foreach ($paragraph['id'] as $item) {
+                            if ($item != $idToDel) {
+                                $$paragraph_label[] = $item;
+                            }
+                        }
+                    } else {
+                        // butto dentro l'array così com'è
+                        $$paragraph_label = null;
+                    }
+                }
+            }
+
+            // ricreo l'array di array dei child
+
+            foreach ($child_tot as $item) {
+                $paragraph_arr = 'paragraph_' . $item;
+                $paragraph_tree[] = array("child_id" => $item, "id" => $$paragraph_arr);
+            }
+        } else {
+            // sto cancellando un parent o un child
+            foreach ($pages_data['paragraph'] as $paragraph) {
+                if (in_array($paragraph['child_id'], $child_tot)) {
+                    $paragraph_label = 'paragraph_' . $paragraph['child_id'];
+                    if (is_array($paragraph['id'])) {
                         foreach ($paragraph['id'] as $item) {
                             $$paragraph_label[] = $item;
                         }
-                    }else{
+                    } else {
                         $$paragraph_label = null;
                     }
                 }
@@ -177,24 +179,30 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
                 $paragraph_arr = 'paragraph_' . $item;
                 $paragraph_tree[] = array("child_id" => $item, "id" => $$paragraph_arr);
             }
-     
-    }
+        }
 
-    $new_pages_data = ['parent' => $parent_arr, 'child' => $child_tree, 'paragraph' => $paragraph_tree];
-    $jsonContent = json_encode($new_pages_data);
+        $new_pages_data = ['parent' => $parent_arr, 'child' => $child_tree, 'paragraph' => $paragraph_tree];
+        $jsonContent = json_encode($new_pages_data);
 
-    $real_file = '../inc/luna_pages/pages_' . $prod_id . '.json';
-    $bck_file = '../inc/luna_pages/bck/pages_' . $prod_id . '.json';
+        $real_file = '../inc/luna_pages/pages_' . $prod_id . '.json';
+        $bck_file = '../inc/luna_pages_bck/pages_' . $prod_id . '.json';
 
-    if (file_put_contents($real_file, $jsonContent)) {
-        chmod($real_file, 0777);
-        unlink($bck_file);
-        copy($real_file, $bck_file);
-        chmod($bck_file, 0777);
-        header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
-        exit;
-    } else {
-        header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentTreeFail");
+        if (file_put_contents($real_file, $jsonContent)) {
+            chmod($real_file, 0777);
+            unlink($bck_file);
+            copy($real_file, $bck_file);
+            chmod($bck_file, 0777);
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaDeleteSucc");
+            exit;
+        } else {
+            unlink($real_file);
+            copy($bck_file,$real_file);
+            chmod($real_file,0777);
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaDeletesTreeFail");
+            exit;
+        }
+    }else{
+        header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaDeletePageFail");
         exit;
     }
 }
@@ -269,7 +277,7 @@ if ($operation == "editLunaProduct") {
         $page_id = $row['id'];
 
         $real_file = '../inc/luna_pages/pages_' . $prod_id . '.json';
-        $bck_file = '../inc/luna_pages/bck/pages_' . $prod_id . '.json';
+        $bck_file = '../inc/luna_pages_bck/pages_' . $prod_id . '.json';
 
         if (file_exists($real_file)) {
             //   - leggo il file

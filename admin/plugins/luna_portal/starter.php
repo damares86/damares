@@ -26,17 +26,17 @@ if(!is_dir($portal_dir)){
 
 $json_dir = '../inc/luna_pages/' ;
 
-if(!is_dir($portal_dir)){
+if(!is_dir($json_dir)){
 	$oldmask = umask(0);
-	mkdir($portal_dir, 0777, true);
+	mkdir($json_dir, 0777, true);
 	umask($oldmask);
 }
 
-$json_dir = '../inc/luna_pages/bck' ;
+$json_dir = '../inc/luna_pages_bck/' ;
 
-if(!is_dir($portal_dir)){
+if(!is_dir($json_dir)){
 	$oldmask = umask(0);
-	mkdir($portal_dir, 0777, true);
+	mkdir($json_dir, 0777, true);
 	umask($oldmask);
 }
 
