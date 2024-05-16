@@ -2,7 +2,7 @@
 
 require "../core/coreConfig.php";
 
-if($luna->dropTable('test')){
+if($luna->cloneTable('accounts','account_copy','id')){
   echo "ok";
 }else{
   echo "ko";

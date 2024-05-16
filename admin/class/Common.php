@@ -466,6 +466,17 @@ public function countItem($item){
         }
     }
 
+    function cloneTable($origTable,$newTable,$primaryKey){
+        
+        $query = "CREATE TABLE ".$newTable." AS SELECT * FROM ".$origTable."; ALTER TABLE ".$newTable." ADD PRIMARY KEY (".$primaryKey.");";
 
+        $stmt = $this->conn->prepare($query);
+        
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
