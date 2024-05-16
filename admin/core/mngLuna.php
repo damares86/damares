@@ -98,12 +98,9 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
                     // non è il child del parent che sto eliminando
                     foreach ($child['id'] as $item) {
                         $$child_label[] = $item;
-                    }
-                } else {
-                    foreach($child['id'] as $item){
                         $child_tot[] = $item ;
                     }
-                }
+                } 
             }
 
             foreach ($parent_arr as $item) {
@@ -164,7 +161,7 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
                             $$paragraph_label[] = $item;
                         }
                     }else{
-                        $$paragraph_label[] = null;
+                        $$paragraph_label = null;
                     }
                 }
             }
