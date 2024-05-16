@@ -73,7 +73,12 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
             } else {
                 // butto dentro l'array così com'è
 
-                $$child_label[] = $child['id'];
+                if(is_array($child['id'])){
+                    $$child_label = $child['id'];                    
+                }else{
+                    $$child_label = null;                    
+
+                }
                 foreach($child['id'] as $item){
                     $child_tot[] = $item ;
                 }
@@ -111,7 +116,9 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
             // non sto cancellando nè un parent nè un paragrafo
             foreach ($pages_data['child'] as $item) {
                 $child_tree[] = array("parent_id" => $item['parent_id'], "id" => $item['id']);
-                $child_tot[] = $item['id'];
+                foreach($item['id'] as $id){
+                    $child_tot[] = $id;
+                }
             }
         }
         
@@ -130,7 +137,7 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
                 // è paragrafo di un child che non è stato cancellato
                 $paragraph_label = 'paragraph_' . $paragraph['child_id'];
 
-                if (is_array($paragraph['id']) && in_array($idToDel, $paragraph['id'])) {
+                if (is_array($paragraph['id'])) {
 
                     // devo ciclare dentro l'array quello precedente, escludendo l'id da cancellare
                     foreach ($paragraph['id'] as $item) {
@@ -140,7 +147,7 @@ if (filter_input(INPUT_GET, "idPageToDel")) {
                     }
                 } else {
                     // butto dentro l'array così com'è
-                    $$paragraph_label[] = $paragraph['id'];
+                    $$paragraph_label = null;
                 }
             }
         }
