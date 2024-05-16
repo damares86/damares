@@ -1,20 +1,13 @@
 <?php
 
-$customer->id = filter_input(INPUT_GET,"idToMod");
-$stmt1 = $customer->showAllWhere('id',['id']);
-
-$id="";
-$name="";
-$surname="";
-$details="";
-$details_opt="";
+$luna->id = filter_input(INPUT_GET,"idToMod");
+$luna->table = 'luna_users';
+$stmt1 = $luna->showAllWhere('id',['id']);
 
     while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC))
     {
         extract($row1);
 
-        $customers_details=unserialize($row1['details']);
-        $customers_details_opt=unserialize($row1['details_opt']);
     
 ?>
 
@@ -64,7 +57,7 @@ $details_opt="";
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$customer_add_name_ph?>"
+                                        placeholder="<?=$common_name?>"
                                         id="first-name"
                                         name="name"
                                         data-parsley-required="true"
@@ -102,26 +95,6 @@ $details_opt="";
                         </div>
 
                         <div class="col-md-3">
-                            <label><?=$customer_add_company?><span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Company"
-                                        name="company"
-                                        data-parsley-required="true"
-                                        value="<?=$row1['company']?>"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
                             <label><?=$common_email?><span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
@@ -142,213 +115,46 @@ $details_opt="";
                             </div>
                         </div>
 
-                        <?php
-
-                        require "core/customersDetails.php";
-
-                        $counter=0;
-                        foreach($customers_details as $item){
-
-                            $label = "customer_add_$item";
-                            $item_label=ucfirst($item);
-                            $array_value = array_values($customers_details[$counter]);
-                            $value = $array_value[0];
-
-                        ?>
                         <div class="col-md-3">
-                            <label><?=$$label?> <span class="text-danger">*</span></label>
+                            <label>Authorize product  <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <?php
-                                            $type="text";
-                                            if($item=="birth"){
-                                                $type="date";
-                                            }
-                                        ?>
-                                        <input
-                                        type="<?=$type?>"
-                                        class="form-control"
-                                        placeholder="<?=$item_label?>"
-                                        name="<?=$item?>"
-                                        data-parsley-required="true"
-                                        value="<?=$value?>"
-
-                                        />
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-                            $counter++;
-
-                        }
-
-                        $counter=0;
-                        foreach($customers_details_opt as $item){
-
-                            $label = "customer_add_$item";
-                            $item_label=ucfirst($item);
-                            // if(array_values($details_opt[$counter])){
-                                $array_value = array_values($customers_details_opt[$counter]);
-                                $value = $array_value[0];
-                            // }
-                        ?>
-                        <div class="col-md-3">
-                            <label><?=$$label?> <?=$customer_add_optional?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="position-relative">
-                                    <?php
-                                        $type="text";
-                                        if($item=="birth"){
-                                            $type="date";
-                                        }
-                                    ?>
-                                    <input
-                                    type="<?=$type?>"
-                                    class="form-control"
-                                    placeholder="<?=$item_label?>"
-                                    name="<?=$item?>"
-                                    value="<?=$value?>"
-
-                                    />
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-                                $counter++;
-
-                        }
-                        ?>
-
-                        <h5 class="border-top mb-3 pt-3 mt-2"><?=$customer_prod_permission?></h5>
-
-                        <?php
-                            $xsproduct->table = 'product' ;
-                            $stmt = $xsproduct->showAll('id') ; 
-                            
-                            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-                            {
-                                extract($row);
-                                
-                                $xsproduct->table = 'product_permissions' ;
-                                $xsproduct->customers_id = $row1['id'] ;
-                                $product_id = $row['id'] ;
-                                $xsproduct->product_id = $product_id ;
-
-                                $stmt2 = $xsproduct->showAllWhere('id',['customers_id','product_id']) ;
-                                $row2 = $stmt2->fetch(PDO::FETCH_ASSOC) ;
-                                // if($row2['product_files_cat_id'])
-                                // {
-                                //     $permissions=unserialize($row2['product_files_cat_id']);
-                                // }
-                                $checked_prod = '' ;
-                                $bg_class = 'danger' ;
-
-                                if($stmt2->rowCount()>0)
-                                {
-                                    $checked_prod = 'checked' ;
-                                    $bg_class = 'success' ;
-                                }
-
-                        ?>
-                            <div class="col-12 rounded p-3 my-1 bg-<?=$bg_class?> text-white">
-                                <div class="row">
-                                    <!-- switch permission -->
-                                    <div class="col-md-4">
-                                        <h6 class="text-white"><?=$row['product_name']?></h6>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check form-switch quiz">
-                                            <input class="form-check-input delete" type="checkbox" name="prod_<?=$row['id']?>" id="flexSwitchCheckDefault" <?=$checked_prod?>>
-                                            <label class="form-check-label" for="flexSwitchCheckDefault"><?=$customer_prod_auth?> </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">&nbsp;</div>
-
-                                    <!-- select cat files -->
+                         <div class="form-group">
+                                <select
+                                class="choices form-select multiple-remove"
+                                multiple="multiple" name="permissions[]"
+                                >
                                 <?php
-                                    $xsproduct->table = 'product_files_cat' ;
-                                    $stmt3 = $xsproduct->showAll('id');
-                                    while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC))
+                                    $permissions = explode(',',$row1['permissions']) ;
+                                    $luna->table = 'luna_products' ;
+                                    $stmt = $luna->showAll('id') ; 
+                                    
+                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                                     {
-                                        extract($row3) ;
-                                        $product_files_cat_id = $row3['id'] ;
-                                        $cat_name = ucfirst($row3['cat_name']);
+                                        $selected='';
+                                        extract($row);
+
+                                        if(in_array($row['id'],$permissions)){
+                                            $selected = 'selected';
+                                        }
                                 ?>
-                                    <div class="col-md-6 p-2">
-                                        <div class="row bg-light rounded text-dark m-2">
-                                            <div class="col-12">
-                                                <p><strong><?=$cat_name?></strong></p>
-                                                <div class="form-group">
-                                                        <div class="form-check">
-                                                            <div class="checkbox mx-5">
-                                                                <?php
-                                                                    
-                                                                    $xsproduct->table = 'product_files' ;
-                                                                    $xsproduct->product_id = $product_id ;
-                                                                    $xsproduct->product_files_cat_id = $product_files_cat_id ;
-                                                                    $stmt4 = $xsproduct->showAllWhere('id',['product_id','product_files_cat_id']) ;
-                                                                    
-                                                                    while($row4 = $stmt4->fetch(PDO::FETCH_ASSOC))
-                                                                    {
 
-                                                                        extract($row4);
-                                                                        $checked="";
-                                                                        $product_files_id = $row4['id'] ;
+                                    <option value="<?=$row['id']?>" <?=$selected?>><?=$row['name']?> (v.<?=$row['version']?>)</option>
 
-                                                                        $perm_str = $row4['permissions'] ;
-                                                                        $perm_arr = explode(',',$perm_str) ;
-
-                                                                        if(is_array($perm_arr))
-                                                                        {
-                                                                            if(in_array($row1['id'],$perm_arr))
-                                                                            {
-                                                                                $checked = "checked" ;
-                                                                            }
-                                                                        }
-
-                                                         
-                                                                ?>
-                                                                <input type="checkbox" name="files_<?=$product_id?>_<?=$product_files_cat_id?>[]" value="<?=$product_files_id?>" class="form-check-input" <?=$checked?>>
-                                                                <label for="checkbox1"><?=$row4['product_files_label']?></label>
-                                                                <br>
-
-                                                                <?php
-                                                                    }
-
-                                                                ?>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                        
                                 <?php
                                     }
+                                
                                 ?>
 
-                                </div>
+                                </select>
                             </div>
-                        <?php
+                        </div>
 
-                            }
-
-                        ?>
                         
                         
                         <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
                         <input type="hidden" name="operation" value="edit">
-                        <input type="hidden" name="origin" value="editCustomer">
+                        <input type="hidden" name="origin" value="editLunaUser">
                       
                         <div class="col-12 mt-2 d-flex justify-content-end">
                             <button
@@ -390,7 +196,7 @@ $details_opt="";
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title"><?=$customer_edit_password?></h4>
+                    <h4 class="card-title">Edit password for this user</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -420,7 +226,7 @@ $details_opt="";
                                     </div>
                                     <input type="hidden" name="operation" value="password">
                                     <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
-                                    <input type="hidden" name="origin" value="editCustomer">
+                                    <input type="hidden" name="origin" value="editLunaUser">
                                     <?php
                                     }
                                     ?>

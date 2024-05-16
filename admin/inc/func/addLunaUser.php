@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$customer_add_header?></h3>
+      <h3>Add luna user</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$customer_add_header?>
+            Add luna user
           </li>
         </ol>
       </nav>
@@ -27,11 +27,11 @@
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                <h4 class="card-title"><?=$customer_add_title?></h4>
+                <h4 class="card-title">Add a new luna user</h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngCustomers.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngLuna.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
@@ -44,7 +44,7 @@
                                         <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="<?=$customer_add_name_ph?>"
+                                        placeholder="<?=$common_name?>"
                                         id="first-name"
                                         name="name"
                                         data-parsley-required="true"
@@ -76,27 +76,6 @@
                                         <div class="form-control-icon">
                                         <i class="bi bi-person"></i>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-3">
-                            <label><?=$customer_add_company?><span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Company"
-                                        name="company"
-                                        data-parsley-required="true"
-
-                                        />
                                     </div>
                                 </div>
                             </div>
@@ -142,80 +121,6 @@
                             </div>
                         </div>
 
-                        <?php
-
-                        require "core/customersDetails.php";
-                        foreach($customers_details as $item){
-
-                            $label = "account_add_$item";
-
-                        ?>
-                        <div class="col-md-3">
-                            <label><?=$$label?> <span class="text-danger">*</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="form-check mandatory">
-                                    <div class="position-relative">
-                                        <?php
-                                            $type="text";
-                                            if($item=="birth"){
-                                                $type="date";
-                                            }
-                                        ?>
-                                        <input
-                                        type="<?=$type?>"
-                                        class="form-control"
-                                        placeholder="<?=$$label?>"
-                                        name="<?=$item?>"
-                                        data-parsley-required="true"
-
-                                        />
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-
-                        }
-
-                        foreach($customers_details_opt as $item){
-
-                            $label = "account_add_$item";
-
-                        ?>
-                        <div class="col-md-3">
-                            <label><?=$$label?> <?=$customer_add_optional?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <div class="position-relative">
-                                    <?php
-                                        $type="text";
-                                        if($item=="birth"){
-                                            $type="date";
-                                        }
-                                    ?>
-                                    <input
-                                    type="<?=$type?>"
-                                    class="form-control"
-                                    placeholder="<?=$$label?>"
-                                    name="<?=$item?>"
-
-                                    />
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php
-
-                        }
-
-                        ?>
-
                         <!-- product permissions -->
 
                         <?php
@@ -224,24 +129,24 @@
                         ?>
 
                         <div class="col-md-3">
-                            <label><?=$customer_add_authorize?>  <span class="text-danger">*</span></label>
+                            <label>Authorize product  <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                          <div class="form-group">
                                 <select
                                 class="choices form-select multiple-remove"
-                                multiple="multiple" name="product[]"
+                                multiple="multiple" name="permissions[]"
                                 >
                                 <?php
-                                    $xsproduct->table = 'product' ;
-                                    $stmt = $xsproduct->showAll('id') ; 
+                                    $luna->table = 'luna_products' ;
+                                    $stmt = $luna->showAll('id') ; 
                                     
                                     while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                                     {
                                         extract($row);
                                 ?>
 
-                                    <option value="<?=$row['id']?>" <?=$selected?>><?=$row['product_name']?></option>
+                                    <option value="<?=$row['id']?>" <?=$selected?>><?=$row['name']?> (v.<?=$row['version']?>)</option>
 
                                 <?php
                                     }
@@ -254,8 +159,8 @@
 
 
                         
-                        <input type="hidden" name="operation" value="add">
-                        <input type="hidden" name="origin" value="addCustomer">
+                        <input type="hidden" name="operation" value="addUser">
+                        <input type="hidden" name="origin" value="addLunaUsera">
                       
                         <div class="col-12 d-flex justify-content-end">
                             <button

@@ -11,30 +11,28 @@
 
 require __DIR__ . "/coreConfig.php";
 
-if(filter_input(INPUT_GET,'idProdToDel')){
+if (filter_input(INPUT_GET, 'idProdToDel')) {
 
     $idToDel = filter_input(INPUT_GET, 'idProdToDel');
-    
-    $luna->table = 'luna_products' ;
-    $luna->id = $idToDel ;
-    if($luna->delete('id')){
 
-        $table_name = 'luna_pages_'.$idToDel ;
-        
-        if($luna->dropTable($table_name)){
+    $luna->table = 'luna_products';
+    $luna->id = $idToDel;
+    if ($luna->delete('id')) {
+
+        $table_name = 'luna_pages_' . $idToDel;
+
+        if ($luna->dropTable($table_name)) {
             header('Location: ../index.php?p=allLunaProducts&msg=lunaProdDelSucc');
             exit;
-        }else{
+        } else {
             header('Location: ../index.php?p=allLunaProducts&err=lunaProdDelTableErr');
             exit;
         }
-
-    }else{
+    } else {
         header('Location: ../index.php?p=allLunaProducts&err=lunaProdDelErr');
         exit;
     }
-
-}else if (filter_input(INPUT_GET, "idPageToDel")) {
+} else if (filter_input(INPUT_GET, "idPageToDel")) {
 
     $idToDel = filter_input(INPUT_GET, "idPageToDel");
     $prod_id = filter_input(INPUT_GET, "prod");
@@ -216,12 +214,12 @@ if(filter_input(INPUT_GET,'idProdToDel')){
             exit;
         } else {
             unlink($real_file);
-            copy($bck_file,$real_file);
-            chmod($real_file,0777);
+            copy($bck_file, $real_file);
+            chmod($real_file, 0777);
             header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaDeletesTreeFail");
             exit;
         }
-    }else{
+    } else {
         header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaDeletePageFail");
         exit;
     }
@@ -279,49 +277,45 @@ if ($operation == "editLunaProduct") {
         header('Location:../index.php?p=allLunaProducts&err=lunaProdFail');
         exit;
     }
-} else if($operation=="clone"){
+} else if ($operation == "clone") {
 
-    $luna->table = 'luna_products' ;
-    $luna->name = filter_input(INPUT_POST,'name');
-    $luna->version = filter_input(INPUT_POST,'version');
-    
-    if($luna->insert(['name','version'])){
+    $luna->table = 'luna_products';
+    $luna->name = filter_input(INPUT_POST, 'name');
+    $luna->version = filter_input(INPUT_POST, 'version');
+
+    if ($luna->insert(['name', 'version'])) {
 
         $luna->table = 'luna_products';
-        $luna->name = filter_input(INPUT_POST,'name');
-        $luna->version = filter_input(INPUT_POST,'version');
-        $stmt = $luna->showAllWhere('id',['name','version']) ;
-        $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+        $luna->name = filter_input(INPUT_POST, 'name');
+        $luna->version = filter_input(INPUT_POST, 'version');
+        $stmt = $luna->showAllWhere('id', ['name', 'version']);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
         extract($row);
 
-        $idToClone = filter_input(INPUT_POST,'idToClone');
-        $table_orig = 'luna_pages_'.$idToClone ;
-        $table_new = 'luna_pages_'.$row['id'] ;
+        $idToClone = filter_input(INPUT_POST, 'idToClone');
+        $table_orig = 'luna_pages_' . $idToClone;
+        $table_new = 'luna_pages_' . $row['id'];
 
-        if($luna->cloneTable($table_orig,$table_new,'id')){
+        if ($luna->cloneTable($table_orig, $table_new, 'id')) {
 
             header('Location:../index.php?p=allLunaProducts&msg=lunaProdCloneSucc');
             exit;
-
-        }else{
+        } else {
 
             $luna->table = 'luna_products';
-            $luna->id = $row['id'] ;
-            if($luna->delete('id')){
+            $luna->id = $row['id'];
+            if ($luna->delete('id')) {
                 header('Location:../index.php?p=allLunaProducts&err=lunaProdCloneFail');
                 exit;
-            }else{
+            } else {
                 header('Location:../index.php?p=allLunaProducts&err=lunaProdCloneTableFail');
                 exit;
             }
-
         }
-
-    }else{
+    } else {
         header('Location:../index.php?p=allLunaProducts&err=lunaProdCloneFail');
         exit;
     }
-
 } else if ($operation == 'addPage') {
     // $type = filter_input(INPUT_POST,'type') ;
     $prod_id = filter_input(INPUT_POST, 'product_id');
@@ -463,6 +457,37 @@ if ($operation == "editLunaProduct") {
         exit;
     } else {
         header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
+        exit;
+    }
+} else if ($operation == "addUser") {
+
+    $luna->table = 'luna_users';
+    $email = filter_input(INPUT_POST, "email");
+    $luna->email = $email;
+
+    // controllo se esiste già
+    $stmt = $luna->showAllWhere('id', ['email']);
+    if ($stmt->rowCount() > 0) {
+        header("Location:../index.php?p=allLunaUsers&err=lunaUserExist");
+        exit;
+    }
+
+    $luna->name = filter_input(INPUT_POST, "name");
+    $luna->username = filter_input(INPUT_POST, "username");
+
+    // hash password
+    $password = filter_input(INPUT_POST, "password");
+    $password_hash = password_hash($password, PASSWORD_BCRYPT);
+    $luna->password = $password_hash;
+
+    $permissions = $_POST['permissions'];
+    $luna->permissions = implode(',', $permissions);
+
+    if ($luna->insert(['name', 'username', 'password', 'email', 'permissions'])) {
+        header("Location:../index.php?p=allLunaUsers&msg=lunaUserSucc");
+        exit;
+    }else{
+        header("Location:../index.php?p=allLunaUsers&err=lunaUserFail");
         exit;
     }
 } else {

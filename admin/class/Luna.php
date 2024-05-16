@@ -14,7 +14,8 @@ class Luna extends Common{
     public $name ;
     public $username ;
     public $email ;
-    public $company ;
+    public $password ;
+    public $permissions ;
     public $details ;
     public $details_opt ;
     public $auth_token ;

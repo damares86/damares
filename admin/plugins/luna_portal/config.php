@@ -22,7 +22,6 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) DEFAULT NULL,
       username VARCHAR(255) NOT NULL,
-      company VARCHAR(255) DEFAULT NULL,
       password VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
       permissions VARCHAR(255) DEFAULT NULL);
