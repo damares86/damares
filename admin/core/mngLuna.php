@@ -490,7 +490,15 @@ if ($operation == "editLunaProduct") {
         header("Location:../index.php?p=allLunaUsers&err=lunaUserFail");
         exit;
     }
-} else {
+} else if ($operation == "editUser") {
+
+
+
+} else if($operation = 'password'){
+
+
+    
+}else {
     header("Location: ../index.php?err=noPost");
     exit;
 }

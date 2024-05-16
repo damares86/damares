@@ -153,7 +153,7 @@ $stmt1 = $luna->showAllWhere('id',['id']);
                         
                         
                         <input type="hidden" name="idToMod" value="<?=$row1['id']?>">
-                        <input type="hidden" name="operation" value="edit">
+                        <input type="hidden" name="operation" value="editUser">
                         <input type="hidden" name="origin" value="editLunaUser">
                       
                         <div class="col-12 mt-2 d-flex justify-content-end">
