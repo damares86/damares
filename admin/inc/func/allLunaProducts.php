@@ -75,6 +75,18 @@ $stmt = $luna->showAll('id');
                         <form class="form form-horizontal" action="core/mngLuna.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
                             <div class="form-body">
                                 <div class="row">
+                                  <div class="col-md-3">
+                                        <label>New name<span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <div class="form-check mandatory">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="" id="name" name="name" data-parsley-required="true" value="<?= $row['name'] ?>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-3">
                                         <label>New version<span class="text-danger">*</span></label>
                                     </div>
