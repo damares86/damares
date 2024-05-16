@@ -76,11 +76,11 @@ extract($row1);
             }
 
             foreach ($pages_data['parent'] as $parent) {
-              echo $parent ;
+
               $luna->table = 'luna_pages_' . $prod_id;
               $luna->id = $parent;
               $stmt = $luna->showAllWhere('id', ['id']);
-              
+
               $row = $stmt->fetch(PDO::FETCH_ASSOC);
               extract($row);
               $parent_div_arr[] = $row['id'];
@@ -130,12 +130,11 @@ extract($row1);
                 // check se esistono dei child
 
                 foreach ($pages_data['child'] as $child) {
-                  print_r($child);
+
                   if ($child['parent_id'] == $parent) {
                 ?>
 
-                    <!-- <div id="child_<?= $row['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'>--> <!--1 deve essere l'id della pagina -->
-                    <div id="child_<?= $row['id'] ?>" class=' container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
+                    <div id="child_<?= $row['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'> <!-- 1 deve essere l'id della pagina-->
 
                       <?php
                       foreach ($child['id'] as $item) {
@@ -194,13 +193,12 @@ extract($row1);
                           <?php
 
                           foreach ($pages_data['paragraph'] as $par) {
-                            print_r($par);
+
                             if ($par['child_id'] == $row1['id']) {
                           ?>
 
 
-                              <!-- <div id="paragraph_<?= $row1['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'>--><!--1 deve essere l'id della pagina child a cui appartengono i paragrafi -->
-                              <div id="paragraph_<?= $row1['id'] ?>" class=' container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
+                              <div id="paragraph_<?= $row1['id'] ?>" class='collapse container-pages paragraph_block p-2 rounded m-2'><!-- 1 deve essere l'id della pagina child a cui appartengono i paragrafi-->
                                 <?php
 
                                 foreach ($par['id'] as $par_id) {
