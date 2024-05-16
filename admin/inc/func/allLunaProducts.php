@@ -137,7 +137,7 @@ $stmt = $luna->showAll('id');
                           <i class="bx bx-x d-block d-sm-none"></i>
                           <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
                         </button>
-                        <span class="d-none d-sm-block"><a href="core/mngLuna.php?idToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
+                        <span class="d-none d-sm-block"><a href="core/mngLuna.php?idProdToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
                             <?= $common_modal_confirm ?>
                           </a></span>
                       </div>

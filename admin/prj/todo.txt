@@ -8,12 +8,8 @@ LUNA PORTAL
 - gestione prodotti
     #creazione 
     # modifica
-    - eliminazione pagine in caso di eliminazione prodotto
-
-- gestione pagine
-    # creazione
-    # modifica
-    - eliminazione e gestione dei child
+    # eliminazione pagine in caso di eliminazione prodotto
+    - clone
 
 - gestione users
     - creazione e modifica
@@ -32,6 +28,10 @@ LUNA PORTAL
     # salvataggio ordinamento
     - inserimento paragrafi se vuoto
 
+# gestione pagine
+    # creazione
+    # modifica
+    # eliminazione e gestione dei child
 
 ########################################################
 

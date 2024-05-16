@@ -453,6 +453,18 @@ public function countItem($item){
         }
     }
 
+    function dropTable($tableToDel){
+        
+        $query = "DROP TABLE ".$tableToDel."";
+        
+        $stmt = $this->conn->prepare($query);
+
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 

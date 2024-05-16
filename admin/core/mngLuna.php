@@ -9,12 +9,32 @@
 #                                          #
 ############################################
 
-use Composer\InstalledVersions;
-
 require __DIR__ . "/coreConfig.php";
 
+if(filter_input(INPUT_GET,'idProdToDel')){
 
-if (filter_input(INPUT_GET, "idPageToDel")) {
+    $idToDel = filter_input(INPUT_GET, 'idProdToDel');
+    
+    $luna->table = 'luna_products' ;
+    $luna->id = $idToDel ;
+    if($luna->delete('id')){
+
+        $table_name = 'luna_pages_'.$idToDel ;
+        
+        if($luna->dropTable($table_name)){
+            header('Location: ../index.php?p=allLunaProducts&msg=lunaProdDelSucc');
+            exit;
+        }else{
+            header('Location: ../index.php?p=allLunaProducts&err=lunaProdDelTableErr');
+            exit;
+        }
+
+    }else{
+        header('Location: ../index.php?p=allLunaProducts&err=lunaProdDelErr');
+        exit;
+    }
+
+}else if (filter_input(INPUT_GET, "idPageToDel")) {
 
     $idToDel = filter_input(INPUT_GET, "idPageToDel");
     $prod_id = filter_input(INPUT_GET, "prod");

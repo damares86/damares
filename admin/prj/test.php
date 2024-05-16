@@ -1,5 +1,14 @@
 <?php
 
+require "../core/coreConfig.php";
+
+if($luna->dropTable('test')){
+  echo "ok";
+}else{
+  echo "ko";
+}
+
+exit;
 
 $pages_json = file_get_contents('../inc/luna_pages/pages_2.json');
 $pages_data = json_decode($pages_json, true);
