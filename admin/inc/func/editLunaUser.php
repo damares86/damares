@@ -44,7 +44,7 @@ $stmt1 = $luna->showAllWhere('id',['id']);
                 </div>
                 <div class="card-content">
                 <div class="card-body">
-                    <form class="form form-horizontal" action="core/mngCustomers.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                    <form class="form form-horizontal" action="core/mngLuna.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-body">
                         <div class="row">
                         <div class="col-md-3">
@@ -200,7 +200,7 @@ $stmt1 = $luna->showAllWhere('id',['id']);
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="form form-horizontal" action="core/mngCustomers.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
+                        <form class="form form-horizontal" action="core/mngLuna.php" method="POST"  enctype="multipart/form-data" data-parsley-validate>
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
