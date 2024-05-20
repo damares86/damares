@@ -22,7 +22,7 @@ include "../inc/class_initialize.php";
 // get the form data
 $postpass = filter_input(INPUT_POST, 'password');
 
-$email = filter_input(INPUT_POST, 'password');;
+$email = filter_input(INPUT_POST, 'email');;
 $luna->email = $email;
 
 $luna->table = 'luna_users';
@@ -32,17 +32,19 @@ $stmt = $luna->showAllWhere('id', ['email']);
 if ($stmt->rowCount() > 0) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     extract($row);
+    
     if (password_verify($postpass, $row['password'])) {
         if ($_POST['remember']) {
             $token = md5($email);
             $addToken = substr(md5(uniqid(rand(), 1)), 3, 10);
             $token = $token . $addToken;
 
+            $luna->table = 'luna_users' ;
             $luna->email = $email;
             $luna->auth_token = $token;
 
             $luna->update(['auth_token'], 'email');
-            setcookie("damares-luna-login", $auth->id . "," . $token, time() + (60 * 60 * 24 * 365 * 10), "/");
+            setcookie("damares-luna-login", $row['id'] . "," . $token, time() + (60 * 60 * 24 * 365 * 10), "/");
         }
 
         session_start();

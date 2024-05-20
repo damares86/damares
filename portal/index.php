@@ -119,7 +119,9 @@ if (!isset($_SESSION['luna_loggedin']) && !isset($_SESSION['luna_user_id'])) {
 	<!-- Document Wrapper
 	============================================= -->
 	<div id="wrapper" class="clearfix">
-
+<?php
+print_r($_COOKIE);
+?>
 		<!-- Header
 		============================================= -->
 		<header id="header" class="header-size-md" data-sticky-shrink="false">
@@ -164,7 +166,7 @@ if (!isset($_SESSION['luna_loggedin']) && !isset($_SESSION['luna_user_id'])) {
 								</li>
 
 								<li class="menu-item">
-									<a class="button button-xlarge button-circle button-border button-xstream" data-bs-toggle="modal" data-bs-target="#myModal">
+									<a  href="../admin/core/luna_logout.php">
 										<b><i class="icon-line-log-out"></i></b>Logout
 									</a>
 
