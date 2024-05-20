@@ -6,18 +6,18 @@ spl_autoload_register('autoloader');
 
 function autoloader($class)
 {
-	include("admin/class/$class.php");
+	include("../admin/class/$class.php");
 }
 
 $database = new Database();
 $db = $database->getConnection();
 
 // recall of all the classes
-$files = glob("admin/class/*.php", GLOB_BRACE);
+$files = glob("../admin/class/*.php", GLOB_BRACE);
 rsort($files);
 
 // creation of the file with all the initialization of the classes
-if (!is_file('admin/inc/class_initialize.php')) {
+if (!is_file('../admin/inc/class_initialize.php')) {
 	$file_handle = fopen('inc/class_initialize.php', 'w');
 	fwrite($file_handle, '<?php');
 	fwrite($file_handle, "\n");
@@ -35,10 +35,10 @@ if (!is_file('admin/inc/class_initialize.php')) {
 		fwrite($file_handle, "\n");
 	}
 	fwrite($file_handle, "?>");
-	chmod('admin/inc/class_initialize.php', 0777);
+	chmod('../admin/inc/class_initialize.php', 0777);
 }
 
-include "admin/inc/class_initialize.php";
+include "../admin/inc/class_initialize.php";
 
 $setting->name = "debug";
 $dbg = $setting->showAllWhere('id', ['name']);
@@ -46,7 +46,7 @@ $row_debug = $dbg->fetch(PDO::FETCH_ASSOC);
 extract($row_debug);
 
 if ($row_debug['value'] == 1) {
-	require 'admin/vendor/autoload.php';		// If installed via composer
+	require '../admin/vendor/autoload.php';		// If installed via composer
 	$debug = new \bdk\Debug(array(
 		'collect' => true,
 		'output' => true,
@@ -60,48 +60,15 @@ if (filter_input(INPUT_GET, "l")) {
 	$lang = filter_input(INPUT_GET, "l");
 }
 
-foreach (glob("locale/$lang/*.php") as $row) {
+foreach (glob("../locale/$lang/*.php") as $row) {
 	require "$row";
 }
 
-// echo "Err";
-// exit;	
-if (!isset($_SESSION['customer_loggedin'])) {
-	//   require 'admin/inc/customer_check_cookie.php';
+if (!isset($_SESSION['luna_loggedin']) && !isset($_SESSION['luna_user_id'])) {
+	require "inc/check_cookie.php";
 	header('Location: login.php?err=noLogin');
 	exit;
-}
-// else if (isset($_COOKIE['damares-customer-login']))
-// {
-
-//     $pieces = explode(",", $_COOKIE['damares-customer-login']);
-//     $customer->id = $pieces[0];
-//     $id = $pieces[0];
-//     $customer->auth_token = $pieces[1];
-//     if (!$customer->checkCookie() > 0) {
-//       header("Location: login.php?err=noLogin");
-//       exit;
-//     }
-
-//       // redirect tofix
-//       // $plugin->pluginname = "role_redirect";
-
-//       // if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-//       //   $stmt = $role->showAllWhere('id', ['id']);
-//       //   foreach ($stmt as $row) {
-//       //     if ($row['redirect'] != "none") {
-//       //       header("Location: " . $row['redirect'] . "");
-//       //       exit;
-//       //     }
-//       //   }
-//       // }
-
-//       // header("Location: index_xs.php");
-//       // exit;
-
-//   }
-
-
+} 
 ?>
 
 <!DOCTYPE html>

@@ -24,6 +24,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       username VARCHAR(255) NOT NULL,
       password VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
+      auth_token VARCHAR(255) DEFAULT 'none',
       permissions VARCHAR(255) DEFAULT NULL);
       INSERT INTO ".$prefix."luna_settings
       (name, value)

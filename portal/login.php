@@ -19,7 +19,7 @@ require "login-header.php";
         <?=$login_desc?>
       </p> -->
 
-      <form action="admin/core/mngAuthCustomer.php" method="POST">
+      <form action="../admin/core/mngLunaAuth.php" method="POST">
         <div class="form-group position-relative has-icon-left mb-4">
           <input
             type="text"
@@ -42,7 +42,7 @@ require "login-header.php";
             <i class="bi bi-shield-lock"></i>
           </div>
         </div>
-          <!-- <div class="form-check form-check-lg d-flex align-items-end">
+        <div class="form-check form-check-lg d-flex align-items-end">
             <input
               class="form-check-input remember me-2"
               type="checkbox"
@@ -56,7 +56,8 @@ require "login-header.php";
             >
             Ricordami su questo computer 
             </label>
-          </div> -->
+          </div> 
+
         <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
           <?=$common_submit?>
         </button>
