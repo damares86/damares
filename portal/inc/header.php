@@ -26,6 +26,15 @@ else if (isset($_COOKIE['luna_loggedin']))
        
   }
 
+  $page = "Home";
+  if(filter_input(INPUT_GET,'prod')){
+    $luna->table = 'luna_products';
+    $luna->id = filter_input(INPUT_GET,'prod');
+    $stmt2 = $luna->showAllWhere('id',['id']) ;
+    $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    extract($row2) ;
+    $page = $row2['name'] ;
+  }
 
 ?>
 
@@ -35,7 +44,7 @@ else if (isset($_COOKIE['luna_loggedin']))
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><?= $common_dashboard ?> - damares</title>
+  <title><?= $page ?> - Luna Portal</title>
 
   <!--
     ##############    Damares    ###############

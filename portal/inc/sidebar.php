@@ -33,51 +33,26 @@
             <ul class="menu">
                 <?php
                   $active = "" ;
-                  if($page == "dashboard"){
-                    $active = "active" ;
-                  }
                 ?>
-              <li class="sidebar-item <?=$active?>">
-                <a href="index.php" class="sidebar-link">
-                  <i class="bi bi-grid-fill"></i>
-                  <span><?=$common_dashboard?></span>
-                </a>
-              </li>
+      
               <?php
-
-                $role_id = $_SESSION['role_id'] ;
-
-                $rolessection->table = 'rolesSectionChild';
-                $rolessection->role_id = $role_id;
-                $permissionChild = $rolessection->showAllWhere('id', ['role_id']);
-                $permChildArr = $permissionChild->fetch(PDO::FETCH_ASSOC);
-                extract($permChildArr) ;
-                $sectionChild = explode(',',$permChildArr['section_id']);
-
-
-                $stmt = $section->showAllTable('id','sectionParent') ;
                 
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                  
-                  extract($row) ;
+                $pages_json = file_get_contents('../../admin/inc/luna_pages/pages_'.$row4['id'].'.json');
+                $pages_data = json_decode($pages_json,true) ;
+
+
+                foreach ($pages_data['parent'] as $parent) {
+
+                  $luna->table = 'luna_pages_' . $prod_id;
+                  $luna->id = $parent;
+                  $parent_stmt = $luna->showAllWhere('id', ['id']);
+                  $parent_row = $parent_stmt->fetch(PDO::FETCH_ASSOC);
+                  extract($parent_row);
                   
                   $hasSub = "" ;
                   $active = "" ;
-                  $link="?p=".$row['link']."";
-                  
-                  $section->table = 'sectionChild' ;
-                  $section->parent_id = $row['id'] ;
-                  $child = $section->showAllWhere('id',['parent_id']);
-                  $countChildPermissions = 0 ;
-                  
-                  while($row2 = $child->fetch(PDO::FETCH_ASSOC))
-                  {
-                                        
-                    if(in_array($row2['id'],$sectionChild))
-                    {
-                      $countChildPermissions++;
-                    }
-                  }
+                  $link="manual.php?prod=".$prod_id."&page=".$parent_row['id'].""; // manca id della pagina
+
 
                 if($section->countChild($row['id'])>0 && $countChildPermissions>0 ){
                     $hasSub = "has-sub" ;
@@ -88,21 +63,6 @@
                     $active = "active" ;
                   }
 
-              // SECTION PERMISSIONS
-                  $rolessection->role_id = $role_id ;
-                  $rolessection->table = 'rolesSection' ;
-                  $permissionParent = $rolessection->showAllWhere('id',['role_id']) ;
-                  $row3 = $permissionParent->fetch(PDO::FETCH_ASSOC);
-                  extract($row3);
-                  $perm = explode(',',$row3['section_id'] );
-                  
-                  $sectionParent = [];
-                  foreach ($perm as $item) {
-                    $sectionParent[] = $item;
-                  }
-                  
-
-                  if($role_id==1 ||  in_array($row['id'],$sectionParent)){
               ?>
               <li class="sidebar-item <?=$active?> <?=$hasSub?>">
                 <a href="index.php<?=$link?>" class="sidebar-link">
@@ -176,7 +136,6 @@
               </li>
               
               <?php
-                }
                 }
               ?>
             </ul>
