@@ -8,7 +8,7 @@
 #   GitHub: https://github.com/damares86   #
 #                                          #
 ############################################
-
+print_r($_POST);
 require __DIR__ . "/coreConfig.php";
 
 if (filter_input(INPUT_GET, 'idProdToDel')) {
@@ -486,53 +486,80 @@ if ($operation == "editLunaProduct") {
     if ($luna->insert(['name', 'username', 'password', 'email', 'permissions'])) {
         header("Location:../index.php?p=allLunaUsers&msg=lunaUserSucc");
         exit;
-    }else{
+    } else {
         header("Location:../index.php?p=allLunaUsers&err=lunaUserFail");
         exit;
     }
-
 } else if ($operation == "editUser") {
 
     $luna->table = 'luna_users';
-    $idToMod = filter_input(INPUT_POST,'idToMod');
-    $luna->id = $idToMod; 
+    $idToMod = filter_input(INPUT_POST, 'idToMod');
+    $luna->id = $idToMod;
 
-    $luna->name = filter_input(INPUT_POST,'name');
-    $luna->username = filter_input(INPUT_POST,'username');
-    $luna->email = filter_input(INPUT_POST,'email');
+    $luna->name = filter_input(INPUT_POST, 'name');
+    $luna->username = filter_input(INPUT_POST, 'username');
+    $luna->email = filter_input(INPUT_POST, 'email');
 
     $permissions = $_POST['permissions'];
     $luna->permissions = implode(',', $permissions);
 
-    if ($luna->update(['name', 'username','email', 'permissions'],'id')) {
+    if ($luna->update(['name', 'username', 'email', 'permissions'], 'id')) {
         header("Location:../index.php?p=editLunaUser&idToMod= $idToMod&msg=lunaUserEditSucc");
         exit;
-    }else{
+    } else {
         header("Location:../index.php?p=editLunaUser&idToMod= $idToMod&err=lunaUserEditFail");
         exit;
     }
-
-
-} else if($operation = 'password'){
+} else if ($operation == 'password') {
 
     $luna->table = 'luna_users';
-    $idToMod = filter_input(INPUT_POST,'idToMod');
-    $luna->id = $idToMod; 
+    $idToMod = filter_input(INPUT_POST, 'idToMod');
+    $luna->id = $idToMod;
 
-    $password = filter_input(INPUT_POST,"password");
+    $password = filter_input(INPUT_POST, "password");
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
     $luna->password = $password_hash;
 
-    if ($luna->update(['password'],'id')) {
+    if ($luna->update(['password'], 'id')) {
         header("Location:../index.php?p=editLunaUser&idToMod= $idToMod&msg=lunaUserEditPswSucc");
         exit;
-    }else{
+    } else {
         header("Location:../index.php?p=editLunaUser&idToMod= $idToMod&err=lunaUserEditPswFail");
         exit;
     }
+} else if ($operation == 'settings') {
 
-    
-}else {
+    $error = 0;
+
+
+    $luna->table = 'luna_settings';
+    $luna->name = 'users';
+    if (filter_input(INPUT_POST, 'users')) {
+        $luna->value = 1;
+    } else {
+        $luna->value = 0;
+    }
+
+    if (!$luna->update(['value'], 'name')) {
+        $error++;
+    }
+
+
+    $luna->table = 'luna_settings';
+    $luna->name = 'noreply';
+    $luna->value = filter_input(INPUT_POST, 'noreply');
+    if (!$luna->update(['value'], 'name')) {
+        $error++;
+    }
+
+    if ($error == 0) {
+        header('Location: ../index.php?p=allLunaSettings&msg=settingsEdit');
+        exit;
+    } else {
+        header('Location: ../index.php?p=allLunaSettings&err=settingsFail');
+        exit;
+    }
+} else {
     header("Location: ../index.php?err=noPost");
     exit;
 }

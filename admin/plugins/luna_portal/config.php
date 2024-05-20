@@ -27,7 +27,10 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       permissions VARCHAR(255) DEFAULT NULL);
       INSERT INTO ".$prefix."luna_settings
       (name, value)
-      VALUES ('users','0');";
+      VALUES ('users','0');      
+      INSERT INTO ".$prefix."luna_settings
+      (name, value)
+      VALUES ('noreply','mail@mail.com');";
 
 $parent_table = [[
       'link' => 'luna_portal',
@@ -45,6 +48,11 @@ $child_table = [
             'link' => 'allLunaUsers',
             'label' => 'Manage Users',
             'icon' => 'people-fill'
+      ],
+      [
+            'link' => 'allLunaSettings',
+            'label' => 'Settings',
+            'icon' => 'gear-fill'
       ]
 ];
 

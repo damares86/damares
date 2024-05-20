@@ -6,14 +6,6 @@
 
 LUNA PORTAL
 
-- gestione users
-    - creazione e modifica
-    - gestione permessi visualizzazione prodotti
-
-- settings (es utenti, mail, ecc)
-    - visualizzazione limitata con utenza
-    - mail di reset
-
 - frontend
     - template frontend
     - gestione utenti
@@ -24,6 +16,14 @@ LUNA PORTAL
     - inserimento paragrafi se vuoto
 
 -------------------------
+
+# settings (es utenti, mail, ecc)
+    # visualizzazione limitata con utenza
+    # mail di reset
+
+# gestione users
+    # creazione e modifica
+    # gestione permessi visualizzazione prodotti
 
 # gestione prodotti
     #creazione 

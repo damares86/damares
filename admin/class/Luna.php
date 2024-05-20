@@ -32,6 +32,7 @@ class Luna extends Common{
     public $child_pages_id_arr ;
     public $paragraph_id ;
     public $paragraph_id_arr ;
+    public $value ;
 
     public function customerExists(){
         
