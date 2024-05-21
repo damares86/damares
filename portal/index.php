@@ -9,32 +9,20 @@ if (!filter_input(INPUT_POST, 'prod'))
   <script src="../admin/assets/js/initTheme.js"></script>
   <div id="app">
 
-    <?php
-  include "inc/sidebar.php";
-    ?>
-
-    <div id="main">
+    <div id="main" class="home">
 
       <div class="content-wrapper container">
 
-        <?php
-        if ($page == 'dashboard') {
-        ?>
-          <div class="page-heading">
-            <h3>Damares <?= $common_dashboard ?></h3>
-          </div>
-        <?php
-        }
-        ?>
+
         <div class="page-content">
 
           <?php
 
-          //   require "inc/alert.php";
+        //   require "inc/alert.php";
 
-          if (filter_input(INPUT_GET, "p")) {
-            include "inc/func/$page.php";
-          } else {
+        if (filter_input(INPUT_GET, "p")) {
+          include "inc/func/$page.php";
+        } else {
 
           ?>
 
@@ -45,25 +33,33 @@ if (!filter_input(INPUT_POST, 'prod'))
 
               <div class="col-12">
                 <div class="card shadow">
-                  <h4>Benvenuto</h4>
-                  <ul>
-                  <?php
+                  <div class="card-header text-center">
+                    <h3>Benvenuto</h3>
+                  </div>
+                  <div class="card-content home p-5">
+                    
+                    <p>
+                      Clicca sulla guida che ti interessa:
+                    <ul>
+                      <?php
 
-                  // DA MODIFICARE AGGIUNGENDO IL VINCOLO DELL'UTENZA
+                      // DA MODIFICARE AGGIUNGENDO IL VINCOLO DELL'UTENZA
 
-                  $luna->table = 'luna_products';
-                  $stmt1 = $luna->showAll('id');
+                      $luna->table = 'luna_products';
+                      $stmt1 = $luna->showAll('id');
 
-                  while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
-                    extract($row1);
-                  ?>
+                      while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+                        extract($row1);
+                      ?>
 
-                    <li><a href="manual.php?prod=<?=$row1['id']?>"><?=$row1['name']?> (v. <?=$row1['version']?>)</a></li>
+                        <li><a href="manual.php?prod=<?= $row1['id'] ?>"><?= $row1['name'] ?> (v. <?= $row1['version'] ?>)</a></li>
 
-                  <?php
-                  }
-                  ?>
-                  </ul>
+                      <?php
+                      }
+                      ?>
+                    </ul>
+                    </p>
+                  </div>
                 </div>
               </div>
 

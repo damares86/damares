@@ -13,12 +13,13 @@ extract($check_row);
 $check_user = false ;
 
 if ($check_row['value'] == 1) {
+  
   $check_user = true;
   if (!isset($_SESSION['luna_loggedin'])) {
 
     require 'inc/check_cookie.php';
-    // header('Location: login.php?err=noLogin');
-    // exit;
+    header('Location: login.php?err=noLogin');
+    exit;
   } else if (isset($_COOKIE['luna_loggedin'])) {
     $pieces = explode(",", $_COOKIE['luna_loggedin']);
     $luna->id = $pieces[0];
