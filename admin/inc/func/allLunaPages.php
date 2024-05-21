@@ -63,7 +63,9 @@ extract($row1);
           $paragraph_div_arr = [];
 
           if (!file_exists('inc/luna_pages/pages_' . $prod_id . '.json') && !file_exists('inc/luna_pages_bck/pages_' . $prod_id . '.json')) {
-            echo "Nessuna pagina presente";
+          ?>
+            <span class="text-white">Nessuna pagina presente</span>
+          <?php
           } else {
             if (file_exists('inc/luna_pages/pages_' . $prod_id . '.json')) {
 

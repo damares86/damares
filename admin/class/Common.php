@@ -479,4 +479,55 @@ public function countItem($item){
         }
     }
 
+    public function chmod_R($path, $filemode)
+    {
+      if (!is_dir($path)) {
+        return chmod($path, $filemode);
+      }
+      $dh = opendir($path);
+      while ($file = readdir($dh)) {
+        if ($file != '.' && $file != '..') {
+          $fullpath = $path . '/' . $file;
+          if (!is_dir($fullpath)) {
+            if (!chmod($fullpath, $filemode)) {
+              return false;
+            }
+          } else {
+            if (!chmod_R($fullpath, $filemode)) {
+              return false;
+            }
+          }
+        }
+      }
+  
+      closedir($dh);
+  
+      if (chmod($path, $filemode)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public function copyDirectory($source, $destination) {
+        if (!is_dir($destination)) {
+           mkdir($destination, 0755, true);
+        }
+        $files = scandir($source);
+        foreach ($files as $file) {
+           if ($file !== '.' && $file !== '..') {
+              $sourceFile = $source . '/' . $file;
+              $destinationFile = $destination . '/' . $file;
+              if (is_dir($sourceFile)) {
+                 copyDirectory($sourceFile, $destinationFile);
+              } else {
+                 copy($sourceFile, $destinationFile);
+              }
+           }
+        }
+     }
+
+
+
+
 }

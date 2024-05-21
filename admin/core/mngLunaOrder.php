@@ -133,7 +133,7 @@ function createTree($orderedItems)
             } else if ($level == 3) {
 
                 $paragraph_label = 'paragraph_' . $previous_child;
-                if (!isset($$paragraph_labelabel)) {
+                if (!isset($$paragraph_label)) {
                     $$paragraph_label = [];
                 }
 

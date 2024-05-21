@@ -42,14 +42,19 @@ if(!is_dir($json_dir)){
 
 
 // copy portal files
-foreach (glob("../plugins/luna_portal/portal/*") as $row) {
-    $item = pathinfo($row);
+if($common->copyDirectory('../plugins/luna_portal/portal/',$portal_dir)){
+	$common->chmod_R($portal_dir,0777);
+}else{
+	$error++;
+}
+// foreach (glob("../plugins/luna_portal/portal/*") as $row) {
+//     $item = pathinfo($row);
 	
-    if (copy('../plugins/luna_portal/portal/' . $item['basename'] . '', $portal_dir . $item['basename'] )) {
-      chmod( $portal_dir . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
+//     if (copy('../plugins/luna_portal/portal/' . $item['basename'] . '', $portal_dir . $item['basename'] )) {
+//       chmod( $portal_dir . $item['basename'] . '', 0777);
+//     } else {
+//       $error++;
+//     }
+//   }
 
 require "config.php" ;

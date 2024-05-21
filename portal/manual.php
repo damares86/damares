@@ -32,6 +32,7 @@ if(filter_input(INPUT_GET, 'page')){
   $luna->table = 'luna_products';
   $luna->id = $prod_id;
   $stmt4 = $luna->showAllWhere('id', ['id']);
+
   while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
     extract($row4);
   ?>

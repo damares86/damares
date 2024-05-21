@@ -18,7 +18,7 @@ if (!filter_input(INPUT_POST, 'prod'))
 
           <?php
 
-        //   require "inc/alert.php";
+          require "../admin/inc/alert.php";
 
         if (filter_input(INPUT_GET, "p")) {
           include "inc/func/$page.php";
@@ -37,7 +37,7 @@ if (!filter_input(INPUT_POST, 'prod'))
                     <h3>Benvenuto</h3>
                   </div>
                   <div class="card-content home p-5">
-                    
+
                     <p>
                       Clicca sulla guida che ti interessa:
                     <ul>

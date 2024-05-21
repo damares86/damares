@@ -9,8 +9,9 @@ LUNA PORTAL
 - controllare bkc json
 
 - frontend
-    - template frontend
-    - gestione utenti
+    - grafica
+    # template frontend
+    # gestione utenti
     # selettore versioni
 
 - ordinamento con dragula

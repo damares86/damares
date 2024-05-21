@@ -37,6 +37,12 @@ $page = "Home";
 if (filter_input(INPUT_GET, 'prod')) {
   $luna->table = 'luna_products';
   $luna->id = filter_input(INPUT_GET, 'prod');
+
+  if(!$luna->itemExists('id')){
+    header('Location: index.php?err=prodNoExist');
+    exit;
+  }
+  
   $stmt2 = $luna->showAllWhere('id', ['id']);
   $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
   extract($row2);

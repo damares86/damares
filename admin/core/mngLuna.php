@@ -22,6 +22,10 @@ if (filter_input(INPUT_GET, 'idProdToDel')) {
         $table_name = 'luna_pages_' . $idToDel;
 
         if ($luna->dropTable($table_name)) {
+            
+            unlink('../inc/luna_pages/pages_'.$idToDel.'.json');
+            unlink('../inc/luna_pages_bck/pages_'.$idToDel.'.json');
+
             header('Location: ../index.php?p=allLunaProducts&msg=lunaProdDelSucc');
             exit;
         } else {
@@ -62,7 +66,7 @@ if (filter_input(INPUT_GET, 'idProdToDel')) {
             $parent_delete = $idToDel;
 
             foreach ($pages_data['parent'] as $parent) {
-                if ($parent != $row['id']) {
+                if ($parent != $page_content['id']) {
                     $parent_arr[] = $parent;
                 }
             }
@@ -406,7 +410,9 @@ if ($operation == "editLunaProduct") {
 
             if (file_put_contents($real_file, $jsonContent)) {
                 chmod($real_file, 0777);
-                unlink($bck_file);
+                if(file_exists($bck_file)){
+                    unlink($bck_file);
+                }
                 copy($real_file, $bck_file);
                 chmod($bck_file, 0777);
                 header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentSucc");
