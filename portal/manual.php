@@ -5,7 +5,7 @@ if (!filter_input(INPUT_GET, 'prod')) {
   header('Location: index.php');
   exit;
 }
-
+$page_id = filter_input(INPUT_GET,'page');
 ?>
 
 <body>
