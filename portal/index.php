@@ -58,7 +58,7 @@ if (!filter_input(INPUT_POST, 'prod'))
                     extract($row1);
                   ?>
 
-                    <li><a href="manual.php?prod=<?=$row1['id']?>"><?=$row1['name']?></a></li>
+                    <li><a href="manual.php?prod=<?=$row1['id']?>"><?=$row1['name']?> (v. <?=$row1['version']?>)</a></li>
 
                   <?php
                   }

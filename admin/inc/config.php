@@ -1,6 +1,6 @@
 <?php
 require "core/prefix.php";
-require __DIR__."/version.php";
+require __DIR__."/damares_version.php";
 
 spl_autoload_register('autoloader');
 

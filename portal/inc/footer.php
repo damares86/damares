@@ -35,20 +35,12 @@
     }
   })
 </script>
-<!-- <script src="assets/js/pages/datatables.js"></script> -->
 
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-
-<!-- <script src="assets/extensions/parsleyjs/parsley.min.js"></script>
-<script src="assets/js/pages/parsley.js"></script>
-<script src="assets/js/pages/<?= $lang ?>.js"></script>
-<script src="assets/js/pages/<?= $lang ?>.extra.js"></script>
-<script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
-<script src="assets/js/pages/form-element-select.js"></script> -->
 
 </body>
 

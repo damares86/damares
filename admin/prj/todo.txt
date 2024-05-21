@@ -6,6 +6,8 @@
 
 LUNA PORTAL
 
+- controllare bkc json
+
 - frontend
     - template frontend
     # gestione utenti

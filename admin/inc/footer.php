@@ -1,9 +1,7 @@
 <footer>
   <div class="container">
     <div class="footer clearfix mb-0 text-muted">
-      <?php
-      require 'inc/version.php';
-      ?>
+
       <div class="float-end">
         <p>
           <img src="assets/images/logo/damares_rid.png" alt="Logo" /> &nbsp; <strong>damares v.<?= $damares_version ?></strong> - developed by
