@@ -51,32 +51,9 @@ if($row_debug['value']==1){
 	));
 }
 
-// get the p from url if exists
-if(filter_input(INPUT_GET,"p")){
-    $page = filter_input(INPUT_GET,"p");
-}else{
-    $page = "dashboard";
-}
 
-// $pageLabel = "" ;
-// $pageId = "" ;
-
-// $parent = $section->showByLink($page,'sectionParent');
-// $child = $section->showByLink($page,'sectionChild');
-
-// if($parent){
-//     $pageLabel = $parent['label'] ;
-//     $pageLink = $parent['link'] ;
-//     $pageId = $parent['id'] ;
-// }else if($child){
-//     $pageLabel = $child['label'] ;
-//     $pageLink = $child['link'] ;
-//     $pageId = $child['id'] ;
-// }else{
-//     $pageLabel = "" ;
-//     $pageLink = "" ;
-//     $pageId = "" ;
-// }
+require __DIR__."/luna_version.php";
+require "../admin/inc/damares_version.php";
 
 $setting->name="lang" ;
 $stmt = $setting->showByName();

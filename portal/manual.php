@@ -17,7 +17,6 @@ $page_id = filter_input(INPUT_GET,'page');
   $prod_id = filter_input(INPUT_GET, 'prod');
   $luna->id = $prod_id;
   $stmt4 = $luna->showAllWhere('id', ['id']);
-
   while ($row4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
     extract($row4);
   ?>
@@ -44,6 +43,8 @@ $page_id = filter_input(INPUT_GET,'page');
             <div class="col-12">
               <div class="card shadow">
                 <?php
+  
+
                     $luna->table = 'luna_pages_'.$prod_id ;
                     $luna->id = $page_id ;
                     $page_stmt = $luna->showAllWhere('id',['id']) ;
@@ -51,7 +52,7 @@ $page_id = filter_input(INPUT_GET,'page');
                     extract($page_row) ;
                     
                     ?>
-                  <div class="card-header">
+                  <div class="card-header manual">
                     <h5><?=$page_row['title']?></h5>
                   </div>
                   <div class="card-content p-4">

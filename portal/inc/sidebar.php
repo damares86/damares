@@ -5,7 +5,7 @@
         <!-- <div class="logo"> -->
         <div class="logo px-5">
           <a href="index.php">
-            <img src="assets/img/logo/damares_logo.png" alt="Logo" srcset="" />
+            <img src="assets/img/logo/luna_logo.png" alt="Logo" srcset="" />
           </a>
         </div>
       </div>

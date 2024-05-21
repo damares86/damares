@@ -6,9 +6,10 @@
       ?>
       <div class="float-end">
         <p>
-          <img src="assets/images/logo/damares_rid.png" alt="Logo" /> &nbsp; <strong>damares v.<?= $version ?></strong> - developed by
+          <img src="assets/img/logo/luna_rid.png" alt="Logo" /> &nbsp; <strong>luna portal v.<?= $luna_version ?></strong> - powered by 
+          <img src="assets/img/logo/damares_rid.png" alt="Logo" /> &nbsp; <strong>damares v.<?= $damares_version ?></strong> - developed by
           <a href="http://www.dmweblab.com" target="_blank">
-            <img src="assets/images/logo/dmweblab_logo.png" alt="Logo" />
+            <img src="assets/img/logo/dmweblab_logo.png" alt="Logo" />
           </a>
         </p>
       </div>
