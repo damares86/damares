@@ -65,7 +65,7 @@
             if ($child['parent_id'] == $parent_row['id']) {
               if (is_array($child['id'])) {
                 $hasSub = "has-sub";
-                $link='#';
+                $link = '#';
               }
             }
           }
@@ -85,54 +85,53 @@
             </a>
             <?php
             if ($hasSub) {
-             
+
             ?>
-                <ul class="submenu">
-                  <?php
-          foreach ($pages_data['child'] as $child) {
+              <ul class="submenu">
+                <?php
+                foreach ($pages_data['child'] as $child) {
 
-            if ($child['parent_id'] == $parent_row['id']) {
-              
-              foreach($child['id'] as $item){
-              
-                $luna->table = 'luna_pages_' . $prod_id;
-                $luna->id = $item;
-                $child_stmt = $luna->showAllWhere('id', ['id']);
-                $child_row = $child_stmt->fetch(PDO::FETCH_ASSOC);
-                extract($child_row);
+                  if ($child['parent_id'] == $parent_row['id']) {
 
-                $title_child = $child_row['title'];
-                $active1 = "";
+                    foreach ($child['id'] as $item) {
 
-                $link_sub = "?prod=" . $prod_id . "&page=" . $child_row['id'] . ""; 
-                if($page_id == $child_row['id']){
-                  $active1 = "active";
-                }
-      
-            ?>
+                      $luna->table = 'luna_pages_' . $prod_id;
+                      $luna->id = $item;
+                      $child_stmt = $luna->showAllWhere('id', ['id']);
+                      $child_row = $child_stmt->fetch(PDO::FETCH_ASSOC);
+                      extract($child_row);
+
+                      $title_child = $child_row['title'];
+                      $active1 = "";
+
+                      $link_sub = "?prod=" . $prod_id . "&page=" . $child_row['id'] . "";
+                      if ($page_id == $child_row['id']) {
+                        $active1 = "active";
+                      }
+
+                ?>
 
                       <li class="submenu-item <?= $active1 ?>">
                         <a href="manual.php<?= $link_sub ?>">
                           <span>
-                            <?=$title_child?>
+                            <?= $title_child ?>
                           </span></a>
                       </li>
 
+                <?php
+                    }
+                  }
+                }
+                ?>
+
+              </ul>
             <?php
-              }
-              
-            }
-          }
-          ?>
-                         
-                </ul>
-            <?php
-              }
-              ?>
-              </li>
-              <?php
             }
             ?>
+          </li>
+        <?php
+        }
+        ?>
 
 
       </ul>

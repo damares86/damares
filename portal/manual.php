@@ -32,17 +32,30 @@ $page_id = filter_input(INPUT_GET,'page');
 
         <div class="content-wrapper container">
 
+        <div class="page-heading">
+
+          <h4>Manuale di <?= $row4['name'] ?></h4>
+
+        </div>
+
           <div class="page-content">
 
             <section class="row">
 
               <div class="col-12">
                 <div class="card shadow">
+                  <?php
+                    $luna->table = 'luna_pages_'.$prod_id ;
+                    $luna->id = $page_id ;
+                    $page_stmt = $luna->showAllWhere('id',['id']) ;
+                    $page_row = $page_stmt->fetch(PDO::FETCH_ASSOC);
+                    extract($page_row) ;
+                  ?>
                   <div class="card-header">
-                  <h4>Manuale di <?= $row4['name'] ?></h4>
+                    <h5><?=$page_row['title']?></h5>
                   </div>
                   <div class="card-content p-4">
-                    Contenuto
+                  <?=$page_row['content']?>
                   </div>
                   <ul>
 
