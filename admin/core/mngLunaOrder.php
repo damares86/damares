@@ -11,6 +11,13 @@
 
 require __DIR__ . "/coreConfig.php";
 
+$setting->name = "lang";
+$stmt = $setting->showByName();
+$lang = $stmt['value'];
+
+foreach (glob("../locale/$lang/*.php") as $row) {
+    require "$row";
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['orderedItems'])) {
@@ -34,6 +41,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $prod_arr = json_decode($_POST['additionalData'], true);
         $prod_id = $prod_arr['luna_product_id'];
 
+        // Controllo se ci sono livelli superiori a 3
+        foreach ($orderedItems as $item) {
+            if ($item['livello'] > 3) {
+                $response = [
+                    'success' => false,
+                    'message' => $allLunaPages_wrong_level
+                ];
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit; // Interrompe l'esecuzione del resto del codice
+            }
+        }
+
         // In questo punto, $orderedItems contiene l'array dei dati gerarchici delle pagine
         // Puoi procedere con la manipolazione e l'elaborazione dei dati come desideri
         // Ad esempio, puoi creare l'array gerarchico qui
@@ -56,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             chmod($bck_file, 0777);
             $response = [
                 'success' => true, // o false se c'è stato un errore
-                'message' => 'Struttura gerarchica salvata correttamente.',
+                'message' => $allLunaPages_save_ok,
                 // Altri dati, se necessario
             ];
             // Imposta l'intestazione JSON
@@ -69,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             copy($bck_file, $real_file);
             $response = [
                 'success' => false, // o false se c'è stato un errore
-                'message' => 'File non aggiornato',
+                'message' => $allLunaPages_save_fail,
                 // Altri dati, se necessario
                 // Imposta l'intestazione JSON
             ];

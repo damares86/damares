@@ -37,16 +37,17 @@ if (!filter_input(INPUT_POST, 'prod'))
                     <h3>Benvenuto</h3>
                   </div>
                   <div class="card-content home p-5">
+                    <?php
 
+                      $luna->table = 'luna_products';
+                      $stmt1 = $luna->showAll('id');
+
+                      if($stmt1->rowCount()>0){
+                      ?>
                     <p>
                       Clicca sulla guida che ti interessa:
                     <ul>
                       <?php
-
-                      // DA MODIFICARE AGGIUNGENDO IL VINCOLO DELL'UTENZA
-
-                      $luna->table = 'luna_products';
-                      $stmt1 = $luna->showAll('id');
 
                       while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
                         extract($row1);
@@ -59,6 +60,16 @@ if (!filter_input(INPUT_POST, 'prod'))
                       ?>
                     </ul>
                     </p>
+                    <?php
+                      }else{
+                    ?>
+
+                    Nessuna guida disponibile
+
+                    <?php
+
+                      }
+                      ?>
                   </div>
                 </div>
               </div>

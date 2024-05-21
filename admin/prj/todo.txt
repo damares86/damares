@@ -2,45 +2,6 @@
         TODO
 ------------------------------------------
 
-########################################################
-
-LUNA PORTAL
-
-- controllare bkc json
-
-- frontend
-    - grafica
-    # template frontend
-    # gestione utenti
-    # selettore versioni
-
-- ordinamento con dragula
-    # salvataggio ordinamento
-    - inserimento paragrafi se vuoto
-
--------------------------
-
-# settings (es utenti, mail, ecc)
-    # visualizzazione limitata con utenza
-    # mail di reset
-
-# gestione users
-    # creazione e modifica
-    # gestione permessi visualizzazione prodotti
-
-# gestione prodotti
-    #creazione 
-    # modifica
-    # eliminazione pagine in caso di eliminazione prodotto
-    # clone
-
-# gestione pagine
-    # creazione
-    # modifica
-    # eliminazione e gestione dei child
-
-########################################################
-
 
 ########################################################
 

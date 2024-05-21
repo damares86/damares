@@ -8,33 +8,30 @@
 #                                          #
 ############################################
 
-// add customer
+// BACKEND
 
-$customer_add_header = "Add a customer" ;
-$customer_add_title = "Add customer" ;
-$customer_add_name_ph = "Customer name" ;
-$customer_add_surname_ph = "Customer surname" ;
-$customer_add_optional = "Optional" ;
-$customer_add_company = "Company" ;
-$customer_add_authorize = "Authorize products" ;
+// allLunaPages
 
-// edit
+$allLunaPages_title = "Pages Management" ;
+$allLunaPages_save_ok = "Page order changed succesfully" ;
+$allLunaPages_save_fail = "Page order change failed" ;
+$allLunaPages_add_page = "Add a new parent page" ;
+$allLunaPages_no_page = "No pages found" ;
+$allLunaPages_operations = "Operations" ;
+$allLunaPages_modal_body = "!!! ATTENTION !!!<br>If you delete this page you will delete also <b>the nested pages</b>!";
+$allLunaPages_wrong_level = "It's not allowed to add pages over the third level";
 
-$customer_edit_header = "Edit a customer" ;
-$customer_edit_title = "Edit customer" ;
-$customer_prod_permission = "Product permissions" ;
-$customer_prod_auth = "Authorize" ;
-$customer_edit_password = "Edit password for this customer" ;
+// allLunaProducts
+
+$allLunaProducts_title = "All Luna Products" ;
 
 
-// all
 
-$customer_all_header = "All customers" ;
-$customer_all_title = "All customers" ;
-$customer_all_add = "Add a customer" ;
-// $customer_all_surname_table = "Surname" ;
-$customer_all_name_table = "Name" ;
-$customer_all_modal_body = "If you confirm, you will completely delete this customer." ;
+
+
+
+
+// FRONTEND
 
 
 // msg

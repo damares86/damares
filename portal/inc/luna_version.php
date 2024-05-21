@@ -1,3 +1,3 @@
 <?php
-$luna_version = "0.6.1";
+$luna_version = "1.0.0";
 ?>
