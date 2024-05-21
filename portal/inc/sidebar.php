@@ -113,7 +113,7 @@
                           if($paragraph['child_id'] == $child_row['id']){
                             if(is_array($paragraph['id'])) {
                               $label = 'hasParagraph_'.$child_row['id'] ;
-                              $hasParagraph=true;
+                              $$label=true;
                             }
                           }
 

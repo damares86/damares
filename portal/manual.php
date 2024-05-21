@@ -65,6 +65,7 @@ $page_id = filter_input(INPUT_GET,'page');
                       <?php
 
                         $par_array = [] ;
+                        $paragraph_exist = false ;
                         foreach($pages_data['paragraph'] as $paragraph){
                           if($paragraph['child_id'] == $page_id){
 
@@ -76,6 +77,7 @@ $page_id = filter_input(INPUT_GET,'page');
                               $par_row = $par_stmt->fetch(PDO::FETCH_ASSOC);
                               extract($par_row) ;
                               $par_array[] = $par_row['id'];
+                              $paragraph_exist=true;
                         ?>
                           <li><a href="#par_<?=$par_id?>"><?=$par_row['title']?></a></li>
                         <?php
@@ -96,7 +98,7 @@ $page_id = filter_input(INPUT_GET,'page');
                  <p> <?=$page_row['content']?></p>
 
                   <?php
-                  if(!empty($par_array)){
+                  if($paragraph_exist){
 
                     foreach($par_array as $par){
 
