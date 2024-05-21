@@ -89,54 +89,52 @@
             ?>
                 <ul class="submenu">
                   <?php
+          foreach ($pages_data['child'] as $child) {
 
-                  
+            if ($child['parent_id'] == $parent_row['id']) {
+              
+              foreach($child['id'] as $item){
+              
+                $luna->table = 'luna_pages_' . $prod_id;
+                $luna->id = $item;
+                $child_stmt = $luna->showAllWhere('id', ['id']);
+                $child_row = $child_stmt->fetch(PDO::FETCH_ASSOC);
+                extract($child_row);
 
-                  while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
-                    if ($role_id == 1 ||  in_array($row1['id'], $sectionChild)) {
+                $title_child = $child_row['title'];
+                $active1 = "";
 
+                $link_sub = "?prod=" . $prod_id . "&page=" . $child_row['id'] . ""; 
+                if($page_id == $child_row['id']){
+                  $active1 = "active";
+                }
+      
+            ?>
 
-
-                      $active1 = "";
-
-                      extract($row1);
-
-                      if ($page == $row1['link']) {
-                        $active1 = "active";
-                      }
-
-                  ?>
                       <li class="submenu-item <?= $active1 ?>">
-                        <a href="index.php?p=<?= $row1['link'] ?>">
-                          <i class="bi bi-<?= $row1['icon'] ?>"></i>
+                        <a href="manual.php<?= $link_sub ?>">
                           <span>
-                            <?php
-                            if ($lang == "en") {
-                              echo $row1['label'];
-                            } else {
-                              $locale_label = strtolower($row1['label']);
-                              $locale_label = str_replace(" ", "_", $locale_label);
-                              $locale_label = "label_$locale_label";
-                              $section_label = $$locale_label;
-                              echo $section_label;
-                            }
-                            ?>
+                            <?=$title_child?>
                           </span></a>
                       </li>
 
-                  <?php
-                    }
-                  ?>
+            <?php
+              }
+              
+            }
+          }
+          ?>
+                         
                 </ul>
             <?php
               }
+              ?>
+              </li>
+              <?php
             }
             ?>
-          </li>
 
-        <?php
-        }
-        ?>
+
       </ul>
     </div>
   </div>
