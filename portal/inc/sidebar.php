@@ -107,6 +107,22 @@
                       $link_sub = "?prod=" . $prod_id . "&page=" . $child_row['id'] . "";
                       if ($page_id == $child_row['id']) {
                         $active1 = "active";
+
+                        foreach($pages_data['paragraph'] as $paragraph){
+
+                          if($paragraph['child_id'] == $child_row['id']){
+                            if(is_array($paragraph['id'])) {
+                              $label = 'hasParagraph_'.$child_row['id'] ;
+                              $$label=true;
+                            }
+                          }
+
+                        }
+
+
+
+
+
                       }
 
                 ?>
