@@ -65,7 +65,7 @@
             if ($child['parent_id'] == $parent_row['id']) {
               if (is_array($child['id'])) {
                 $hasSub = "has-sub";
-                $link = '#';
+                $link = $link.'#';
               }
             }
           }
@@ -113,7 +113,7 @@
                           if($paragraph['child_id'] == $child_row['id']){
                             if(is_array($paragraph['id'])) {
                               $label = 'hasParagraph_'.$child_row['id'] ;
-                              $$label=true;
+                              $hasParagraph=true;
                             }
                           }
 

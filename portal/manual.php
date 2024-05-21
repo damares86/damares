@@ -96,7 +96,7 @@ $page_id = filter_input(INPUT_GET,'page');
                  <p> <?=$page_row['content']?></p>
 
                   <?php
-                  if(count($par_array)>0){
+                  if(!empty($par_array)){
 
                     foreach($par_array as $par){
 
