@@ -11,7 +11,7 @@ LUNA PORTAL
 - frontend
     - template frontend
     # gestione utenti
-    - selettore versioni
+    # selettore versioni
 
 - ordinamento con dragula
     # salvataggio ordinamento

@@ -18,9 +18,16 @@ if(filter_input(INPUT_GET, 'page')){
 ?>
 
 <body>
+<script>
+    $(document).ready(function(){
+        $('#versionSelect').change(function(){
+            var selectedValue = $(this).val();
+            window.location.href = 'manual.php?prod=' + selectedValue;
+        });
+    });
+    </script>
   <?php
 
-  // DA MODIFICARE AGGIUNGENDO IL VINCOLO DELL'UTENZA
 
   $luna->table = 'luna_products';
   $luna->id = $prod_id;
@@ -41,7 +48,7 @@ if(filter_input(INPUT_GET, 'page')){
 
           <div class="page-heading">
 
-            <h4 class="d-inline">Manuale di <?= $row4['name'] ?></h4> &nbsp;
+            <h4 class="d-inline">Manuale di <?= $row4['name'] ?> (v. <?=$row4['version']?>)</h4> &nbsp;
             <?php
               $luna->table = 'luna_products';
               $luna->name = $row4['name'] ;
@@ -55,11 +62,24 @@ if(filter_input(INPUT_GET, 'page')){
 
               if(count($versions_arr)>1){
             ?>
-            <fieldset class="form-group d-inline">
-              <select class="form-select" id="basicSelect">
-                <option>IT</option>
-                <option>Blade Runner</option>
-                <option>Thor Ragnarok</option>
+            Scegli versione: <fieldset class="form-group d-inline">
+              <select class="form-select" id="versionSelect">
+                <?php
+                  foreach($versions_arr as $ver){
+                    $selected = '' ;
+                    $luna->table = 'luna_products' ;
+                    $luna->id = $ver ;
+                    $stmt = $luna->showAllWhere('id',['id']) ;
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
+                    extract($row) ;
+                    if($row['id'] == $prod_id){
+                      $selected = 'selected' ;
+                    }
+                ?>                  
+                  <option value="<?=$row['id']?>" <?=$selected?>><?=$row['version']?></option>
+                <?php
+                  }
+                ?>
               </select>
             </fieldset>
             <?php
@@ -155,7 +175,7 @@ if(filter_input(INPUT_GET, 'page')){
           <?php
         }
           ?>
-
+      
           </div>
         </div>
 
