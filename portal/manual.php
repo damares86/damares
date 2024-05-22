@@ -7,9 +7,9 @@ if (!filter_input(INPUT_GET, 'prod')) {
 }
 $prod_id = filter_input(INPUT_GET, 'prod');
 
-if(filter_input(INPUT_GET, 'page')){
+if (filter_input(INPUT_GET, 'page')) {
   $page_id = filter_input(INPUT_GET, 'page');
-}else{
+} else {
   $pages_json = file_get_contents('../admin/inc/luna_pages/pages_' . $prod_id . '.json');
   $pages_data = json_decode($pages_json, true);
   $page_id = $pages_data['parent'][0];
@@ -18,14 +18,14 @@ if(filter_input(INPUT_GET, 'page')){
 ?>
 
 <body>
-<script>
-    $(document).ready(function(){
-        $('#versionSelect').change(function(){
-            var selectedValue = $(this).val();
-            window.location.href = 'manual.php?prod=' + selectedValue;
-        });
+  <script>
+    $(document).ready(function() {
+      $('#versionSelect').change(function() {
+        var selectedValue = $(this).val();
+        window.location.href = 'manual.php?prod=' + selectedValue;
+      });
     });
-    </script>
+  </script>
   <?php
 
 
@@ -49,43 +49,43 @@ if(filter_input(INPUT_GET, 'page')){
 
           <div class="page-heading">
 
-            <h4 class="d-inline">Manuale di <?= $row4['name'] ?> (v. <?=$row4['version']?>)</h4> &nbsp;
+            <h4 class="d-inline"><?= $luna_manual_title ?> <?= $row4['name'] ?> (v. <?= $row4['version'] ?>)</h4> &nbsp;
             <?php
-              $luna->table = 'luna_products';
-              $luna->name = $row4['name'] ;
-              $check_versions = $luna->showAllWhere('id',['name']) ;
-             
-              $versions_arr = [] ;
-              while( $versions_row = $check_versions->fetch(PDO::FETCH_ASSOC)){
-                extract($versions_row) ;
-                $versions_arr[] = $versions_row['id'] ;
-              }
+            $luna->table = 'luna_products';
+            $luna->name = $row4['name'];
+            $check_versions = $luna->showAllWhere('id', ['name']);
 
-              if(count($versions_arr)>1){
+            $versions_arr = [];
+            while ($versions_row = $check_versions->fetch(PDO::FETCH_ASSOC)) {
+              extract($versions_row);
+              $versions_arr[] = $versions_row['id'];
+            }
+
+            if (count($versions_arr) > 1) {
             ?>
-            Scegli versione: <fieldset class="form-group d-inline">
-              <select class="form-select" id="versionSelect">
-                <?php
-                  foreach($versions_arr as $ver){
-                    $selected = '' ;
-                    $luna->table = 'luna_products' ;
-                    $luna->id = $ver ;
-                    $stmt = $luna->showAllWhere('id',['id']) ;
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
-                    extract($row) ;
-                    if($row['id'] == $prod_id){
-                      $selected = 'selected' ;
+              <?= $luna_manual_version ?>: <fieldset class="form-group d-inline">
+                <select class="form-select" id="versionSelect">
+                  <?php
+                  foreach ($versions_arr as $ver) {
+                    $selected = '';
+                    $luna->table = 'luna_products';
+                    $luna->id = $ver;
+                    $stmt = $luna->showAllWhere('id', ['id']);
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    extract($row);
+                    if ($row['id'] == $prod_id) {
+                      $selected = 'selected';
                     }
-                ?>                  
-                  <option value="<?=$row['id']?>" <?=$selected?>><?=$row['version']?></option>
-                <?php
+                  ?>
+                    <option value="<?= $row['id'] ?>" <?= $selected ?>><?= $row['version'] ?></option>
+                  <?php
                   }
-                ?>
-              </select>
-            </fieldset>
+                  ?>
+                </select>
+              </fieldset>
             <?php
-              }
-              ?>
+            }
+            ?>
           </div>
           <div class="page-content">
 
@@ -149,15 +149,15 @@ if(filter_input(INPUT_GET, 'page')){
                     <p> <?= $page_row['content'] ?></p>
 
                     <?php
-                      $account->id = $row['last_editor'] ;
-                      $editor_stmt = $account->showAllWhere('id',['id']);
-                      $editor_row = $editor_stmt->fetch(PDO::FETCH_ASSOC);
-                      extract($editor_row) ;
+                    $account->id = $row['last_editor'];
+                    $editor_stmt = $account->showAllWhere('id', ['id']);
+                    $editor_row = $editor_stmt->fetch(PDO::FETCH_ASSOC);
+                    extract($editor_row);
 
-                      $editDate = $row['last_edit_time'] ;
+                    $editDate = $row['last_edit_time'];
                     ?>
 
-                    <p class="edited">Last modified by <?=$editor_row['username']?> on <?=$editDate?></p>
+                    <p class="edited"><?= $luna_manual_editor ?> <?= $editor_row['username'] ?> <?= $luna_manual_on ?> <?= $editDate ?></p>
 
                     <?php
                     if ($paragraph_exist) {
@@ -169,9 +169,12 @@ if(filter_input(INPUT_GET, 'page')){
                         $par_stmt1 = $luna->showAllWhere('id', ['id']);
                         $par_row1 = $par_stmt1->fetch(PDO::FETCH_ASSOC);
                         extract($par_row1);
+                        $editDate = $par_row1['last_edit_time'];
+
                     ?>
                         <h6><?= $par_row1['title'] ?></h6>
                         <p><?= $par_row1['content'] ?></p>
+                        <p class="edited"><?= $luna_manual_editor ?> <?= $par_row1['username'] ?> <?= $luna_manual_on ?> <?= $editDate ?></p>
 
                     <?php
                       }
@@ -187,7 +190,7 @@ if(filter_input(INPUT_GET, 'page')){
           <?php
         }
           ?>
-      
+
           </div>
         </div>
 

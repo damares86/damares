@@ -97,7 +97,12 @@ $allLunaSettings_auth = "Allow manual access only to registered users" ;
 
 $luna_home_welcome = "Welcome" ;
 $luna_home_choose = "Choose the manual";
-$luna_home_nomanual = "No manual available" ;
+$luna_home_no_manual = "No manual available" ;
+$luna_login_remember = "Remember me on this device" ;
+$luna_manual_title = "Manual:" ;
+$luna_manual_version = "Choose version" ;
+$luna_manual_editor = "Last modified by" ;
+$luna_manual_on = "on" ;
 
 //////////////////////////////////////////////
 
