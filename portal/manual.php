@@ -149,6 +149,17 @@ if(filter_input(INPUT_GET, 'page')){
                     <p> <?= $page_row['content'] ?></p>
 
                     <?php
+                      $account->id = $row['last_editor'] ;
+                      $editor_stmt = $account->showAllWhere('id',['id']);
+                      $editor_row = $editor_stmt->fetch(PDO::FETCH_ASSOC);
+                      extract($editor_row) ;
+
+                      $editDate = $row['last_edit_time'] ;
+                    ?>
+
+                    <p class="edited">Last modified by <?=$editor_row['username']?> on <?=$editDate?></p>
+
+                    <?php
                     if ($paragraph_exist) {
 
                       foreach ($par_array as $par) {

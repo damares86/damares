@@ -95,6 +95,9 @@ $allLunaSettings_auth = "Allow manual access only to registered users" ;
 
 // FRONTEND
 
+$luna_home_welcome = "Welcome" ;
+$luna_home_choose = "Choose the manual";
+$luna_home_nomanual = "No manual available" ;
 
 //////////////////////////////////////////////
 

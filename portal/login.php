@@ -62,7 +62,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
               class="form-check-label text-gray-600"
               for="flexCheckDefault"
             >
-            Ricordami su questo computer 
+            <?=$luna_login_remember?> 
             </label>
           </div> 
 
