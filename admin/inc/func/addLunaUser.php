@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Add luna user</h3>
+      <h3><?=$addLunaUser_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -13,7 +13,7 @@
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Add luna user
+          <?=$addLunaUser_header?>
           </li>
         </ol>
       </nav>
@@ -27,7 +27,7 @@
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                <h4 class="card-title">Add a new luna user</h4>
+                <h4 class="card-title"><?=$addLunaUser_title?></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -129,7 +129,7 @@
                         ?>
 
                         <div class="col-md-3">
-                            <label>Authorize product  <span class="text-danger">*</span></label>
+                            <label><?=$addLunaUser_auth?>  <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                          <div class="form-group">

@@ -1,7 +1,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Luna settings</h3>
+            <h3><?=$allLunaSettings_header?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -10,7 +10,7 @@
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Luna settings
+                        <?=$allLunaSettings_header?>
                     </li>
                 </ol>
             </nav>
@@ -42,7 +42,7 @@
                                         }
                                     ?>
                                     <div class="col-md-3 mt-2">
-                                        <label>Allow access only to registered users</label>
+                                        <label><?=$allLunaSettings_auth?></label>
                                     </div>
                                     <div class="col-md-9 mt-2">
                                         <div class="form-group">

@@ -6,7 +6,7 @@ $stmt = $luna->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Luna users</h3>
+      <h3><?=$allLunaUsers_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -18,7 +18,7 @@ $stmt = $luna->showAll('id');
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Luna users
+          <?=$allLunaUsers_header?>
           </li>
         </ol>
       </nav>
@@ -31,9 +31,9 @@ $stmt = $luna->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">All luna users &nbsp; &nbsp; &nbsp; 
+    <div class="card-header"><?=$allLunaUsers_title?> &nbsp; &nbsp; &nbsp; 
                     <a href="index.php?p=addLunaUser" class="btn icon icon-left btn-success shadow"
-                        ><i data-feather="plus-circle"></i> Add a new user</a
+                        ><i data-feather="plus-circle"></i> <?=$allLunaUsers_add?></a
                       ></div>
     <div class="card-body">
       <table class="table" id="table1">
@@ -41,7 +41,7 @@ $stmt = $luna->showAll('id');
           <tr>
             <th><?=$common_name?></th>
             <th><?=$common_username?></th>
-            <th>Permissions</th>
+            <th><?=$allLunaUsers_perm?></th>
             <th><?=$common_actions?></th>
           </tr>
         </thead>
@@ -55,6 +55,7 @@ $stmt = $luna->showAll('id');
             <td><?=$row['username']?></td>
             <td>
               <?php
+                if($ow['permissions'] != null){
                 $permissions = explode(',',$row['permissions']) ;
                 foreach($permissions as $item){
                   $luna->table = 'luna_products' ;
@@ -64,6 +65,11 @@ $stmt = $luna->showAll('id');
                   extract($row1) ;
                   echo $row1['name']."<br>" ;
                 }
+              }else{
+                ?>
+                <?=$allLunaUsers_no_perm?>
+                <?php
+              }
               ?>
             </td>
             <td>
@@ -106,7 +112,7 @@ $stmt = $luna->showAll('id');
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    testo modale
+                                    <?=$allLunaUsers_modal_body?>
                                   </div>
                                   <div class="modal-footer">
                                     <button

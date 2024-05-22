@@ -41,10 +41,33 @@ $allLunaProducts_clone_title = "Create a new version of the product documentatio
 $allLunaProducts_clone_new_name = "New name" ;
 $allLunaProducts_clone_desc = "Attention: if you want to create a new version of the same product, don't change the name" ;
 $allLunaProducts_clone_new_version = "New version" ;
-$allLunaProducts_modal_body = "If you confirm, you will completely delete this account and all its pages." ;
+$allLunaProducts_modal_body = "If you confirm, you will completely delete this product and all its pages." ;
 
+// addLunaProduct
 
+$addLunaProduct_title = "Add a new Luna product" ;
+$addLunaProduct_name = "Product name" ;
+$addLunaProduct_version = "Version" ;
 
+// allLunaUsers
+
+$allLunaUsers_header = "Luna users" ;
+$allLunaUsers_title = "All Luna users" ;
+$allLunaUsers_add = "Add a new users" ;
+$allLunaUsers_perm = "Permissions" ;
+$allLunaUsers_no_perm = "No permissions" ;
+$allLunaUsers_modal_body = "If you confirm, you will completely delete this user." ;
+
+// addLunaUser
+
+$addLunaUser_header = "Add Luna user" ;
+$addLunaUser_title = "Add a new Luna user" ;
+$addLunaUser_auth = "Authorize product" ;
+
+// allLunaSettings
+
+$allLunaSettings_header = "Luna settings" ;
+$allLunaSettings_auth = "Allow manual access only to registered users" ;
 
 
 

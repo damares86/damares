@@ -1,7 +1,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Add a new Luna product</h3>
+            <h3><?=$addLunaProduct_title?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -10,7 +10,7 @@
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Add a new Luna product
+                    <?=$addLunaProduct_title?>
                     </li>
                 </ol>
             </nav>
@@ -24,7 +24,7 @@
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Add a new Luna product</h4>
+                    <h4 class="card-title"><?=$addLunaProduct_title?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -32,7 +32,7 @@
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Product name<span class="text-danger">*</span></label>
+                                        <label><?=$addLunaProduct_name?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
@@ -45,7 +45,7 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label>Version<span class="text-danger">*</span></label>
+                                        <label><?=$addLunaProduct_version?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">

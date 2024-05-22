@@ -23,6 +23,8 @@ if (filter_input(INPUT_GET, 'idProdToDel')) {
 
         if ($luna->dropTable($table_name)) {
             
+            // RIMUOVERE DALLE AUTORIZZAZIONI DEGLI UTENTI
+            
             unlink('../inc/luna_pages/pages_'.$idToDel.'.json');
             unlink('../inc/luna_pages_bck/pages_'.$idToDel.'.json');
 
