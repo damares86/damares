@@ -15,6 +15,9 @@ if (filter_input(INPUT_GET, 'idProdToDel')) {
 
     $idToDel = filter_input(INPUT_GET, 'idProdToDel');
 
+    $luna->table = 'luna_users' ;
+    $stmt = $luna->showAll('id') ;
+
     $luna->table = 'luna_products';
     $luna->id = $idToDel;
     if ($luna->delete('id')) {
@@ -24,6 +27,26 @@ if (filter_input(INPUT_GET, 'idProdToDel')) {
         if ($luna->dropTable($table_name)) {
             
             // RIMUOVERE DALLE AUTORIZZAZIONI DEGLI UTENTI
+
+            $luna->table = 'luna_users' ;
+            $stmt = $luna->showAll('id') ;
+
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                
+                $arr = explode(',',$row['permissions']) ;
+                
+                $new_arr = array_search($idToDel,$arr);
+                if ($new_arr !== false) {
+                    unset($arr[$new_arr]);
+                }
+
+                $permissions = implode(',',$arr) ;
+                $luna->table = 'luna_users' ;
+                $luna->id = $row['id'] ;
+                $luna->permissions = $permissions ;
+                $luna->update(['permissions'],'id') ;
+                
+            }
             
             unlink('../inc/luna_pages/pages_'.$idToDel.'.json');
             unlink('../inc/luna_pages_bck/pages_'.$idToDel.'.json');
@@ -216,13 +239,14 @@ if (filter_input(INPUT_GET, 'idProdToDel')) {
             unlink($bck_file);
             copy($real_file, $bck_file);
             chmod($bck_file, 0777);
-            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaDeleteSucc");
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaDeletePageSucc");
             exit;
         } else {
             unlink($real_file);
             copy($bck_file, $real_file);
             chmod($real_file, 0777);
-            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaDeletesTreeFail");
+
+            header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaDeletePageTreeFail");
             exit;
         }
     } else {
@@ -464,7 +488,7 @@ if ($operation == "editLunaProduct") {
         header("Location:../index.php?p=allLunaPages&prod=$prod_id&msg=lunaContentEditSucc");
         exit;
     } else {
-        header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditTreeFail");
+        header("Location:../index.php?p=allLunaPages&prod=$prod_id&err=lunaContentEditFail");
         exit;
     }
 } else if ($operation == "addUser") {

@@ -3,6 +3,11 @@
 $summernote = true;
 
 $prod_id = filter_input(INPUT_GET,'prod') ;
+$luna->table = 'luna_products';
+$luna->id = $prod_id ;
+$prod_stmt = $luna->showAllWhere('id',['id']);
+$prod_row = $prod_stmt->fetch(PDO::FETCH_ASSOC) ;
+extract($prod_row) ;
 
 // get the product data
 $page_id = filter_input(INPUT_GET, 'idToMod');
@@ -23,7 +28,7 @@ extract($row);
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Product: <u><?= $row['name'] ?></u></h3>
+            <h3><?=$editLunaPages_product?>: <u><?= $prod_row['name'] ?></u></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -32,7 +37,7 @@ extract($row);
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Edit content
+                        <?=$editLunaPages_edit?>
                     </li>
                 </ol>
             </nav>
@@ -47,7 +52,7 @@ extract($row);
             <div class="card shadow">
                 <div class="card-header">
                     <div class="card-title">
-                        <h5>Edit: <?= $row['title'] ?></h5>
+                        <h5><?=$editLunaPages_edit_title?>: <?= $row['title'] ?></h5>
                     </div>
                 </div>
                 <div class="card-content">
@@ -56,7 +61,7 @@ extract($row);
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label>Title <span class="text-danger">*</span></label>
+                                        <label><?=$editLunaPages_title?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">

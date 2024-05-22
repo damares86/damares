@@ -14,7 +14,7 @@ $stmt1 = $luna->showAllWhere('id',['id']);
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3><?=$customer_edit_header?></h3>
+      <h3><?=$editLunaUser_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -26,7 +26,7 @@ $stmt1 = $luna->showAllWhere('id',['id']);
             <a href="index.php"><?=$common_dashboard?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <?=$customer_edit_header?>
+            <?=$editLunaUser_header?>
           </li>
         </ol>
       </nav>
@@ -40,7 +40,7 @@ $stmt1 = $luna->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                <h4 class="card-title"><?=$customer_edit_title?></h4>
+                <h4 class="card-title"><?=$editLunaUser_title?>: <u><?=$row1['username']?></u></h4>
                 </div>
                 <div class="card-content">
                 <div class="card-body">
@@ -116,7 +116,7 @@ $stmt1 = $luna->showAllWhere('id',['id']);
                         </div>
 
                         <div class="col-md-3">
-                            <label>Authorize product  <span class="text-danger">*</span></label>
+                            <label><?=$editLunaUser_auth?> <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-9">
                          <div class="form-group">
@@ -196,7 +196,7 @@ $stmt1 = $luna->showAllWhere('id',['id']);
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Edit password for this user</h4>
+                    <h4 class="card-title"><?=$editLunaUser_psw_title?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
