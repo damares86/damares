@@ -33,7 +33,7 @@ if (filter_input(INPUT_GET, 'child')) {
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Product: <u><?= $row['name'] ?></u></h3>
+            <h3><?=$addLunaPages_product?>: <u><?= $row['name'] ?></u></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -42,7 +42,7 @@ if (filter_input(INPUT_GET, 'child')) {
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Add <?= $title ?>
+                        <?=$addLunaPages_add?> <?= $title ?>
                     </li>
                 </ol>
             </nav>
@@ -57,7 +57,7 @@ if (filter_input(INPUT_GET, 'child')) {
             <div class="card shadow">
                 <div class="card-header">
                     <div class="card-title">
-                        <h5>Add a new <?= $title ?></h5>
+                        <h5><?=$addLunaPages_add_title?> <?= $title ?></h5>
                     </div>
                 </div>
                 <div class="card-content">
@@ -66,7 +66,7 @@ if (filter_input(INPUT_GET, 'child')) {
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label>Title <span class="text-danger">*</span></label>
+                                        <label><?=$addLunaPages_title?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">

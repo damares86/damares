@@ -21,9 +21,28 @@ $allLunaPages_operations = "Operations" ;
 $allLunaPages_modal_body = "!!! ATTENTION !!!<br>If you delete this page you will delete also <b>the nested pages</b>!";
 $allLunaPages_wrong_level = "It's not allowed to add pages over the third level";
 
+// addLunaPages
+
+$addLunaPages_product = "Product" ;
+$addLunaPages_add = "Add" ;
+$addLunaPages_add_title = "Add a new" ;
+$addLunaPages_title = "Title" ;
+
 // allLunaProducts
 
 $allLunaProducts_title = "All Luna Products" ;
+$allLunaProducts_name = "Product name" ;
+$allLunaProducts_version = "Version" ;
+$allLunaProducts_manage_pages = "Manage pages" ;
+$allLunaProducts_edit = "Edit" ;
+$allLunaProducts_clone = "Clone" ;
+$allLunaProducts_delete = "Delete" ;
+$allLunaProducts_clone_title = "Create a new version of the product documentation" ;
+$allLunaProducts_clone_new_name = "New name" ;
+$allLunaProducts_clone_desc = "Attention: if you want to create a new version of the same product, don't change the name" ;
+$allLunaProducts_clone_new_version = "New version" ;
+$allLunaProducts_modal_body = "If you confirm, you will completely delete this account and all its pages." ;
+
 
 
 
