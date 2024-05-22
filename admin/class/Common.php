@@ -265,7 +265,7 @@ function showAllTable($orderBy,$table){
 function showAllWhere($orderBy,$where){
     
     $this->where="";
-
+    
     $i = 1;
     foreach($where as $item){
         $this->where.="$item = :$item" ;
@@ -275,13 +275,13 @@ function showAllWhere($orderBy,$where){
         $i++;
     }
     
-        
     $query = "SELECT *
         FROM " .$this->prx. $this->table."
         WHERE ".$this->where."
         ORDER BY ".$orderBy." ASC"; 
+        
     $stmt = $this->conn->prepare( $query );
-    
+    // print_r($stmt);
     foreach($where as $item){
         $stmt->bindParam(":$item", $this->$item);
     }
@@ -452,6 +452,80 @@ public function countItem($item){
             return false;
         }
     }
+
+    function dropTable($tableToDel){
+        
+        $query = "DROP TABLE ".$tableToDel."";
+        
+        $stmt = $this->conn->prepare($query);
+
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function cloneTable($origTable,$newTable,$primaryKey){
+        
+        $query = "CREATE TABLE ".$newTable." AS SELECT * FROM ".$origTable."; ALTER TABLE ".$newTable." ADD PRIMARY KEY (".$primaryKey.");";
+
+        $stmt = $this->conn->prepare($query);
+        
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function chmod_R($path, $filemode)
+    {
+      if (!is_dir($path)) {
+        return chmod($path, $filemode);
+      }
+      $dh = opendir($path);
+      while ($file = readdir($dh)) {
+        if ($file != '.' && $file != '..') {
+          $fullpath = $path . '/' . $file;
+          if (!is_dir($fullpath)) {
+            if (!chmod($fullpath, $filemode)) {
+              return false;
+            }
+          } else {
+            if (!chmod_R($fullpath, $filemode)) {
+              return false;
+            }
+          }
+        }
+      }
+  
+      closedir($dh);
+  
+      if (chmod($path, $filemode)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public function copyDirectory($source, $destination) {
+        if (!is_dir($destination)) {
+           mkdir($destination, 0755, true);
+        }
+        $files = scandir($source);
+        foreach ($files as $file) {
+           if ($file !== '.' && $file !== '..') {
+              $sourceFile = $source . '/' . $file;
+              $destinationFile = $destination . '/' . $file;
+              if (is_dir($sourceFile)) {
+                 copyDirectory($sourceFile, $destinationFile);
+              } else {
+                 copy($sourceFile, $destinationFile);
+              }
+           }
+        }
+     }
 
 
 

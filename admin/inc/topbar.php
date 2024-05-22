@@ -60,12 +60,12 @@
         $permChildArr = $permissionChild->fetch(PDO::FETCH_ASSOC);
         extract($permChildArr);
         $sectionChild = explode(',', $permChildArr['section_id']);
-
         $stmt = $section->showAllTable('id', 'sectionParent');
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
           extract($row);
+
 
           $hasSub = "";
           $active = "";
@@ -96,13 +96,16 @@
           $rolessection->role_id = $role_id;
           $rolessection->table = 'rolesSection';
           $permissionParent = $rolessection->showAllWhere('id', ['role_id']);
-
+          $row3 = $permissionParent->fetch(PDO::FETCH_ASSOC);
+          extract($row3);
+          $perm = explode(',',$row3['section_id'] );
+          
           $sectionParent = [];
-          foreach ($permissionParent as $item) {
-            $sectionParent[] = $item['section_id'];
+          foreach ($perm as $item) {
+            $sectionParent[] = $item;
           }
-
-          if ($role_id == 1 ||  in_array($row['id'], $sectionParent)) {
+          
+          if ($role_id == 1 || in_array($row['id'], $sectionParent)) {
         ?>
             <li class="menu-item <?= $active ?> <?= $hasSub ?>">
               <a href="index.php<?= $link ?>" class="menu-link">
@@ -146,7 +149,7 @@
                         }
 
                     ?>
-                        <li class="submenu-item <?= $active1 ?>">
+                        <li class="submenu-item topbar <?= $active1 ?>">
                           <a href="index.php?p=<?= $row1['link'] ?>" class="submenu-link">
                             <i class="bi bi-<?= $row1['icon'] ?>"></i>
                             <span>

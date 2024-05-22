@@ -2,12 +2,6 @@
         TODO
 ------------------------------------------
 
-XS
-
-Frontend
-        - download
-        - log download
-
 
 ########################################################
 
@@ -19,12 +13,3 @@ Frontend
 
 
 ########################################################
-
-CFA
-
- chart:
-    per mese
-        utile cfa
-        utile compagnie
-        utile collaboratori
-

@@ -161,3 +161,35 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
 .layout-horizontal .main-navbar{
   background-color: #008db1;
 }
+.layout-horizontal .main-navbar .submenu .submenu-group .submenu-item a {
+  color: #fff;
+}
+
+.layout-horizontal .main-navbar .submenu .submenu-group .submenu-item a:hover{
+  color:#fff;
+}
+
+.layout-horizontal .main-navbar .submenu .submenu-group .submenu-item.topbar a {
+  color: #008db1;
+}
+
+.layout-horizontal .main-navbar .submenu .submenu-group .submenu-item.topbar a:hover{
+  color:#008db1;
+}
+
+@media screen and (max-width: 1199px) {
+  .layout-horizontal .main-navbar ul .menu-link {
+    color: #008db1 !important;
+    
+  }
+  .layout-horizontal .main-navbar{
+    background-color: #fff;
+  }
+  .layout-horizontal .main-navbar .submenu .submenu-group .submenu-item a {
+    color: #008db1;
+  }
+  
+  .layout-horizontal .main-navbar .submenu .submenu-group .submenu-item a:hover{
+    color:#008db1;
+  }
+}

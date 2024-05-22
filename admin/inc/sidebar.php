@@ -62,6 +62,7 @@
                 extract($permChildArr) ;
                 $sectionChild = explode(',',$permChildArr['section_id']);
 
+
                 $stmt = $section->showAllTable('id','sectionParent') ;
                 
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -99,12 +100,15 @@
                   $rolessection->role_id = $role_id ;
                   $rolessection->table = 'rolesSection' ;
                   $permissionParent = $rolessection->showAllWhere('id',['role_id']) ;
-
-                  $sectionParent = [] ;
-                  foreach($permissionParent as $item)
-                  {                    
-                    $sectionParent[] = $item['section_id'];
+                  $row3 = $permissionParent->fetch(PDO::FETCH_ASSOC);
+                  extract($row3);
+                  $perm = explode(',',$row3['section_id'] );
+                  
+                  $sectionParent = [];
+                  foreach ($perm as $item) {
+                    $sectionParent[] = $item;
                   }
+                  
 
                   if($role_id==1 ||  in_array($row['id'],$sectionParent)){
               ?>
