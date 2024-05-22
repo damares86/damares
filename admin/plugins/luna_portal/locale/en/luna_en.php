@@ -8,51 +8,145 @@
 #                                          #
 ############################################
 
-// add customer
+// BACKEND
 
-$customer_add_header = "Add a customer" ;
-$customer_add_title = "Add customer" ;
-$customer_add_name_ph = "Customer name" ;
-$customer_add_surname_ph = "Customer surname" ;
-$customer_add_optional = "Optional" ;
-$customer_add_company = "Company" ;
-$customer_add_authorize = "Authorize products" ;
+// allLunaPages
 
-// edit
+$allLunaPages_title = "Pages Management" ;
+$allLunaPages_save_ok = "Page order changed succesfully" ;
+$allLunaPages_save_fail = "Page order change failed" ;
+$allLunaPages_add_page = "Add a new parent page" ;
+$allLunaPages_no_page = "No pages found" ;
+$allLunaPages_operations = "Operations" ;
+$allLunaPages_modal_body = "!!! ATTENTION !!!<br>If you delete this page you will delete also <b>the nested pages</b>!";
+$allLunaPages_wrong_level = "It's not allowed to add pages over the third level";
 
-$customer_edit_header = "Edit a customer" ;
-$customer_edit_title = "Edit customer" ;
-$customer_prod_permission = "Product permissions" ;
-$customer_prod_auth = "Authorize" ;
-$customer_edit_password = "Edit password for this customer" ;
+// addLunaPages
+
+$addLunaPages_product = "Product" ;
+$addLunaPages_add = "Add" ;
+$addLunaPages_add_title = "Add a new" ;
+$addLunaPages_title = "Title" ;
+$addLunaPages_parent = "parent page" ;
+$addLunaPages_child = "child page" ;
+$addLunaPages_paragraph = "paragraph" ;
+
+// editLunaPages
+
+$editLunaPages_product = "Product" ;
+$editLunaPages_edit = "Edit page" ;
+$editLunaPages_edit_title = "Edit" ;
+$editLunaPages_title = "Title" ;
 
 
-// all
+// allLunaProducts
 
-$customer_all_header = "All customers" ;
-$customer_all_title = "All customers" ;
-$customer_all_add = "Add a customer" ;
-// $customer_all_surname_table = "Surname" ;
-$customer_all_name_table = "Name" ;
-$customer_all_modal_body = "If you confirm, you will completely delete this customer." ;
+$allLunaProducts_title = "All Luna Products" ;
+$allLunaProducts_name = "Product name" ;
+$allLunaProducts_version = "Version" ;
+$allLunaProducts_manage_pages = "Manage pages" ;
+$allLunaProducts_edit = "Edit" ;
+$allLunaProducts_clone = "Clone" ;
+$allLunaProducts_delete = "Delete" ;
+$allLunaProducts_clone_title = "Create a new version of the product documentation" ;
+$allLunaProducts_clone_new_name = "New name" ;
+$allLunaProducts_clone_desc = "Attention: if you want to create a new version of the same product, don't change the name" ;
+$allLunaProducts_clone_new_version = "New version" ;
+$allLunaProducts_modal_body = "If you confirm, you will completely delete this product and all its pages." ;
 
+// addLunaProduct
+
+$addLunaProduct_title = "Add a new Luna product" ;
+$addLunaProduct_name = "Product name" ;
+$addLunaProduct_version = "Version" ;
+
+// editLunaProduct
+
+$editLunaProduct_header = "Edit Luna product" ;
+$editLunaProduct_title = "Edit product" ;
+$editLunaProduct_name = "Product name" ;
+$editLunaProduct_version = "Version" ;
+
+// allLunaUsers
+
+$allLunaUsers_header = "Luna users" ;
+$allLunaUsers_title = "All Luna users" ;
+$allLunaUsers_add = "Add a new users" ;
+$allLunaUsers_perm = "Permissions" ;
+$allLunaUsers_no_perm = "No permissions" ;
+$allLunaUsers_modal_body = "If you confirm, you will completely delete this user." ;
+
+// addLunaUser
+
+$addLunaUser_header = "Add Luna user" ;
+$addLunaUser_title = "Add a new Luna user" ;
+$addLunaUser_auth = "Authorize product" ;
+
+// editLunaUser
+
+$editLunaUser_header = "Edit Luna user" ;
+$editLunaUser_title = "Edit user" ;
+$editLunaUser_auth = "Authorize product" ;
+$editLunaUser_psw_title = "Edit password for this user" ;
+
+// allLunaSettings
+
+$allLunaSettings_header = "Luna settings" ;
+$allLunaSettings_auth = "Allow manual access only to registered users" ;
+
+//////////////////////////////////////////////
+
+// FRONTEND
+
+$luna_home_welcome = "Welcome" ;
+$luna_home_choose = "Choose the manual";
+$luna_home_no_manual = "No manual available" ;
+$luna_login_remember = "Remember me on this device" ;
+$luna_manual_title = "Manual:" ;
+$luna_manual_version = "Choose version" ;
+$luna_manual_editor = "Last modified by" ;
+$luna_manual_on = "on" ;
+
+//////////////////////////////////////////////
+
+// ALERT
 
 // msg
 
-$msg_customerDel = "Customer successfully deleted" ;
-$msg_customerEdit = "Customer successfully modified" ;
-$msg_customerSucc = "Customer successfully created" ;
+$msg_lunaProdDelSucc = "Product successfully deleted" ;
+$msg_lunaDeletePageSucc = "Page successfully deleted" ;
+$msg_lunaProdEditSucc = "Product successfully modified" ;
+$msg_lunaProdSucc = "Product successfully created" ;
+$msg_lunaProdCloneSucc = "Product cloned successfully" ;
+$msg_lunaContentSucc = "Page created" ;
+$msg_lunaContentEditSucc = "Page modified" ;
+$msg_lunaUserSucc = "User successfully created" ;
+$msg_lunaUserEditSucc = "User modified" ;
+$msg_lunaUserEditPswSucc = "User password modified" ;
+$msg_settingsEdit = "Settings modified" ;
+$msg_lunaUserDelSucc = "User successfully deleted" ;
 
 
 // err
 
-$err_customerNoDel = "Customer not deleted" ;
-$err_customerExist = "Customer already exists" ;
-$err_customerNoEdit = "Customer not modified" ;
-$err_customerFail = "Customer not created" ;
-$err_filePermissionFail = "Error on setting permissions on files" ;
-$err_prodPermissionFail = "Error on setting permissions on product" ;
-$err_customerPermErr = "Error on setting permissions on product" ;
+$err_lunaProdDelTableErr = "Product table not deleted" ;
+$err_lunaProdDelErr = "Product not deleted" ;
+$err_lunaDeletePageTreeFail = "Page deleted, but there were problems on updating page tree." ;
+$err_lunaDeletePageFail = "Page not deleted" ;
+$err_lunaProdEditFail = "Product not modified" ;
+$err_lunaProdFailDb = "Product not created: problems on creating db table" ;
+$err_lunaProdFail = "Product not created" ;
+$err_lunaProdCloneFail = "Product data not cloned" ;
+$err_lunaProdCloneTableFail = "Product not cloned, problems with the db tables, please check" ;
+$err_lunaProdCloneFail = "Product clone not created" ;
+$err_lunaContentTreeFail = "Page created, but there were problems on updating page tree." ;
+$err_lunaContentEditFail = "Page not modified" ;
+$err_lunaUserExist = "User already exists" ;
+$err_lunaUserFail = "User not created" ;
+$err_lunaUserEditFail = "User not modified" ;
+$err_lunaUserEditPswFail = "User password not modified" ;
+$err_settingsFail = "Settings not modified" ;
+$err_lunaUserDelErr = "User not deleted" ;
 
 
 ?>
