@@ -404,8 +404,7 @@ public function countItem($item){
     // query to check if email exists
     $query = "SELECT *
     FROM " .$this->prx. $this->table . "
-    WHERE ".$item." = :".$item."
-    LIMIT 0,1";
+    WHERE ".$item." = :".$item."";
 
     $stmt = $this->conn->prepare( $query );
 
@@ -519,13 +518,21 @@ public function countItem($item){
               $sourceFile = $source . '/' . $file;
               $destinationFile = $destination . '/' . $file;
               if (is_dir($sourceFile)) {
-                 copyDirectory($sourceFile, $destinationFile);
+                 $this->copyDirectory($sourceFile, $destinationFile);
               } else {
                  copy($sourceFile, $destinationFile);
               }
            }
         }
      }
+
+     public function commaToPoint($number) {
+        return str_replace(',', '.', $number);
+    }
+
+    public function pointToComma($number) {
+        return str_replace('.', ',', $number);
+    }
 
 
 

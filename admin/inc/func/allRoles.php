@@ -85,8 +85,12 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
               <?php
                 $rolessection->role_id = $row['id'] ;
                 $permissions = $rolessection->showAllPermission();
-                foreach($permissions as $item){
-                  $section->id = $item['section_id'] ;
+                $row = $permissions->fetch(PDO::FETCH_ASSOC);
+                extract($row);
+                $section_arr = explode(',',$row['section_id']);
+                foreach($section_arr as $item){
+                  
+                  $section->id = $item ;
                   $stmt = $section->showById( 'sectionParent' ) ;
                   echo $stmt['label']."<br>" ;
                 }
