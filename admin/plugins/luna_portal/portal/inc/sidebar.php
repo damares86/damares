@@ -1,156 +1,144 @@
 <div id="sidebar" class="active">
-  <div class="sidebar-wrapper active shadow">
-    <div class="sidebar-header position-relative">
-      <div class="d-flex justify-content-between align-items-center">
-        <!-- <div class="logo"> -->
-        <div class="logo px-5">
-          <a href="index.php">
-            <img src="assets/img/logo/luna_logo.png" alt="Logo" srcset="" />
-          </a>
-        </div>
-      </div>
+  <div class="sidebar sidebar-wrapper shadow">
+    <div class="sidebar-logo">
+      <a href="index.php">
+        <img src="assets/img/logo/luna_logo.png" alt="Logo" srcset="" />
+      </a>
     </div>
     <?php
     if ($check_user) {
     ?>
-      <div class="col-12 col-lg-3">
-        <div class="card">
-          <div class="card-body py-4 px-4">
-            <div class="d-flex align-items-center">
-              <div class="dropdown">
-                <a href="#" id="topbarUserDropdown" class="user-dropdown d-flex align-items-center dropend dropdown-toggle border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                  <div class="text">
-                    <h6 class="user-dropdown-name"><?= $_SESSION['luna_username'] ?></h6>
-                  </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                  <li><a class="dropdown-item border-0" href="../admin/core/luna_logout.php"><?= $common_logout ?></a></li>
-                </ul>
+      <div class="col-12 mb-3 border">
+        <div class="d-flex align-items-center">
+          <div class="dropdown">
+            <a href="#" id="topbarUserDropdown" class="user-dropdown d-flex align-items-center dropend dropdown-toggle border-0" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="text">
+                <h6 class="user-dropdown-name"><?= $_SESSION['luna_username'] ?></h6>
               </div>
-
-            </div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
+              <li><a class="dropdown-item border-0" href="../admin/core/luna_logout.php"><?= $common_logout ?></a></li>
+            </ul>
           </div>
+
         </div>
       </div>
     <?php
     }
     ?>
-    <div class="sidebar-menu">
-      <ul class="menu">
-        <?php
+    <ul class="list-unstyled">
+      <?php
+      $active = "";
+      ?>
+
+      <?php
+
+      $pages_json = file_get_contents('../admin/inc/luna_pages/pages_' . $row4['id'] . '.json');
+      $pages_data = json_decode($pages_json, true);
+
+
+      foreach ($pages_data['parent'] as $parent) {
+        $luna->table = 'luna_pages_' . $prod_id;
+        $luna->id = $parent;
+        $parent_stmt = $luna->showAllWhere('id', ['id']);
+        $parent_row = $parent_stmt->fetch(PDO::FETCH_ASSOC);
+        extract($parent_row);
+
+        $title = $parent_row['title'];
+
+        $hasSub = "";
         $active = "";
-        ?>
+        $link = "?prod=" . $prod_id . "&page=" . $parent_row['id'] . ""; // manca id della pagina
 
-        <?php
+        foreach ($pages_data['child'] as $child) {
 
-        $pages_json = file_get_contents('../admin/inc/luna_pages/pages_' . $row4['id'] . '.json');
-        $pages_data = json_decode($pages_json, true);
-
-
-        foreach ($pages_data['parent'] as $parent) {
-          $luna->table = 'luna_pages_' . $prod_id;
-          $luna->id = $parent;
-          $parent_stmt = $luna->showAllWhere('id', ['id']);
-          $parent_row = $parent_stmt->fetch(PDO::FETCH_ASSOC);
-          extract($parent_row);
-
-          $title = $parent_row['title'];
-
-          $hasSub = "";
-          $active = "";
-          $link = "?prod=" . $prod_id . "&page=" . $parent_row['id'] . ""; // manca id della pagina
-
-          foreach ($pages_data['child'] as $child) {
-
-            if ($child['parent_id'] == $parent_row['id']) {
-              if (is_array($child['id'])) {
-                $hasSub = "has-sub";
-                $link = $link.'#';
-              }
+          if ($child['parent_id'] == $parent_row['id']) {
+            if (is_array($child['id'])) {
+              $hasSub = true;
+              // $link = $link.'#';
             }
           }
+        }
 
-          if ($page_id == $parent_row['id']) {
-            $active = "active";
+        if ($page_id == $parent_row['id']) {
+          $active = "active";
+        }
+      ?>
+        <li class="d-flex align-items-center <?= $active ?>">
+          <a href="manual.php<?= $link ?>"><?= $title ?></a>
+          <?php
+          if ($hasSub) {
+          ?>
+            <span class="toggle-submenu">+</span>
+          <?php
           }
-
+          ?>
+        </li>
+        <?php
+        if ($hasSub) {
         ?>
-          <li class="sidebar-item <?= $active ?> <?= $hasSub ?>">
-            <a href="manual.php<?= $link ?>" class="sidebar-link">
-              <span>
-                <?php
-                echo $title;
-                ?>
-              </span>
-            </a>
+          <ul class="submenu list-unstyled">
             <?php
-            if ($hasSub) {
+            foreach ($pages_data['child'] as $child) {
 
-            ?>
-              <ul class="submenu">
-                <?php
-                foreach ($pages_data['child'] as $child) {
+              if ($child['parent_id'] == $parent_row['id']) {
 
-                  if ($child['parent_id'] == $parent_row['id']) {
+                foreach ($child['id'] as $item) {
 
-                    foreach ($child['id'] as $item) {
+                  $luna->table = 'luna_pages_' . $prod_id;
+                  $luna->id = $item;
+                  $child_stmt = $luna->showAllWhere('id', ['id']);
+                  $child_row = $child_stmt->fetch(PDO::FETCH_ASSOC);
+                  extract($child_row);
 
-                      $luna->table = 'luna_pages_' . $prod_id;
-                      $luna->id = $item;
-                      $child_stmt = $luna->showAllWhere('id', ['id']);
-                      $child_row = $child_stmt->fetch(PDO::FETCH_ASSOC);
-                      extract($child_row);
+                  $title_child = $child_row['title'];
+                  $active1 = "";
 
-                      $title_child = $child_row['title'];
-                      $active1 = "";
+                  $link_sub = "?prod=" . $prod_id . "&page=" . $child_row['id'] . "";
+                  if ($page_id == $child_row['id']) {
+                    $active1 = "active";
 
-                      $link_sub = "?prod=" . $prod_id . "&page=" . $child_row['id'] . "";
-                      if ($page_id == $child_row['id']) {
-                        $active1 = "active";
+                    foreach ($pages_data['paragraph'] as $paragraph) {
 
-                        foreach($pages_data['paragraph'] as $paragraph){
-
-                          if($paragraph['child_id'] == $child_row['id']){
-                            if(is_array($paragraph['id'])) {
-                              $label = 'hasParagraph_'.$child_row['id'] ;
-                              $$label=true;
-                            }
-                          }
-
+                      if ($paragraph['child_id'] == $child_row['id']) {
+                        if (is_array($paragraph['id'])) {
+                          $label = 'hasParagraph_' . $child_row['id'];
+                          $$label = true;
                         }
-
-
-
-
-
                       }
-
-                ?>
-
-                      <li class="submenu-item <?= $active1 ?>">
-                        <a href="manual.php<?= $link_sub ?>">
-                          <span>
-                            <?= $title_child ?>
-                          </span></a>
-                      </li>
-
-                <?php
                     }
                   }
-                }
-                ?>
-
-              </ul>
+            ?>
+                  <li class="<?= $active1 ?>"><a href="manual.php<?= $link_sub ?>"><?= $title_child ?></a></li>
             <?php
+                }
+              }
             }
             ?>
-          </li>
-        <?php
+          </ul>
+
+      <?php
         }
-        ?>
+      }
+      ?>
+    </ul>
 
-
-      </ul>
-    </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('.toggle-submenu').on('click', function(e) {
+      e.preventDefault();
+      var $submenu = $(this).closest('li').next('.submenu');
+
+      if ($submenu.is(':visible')) {
+        $submenu.slideUp();
+        $(this).text('+');
+      } else {
+        $submenu.slideDown();
+        $(this).text('-');
+      }
+    });
+  });
+</script>

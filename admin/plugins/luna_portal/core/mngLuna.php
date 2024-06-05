@@ -8,7 +8,7 @@
 #   GitHub: https://github.com/damares86   #
 #                                          #
 ############################################
-print_r($_POST);
+// print_r($_POST);
 require __DIR__ . "/coreConfig.php";
 
 if (filter_input(INPUT_GET, 'idProdToDel')) {
@@ -303,7 +303,7 @@ if ($operation == "editLunaProduct") {
         $query_text = "CREATE TABLE IF NOT EXISTS luna_pages_" . $row['id'] . "
         ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
-        content TEXT NOT NULL,
+        content LONGTEXT NOT NULL,
         last_editor INT(5) NOT NULL,
         last_edit_time datetime DEFAULT CURRENT_TIMESTAMP)";
 

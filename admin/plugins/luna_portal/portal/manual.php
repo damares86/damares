@@ -149,12 +149,12 @@ if (filter_input(INPUT_GET, 'page')) {
                     <p> <?= $page_row['content'] ?></p>
 
                     <?php
-                    $account->id = $row['last_editor'];
+                    $account->id = $page_row['last_editor'];
                     $editor_stmt = $account->showAllWhere('id', ['id']);
                     $editor_row = $editor_stmt->fetch(PDO::FETCH_ASSOC);
                     extract($editor_row);
 
-                    $editDate = $row['last_edit_time'];
+                    $editDate = $page_row['last_edit_time'];
                     ?>
 
                     <p class="edited"><?= $luna_manual_editor ?> <?= $editor_row['username'] ?> <?= $luna_manual_on ?> <?= $editDate ?></p>
@@ -174,7 +174,8 @@ if (filter_input(INPUT_GET, 'page')) {
                     ?>
                         <h6><?= $par_row1['title'] ?></h6>
                         <p><?= $par_row1['content'] ?></p>
-                        <p class="edited"><?= $luna_manual_editor ?> <?= $par_row1['username'] ?> <?= $luna_manual_on ?> <?= $editDate ?></p>
+                        
+                        <p class="edited"><?= $luna_manual_editor ?> <b><?= $par_row1['username'] ?></b> <?= $luna_manual_on ?> <?= $editDate ?></p>
 
                     <?php
                       }

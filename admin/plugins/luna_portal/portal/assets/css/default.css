@@ -4,11 +4,12 @@ body{
     width:100%;
   }
   
-  .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
+  /* .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
       background-color: #008db1;
-  }
+  } */
   
-  body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
+  /* body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link { */
+    body.theme-dark  {
       background-color: #008db1;
   }
   
@@ -45,7 +46,7 @@ body{
     padding-top: 15px;
   }
   
-  .sidebar-wrapper .sidebar-header img {
+  /* .sidebar-wrapper .sidebar-header img {
     height: 2.5rem;
     margin-right:0.5em;
   }
@@ -53,7 +54,7 @@ body{
   .sidebar-wrapper .sidebar-header  {
     font-size:1.2rem;
   }
-  
+   */
   #auth #auth-left .auth-logo img {
     height: 4rem;
   }
@@ -93,51 +94,58 @@ body{
     margin-left:0;
   }
   
-  #sidebar .card{
-    margin-bottom: 0 !important;
+/* SIDEBAR*/
+
+  .sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #fff;
+    padding-top: 20px;
   }
-  
-  .sidebar-wrapper .menu{
-    margin-top: 0;
+  .sidebar a {
+    color: #008db1;
+    display: block;
+    padding: 10px;
+    font-size: 0.9rem;
+    text-decoration: none;
   }
-  
-  
-  .sidebar-wrapper .menu .sidebar-link {
-    color:#008db1;
-    font-size:0.8rem;
+  .sidebar a:hover {
+    text-decoration: underline;
   }
-  
-  .sidebar-wrapper .menu .sidebar-item{
-    margin-top: 0;
+  .submenu {
+    display: none;
+    padding-left: 20px;
   }
-  
-  .sidebar-wrapper .menu .submenu .submenu-item a{
-    font-size:0.8rem;   
+  .toggle-submenu {
+    color: #008db1;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 10px;
   }
-  
-  .sidebar-wrapper .sidebar-header {
-    padding: 1rem 2rem;
-    /* background-color: #f2f7ff; */
+
+  .sidebar-logo{
+    text-align: center;
+    padding:0.8em;
   }
-  
-  .name h5{
-    color:#008db1;
+
+  .sidebar-logo img{
+    width: 50%;
   }
-  
-  #sidebar a{
+
+  /* #sidebar a{
     color:#008db1;
     border-bottom: 1px dotted;
-  }
+  } */
   /* 
   #main a{
     color:#008db1;
     border-bottom: 1px dotted;
   } */
   
-  #sidebar .logo a, #main .float-end a{
+  /* #sidebar .logo a, #main .float-end a{
     border: 0;
   }
-  
+   */
   .grid-item { width: 25%; }
   .grid-item--width2 { width: 50%; }
   
@@ -175,6 +183,13 @@ body{
   
   .layout-horizontal .main-navbar .submenu .submenu-group .submenu-item.topbar a:hover{
     color:#008db1;
+  }
+
+  .edited{
+    border-top: 1px solid #008db1;
+    margin-top: 2em;
+    padding-top:1em;
+    font-size: 0.9em;
   }
   
   @media screen and (max-width: 1199px) {
