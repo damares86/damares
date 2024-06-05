@@ -75,7 +75,7 @@ $summernote='';
   <link rel="shortcut icon" href="assets/images/logo/favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="assets/images/logo/favicon.ico" type="image/png" />
   <link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="assets/css/pages/buttons.dataTables.min.css">
 
   <link rel="stylesheet" href="assets/css/shared/iconly.css" />
   <link rel="stylesheet" href="assets/css/pages/summernote.css">

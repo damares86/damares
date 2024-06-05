@@ -89,26 +89,42 @@ if ($apex) {
 ?>
 
 <script src="assets/js/pages/dashboard.js"></script>
-<script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+<script src="assets/js/pages/datatables.min.js"></script>
 <script>
   <?php
   $lc_lang = strtolower($lang);
-  $uc_lang = strtoupper($lang);
+  if($lang == 'en'){
+    $uc_lang = 'GB';
+  }else{
+    $uc_lang = strtoupper($lang);
+  }
+
+
+
+  $local_url = '' ;
+  $local_file = 'assets/js/pages/datatable_localization/'.$lc_lang.'-'.$uc_lang.'.json' ;
+
+  if(file_exists($local_file)){
+    $local_url = $local_file ;
+  }else{
+    $local_url = '//cdn.datatables.net/plug-ins/2.0.1/i18n/'.$lc_lang.'-'.$uc_lang.'.json' ;
+  }
   ?>
+
   let jquery_datatable = $(".table").DataTable({
     // localization
     language: {
-      url: '//cdn.datatables.net/plug-ins/2.0.1/i18n/<?= $lc_lang ?>-<?= $uc_lang ?>.json',
+      url: "<?=$local_url?>",
     }
   })
 </script>
 <!-- <script src="assets/js/pages/datatables.js"></script> -->
 
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="assets/js/pages/dataTables.buttons.min.js"></script>
+<script src="assets/js/pages/jszip.min.js"></script>
+<script src="assets/js/pages/vfs_fonts.js"></script>
+<script src="assets/js/pages/buttons.html5.min.js"></script>
+<script src="assets/js/pages/buttons.print.min.js"></script>
 
 <script src="assets/extensions/parsleyjs/parsley.min.js"></script>
 <script src="assets/js/pages/parsley.js"></script>
