@@ -10,6 +10,10 @@
 
 // BACKEND
 
+$label_luna_portal ="Luna Portal";
+$label_manage_products = "Gestione prodotti" ;
+$label_manage_users = "Gestione utenti" ;
+
 // allLunaPages
 
 $allLunaPages_title = "Gestione pagine" ;
