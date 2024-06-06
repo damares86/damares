@@ -9,6 +9,9 @@
 ############################################
 
 // BACKEND
+$label_luna_portal ="Luna Portal";
+$label_manage_products = "Gestione prodotti" ;
+$label_manage_users = "Gestione utenti" ;
 
 // allLunaPages
 
@@ -138,6 +141,7 @@ $err_lunaProdFailDb = "Prodotto non creato: problemi durante la creazione della 
 $err_lunaProdFail = "Prodotto non creato" ;
 $err_lunaProdCloneFail = "Dati del prodotto non duplicati" ;
 $err_lunaProdCloneTableFail = "Prodotto non duplicato, ci sono stati dei problemi con le tabelle del db" ;
+$err_lunaProdCloneTreeFail = "Errore durante la duplicazione della struttura delle pagine. Prodotto non duplicato" ;
 $err_lunaProdCloneFail = "Duplicato del prodotto non creato" ;
 $err_lunaContentTreeFail = "Pagina creata, ma ci sono stati problemi nell'aggiornamento della gerarchia delle pagine." ;
 $err_lunaContentEditFail = "Pagina non modificata" ;

@@ -16,45 +16,45 @@ $database = new Database();
 $db = $database->getConnection();
 $plugin = new Plugin($db);
 
-$portal_dir = '../../portal/' ;
+$portal_dir = '../../portal/';
+$json_dir = '../inc/luna_pages/';
+$json_bck = '../inc/luna_pages_bck/';
 
-if(!is_dir($portal_dir)){
-	$oldmask = umask(0);
-	mkdir($portal_dir, 0777, true);
-	umask($oldmask);
-}
+if ($op == 'add') {
 
-$json_dir = '../inc/luna_pages/' ;
-
-if(!is_dir($json_dir)){
-	$oldmask = umask(0);
-	mkdir($json_dir, 0777, true);
-	umask($oldmask);
-}
-
-$json_dir = '../inc/luna_pages_bck/' ;
-
-if(!is_dir($json_dir)){
-	$oldmask = umask(0);
-	mkdir($json_dir, 0777, true);
-	umask($oldmask);
-}
+	if (!is_dir($portal_dir)) {
+		$oldmask = umask(0);
+		mkdir($portal_dir, 0777, true);
+		umask($oldmask);
+	}
 
 
-// copy portal files
-if($common->copyDirectory('../plugins/luna_portal/portal/',$portal_dir)){
-	$common->chmod_R($portal_dir,0777);
-}else{
-	$error++;
-}
-// foreach (glob("../plugins/luna_portal/portal/*") as $row) {
-//     $item = pathinfo($row);
+	if (!is_dir($json_dir)) {
+		$oldmask = umask(0);
+		mkdir($json_dir, 0777, true);
+		umask($oldmask);
+	}
+
+
+	if (!is_dir($json_bck)) {
+		$oldmask = umask(0);
+		mkdir($json_bck, 0777, true);
+		umask($oldmask);
+	}
+
+
+	// copy portal files
+	if ($common->copyDirectory('../plugins/luna_portal/portal/', $portal_dir)) {
+		$common->chmod_R($portal_dir, 0777);
+	} else {
+		$error++;
+	}
+}else if($op == 'rm'){
+
+	$luna->rmdir_recursive($portal_dir) ;
+	$luna->rmdir_recursive($json_dir) ;
+	$luna->rmdir_recursive($json_bck) ;
 	
-//     if (copy('../plugins/luna_portal/portal/' . $item['basename'] . '', $portal_dir . $item['basename'] )) {
-//       chmod( $portal_dir . $item['basename'] . '', 0777);
-//     } else {
-//       $error++;
-//     }
-//   }
 
-require "config.php" ;
+}
+require "config.php";

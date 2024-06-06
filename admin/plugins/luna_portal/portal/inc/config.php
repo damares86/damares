@@ -55,12 +55,15 @@ if($row_debug['value']==1){
 require __DIR__."/luna_version.php";
 require "../admin/inc/damares_version.php";
 
-$setting->name="lang" ;
-$stmt = $setting->showByName();
-$lang = $stmt['value'];
+$luna->table = 'luna_settings' ;
+$luna->name = "luna_lang";
+$stmt = $luna->showAllWhere('id',['name']);
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+  extract($row);
+  $luna_lang = $row['value'] ;
 
-foreach (glob("../admin/locale/$lang/*.php") as $row){
-    require "$row";
+foreach (glob("../admin/locale/$luna_lang/*.php") as $row) {
+  require "$row";
 }
 
 // variable for require script for chart
