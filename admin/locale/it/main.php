@@ -49,6 +49,7 @@ $common_rolename = "Nome del ruolo" ;
 $common_section_auth = "Sezioni autorizzate" ;
 $common_number_user = "Numero di utenti" ;
 $common_profile = "Il mio profilo" ;
+$common_see_guide = "Vedi la guida" ;
 
 
 //////  HOMEPAGE  //////

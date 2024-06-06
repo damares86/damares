@@ -30,7 +30,7 @@ $stmt = $luna->showAll('id');
 <section class="section">
   <div class="card shadow">
     <div class="card-header"><?=$allLunaProducts_title?> &nbsp; &nbsp; &nbsp;
-      <a href="index.php?p=addLunaProduct" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add a new product</a>
+      <a href="index.php?p=addLunaProduct" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> <?=$allLunaProducts_add?></a>
     </div>
     <div class="card-body">
       <table class="table" id="table1">

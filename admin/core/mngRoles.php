@@ -62,7 +62,11 @@ if($operation=="edit"){
         
         if($role->update(['rolename','redirect'],'id')){
             $sectionParent = $_POST['section'] ;
-            $sectionParentStr = implode(',',$sectionParent);
+            if(is_array($sectionParent)){
+                $sectionParentStr = implode(',',$sectionParent);
+            }else{
+                $sectionParentStr = '';
+            }
             $sectionChild = $_POST['sectionChild'] ;
 
             $sectionChildStr = '' ;
@@ -76,13 +80,15 @@ if($operation=="edit"){
                     $stmt = $rolessection->showAllWhere('id',['id']);
                     $row = $stmt->fetch(PDO::FETCH_ASSOC) ;
                     extract($row);
-                    if(in_array($row['parent_id'],$sectionParent))
+                    if(is_array($sectionParent) && in_array($row['parent_id'],$sectionParent))
                     {
                         $sectionChildArr[] = $item ;
                     }
                 }
+                $sectionChildStr = implode(',',$sectionChildArr);
+            }else{
+                $sectionChildStr = '';
             }
-            $sectionChildStr = implode(',',$sectionChildArr);
 
             $role->rolename = filter_input(INPUT_POST,"rolename") ;             
             $role->table = 'roles' ;

@@ -62,39 +62,38 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                         <div class="col-md-12 rounded px-5 py-2 my-1 border" style="background-color: #008db1;">
                                             <div class="row">
                                                 <div class="col-md-5">
-                                                    <h5 class="text-white"><?=$role_header_parent?></h5>
+                                                    <h5 class="text-white"><?= $role_header_parent ?></h5>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <h5 class="text-white"><?=$role_header_child?></h5>
+                                                    <h5 class="text-white"><?= $role_header_child ?></h5>
                                                 </div>
                                             </div>
                                         </div>
                                         <?php
-                                        $section->table = 'sectionParent' ;
+                                        $section->table = 'sectionParent';
                                         $stmt = $section->showAll('id');
 
                                         $role_id = $_SESSION['role_id'];
                                         $rolessection->role_id = $role_id;
                                         $permission = $rolessection->showAllPermission('id', ['role_id']);
-                                        
+
                                         $sectionOk = [];
 
-                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
-                                        {
+                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                             extract($row);
 
                                             // hide sections for non root users
 
-                                            foreach ($permission as $item) 
-                                            {
+                                            foreach ($permission as $item) {
                                                 if ($item['role_id'] == $role_id) {
-                                                    $sectionOk[] = $item['section_id'];
+                                                    $section_id_arr = explode(',', $item['section_id']);
+                                                    $sectionOk[] = $section_id_arr;
                                                 }
                                             }
 
                                             // if($role_id==1 || ($role_id==2 && $row['id']!=4) || in_array($row['id'],$sectionOk)){
-                                            if ($role_id == 1 ||  in_array($row['id'], $sectionOk)) {
-                                        
+                                            if ($role_id == 1 || in_array($row['id'], $sectionOk[0])) {
+
 
                                         ?>
                                                 <div class="col-md-12 rounded bg-light px-5 py-2 my-1 border">
@@ -111,34 +110,34 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                                             <div class="col-md-7">
                                                                 <?php
                                                                 $section->table = 'sectionChild';
-                                                                $section->parent_id = $row['id'] ;
-                                                                $stmt1 = $section->showAllWhere('id',['parent_id']);
+                                                                $section->parent_id = $row['id'];
+                                                                $stmt1 = $section->showAllWhere('id', ['parent_id']);
                                                                 while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
                                                                     extract($row1);
-                        
+
                                                                     // hide sections for non root users
                                                                     $role_id = $_SESSION['role_id'];
                                                                     $rolessection->role_id = $role_id;
-                                                                    $rolessection->table = 'rolesSectionChild' ;
+                                                                    $rolessection->table = 'rolesSectionChild';
                                                                     $permissionChild = $rolessection->showAllPermission('id', ['role_id']);
-                        
+
                                                                     $sectionChildOk = [];
-                                                                    foreach ($permissionChild as $item) 
-                                                                    {
+                                                                    foreach ($permissionChild as $item) {
                                                                         if ($item['role_id'] == $role_id) {
-                                                                            $sectionChildOk[] = $item['section_id'];
+                                                                            $section_child_arr = explode(',', $item['section_id']);
+                                                                            $sectionChildOk[] = $section_child_arr;
                                                                         }
                                                                     }
-                        
-                                                                    if ($role_id == 1 ||  in_array($row1['id'], $sectionChildOk)) {
-                        
+
+                                                                    if ($role_id == 1 ||  in_array($row1['id'], $sectionChildOk[0])) {
+
                                                                 ?>
-                                                                <div class="form-check">
-                                                                    <div class="checkbox">
-                                                                        <input type="checkbox" name="sectionChild[]" class="form-check-input" value="<?= $row1['id'] ?>">
-                                                                        <label><?= $row1['label'] ?></label>
-                                                                    </div>
-                                                                </div>
+                                                                        <div class="form-check">
+                                                                            <div class="checkbox">
+                                                                                <input type="checkbox" name="sectionChild[]" class="form-check-input" value="<?= $row1['id'] ?>">
+                                                                                <label><?= $row1['label'] ?></label>
+                                                                            </div>
+                                                                        </div>
                                                                 <?php
                                                                     }
                                                                 }
@@ -148,12 +147,12 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                                     </div>
                                                 </div>
 
-                                        <?php
+                                            <?php
                                             }
                                         }
-                                        
+
                                         if ($redir) {
-                                        ?>
+                                            ?>
                                             <div class="col-md-3">
                                                 <label><?= $common_redirect ?> </label>
                                             </div>
@@ -191,12 +190,11 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
             </div>
             <div class="col-md-4 col-12">
                 <div class="card shadow">
-                    <div class="card-header">
-                        <h4 class="card-title"><?= $common_info ?></h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                        </div>
+                    <h4 class="card-title px-4 pt-3"><?= $common_info ?></h4>
+                    <div class="card-content px-5 pb-4">
+                        <ul>
+                            <li><a href="http://dmweblab.com/portal/manual.php?prod=1&page=8" target="_blank"><?= $common_see_guide ?></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
