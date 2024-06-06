@@ -108,15 +108,14 @@
             </div>
         </div>
         <div class="col-md-4 col-12">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h4 class="card-title"><?=$common_info?></h4>
-                </div>
-                <div class="card-content">
-                    <div class="card-body">
+                <div class="card shadow">
+                    <h4 class="card-title px-4 pt-3"><?= $common_info ?></h4>
+                    <div class="card-content px-5 pb-4">
+                        <ul>
+                            <li><a href="http://dmweblab.com/portal/manual.php?prod=1&page=12" target="_blank"><?= $common_see_guide ?></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </section>

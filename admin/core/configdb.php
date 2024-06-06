@@ -182,12 +182,12 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."sectionChild
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSection
                   ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     section_id VARCHAR(255) NOT NULL,
-                    role_id INT (5) NOT NULL)");
+                    role_id INT (5) DEFAULT NULL)");
 
 $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."rolesSectionChild
                     ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                       section_id VARCHAR(255) NOT NULL,
-                      role_id INT (5) NOT NULL)");
+                      role_id INT (5) DEFAULT NULL)");
 
                  
 $db->query("CREATE TABLE IF NOT EXISTS  ".$prefix."password_reset_temp (
@@ -222,7 +222,7 @@ $db->query("CREATE TABLE IF NOT EXISTS ".$prefix."home
 
 $db->query("INSERT INTO ".$prefix."accounts
 (id, username, password,email, avatar)
-VALUES ('1','dmweblab', '$2y$10\$NJZuseSMqVHYPfMBNqRiMe1R8emeluW2htAzl2mPuyFL1dSylwSIi','davidemasera@gmail.com','sd.png')");
+VALUES ('1','dmweblab', '$2y$10\$EibgaewcRGXQhrMQswfqRuJQeWKMkGxHcWC62HV1g39CmtuU3lG9.','davidemasera@gmail.com','sd.png')");
 
 $db->query("INSERT INTO ".$prefix."accounts
 (id, username, password,email)

@@ -5,17 +5,10 @@
 <div class="card-header">
     <h4><?=$manuals_title?></h4>
 </div>
-<div class="card-content p-4">
+<div class="card-content px-5 pb-4">
     <ul>
 
-    <?php
-        foreach (glob("manual/*") as $row) {
-        $item=pathinfo($row);
-        
-        echo '<li><a href="manual/'.$item['basename'].'" target="_blank">'.$item['filename'].'</a></li>';
-        
-        }
-    ?>
+        <li><a href="http://dmweblab.com/portal/manual.php?prod=1" target="_blank"><b>damares</b> user guide </a>   
 
     </ul>
 </div>

@@ -6,7 +6,7 @@ require "inc/funcHeader.php";
 
 <section class="section">
     <div class="row">
-        <div class="col-md-8 col-12">
+        <div class="col-12">
             <div class="card shadow">
                 <div class="card-header">
                 <h4 class="card-title"><?=$settings_all_title?></h4>
@@ -60,16 +60,6 @@ require "inc/funcHeader.php";
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-12">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h4 class="card-title"><?=$common_info?></h4>
-                </div>
-                <div class="card-content">
-                    <div class="card-body">
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </section>

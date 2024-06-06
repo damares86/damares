@@ -42,6 +42,7 @@ $editLunaPages_title = "Title" ;
 // allLunaProducts
 
 $allLunaProducts_title = "All Luna Products" ;
+$allLunaProducts_add = "Add a new product" ;
 $allLunaProducts_name = "Product name" ;
 $allLunaProducts_version = "Version" ;
 $allLunaProducts_manage_pages = "Manage pages" ;

@@ -26,7 +26,7 @@ class File extends Common{
             $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
             $file_upload_error_messages="";
             
-            $allowed_file_types=array("png","jpg","jpeg","JPG","gif","pdf", "doc", "docx", "zip");
+            $allowed_file_types=array("png","jpg","jpeg","JPG","gif","pdf", "doc", "docx", "zip","mp3");
             if(!in_array($file_type, $allowed_file_types)){
                 header("Location: ../index.php?p=".$this->origin."&err=formatErr");
 		        exit;

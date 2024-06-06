@@ -46,6 +46,7 @@ $editLunaPages_title = "Titolo" ;
 
 $allLunaProducts_title = "Tutti i prodotti di Luna" ;
 $allLunaProducts_name = "Nome prodotto" ;
+$allLunaProducts_add = "Aggiungi nuovo prodotto" ;
 $allLunaProducts_version = "Versione" ;
 $allLunaProducts_manage_pages = "Gestisci pagine" ;
 $allLunaProducts_edit = "Modifica" ;
