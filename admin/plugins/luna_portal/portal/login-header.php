@@ -49,11 +49,14 @@ else if (isset($_COOKIE['luna_loggedin']))
        
   }
 
-$setting->name = "lang";
-$stmt = $setting->showByName();
-$lang = $stmt['value'];
+$luna->table = 'luna_settings' ;
+$luna->name = "luna_lang";
+$stmt = $luna->showAllWhere('id',['name']);
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+  extract($row);
+  $luna_lang = $row['value'] ;
 
-foreach (glob("../admin/locale/$lang/*.php") as $row) {
+foreach (glob("../admin/locale/$luna_lang/*.php") as $row) {
   require "$row";
 }
 

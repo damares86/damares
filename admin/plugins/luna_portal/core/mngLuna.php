@@ -340,10 +340,30 @@ if ($operation == "editLunaProduct") {
         $table_orig = 'luna_pages_' . $idToClone;
         $table_new = 'luna_pages_' . $row['id'];
 
+        $tree_orig = '../inc/luna_pages/pages_'.$idToClone.'.json' ;
+        $tree_new = '../inc/luna_pages/pages_'.$row['id'].'.json' ;
+        $tree_bck = '../inc/luna_pages_bck/pages_'.$row['id'].'.json' ;
+        
         if ($luna->cloneTable($table_orig, $table_new, 'id')) {
 
-            header('Location:../index.php?p=allLunaProducts&msg=lunaProdCloneSucc');
-            exit;
+            if(copy( $tree_orig, $tree_new )){
+                chmod($tree_new , 0777);
+
+                copy($tree_new,$tree_bck);
+                chmod($tree_bck, 0777);
+
+                header('Location:../index.php?p=allLunaProducts&msg=lunaProdCloneSucc');
+                exit;
+            }else{
+                $luna->dropTable($table_new) ;
+
+                $luna->table = 'luna_products';
+                $luna->id = $row['id'] ;
+                $luna->delete('id');
+                header('Location:../index.php?p=allLunaProducts&err=lunaProdCloneTreeFail');
+                exit;
+            }
+
         } else {
 
             $luna->table = 'luna_products';
@@ -594,6 +614,13 @@ if ($operation == "editLunaProduct") {
     $luna->table = 'luna_settings';
     $luna->name = 'noreply';
     $luna->value = filter_input(INPUT_POST, 'noreply');
+    if (!$luna->update(['value'], 'name')) {
+        $error++;
+    }
+
+    $luna->table = 'luna_settings';
+    $luna->name = 'luna_lang';
+    $luna->value = filter_input(INPUT_POST, 'luna_lang');
     if (!$luna->update(['value'], 'name')) {
         $error++;
     }

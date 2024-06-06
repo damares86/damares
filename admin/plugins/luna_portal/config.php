@@ -31,7 +31,10 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "luna_products
       VALUES ('users','0');      
       INSERT INTO ".$prefix."luna_settings
       (name, value)
-      VALUES ('noreply','mail@mail.com');";
+      VALUES ('noreply','mail@mail.com');
+      INSERT INTO ".$prefix."luna_settings
+      (name, value)
+      VALUES ('luna_lang','en');";
 
 $parent_table = [[
       'link' => 'luna_portal',
@@ -57,4 +60,4 @@ $child_table = [
       ]
 ];
 
-$query_drop_table = "DROP TABLE  " . $prefix . "luna_products, " . $prefix . "luna_pages, " . $prefix . "luna_settings, " . $prefix . "luna_users ";
+$query_drop_table = "DROP TABLE  " . $prefix . "luna_products, " . $prefix . "luna_settings, " . $prefix . "luna_users ";

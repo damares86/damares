@@ -37,7 +37,6 @@ if(!is_file('inc/class_initialize.php')){
     fwrite($file_handle,"?>");
     chmod('inc/class_initialize.php',0777);
 }
-
 include "inc/class_initialize.php";
 
 $setting->name = "debug" ;

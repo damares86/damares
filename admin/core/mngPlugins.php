@@ -14,6 +14,8 @@ require __DIR__ . "/coreConfig.php";
 
 if (filter_input(INPUT_POST, "new")) {
 
+  // NON FUNZIONA
+
   function chmod_R($path, $filemode)
   {
     if (!is_dir($path)) {
@@ -85,12 +87,7 @@ if (filter_input(INPUT_POST, "new")) {
 
         unlink($target_path);
       }
-
-      require "../plugins/$name[0]/config.php";
-
-      $plugin->pluginname = $link_parent;
-      $plugin->description = $description;
-
+      
       if ($plugin->insert(['pluginname', 'description'])) {
         header("Location: ../index.php?p=allPlugins&msg=pluginUploadSucc");
         exit;

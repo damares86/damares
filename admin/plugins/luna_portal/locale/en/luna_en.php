@@ -138,6 +138,7 @@ $err_lunaProdFailDb = "Product not created: problems on creating db table" ;
 $err_lunaProdFail = "Product not created" ;
 $err_lunaProdCloneFail = "Product data not cloned" ;
 $err_lunaProdCloneTableFail = "Product not cloned, problems with the db tables, please check" ;
+$err_lunaProdCloneTreeFail = "Error while cloning the page tree. Product not cloned" ;
 $err_lunaProdCloneFail = "Product clone not created" ;
 $err_lunaContentTreeFail = "Page created, but there were problems on updating page tree." ;
 $err_lunaContentEditFail = "Page not modified" ;
@@ -147,6 +148,7 @@ $err_lunaUserEditFail = "User not modified" ;
 $err_lunaUserEditPswFail = "User password not modified" ;
 $err_settingsFail = "Settings not modified" ;
 $err_lunaUserDelErr = "User not deleted" ;
+
 
 
 ?>
