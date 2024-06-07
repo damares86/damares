@@ -154,7 +154,18 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                                             <div class="form-check">
                                                                 <div class="checkbox">
                                                                     <input type="checkbox" name="section[]" class="form-check-input" value="<?= $row['id'] ?>" <?= $checkedParent ?>>
-                                                                    <label><?= $row['label'] ?></label>
+                                                                    <?php
+                                                                    if ($lang == "en") {
+                                                                        echo $row['label'];
+                                                                    } else {
+                                                                        $locale_label = strtolower($row['label']);
+                                                                        $locale_label = str_replace(" ", "_", $locale_label);
+                                                                        $locale_label = "label_$locale_label";
+                                                                        $section_label = $$locale_label;
+                                                                        echo $section_label;
+                                                                    }
+                                                                    ?>
+                                                                    </label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -193,7 +204,18 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                                                     <div class="form-check">
                                                                         <div class="checkbox">
                                                                             <input type="checkbox" name="sectionChild[]" class="form-check-input" value="<?= $row1['id'] ?>" <?= $checkedChild ?>>
-                                                                            <label><?= $row1['label'] ?></label>
+                                                                            <?php
+                                                                            if ($lang == "en") {
+                                                                                echo $row1['label'];
+                                                                            } else {
+                                                                                $locale_label = strtolower($row1['label']);
+                                                                                $locale_label = str_replace(" ", "_", $locale_label);
+                                                                                $locale_label = "label_$locale_label";
+                                                                                $section_label = $$locale_label;
+                                                                                echo $section_label;
+                                                                            }
+                                                                            ?>
+                                                                            </label>
                                                                         </div>
                                                                     </div>
                                                             <?php

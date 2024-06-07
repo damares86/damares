@@ -86,7 +86,16 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
 
                     $section->id = $item;
                     $stmt = $section->showById('sectionParent');
-                    echo $stmt['label'] . "<br>";
+                    if ($lang == "en") {
+                        echo $stmt['label'] . "<br>";
+                    } else {
+                        $locale_label = strtolower($stmt['label']);
+                        $locale_label = str_replace(" ", "_", $locale_label);
+                        $locale_label = "label_$locale_label";
+                        $section_label = $$locale_label;
+                        echo $section_label . "<br>";
+                    }
+
                   }
                 }
                 ?>
