@@ -116,7 +116,7 @@ if (filter_input(INPUT_GET, 'page')) {
                     $editDate = $page_row['last_edit_time'];
                     ?>
 
-                    <span class="edited">(<?= $luna_manual_editor ?> <?= $editor_row['username'] ?> <?= $luna_manual_on ?> <?= $editDate ?>)</span>
+                    <span class="edited">(<?= $luna_manual_editor ?> <b><?= $editor_row['username'] ?></b> <?= $luna_manual_on ?> <?= $editDate ?>)</span>
 
                   </div>
                   <div class="card-content p-4">
@@ -173,9 +173,14 @@ if (filter_input(INPUT_GET, 'page')) {
                         extract($par_row1);
                         $editDate = $par_row1['last_edit_time'];
 
+                        $account->id = $par_row1['last_editor'];
+                        $par_stmt2 = $account->showAllWhere('id', ['id']);
+                        $par_row2 = $par_stmt2->fetch(PDO::FETCH_ASSOC);
+                        extract($par_row2);
+
                         ?>
                         <h6 class='d-inline mt-5' id="par_<?=$par_row1['id']?>"><?= $par_row1['title'] ?></h6>
-                        <span class="edited">(<?= $luna_manual_editor ?> <b><?= $par_row1['username'] ?></b> <?= $luna_manual_on ?> <?= $editDate ?>)</span>
+                        <span class="edited">(<?= $luna_manual_editor ?> <b><?= $par_row2['username'] ?></b> <?= $luna_manual_on ?> <?= $editDate ?>)</span>
                         <p><?= $par_row1['content'] ?></p>
                         
 
