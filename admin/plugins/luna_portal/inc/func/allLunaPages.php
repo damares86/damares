@@ -46,7 +46,7 @@ extract($row1);
 
 
       <div class='wrapper'>
-      <div id="alert-placeholder"></div>
+        <div id="alert-placeholder"></div>
         <div id='parent-block' class='container-pages p-3'>
           <?php
 
@@ -80,12 +80,12 @@ extract($row1);
               $parent_div_arr[] = $row['id'];
             ?>
               <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> <!-- p_1 deve essere l'id della pagina-->
-                <?= $row['title'] ?>
+                <b><?= $row['title'] ?></b>
                 <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
                   <i class="bi bi-chevron-down"></i>
                 </a>
-                &nbsp;
-                <?= $allLunaPages_operations ?>: &nbsp;
+                &nbsp; | &nbsp;
+                <?= $allLunaPages_operations ?> : &nbsp;
                 <a href="index.php?p=editLunaPage&prod=<?= $prod_id ?>&idToMod=<?= $row['id'] ?>" class="btn btn-sm icon icon-left btn-warning shadow"> <i class="bi bi-pencil-square"></i></a>
                 &nbsp;
                 <a href="index.php?p=addLunaPage&prod=<?= $prod_id ?>&parent=<?= $row['id'] ?>" class="btn btn-sm icon icon-left btn-success shadow"><i class="bi bi-plus-circle"></i></a>
@@ -143,9 +143,8 @@ extract($row1);
                       ?>
                         <div id="<?= $row1['id'] ?>" class="child_item rounded m-2">
 
-                          <?= $row1['title'] ?>
-
-                          &nbsp; <?= $allLunaPages_operations ?>: &nbsp;
+                          <b> <?= $row1['title'] ?></b>
+                          &nbsp; | &nbsp; <?= $allLunaPages_operations ?>: &nbsp;
                           <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">
                             <i class="bi bi-chevron-down"></i>
                           </a> &nbsp;
@@ -203,8 +202,8 @@ extract($row1);
                                   $paragraph_div_arr[] = $row1['id'];
                                 ?>
                                   <div id="<?= $row2['id'] ?>" class="paragraph_item rounded m-2 p-2">
-                                    <?= $row2['title'] ?>
-                                    &nbsp; <?= $allLunaPages_operations ?>: &nbsp;
+                                    <b><?= $row2['title'] ?></b>
+                                    &nbsp; | &nbsp; <?= $allLunaPages_operations ?>: &nbsp;
                                     <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#paragraph_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="paragraph_<?= $row1['id'] ?>">
                                       <i class="bi bi-chevron-down"></i>
                                     </a> &nbsp;
@@ -336,27 +335,27 @@ extract($row1);
     console.log(orderedItems);
     // Funzione per mostrare l'alert di Bootstrap
     function showAlert(message, type) {
-        $('#alert-placeholder').html(
-          '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
-          message +
-          '<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">' +
-          '<span aria-hidden="true">&times;</span>' +
-          '</button>' +
-          '</div>'
-        );
-      }
-      // Invia l'array al server utilizzando AJAX
+      $('#alert-placeholder').html(
+        '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
+        message +
+        '<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">' +
+        '<span aria-hidden="true">&times;</span>' +
+        '</button>' +
+        '</div>'
+      );
+    }
+    // Invia l'array al server utilizzando AJAX
 
     $.ajax({
       url: 'core/mngLunaOrder.php', // URL della pagina PHP per il salvataggio
       method: 'POST', // Metodo HTTP da utilizzare
       data: postData, // Dati da inviare (convertiti in stringa JSON)
       success: function(response) {
-                if (response.success) {
-                    showAlert(response.message, 'success');
-                } else {
-                    showAlert(response.message, 'danger');
-                }
+        if (response.success) {
+          showAlert(response.message, 'success');
+        } else {
+          showAlert(response.message, 'danger');
+        }
       },
       error: function(xhr, status, error) {
         console.error('Errore AJAX:', error);

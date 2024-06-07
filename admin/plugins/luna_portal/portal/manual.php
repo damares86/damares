@@ -105,7 +105,19 @@ if (filter_input(INPUT_GET, 'page')) {
 
                   ?>
                   <div class="card-header manual">
-                    <h5><?= $page_row['title'] ?></h5>
+                    <h5 class="d-inline"><?= $page_row['title'] ?></h5>
+                    
+                    <?php
+                    $account->id = $page_row['last_editor'];
+                    $editor_stmt = $account->showAllWhere('id', ['id']);
+                    $editor_row = $editor_stmt->fetch(PDO::FETCH_ASSOC);
+                    extract($editor_row);
+
+                    $editDate = $page_row['last_edit_time'];
+                    ?>
+
+                    <span class="edited">(<?= $luna_manual_editor ?> <?= $editor_row['username'] ?> <?= $luna_manual_on ?> <?= $editDate ?>)</span>
+
                   </div>
                   <div class="card-content p-4">
                     <?php
@@ -148,17 +160,7 @@ if (filter_input(INPUT_GET, 'page')) {
                     ?>
                     <p> <?= $page_row['content'] ?></p>
 
-                    <?php
-                    $account->id = $page_row['last_editor'];
-                    $editor_stmt = $account->showAllWhere('id', ['id']);
-                    $editor_row = $editor_stmt->fetch(PDO::FETCH_ASSOC);
-                    extract($editor_row);
-
-                    $editDate = $page_row['last_edit_time'];
-                    ?>
-
-                    <p class="edited"><?= $luna_manual_editor ?> <?= $editor_row['username'] ?> <?= $luna_manual_on ?> <?= $editDate ?></p>
-
+                   
                     <?php
                     if ($paragraph_exist) {
 
@@ -171,11 +173,11 @@ if (filter_input(INPUT_GET, 'page')) {
                         extract($par_row1);
                         $editDate = $par_row1['last_edit_time'];
 
-                    ?>
-                        <h6><?= $par_row1['title'] ?></h6>
+                        ?>
+                        <h6 class='d-inline mt-5' id="par_<?=$par_row1['id']?>"><?= $par_row1['title'] ?></h6>
+                        <span class="edited">(<?= $luna_manual_editor ?> <b><?= $par_row1['username'] ?></b> <?= $luna_manual_on ?> <?= $editDate ?>)</span>
                         <p><?= $par_row1['content'] ?></p>
                         
-                        <p class="edited"><?= $luna_manual_editor ?> <b><?= $par_row1['username'] ?></b> <?= $luna_manual_on ?> <?= $editDate ?></p>
 
                     <?php
                       }

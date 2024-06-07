@@ -186,10 +186,10 @@ body{
   }
 
   .edited{
-    border-top: 1px solid #008db1;
     margin-top: 2em;
+    margin-left: 2em;
     padding-top:1em;
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
   
   @media screen and (max-width: 1199px) {
