@@ -55,7 +55,7 @@ $stmt = $luna->showAll('id');
             <td><?=$row['username']?></td>
             <td>
               <?php
-                if($ow['permissions'] != null){
+                if($row['permissions'] != null){
                 $permissions = explode(',',$row['permissions']) ;
                 foreach($permissions as $item){
                   $luna->table = 'luna_products' ;
