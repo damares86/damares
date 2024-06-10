@@ -14,38 +14,6 @@ require __DIR__ . "/coreConfig.php";
 
 if (filter_input(INPUT_POST, "new")) {
 
-  // NON FUNZIONA
-
-  function chmod_R($path, $filemode)
-  {
-    if (!is_dir($path)) {
-      return chmod($path, $filemode);
-    }
-    $dh = opendir($path);
-    while ($file = readdir($dh)) {
-      if ($file != '.' && $file != '..') {
-        $fullpath = $path . '/' . $file;
-        if (!is_dir($fullpath)) {
-          if (!chmod($fullpath, $filemode)) {
-            return false;
-          }
-        } else {
-          if (!chmod_R($fullpath, $filemode)) {
-            return false;
-          }
-        }
-      }
-    }
-
-    closedir($dh);
-
-    if (chmod($path, $filemode)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   if ($_FILES["zip_file"]["name"]) {
     $filename = $_FILES["zip_file"]["name"];
     $source = $_FILES["zip_file"]["tmp_name"];
@@ -74,6 +42,8 @@ if (filter_input(INPUT_POST, "new")) {
     }
 
     $target_path = "../plugins/" . $filename;  // change this to the correct site path
+
+
     if (move_uploaded_file($source, $target_path)) {
       $zip = new ZipArchive();
       $x = $zip->open($target_path);
@@ -83,11 +53,16 @@ if (filter_input(INPUT_POST, "new")) {
         $zip->extractTo($folder); // change this to the correct site path
         $zip->close();
 
-        chmod_R($folder, 0777);
+        $plugin->chmod_R($folder, 0777);
 
         unlink($target_path);
       }
-      
+
+      require $folder . $name[0] . '/config.php';
+
+      $plugin->pluginname = $pluginname;
+      $plugin->description = $description;
+
       if ($plugin->insert(['pluginname', 'description'])) {
         header("Location: ../index.php?p=allPlugins&msg=pluginUploadSucc");
         exit;
@@ -110,7 +85,7 @@ $pluginFolder = $plugin->showPluginnameById();
 
 $path = "../plugins/$pluginFolder";
 
-require "$path/starter.php";
+include "$path/starter.php";
 $exclude = array('..', '.', 'alert', 'func', '.gitkeep');
 
 if ($op == "add") {
@@ -125,7 +100,9 @@ if ($op == "add") {
     }
   }
 
-  if ($parent_table) {
+  echo "error create table: " . $error . "<br>";
+
+  if (isset($parent_table)) {
     for ($i = 0; $i < count($parent_table); $i++) {
       $section->link = $parent_table[$i]['link'];
       $section->label = $parent_table[$i]['label'];
@@ -134,6 +111,9 @@ if ($op == "add") {
       if (!$section->insertParent()) {
         $error++;
       }
+
+      echo "error insert parent: " . $error . "<br>";
+
 
       // get the section parent inserted
       $section->table = 'sectionParent';
@@ -161,6 +141,9 @@ if ($op == "add") {
         $errorPerm++;
       }
 
+      echo "error perm parent user: " . $errorPerm . "<br>";
+
+
       // set permission for the root user
       if ($_SESSION['role_id'] != 1) {
         $rolessection->table = 'rolesSection';
@@ -169,20 +152,21 @@ if ($op == "add") {
         if (!$rolessection->update(['section_id'], 'role_id')) {
           $errorPerm++;
         }
+
+        echo "error perm parent root: " . $errorPerm . "<br>";
       }
     }
   }
 
   $row2 = $section->showByLink($link_parent, "sectionParent");
-  $pluginname = '';
 
-  if ($row) {
-    $pluginname = $row2['link'];
+  if ($row2) {
+    $pluginname_db = $row2['link'];
   } else {
-    $pluginname = $link_parent;
+    $pluginname_db = $link_parent;
   }
 
-  if ($child_table) {
+  if (isset($child_table)) {
 
 
     for ($i = 0; $i < count($child_table); $i++) {
@@ -195,6 +179,9 @@ if ($op == "add") {
       if (!$section->insertChild()) {
         $error++;
       }
+
+      echo "error insert child: " . $error . "<br>";
+
 
       // get the section parent inserted
       $section->table = 'sectionChild';
@@ -221,6 +208,7 @@ if ($op == "add") {
       if (!$rolessection->update(['section_id'], 'role_id')) {
         $errorPerm++;
       }
+      echo "error perm child user: " . $errorPerm . "<br>";
 
       // set permission for the root user
       if ($_SESSION['role_id'] != 1) {
@@ -230,16 +218,22 @@ if ($op == "add") {
         if (!$rolessection->update(['section_id'], 'role_id')) {
           $errorPerm++;
         }
+        echo "error perm child root: " . $errorPerm . "<br>";
       }
     }
   }
 
-  if (!$db->query("UPDATE " . $prefix . "plugins 
-  SET 
-  installed = 1,
-  active = 1 WHERE pluginname = '" . $pluginname . "'")) {
+  $plugin->installed = 1;
+  $plugin->active = 1;
+  $plugin->pluginname = $pluginname;
+
+  echo "pluginname: " . $pluginname;
+
+  if (!$plugin->update(['installed', 'active'], 'pluginname')) {
     $error++;
   }
+
+  echo "error update installed: " . $error . "<br>";
 
   // copy assets files
   foreach (glob("$path/assets/*") as $row) {
@@ -376,11 +370,17 @@ if ($op == "add") {
       $error++;
     }
   }
+  echo "error on copy: " . $error . "<br>";
 
 
   unlink("../inc/class_initialize.php");
   if ($error == 0) {
-    header("Location: ../index.php?p=allPlugins&msg=pluginAdd");
+
+    $perm = '' ;
+    if($errorPerm>0){
+      $perm = '&err=pluginPerm' ;
+    }
+    header("Location: ../index.php?p=allPlugins&msg=pluginAdd$perm");
     exit;
   } else {
     header("Location: ../index.php?p=allPlugins&err=pluginAddErr");
@@ -441,7 +441,7 @@ if ($op == "add") {
 
   $rolessection->table = 'rolesSectionChild';
   $rolessection->role_id = $_SESSION['role_id'];
-  $perm_child_str = implode(',', $permissions_child_updated);
+  !is_null($perm_child_str) ? $perm_child_str = implode(',', $permissions_child_updated) : $perm_child_str = '';
   $rolessection->section_id = $perm_child_str;
 
   // set permission for the user that disabled the plugin
@@ -496,7 +496,7 @@ if ($op == "add") {
 
   $rolessection->table = 'rolesSection';
   $rolessection->role_id = $_SESSION['role_id'];
-  $perm_parent_str = implode(',', $permissions_parent_updated);
+  !is_null($perm_parent_str) ? $perm_parent_str = implode(',', $permissions_child_updated) : $perm_parent_str = '';
   $rolessection->section_id = $perm_parent_str;
 
   // set permission for the user that disabled the plugin
@@ -514,9 +514,8 @@ if ($op == "add") {
     }
   }
 
-  $err_perm_msg = '' ;
-  if($errorPerm>0)
-  {
+  $err_perm_msg = '';
+  if ($errorPerm > 0) {
     $err_perm_msg = '&err=errPermPlugin';
   }
 
@@ -578,7 +577,7 @@ if ($op == "add") {
 
   $rolessection->table = 'rolesSectionChild';
   $rolessection->role_id = $_SESSION['role_id'];
-  $perm_child_str = implode(',', $permissions_child_updated);
+  !is_null($perm_child_str) ? $perm_child_str = implode(',', $permissions_child_updated) : $perm_child_str = '';
   $rolessection->section_id = $perm_child_str;
 
   // set permission for the user that disabled the plugin
@@ -633,7 +632,7 @@ if ($op == "add") {
 
   $rolessection->table = 'rolesSection';
   $rolessection->role_id = $_SESSION['role_id'];
-  $perm_parent_str = implode(',', $permissions_parent_updated);
+  !is_null($perm_parent_str) ? $perm_parent_str = implode(',', $permissions_child_updated) : $perm_parent_str = '';
   $rolessection->section_id = $perm_parent_str;
 
   // set permission for the user that disabled the plugin
@@ -651,9 +650,8 @@ if ($op == "add") {
     }
   }
 
-  $err_perm_msg = '' ;
-  if($errorPerm>0)
-  {
+  $err_perm_msg = '';
+  if ($errorPerm > 0) {
     $err_perm_msg = '&err=errPermPlugin';
   }
 
@@ -665,6 +663,7 @@ if ($op == "add") {
   if (!$plugin->update(['installed', 'active'], 'id')) {
     $error++;
   }
+  unlink("../inc/class_initialize.php");
 
   // DELETE ALL FILES
 
@@ -775,9 +774,6 @@ if ($op == "add") {
       $error++;
     }
   }
-
-
-  unlink("../inc/class_initialize.php");
 
   if ($error == 0) {
     header("Location: ../index.php?p=allPlugins&msg=pluginRm$err_perm_msg ");

@@ -10,43 +10,52 @@ $layout = $row['value'];
 ?>
 
 <body>
-  <script src="assets/js/initTheme.js"></script>
+
+  <!-- Overlay con lo spinner -->
+  <div id="preloader">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <script>
+    // Nascondi l'overlay e mostra il contenuto una volta che la pagina è completamente caricata
+    window.addEventListener('load', function() {
+      document.getElementById('preloader').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+    });
+  </script>
   <div id="app">
+    <script src="assets/js/initTheme.js"></script>
 
     <?php
     $classHoriz = '';
 
-    if ($layout == 'h') 
-    {
+    if ($layout == 'h') {
       $classHoriz = ' class="layout-horizontal"';
-    } 
-    else if ($layout == 'v') 
-    {
+    } else if ($layout == 'v') {
       include "inc/sidebar.php";
     }
     ?>
 
     <div id="main" <?= $classHoriz ?>>
       <?php
-          if ($layout == 'h') 
-          {
-            include "inc/topbar.php";
+      if ($layout == 'h') {
+        include "inc/topbar.php";
       ?>
-      <div class="content-wrapper container">
-      <?php
+        <div class="content-wrapper container">
+        <?php
       }
-      ?>
+        ?>
 
-      <?php 
-      if($page == 'dashboard')
-      {
-      ?>
-        <div class="page-heading">
-          <h3>Damares <?= $common_dashboard ?></h3>
-        </div>
-      <?php
-      }
-      ?>
+        <?php
+        if ($page == 'dashboard') {
+        ?>
+          <div class="page-heading">
+            <h3>Damares <?= $common_dashboard ?></h3>
+          </div>
+        <?php
+        }
+        ?>
         <div class="page-content">
 
           <?php
@@ -86,13 +95,13 @@ $layout = $row['value'];
         </div>
         </div>
         <?php
-          if ($layout == 'h') 
-          {
-          ?>    
-          </div>
-          <?php
-          }
-          ?>
-      <?php
-      include "inc/footer.php";
-      ?>
+        if ($layout == 'h') {
+        ?>
+    </div>
+  <?php
+        }
+  ?>
+
+  <?php
+  include "inc/footer.php";
+  ?>

@@ -14,6 +14,8 @@ function autoloader($class){
 	include("../class/$class.php");
 }
 
+require "../core/prefix.php";
+
 $database = new Database();
 $db = $database->getConnection();
 
@@ -31,3 +33,4 @@ if($row_debug['value']==1){
 		'output' => true,
 	));
 }
+
