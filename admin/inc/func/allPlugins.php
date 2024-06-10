@@ -5,12 +5,9 @@ $allplugins = $plugin->showAll('id');
 
 ?>
 
-
-
-<!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <!-- <div class="card-header">
+    <div class="card-header">
       <div class="row">
         <div class="col-md-5">
           <form class="form form-horizontal upload-form" action="core/mngPlugins.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
@@ -43,7 +40,7 @@ $allplugins = $plugin->showAll('id');
         </div>
       </div>
 
-      <hr> -->
+      <hr>
 
       <div class="card-body">
         <h4 class="card-title"><?= $plugin_all_title ?></h4>

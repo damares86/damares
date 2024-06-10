@@ -505,7 +505,7 @@ class Common
                         return false;
                     }
                 } else {
-                    if (!chmod_R($fullpath, $filemode)) {
+                    if (!$this->chmod_R($fullpath, $filemode)) {
                         return false;
                     }
                 }
@@ -560,4 +560,6 @@ class Common
         }
         rmdir($dir);
     }
+
+    
 }

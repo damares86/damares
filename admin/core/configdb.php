@@ -374,4 +374,4 @@ foreach ($plugins as $key => $value){
 
 
                             
-header("Location: ../index.php");
+header("Location: ../../login/auth-login.php");
