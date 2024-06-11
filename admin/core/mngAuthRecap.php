@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
             // set session data
             $_SESSION['loggedin'] = true ;
             $_SESSION['account_id'] = $auth->id;
+            $_SESSION['internal'] = 1 ;
             $_SESSION['role_id'] = $role_id;
             $_SESSION['rolename'] = $role->showRolenameById();
             $_SESSION['username'] = $auth->username;

@@ -61,7 +61,7 @@ $layout = $row['value'];
           <?php
 
           require "inc/alert.php";
-
+          
           if (filter_input(INPUT_GET, "p")) {
             include "inc/func/$page.php";
           } else {

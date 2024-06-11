@@ -21,6 +21,7 @@ if(isset($_COOKIE['damares-login'])){
         // set session data
         $_SESSION['loggedin'] = true ;
         $_SESSION['account_id'] = $row['id'];
+        $_SESSION['internal'] = 1 ;
         $_SESSION['role_id'] = $role_id;
         $_SESSION['rolename'] = $role->showRolenameById();
         $_SESSION['username'] = $row['username'];

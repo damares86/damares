@@ -46,6 +46,7 @@ if(isset($_COOKIE['damares-login'])){
         // set session data
         $_SESSION['loggedin'] = true ;
         $_SESSION['account_id'] = $row['id'];
+        $_SESSION['internal'] = 1 ;
         $_SESSION['role_id'] = $role_id;
         $_SESSION['rolename'] = $role->showRolenameById();
         $_SESSION['username'] = $row['username'];
@@ -65,14 +66,6 @@ if(isset($_COOKIE['damares-login'])){
                     exit;
                 }
             }
-        }
-
-        if($role->id == 1 || $role->id == 2 ){
-            header("Location: ../admin/");
-            exit;
-        }else{
-            header("Location: ../home.php?log=yes");
-            exit;
         }
       
     }
