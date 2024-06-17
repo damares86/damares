@@ -157,54 +157,54 @@ if ($op == "add") {
       }
 
       $section->table = 'sectionParent';
-      $stmt5 = $section->showAllLimitDesc('id',1);
+      $stmt5 = $section->showAllLimitDesc('id', 1);
       $row5 = $stmt5->fetch(PDO::FETCH_ASSOC);
       extract($row5);
 
       if (isset($menu_link[$i]['child'])) {
 
-        $child_link = $menu_link[$i]['child'] ;
+        $child_link = $menu_link[$i]['child'];
         for ($idx = 0; $idx < count($child_link); $idx++) {
-          
+
           $section->parent_id = $row5['id'];
           $section->link = $child_link[$idx]['link'];
           $section->label = $child_link[$idx]['label'];
           $section->icon = $child_link[$idx]['icon'];
-    
+
           if (!$section->insertChild()) {
             $error++;
           }
-    
+
           echo "error insert child: " . $error . "<br>";
-    
-    
+
+
           // get the section parent inserted
           $section->table = 'sectionChild';
           $section->link = $child_link[$idx]['link'];
           $stmt = $section->showAllWhere('id', ['link']);
           $row = $stmt->fetch(PDO::FETCH_ASSOC);
           extract($row);
-    
+
           // get the permission for the user that added the plugin
           $rolessection->table = 'rolesSectionChild';
           $rolessection->role_id = $_SESSION['role_id'];
           $stmt1 = $rolessection->showAllWhere('id', ['role_id']);
           $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
           extract($row1);
-    
+
           $permissions = explode(',', $row1['section_id']);
           $permissions[] = $row['id'];
-    
+
           $permissions_str = implode(',', $permissions);
-    
+
           $rolessection->section_id = $permissions_str;
-    
+
           // set permission for the user that added the plugin
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
           }
           echo "error perm child user: " . $errorPerm . "<br>";
-    
+
           // set permission for the root user
           if ($_SESSION['role_id'] != 1) {
             $rolessection->table = 'rolesSectionChild';
@@ -217,12 +217,9 @@ if ($op == "add") {
           }
         }
       }
-
-
-
     }
   }
-  
+
   $plugin->installed = 1;
   $plugin->active = 1;
   $plugin->pluginname = $pluginname;
@@ -376,9 +373,9 @@ if ($op == "add") {
   unlink("../inc/class_initialize.php");
   if ($error == 0) {
 
-    $perm = '' ;
-    if($errorPerm>0){
-      $perm = '&err=pluginPerm' ;
+    $perm = '';
+    if ($errorPerm > 0) {
+      $perm = '&err=pluginPerm';
     }
     header("Location: ../index.php?p=allPlugins&msg=pluginAdd$perm");
     exit;
@@ -401,81 +398,97 @@ if ($op == "add") {
   if (!$db->query("UPDATE " . $prefix . "plugins SET active = 0 WHERE pluginname = '$pluginname'")) {
     $error++;
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  if ($child_table) {
+  if (isset($menu_link)) {
+    for ($i = 0; $i < count($menu_link); $i++) {
 
-    $childSection = [];
-    $permissions_child_updated = [];
+      // $section->link = $menu_link[$i]['link'];
+      // $stmt = $plugin->showAllWhere('id',['link']) ;
+      // $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      // extract($row);
 
-    for ($i = 0; $i < count($child_table); $i++) {
+      if (isset($menu_link[$i]['child'])) {
+        $childSection = [];
+        $permissions_child_updated = [];
 
-      $section->link = $child_table[$i]['link'];
-      $section->table = 'sectionChild';
-      $stmt1 = $section->showAllWhere('id', ['link']);
-      $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-      extract($row1);
+        $child_link = $menu_link[$i]['child'];
 
-      $childSection[] = $row1['id'];
+        for ($idx = 0; $idx < count($child_link); $idx++) {
 
-      if (!$section->deleteByLink("sectionChild")) {
-        $error++;
+          $section->link = $child_link[$idx]['link'];
+          $section->table = 'sectionChild';
+          $stmt1 = $section->showAllWhere('id', ['link']);
+          $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+          extract($row1);
+
+          $childSection[] = $row1['id'];
+
+          if (!$section->deleteByLink("sectionChild")) {
+            $error++;
+          }
+        }
+
+        // get the permission for the user that disabled the plugin
+        $rolessection->table = 'rolesSectionChild';
+        $rolessection->role_id = $_SESSION['role_id'];
+        $stmt2 = $rolessection->showAllWhere('id', ['role_id']);
+        $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+        extract($row2);
+
+        $permissions = explode(',', $row2['section_id']);
+
+
+        foreach ($permissions as $item) {
+          if (!in_array($item, $childSection)) {
+            $permissions_child_updated[] = $item;
+          }
+        }
+      }
+
+      $rolessection->table = 'rolesSectionChild';
+      $rolessection->role_id = $_SESSION['role_id'];
+      !is_null($perm_child_str) ? $perm_child_str = implode(',', $permissions_child_updated) : $perm_child_str = '';
+      $rolessection->section_id = $perm_child_str;
+
+      // set permission for the user that disabled the plugin
+      if (!$rolessection->update(['section_id'], 'role_id')) {
+        $errorPerm++;
+      }
+
+      // set permission for the root user
+      if ($_SESSION['role_id'] != 1) {
+        $rolessection->table = 'rolesSectionChild';
+        $rolessection->role_id = 1;
+        $rolessection->section_id = $perm_child_str;
+        if (!$rolessection->update(['section_id'], 'role_id')) {
+          $errorPerm++;
+        }
       }
     }
 
-    // get the permission for the user that disabled the plugin
-    $rolessection->table = 'rolesSectionChild';
-    $rolessection->role_id = $_SESSION['role_id'];
-    $stmt2 = $rolessection->showAllWhere('id', ['role_id']);
-    $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-    extract($row2);
 
-    $permissions = explode(',', $row2['section_id']);
-
-
-    foreach ($permissions as $item) {
-      if (!in_array($item, $childSection)) {
-        $permissions_child_updated[] = $item;
-      }
-    }
-  }
-
-  $rolessection->table = 'rolesSectionChild';
-  $rolessection->role_id = $_SESSION['role_id'];
-  !is_null($perm_child_str) ? $perm_child_str = implode(',', $permissions_child_updated) : $perm_child_str = '';
-  $rolessection->section_id = $perm_child_str;
-
-  // set permission for the user that disabled the plugin
-  if (!$rolessection->update(['section_id'], 'role_id')) {
-    $errorPerm++;
-  }
-
-  // set permission for the root user
-  if ($_SESSION['role_id'] != 1) {
-    $rolessection->table = 'rolesSectionChild';
-    $rolessection->role_id = 1;
-    $rolessection->section_id = $perm_child_str;
-    if (!$rolessection->update(['section_id'], 'role_id')) {
-      $errorPerm++;
-    }
-  }
 
   $parentSection = [];
   $permissions_parent_updated = [];
 
-  if ($parent_table) {
-    for ($i = 0; $i < count($parent_table); $i++) {
-      $section->link = $parent_table[$i]['link'];
+
+      $section->link = $menu_link[$i]['link'];
       $section->table = 'sectionParent';
       $stmt3 = $section->showAllWhere('id', ['link']);
       $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
       extract($row3);
-
+print_r($stmt3);
       $parentSection[] = $row3['id'];
 
       if (!$section->deleteByLink("sectionParent")) {
         $error++;
       }
-    }
+   
 
     // get the permission for the user that disabled the plugin
     $rolessection->table = 'rolesSection';

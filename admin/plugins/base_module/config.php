@@ -30,7 +30,7 @@ $menu_link = [[
             [
                   'link' => 'addBaseModule',
                   'label' => 'Add a new base module',
-                  'icon' => 'people-fill'
+                  'icon' => 'icon-name'
             ]
       ]
 ]];
