@@ -405,6 +405,7 @@ if ($op == "add") {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   if (isset($menu_link)) {
+    
     for ($i = 0; $i < count($menu_link); $i++) {
 
       // $section->link = $menu_link[$i]['link'];
@@ -428,6 +429,7 @@ if ($op == "add") {
 
           $childSection[] = $row1['id'];
 
+          $section->link = $child_link[$idx]['link'];
           if (!$section->deleteByLink("sectionChild")) {
             $error++;
           }
@@ -469,26 +471,24 @@ if ($op == "add") {
           $errorPerm++;
         }
       }
+    
+    $parentSection = [];
+    $permissions_parent_updated = [];
+
+
+    $section->link = $menu_link[$i]['link'];
+    $section->table = 'sectionParent';
+    $stmt3 = $section->showAllWhere('id', ['link']);
+    $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+    extract($row3);
+
+    $parentSection[] = $row3['id'];
+
+    $section->link = $menu_link[$i]['link'];
+
+    if (!$section->deleteByLink("sectionParent")) {
+      $error++;
     }
-
-
-
-  $parentSection = [];
-  $permissions_parent_updated = [];
-
-
-      $section->link = $menu_link[$i]['link'];
-      $section->table = 'sectionParent';
-      $stmt3 = $section->showAllWhere('id', ['link']);
-      $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
-      extract($row3);
-print_r($stmt3);
-      $parentSection[] = $row3['id'];
-
-      if (!$section->deleteByLink("sectionParent")) {
-        $error++;
-      }
-   
 
     // get the permission for the user that disabled the plugin
     $rolessection->table = 'rolesSection';
@@ -498,7 +498,6 @@ print_r($stmt3);
     extract($row4);
 
     $permissions = explode(',', $row4['section_id']);
-
 
     foreach ($permissions as $item) {
       if (!in_array($item, $parentSection)) {
@@ -526,6 +525,7 @@ print_r($stmt3);
       $errorPerm++;
     }
   }
+}
 
   $err_perm_msg = '';
   if ($errorPerm > 0) {
