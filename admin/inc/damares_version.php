@@ -1,3 +1,3 @@
 <?php
-$damares_version = "3.1.1";
+$damares_version = "3.2.0";
 ?>

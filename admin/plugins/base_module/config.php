@@ -13,7 +13,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "table_name
       field VARCHAR(255) NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "second_table_name
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      field VARCHAR(255) NOT NULL;";
+      field VARCHAR(255) NOT NULL);";
 
 // the data of the parent item of the menu
 
@@ -35,4 +35,4 @@ $menu_link = [[
       ]
 ]];
 
-$query_drop_table = "DROP TABLE  " . $prefix . "table_name, " . $prefix . "second_table_name, " . $prefix . "luna_users ";
+$query_drop_table = "DROP TABLE  " . $prefix . "table_name, " . $prefix . "second_table_name";
