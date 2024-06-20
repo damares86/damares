@@ -358,7 +358,7 @@ $db->query("INSERT INTO ".$prefix."files
 // scan the plugin directory and insert the plugin by folder's name
 
 $plugins = scandir('../plugins');
-$exclude = array('..', '.',".gitkeep","base");
+$exclude = array('..', '.',".gitkeep","base_module");
 $plugin_id = 1 ;
 
 foreach ($plugins as $key => $value){
