@@ -14,22 +14,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>damares - configure your backend</title>
 
-    <link rel="stylesheet" href="assets/css/main/app.css" />
-    <link rel="stylesheet" href="assets/css/pages/auth.css" />
-    <link rel="stylesheet" href="assets/css/main/app-dark.css" />
-    <link rel="stylesheet" href="assets/css/custom.css" />
+    <link rel="stylesheet" href="../admin/assets/css/main/app.css" />
+    <link rel="stylesheet" href="../admin/assets/css/pages/auth.css" />
+    <link rel="stylesheet" href="../admin/assets/css/main/app-dark.css" />
+    <link rel="stylesheet" href="../admin/assets/css/custom.css" />
     <link
       rel="shortcut icon"
-      href="assets/images/logo/favicon.svg"
+      href="../admin/assets/images/logo/favicon.svg"
       type="image/x-icon"
     />
     <link
       rel="shortcut icon"
-      href="assets/images/logo/favicon.png"
+      href="../admin/assets/images/logo/favicon.png"
       type="image/png"
     />
 
-    <link rel="stylesheet" href="assets/css/shared/iconly.css" />
+    <link rel="stylesheet" href=../admin/assets/css/shared/iconly.css" />
 
     <!--
     ##############    Damares    ###############
@@ -49,11 +49,11 @@
         <div class="col-lg-7 col-12">
           <div id="auth-left">
             <div class="auth-logo">
-                <img src="assets/images/logo/damares_logo.png" alt="Logo"
+                <img src="../admin/assets/images/logo/damares_logo.png" alt="Logo"
               />
             </div>
             <h1 class="auth-title">Insert your database data</h1>
-            <form class="form form-horizontal" action="core/configdb.php" method="POST"  data-parsley-validate>
+            <form class="form form-horizontal" action="../admin/core/configdb.php" method="POST"  data-parsley-validate>
                 <div class="form-body">
                   <div class="row">
                     <div class="col-md-4">
@@ -202,3 +202,4 @@
     <script src="assets/js/pages/parsley.js"></script>
   </body>
 </html>
+
