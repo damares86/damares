@@ -51,7 +51,7 @@
         <?php
         while($row = $users->fetch(PDO::FETCH_ASSOC)){
           extract($row);
-          if($row['id']>2){
+          if($row['id']>2 || $_SESSION['role_id']==1){
         ?>
           <tr>
             <td><?=$row['username']?></td>
