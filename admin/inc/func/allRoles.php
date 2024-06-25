@@ -38,7 +38,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
       <a href="index.php?p=addRole" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> <?= $role_all_add ?></a>
     </div>
     <div class="card-body">
-      <table class="table" id="table1">
+      <table class="table" id="table">
         <thead>
           <tr>
             <th><?= $common_rolename ?></th>

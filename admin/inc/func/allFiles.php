@@ -41,7 +41,7 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                         ><i data-feather="plus-circle"></i> <?=$file_all_add?></a
                       ></div>
     <div class="card-body">
-      <table class="table" id="table1">
+      <table class="table" id="table">
         <thead>
           <tr>
             <th><?=$file_all_label?></th>

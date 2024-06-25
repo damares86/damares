@@ -20,6 +20,7 @@
 <script src="assets/js/app.js"></script>
 
 <script src="assets/js/pages/horizontal-layout.js"></script>
+
 <?php
 if ($apex) {
 ?>
@@ -30,7 +31,6 @@ if ($apex) {
     var barOptions = {
       series: [{
           name: "<?= $title1 ?>",
-          // data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
           data: [<?= $arr1 ?>],
         },
         {
@@ -90,34 +90,84 @@ if ($apex) {
 
 <script src="assets/js/pages/dashboard.js"></script>
 <script src="assets/js/pages/datatables.min.js"></script>
+
 <script>
   <?php
   $lc_lang = strtolower($lang);
-  if($lang == 'en'){
+  if ($lang == 'en') {
     $uc_lang = 'GB';
-  }else{
+  } else {
     $uc_lang = strtoupper($lang);
   }
 
+  $local_url = '';
+  $local_file = 'assets/js/pages/datatable_localization/' . $lc_lang . '-' . $uc_lang . '.json';
 
-
-  $local_url = '' ;
-  $local_file = 'assets/js/pages/datatable_localization/'.$lc_lang.'-'.$uc_lang.'.json' ;
-
-  if(file_exists($local_file)){
-    $local_url = $local_file ;
-  }else{
-    $local_url = '//cdn.datatables.net/plug-ins/2.0.1/i18n/'.$lc_lang.'-'.$uc_lang.'.json' ;
+  if (file_exists($local_file)) {
+    $local_url = $local_file;
+  } else {
+    $local_url = '//cdn.datatables.net/plug-ins/2.0.1/i18n/' . $lc_lang . '-' . $uc_lang . '.json';
   }
   ?>
 
-  let jquery_datatable = $(".table").DataTable({
+  let pageName = "<?=$page?>";  // Nome della pagina
+  let updatingURL = false; // Variabile per evitare la sovrascrittura dell'URL
+
+  function getURLParameter(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
+
+  function updateURLParameter(param, value) {
+    if (!updatingURL) {
+      let url = new URL(window.location);
+      url.searchParams.set(param, value);
+      history.replaceState(null, '', url);
+    }
+  }
+
+  let table = $("#table").DataTable({
     // localization
     language: {
       url: "<?=$local_url?>",
+    },
+    drawCallback: function(settings) {
+      let currentPage = table.page()+1;
+      console.log('Pagina corrente salvata: ' + currentPage);
+      updateLinks(currentPage);
+      updateURLParameter('tablePage', currentPage);
     }
-  })
+  });
+
+  // Recuperare la pagina dall'URL e impostarla
+  let urlPage = getURLParameter('tablePage');
+  console.log('Pagina dall\'URL: ' + urlPage);
+  if (urlPage !== null) {
+    updatingURL = true; // Disabilita l'aggiornamento dell'URL durante l'impostazione della pagina
+    let pageIndex = parseInt(urlPage);
+    console.log('Impostazione pagina a: ' + pageIndex);
+    table.page(pageIndex).draw(false);
+    updatingURL = false; // Riabilita l'aggiornamento dell'URL dopo l'impostazione della pagina
+  }
+
+  function updateLinks(pageNumber) {
+    let links = document.querySelectorAll('.edit-link');
+    links.forEach(link => {
+      let baseUrl = link.getAttribute('data-base-url');
+      link.href = `${baseUrl}&tablePage=${pageNumber}`;
+      // console.log('Aggiornato link: ' + link.href);
+    });
+  }
+
+  // Aggiungi un listener per l'evento 'page' della DataTable
+  table.on('page.dt', function() {
+    let currentPage = table.page()+1;
+    console.log('Pagina corrente durante evento page: ' + currentPage);
+    updateLinks(currentPage);
+    updateURLParameter('tablePage', currentPage);
+  });
+
 </script>
+
 <!-- <script src="assets/js/pages/datatables.js"></script> -->
 
 <script src="assets/js/pages/dataTables.buttons.min.js"></script>
@@ -147,8 +197,6 @@ if ($summernote) {
 <?php
 }
 ?>
-
-
 
 <?php
 
