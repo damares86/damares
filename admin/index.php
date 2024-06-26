@@ -10,7 +10,12 @@ $layout = $row['value'];
 ?>
 
 <body>
-
+  <style>
+    /* Nascondi la tabella inizialmente */
+    #table_wrapper {
+      display: none;
+    }
+  </style>
   <!-- Overlay con lo spinner -->
   <div id="preloader">
     <div class="spinner-border text-primary" role="status">
@@ -61,7 +66,7 @@ $layout = $row['value'];
           <?php
 
           require "inc/alert.php";
-          
+
           if (filter_input(INPUT_GET, "p")) {
             include "inc/func/$page.php";
           } else {

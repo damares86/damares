@@ -63,7 +63,7 @@ $users = $account->showAll('id');
                 </td>
                 <td><?= $row['last_login'] ?></td>
                 <td>
-                  <a href="index.php?p=editAccount&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning edit-link" data-base-url="index.php?p=editAccount&idToMod=<?= $row['id'] ?>">
+                  <a href="index.php?p=editAccount&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editAccount&idToMod=<?= $row['id'] ?>">
                     <i class="bi bi-pencil-square"></i>
                   </a>
 
