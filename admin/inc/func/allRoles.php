@@ -38,7 +38,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
       <a href="index.php?p=addRole" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> <?= $role_all_add ?></a>
     </div>
     <div class="card-body">
-      <table class="table" id="table1">
+      <table class="table" id="table">
         <thead>
           <tr>
             <th><?= $common_rolename ?></th>
@@ -87,15 +87,14 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                     $section->id = $item;
                     $stmt = $section->showById('sectionParent');
                     if ($lang == "en") {
-                        echo $stmt['label'] . "<br>";
+                      echo $stmt['label'] . "<br>";
                     } else {
-                        $locale_label = strtolower($stmt['label']);
-                        $locale_label = str_replace(" ", "_", $locale_label);
-                        $locale_label = "label_$locale_label";
-                        $section_label = $$locale_label;
-                        echo $section_label . "<br>";
+                      $locale_label = strtolower($stmt['label']);
+                      $locale_label = str_replace(" ", "_", $locale_label);
+                      $locale_label = "label_$locale_label";
+                      $section_label = $$locale_label;
+                      echo $section_label . "<br>";
                     }
-
                   }
                 }
                 ?>
@@ -115,7 +114,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                 ?>
               </td>
               <td>
-                <a href="index.php?p=editRole&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow"><i class="bi bi-pencil-square"></i></a>
+                <a href="index.php?p=editRole&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editRole&idToMod=<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
                 &nbsp; &nbsp;
                 <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row['id'] ?>"><i class="bi bi-trash"></i>
                 </a>

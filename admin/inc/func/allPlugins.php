@@ -44,7 +44,7 @@ $allplugins = $plugin->showAll('id');
 
       <div class="card-body">
         <h4 class="card-title"><?= $plugin_all_title ?></h4>
-        <table class="table" id="table1">
+        <table class="table" id="table">
           <thead>
             <tr>
               <th><?= $plugin_all_name ?></th>

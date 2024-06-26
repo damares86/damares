@@ -54,14 +54,6 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                         <?php
 
 
-
-                            $rolessection->role_id = $row1['id'];
-                            $stmt2 = $rolessection->showAllWhere('id', ['role_id']);
-
-                            $sections = [];
-                            foreach ($stmt2 as $item) {
-                                $sections[] = $item['section_id'];
-                            }
                         }
                         ?>
                         <form class="form form-horizontal" action="core/mngRoles.php" method="POST" enctype="multipart/form-data" data-parsley-validate>

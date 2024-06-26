@@ -20,6 +20,7 @@
 <script src="assets/js/app.js"></script>
 
 <script src="assets/js/pages/horizontal-layout.js"></script>
+
 <?php
 if ($apex) {
 ?>
@@ -30,7 +31,6 @@ if ($apex) {
     var barOptions = {
       series: [{
           name: "<?= $title1 ?>",
-          // data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
           data: [<?= $arr1 ?>],
         },
         {
@@ -90,34 +90,113 @@ if ($apex) {
 
 <script src="assets/js/pages/dashboard.js"></script>
 <script src="assets/js/pages/datatables.min.js"></script>
+
 <script>
   <?php
   $lc_lang = strtolower($lang);
-  if($lang == 'en'){
+  if ($lang == 'en') {
     $uc_lang = 'GB';
-  }else{
+  } else {
     $uc_lang = strtoupper($lang);
   }
 
+  $local_url = '';
+  $local_file = 'assets/js/pages/datatable_localization/' . $lc_lang . '-' . $uc_lang . '.json';
 
-
-  $local_url = '' ;
-  $local_file = 'assets/js/pages/datatable_localization/'.$lc_lang.'-'.$uc_lang.'.json' ;
-
-  if(file_exists($local_file)){
-    $local_url = $local_file ;
-  }else{
-    $local_url = '//cdn.datatables.net/plug-ins/2.0.1/i18n/'.$lc_lang.'-'.$uc_lang.'.json' ;
+  if (file_exists($local_file)) {
+    $local_url = $local_file;
+  } else {
+    $local_url = '//cdn.datatables.net/plug-ins/2.0.1/i18n/' . $lc_lang . '-' . $uc_lang . '.json';
   }
+
   ?>
 
-  let jquery_datatable = $(".table").DataTable({
+
+  // console.log('current page name: ' + currentPageName)
+  let updatingURL = false; // Variabile per evitare la sovrascrittura dell'URL
+  let urlPage = getURLParameter('tablePage');
+
+  function getURLParameter(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
+
+  function updateURLParameter(param, value) {
+    if (!updatingURL) {
+      let url = new URL(window.location);
+      url.searchParams.set(param, value);
+      history.replaceState(null, '', url);
+    }
+  }
+
+  let currentPageName = "<?= $page ?>"; // Nome della pagina
+  let pageName = getURLParameter('pageName');
+  if (!getURLParameter('idToMod')) {
+    if (pageName != currentPageName) {
+      updateURLParameter('tablePage', 1); // Aggiungere 1 perché l'URL usa l'indice 1-based
+      updateURLParameter('pageName', currentPageName); // Aggiungere 1 perché l'URL usa l'indice 1-based
+    }
+  }
+
+  // Ottieni i valori di tablePage e pageName
+  let tablePage = getURLParameter('tablePage');
+
+  // Stampa i valori per verificare che siano corretti
+  console.log('tablePage:', tablePage);
+  console.log('pageName:', pageName);
+
+  if (!pageName) {
+    pageName = currentPageName;
+    updateURLParameter('pageName', pageName);
+  }
+
+  let table = $("#table").DataTable({
     // localization
     language: {
-      url: "<?=$local_url?>",
+      url: "<?= $local_url ?>",
+    },
+    drawCallback: function(settings) {
+      let currentPage = table.page();
+
+      updateLinks(currentPage);
+      updateURLParameter('tablePage', currentPage + 1); // Aggiungere 1 perché l'URL usa l'indice 1-based
+    },
+    initComplete: function() {
+      if (urlPage !== null) {
+        let pageIndex = parseInt(urlPage) - 1; // DataTables usa zero-index per le pagine
+        table.page(pageIndex).draw(false);
+      }
+      $('#table_wrapper').show(); // Mostra la tabella dopo l'inizializzazione
     }
-  })
+  });
+
+  // Recuperare la pagina dall'URL e impostarla
+  console.log('Pagina dall\'URL: ' + urlPage);
+  if (urlPage !== null) {
+    let pageIndex = parseInt(urlPage) - 1; // DataTables usa zero-index per le pagine
+    console.log('Impostazione pagina a: ' + pageIndex);
+    table.page(pageIndex).draw(false);
+  }
+
+  function updateLinks(pageNumber) {
+    let links = document.querySelectorAll('.edit-link');
+    links.forEach(link => {
+      let baseUrl = link.getAttribute('data-base-url');
+      link.href = `${baseUrl}&tablePage=${pageNumber + 1}&pageName=${currentPageName}`;
+      // console.log('Aggiornato link: ' + link.href);
+    });
+  }
+
+  // Aggiungi un listener per l'evento 'page' della DataTable
+  table.on('page.dt', function() {
+    let currentPage = table.page();
+    console.log('Pagina corrente durante evento page: ' + currentPage);
+    updateLinks(currentPage);
+    updateURLParameter('tablePage', currentPage + 1); // Aggiungere 1 perché l'URL usa l'indice 1-based
+    updateURLParameter('pageName', pageName); // Aggiungere 1 perché l'URL usa l'indice 1-based
+  });
 </script>
+
+
 <!-- <script src="assets/js/pages/datatables.js"></script> -->
 
 <script src="assets/js/pages/dataTables.buttons.min.js"></script>
@@ -147,8 +226,6 @@ if ($summernote) {
 <?php
 }
 ?>
-
-
 
 <?php
 
