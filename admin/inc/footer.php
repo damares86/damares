@@ -108,9 +108,11 @@ if ($apex) {
   } else {
     $local_url = '//cdn.datatables.net/plug-ins/2.0.1/i18n/' . $lc_lang . '-' . $uc_lang . '.json';
   }
+
   ?>
 
-  let pageName = "<?= $page ?>"; // Nome della pagina
+
+  // console.log('current page name: ' + currentPageName)
   let updatingURL = false; // Variabile per evitare la sovrascrittura dell'URL
   let urlPage = getURLParameter('tablePage');
 
@@ -126,24 +128,45 @@ if ($apex) {
     }
   }
 
-  
-    let table = $("#table").DataTable({
-      // localization
-      language: {
-        url: "<?= $local_url ?>",
-      },
-      drawCallback: function(settings) {
-        let currentPage = table.page();
-        updateLinks(currentPage);
-        updateURLParameter('tablePage', currentPage + 1); // Aggiungere 1 perché l'URL usa l'indice 1-based
-      },
-      initComplete: function() {
-        if (urlPage !== null) {
-          let pageIndex = parseInt(urlPage) - 1; // DataTables usa zero-index per le pagine
-          table.page(pageIndex).draw(false);
-        }
-        $('#table_wrapper').show(); // Mostra la tabella dopo l'inizializzazione
+  let currentPageName = "<?= $page ?>"; // Nome della pagina
+  let pageName = getURLParameter('pageName');
+  if (!getURLParameter('idToMod')) {
+    if (pageName != currentPageName) {
+      updateURLParameter('tablePage', 1); // Aggiungere 1 perché l'URL usa l'indice 1-based
+      updateURLParameter('pageName', currentPageName); // Aggiungere 1 perché l'URL usa l'indice 1-based
+    }
+  }
+
+  // Ottieni i valori di tablePage e pageName
+  let tablePage = getURLParameter('tablePage');
+
+  // Stampa i valori per verificare che siano corretti
+  console.log('tablePage:', tablePage);
+  console.log('pageName:', pageName);
+
+  if (!pageName) {
+    pageName = currentPageName;
+    updateURLParameter('pageName', pageName);
+  }
+
+  let table = $("#table").DataTable({
+    // localization
+    language: {
+      url: "<?= $local_url ?>",
+    },
+    drawCallback: function(settings) {
+      let currentPage = table.page();
+
+      updateLinks(currentPage);
+      updateURLParameter('tablePage', currentPage + 1); // Aggiungere 1 perché l'URL usa l'indice 1-based
+    },
+    initComplete: function() {
+      if (urlPage !== null) {
+        let pageIndex = parseInt(urlPage) - 1; // DataTables usa zero-index per le pagine
+        table.page(pageIndex).draw(false);
       }
+      $('#table_wrapper').show(); // Mostra la tabella dopo l'inizializzazione
+    }
   });
 
   // Recuperare la pagina dall'URL e impostarla
@@ -158,7 +181,7 @@ if ($apex) {
     let links = document.querySelectorAll('.edit-link');
     links.forEach(link => {
       let baseUrl = link.getAttribute('data-base-url');
-      link.href = `${baseUrl}&tablePage=${pageNumber + 1}`;
+      link.href = `${baseUrl}&tablePage=${pageNumber + 1}&pageName=${currentPageName}`;
       // console.log('Aggiornato link: ' + link.href);
     });
   }
@@ -169,8 +192,8 @@ if ($apex) {
     console.log('Pagina corrente durante evento page: ' + currentPage);
     updateLinks(currentPage);
     updateURLParameter('tablePage', currentPage + 1); // Aggiungere 1 perché l'URL usa l'indice 1-based
+    updateURLParameter('pageName', pageName); // Aggiungere 1 perché l'URL usa l'indice 1-based
   });
-
 </script>
 
 
