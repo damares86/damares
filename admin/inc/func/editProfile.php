@@ -2,9 +2,6 @@
 
 $account->id = $_SESSION['account_id'];
 $stmt1 = $account->showAllWhere('id', ['id']);
-
-
-
 ?>
 <div class="page-heading">
     <div class="page-title">

@@ -1,8 +1,18 @@
+<?php
+
+$url_tablePage = filter_input(INPUT_GET, 'tablePage');
+$url_pageName = filter_input(INPUT_GET, 'pageName');
+
+?>
+
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3><?= $file_edit_header ?></h3>
+                <h3 class="d-inline"><?= $file_edit_header ?></h3>
+                <a href="index.php?p=<?=$url_pageName?>&tablePage=<?=$url_tablePage?>&pageName=<?=$url_pageName?>" class="btn icon btn-info shadow mx-3 px-3">
+                    <i class="bi bi-arrow-left-circle"></i> &nbsp; <?=$common_back?>
+                </a>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -87,6 +97,8 @@
                                             <input type="hidden" name="operation" value="edit">
                                             <input type="hidden" name="idToMod" value="<?= $id ?>">
                                             <input type="hidden" name="origin" value="editFile">
+                                            <input type="hidden" name="url_tablePage" value="<?= $url_tablePage ?>">
+                                            <input type="hidden" name="url_pageName" value="<?= $url_pageName ?>">
 
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
