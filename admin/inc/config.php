@@ -69,10 +69,12 @@ if($parent){
     $pageLabel = $parent['label'] ;
     $pageLink = $parent['link'] ;
     $pageId = $parent['id'] ;
+    $check_parent = $pageId;
 }else if($child){
     $pageLabel = $child['label'] ;
     $pageLink = $child['link'] ;
     $pageId = $child['id'] ;
+    $check_parent = 0;
 }else{
     $pageLabel = "" ;
     $pageLink = "" ;
