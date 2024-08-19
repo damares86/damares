@@ -1,7 +1,7 @@
 <button id="burger-menu" class="burger-menu">
     ☰
 </button>
-<div id="side_luna" class="">
+<div id="side_damares" class="">
     <div class="sidebar_damares sidebar-wrapper_damares shadow">
         <div class="sidebar-logo">
             <a href="index.php">
@@ -60,7 +60,6 @@
             $permChildArr = $permissionChild->fetch(PDO::FETCH_ASSOC);
             extract($permChildArr);
             $sectionChild = explode(',', $permChildArr['section_id']);
-
 
             $stmt = $section->showAllTable('id', 'sectionParent');
 
@@ -134,71 +133,63 @@
                         <?php
                         }
                         ?>
-                    </li>
-                    <?php
-                    if ($hasSub) {
-                        $where = ['parent_id'];
-                        $section->parent_id = $row['id'];
+                        <?php
+                        if ($hasSub) {
+                            $where = ['parent_id'];
+                            $section->parent_id = $row['id'];
 
-                        $child = $section->showAllChild();
-                        if ($role_id == 1 || count($sectionChild) > 0) {
-
-                    ?>
-                            <ul class="submenu list-unstyled">
-                                <?php
-                                if ($hasSub) {
-                                    $where = ['parent_id'];
-                                    $section->parent_id = $row['id'];
-
-                                    $child = $section->showAllChild();
-                                    if ($role_id == 1 || count($sectionChild) > 0) {
+                            $child = $section->showAllChild();
+                            if ($role_id == 1 || count($sectionChild) > 0) {
+                                echo "questo lo stampa";
+                                
                                 ?>
-                                        <ul class="submenu">
-                                            <?php
-                                            while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
-                                                if ($role_id == 1 ||  in_array($row1['id'], $sectionChild)) {
-
-
-
-                                                    $active1 = "";
-
-                                                    extract($row1);
-
-                                                    if ($page == $row1['link']) {
-                                                        $active1 = "active";
-                                                    }
-                                            ?>
-                                                    <li class="<?= $active1 ?>"><a href="index.php?p=<?=$row1['link']?>" data-parent-id="<?= $parent_id ?>">
-                                                            <i class="bi bi-<?= $row1['icon'] ?>"></i>
-                                                            <span>
-                                                                <?php
-                                                                if ($lang == "en") {
-                                                                    echo $row1['label'];
-                                                                } else {
-                                                                    $locale_label = strtolower($row1['label']);
-                                                                    $locale_label = str_replace(" ", "_", $locale_label);
-                                                                    $locale_label = "label_$locale_label";
-                                                                    $section_label = $$locale_label;
-                                                                    echo $section_label;
-                                                                }
-                                                                ?>
-                                                            </span>
-                                                        </a></li>
+                                <ul class="submenu list-unstyled">
+                                    
                                     <?php
-                                                }
+                                    while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
+                                        echo "questo nonlo stampa";
+                                        if ($role_id == 1 || in_array($row1['id'], $sectionChild)) {
+                                            $active1 = "";
+
+                                            extract($row1);
+
+                                            if ($page == $row1['link']) {
+                                                $active1 = "active";
                                             }
+                                    ?>
+                                            <li class="<?= $active1 ?>"><a href="index.php?p=<?= $row1['link'] ?>" data-parent-id="<?= $parent_id ?>">
+                                                    <i class="bi bi-<?= $row1['icon'] ?>"></i>
+                                                    <span>
+                                                        <?php
+                                                        if ($lang == "en") {
+                                                            echo $row1['label'];
+                                                        } else {
+                                                            $locale_label = strtolower($row1['label']);
+                                                            $locale_label = str_replace(" ", "_", $locale_label);
+                                                            $locale_label = "label_$locale_label";
+                                                            $section_label = $$locale_label;
+                                                            echo $section_label;
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                    <?php
                                         }
                                     }
                                     ?>
-                                        </ul>
-
+                                </ul>
                         <?php
+                            }
                         }
-                    }
+                        ?>
+
+
+                <?php
                 }
             }
-                        ?>
-                            </ul>
+
+                ?>
 
     </div>
 </div>
@@ -219,8 +210,12 @@
         $('a[data-parent-id]').each(function() {
             var $this = $(this);
             var parentId = $this.data('parent-id');
-
+            
             // Controllo per parentPage e currentPage
+            console.log('parentId')
+            console.log(parentId)
+            console.log('parentPage')
+            console.log(parentPage )
             if (parentId == parentPage || parentId == currentPage) {
                 var $submenu = $this.closest('.submenu');
                 openSubmenu($submenu);
@@ -262,6 +257,6 @@
 
     // Gestione del click sul burger menu
     $('#burger-menu').on('click', function() {
-        $('#side_luna').toggleClass('active');
+        $('#side_damares').toggleClass('active');
     });
 </script>

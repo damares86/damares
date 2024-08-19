@@ -264,7 +264,41 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
     z-index: 10;
   }
 
+  .submenu {
+    display: none;
+}
+
+.submenu.open {
+    display: block; /* Mostra il sottomenu quando ha la classe open */
+}
+
+
 @media screen and (max-width: 1199px) {
+
+  .burger-menu {
+    display: block;
+  }
+
+  #side_damares {
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    z-index: 999;
+    transform: translateX(-550px);
+    transition: transform 0.3s ease;
+  }
+
+  #side_damares.active {
+    transform: translateX(0);
+  }
+
+  #side_damares.sidebar-wrapper_damares {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+
   .layout-horizontal .main-navbar ul .menu-link {
     color: #008db1 !important;
     
