@@ -38,18 +38,6 @@
 
         <ul class="list-unstyled">
             <?php
-            $active = "";
-            if ($page == "dashboard") {
-                $active = "active";
-            }
-            ?>
-            <li class="d-flex align-items-center <?= $active ?>">
-                <a href="index.php<?= $link ?>">
-                    <i class="bi bi-grid-fill"></i>
-                    <span><?= $common_dashboard ?></span>
-                </a>
-            </li>
-            <?php
 
 
             $role_id = $_SESSION['role_id'];
@@ -70,7 +58,7 @@
                 $hasSub = "";
                 $active = "";
                 // $link = "?p=" . $row['link'] . "";
-                $link = "?p=" . $row['link'] . "";
+                $link = $page == "index" ? "" : "?p=" . $row['link'] . "";
 
                 $parent_id = $row['id'];
 
@@ -140,7 +128,6 @@
 
                             $child = $section->showAllChild();
                             if ($role_id == 1 || count($sectionChild) > 0) {
-                                echo "questo lo stampa";
                                 
                                 ?>
                                 <ul class="submenu list-unstyled">
@@ -212,12 +199,9 @@
             var parentId = $this.data('parent-id');
             
             // Controllo per parentPage e currentPage
-            console.log('parentId')
-            console.log(parentId)
-            console.log('parentPage')
-            console.log(parentPage )
             if (parentId == parentPage || parentId == currentPage) {
                 var $submenu = $this.closest('.submenu');
+                console.log($submenu)
                 openSubmenu($submenu);
 
                 // Se la pagina corrente è un child, memorizza il parent
