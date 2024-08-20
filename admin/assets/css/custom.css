@@ -271,6 +271,10 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
     padding: 10px;
 }
 
+li.sidebar_li.active{
+  font-weight: bold;
+}
+
 .submenu_damares {
     display: none;
     position: relative;

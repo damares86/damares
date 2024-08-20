@@ -58,7 +58,7 @@
                 $hasSub = "";
                 $active = "";
                 // $link = "?p=" . $row['link'] . "";
-                $link = $page == "index" ? "" : "?p=" . $row['link'] . "";
+                $link = $row['link'] == "index" ? "" : "?p=" . $row['link'] . "";
 
                 $parent_id = $row['id'];
 
@@ -231,8 +231,7 @@
             if ($(this).find('li.active').length > 0) {
                 $(this).prev('a').addClass('active');
                 openSubmenu($(this));
-                // Imposta il simbolo del toggle usando la variabile
-
+                // Imposta il simbolo del toggle a '-'
                 $(this).prev('span').text('-');
             }
         });
