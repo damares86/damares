@@ -136,6 +136,12 @@ $settings_layout_horizontal = "Orizzontale" ;
 $settings_layout_vertical = "Verticale" ;
 
 
+//////  DAMARES  //////
+
+$damares_title = "Gestione Root Damares" ;
+$damares_enable = "Abilita" ;
+$damares_modal_body = "Se confermi, tutti i dati del db e tutti i file personalizzati saranno ELIMINATI DEFINITIVAMENTE!" ;
+
 
 //////  MAIN MSG ALERT  //////
 

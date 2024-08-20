@@ -120,6 +120,12 @@ $settings_layout_horizontal = "Horizontal" ;
 $settings_layout_vertical = "Vertical" ;
 
 
+//////  DAMARES  //////
+
+$damares_title = "Root Management Damares" ;
+$damares_enable = "Enable" ;
+$damares_modal_body = "If you confirm, all the db data and all the custom file will be COMPLETELY DELETED!" ;
+
 
 //////  MAIN MSG ALERT  //////
 
