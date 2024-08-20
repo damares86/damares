@@ -43,12 +43,6 @@
           $active = "active";
         }
         ?>
-        <li class="menu-item  <?=$active?>">
-          <a href="index.php" class='menu-link'>
-            <i class="bi bi-grid-fill"></i>
-            <span><?=$common_dashboard?></span>
-          </a>
-        </li>
 
         <?php
 
@@ -69,7 +63,7 @@
 
           $hasSub = "";
           $active = "";
-          $link = "?p=" . $row['link'] . "";
+          $link = $row['link'] == "index" ? "" : "?p=" . $row['link'] . "";
 
           $section->table = 'sectionChild';
           $section->parent_id = $row['id'];
@@ -83,10 +77,14 @@
             }
           }
 
+          $disabled = '';
+                
           if ($section->countChild($row['id']) > 0 && $countChildPermissions > 0) {
-            $hasSub = "has-sub";
-            $link = "#";
+              $hasSub = "has-sub";
+              $link = "#";
+              $disabled = ' disabled';
           }
+
 
           if ($page == $row['link']) {
             $active = "active";
@@ -108,7 +106,7 @@
           if ($role_id == 1 || in_array($row['id'], $sectionParent)) {
         ?>
             <li class="menu-item <?= $active ?> <?= $hasSub ?>">
-              <a href="index.php<?= $link ?>" class="menu-link">
+              <a href="index.php<?= $link ?>" class="menu-link <?=$disabled?>">
                 <i class="bi bi-<?= $row['icon'] ?>"></i>
                 <span>
                   <?php

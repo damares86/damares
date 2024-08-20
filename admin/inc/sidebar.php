@@ -2,7 +2,7 @@
     ☰
 </button>
 <div id="side_damares" class="">
-    <div class="sidebar_damares sidebar-wrapper_damares shadow">
+    <div class="sidebar_damares sidebar-wrapper_damares">
         <div class="sidebar-logo">
             <a href="index.php">
                 <img src="assets/images/logo/damares_logo.png" alt="Logo" srcset="" />
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <ul class="list-unstyled">
+        <ul class="sidebar_menu list-unstyled">
             <?php
 
 
@@ -74,9 +74,12 @@
                     }
                 }
 
+                $disabled = '';
+                
                 if ($section->countChild($row['id']) > 0 && $countChildPermissions > 0) {
                     $hasSub = "has-sub";
                     $link = "#";
+                    $disabled = ' disabled';
                 }
 
                 if ($page == $row['link']) {
@@ -100,7 +103,7 @@
                 if ($role_id == 1 ||  in_array($row['id'], $sectionParent)) {
             ?>
                     <li class="sidebar_li  align-items-center <?= $active ?>">
-                        <a href="index.php<?= $link ?>">
+                        <a href="index.php<?= $link ?>" class="sidebar-link<?=$disabled?>">
                             <i class="bi bi-<?= $row['icon'] ?>"></i>
                             <?php
                             if ($lang == "en") {

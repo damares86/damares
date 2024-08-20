@@ -12,6 +12,7 @@
 // TRADUZIONE SEZIONI SIDEBAR
 // la label della sezione lowercase e con "_" invece degli spazi, preceduta da "label_"
 
+$label_dashboard = "Dashboard";
 $label_accounts = "Utenti";
 $label_files = "File";
 $label_program_file = "Programma";
