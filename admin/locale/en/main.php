@@ -124,6 +124,8 @@ $settings_layout_vertical = "Vertical" ;
 
 $damares_title = "Root Management Damares" ;
 $damares_enable = "Enable" ;
+$damares_clear_title = "Reset installation";
+$damares_clear_button = "Clear" ;
 $damares_modal_body = "If you confirm, all the db data and all the custom file will be COMPLETELY DELETED!" ;
 
 

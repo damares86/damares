@@ -58,10 +58,10 @@ require "inc/funcHeader.php";
                         <br>
                         <div class="row">
                             <div class="col-2">
-                                <h6>Reset installation</h6>
+                                <h6><?=$damares_clear_title?></h6>
                             </div>
                             <div class="col-10 text-left">
-                                <a href="#" class="btn btn-danger shadow" data-bs-toggle="modal" data-bs-target="#clear">Clear</a>
+                                <a href="#" class="btn btn-danger shadow" data-bs-toggle="modal" data-bs-target="#clear"><?=$damares_clear_button?></a>
                                 </a>
                                 <!--Danger theme Modal -->
                                 <div class="modal fade text-left" id="clear" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">

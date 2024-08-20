@@ -140,6 +140,8 @@ $settings_layout_vertical = "Verticale" ;
 
 $damares_title = "Gestione Root Damares" ;
 $damares_enable = "Abilita" ;
+$damares_clear_title = "Reset dell'installazione";
+$damares_clear_button = "Reset" ;
 $damares_modal_body = "Se confermi, tutti i dati del db e tutti i file personalizzati saranno ELIMINATI DEFINITIVAMENTE!" ;
 
 
