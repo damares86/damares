@@ -111,7 +111,7 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
   margin-top: 0;
 }
 
-.sidebar-wrapper .menu .submenu .submenu-item a{
+.sidebar-wrapper .menu .submenu_damares .submenu-item a{
   font-size:0.8rem;   
 }
 
@@ -212,7 +212,7 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
 .sidebar a:hover {
   text-decoration: underline;
 }
-.submenu {
+/* .submenu {
   display: none;
   padding-left: 20px;
 }
@@ -221,7 +221,7 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
   cursor: pointer;
   margin-left: auto;
   padding: 10px;
-}
+} */
 
 .sidebar-logo{
   text-align: center;
@@ -264,11 +264,45 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
     z-index: 10;
   }
 
-  .submenu {
-    display: none;
+
+  li.sidebar_li {
+    position: relative;
+    display: block;
+    padding: 10px;
 }
 
-.submenu.open {
+.submenu_damares {
+    display: none;
+    position: relative;
+    left:0;
+    padding-left: 0;
+    margin-top: 10px;
+    clear: both;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.submenu_damares.active {
+    display: block;
+}
+
+.submenu_damares li {
+    padding-left: 20px;
+}
+
+.submenu_damares li.active {
+  font-weight: bold;
+}
+
+.toggle-submenu {
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 5px;
+    position: relative;
+}
+
+
+.submenu_damares.open {
     display: block; /* Mostra il sottomenu quando ha la classe open */
 }
 

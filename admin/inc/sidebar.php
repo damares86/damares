@@ -99,7 +99,7 @@
 
                 if ($role_id == 1 ||  in_array($row['id'], $sectionParent)) {
             ?>
-                    <li class="d-flex align-items-center <?= $active ?>">
+                    <li class="sidebar_li  align-items-center <?= $active ?>">
                         <a href="index.php<?= $link ?>">
                             <i class="bi bi-<?= $row['icon'] ?>"></i>
                             <?php
@@ -128,13 +128,12 @@
 
                             $child = $section->showAllChild();
                             if ($role_id == 1 || count($sectionChild) > 0) {
-                                
-                                ?>
-                                <ul class="submenu list-unstyled">
-                                    
+
+                        ?>
+                                <ul class="submenu_damares list-unstyled">
+
                                     <?php
                                     while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "questo nonlo stampa";
                                         if ($role_id == 1 || in_array($row1['id'], $sectionChild)) {
                                             $active1 = "";
 
@@ -170,13 +169,14 @@
                             }
                         }
                         ?>
+                    </li>
 
-
-                <?php
+            <?php
                 }
             }
 
-                ?>
+            ?>
+        </ul>
 
     </div>
 </div>
@@ -191,17 +191,23 @@
         function openSubmenu($submenu) {
             $submenu.addClass('active').slideDown();
             $submenu.prev('li').find('.toggle-submenu').text('-');
+            toggleSymbol = '-'; // Aggiorna la variabile a '-'
+        }
+
+        function closeSubmenu($submenu) {
+            $submenu.removeClass('active').slideUp();
+            $submenu.prev('li').find('.toggle-submenu').text('+');
+            toggleSymbol = '+'; // Aggiorna la variabile a '+'
         }
 
         // Apri i submenu dei parent attivi
         $('a[data-parent-id]').each(function() {
             var $this = $(this);
             var parentId = $this.data('parent-id');
-            
+
             // Controllo per parentPage e currentPage
             if (parentId == parentPage || parentId == currentPage) {
-                var $submenu = $this.closest('.submenu');
-                console.log($submenu)
+                var $submenu = $this.closest('li').find('.submenu_damares');
                 openSubmenu($submenu);
 
                 // Se la pagina corrente è un child, memorizza il parent
@@ -209,35 +215,47 @@
                     parentOfChild = $this.data('parent-id');
                 }
             }
+
         });
 
         // Se la pagina corrente è un child, apri anche il parent e il relativo submenu
         if (parentOfChild !== null) {
             $('a[data-parent-id="' + parentOfChild + '"]').each(function() {
-                var $submenu = $(this).closest('.submenu');
+                var $submenu = $(this).closest('li').find('.submenu_damares');
                 openSubmenu($submenu);
             });
         }
 
         // Aggiungi la classe active anche al parent del submenu
-        $('.submenu').each(function() {
+        $('.submenu_damares').each(function() {
             if ($(this).find('li.active').length > 0) {
-                $(this).prev('li').addClass('active');
+                $(this).prev('a').addClass('active');
                 openSubmenu($(this));
+                // Imposta il simbolo del toggle usando la variabile
+
+                $(this).prev('span').text('-');
             }
         });
 
         // Gestione del click sul toggle del submenu
         $('.toggle-submenu').on('click', function(e) {
             e.preventDefault();
-            var $submenu = $(this).closest('li').next('.submenu');
-            $submenu.slideToggle();
-            $(this).text(function(_, text) {
-                return text === '+' ? '-' : '+';
-            });
+            var $submenu = $(this).closest('li').find('.submenu_damares').first();
+            if ($submenu.hasClass('active')) {
+                closeSubmenu($submenu);
+                $(this).text(function(_, text) {
+                    return text = '+';
+                    // return text === '-' ? '+' : '-';
+                });
+            } else {
+                openSubmenu($submenu);
+
+                $(this).text(function(_, text) {
+                    return text = '-';
+                });
+            }
         });
     });
-
 
     // Gestione del click sul burger menu
     $('#burger-menu').on('click', function() {

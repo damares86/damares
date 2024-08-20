@@ -276,7 +276,7 @@ $db->query("INSERT INTO ".$prefix."settings
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('1','index','Dashboard','people-fill')");
+                            VALUES ('1','index','Dashboard','grid-fill')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
