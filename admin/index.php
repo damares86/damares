@@ -53,7 +53,7 @@ $layout = $row['value'];
         ?>
 
         <?php
-        if ($page == 'dashboard') {
+        if ($page == 'index') {
         ?>
           <div class="page-heading">
             <h3>Damares <?= $common_dashboard ?></h3>
@@ -67,7 +67,7 @@ $layout = $row['value'];
 
           require "inc/alert.php";
 
-          if (filter_input(INPUT_GET, "p")) {
+          if ($page!='index') {
             include "inc/func/$page.php";
           } else {
 

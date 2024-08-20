@@ -25,6 +25,24 @@ rsort($files);
 
 require "../admin/inc/class_initialize.php" ;
 
+session_start();
+
+// if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
+//   require "../admin/inc/check_cookie.php";
+//   header('Location: ../login/auth-login.php?err=noLogin');
+//   exit;
+// } else if (isset($_COOKIE['damares-login'])) {
+//   $pieces = explode(",", $_COOKIE['damares-login']);
+//   $auth->id = $pieces[0];
+//   $id = $pieces[0];
+//   $auth->auth_token = $pieces[1];
+
+//   if ($auth->checkCookie() > 0) {
+//     header("Location: ../login/auth-login.php?err=noLogin");
+//     exit;
+//   }
+// }
+
 if(isset($_COOKIE['damares-login'])){
     $pieces = explode(",", $_COOKIE['damares-login']);
     $auth->id = $pieces[0];

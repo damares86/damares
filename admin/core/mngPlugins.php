@@ -100,8 +100,6 @@ if ($op == "add") {
     }
   }
 
-  echo "error create table: " . $error . "<br>";
-
   if (isset($menu_link)) {
     for ($i = 0; $i < count($menu_link); $i++) {
       if ($menu_link[$i]['link'] != 'link_parent') {
@@ -112,9 +110,6 @@ if ($op == "add") {
         if (!$section->insertParent()) {
           $error++;
         }
-
-        echo "error insert parent: " . $error . "<br>";
-
 
         // get the section parent inserted
         $section->table = 'sectionParent';
@@ -142,9 +137,6 @@ if ($op == "add") {
           $errorPerm++;
         }
 
-        echo "error perm parent user: " . $errorPerm . "<br>";
-
-
         // set permission for the root user
         if ($_SESSION['role_id'] != 1) {
           $rolessection->table = 'rolesSection';
@@ -154,7 +146,6 @@ if ($op == "add") {
             $errorPerm++;
           }
 
-          echo "error perm parent root: " . $errorPerm . "<br>";
         }
         $section->table = 'sectionParent';
         $stmt5 = $section->showAllLimitDesc('id', 1);
@@ -182,8 +173,6 @@ if ($op == "add") {
             $error++;
           }
 
-          echo "error insert child: " . $error . "<br>";
-
 
           // get the section parent inserted
           $section->table = 'sectionChild';
@@ -210,7 +199,6 @@ if ($op == "add") {
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
           }
-          echo "error perm child user: " . $errorPerm . "<br>";
 
           // set permission for the root user
           if ($_SESSION['role_id'] != 1) {
@@ -220,7 +208,6 @@ if ($op == "add") {
             if (!$rolessection->update(['section_id'], 'role_id')) {
               $errorPerm++;
             }
-            echo "error perm child root: " . $errorPerm . "<br>";
           }
         }
       }
@@ -231,13 +218,9 @@ if ($op == "add") {
   $plugin->active = 1;
   $plugin->pluginname = $pluginname;
 
-  echo "pluginname: " . $pluginname;
-
   if (!$plugin->update(['installed', 'active'], 'pluginname')) {
     $error++;
   }
-
-  echo "error update installed: " . $error . "<br>";
 
   // copy assets files
   foreach (glob("$path/assets/*") as $row) {
@@ -374,8 +357,6 @@ if ($op == "add") {
       $error++;
     }
   }
-  echo "error on copy: " . $error . "<br>";
-
 
   unlink("../inc/class_initialize.php");
   if ($error == 0) {

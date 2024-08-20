@@ -141,8 +141,8 @@ if ($apex) {
   let tablePage = getURLParameter('tablePage');
 
   // Stampa i valori per verificare che siano corretti
-  console.log('tablePage:', tablePage);
-  console.log('pageName:', pageName);
+  // console.log('tablePage:', tablePage);
+  // console.log('pageName:', pageName);
 
   if (!pageName) {
     pageName = currentPageName;
@@ -170,10 +170,10 @@ if ($apex) {
   });
 
   // Recuperare la pagina dall'URL e impostarla
-  console.log('Pagina dall\'URL: ' + urlPage);
+  // console.log('Pagina dall\'URL: ' + urlPage);
   if (urlPage !== null) {
     let pageIndex = parseInt(urlPage) - 1; // DataTables usa zero-index per le pagine
-    console.log('Impostazione pagina a: ' + pageIndex);
+    // console.log('Impostazione pagina a: ' + pageIndex);
     table.page(pageIndex).draw(false);
   }
 
@@ -189,7 +189,7 @@ if ($apex) {
   // Aggiungi un listener per l'evento 'page' della DataTable
   table.on('page.dt', function() {
     let currentPage = table.page();
-    console.log('Pagina corrente durante evento page: ' + currentPage);
+    // console.log('Pagina corrente durante evento page: ' + currentPage);
     updateLinks(currentPage);
     updateURLParameter('tablePage', currentPage + 1); // Aggiungere 1 perché l'URL usa l'indice 1-based
     updateURLParameter('pageName', pageName); // Aggiungere 1 perché l'URL usa l'indice 1-based

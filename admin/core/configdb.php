@@ -276,43 +276,47 @@ $db->query("INSERT INTO ".$prefix."settings
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('1','accounts','Accounts','people-fill')");
-
-$db->query("INSERT INTO ".$prefix."sectionChild
-                            (id, link,label,icon,parent_id)
-                            VALUES ('1','allAccounts','All accounts','people-fill','1')");
-
-$db->query("INSERT INTO ".$prefix."sectionChild
-                            (id, link,label,icon,parent_id)
-                            VALUES ('2','addAccount','Add account','person-plus-fill','1')");
-
-$db->query("INSERT INTO ".$prefix."sectionChild
-                            (id, link,label,icon,parent_id)
-                            VALUES ('3','allRoles','All Roles','key-fill','1')");
+                            VALUES ('1','index','Dashboard','grid-fill')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('2','allFiles','Files','folder-fill')");
+                            VALUES ('2','accounts','Accounts','people-fill')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('4','allFiles','All files','folder-fill','2')");
-
-$db->query("INSERT INTO ".$prefix."sectionParent
-                            (id, link,label,icon)
-                            VALUES ('3','settings','Settings','tools')");
+                            VALUES ('1','allAccounts','All accounts','people-fill','2')");
 
 $db->query("INSERT INTO ".$prefix."sectionChild
                             (id, link,label,icon,parent_id)
-                            VALUES ('5','allSettings','All settings','gear-fill','3')");
+                            VALUES ('2','addAccount','Add account','person-plus-fill','2')");
+
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('3','allRoles','All Roles','key-fill','2')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('4','damares','Damares','dice-6-fill')");
+                            VALUES ('3','allFiles','Files','folder-fill')");
+
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('4','allFiles','All files','folder-fill','3')");
 
 $db->query("INSERT INTO ".$prefix."sectionParent
                             (id, link,label,icon)
-                            VALUES ('5','allPlugins','Modules','plus-circle-fill')");
+                            VALUES ('4','settings','Settings','tools')");
+
+$db->query("INSERT INTO ".$prefix."sectionChild
+                            (id, link,label,icon,parent_id)
+                            VALUES ('5','allSettings','All settings','gear-fill','4')");
+
+$db->query("INSERT INTO ".$prefix."sectionParent
+                            (id, link,label,icon)
+                            VALUES ('5','damares','Damares','dice-6-fill')");
+
+$db->query("INSERT INTO ".$prefix."sectionParent
+                            (id, link,label,icon)
+                            VALUES ('6','allPlugins','Modules','plus-circle-fill')");
 
 ///////////////////////////////////////////////////////////////
 
@@ -322,7 +326,7 @@ $db->query("INSERT INTO ".$prefix."sectionParent
 
 $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
-                            VALUES ('1','1,2,3,4,5','1')");
+                            VALUES ('1','1,2,3,4,5,6','1')");
            
 $db->query("INSERT INTO ".$prefix."rolesSection
                             (id, section_id,role_id)
