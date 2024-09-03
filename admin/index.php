@@ -72,10 +72,7 @@ $layout = $row['value'];
           } else {
 
           ?>
-
-
-
-
+          
             <section class="row">
               <?php
               $homeBlocks = $home->showAll('id');

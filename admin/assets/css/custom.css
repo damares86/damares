@@ -319,6 +319,10 @@ li.sidebar_li.active{
   pointer-events: none; /* Disabilita il click */
 }
 
+.alert-dismissible .btn-close:hover{
+  background-color: #fff;
+}
+
 
 
 @media screen and (max-width: 1199px) {
