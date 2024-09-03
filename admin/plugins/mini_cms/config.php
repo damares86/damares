@@ -32,7 +32,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       page_id INT(5) NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "mc_galleries
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      page_id INT(5) NOT NULL);
+      gallery_name VARCHAR(255) NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "mc_color
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       color VARCHAR(10) NOT NULL);

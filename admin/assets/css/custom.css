@@ -323,6 +323,10 @@ li.sidebar_li.active{
   background-color: #fff;
 }
 
+.form-check .form-check-input.nomargin{
+  margin-left:0;
+}
+
 
 
 @media screen and (max-width: 1199px) {
