@@ -5,7 +5,7 @@
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric\PageSetup;
 
 $pluginname = "mini_cms";
-$description = "A complete cMS, with page management, galleries and more";
+$description = "A complete CMS, with page management, galleries and more";
 $link_parent = "mini_cms";
 
 // query to create the tables and insert values
@@ -13,7 +13,7 @@ $link_parent = "mini_cms";
 $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       page_name VARCHAR(255) NOT NULL,
-      no_mod INT(1) NOT NULL,
+      no_del INT(1) NOT NULL,
       layout VARCHAR(50) NOT NULL,
       header INT(1) NOT NULL,
       use_name INT(1) NOT NULL,
@@ -46,6 +46,12 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       content TEXT NOT NULL,
       page_id INT(5) NOT NULL,
       popup_cat_id INT(5) NOT NULL);
+      INSERT INTO " . $prefix . "mc_default_pages
+      (page_name, header,use_name,use_desc,img)
+      VALUES ('contact','1','1','1','visual.jpg');
+      INSERT INTO " . $prefix . "mc_pages
+      (page_name, no_del,layout,header,use_name,use_desc,img,counter)
+      VALUES ('index','1','default','1','1','1','visual.jpg','1');
       INSERT INTO " . $prefix . "settings
       (name, value )
       VALUES ('mc_site_name', 'Mini CMS Website');
@@ -100,7 +106,7 @@ $menu_link = [[
             [
                   'link' => 'allQuotes',
                   'label' => 'Quotes',
-                  'icon' => 'quotes'
+                  'icon' => 'quote'
             ],
             [
                   'link' => 'allPopup',
