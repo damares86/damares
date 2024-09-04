@@ -1,3 +1,9 @@
+<style>
+    .row.page {
+        display: none
+    }
+</style>
+
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
@@ -64,7 +70,7 @@
                                                 ?>
 
                                                         <input type="radio" class="btn-check" name="layout" value="<?= $style ?>" autocomplete="off" id="layout_<?= $style ?>" <?= $checked ?>>
-                                                        <label class="btn btn-outline-success" for="layout_<?= $style ?>"><img src='../assets/css/template/img/<?= $style ?>.png'></label>
+                                                        <label class="btn btn-outline-primary" for="layout_<?= $style ?>"><img src='../assets/css/template/img/<?= $style ?>.png'></label>
                                                         <!-- <label class="btn btn-outline-success"></label> -->
                                                         <!-- 
                                                     <div class="form-check d-inline">
@@ -94,7 +100,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <!-- sfondo colorato a tutti i blocchi da qua fino allo stop -->
                                     <div class="col-md-3 mt-3 p-3 border-top">
                                         <label>Header style <span class="text-danger">*</span></label>
                                     </div>
@@ -159,17 +165,17 @@
                                         <label>Show site name <span class="text-danger">*</span></label>
                                     </div>
                                     <?php
-                                        $setting->name = 'mc_site_name' ;
-                                        $sitename = $setting->showAllWhere('id',['name']) ;
-                                        $name = $sitename->fetch(PDO::FETCH_ASSOC) ;
-                                       
+                                    $setting->name = 'mc_site_name';
+                                    $sitename = $setting->showAllWhere('id', ['name']);
+                                    $name = $sitename->fetch(PDO::FETCH_ASSOC);
+
                                     ?>
                                     <div class="col-md-9 mt-3 mb-3">
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="checkbox">
                                                     <input type="checkbox" id="checkbox1" class="form-check-input">
-                                                    <label for="checkbox1">&nbsp; <b><?=$name['value']?></b></label>
+                                                    <label for="checkbox1">&nbsp; <b><?= $name['value'] ?></b></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -179,33 +185,92 @@
                                         <label>Show site description <span class="text-danger">*</span></label>
                                     </div>
                                     <?php
-                                        $setting->name = 'mc_site_description' ;
-                                        $sitename = $setting->showAllWhere('id',['name']) ;
-                                        $name = $sitename->fetch(PDO::FETCH_ASSOC) ;
-                                       
+                                    $setting->name = 'mc_site_description';
+                                    $sitename = $setting->showAllWhere('id', ['name']);
+                                    $name = $sitename->fetch(PDO::FETCH_ASSOC);
+
                                     ?>
                                     <div class="col-md-9 mt-3 mb-3 pb-3 border-bottom">
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="checkbox">
                                                     <input type="checkbox" id="checkbox1" class="form-check-input">
-                                                    <label for="checkbox1">&nbsp; <b><?=$name['value']?></b></label>
+                                                    <label for="checkbox1">&nbsp; <b><?= $name['value'] ?></b></label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
+                                    <!-- STOP -->
+                                    <div class="row" id="dynamic_field">
+                                        <div class="row" id="block_1">
+                                            <div class="col-md-3 mt-3 mb-3 p-3">
+                                                <label><b>Block <span>1</span></b></label>
+                                            </div>
+                                            <div class="col-md-5 mt-3 mb-3 p-3">
+                                                <div class="form-group">
+                                                    <div class="form-check mandatory">
+                                                        <div class="position-relative">
+                                                            <fieldset class="form-group">
+                                                                <select class="form-select" id="block_1_type" name="block_1_type">
+                                                                    <option value="text_1">Text</option>
+                                                                    <option value="img_1">Image</option>
+                                                                    <option value="info_1">Box info</option>
+                                                                    <option value="gallery_1">Gallery</option>
+                                                                    <option value="quote_1">Quotes</option>
+                                                                    <?php
+                                                                    $plugin->pluginname = "post";
 
+                                                                    if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+                                                                    ?>
+                                                                        <option value="post_1">Latest post</option>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
 
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mt-3 mb-3 p-3">
+                                                &nbsp;
+                                                <!-- <button type="button" name="remove" id="1" class="btn btn-danger btn_remove">X</button> -->
+                                            </div>
 
+                                            <div class="col-12 mt-3 mb-3 p-5 border-bottom">
 
+                                                <div class="row page text_1">
+                                                    text
+                                                </div>
+                                                <div class="row page img_1">
+                                                    img
+                                                </div>
+                                                <div class="row page info_1">
+                                                    info
+                                                </div>
+                                                <div class="row page gallery_1">
+                                                    gallery
+                                                </div>
+                                                <div class="row page quote_1">
+                                                    quote
+                                                </div>
+                                                <div class="row page post_1">
+                                                    post
+                                                </div>
 
+                                            </div>
+                                        </div>
+                                    </div>
 
-
+                                    <button type="button" name="add" id="add" class="btn btn-success w-25">Add block</button>
 
 
                                     <input type="hidden" name="operation" value="add">
                                     <input type="hidden" name="origin" value="addPage">
+                                    <input type="hidden" name="counter" value="1" id="counter">
+
 
                                     <div class="col-12 mt-3 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
@@ -234,3 +299,48 @@
         </div>
     </div>
 </section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.getElementById('block_1_type');
+
+        selectElement.addEventListener('change', function() {
+            const selectedValue = selectElement.value;
+
+            // Nascondi tutte le righe
+            document.querySelectorAll('.col-12 .row.page').forEach(function(row) {
+                row.style.display = 'none';
+            });
+
+            // Mostra la riga corrispondente al valore selezionato
+            if (selectedValue) {
+                const selectedRow = document.querySelector('.page.' + selectedValue);
+                if (selectedRow) {
+                    selectedRow.style.display = 'block';
+                }
+            }
+        });
+
+        // Trigger the change event to handle the initial state
+        selectElement.dispatchEvent(new Event('change'));
+    });
+</script>
+
+<?php
+
+if (isset($count)) {
+?>
+    <script>
+        var i = <?= $count ?> - 1;
+    </script>
+<?php
+} else {
+?>
+    <script>
+        var i = 1;
+    </script>
+<?php
+}
+?>
+<script src="script/mc_addBlockPage.js"></script>
