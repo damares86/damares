@@ -327,7 +327,9 @@ li.sidebar_li.active{
   margin-left:0;
 }
 
-
+.highlight-background{
+  background-color: #dcf8ff; /* Cambia il colore di sfondo secondo le tue preferenze */
+}
 
 @media screen and (max-width: 1199px) {
 

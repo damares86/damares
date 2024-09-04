@@ -101,115 +101,116 @@ $summernote = true;
                                             <div class="form-check">
                                                 <div class="checkbox">
                                                     <input type="checkbox" id="checkbox1" class="form-check-input">
-                                                    <label for="checkbox1">&nbsp; Select to show the header</label>
+                                                    <label for="checkbox1">&nbsp; Select to show the header on this page</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- sfondo colorato a tutti i blocchi da qua fino allo stop -->
-                                    <div class="col-md-3 mt-3 p-3 border-top">
-                                        <label>Header style <span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="col-md-9 mt-3 border-top">
-                                        <div class="row mt-3">
-                                            <div class="col border p-3">
-                                                <div class="form-check">
-                                                    <input class="form-check-input nomargin" type="radio" name="header" checked>
-                                                    <label class="form-check-label">&nbsp; Image</label>
-                                                    <br>
-                                                    <br>
-                                                    <span>Default image: <img src="../uploads/visual.jpg" class="d-inline w-25"></span>
-                                                    <br>
-                                                    <br>
 
-                                                    <label>Upload a new image <span class="text-danger">*</span></label>
+                                    <div class="row highlight-section">
+                                        <div class="col-md-3 mt-3 p-3 border-top">
+                                            <label>Header style <span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-md-9 mt-3 border-top">
+                                            <div class="row mt-3">
+                                                <div class="col border p-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input nomargin" type="radio" name="header" checked>
+                                                        <label class="form-check-label">&nbsp; Image</label>
+                                                        <br>
+                                                        <br>
+                                                        <span>Default image: <img src="../uploads/visual.jpg" class="d-inline w-25"></span>
+                                                        <br>
+                                                        <br>
 
-                                                    <div class="form-group">
-                                                        <div class="form-check mandatory">
-                                                            <div class="position-relative">
-                                                                <input class="form-control" type="file" id="formFile" name="myfile" />
+                                                        <label>Upload a new image <span class="text-danger">*</span></label>
+
+                                                        <div class="form-group">
+                                                            <div class="form-check mandatory">
+                                                                <div class="position-relative">
+                                                                    <input class="form-control" type="file" id="formFile" name="myfile" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col border p-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input nomargin" type="radio" name="header">
+                                                        <label class="form-check-label">&nbsp; Gallery</label>
+                                                        <br><br>
+                                                        <label>Choose a gallery <span class="text-danger">*</span></label>
+
+                                                        <div class="form-group">
+                                                            <div class="form-check mandatory">
+                                                                <div class="position-relative">
+                                                                    <fieldset class="form-group">
+                                                                        <select class="form-select" name="header_gallery">
+                                                                            <?php
+                                                                            $mc->table = 'mc_galleries';
+                                                                            $galleries = $mc->showAll('id');
+                                                                            $galleryOptions = '';
+                                                                            while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+                                                                                $galleryOptions .= '<option value="' . $row['id'] . '">' . $row['gallery_name'] . '</option>';
+                                                                            ?>
+
+                                                                                <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                    </fieldset>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col border p-3">
+
+                                        </div>
+
+                                        <div class="col-md-3 mt-3 mb-3">
+                                            <label>Show site name </label>
+                                        </div>
+                                        <?php
+                                        $setting->name = 'mc_site_name';
+                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $name = $sitename->fetch(PDO::FETCH_ASSOC);
+
+                                        ?>
+                                        <div class="col-md-9 mt-3 mb-3">
+                                            <div class="form-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input nomargin" type="radio" name="header">
-                                                    <label class="form-check-label">&nbsp; Gallery</label>
-                                                    <br><br>
-                                                    <label>Choose a gallery <span class="text-danger">*</span></label>
-
-                                                    <div class="form-group">
-                                                        <div class="form-check mandatory">
-                                                            <div class="position-relative">
-                                                                <fieldset class="form-group">
-                                                                    <select class="form-select" name="header_gallery">
-                                                                        <?php
-                                                                        $mc->table = 'mc_galleries';
-                                                                        $galleries = $mc->showAll('id');
-                                                                        $galleryOptions = '' ;
-                                                                        while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
-                                                                            $galleryOptions .= '<option value="'.$row['id'].'">'.$row['gallery_name'].'</option>';
-                                                                        ?>
-
-                                                                            <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
-
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </select>
-                                                                </fieldset>
-                                                            </div>
-                                                        </div>
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="form-check-input">
+                                                        <label>&nbsp; <b><?= $name['value'] ?></b></label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                    </div>
+                                        <div class="col-md-3 mt-3 mb-3 pb-3 border-bottom">
+                                            <label>Show site description </label>
+                                        </div>
+                                        <?php
+                                        $setting->name = 'mc_site_description';
+                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
-                                    <div class="col-md-3 mt-3 mb-3">
-                                        <label>Show site name </label>
-                                    </div>
-                                    <?php
-                                    $setting->name = 'mc_site_name';
-                                    $sitename = $setting->showAllWhere('id', ['name']);
-                                    $name = $sitename->fetch(PDO::FETCH_ASSOC);
-
-                                    ?>
-                                    <div class="col-md-9 mt-3 mb-3">
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox1" class="form-check-input">
-                                                    <label for="checkbox1">&nbsp; <b><?= $name['value'] ?></b></label>
+                                        ?>
+                                        <div class="col-md-9 mt-3 mb-3 pb-3 border-bottom">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" class="form-check-input">
+                                                        <label>&nbsp; <b><?= $name['value'] ?></b></label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3 mt-3 mb-3 pb-3 border-bottom">
-                                        <label>Show site description <span class="text-danger">*</span></label>
-                                    </div>
-                                    <?php
-                                    $setting->name = 'mc_site_description';
-                                    $sitename = $setting->showAllWhere('id', ['name']);
-                                    $name = $sitename->fetch(PDO::FETCH_ASSOC);
-
-                                    ?>
-                                    <div class="col-md-9 mt-3 mb-3 pb-3 border-bottom">
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox1" class="form-check-input">
-                                                    <label for="checkbox1">&nbsp; <b><?= $name['value'] ?></b></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- STOP -->
                                     <div class="row" id="dynamic_field">
                                         <div class="row" id="block_1">
                                             <div class="col-md-3 mt-3 p-3">
@@ -228,9 +229,9 @@ $summernote = true;
                                                                     <option value="quote_1">Quotes</option>
                                                                     <?php
                                                                     $plugin->pluginname = "post";
-                                                                    $postOption = '' ;
+                                                                    $postOption = '';
                                                                     if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-                                                                        $postOption = '<option value="post_1">Latest post</option>' ;
+                                                                        $postOption = '<option value="post_1">Latest post</option>';
                                                                     ?>
                                                                         <option value="post_1">Latest post</option>
                                                                     <?php
@@ -357,6 +358,23 @@ $summernote = true;
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const checkbox = document.getElementById('checkbox1');
+        const headerSections = document.querySelectorAll('.highlight-section');
+
+        checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+                headerSections.forEach(section => {
+                    section.classList.add('highlight-background');
+                });
+            } else {
+                headerSections.forEach(section => {
+                    section.classList.remove('highlight-background');
+                });
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
         const selectElement = document.getElementById('block_1_type');
 
         selectElement.addEventListener('change', function() {
@@ -410,6 +428,6 @@ if (isset($count)) {
 
 <script type="text/javascript">
     var galleryOptions = '<?php echo $galleryOptions; ?>';
-    var postOptions = '<?php echo $postOption; ?>' ;
+    var postOptions = '<?php echo $postOption; ?>';
 </script>
 <script src="script/mc_addBlockPage.js"></script>
