@@ -123,7 +123,7 @@
                                                     <div class="form-group">
                                                         <div class="form-check mandatory">
                                                             <div class="position-relative">
-                                                                <input class="form-control" type="file" id="formFile" name="myfile" data-parsley-required="true" />
+                                                                <input class="form-control" type="file" id="formFile" name="myfile" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -164,7 +164,7 @@
                                     </div>
 
                                     <div class="col-md-3 mt-3 mb-3">
-                                        <label>Show site name <span class="text-danger">*</span></label>
+                                        <label>Show site name </label>
                                     </div>
                                     <?php
                                     $setting->name = 'mc_site_name';
@@ -244,21 +244,29 @@
                                             <div class="col-12 mt-3 mb-3 p-5 border-bottom">
 
                                                 <div class="row page text_1">
-                                                    <input type="text" class="form-control" placeholder="" name="page_name" />
+                                                    <input type="hidden" name="text_1" value="t">
+                                                    text
                                                 </div>
                                                 <div class="row page img_1">
+                                                    <input type="hidden" name="img_1" value="img">
                                                     img
                                                 </div>
                                                 <div class="row page info_1">
+                                                    <input type="hidden" name="info_1" value="info">
                                                     info
                                                 </div>
                                                 <div class="row page gallery_1">
+                                                    <input type="hidden" name="gallery_1" value="g">
                                                     gallery
                                                 </div>
                                                 <div class="row page quote_1">
+                                                    <input type="hidden" name="quote_1" value="q">
+
                                                     quote
                                                 </div>
                                                 <div class="row page post_1">
+                                                    <input type="hidden" name="post_1" value="p">
+
                                                     post
                                                 </div>
 

@@ -37,21 +37,27 @@ $(document).ready(function(){
             '</div>'+
             '<div class="col-12 mt-3 mb-3 p-5 border-bottom">'+
                 '<div class="row page text_'+i+'">'+
+                    '<input type="hidden" name="text_'+i+'" value="t">'+
                     'text'+
                 '</div>'+
                 '<div class="row page img_'+i+'">'+
+                    '<input type="hidden" name="img_'+i+'" value="img">'+
                     'img'+
                 '</div>'+
                 '<div class="row page info_'+i+'">'+
+                    '<input type="hidden" name="info_'+i+'" value="info">'+
                     'info'+
                 '</div>'+
                 '<div class="row page gallery_'+i+'">'+
+                    '<input type="hidden" name="gallery_'+i+'" value="g">'+
                     'gallery'+
                 '</div>'+
                 '<div class="row page quote_'+i+'">'+
+                    '<input type="hidden" name="quote_'+i+'" value="q">'+
                     'quote'+
                 '</div>'+
                 '<div class="row page post_'+i+'">'+
+                    '<input type="hidden" name="post_'+i+'" value="p">'+
                     'post'+
                 '</div>'+
             '</div>');
