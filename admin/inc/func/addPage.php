@@ -81,10 +81,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3 mt-3">
+                                    <div class="col-md-3 mt-3 pt-3">
                                         <label>Use header <span class="text-danger">*</span></label>
                                     </div>
-                                    <div class="col-md-9 mt-3">
+                                    <div class="col-md-9 mt-3 pt-3">
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="checkbox">
@@ -95,11 +95,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3 mt-3">
+                                    <div class="col-md-3 mt-3 p-3 border-top">
                                         <label>Header style <span class="text-danger">*</span></label>
                                     </div>
-                                    <div class="col-md-9 mt-3">
-                                        <div class="row">
+                                    <div class="col-md-9 mt-3 border-top">
+                                        <div class="row mt-3">
                                             <div class="col border p-3">
                                                 <div class="form-check">
                                                     <input class="form-check-input nomargin" type="radio" name="header" checked>
@@ -153,6 +153,46 @@
                                             </div>
                                         </div>
 
+                                    </div>
+
+                                    <div class="col-md-3 mt-3 mb-3">
+                                        <label>Show site name <span class="text-danger">*</span></label>
+                                    </div>
+                                    <?php
+                                        $setting->name = 'mc_site_name' ;
+                                        $sitename = $setting->showAllWhere('id',['name']) ;
+                                        $name = $sitename->fetch(PDO::FETCH_ASSOC) ;
+                                       
+                                    ?>
+                                    <div class="col-md-9 mt-3 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <div class="checkbox">
+                                                    <input type="checkbox" id="checkbox1" class="form-check-input">
+                                                    <label for="checkbox1">&nbsp; <b><?=$name['value']?></b></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 mt-3 mb-3 pb-3 border-bottom">
+                                        <label>Show site description <span class="text-danger">*</span></label>
+                                    </div>
+                                    <?php
+                                        $setting->name = 'mc_site_description' ;
+                                        $sitename = $setting->showAllWhere('id',['name']) ;
+                                        $name = $sitename->fetch(PDO::FETCH_ASSOC) ;
+                                       
+                                    ?>
+                                    <div class="col-md-9 mt-3 mb-3 pb-3 border-bottom">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <div class="checkbox">
+                                                    <input type="checkbox" id="checkbox1" class="form-check-input">
+                                                    <label for="checkbox1">&nbsp; <b><?=$name['value']?></b></label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
 
