@@ -1,3 +1,7 @@
+<?php
+$summernote = true;
+?>
+
 <style>
     .row.page {
         display: none
@@ -140,11 +144,13 @@
                                                         <div class="form-check mandatory">
                                                             <div class="position-relative">
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-select" id="role" name="role">
+                                                                    <select class="form-select" name="header_gallery">
                                                                         <?php
                                                                         $mc->table = 'mc_galleries';
-                                                                        $stmt = $mc->showAll('id');
-                                                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                                                        $galleries = $mc->showAll('id');
+                                                                        $galleryOptions = '' ;
+                                                                        while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+                                                                            $galleryOptions .= '<option value="'.$row['id'].'">'.$row['gallery_name'].'</option>';
                                                                         ?>
 
                                                                             <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
@@ -206,10 +212,10 @@
                                     <!-- STOP -->
                                     <div class="row" id="dynamic_field">
                                         <div class="row" id="block_1">
-                                            <div class="col-md-3 mt-3 mb-3 p-3">
+                                            <div class="col-md-3 mt-3 p-3">
                                                 <label><b>Block <span>1</span></b></label>
                                             </div>
-                                            <div class="col-md-5 mt-3 mb-3 p-3">
+                                            <div class="col-md-5 mt-3  p-3">
                                                 <div class="form-group">
                                                     <div class="form-check mandatory">
                                                         <div class="position-relative">
@@ -236,28 +242,58 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 mt-3 mb-3 p-3">
+                                            <div class="col-md-4 mt-3 p-3">
                                                 &nbsp;
                                                 <!-- <button type="button" name="remove" id="1" class="btn btn-danger btn_remove">X</button> -->
                                             </div>
 
-                                            <div class="col-12 mt-3 mb-3 p-5 border-bottom">
+                                            <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
 
                                                 <div class="row page text_1">
+                                                    <textarea class="summernote" name="text_content_1"></textarea>
                                                     <input type="hidden" name="text_1" value="t">
-                                                    text
                                                 </div>
                                                 <div class="row page img_1">
+                                                    <label>Upload an image <span class="text-danger">*</span></label>
+                                                    <div class="form-group">
+                                                        <div class="form-check mandatory">
+                                                            <div class="position-relative">
+                                                                <input class="form-control" type="file" name="img_file_1" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <input type="hidden" name="img_1" value="img">
-                                                    img
                                                 </div>
                                                 <div class="row page info_1">
                                                     <input type="hidden" name="info_1" value="info">
                                                     info
                                                 </div>
                                                 <div class="row page gallery_1">
+                                                    <div class="col-7">
+                                                        <label class="mb-3">Choose a gallery <span class="text-danger">*</span></label>
+                                                        <div class="form-group">
+                                                            <div class="form-check mandatory">
+                                                                <div class="position-relative">
+                                                                    <fieldset class="form-group">
+                                                                        <select class="form-select" name="gallery_name_1">
+                                                                            <?php
+                                                                            $mc->table = 'mc_galleries';
+                                                                            $galleries = $mc->showAll('id');
+                                                                            while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+                                                                            ?>
+                                                                                <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5">&nbsp;</div>
                                                     <input type="hidden" name="gallery_1" value="g">
-                                                    gallery
                                                 </div>
                                                 <div class="row page quote_1">
                                                     <input type="hidden" name="quote_1" value="q">
@@ -363,4 +399,8 @@ if (isset($count)) {
 <?php
 }
 ?>
+
+<script type="text/javascript">
+    var galleryOptions = '<?php echo $galleryOptions; ?>';
+</script>
 <script src="script/mc_addBlockPage.js"></script>
