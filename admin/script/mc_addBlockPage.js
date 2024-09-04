@@ -52,15 +52,7 @@ $(document).ready(function(){
                                     '<option value="info_'+i+'">Box info</option>'+
                                     '<option value="gallery_'+i+'">Gallery</option>'+
                                     '<option value="quote_'+i+'">Quotes</option>'+
-                                    '<?php'+
-                                        '$plugin->pluginname = "post";'+
-                                        'if ($plugin->itemExists("pluginname") && $plugin->isActive() == 1) {'+
-                                    '?>'+
-                                        '<option value="post_'+i+'">Latest post</option>'+
-                                    '<?php'+
-                                        '}'+
-                                    '?>'+
-
+                                    postOptions+
                                 '</select>'+
                             '</fieldset>'+
                         '</div>'+
@@ -87,8 +79,16 @@ $(document).ready(function(){
                     '<input type="hidden" name="img_'+i+'" value="img">'+
                 '</div>'+
                 '<div class="row page info_'+i+'">'+
+                    '<label>Upload an image <span class="text-danger">*</span></label>'+
+                    '<div class="form-group">'+
+                        '<div class="form-check mandatory">'+
+                            '<div class="position-relative">'+
+                                '<input class="form-control" type="file" name="info_file_'+i+'" />'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
+                    '<textarea class="summernote" class="mt-5" name="info_content_'+i+'"></textarea>'+
                     '<input type="hidden" name="info_'+i+'" value="info">'+
-                    'info'+
                 '</div>'+
                 '<div class="row page gallery_'+i+'">'+
                     '<div class="col-7">'+
@@ -109,8 +109,8 @@ $(document).ready(function(){
                     '<input type="hidden" name="gallery_'+i+'" value="g">'+
                 '</div>'+
                 '<div class="row page quote_'+i+'">'+
+                    '<p>Show a slideshow with quotes</p>'+
                     '<input type="hidden" name="quote_'+i+'" value="q">'+
-                    'quote'+
                 '</div>'+
                 '<div class="row page post_'+i+'">'+
                     '<input type="hidden" name="post_'+i+'" value="p">'+

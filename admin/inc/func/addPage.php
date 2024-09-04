@@ -228,8 +228,9 @@ $summernote = true;
                                                                     <option value="quote_1">Quotes</option>
                                                                     <?php
                                                                     $plugin->pluginname = "post";
-
+                                                                    $postOption = '' ;
                                                                     if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+                                                                        $postOption = '<option value="post_1">Latest post</option>' ;
                                                                     ?>
                                                                         <option value="post_1">Latest post</option>
                                                                     <?php
@@ -265,8 +266,16 @@ $summernote = true;
                                                     <input type="hidden" name="img_1" value="img">
                                                 </div>
                                                 <div class="row page info_1">
+                                                    <label>Upload an image <span class="text-danger">*</span></label>
+                                                    <div class="form-group">
+                                                        <div class="form-check mandatory">
+                                                            <div class="position-relative">
+                                                                <input class="form-control" type="file" name="info_file_1" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <textarea class="summernote" class="mt-5" name="info_content_1"></textarea>
                                                     <input type="hidden" name="info_1" value="info">
-                                                    info
                                                 </div>
                                                 <div class="row page gallery_1">
                                                     <div class="col-7">
@@ -296,9 +305,8 @@ $summernote = true;
                                                     <input type="hidden" name="gallery_1" value="g">
                                                 </div>
                                                 <div class="row page quote_1">
+                                                    <p>Show a slideshow with quotes</p>
                                                     <input type="hidden" name="quote_1" value="q">
-
-                                                    quote
                                                 </div>
                                                 <div class="row page post_1">
                                                     <input type="hidden" name="post_1" value="p">
@@ -402,5 +410,6 @@ if (isset($count)) {
 
 <script type="text/javascript">
     var galleryOptions = '<?php echo $galleryOptions; ?>';
+    var postOptions = '<?php echo $postOption; ?>' ;
 </script>
 <script src="script/mc_addBlockPage.js"></script>
