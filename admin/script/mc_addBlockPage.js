@@ -65,9 +65,11 @@ $(document).ready(function(){
     
                 // Nascondi tutte le righe relative al blocco corrente
                 $('#' + blockId).find('.row.page').hide();
+                $('#' + blockId).find('.row.page input').removeAttr('data-parsley-required'); // Rimuovi l'attributo quando la riga è nascosta
     
                 // Mostra la riga corrispondente al valore selezionato
                 $('#' + blockId).find('.' + selectedValue).show();
+                $('#' + blockId).find('.' + selectedValue + ' input').attr('data-parsley-required', 'true');
             });
             $('#block_' + i + '_type').trigger('change');
     

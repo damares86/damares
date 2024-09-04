@@ -25,6 +25,8 @@
 </div>
 <br>
 
+
+
 <section class="section">
     <div class="row">
         <div class="col-md-10 col-12">
@@ -242,7 +244,7 @@
                                             <div class="col-12 mt-3 mb-3 p-5 border-bottom">
 
                                                 <div class="row page text_1">
-                                                    text
+                                                    <input type="text" class="form-control" placeholder="" name="page_name" />
                                                 </div>
                                                 <div class="row page img_1">
                                                     img
@@ -311,6 +313,11 @@
             // Nascondi tutte le righe
             document.querySelectorAll('.col-12 .row.page').forEach(function(row) {
                 row.style.display = 'none';
+                // Rimuovi l'attributo data-parsley-required da tutti gli input all'interno delle righe nascoste
+                const input = row.querySelector('input');
+                if (input) {
+                    input.removeAttribute('data-parsley-required');
+                }
             });
 
             // Mostra la riga corrispondente al valore selezionato
@@ -318,6 +325,11 @@
                 const selectedRow = document.querySelector('.page.' + selectedValue);
                 if (selectedRow) {
                     selectedRow.style.display = 'block';
+                    // Aggiungi l'attributo data-parsley-required all'input visibile
+                    const input = selectedRow.querySelector('input');
+                    if (input) {
+                        input.setAttribute('data-parsley-required', 'true');
+                    }
                 }
             }
         });
