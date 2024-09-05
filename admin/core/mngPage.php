@@ -1,3 +1,9 @@
+<pre>
+    <?php 
+    print_r($_POST); 
+    exit;
+?>
+</pre>
 <?php
 
 
@@ -13,8 +19,6 @@
 require __DIR__ . "/coreConfig.php";
 
 
-print_r($_POST);
-exit;
 
 
 // check if there's an account to delete

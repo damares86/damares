@@ -50,7 +50,7 @@ $summernote = true;
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="" name="page_name" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="Type the page name" name="page_name" data-parsley-required="true" />
 
                                                 </div>
                                             </div>
@@ -310,9 +310,8 @@ $summernote = true;
                                                     <input type="hidden" name="quote_1" value="q">
                                                 </div>
                                                 <div class="row page post_1">
+                                                    <p>Show the latest post of the blog</p>
                                                     <input type="hidden" name="post_1" value="p">
-
-                                                    post
                                                 </div>
 
                                             </div>

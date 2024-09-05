@@ -113,8 +113,8 @@ $(document).ready(function(){
                     '<input type="hidden" name="quote_'+i+'" value="q">'+
                 '</div>'+
                 '<div class="row page post_'+i+'">'+
+                    '<p>Show the latest post of the blog</p>'+
                     '<input type="hidden" name="post_'+i+'" value="p">'+
-                    'post'+
                 '</div>'+
             '</div>');
 
@@ -144,5 +144,9 @@ $(document).ready(function(){
     $(document).on('click', '.btn_remove', function(){
         var button_id = $(this).attr("id"); 
         $('#block_'+button_id+'').remove();
+        // Aggiorna il valore dell'input nascosto counter
+        var currentCounter = parseInt($('#counter').val(), 10); // Ottieni il valore corrente
+        currentCounter--; // Decrementa il contatore
+        $('#counter').val(currentCounter); // Aggiorna il valore nell'input hidden
     });
   });
