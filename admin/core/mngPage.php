@@ -104,14 +104,111 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
 
 
+
+
+
+
+        $sess_type="sess_type_$i";
+        $sess_bg="sess_bg_$i";
+        $sess_text="sess_text_$i";
+        $array_name="arr$i";
+
+
+
+        if($_SESSION["$sess_type"]=="p"){
+            if($_SESSION['sess_pict_'.$i.'']){
+                $page->img_pict=$_SESSION['sess_pict_'.$i.''];
+                $page->img_tmp_pict=$_SESSION['sess_pict_'.$i.'_tmp'];
+            }else{
+                $page->img_pict=$_FILES['pict'.$i.'']['name'];
+                $page->img_tmp_pict=$_FILES['pict'.$i.'']['tmp_name'];
+            }
+            $page->uploadPicture();
+            $$array_name=array(
+                'block'.$i.'_type' 	=> $_SESSION["$sess_type"],
+                'block'.$i.'_pict' 	=> $page->img_pict,
+                'block'.$i.'_bg'	=> $_SESSION[''.$sess_bg.''],
+                'block'.$i.'_text'  => $_SESSION[''.$sess_text.'']
+            );
+
+        }else if($_SESSION["$sess_type"]=="i"){
+            if($_SESSION['sess_pict_info_'.$i.'']){
+                $page->img_info=$_SESSION['sess_pict_info_'.$i.''];
+                $page->img_tmp_info=$_SESSION['sess_pict_info_'.$i.'_tmp'];
+            }else{
+                $page->img_info=$_FILES['info'.$i.'']['name'];
+                $page->img_tmp_info=$_FILES['info'.$i.'']['tmp_name'];
+            }
+            $page->uploadInfo();
+            $editor = preg_replace('/^\s+/', '', $_SESSION["sess_info_editor$i"]);
+            $$array_name=array(
+                'block'.$i.'_type' 	=> $_SESSION["$sess_type"],
+                'block'.$i.'_info' 	=> $page->img_info,
+                'block'.$i.'_desc' 	=> $editor,
+                'block'.$i.'_bg'	=> $_SESSION[''.$sess_bg.''],
+                'block'.$i.'_text'  => $_SESSION[''.$sess_text.'']
+            );
+
+        }else if($_SESSION["$sess_type"]=="t"){
+            $editor = preg_replace('/^\s+/', '', $_SESSION["sess_editor$i"]);
+            $$array_name=array(
+                    'block'.$i.'_type' 	=> $_SESSION["$sess_type"], 
+                    'block'.$i.''		=> $editor,
+                    'block'.$i.'_bg'	=> $_SESSION[''.$sess_bg.''],
+                    'block'.$i.'_text'  => $_SESSION[''.$sess_text.'']
+            );
+
+        }else{
+            $$array_name=array(
+                    'block'.$i.'_type' 	=> $_SESSION["$sess_type"],
+                    'block'.$i.'_bg'	=> $_SESSION[''.$sess_bg.''],
+                    'block'.$i.'_text'  => $_SESSION[''.$sess_text.'']
+            );
+        }
     }
 
+    $arr_tot=array($arr0);
 
+    for($i=1;$i<=$counter;$i++){
+        $array_name="arr$i";
+        $arr_tot[]=$$array_name;
+    }
 
+    $page_name=preg_replace('/\s+/', '_',$_SESSION['sess_page_name']);
+    $page_name=strtolower($page_name);
 
+     $file='../inc/pages/'.$page_name.'.json';
+    $json=json_encode($arr_tot);
 
+    file_put_contents($file, $json, FILE_APPEND);
+    chmod($file,0777);
 
+        if($page->insert()){
 
+        $str=$page->page_name;
+        $str = preg_replace('/\s+/', '_', $str);
+        
+        $str = strtolower($str);
+
+        if(copy('../template/master.php', '../../master.php')){
+            rename('../../master.php','../../'. $str . '.php');
+            chmod('../../'. $str . '.php',0777);
+
+            $page->counter=$counter;
+
+            $page->destroyCheckSessVar();
+
+            header("Location: ../index.php?man=page&op=show&type=custom&msg=pageSucc");
+            exit;
+        } else {
+            header("Location: ../index.php?man=page&op=show&type=custom&msg=pageErr");
+            exit;
+        }
+    
+    }else{
+        header("Location: ../index.php?man=page&op=show&type=custom&msg=pageErr");
+        exit;
+    }
 
 
 
