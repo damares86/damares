@@ -100,7 +100,7 @@ $summernote = true;
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox1" class="form-check-input">
+                                                    <input type="checkbox" id="checkbox1" class="form-check-input" name="use_header">
                                                     <label for="checkbox1">&nbsp; Select to show the header on this page</label>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@ $summernote = true;
                                             <div class="row mt-3">
                                                 <div class="col border p-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input nomargin" type="radio" name="header" checked>
+                                                        <input class="form-check-input nomargin" type="radio" name="header" value="image" checked>
                                                         <label class="form-check-label">&nbsp; Image</label>
                                                         <br>
                                                         <br>
@@ -128,7 +128,7 @@ $summernote = true;
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
                                                                 <div class="position-relative">
-                                                                    <input class="form-control" type="file" id="formFile" name="myfile" />
+                                                                    <input class="form-control" type="file" name="img_header" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -136,7 +136,7 @@ $summernote = true;
                                                 </div>
                                                 <div class="col border p-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input nomargin" type="radio" name="header">
+                                                        <input class="form-check-input nomargin" type="radio" name="header" value="gallery">
                                                         <label class="form-check-label">&nbsp; Gallery</label>
                                                         <br><br>
                                                         <label>Choose a gallery <span class="text-danger">*</span></label>

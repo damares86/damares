@@ -11,8 +11,13 @@
 class Mc extends Common{
 
     public $page_name ;
-
-
+    public $no_del ;
+    public $layout ;
+    public $header ;
+    public $header_media ;
+    public $use_name ;
+    public $use_description ;
+    public $counter ;
 
 }
 

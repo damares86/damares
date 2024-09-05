@@ -16,17 +16,17 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       no_del INT(1) NOT NULL,
       layout VARCHAR(50) NOT NULL,
       header INT(1) NOT NULL,
-      use_name INT(1) NOT NULL,
-      use_desc INT(1) NOT NULL,
-      img VARCHAR(255) NOT NULL,
+      header_media VARCHAR(255) DEFAULT NULL,
+      use_name INT(1) DEFAULT 0,
+      use_desc INT(1) DEFAULT 0,
       counter INT(3) NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "mc_default_pages
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       page_name VARCHAR(255) NOT NULL,
       header INT(1) NOT NULL,
-      use_name INT(1) NOT NULL,
-      use_desc INT(1) NOT NULL,
-      img VARCHAR(255) NOT NULL);
+      header_media VARCHAR(255) DEFAULT NULL,
+      use_name INT(1) DEFAULT 0,
+      use_desc INT(1) DEFAULT 0);
       CREATE TABLE IF NOT EXISTS " . $prefix . "mc_menu
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       page_id INT(5) NOT NULL);
