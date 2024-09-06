@@ -252,31 +252,28 @@ $summernote = true;
                                             <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
 
                                                 <div class="row page text_1">
-                                                    <textarea class="summernote" name="text_content_1"></textarea>
-                                                    <input type="hidden" name="text_1" value="t">
+                                                    <textarea class="summernote" name="text_1"></textarea>
                                                 </div>
                                                 <div class="row page img_1">
                                                     <label>Upload an image <span class="text-danger">*</span></label>
                                                     <div class="form-group">
                                                         <div class="form-check mandatory">
                                                             <div class="position-relative">
-                                                                <input class="form-control" type="file" name="img_file_1" />
+                                                                <input class="form-control" type="file" name="img_1" />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <input type="hidden" name="img_1" value="img">
                                                 </div>
                                                 <div class="row page info_1">
                                                     <label>Upload an image <span class="text-danger">*</span></label>
                                                     <div class="form-group">
                                                         <div class="form-check mandatory">
                                                             <div class="position-relative">
-                                                                <input class="form-control" type="file" name="info_file_1" />
+                                                                <input class="form-control" type="file" name="info_img_1" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <textarea class="summernote" class="mt-5" name="info_content_1"></textarea>
-                                                    <input type="hidden" name="info_1" value="info">
                                                 </div>
                                                 <div class="row page gallery_1">
                                                     <div class="col-7">
@@ -285,7 +282,7 @@ $summernote = true;
                                                             <div class="form-check mandatory">
                                                                 <div class="position-relative">
                                                                     <fieldset class="form-group">
-                                                                        <select class="form-select" name="gallery_name_1">
+                                                                        <select class="form-select" name="gallery_1">
                                                                             <?php
                                                                             $mc->table = 'mc_galleries';
                                                                             $galleries = $mc->showAll('id');
@@ -303,7 +300,6 @@ $summernote = true;
                                                         </div>
                                                     </div>
                                                     <div class="col-5">&nbsp;</div>
-                                                    <input type="hidden" name="gallery_1" value="g">
                                                 </div>
                                                 <div class="row page quote_1">
                                                     <p>Show a slideshow with quotes</p>
@@ -315,6 +311,100 @@ $summernote = true;
                                                 </div>
 
                                             </div>
+
+                                            <div class="row colors mb-5">
+
+                                                <!-- Sezione Background color -->
+                                                <div class="col-md-3 mt-3 px-3">
+                                                    <label>Background color</label>
+                                                </div>
+                                                <div class="col-md-9 mt-3 px-3">
+                                                    <div class="form-group">
+                                                        <div class="form-check mandatory">
+                                                            <div class="position-relative">
+                                                                <div class="form-group">
+                                                                    <!-- Opzione 'none' per il Background color -->
+                                                                    <input type="radio" class="btn-check" name="bg_color_1" value="none" autocomplete="off" id="bg_none_1" hidden checked>
+                                                                    <label class="color-label bg" for="bg_none_1" style="background-color: #e5e5e5;">
+                                                                        None
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+
+                                                                    <!-- Loop per i colori del Background -->
+                                                                    <?php
+                                                                    $mc->table = 'mc_color';
+                                                                    $colors = $mc->showAll('id');
+                                                                    $colorOptionsBg = '';
+                                                                    $colorArray = [] ;
+
+                                                                    while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
+                                                                        $colorArray[] = ['color' => $row['color']];
+                                                                    ?>
+                                                                        <input type="radio" class="btn-check" name="bg_color_1" value="<?= $row['color'] ?>" autocomplete="off" id="bg_<?= $row['color'] ?>" hidden>
+                                                                        <label class="color-label" for="bg_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
+                                                                            <span class="checkmark">✔</span>
+                                                                            &nbsp;
+                                                                        </label>
+                                                                    <?php
+                                                                        $colorOptionsBg .= '<input type="radio" class="btn-check" name="bg_color_1" value="' . $row['color'] . '" autocomplete="off" id="bg_' . $row['color'] . '" hidden>';
+                                                                        $colorOptionsBg .= '<label class="color-label" for="bg_' . $row['color'] . '" style="background-color: ' . $row['color'] . ';">';
+                                                                        $colorOptionsBg .= '<span class="checkmark">✔</span>';
+                                                                        $colorOptionsBg .= '&nbsp;';
+                                                                        $colorOptionsBg .= '</label>';
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Sezione Text color -->
+                                                <div class="col-md-3 mt-3 px-3">
+                                                    <label>Text color</label>
+                                                </div>
+                                                <div class="col-md-9 mt-3 px-3">
+                                                    <div class="form-group">
+                                                        <div class="form-check mandatory">
+                                                            <div class="position-relative">
+                                                                <div class="form-group">
+                                                                    <!-- Opzione 'none' per il Text color -->
+                                                                    <input type="radio" class="btn-check" name="text_color_1" value="none" autocomplete="off" id="text_none_1" hidden checked>
+                                                                    <label class="color-label text" for="text_none_1" style="background-color: #e5e5e5;">
+                                                                        None
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+
+                                                                    <!-- Loop per i colori del Text -->
+                                                                    <?php
+                                                                    $mc->table = 'mc_color';
+                                                                    $colors = $mc->showAll('id');
+                                                                    $colorOptionsText = '';
+
+                                                                    while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
+                                                                    ?>
+                                                                        <input type="radio" class="btn-check" name="text_color_1" value="<?= $row['color'] ?>" autocomplete="off" id="text_<?= $row['color'] ?>" hidden>
+                                                                        <label class="color-label" for="text_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
+                                                                            <span class="checkmark">✔</span>
+                                                                            &nbsp;
+                                                                        </label>
+                                                                    <?php
+                                                                        $colorOptionsText .= '<input type="radio" class="btn-check" name="text_color_1" value="' . $row['color'] . '" autocomplete="off" id="text_' . $row['color'] . '" hidden>';
+                                                                        $colorOptionsText .= '<label class="color-label" for="text_' . $row['color'] . '" style="background-color: ' . $row['color'] . ';">';
+                                                                        $colorOptionsText .= '<span class="checkmark">✔</span>';
+                                                                        $colorOptionsText .= '&nbsp;';
+                                                                        $colorOptionsText .= '</label>';
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -424,9 +514,15 @@ if (isset($count)) {
 <?php
 }
 ?>
-
+<?php 
+$colors = json_encode($colorArray); 
+?> 
 <script type="text/javascript">
     var galleryOptions = '<?php echo $galleryOptions; ?>';
     var postOptions = '<?php echo $postOption; ?>';
+    var colorOptionsBg = '<?php echo $colorOptionsBg; ?>';
+    var colorOptionsText = '<?php echo $colorOptionsText; ?>';
+    var colors = <?php echo $colors; ?>;
+    console.log(colors)
 </script>
 <script src="script/mc_addBlockPage.js"></script>

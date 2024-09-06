@@ -37,6 +37,27 @@ $(document).ready(function(){
     //var i=1;
     $('#add').click(function(){
         i++;
+
+        var colorOptionsBg = '';
+        var colorOptionsText = '';
+
+        // Usa la variabile `colors` passata dalla pagina PHP
+        colors.forEach(function(row) {
+            colorOptionsBg +=
+                '<input type="radio" class="btn-check" name="bg_color_' + i + '" value="' + row.color + '" autocomplete="off" id="bg_' + row.color + '_' + i + '" hidden>' +
+                '<label class="color-label" for="bg_' + row.color + '_' + i + '" style="background-color: ' + row.color + ';">' +
+                '<span class="checkmark">✔</span>' +
+                '&nbsp;' +
+                '</label>';
+
+            colorOptionsText +=
+                '<input type="radio" class="btn-check" name="text_color_' + i + '" value="' + row.color + '" autocomplete="off" id="text_' + row.color + '_' + i + '" hidden>' +
+                '<label class="color-label" for="text_' + row.color + '_' + i + '" style="background-color: ' + row.color + ';">' +
+                '<span class="checkmark">✔</span>' +
+                '&nbsp;' +
+                '</label>';
+        });
+
         $('#dynamic_field').append('<div class="row" id="block_'+i+'">'+
             '<div class="col-md-3 mt-3 p-3">'+
                 '<label><b>Block <span>'+i+'</span></b></label>'+
@@ -65,7 +86,6 @@ $(document).ready(function(){
             '<div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">'+
                 '<div class="row page text_'+i+'">'+
                     '<textarea class="summernote" name="text_content_'+i+'"></textarea>'+
-                    '<input type="hidden" name="text_'+i+'" value="t">'+
                 '</div>'+
                 '<div class="row page img_'+i+'">'+
                     '<label>Upload an image <span class="text-danger">*</span></label>'+
@@ -76,7 +96,6 @@ $(document).ready(function(){
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<input type="hidden" name="img_'+i+'" value="img">'+
                 '</div>'+
                 '<div class="row page info_'+i+'">'+
                     '<label>Upload an image <span class="text-danger">*</span></label>'+
@@ -88,7 +107,6 @@ $(document).ready(function(){
                         '</div>'+
                     '</div>'+
                     '<textarea class="summernote" class="mt-5" name="info_content_'+i+'"></textarea>'+
-                    '<input type="hidden" name="info_'+i+'" value="info">'+
                 '</div>'+
                 '<div class="row page gallery_'+i+'">'+
                     '<div class="col-7">'+
@@ -106,7 +124,6 @@ $(document).ready(function(){
                         '</div>'+
                     '</div>'+
                     '<div class="col-5">&nbsp;</div>'+
-                    '<input type="hidden" name="gallery_'+i+'" value="g">'+
                 '</div>'+
                 '<div class="row page quote_'+i+'">'+
                     '<p>Show a slideshow with quotes</p>'+
@@ -115,6 +132,46 @@ $(document).ready(function(){
                 '<div class="row page post_'+i+'">'+
                     '<p>Show the latest post of the blog</p>'+
                     '<input type="hidden" name="post_'+i+'" value="p">'+
+                '</div>'+
+            '</div>'+
+            '<div class="row colors mb-5">'+
+                '<div class="col-md-3 mt-3 px-3">'+
+                    '<label>Background color</label>'+
+                '</div>'+
+                '<div class="col-md-9 mt-3 px-3">'+
+                    '<div class="form-group">'+
+                        '<div class="form-check mandatory">'+
+                            '<div class="position-relative">'+
+                                '<div class="form-group">'+
+                                    '<input type="radio" class="btn-check" name="bg_color_'+i+'" value="none" autocomplete="off" id="bg_none_'+i+'" hidden checked>'+
+                                    '<label class="color-label bg" for="bg_none_'+i+'" style="background-color: #e5e5e5;"> '+
+                                        'None'+
+                                        '<span class="checkmark"></span>'+
+                                    '</label>'+
+                                    colorOptionsBg+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+                '<div class="col-md-3 mt-3 px-3">'+
+                    '<label>Text color</label>'+
+                '</div>'+
+                '<div class="col-md-9 mt-3 px-3">'+
+                    '<div class="form-group">'+
+                        '<div class="form-check mandatory">'+
+                            '<div class="position-relative">'+
+                                '<div class="form-group">'+
+                                    '<input type="radio" class="btn-check" name="text_color_'+i+'" value="none" autocomplete="off" id="text_none_'+i+'" hidden checked>'+
+                                    '<label class="color-label text" for="text_none_'+i+'" style="background-color: #e5e5e5;">'+
+                                        'None'+
+                                        '<span class="checkmark"></span>'+
+                                    '</label>'+
+                                    colorOptionsText+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
                 '</div>'+
             '</div>');
 
