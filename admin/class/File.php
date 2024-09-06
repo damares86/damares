@@ -15,7 +15,7 @@ class File extends Common{
     public $filename_orig ;
     public $label ;
     public $inputFileName ;
-    public $path ;
+    public $path = "../uploads" ;
     public $origin ;
 
     public function uploadFile(){

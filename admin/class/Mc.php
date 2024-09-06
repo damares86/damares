@@ -16,7 +16,7 @@ class Mc extends Common{
     public $header ;
     public $header_media ;
     public $use_name ;
-    public $use_description ;
+    public $use_desc ;
     public $counter ;
 
 }

@@ -334,7 +334,6 @@ $summernote = true;
                                                                     <?php
                                                                     $mc->table = 'mc_color';
                                                                     $colors = $mc->showAll('id');
-                                                                    $colorOptionsBg = '';
                                                                     $colorArray = [] ;
 
                                                                     while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
@@ -346,11 +345,6 @@ $summernote = true;
                                                                             &nbsp;
                                                                         </label>
                                                                     <?php
-                                                                        $colorOptionsBg .= '<input type="radio" class="btn-check" name="bg_color_1" value="' . $row['color'] . '" autocomplete="off" id="bg_' . $row['color'] . '" hidden>';
-                                                                        $colorOptionsBg .= '<label class="color-label" for="bg_' . $row['color'] . '" style="background-color: ' . $row['color'] . ';">';
-                                                                        $colorOptionsBg .= '<span class="checkmark">✔</span>';
-                                                                        $colorOptionsBg .= '&nbsp;';
-                                                                        $colorOptionsBg .= '</label>';
                                                                     }
                                                                     ?>
                                                                 </div>
@@ -379,7 +373,6 @@ $summernote = true;
                                                                     <?php
                                                                     $mc->table = 'mc_color';
                                                                     $colors = $mc->showAll('id');
-                                                                    $colorOptionsText = '';
 
                                                                     while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
                                                                     ?>
@@ -389,11 +382,6 @@ $summernote = true;
                                                                             &nbsp;
                                                                         </label>
                                                                     <?php
-                                                                        $colorOptionsText .= '<input type="radio" class="btn-check" name="text_color_1" value="' . $row['color'] . '" autocomplete="off" id="text_' . $row['color'] . '" hidden>';
-                                                                        $colorOptionsText .= '<label class="color-label" for="text_' . $row['color'] . '" style="background-color: ' . $row['color'] . ';">';
-                                                                        $colorOptionsText .= '<span class="checkmark">✔</span>';
-                                                                        $colorOptionsText .= '&nbsp;';
-                                                                        $colorOptionsText .= '</label>';
                                                                     }
                                                                     ?>
                                                                 </div>
