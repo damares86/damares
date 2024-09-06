@@ -29,6 +29,12 @@ $operation = filter_input(INPUT_POST, "operation");
 // check if there's an account to edit or add
 
 if (filter_input(INPUT_POST, "idToMod")) {
+
+    // replicare l'add con l'aggiunta dei dati
+
+
+
+
 } else if ($operation == "add") {
 
     ?>

@@ -1,5 +1,9 @@
 <?php
 $summernote = true;
+
+$mc->id = filter_input(INPUT_GET,'idToMod') ;
+$mc->table = 'mc_pages';
+$page_stmt = $mc->showAllWhere('id',['id']) ;
 ?>
 
 <style>
@@ -11,7 +15,7 @@ $summernote = true;
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Add a new page</h3>
+            <h3>Edit page</h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -20,7 +24,7 @@ $summernote = true;
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Add a new page
+                        Edit page
                     </li>
                 </ol>
             </nav>
@@ -36,12 +40,20 @@ $summernote = true;
         <div class="col-md-10 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">New page</h4>
+                    <h4 class="card-title">Edit page: </h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <form class="form form-horizontal" action="core/mngPage.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
                             <div class="form-body">
+    
+                            <?php
+                                while($page_data = $page_stmt->fetch(PDO::FETCH_ASSOC)){
+                                   
+                                    $page_name = $page_data['page_name'];
+                                    $page_name = str_replace("_", " ", $page_name);
+                                    $page_name = ucfirst($page_name) ;
+                            ?>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <label>Page name <span class="text-danger">*</span></label>
@@ -50,7 +62,7 @@ $summernote = true;
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Type the page name" name="page_name" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="Type the page name" value="<?=$page_name?>" name="page_name" data-parsley-required="true" />
 
                                                 </div>
                                             </div>
@@ -395,8 +407,11 @@ $summernote = true;
                                     <input type="hidden" name="operation" value="add">
                                     <input type="hidden" name="origin" value="addPage">
                                     <input type="hidden" name="counter" value="1" id="counter">
-
-
+                                    
+                                    <?php
+                                    }
+                                    ?>
+                                        
                                     <div class="col-12 mt-3 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
                                             <?= $common_submit ?>
