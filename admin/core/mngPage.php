@@ -68,7 +68,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
                 'block' . $i . '_bg'    => $colorBg,
                 'block' . $i . '_text'  => $colorText
             );
-        } else if ($type == 'image') {
+        } else if ($type == 'img') {
 
             if ($_FILES['img_' . $i . '']['size'] > 0) {
                 $file->filename = $_FILES['img_' . $i . '']['name'];
@@ -221,7 +221,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
                     $err_file = "&err=headerImgFail";
                 }
             } else {
-                $mc->header_media = filter_input(INPUT_POST, 'visual.jpg');
+                $mc->header_media = 'visual.jpg';
             }
         } else if (filter_input(INPUT_POST, 'header') == 'gallery') {
 
