@@ -1,0 +1,16 @@
+[
+  { "name": "pagina_di_test" },
+  {
+    "block1_type": "text",
+    "block1": "<p><br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ante eget mauris ullamcorper mollis quis id quam. Nam efficitur suscipit aliquam. Morbi volutpat quam metus, vel faucibus ex vulputate ut. Sed aliquam nibh sed risus pulvinar tempor. Etiam imperdiet ipsum ante, eget vulputate erat sagittis et. Morbi rutrum, erat ornare lacinia vehicula, leo elit ultricies tortor, vitae ultricies mi elit ac libero. Etiam ultrices ullamcorper luctus. Maecenas ipsum orci, lacinia quis diam in, rutrum semper sapien. Aenean mauris urna, iaculis ac dignissim non, hendrerit ac purus. In aliquam faucibus risus, ut hendrerit lorem viverra sed. Vivamus eu urna dictum orci faucibus dignissim. <br></p>",
+    "block1_bg": "#ffac17",
+    "block1_text": "#008db1"
+  },
+  {
+    "block2_type": "gallery",
+    "block2": "1",
+    "block2_bg": "none",
+    "block2_text": "none"
+  },
+  { "block3_type": "quote", "block3_bg": "#008db1", "block3_text": "#ffac17" }
+]

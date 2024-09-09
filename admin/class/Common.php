@@ -60,9 +60,11 @@ class Common
 
 
         $stmt = $this->conn->prepare($query);
+        echo $query.'<br>';
 
         foreach ($fields as $item) {
             $stmt->bindParam(":$item", $this->$item);
+            echo $item.' -> '.$this->$item.'<br>';
         }
 
         if ($stmt->execute()) {

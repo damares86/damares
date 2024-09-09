@@ -37,15 +37,6 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
 } else if ($operation == "add") {
 
-    ?>
-    <pre>
-        <?php
-        print_r($_POST);
-        exit;
-        ?>
-    </pre>
-<?php
-
     $page_name = filter_input(INPUT_POST, 'page_name');
     $page_name = strtolower($page_name);
     $page_name = str_replace(" ", "_", $page_name);
@@ -150,7 +141,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
             $$array_name = array(
                 'block' . $i . '_type'  => 'gallery',
-                'block' . $i . ''       => filter_input(INPUT_POST, 'gallery_name_' + $i + ''),
+                'block' . $i . ''       => filter_input(INPUT_POST, 'gallery_name_' . $i . ''),
                 'block' . $i . '_bg'    => $colorBg,
                 'block' . $i . '_text'  => $colorText
             );
@@ -178,7 +169,15 @@ if (filter_input(INPUT_POST, "idToMod")) {
         $arr_tot[] = $$array_name;
     }
 
-    $json_file = '../inc/pages/' . $page_name . '.json';
+    $target_directory = '../inc/pages/' ;
+    if(!file_exists( $target_directory ) || !is_dir( $target_directory)){
+        mkdir($target_directory) ;
+        $oldmask = umask(0);
+        chmod($target_directory, 0777);
+        umask($oldmask);
+    }
+
+    $json_file = $target_directory . $page_name . '.json';
     $json = json_encode($arr_tot);
 
     file_put_contents($json_file, $json, FILE_APPEND);
@@ -226,7 +225,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
             }
         } else if (filter_input(INPUT_POST, 'header') == 'gallery') {
 
-            $mc->header_media = filter_input(INPUT_POST, 'gallery');
+            $mc->header_media = filter_input(INPUT_POST, 'header_gallery');
         }
         
     } else {
@@ -239,6 +238,8 @@ if (filter_input(INPUT_POST, "idToMod")) {
     $mc->use_desc = filter_input(INPUT_POST,'use_desc') ? 1 : 0 ;
 
     $mc->counter = $counter;
+
+    $mc->table = 'mc_pages';
 
     if($mc->insert(['page_name','layout','header','header_media','use_name','use_desc','counter'])){
 
