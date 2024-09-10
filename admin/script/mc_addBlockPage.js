@@ -33,6 +33,27 @@ function initializeSummernote() {
     })
 }
 
+function initializeTiny(){
+     const themeOptions = document.body.classList.contains("theme-dark")
+    ? {
+        skin: "oxide-dark",
+        content_css: "dark",
+      }
+    : {
+        skin: "oxide",
+        content_css: "default",
+      }
+
+    tinymce.init({
+        selector: ".tiny",
+        toolbar:
+          "undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent link code",
+        plugins: "code lists link",
+        ...themeOptions,
+        height: 400, // Imposta l'altezza dell'editor
+      })
+}
+
 $(document).ready(function(){    
     //var i=1;
     $('#add').click(function(){
@@ -85,7 +106,8 @@ $(document).ready(function(){
             '</div>'+
             '<div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">'+
                 '<div class="row page text_'+i+'">'+
-                    '<textarea class="summernote" name="text_content_'+i+'"></textarea>'+
+                    '<textarea class="tiny" name="text_content_'+i+'"></textarea>'+
+                    // '<textarea class="summernote" name="text_content_'+i+'"></textarea>'+
                 '</div>'+
                 '<div class="row page img_'+i+'">'+
                     '<label>Upload an image <span class="text-danger">*</span></label>'+
@@ -106,7 +128,10 @@ $(document).ready(function(){
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<textarea class="summernote" class="mt-5" name="info_content_'+i+'"></textarea>'+
+                '<div>'+
+                '<div class="row page info_'+i+'">'+
+                    '<textarea class="tiny" class="mt-5" name="info_content_'+i+'"></textarea>'+
+                    // '<textarea class="summernote" class="mt-5" name="info_content_'+i+'"></textarea>'+
                 '</div>'+
                 '<div class="row page gallery_'+i+'">'+
                     '<div class="col-7">'+
@@ -178,28 +203,43 @@ $(document).ready(function(){
             $('#block_' + i + '_type').val('text_' + i);
 
             $('#block_' + i + '_type').on('change', function() {
-
                 const selectedValue = $(this).val();
                 const blockId = $(this).attr('id').replace('_type', '');
-    
+            
                 // Nascondi tutte le righe relative al blocco corrente
                 $('#' + blockId).find('.row.page').hide();
-                $('#' + blockId).find('.row.page input').removeAttr('data-parsley-required'); // Rimuovi l'attributo quando la riga è nascosta
-    
+                $('#' + blockId).find('.row.page input').removeAttr('data-parsley-required'); 
+            
                 // Mostra la riga corrispondente al valore selezionato
                 $('#' + blockId).find('.' + selectedValue).show();
-                $('#' + blockId).find('.' + selectedValue + ' input').attr('data-parsley-required', 'true');
+                $('#' + blockId).find('.' + selectedValue + ' input, .summernote').attr('data-parsley-required', 'true');
             });
+            
+            // $('#block_' + i + '_type').on('change', function() {
+
+            //     const selectedValue = $(this).val();
+            //     const blockId = $(this).attr('id').replace('_type', '');
+    
+            //     // Nascondi tutte le righe relative al blocco corrente
+            //     $('#' + blockId).find('.row.page').hide();
+            //     $('#' + blockId).find('.row.page input').removeAttr('data-parsley-required'); // Rimuovi l'attributo quando la riga è nascosta
+    
+            //     // Mostra la riga corrispondente al valore selezionato
+            //     $('#' + blockId).find('.' + selectedValue).show();
+            //     $('#' + blockId).find('.' + selectedValue + ' input').attr('data-parsley-required', 'true');
+            // });
             $('#block_' + i + '_type').trigger('change');
     
             $('#counter').val(i);
 
             // Inizializza Summernote sulla nuova textarea aggiunta
-            initializeSummernote();
+            // initializeSummernote();
+            initializeTiny();
     });
     
     $(document).on('click', '.btn_remove', function(){
         var button_id = $(this).attr("id"); 
+        tinymce.get('text_content_'+button_id).remove();  // Assicurati di rimuovere TinyMCE
         $('#block_'+button_id+'').remove();
         // Aggiorna il valore dell'input nascosto counter
         var currentCounter = parseInt($('#counter').val(), 10); // Ottieni il valore corrente

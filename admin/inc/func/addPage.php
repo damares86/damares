@@ -1,5 +1,5 @@
 <?php
-$summernote = true;
+// $summernote = true;
 ?>
 
 <style>
@@ -177,7 +177,7 @@ $summernote = true;
                                             <div class="form-group">
                                                 <div class="form-check">
                                                     <div class="checkbox">
-                                                        <input type="checkbox" class="form-check-input">
+                                                        <input type="checkbox" class="form-check-input" name="site_name">
                                                         <label>&nbsp; <b><?= $name['value'] ?></b></label>
                                                     </div>
                                                 </div>
@@ -197,7 +197,7 @@ $summernote = true;
                                             <div class="form-group">
                                                 <div class="form-check">
                                                     <div class="checkbox">
-                                                        <input type="checkbox" class="form-check-input">
+                                                        <input type="checkbox" class="form-check-input" name="site_description">
                                                         <label>&nbsp; <b><?= $name['value'] ?></b></label>
                                                     </div>
                                                 </div>
@@ -245,7 +245,8 @@ $summernote = true;
                                             <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
 
                                                 <div class="row page text_1">
-                                                    <textarea class="summernote" name="text_1"></textarea>
+                                                    <textarea class="tiny" name="text_content_1"></textarea>
+                                                    <!-- <textarea class="summernote" name="text_1"></textarea> -->
                                                 </div>
                                                 <div class="row page img_1">
                                                     <label>Upload an image <span class="text-danger">*</span></label>
@@ -266,7 +267,8 @@ $summernote = true;
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <textarea class="summernote" class="mt-5" name="info_content_1"></textarea>
+                                                    <!-- <textarea class="summernote" class="mt-5" name="info_content_1"></textarea> -->
+                                                    <textarea class="tiny" class="mt-5" name="info_content_1"></textarea>
                                                 </div>
                                                 <div class="row page gallery_1">
                                                     <div class="col-7">
@@ -507,3 +509,13 @@ $colors = json_encode($colorArray);
     console.log(colors)
 </script>
 <script src="script/mc_addBlockPage.js"></script>
+<script>
+$(document).ready(function() {
+    $('#addPage').on('submit', function(event) {
+        $(".summernote").each(function() {
+            var content = $(this).summernote('code');
+            $(this).val(content);
+        });
+    });
+});
+</script>

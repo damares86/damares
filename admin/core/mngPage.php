@@ -61,7 +61,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
         if ($type == 'text') {
 
-            $editor = preg_replace('/^\s+/', '', filter_input(INPUT_POST, 'text_' . $i . ''));
+            $editor = preg_replace('/^\s+/', '', filter_input(INPUT_POST, 'text_content_' . $i . ''));
             $$array_name = array(
                 'block' . $i . '_type'  => 'text',
                 'block' . $i . ''       => $editor,
