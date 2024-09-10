@@ -1,9 +1,5 @@
 <?php
-$summernote = true;
-
-$mc->id = filter_input(INPUT_GET,'idToMod') ;
-$mc->table = 'mc_pages';
-$page_stmt = $mc->showAllWhere('id',['id']) ;
+// $summernote = true;
 ?>
 
 <style>
@@ -33,6 +29,15 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
 </div>
 <br>
 
+<?php
+
+$idToMod = filter_input(INPUT_GET, 'idToMod');
+
+$mc->table = 'mc_pages';
+$mc->id = $idToMod;
+$page_to_edit = $mc->showAllWhere('id', ['id']);
+
+?>
 
 
 <section class="section">
@@ -40,20 +45,21 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
         <div class="col-md-10 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Edit page: </h4>
+                    <?php
+
+                    while ($item = $page_to_edit->fetch(PDO::FETCH_ASSOC)) {
+                        extract($item);
+
+                        $str = $item['page_name'];
+                        $str = str_replace('_',' ', $str);
+                        $str = ucfirst($str);
+                    ?>
+                        <h4 class="card-title">Edit page: <u><?=$str?></u></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <form class="form form-horizontal" action="core/mngPage.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
                             <div class="form-body">
-    
-                            <?php
-                                while($page_data = $page_stmt->fetch(PDO::FETCH_ASSOC)){
-                                   
-                                    $page_name = $page_data['page_name'];
-                                    $page_name = str_replace("_", " ", $page_name);
-                                    $page_name = ucfirst($page_name) ;
-                            ?>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <label>Page name <span class="text-danger">*</span></label>
@@ -62,7 +68,7 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Type the page name" value="<?=$page_name?>" name="page_name" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="Type the page name" value="<?=$str?>" name="page_name" data-parsley-required="true" />
 
                                                 </div>
                                             </div>
@@ -82,7 +88,7 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                                         $style = pathinfo($file, PATHINFO_FILENAME);
 
                                                         $checked = '';
-                                                        if ($layout_counter == 0) {
+                                                        if ($item['layout'] == $style) {
                                                             $checked = 'checked';
                                                         }
                                                 ?>
@@ -106,13 +112,39 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox1" class="form-check-input" name="use_header">
+                                                    <?php
+                                                    $checked = '' ;
+
+                                                    if($item['header'] == 1){
+                                                        $checked = 'checked';
+                                                    }
+
+                                                    //////////////////////////////////
+                                                    // AGGIORNARE LO SFONDO AZZURRO SE È CHECKED
+                                                    ////////////////////////////////// 
+                                                    ?>
+                                                    <input type="checkbox" id="checkbox1" class="form-check-input" name="use_header" <?=$checked?>>
                                                     <label for="checkbox1">&nbsp; Select to show the header on this page</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
+                                    
+                                    <?php
+                                        $image = 'visual.jpg' ;
+                                        $gallery = '' ;
+                                        $checked_img = '' ;
+                                        $checked_gallery = '' ;
+                                        if($item['header_media'] != NULL){
+                                            if(ctype_digit($item['header_media'])){
+                                                $gallery = $item['header_media'] ;
+                                                $checked_gallery = 'checked' ;
+                                            }else{
+                                                $image = $item['header_media'] ;
+                                                $checked_img = 'checked' ;
+                                            }
+                                        }
+                                    ?>
                                     <div class="row highlight-section">
                                         <div class="col-md-3 mt-3 p-3 border-top">
                                             <label>Header style <span class="text-danger">*</span></label>
@@ -121,11 +153,11 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                             <div class="row mt-3">
                                                 <div class="col border p-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input nomargin" type="radio" name="header" value="image" checked>
+                                                        <input class="form-check-input nomargin" type="radio" name="header" value="image" <?=$checked_img?>>
                                                         <label class="form-check-label">&nbsp; Image</label>
                                                         <br>
                                                         <br>
-                                                        <span>Default image: <img src="../uploads/visual.jpg" class="d-inline w-25"></span>
+                                                        <span>Default image: <img src="../uploads/<?=$image?>" class="d-inline w-25"></span>
                                                         <br>
                                                         <br>
 
@@ -142,7 +174,7 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                                 </div>
                                                 <div class="col border p-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input nomargin" type="radio" name="header" value="gallery">
+                                                        <input class="form-check-input nomargin" type="radio" name="header" value="gallery" <?=$checked_gallery?>>
                                                         <label class="form-check-label">&nbsp; Gallery</label>
                                                         <br><br>
                                                         <label>Choose a gallery <span class="text-danger">*</span></label>
@@ -156,11 +188,17 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                                                             $mc->table = 'mc_galleries';
                                                                             $galleries = $mc->showAll('id');
                                                                             $galleryOptions = '';
+                                                                            $selected = '' ;
                                                                             while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+
+                                                                                if($item['header_media'] == $row['id']){
+                                                                                    $selected = 'selected' ;
+                                                                                }
+
                                                                                 $galleryOptions .= '<option value="' . $row['id'] . '">' . $row['gallery_name'] . '</option>';
                                                                             ?>
 
-                                                                                <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+                                                                                <option value="<?= $row['id'] ?>" <?=$selected?>><?= $row['gallery_name'] ?></option>
 
                                                                             <?php
                                                                             }
@@ -189,7 +227,15 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                             <div class="form-group">
                                                 <div class="form-check">
                                                     <div class="checkbox">
-                                                        <input type="checkbox" class="form-check-input">
+
+                                                        <?php
+                                                        $checked = '' ;
+                                                        if($item['use_name'] == 1){
+                                                            $checked = 'checked';
+                                                        }
+                                                        ?>
+
+                                                        <input type="checkbox" class="form-check-input" name="site_name" <?=$checked?>>
                                                         <label>&nbsp; <b><?= $name['value'] ?></b></label>
                                                     </div>
                                                 </div>
@@ -209,14 +255,28 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                             <div class="form-group">
                                                 <div class="form-check">
                                                     <div class="checkbox">
-                                                        <input type="checkbox" class="form-check-input">
+
+                                                        <?php
+                                                        $checked = '' ;
+                                                        if($item['use_desc'] == 1){
+                                                            $checked = 'checked';
+                                                        }
+                                                        ?>
+                                                        
+                                                        <input type="checkbox" class="form-check-input" name="site_description" <?=$checked?>>
                                                         <label>&nbsp; <b><?= $name['value'] ?></b></label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <?php
+                                        $json_file = 'inc/pages/'.$item['page_name'].'.json';
+                                        $data = file_get_contents($json_file);
+                                        $json_arr = json_decode($data, true);
 
+                                        print_r($json_arr);
+                                    ?>
                                     <div class="row" id="dynamic_field">
                                         <div class="row" id="block_1">
                                             <div class="col-md-3 mt-3 p-3">
@@ -257,7 +317,8 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                             <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
 
                                                 <div class="row page text_1">
-                                                    <textarea class="summernote" name="text_1"></textarea>
+                                                    <textarea class="tiny" name="text_content_1"></textarea>
+                                                    <!-- <textarea class="summernote" name="text_1"></textarea> -->
                                                 </div>
                                                 <div class="row page img_1">
                                                     <label>Upload an image <span class="text-danger">*</span></label>
@@ -278,7 +339,8 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <textarea class="summernote" class="mt-5" name="info_content_1"></textarea>
+                                                    <!-- <textarea class="summernote" class="mt-5" name="info_content_1"></textarea> -->
+                                                    <textarea class="tiny" class="mt-5" name="info_content_1"></textarea>
                                                 </div>
                                                 <div class="row page gallery_1">
                                                     <div class="col-7">
@@ -339,7 +401,7 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                                                     <?php
                                                                     $mc->table = 'mc_color';
                                                                     $colors = $mc->showAll('id');
-                                                                    $colorArray = [] ;
+                                                                    $colorArray = [];
 
                                                                     while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
                                                                         $colorArray[] = ['color' => $row['color']];
@@ -407,19 +469,19 @@ $page_stmt = $mc->showAllWhere('id',['id']) ;
                                     <input type="hidden" name="operation" value="add">
                                     <input type="hidden" name="origin" value="addPage">
                                     <input type="hidden" name="counter" value="1" id="counter">
-                                    
-                                    <?php
-                                    }
-                                    ?>
-                                        
-                                    <div class="col-12 mt-3 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
-                                            <?= $common_submit ?>
-                                        </button>
-                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
-                                            <?= $common_reset ?>
-                                        </button>
-                                    </div>
+
+                                <?php
+                            }
+                                ?>
+
+                                <div class="col-12 mt-3 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
+                                        <?= $common_submit ?>
+                                    </button>
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
+                                        <?= $common_reset ?>
+                                    </button>
+                                </div>
                                 </div>
                             </div>
                         </form>
@@ -510,15 +572,24 @@ if (isset($count)) {
 <?php
 }
 ?>
-<?php 
-$colors = json_encode($colorArray); 
-?> 
+<?php
+$colors = json_encode($colorArray);
+?>
 <script type="text/javascript">
     var galleryOptions = '<?php echo $galleryOptions; ?>';
     var postOptions = '<?php echo $postOption; ?>';
     var colorOptionsBg = '<?php echo $colorOptionsBg; ?>';
     var colorOptionsText = '<?php echo $colorOptionsText; ?>';
     var colors = <?php echo $colors; ?>;
-    console.log(colors)
 </script>
 <script src="script/mc_addBlockPage.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#addPage').on('submit', function(event) {
+            $(".summernote").each(function() {
+                var content = $(this).summernote('code');
+                $(this).val(content);
+            });
+        });
+    });
+</script>

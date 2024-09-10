@@ -506,7 +506,6 @@ $colors = json_encode($colorArray);
     var colorOptionsBg = '<?php echo $colorOptionsBg; ?>';
     var colorOptionsText = '<?php echo $colorOptionsText; ?>';
     var colors = <?php echo $colors; ?>;
-    console.log(colors)
 </script>
 <script src="script/mc_addBlockPage.js"></script>
 <script>
