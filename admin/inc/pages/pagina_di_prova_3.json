@@ -8,9 +8,26 @@
   },
   {
     "block2_type": "info",
-    "block2_info": "a.jpg",
+    "block2_info": "visual.jpg",
     "block2_desc": "<p>&nbsp;rwerszfzsfr 124e23rewr wef wre wer wer</p>",
     "block2_bg": "#ffac17",
     "block2_text": "#008db1"
+  },
+  {
+    "block3_type": "img",
+    "block3": "visual.jpg",
+    "block3_bg": "#ffac17",
+    "block3_text": "#008db1"
+  },
+  {
+    "block4_type": "gallery",
+    "block4": "2",
+    "block4_bg": "#ffac17",
+    "block4_text": "#008db1"
+  },
+  {
+    "block5_type": "quote",
+    "block5_bg": "#ffac17",
+    "block5_text": "#008db1"
   }
 ]

@@ -282,10 +282,20 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                         for ($idx = 1; $idx <= $counter; $idx++) {
 
                                             $block_type = $json_arr[$idx]['block' . $idx . '_type'];
+                                            $text_selected = $img_selected = $info_selected = $gallery_selected = $quote_selected = '';
 
-                                            $label_selected = $block_type . '_selected';
+                                            // Imposta la variabile corretta per la selezione
+                                            if ($block_type === 'text') $text_selected = 'selected';
+                                            if ($block_type === 'img') $img_selected = 'selected';
+                                            if ($block_type === 'info') $info_selected = 'selected';
+                                            if ($block_type === 'gallery') $gallery_selected = 'selected';
+                                            if ($block_type === 'quote') $quote_selected = 'selected';
+                                            if ($block_type === 'post' && $plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+                                                $post_selected = 'selected';
+                                            }
+                                            // $label_selected = $block_type . '_selected';
 
-                                            $$label_selected = 'selected';
+                                            // $$label_selected = 'selected';
                                         ?>
                                             <div class="row" id="block_<?= $idx ?>">
                                                 <div class="col-md-3 mt-3 p-3">
@@ -343,7 +353,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                                     </div>
                                                     <div class="row page info_<?= $idx ?>">
-                                                        <label>Upload an image <span class="text-danger">*</span></label>
+                                                        <label>Upload a new image <span class="text-danger">*</span></label>
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
                                                                 <div class="position-relative">
@@ -351,7 +361,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <span>Actual image: <img src="../uploads/<?= $json_arr[$idx]['block' . $idx . '_info'] ?>" class="d-inline w-25"></span>
+                                                        <span>Actual image: <img src="../uploads/<?= $json_arr[$idx]['block' . $idx . '_info'] ?>" class="d-inline m-3 w-25"></span>
                                                         <!-- <textarea class="summernote" class="mt-5" name="info_content_1"></textarea> -->
                                                         <textarea class="tiny" class="mt-5" name="info_content_<?= $idx ?>"><?= $json_arr[$idx]['block' . $idx . '_desc'] ?></textarea>
                                                     </div>
@@ -448,10 +458,10 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                     </div>
 
                                                     <!-- Sezione Text color -->
-                                                    <div class="col-md-3 mt-3 px-3">
+                                                    <div class="col-md-3 mt-3 px-3 border-bottom">
                                                         <label>Text color</label>
                                                     </div>
-                                                    <div class="col-md-9 mt-3 px-3">
+                                                    <div class="col-md-9 mt-3 px-3 border-bottom">
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
                                                                 <div class="position-relative">
@@ -459,7 +469,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                         <!-- Opzione 'none' per il Text color -->
                                                                         <?php
                                                                         $none_checked = '';
-                                                                        if ($json_arr[$idx]['block' . $idx . '_bg'] == 'none') {
+                                                                        if ($json_arr[$idx]['block' . $idx . '_text'] == 'none') {
                                                                             $none_checked = 'checked';
                                                                         }
                                                                         ?>
@@ -476,7 +486,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                                                         while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
                                                                             $text_checked = '';
-                                                                            if ($json_arr[$idx]['block' . $idx . '_bg'] == $row['color']) {
+                                                                            if ($json_arr[$idx]['block' . $idx . '_text'] == $row['color']) {
                                                                                 $text_checked = 'checked';
                                                                             }
                                                                         ?>

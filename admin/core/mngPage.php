@@ -97,7 +97,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
             }
 
             $$array_name = array(
-                'block' . $i . '_type'  => 'image',
+                'block' . $i . '_type'  => 'img',
                 'block' . $i . ''       => $img,
                 'block' . $i . '_bg'    => $colorBg,
                 'block' . $i . '_text'  => $colorText
