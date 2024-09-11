@@ -281,35 +281,35 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                         for ($idx = 1; $idx <= $counter; $idx++) {
 
-                                            $block_type = $json_arr[$idx]['block'.$idx.'_type'];
+                                            $block_type = $json_arr[$idx]['block' . $idx . '_type'];
 
-                                            $label_selected = $block_type.'_selected' ;
+                                            $label_selected = $block_type . '_selected';
 
-                                            $$label_selected = 'selected' ;
+                                            $$label_selected = 'selected';
                                         ?>
-                                            <div class="row" id="block_1">
+                                            <div class="row" id="block_<?= $idx ?>">
                                                 <div class="col-md-3 mt-3 p-3">
-                                                    <label><b>Block <span><?=$idx?></span></b></label>
+                                                    <label><b>Block <span><?= $idx ?></span></b></label>
                                                 </div>
                                                 <div class="col-md-5 mt-3  p-3">
                                                     <div class="form-group">
                                                         <div class="form-check mandatory">
                                                             <div class="position-relative">
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-select" id="block_<?=$idx?>_type" name="block_<?=$idx?>_type">
-                                                                        
-                                                                        <option value="text_<?=$idx?>" <?=$text_selected?>>Text</option>
-                                                                        <option value="img_<?=$idx?>" <?=$img_selected?>>Image</option>
-                                                                        <option value="info_<?=$idx?>" <?=$info_selected?>>Box info</option>
-                                                                        <option value="gallery_<?=$idx?>" <?=$gallery_selected?>>Gallery</option>
-                                                                        <option value="quote_<?=$idx?>" <?=$quote_selected?>>Quotes</option>
+                                                                    <select class="form-select" id="block_<?= $idx ?>_type" name="block_<?= $idx ?>_type">
+
+                                                                        <option value="text_<?= $idx ?>" <?= $text_selected ?>>Text</option>
+                                                                        <option value="img_<?= $idx ?>" <?= $img_selected ?>>Image</option>
+                                                                        <option value="info_<?= $idx ?>" <?= $info_selected ?>>Box info</option>
+                                                                        <option value="gallery_<?= $idx ?>" <?= $gallery_selected ?>>Gallery</option>
+                                                                        <option value="quote_<?= $idx ?>" <?= $quote_selected ?>>Quotes</option>
                                                                         <?php
                                                                         $plugin->pluginname = "post";
                                                                         $postOption = '';
                                                                         if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-                                                                            $postOption = '<option value="post_'.$idx.'" '.$$label_selected.'>Latest post</option>';
+                                                                            $postOption = '<option value="post_' . $idx . '" ' . $$label_selected . '>Latest post</option>';
                                                                         ?>
-                                                                            <option value="post_<?=$idx?>" <?=$$label_selected?>>Latest post</option>
+                                                                            <option value="post_<?= $idx ?>" <?= $$label_selected ?>>Latest post</option>
                                                                         <?php
                                                                         }
                                                                         ?>
@@ -326,53 +326,53 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                                 <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
 
-                                                    <div class="row page text_<?=$idx?>">
-                                                        <textarea class="tiny" name="text_content_<?=$idx?>"><?=$json_arr[$idx]['block'.$idx]?></textarea>
-                                                        <!-- <textarea class="summernote" name="text_<?=$idx?>"></textarea> -->
+                                                    <div class="row page text_<?= $idx ?>">
+                                                        <textarea class="tiny" name="text_content_<?= $idx ?>"><?= $json_arr[$idx]['block' . $idx] ?></textarea>
+                                                        <!-- <textarea class="summernote" name="text_<?= $idx ?>"></textarea> -->
                                                     </div>
-                                                    <div class="row page img_<?=$idx?>">
+                                                    <div class="row page img_<?= $idx ?>">
                                                         <label>Upload an image <span class="text-danger">*</span></label>
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
                                                                 <div class="position-relative">
-                                                                    <input class="form-control" type="file" name="img_<?=$idx?>" />
+                                                                    <input class="form-control" type="file" name="img_<?= $idx ?>" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <span>Actual image: <img src="../uploads/<?=$json_arr[$idx]['block'.$idx]?>" class="d-inline w-25"></span>
-                                                        
+                                                        <span>Actual image: <img src="../uploads/<?= $json_arr[$idx]['block' . $idx] ?>" class="d-inline w-25"></span>
+
                                                     </div>
-                                                    <div class="row page info_<?=$idx?>">
+                                                    <div class="row page info_<?= $idx ?>">
                                                         <label>Upload an image <span class="text-danger">*</span></label>
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
                                                                 <div class="position-relative">
-                                                                    <input class="form-control" type="file" name="info_img_<?=$idx?>" />
+                                                                    <input class="form-control" type="file" name="info_img_<?= $idx ?>" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <span>Actual image: <img src="../uploads/<?=$json_arr[$idx]['block'.$idx.'_info']?>" class="d-inline w-25"></span>
+                                                        <span>Actual image: <img src="../uploads/<?= $json_arr[$idx]['block' . $idx . '_info'] ?>" class="d-inline w-25"></span>
                                                         <!-- <textarea class="summernote" class="mt-5" name="info_content_1"></textarea> -->
-                                                        <textarea class="tiny" class="mt-5" name="info_content_<?=$idx?>"><?=$json_arr[$idx]['block'.$idx.'_desc']?></textarea>
+                                                        <textarea class="tiny" class="mt-5" name="info_content_<?= $idx ?>"><?= $json_arr[$idx]['block' . $idx . '_desc'] ?></textarea>
                                                     </div>
-                                                    <div class="row page gallery_<?=$idx?>">
+                                                    <div class="row page gallery_<?= $idx ?>">
                                                         <div class="col-7">
                                                             <label class="mb-3">Choose a gallery <span class="text-danger">*</span></label>
                                                             <div class="form-group">
                                                                 <div class="form-check mandatory">
                                                                     <div class="position-relative">
                                                                         <fieldset class="form-group">
-                                                                            <select class="form-select" name="gallery_<?=$idx?>">
+                                                                            <select class="form-select" name="gallery_<?= $idx ?>">
                                                                                 <?php
                                                                                 $mc->table = 'mc_galleries';
                                                                                 $galleries = $mc->showAll('id');
                                                                                 while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
-                                                                                    $selected = '' ;
-                                                                                    if( $json_arr[$idx]['block'.$idx] == $row['id'] ){
-                                                                                        $selected = 'selected' ;
+                                                                                    $selected = '';
+                                                                                    if ($json_arr[$idx]['block' . $idx] == $row['id']) {
+                                                                                        $selected = 'selected';
                                                                                     }
-                                                                                    ?>
-                                                                                    <option value="<?= $row['id'] ?>" <?=$selected?>><?= $row['gallery_name'] ?></option>
+                                                                                ?>
+                                                                                    <option value="<?= $row['id'] ?>" <?= $selected ?>><?= $row['gallery_name'] ?></option>
 
                                                                                 <?php
                                                                                 }
@@ -385,13 +385,13 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                         </div>
                                                         <div class="col-5">&nbsp;</div>
                                                     </div>
-                                                    <div class="row page quote_<?=$idx?>">
+                                                    <div class="row page quote_<?= $idx ?>">
                                                         <p>Show a slideshow with quotes</p>
-                                                        <input type="hidden" name="quote_<?=$idx?>" value="q">
+                                                        <input type="hidden" name="quote_<?= $idx ?>" value="q">
                                                     </div>
-                                                    <div class="row page post_<?=$idx?>">
+                                                    <div class="row page post_<?= $idx ?>">
                                                         <p>Show the latest post of the blog</p>
-                                                        <input type="hidden" name="post_<?=$idx?>" value="p">
+                                                        <input type="hidden" name="post_<?= $idx ?>" value="p">
                                                     </div>
 
                                                 </div>
@@ -409,13 +409,13 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                     <div class="form-group">
                                                                         <!-- Opzione 'none' per il Background color -->
                                                                         <?php
-                                                                            $none_checked = '' ;
-                                                                            if($json_arr[$idx]['block'.$idx.'_bg'] == 'none'){
-                                                                                $none_checked = 'checked' ;
-                                                                            }
+                                                                        $none_checked = '';
+                                                                        if ($json_arr[$idx]['block' . $idx . '_bg'] == 'none') {
+                                                                            $none_checked = 'checked';
+                                                                        }
                                                                         ?>
-                                                                        <input type="radio" class="btn-check" name="bg_color_<?=$idx?>" value="none" autocomplete="off" id="bg_none_<?=$idx?>" hidden <?=$none_checked?>>
-                                                                        <label class="color-label bg" for="bg_none_<?=$idx?>" style="background-color: #e5e5e5;">
+                                                                        <input type="radio" class="btn-check" name="bg_color_<?= $idx ?>" value="none" autocomplete="off" id="bg_none_<?= $idx ?>" hidden <?= $none_checked ?>>
+                                                                        <label class="color-label bg" for="bg_none_<?= $idx ?>" style="background-color: #e5e5e5;">
                                                                             None
                                                                             <span class="checkmark"></span>
                                                                         </label>
@@ -428,12 +428,12 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                                                         while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
                                                                             $colorArray[] = ['color' => $row['color']];
-                                                                            $bg_checked = '' ;
-                                                                            if($json_arr[$idx]['block'.$idx.'_bg'] == $row['color']){
-                                                                                $bg_checked = 'checked' ;
+                                                                            $bg_checked = '';
+                                                                            if ($json_arr[$idx]['block' . $idx . '_bg'] == $row['color']) {
+                                                                                $bg_checked = 'checked';
                                                                             }
                                                                         ?>
-                                                                            <input type="radio" class="btn-check" name="bg_color_<?=$idx?>" value="<?= $row['color'] ?>" autocomplete="off" id="bg_<?= $row['color'] ?>" hidden <?=$bg_checked?>>
+                                                                            <input type="radio" class="btn-check" name="bg_color_<?= $idx ?>" value="<?= $row['color'] ?>" autocomplete="off" id="bg_<?= $row['color'] ?>" hidden <?= $bg_checked ?>>
                                                                             <label class="color-label" for="bg_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
                                                                                 <span class="checkmark">✔</span>
                                                                                 &nbsp;
@@ -458,13 +458,13 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                     <div class="form-group">
                                                                         <!-- Opzione 'none' per il Text color -->
                                                                         <?php
-                                                                            $none_checked = '' ;
-                                                                            if($json_arr[$idx]['block'.$idx.'_bg'] == 'none'){
-                                                                                $none_checked = 'checked' ;
-                                                                            }
+                                                                        $none_checked = '';
+                                                                        if ($json_arr[$idx]['block' . $idx . '_bg'] == 'none') {
+                                                                            $none_checked = 'checked';
+                                                                        }
                                                                         ?>
-                                                                        <input type="radio" class="btn-check" name="text_color_<?=$idx?>" value="none" autocomplete="off" id="text_none_<?=$idx?>" hidden <?=$none_checked?>>
-                                                                        <label class="color-label text" for="text_none_<?=$idx?>" style="background-color: #e5e5e5;">
+                                                                        <input type="radio" class="btn-check" name="text_color_<?= $idx ?>" value="none" autocomplete="off" id="text_none_<?= $idx ?>" hidden <?= $none_checked ?>>
+                                                                        <label class="color-label text" for="text_none_<?= $idx ?>" style="background-color: #e5e5e5;">
                                                                             None
                                                                             <span class="checkmark"></span>
                                                                         </label>
@@ -475,12 +475,12 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                         $colors = $mc->showAll('id');
 
                                                                         while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
-                                                                            $text_checked = '' ;
-                                                                            if($json_arr[$idx]['block'.$idx.'_text'] == $row['color']){
-                                                                                $text_checked = 'checked' ;
+                                                                            $text_checked = '';
+                                                                            if ($json_arr[$idx]['block' . $idx . '_bg'] == $row['color']) {
+                                                                                $text_checked = 'checked';
                                                                             }
                                                                         ?>
-                                                                            <input type="radio" class="btn-check" name="text_color_<?=$idx?>" value="<?= $row['color'] ?>" autocomplete="off" id="text_<?= $row['color'] ?>" hidden <?=$text_checked?>>
+                                                                            <input type="radio" class="btn-check" name="text_color_<?= $idx ?>" value="<?= $row['color'] ?>" autocomplete="off" id="text_<?= $row['color'] ?>" hidden <?= $text_checked ?>>
                                                                             <label class="color-label" for="text_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
                                                                                 <span class="checkmark">✔</span>
                                                                                 &nbsp;
@@ -498,29 +498,29 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                 </div>
 
                                             </div>
-                                    </div>
-                                <?php
+                                        <?php
                                         }
+                                        ?>
+                                    </div>
+                                    <button type="button" name="add" id="add" class="btn btn-success w-25">Add block</button>
+
+
+                                    <input type="hidden" name="operation" value="add">
+                                    <input type="hidden" name="origin" value="addPage">
+                                    <input type="hidden" name="counter" value="<?= $counter ?>" id="counter">
+
+                                <?php
+                            }
                                 ?>
-                                <button type="button" name="add" id="add" class="btn btn-success w-25">Add block</button>
 
-
-                                <input type="hidden" name="operation" value="add">
-                                <input type="hidden" name="origin" value="addPage">
-                                <input type="hidden" name="counter" value="<?=$counter?>" id="counter">
-
-                            <?php
-                        }
-                            ?>
-
-                            <div class="col-12 mt-3 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
-                                    <?= $common_submit ?>
-                                </button>
-                                <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
-                                    <?= $common_reset ?>
-                                </button>
-                            </div>
+                                <div class="col-12 mt-3 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
+                                        <?= $common_submit ?>
+                                    </button>
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
+                                        <?= $common_reset ?>
+                                    </button>
+                                </div>
                                 </div>
                             </div>
                         </form>
@@ -544,6 +544,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Gestisce il checkbox per evidenziare la sezione dell'header
         const checkbox = document.getElementById('checkbox1');
         const headerSections = document.querySelectorAll('.highlight-section');
 
@@ -558,18 +559,25 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                 });
             }
         });
-    });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const selectElement = document.getElementById('block_1_type');
-
-        selectElement.addEventListener('change', function() {
+        // Funzione per aggiornare la visibilità dei blocchi
+        function updateBlockVisibility(selectElement) {
             const selectedValue = selectElement.value;
+            const blockId = selectElement.id.replace('_type', ''); // Identifica l'ID del blocco
 
-            // Nascondi tutte le righe
-            document.querySelectorAll('.col-12 .row.page').forEach(function(row) {
+            console.log("Processing block ID:", blockId);
+            console.log("Selected value:", selectedValue);
+
+            // Verifica se l'elemento del blocco esiste nel DOM
+            const blockElement = document.getElementById(blockId);
+            if (!blockElement) {
+                console.log(`Block element with ID ${blockId} not found in the DOM.`);
+                return;
+            }
+
+            // Nascondi tutte le righe relative al blocco corrente
+            blockElement.querySelectorAll('.row.page').forEach(function(row) {
                 row.style.display = 'none';
-                // Rimuovi l'attributo data-parsley-required da tutti gli input all'interno delle righe nascoste
                 const input = row.querySelector('input');
                 if (input) {
                     input.removeAttribute('data-parsley-required');
@@ -577,21 +585,42 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
             });
 
             // Mostra la riga corrispondente al valore selezionato
-            if (selectedValue) {
-                const selectedRow = document.querySelector('.page.' + selectedValue);
-                if (selectedRow) {
-                    selectedRow.style.display = 'block';
-                    // Aggiungi l'attributo data-parsley-required all'input visibile
-                    const input = selectedRow.querySelector('input');
-                    if (input) {
-                        input.setAttribute('data-parsley-required', 'true');
-                    }
+            const selectedRow = blockElement.querySelector('.page.' + selectedValue);
+            if (selectedRow) {
+                console.log("Selected Row found: ", selectedRow);
+                selectedRow.style.display = 'block';
+                const input = selectedRow.querySelector('input');
+                if (input) {
+                    input.setAttribute('data-parsley-required', 'true');
                 }
+            } else {
+                console.log("Selected Row not found for block: ", blockId);
             }
-        });
+        }
 
-        // Trigger the change event to handle the initial state
-        selectElement.dispatchEvent(new Event('change'));
+        // Funzione per inizializzare la visibilità dei blocchi in base ai dati
+        function initializeBlockSelects() {
+            document.querySelectorAll('select[id^="block_"][id$="_type"]').forEach(function(selectElement) {
+                selectElement.addEventListener('change', function() {
+                    updateBlockVisibility(selectElement);
+                });
+
+                // Inizializza lo stato attuale per ogni blocco
+                updateBlockVisibility(selectElement);
+            });
+        }
+
+        // Inizializzazione per i blocchi già presenti
+        initializeBlockSelects();
+
+        // Gestione per i nuovi blocchi aggiunti dinamicamente
+        document.getElementById('add').addEventListener('click', function() {
+            // Utilizzare un ritardo per garantire che il blocco sia effettivamente aggiunto al DOM
+            setTimeout(() => {
+                console.log("Reinitializing after adding new blocks.");
+                initializeBlockSelects();
+            }, 500); // Aumenta il ritardo se necessario
+        });
     });
 </script>
 
