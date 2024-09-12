@@ -107,7 +107,6 @@ $(document).ready(function(){
             '<div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">'+
                 '<div class="row page text_'+i+'">'+
                     '<textarea class="tiny" name="text_content_'+i+'"></textarea>'+
-                    // '<textarea class="summernote" name="text_content_'+i+'"></textarea>'+
                 '</div>'+
                 '<div class="row page img_'+i+'">'+
                     '<label>Upload an image <span class="text-danger">*</span></label>'+
@@ -128,10 +127,9 @@ $(document).ready(function(){
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                '<div>'+
+                '</div>'+ // Chiude correttamente questo div
                 '<div class="row page info_'+i+'">'+
                     '<textarea class="tiny" class="mt-5" name="info_content_'+i+'"></textarea>'+
-                    // '<textarea class="summernote" class="mt-5" name="info_content_'+i+'"></textarea>'+
                 '</div>'+
                 '<div class="row page gallery_'+i+'">'+
                     '<div class="col-7">'+
@@ -198,7 +196,9 @@ $(document).ready(function(){
                         '</div>'+
                     '</div>'+
                 '</div>'+
-            '</div>');
+            '</div>'+
+        '</div>');
+        
 
             $('#block_' + i + '_type').val('text_' + i);
 

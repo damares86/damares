@@ -297,7 +297,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                             // $$label_selected = 'selected';
                                         ?>
-                                            <div class="row" id="block_<?= $idx ?>">
+                                            <div class="row border-top" id="block_<?= $idx ?>">
                                                 <div class="col-md-3 mt-3 p-3">
                                                     <label><b>Block <span><?= $idx ?></span></b></label>
                                                 </div>
@@ -331,7 +331,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 mt-3 p-3">
-                                                    &nbsp;
+                                                    <button type="button" name="remove" id="<?=$idx?>" class="btn btn-danger btn_remove">X</button>
                                                 </div>
 
                                                 <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
@@ -458,10 +458,10 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                     </div>
 
                                                     <!-- Sezione Text color -->
-                                                    <div class="col-md-3 mt-3 px-3 border-bottom">
+                                                    <div class="col-md-3 mt-3 px-3">
                                                         <label>Text color</label>
                                                     </div>
-                                                    <div class="col-md-9 mt-3 px-3 border-bottom">
+                                                    <div class="col-md-9 mt-3 px-3">
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
                                                                 <div class="position-relative">
@@ -575,8 +575,8 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
             const selectedValue = selectElement.value;
             const blockId = selectElement.id.replace('_type', ''); // Identifica l'ID del blocco
 
-            console.log("Processing block ID:", blockId);
-            console.log("Selected value:", selectedValue);
+            // console.log("Processing block ID:", blockId);
+            // console.log("Selected value:", selectedValue);
 
             // Verifica se l'elemento del blocco esiste nel DOM
             const blockElement = document.getElementById(blockId);
@@ -597,14 +597,14 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
             // Mostra la riga corrispondente al valore selezionato
             const selectedRow = blockElement.querySelector('.page.' + selectedValue);
             if (selectedRow) {
-                console.log("Selected Row found: ", selectedRow);
+                // console.log("Selected Row found: ", selectedRow);
                 selectedRow.style.display = 'block';
                 const input = selectedRow.querySelector('input');
                 if (input) {
                     input.setAttribute('data-parsley-required', 'true');
                 }
             } else {
-                console.log("Selected Row not found for block: ", blockId);
+                // console.log("Selected Row not found for block: ", blockId);
             }
         }
 
@@ -645,7 +645,7 @@ if (isset($count)) {
 } else {
 ?>
     <script>
-        var i = 1;
+        var i = <?= $counter ?>;
     </script>
 <?php
 }
@@ -656,8 +656,6 @@ $colors = json_encode($colorArray);
 <script type="text/javascript">
     var galleryOptions = '<?php echo $galleryOptions; ?>';
     var postOptions = '<?php echo $postOption; ?>';
-    var colorOptionsBg = '<?php echo $colorOptionsBg; ?>';
-    var colorOptionsText = '<?php echo $colorOptionsText; ?>';
     var colors = <?php echo $colors; ?>;
 </script>
 <script src="script/mc_addBlockPage.js"></script>
