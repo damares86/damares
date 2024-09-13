@@ -263,7 +263,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
             chmod('../../' . $page_name . '.php', 0777);
         }
 
-        header("Location: ../index.php?p=allPages&err=pageCustomEditFileErr");
+        header("Location: ../index.php?p=allPages&msg=pageCustomEditFile");
         exit;
     } else {
         header("Location: ../index.php?p=allPages&err=pageCustomDbErr");

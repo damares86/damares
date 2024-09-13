@@ -373,7 +373,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                 <div class="form-check mandatory">
                                                                     <div class="position-relative">
                                                                         <fieldset class="form-group">
-                                                                            <select class="form-select" name="gallery_<?= $idx ?>">
+                                                                            <select class="form-select" name="gallery_name_<?= $idx ?>">
                                                                                 <?php
                                                                                 $mc->table = 'mc_galleries';
                                                                                 $galleries = $mc->showAll('id');
