@@ -123,12 +123,11 @@ $(document).ready(function(){
                     '<div class="form-group">'+
                         '<div class="form-check mandatory">'+
                             '<div class="position-relative">'+
-                                '<input class="form-control" type="file" name="info_file_'+i+'" />'+
+                                '<input class="form-control" type="file" name="info_img_'+i+'" />'+
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                '</div>'+ // Chiude correttamente questo div
-                '<div class="row page info_'+i+'">'+
+                    '<span>Default image: <img src="../uploads/visual.jpg" class="d-inline m-3 w-25"></span>'+
                     '<textarea class="tiny" class="mt-5" name="info_content_'+i+'"></textarea>'+
                 '</div>'+
                 '<div class="row page gallery_'+i+'">'+
@@ -197,7 +196,7 @@ $(document).ready(function(){
                     '</div>'+
                 '</div>'+
             '</div>'+
-        '</div>');
+        '</div>'); 
         
 
             $('#block_' + i + '_type').val('text_' + i);

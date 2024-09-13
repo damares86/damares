@@ -69,7 +69,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" placeholder="Type the page name" value="<?= $str ?>" name="page_name" data-parsley-required="true" />
-
+                                                    <input type="hidden" name="old_page_name" value="<?=$item['page_name']?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -118,10 +118,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                     if ($item['header'] == 1) {
                                                         $checked = 'checked';
                                                     }
-
-                                                    //////////////////////////////////
-                                                    // AGGIORNARE LO SFONDO AZZURRO SE È CHECKED
-                                                    ////////////////////////////////// 
+                                                    
                                                     ?>
                                                     <input type="checkbox" id="checkbox1" class="form-check-input" name="use_header" <?= $checked ?>>
                                                     <label for="checkbox1">&nbsp; Select to show the header on this page</label>
@@ -157,7 +154,9 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                         <label class="form-check-label">&nbsp; Image</label>
                                                         <br>
                                                         <br>
-                                                        <span>Default image: <img src="../uploads/<?= $image ?>" class="d-inline w-25"></span>
+                                                        <span>Actual image: <img src="../uploads/<?= $image ?>" class="d-inline w-25"></span>
+                                                        <input type="hidden" name="old_header_img" value="<?=$item['header_media']?>">
+
                                                         <br>
                                                         <br>
 
@@ -331,7 +330,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 mt-3 p-3">
-                                                    <button type="button" name="remove" id="<?=$idx?>" class="btn btn-danger btn_remove">X</button>
+                                                    <button type="button" name="remove" id="<?= $idx ?>" class="btn btn-danger btn_remove">X</button>
                                                 </div>
 
                                                 <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
@@ -350,6 +349,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                             </div>
                                                         </div>
                                                         <span>Actual image: <img src="../uploads/<?= $json_arr[$idx]['block' . $idx] ?>" class="d-inline w-25"></span>
+                                                        <input type="hidden" name="old_img_<?=$idx?>" value="<?= $json_arr[$idx]['block' . $idx] ?>">
 
                                                     </div>
                                                     <div class="row page info_<?= $idx ?>">
@@ -362,6 +362,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                             </div>
                                                         </div>
                                                         <span>Actual image: <img src="../uploads/<?= $json_arr[$idx]['block' . $idx . '_info'] ?>" class="d-inline m-3 w-25"></span>
+                                                        <input type="hidden" name="old_info_img_<?=$idx?>" value="<?= $json_arr[$idx]['block' . $idx . '_info'] ?>">
                                                         <!-- <textarea class="summernote" class="mt-5" name="info_content_1"></textarea> -->
                                                         <textarea class="tiny" class="mt-5" name="info_content_<?= $idx ?>"><?= $json_arr[$idx]['block' . $idx . '_desc'] ?></textarea>
                                                     </div>
@@ -515,8 +516,9 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                     <button type="button" name="add" id="add" class="btn btn-success w-25">Add block</button>
 
 
-                                    <input type="hidden" name="operation" value="add">
-                                    <input type="hidden" name="origin" value="addPage">
+                                    <input type="hidden" name="operation" value="edit">
+                                    <input type="hidden" name="origin" value="editPage">
+                                    <input type="hidden" name="idToMod" value="<?=$idToMod?>">
                                     <input type="hidden" name="counter" value="<?= $counter ?>" id="counter">
 
                                 <?php
@@ -557,6 +559,13 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
         // Gestisce il checkbox per evidenziare la sezione dell'header
         const checkbox = document.getElementById('checkbox1');
         const headerSections = document.querySelectorAll('.highlight-section');
+
+        // Controlla lo stato iniziale della checkbox
+        if (checkbox.checked) {
+            headerSections.forEach(section => {
+                section.classList.add('highlight-background');
+            });
+        }
 
         checkbox.addEventListener('change', function() {
             if (checkbox.checked) {
