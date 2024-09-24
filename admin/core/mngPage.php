@@ -20,7 +20,45 @@ if (filter_input(INPUT_GET, "idToDel")) {
 
     $idToDel = filter_input(INPUT_GET, "idToDel");
 
-    // TODO
+    $mc->table = 'mc_pages' ;
+    $mc->id = $idToDel ;
+    $stmt = $mc->showAllWhere('id',['id']) ;
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    extract($row) ;
+    
+    $page_name = $row['page_name'] ;
+    
+    $mc->table = 'mc_pages' ;
+    $mc->id = $idToDel ;
+    
+    if($mc->delete('id')){
+        
+        $err_file = 0 ;
+        $err_file_msg = '' ;
+
+        // delete the php page
+        if(!unlink('../../'.$page_name.'.php')){
+            $err_file++;
+        }
+        
+        // delete the json file
+        if(!unlink('../inc/pages/'.$page_name.'.json')){
+            $err_file++;
+        }
+
+        if($err_file>0){
+            $err_file_msg = '&err=pageFilesErr' ;
+        }
+
+        header("Location: ../index.php?p=allPages&msg=pageDelSucc");
+        exit;
+
+    }else{
+
+        header("Location: ../index.php?p=allPages&err=pageDelFail");
+        exit;
+
+    }
 
 }
 
