@@ -117,7 +117,7 @@ $(document).ready(function(){
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<span>Default image: <img src="../uploads/<?= $actual_img ?>" class="d-inline w-25"></span>'+
+                    '<span>Default image: <img src="../uploads/visual.jpg" class="d-inline w-25"></span>'+
                 '</div>'+
                 '<div class="row page info_'+i+'">'+
                     '<label>Upload an image <span class="text-danger">*</span></label>'+
@@ -215,19 +215,6 @@ $(document).ready(function(){
                 $('#' + blockId).find('.' + selectedValue + ' input, .summernote').attr('data-parsley-required', 'true');
             });
             
-            // $('#block_' + i + '_type').on('change', function() {
-
-            //     const selectedValue = $(this).val();
-            //     const blockId = $(this).attr('id').replace('_type', '');
-    
-            //     // Nascondi tutte le righe relative al blocco corrente
-            //     $('#' + blockId).find('.row.page').hide();
-            //     $('#' + blockId).find('.row.page input').removeAttr('data-parsley-required'); // Rimuovi l'attributo quando la riga è nascosta
-    
-            //     // Mostra la riga corrispondente al valore selezionato
-            //     $('#' + blockId).find('.' + selectedValue).show();
-            //     $('#' + blockId).find('.' + selectedValue + ' input').attr('data-parsley-required', 'true');
-            // });
             $('#block_' + i + '_type').trigger('change');
     
             $('#counter').val(i);
@@ -245,5 +232,86 @@ $(document).ready(function(){
         var currentCounter = parseInt($('#counter').val(), 10); // Ottieni il valore corrente
         currentCounter--; // Decrementa il contatore
         $('#counter').val(currentCounter); // Aggiorna il valore nell'input hidden
+
+        // Rinomina tutti i blocchi successivi    
+        updateBlockNumbers();
     });
+
+    
+    function updateBlockNumbers() {
+        // Prendi tutti i blocchi esistenti
+        $('#dynamic_field .row[id^="block_"]').each(function(index) {
+            var newIndex = index + 1; // Calcola il nuovo indice (1-based)
+            var oldIndex = $(this).attr('id').split('_')[1]; // Ottieni l'indice attuale
+    
+            // Aggiorna l'ID del blocco
+            $(this).attr('id', 'block_' + newIndex);
+            
+            // Aggiorna l'etichetta del blocco
+            $(this).find('label b span').text(newIndex);
+    
+            // Aggiorna il select box (tipo di blocco) mantenendo i valori con il suffisso appropriato
+            var selectBox = $(this).find('select');
+            var currentValue = selectBox.val();  // Valore attuale del select (es: text_1, img_1)
+    
+            // Aggiorna l'ID e il name del select
+            selectBox.attr('id', 'block_' + newIndex + '_type');
+            selectBox.attr('name', 'block_' + newIndex + '_type');
+    
+            // Aggiorna i valori delle opzioni, mantenendo il suffisso corretto
+            selectBox.find('option').each(function() {
+                var optionValue = $(this).val();
+                // Sostituisci il vecchio indice con il nuovo
+                var newValue = optionValue.replace('_' + oldIndex, '_' + newIndex);
+                $(this).val(newValue);
+            });
+    
+            // Reimposta il valore corrente del select in base al nuovo indice
+            var newCurrentValue = currentValue.replace('_' + oldIndex, '_' + newIndex);
+            selectBox.val(newCurrentValue);
+    
+            // Aggiorna i nomi e gli ID di tutti i campi che includono il vecchio indice
+            $(this).find('textarea, input[type="file"], input[type="radio"], input[type="hidden"], input[type="text"]').each(function() {
+                var name = $(this).attr('name');
+                var id = $(this).attr('id');
+                
+                if (name) {
+                    // Sostituisci il vecchio indice con il nuovo
+                    name = name.replace(oldIndex, newIndex);
+                    $(this).attr('name', name);
+                }
+    
+                if (id) {
+                    // Sostituisci il vecchio indice con il nuovo
+                    id = id.replace(oldIndex, newIndex);
+                    $(this).attr('id', id);
+                }
+            });
+    
+            // Aggiorna i label associati ai campi (per esempio per i radio button)
+            $(this).find('label').each(function() {
+                var labelFor = $(this).attr('for');
+                if (labelFor) {
+                    labelFor = labelFor.replace(oldIndex, newIndex);
+                    $(this).attr('for', labelFor);
+                }
+            });
+    
+            // Aggiorna campi specifici come old_img_X, old_img_info_X, quote_X, post_X
+            $(this).find('input[name*="old_img_"], input[name*="old_img_info_"], input[name*="quote_"], input[name*="post_"]').each(function() {
+                var name = $(this).attr('name');
+                var id = $(this).attr('id');
+                
+                if (name) {
+                    name = name.replace(oldIndex, newIndex); // Aggiorna il nome con il nuovo indice
+                    $(this).attr('name', name);
+                }
+    
+                if (id) {
+                    id = id.replace(oldIndex, newIndex); // Aggiorna l'ID con il nuovo indice
+                    $(this).attr('id', id);
+                }
+            });
+        });
+    }
   });

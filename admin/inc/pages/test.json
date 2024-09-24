@@ -1,0 +1,16 @@
+[
+  { "name": "test" },
+  {
+    "block1_type": "text",
+    "block1": "<p>das dasd afzx c</p>",
+    "block1_bg": "none",
+    "block1_text": "none"
+  },
+  {
+    "block2_type": "img",
+    "block2": "Schermata del 2024-09-16 10-02-21.png",
+    "block2_bg": "none",
+    "block2_text": "none"
+  },
+  { "block3_type": "quote", "block3_bg": "none", "block3_text": "none" }
+]

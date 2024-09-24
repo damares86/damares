@@ -336,7 +336,13 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                 <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
 
                                                     <div class="row page text_<?= $idx ?>">
-                                                        <textarea class="tiny" name="text_content_<?= $idx ?>"><?= $json_arr[$idx]['block' . $idx] ?></textarea>
+                                                        <?php
+                                                            $text_content = '' ;
+                                                            if ($block_type === 'text'){
+                                                                $text_content = $json_arr[$idx]['block' . $idx] ;
+                                                            }
+                                                        ?>
+                                                        <textarea class="tiny" name="text_content_<?= $idx ?>"><?= $text_content ?></textarea>
                                                         <!-- <textarea class="summernote" name="text_<?= $idx ?>"></textarea> -->
                                                     </div>
                                                     <div class="row page img_<?= $idx ?>">
@@ -355,7 +361,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                             }
                                                         ?>
                                                         <span>Actual image: <img src="../uploads/<?= $actual_img ?>" class="d-inline w-25"></span>
-                                                        <input type="hidden" name="old_img_<?=$idx?>" value="<?= $json_arr[$idx]['block' . $idx] ?>">
+                                                        <input type="hidden" name="old_img_<?=$idx?>" value="<?= $actual_img ?>">
 
                                                     </div>
                                                     <div class="row page info_<?= $idx ?>">
@@ -456,8 +462,8 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                                 $bg_checked = 'checked';
                                                                             }
                                                                         ?>
-                                                                            <input type="radio" class="btn-check" name="bg_color_<?= $idx ?>" value="<?= $row['color'] ?>" autocomplete="off" id="bg_<?= $row['color'] ?>" hidden <?= $bg_checked ?>>
-                                                                            <label class="color-label" for="bg_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
+                                                                            <input type="radio" class="btn-check" name="bg_color_<?= $idx ?>" value="<?= $row['color'] ?>" autocomplete="off" id="bg_<?= $row['color'] ?>_<?= $idx ?>" hidden <?= $bg_checked ?>>
+                                                                            <label class="color-label" for="bg_<?= $row['color'] ?>_<?= $idx ?>" style="background-color: <?= $row['color'] ?>;">
                                                                                 <span class="checkmark">✔</span>
                                                                                 &nbsp;
                                                                             </label>
@@ -503,8 +509,8 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                                 $text_checked = 'checked';
                                                                             }
                                                                         ?>
-                                                                            <input type="radio" class="btn-check" name="text_color_<?= $idx ?>" value="<?= $row['color'] ?>" autocomplete="off" id="text_<?= $row['color'] ?>" hidden <?= $text_checked ?>>
-                                                                            <label class="color-label" for="text_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
+                                                                            <input type="radio" class="btn-check" name="text_color_<?= $idx ?>" value="<?= $row['color'] ?>" autocomplete="off" id="text_<?= $row['color'] ?>_<?= $idx ?>" hidden <?= $text_checked ?>>
+                                                                            <label class="color-label" for="text_<?= $row['color'] ?>_<?= $idx ?>" style="background-color: <?= $row['color'] ?>;">
                                                                                 <span class="checkmark">✔</span>
                                                                                 &nbsp;
                                                                             </label>
