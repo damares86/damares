@@ -30,6 +30,15 @@ $operation = filter_input(INPUT_POST, "operation");
 
 if (filter_input(INPUT_POST, "idToMod")) {
 
+    ?>
+    <pre>
+        <?php
+    print_r($_POST);
+    ?>
+    </pre>
+    <?php
+    exit;
+
     // replicare l'add con l'aggiunta dei dati
 
     $page_name = filter_input(INPUT_POST, 'page_name');

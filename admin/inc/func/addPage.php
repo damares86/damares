@@ -268,7 +268,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- <textarea class="summernote" class="mt-5" name="info_content_1"></textarea> -->
-                                                    <textarea class="tiny" class="mt-5" name="info_content_1"></textarea>
+                                                    <textarea class="tiny mt-5" name="info_content_1"></textarea>
                                                 </div>
                                                 <div class="row page gallery_1">
                                                     <div class="col-7">

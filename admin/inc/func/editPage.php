@@ -340,31 +340,43 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                         <!-- <textarea class="summernote" name="text_<?= $idx ?>"></textarea> -->
                                                     </div>
                                                     <div class="row page img_<?= $idx ?>">
-                                                        <label>Upload an image <span class="text-danger">*</span></label>
+                                                        <label>Upload an image </label>
                                                         <div class="form-group">
-                                                            <div class="form-check mandatory">
+                                                            <div class="form-check">
                                                                 <div class="position-relative">
                                                                     <input class="form-control" type="file" name="img_<?= $idx ?>" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <span>Actual image: <img src="../uploads/<?= $json_arr[$idx]['block' . $idx] ?>" class="d-inline w-25"></span>
+                                                        <?php
+                                                            $actual_img = 'visual.jpg' ;
+                                                            if ($block_type === 'img'){
+                                                                $actual_img = $json_arr[$idx]['block' . $idx] ;
+                                                            }
+                                                        ?>
+                                                        <span>Actual image: <img src="../uploads/<?= $actual_img ?>" class="d-inline w-25"></span>
                                                         <input type="hidden" name="old_img_<?=$idx?>" value="<?= $json_arr[$idx]['block' . $idx] ?>">
 
                                                     </div>
                                                     <div class="row page info_<?= $idx ?>">
-                                                        <label>Upload a new image <span class="text-danger">*</span></label>
+                                                        <label>Upload a new image</label>
                                                         <div class="form-group">
-                                                            <div class="form-check mandatory">
+                                                            <div class="form-check">
                                                                 <div class="position-relative">
                                                                     <input class="form-control" type="file" name="info_img_<?= $idx ?>" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <span>Actual image: <img src="../uploads/<?= $json_arr[$idx]['block' . $idx . '_info'] ?>" class="d-inline m-3 w-25"></span>
+                                                        <?php
+                                                            $actual_img = 'visual.jpg' ;
+                                                            if ($block_type === 'info'){
+                                                                $actual_img = $json_arr[$idx]['block' . $idx .'_info'] ;
+                                                            }
+                                                        ?>
+                                                        <span>Actual image: <img src="../uploads/<?= $actual_img ?>" class="d-inline m-3 w-25"></span>
                                                         <input type="hidden" name="old_info_img_<?=$idx?>" value="<?= $json_arr[$idx]['block' . $idx . '_info'] ?>">
                                                         <!-- <textarea class="summernote" class="mt-5" name="info_content_1"></textarea> -->
-                                                        <textarea class="tiny" class="mt-5" name="info_content_<?= $idx ?>"><?= $json_arr[$idx]['block' . $idx . '_desc'] ?></textarea>
+                                                        <textarea class="tiny mt-5" name="info_content_<?= $idx ?>"><?= $json_arr[$idx]['block' . $idx . '_desc'] ?></textarea>
                                                     </div>
                                                     <div class="row page gallery_<?= $idx ?>">
                                                         <div class="col-7">
@@ -609,7 +621,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                 // console.log("Selected Row found: ", selectedRow);
                 selectedRow.style.display = 'block';
                 const input = selectedRow.querySelector('input');
-                if (input) {
+                if (input && input.type !== 'file') {
                     input.setAttribute('data-parsley-required', 'true');
                 }
             } else {

@@ -109,14 +109,15 @@ $(document).ready(function(){
                     '<textarea class="tiny" name="text_content_'+i+'"></textarea>'+
                 '</div>'+
                 '<div class="row page img_'+i+'">'+
-                    '<label>Upload an image <span class="text-danger">*</span></label>'+
+                    '<label>Upload an image</label>'+
                     '<div class="form-group">'+
-                        '<div class="form-check mandatory">'+
+                        '<div class="form-check">'+
                             '<div class="position-relative">'+
-                                '<input class="form-control" type="file" name="img_file_'+i+'" />'+
+                                '<input class="form-control" type="file" name="img_'+i+'" />'+
                             '</div>'+
                         '</div>'+
                     '</div>'+
+                    '<span>Default image: <img src="../uploads/<?= $actual_img ?>" class="d-inline w-25"></span>'+
                 '</div>'+
                 '<div class="row page info_'+i+'">'+
                     '<label>Upload an image <span class="text-danger">*</span></label>'+
@@ -238,7 +239,7 @@ $(document).ready(function(){
     
     $(document).on('click', '.btn_remove', function(){
         var button_id = $(this).attr("id"); 
-        tinymce.get('text_content_'+button_id).remove();  // Assicurati di rimuovere TinyMCE
+        // tinymce.get('text_content_'+button_id).remove();  // Assicurati di rimuovere TinyMCE
         $('#block_'+button_id+'').remove();
         // Aggiorna il valore dell'input nascosto counter
         var currentCounter = parseInt($('#counter').val(), 10); // Ottieni il valore corrente
