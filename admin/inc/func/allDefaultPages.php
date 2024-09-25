@@ -61,7 +61,7 @@ $pages = $mc->showAll('id');
                 </td>  
              
                 <td>
-                  <a href="index.php?p=editDefaultPage&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editAccount&idToMod=<?= $row['id'] ?>">
+                  <a href="index.php?p=editDefaultPage&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editDefaultPage&idToMod=<?= $row['id'] ?>">
                     <i class="bi bi-pencil-square"></i>
                   </a>
 

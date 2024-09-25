@@ -46,28 +46,35 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       content TEXT NOT NULL,
       page_id INT(5) NOT NULL,
       popup_cat_id INT(5) NOT NULL);
+      CREATE TABLE IF NOT EXISTS " . $prefix . "mc_settings
+      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      value VARCHAR(255) NOT NULL);
       INSERT INTO " . $prefix . "mc_default_pages
-      (page_name, header,use_name,use_desc,img)
-      VALUES ('contact','1','1','1','visual.jpg');
+      (page_name, header, header_media,use_name,use_desc)
+      VALUES ('contact','1','visual.jpg','1','1');
+      INSERT INTO " . $prefix . "mc_default_pages
+      (page_name, header, header_media,use_name,use_desc)
+      VALUES ('login','1','visual.jpg','1','1');
       INSERT INTO " . $prefix . "mc_pages
       (page_name, no_del,layout,header,use_name,use_desc,img,counter)
       VALUES ('index','1','default','1','1','1','visual.jpg','1');
-      INSERT INTO " . $prefix . "settings
+      INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_site_name', 'Mini CMS Website');
-      INSERT INTO " . $prefix . "settings
+      INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_site_description', 'Your new beautiful website');
-      INSERT INTO " . $prefix . "settings
+      INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_use_text', '0');
-      INSERT INTO " . $prefix . "settings
+      INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_footer', 'Mini CMS by DMWeblab');
-      INSERT INTO " . $prefix . "settings
+      INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_theme', 'mini_cms');
-      INSERT INTO " . $prefix . "settings
+      INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('maintenance', '0');";
 

@@ -187,8 +187,8 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                             $mc->table = 'mc_galleries';
                                                                             $galleries = $mc->showAll('id');
                                                                             $galleryOptions = '';
-                                                                            $selected = '';
                                                                             while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+                                                                                $selected = '';
 
                                                                                 if ($item['header_media'] == $row['id']) {
                                                                                     $selected = 'selected';

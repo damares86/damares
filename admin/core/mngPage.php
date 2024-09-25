@@ -17,46 +17,43 @@ if (filter_input(INPUT_GET, "idToDel")) {
 
     $idToDel = filter_input(INPUT_GET, "idToDel");
 
-    $mc->table = 'mc_pages' ;
-    $mc->id = $idToDel ;
-    $stmt = $mc->showAllWhere('id',['id']) ;
+    $mc->table = 'mc_pages';
+    $mc->id = $idToDel;
+    $stmt = $mc->showAllWhere('id', ['id']);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    extract($row) ;
-    
-    $page_name = $row['page_name'] ;
-    
-    $mc->table = 'mc_pages' ;
-    $mc->id = $idToDel ;
-    
-    if($mc->delete('id')){
-        
-        $err_file = 0 ;
-        $err_file_msg = '' ;
+    extract($row);
+
+    $page_name = $row['page_name'];
+
+    $mc->table = 'mc_pages';
+    $mc->id = $idToDel;
+
+    if ($mc->delete('id')) {
+
+        $err_file = 0;
+        $err_file_msg = '';
 
         // delete the php page
-        if(!unlink('../../'.$page_name.'.php')){
-            $err_file++;
-        }
-        
-        // delete the json file
-        if(!unlink('../inc/pages/'.$page_name.'.json')){
+        if (!unlink('../../' . $page_name . '.php')) {
             $err_file++;
         }
 
-        if($err_file>0){
-            $err_file_msg = '&err=pageFilesErr' ;
+        // delete the json file
+        if (!unlink('../inc/pages/' . $page_name . '.json')) {
+            $err_file++;
+        }
+
+        if ($err_file > 0) {
+            $err_file_msg = '&err=pageFilesErr';
         }
 
         header("Location: ../index.php?p=allPages&msg=pageDelSucc");
         exit;
-
-    }else{
+    } else {
 
         header("Location: ../index.php?p=allPages&err=pageDelFail");
         exit;
-
     }
-
 }
 
 $operation = filter_input(INPUT_POST, "operation");
@@ -64,244 +61,306 @@ $operation = filter_input(INPUT_POST, "operation");
 // check if there's an account to edit or add
 
 if (filter_input(INPUT_POST, "idToMod")) {
-    // replicare l'add con l'aggiunta dei dati
 
-    $page_name = filter_input(INPUT_POST, 'page_name');
-    $page_name = strtolower($page_name);
-    $page_name = str_replace(" ", "_", $page_name);
+    if ($operation == 'edit') {
+        // replicare l'add con l'aggiunta dei dati
 
-    $old_page_name = filter_input(INPUT_POST, 'old_page_name');
+        $page_name = filter_input(INPUT_POST, 'page_name');
+        $page_name = strtolower($page_name);
+        $page_name = str_replace(" ", "_", $page_name);
 
-    $name_to_change = '';
+        $old_page_name = filter_input(INPUT_POST, 'old_page_name');
 
-    ($old_page_name == $page_name) ? $name_to_change = false : $name_to_change = true;
+        $name_to_change = '';
 
-    $counter = filter_input(INPUT_POST, 'counter');
+        ($old_page_name == $page_name) ? $name_to_change = false : $name_to_change = true;
 
-    $arr0 = array(
-        "name"    => $page_name
-    );
+        $counter = filter_input(INPUT_POST, 'counter');
 
-    for ($i = 1; $i <= $counter; $i++) {
+        $arr0 = array(
+            "name"    => $page_name
+        );
 
-        // get the type of the block
-        $post_type = filter_input(INPUT_POST, 'block_' . $i . '_type');
-        $post_type_arr = explode('_', $post_type);
-        $type = $post_type_arr[0];
+        for ($i = 1; $i <= $counter; $i++) {
 
-        $array_name = "arr$i";
+            // get the type of the block
+            $post_type = filter_input(INPUT_POST, 'block_' . $i . '_type');
+            $post_type_arr = explode('_', $post_type);
+            $type = $post_type_arr[0];
 
-        $colorBg = filter_input(INPUT_POST, 'bg_color_' . $i . '');
-        $colorText = filter_input(INPUT_POST, 'text_color_' . $i . '');
+            $array_name = "arr$i";
 
-        if ($type == 'text') {
+            $colorBg = filter_input(INPUT_POST, 'bg_color_' . $i . '');
+            $colorText = filter_input(INPUT_POST, 'text_color_' . $i . '');
 
-            $editor = preg_replace('/^\s+/', '', filter_input(INPUT_POST, 'text_content_' . $i . ''));
-            $$array_name = array(
-                'block' . $i . '_type'  => 'text',
-                'block' . $i . ''       => $editor,
-                'block' . $i . '_bg'    => $colorBg,
-                'block' . $i . '_text'  => $colorText
-            );
-        } else if ($type == 'img') {
+            if ($type == 'text') {
 
-            if ($_FILES['img_' . $i . '']['size'] > 0) {
-                $file->filename = $_FILES['img_' . $i . '']['name'];
-                $filename = $_FILES['img_' . $i . '']['name'];
+                $editor = preg_replace('/^\s+/', '', filter_input(INPUT_POST, 'text_content_' . $i . ''));
+                $$array_name = array(
+                    'block' . $i . '_type'  => 'text',
+                    'block' . $i . ''       => $editor,
+                    'block' . $i . '_bg'    => $colorBg,
+                    'block' . $i . '_text'  => $colorText
+                );
+            } else if ($type == 'img') {
 
-                if ($file->countFile() > 0) {
-                    header("Location: ../index.php?p=allFiles&err=fileExists");
-                    exit;
-                }
-                // set data for file uploading
-                $file->inputFileName = $_FILES['img_' . $i . '']['tmp_name'];
-                $file->label = $_FILES['img_' . $i . '']['name'];
-                $file->path = "../../uploads/";
-                $file->origin = filter_input(INPUT_POST, "origin");
+                if ($_FILES['img_' . $i . '']['size'] > 0) {
+                    $file->filename = $_FILES['img_' . $i . '']['name'];
+                    $filename = $_FILES['img_' . $i . '']['name'];
 
-                $file->operation = "add";
-                if ($file->uploadFile()) {
-                    //success
-                    $img = $_FILES['img_' . $i . '']['name'];
+                    if ($file->countFile() > 0) {
+                        header("Location: ../index.php?p=allFiles&err=fileExists");
+                        exit;
+                    }
+                    // set data for file uploading
+                    $file->inputFileName = $_FILES['img_' . $i . '']['tmp_name'];
+                    $file->label = $_FILES['img_' . $i . '']['name'];
+                    $file->path = "../../uploads/";
+                    $file->origin = filter_input(INPUT_POST, "origin");
+
+                    $file->operation = "add";
+                    if ($file->uploadFile()) {
+                        //success
+                        $img = $_FILES['img_' . $i . '']['name'];
+                    } else {
+                        $img = filter_input(INPUT_POST, 'old_img_' . $i);
+                        $err_file = "&err=infoImgFail";
+                    }
                 } else {
                     $img = filter_input(INPUT_POST, 'old_img_' . $i);
-                    $err_file = "&err=infoImgFail";
                 }
-            } else {
-                $img = filter_input(INPUT_POST, 'old_img_' . $i);
-            }
 
-            $$array_name = array(
-                'block' . $i . '_type'  => 'img',
-                'block' . $i . ''       => $img,
-                'block' . $i . '_bg'    => $colorBg,
-                'block' . $i . '_text'  => $colorText
-            );
-        } else if ($type == 'info') {
+                $$array_name = array(
+                    'block' . $i . '_type'  => 'img',
+                    'block' . $i . ''       => $img,
+                    'block' . $i . '_bg'    => $colorBg,
+                    'block' . $i . '_text'  => $colorText
+                );
+            } else if ($type == 'info') {
 
-            if ($_FILES['info_img_' . $i . '']['size'] > 0) {
-                $file->filename = $_FILES['info_img_' . $i . '']['name'];
-                $filename = $_FILES['info_img_' . $i . '']['name'];
+                if ($_FILES['info_img_' . $i . '']['size'] > 0) {
+                    $file->filename = $_FILES['info_img_' . $i . '']['name'];
+                    $filename = $_FILES['info_img_' . $i . '']['name'];
 
-                if ($file->countFile() > 0) {
-                    header("Location: ../index.php?p=allFiles&err=fileExists");
-                    exit;
-                }
-                // set data for file uploading
-                $file->inputFileName = $_FILES['info_img_' . $i . '']['tmp_name'];
-                $file->label = $_FILES['info_img_' . $i . '']['name'];
-                $file->path = "../../uploads/";
-                $file->origin = filter_input(INPUT_POST, "origin");
+                    if ($file->countFile() > 0) {
+                        header("Location: ../index.php?p=allFiles&err=fileExists");
+                        exit;
+                    }
+                    // set data for file uploading
+                    $file->inputFileName = $_FILES['info_img_' . $i . '']['tmp_name'];
+                    $file->label = $_FILES['info_img_' . $i . '']['name'];
+                    $file->path = "../../uploads/";
+                    $file->origin = filter_input(INPUT_POST, "origin");
 
-                $file->operation = "add";
-                if ($file->uploadFile()) {
-                    //success
-                    $img_info = $_FILES['info_img_' . $i . '']['name'];
+                    $file->operation = "add";
+                    if ($file->uploadFile()) {
+                        //success
+                        $img_info = $_FILES['info_img_' . $i . '']['name'];
+                    } else {
+                        $img_info = filter_input(INPUT_POST, 'old_info_img_' . $i);
+                        $err_file = "&err=infoImgFail";
+                    }
                 } else {
                     $img_info = filter_input(INPUT_POST, 'old_info_img_' . $i);
-                    $err_file = "&err=infoImgFail";
                 }
-            } else {
-                $img_info = filter_input(INPUT_POST, 'old_info_img_' . $i);
+
+                $$array_name = array(
+                    'block' . $i . '_type'  => 'info',
+                    'block' . $i . '_info'  => $img_info,
+                    'block' . $i . '_desc'  => filter_input(INPUT_POST, 'info_content_' . $i . ''),
+                    'block' . $i . '_bg'    => $colorBg,
+                    'block' . $i . '_text'  => $colorText
+                );
+            } else if ($type == 'gallery') {
+
+                $$array_name = array(
+                    'block' . $i . '_type'  => 'gallery',
+                    'block' . $i . ''       => filter_input(INPUT_POST, 'gallery_name_' . $i . ''),
+                    'block' . $i . '_bg'    => $colorBg,
+                    'block' . $i . '_text'  => $colorText
+                );
+            } else if ($type == 'quote') {
+
+                $$array_name = array(
+                    'block' . $i . '_type'  => 'quote',
+                    'block' . $i . '_bg'    => $colorBg,
+                    'block' . $i . '_text'  => $colorText
+                );
+            } else if ($type == 'post') {
+
+                $$array_name = array(
+                    'block' . $i . '_type'  => 'post',
+                    'block' . $i . '_bg'    => $colorBg,
+                    'block' . $i . '_text'  => $colorText
+                );
             }
-
-            $$array_name = array(
-                'block' . $i . '_type'  => 'info',
-                'block' . $i . '_info'  => $img_info,
-                'block' . $i . '_desc'  => filter_input(INPUT_POST, 'info_content_' . $i . ''),
-                'block' . $i . '_bg'    => $colorBg,
-                'block' . $i . '_text'  => $colorText
-            );
-        } else if ($type == 'gallery') {
-
-            $$array_name = array(
-                'block' . $i . '_type'  => 'gallery',
-                'block' . $i . ''       => filter_input(INPUT_POST, 'gallery_name_' . $i . ''),
-                'block' . $i . '_bg'    => $colorBg,
-                'block' . $i . '_text'  => $colorText
-            );
-        } else if ($type == 'quote') {
-
-            $$array_name = array(
-                'block' . $i . '_type'  => 'quote',
-                'block' . $i . '_bg'    => $colorBg,
-                'block' . $i . '_text'  => $colorText
-            );
-        } else if ($type == 'post') {
-
-            $$array_name = array(
-                'block' . $i . '_type'  => 'post',
-                'block' . $i . '_bg'    => $colorBg,
-                'block' . $i . '_text'  => $colorText
-            );
         }
-    }
 
-    $arr_tot = array($arr0);
+        $arr_tot = array($arr0);
 
-    for ($i = 1; $i <= $counter; $i++) {
-        $array_name = "arr$i";
-        $arr_tot[] = $$array_name;
-    }
+        for ($i = 1; $i <= $counter; $i++) {
+            $array_name = "arr$i";
+            $arr_tot[] = $$array_name;
+        }
 
-    $target_directory = '../inc/pages/';
-    // if(!file_exists( $target_directory ) || !is_dir( $target_directory)){
-    //     mkdir($target_directory) ;
-    //     $oldmask = umask(0);
-    //     chmod($target_directory, 0777);
-    //     umask($oldmask);
-    // }
+        $target_directory = '../inc/pages/';
+        // if(!file_exists( $target_directory ) || !is_dir( $target_directory)){
+        //     mkdir($target_directory) ;
+        //     $oldmask = umask(0);
+        //     chmod($target_directory, 0777);
+        //     umask($oldmask);
+        // }
 
-    if ($name_to_change) {
-        $filename = $page_name;
-    } else {
-        $filename = $old_page_name;
-    }
-
-    $json_file = $target_directory . $filename . '.json';
-    $json = json_encode($arr_tot);
-
-    if (!file_put_contents($json_file, $json)) {
-        header("Location: ../index.php?p=allPages&err=pageCustomModFileErr");
-        exit;
-    } else {
-        chmod($json_file, 0777);
         if ($name_to_change) {
-            unlink($target_directory . $old_page_name . '.json');
+            $filename = $page_name;
+        } else {
+            $filename = $old_page_name;
         }
-    }
 
-    // prepare data for the db query
-    $mc->page_name = $page_name;
+        $json_file = $target_directory . $filename . '.json';
+        $json = json_encode($arr_tot);
 
-    $mc->layout = filter_input(INPUT_POST, 'layout');
+        if (!file_put_contents($json_file, $json)) {
+            header("Location: ../index.php?p=allPages&err=pageCustomModFileErr");
+            exit;
+        } else {
+            chmod($json_file, 0777);
+            if ($name_to_change) {
+                unlink($target_directory . $old_page_name . '.json');
+            }
+        }
 
-    $err_file = '';
+        // prepare data for the db query
+        $mc->page_name = $page_name;
 
-    // check if use_header is checked
-    if (filter_input(INPUT_POST, 'use_header')) {
+        $mc->layout = filter_input(INPUT_POST, 'layout');
 
-        $mc->header = 1;
+        $err_file = '';
 
-        // check the type of the header media
-        if (filter_input(INPUT_POST, 'header') == 'image') {
+        // check if use_header is checked
+        if (filter_input(INPUT_POST, 'use_header')) {
 
-            if ($_FILES['img_header']['size'] > 0) {
-                $file->filename = $_FILES['img_header']['name'];
-                $filename = $_FILES['img_header']['name'];
+            $mc->header = 1;
 
-                if ($file->countFile() > 0) {
-                    header("Location: ../index.php?p=allFiles&err=fileExists");
-                    exit;
-                }
-                // set data for file uploading
-                $file->inputFileName = $_FILES['img_header']['tmp_name'];
-                $file->label = $_FILES['img_header']['name'];
-                $file->path = "../../uploads/";
-                $file->origin = filter_input(INPUT_POST, "origin");
+            // check the type of the header media
+            if (filter_input(INPUT_POST, 'header') == 'image') {
 
-                $file->operation = "add";
-                if ($file->uploadFile()) {
-                    //success
-                    $mc->header_media = $_FILES['img_header']['name'];
+                if ($_FILES['img_header']['size'] > 0) {
+                    $file->filename = $_FILES['img_header']['name'];
+                    $filename = $_FILES['img_header']['name'];
+
+                    if ($file->countFile() > 0) {
+                        header("Location: ../index.php?p=allFiles&err=fileExists");
+                        exit;
+                    }
+                    // set data for file uploading
+                    $file->inputFileName = $_FILES['img_header']['tmp_name'];
+                    $file->label = $_FILES['img_header']['name'];
+                    $file->path = "../../uploads/";
+                    $file->origin = filter_input(INPUT_POST, "origin");
+
+                    $file->operation = "add";
+                    if ($file->uploadFile()) {
+                        //success
+                        $mc->header_media = $_FILES['img_header']['name'];
+                    } else {
+                        $mc->header_media = filter_input(INPUT_POST, 'old_header_img');
+                        $err_file = "&err=headerImgFail";
+                    }
                 } else {
                     $mc->header_media = filter_input(INPUT_POST, 'old_header_img');
-                    $err_file = "&err=headerImgFail";
                 }
-            } else {
-                $mc->header_media = filter_input(INPUT_POST, 'old_header_img');
+            } else if (filter_input(INPUT_POST, 'header') == 'gallery') {
+
+                $mc->header_media = filter_input(INPUT_POST, 'header_gallery');
             }
-        } else if (filter_input(INPUT_POST, 'header') == 'gallery') {
+        } else {
 
-            $mc->header_media = filter_input(INPUT_POST, 'header_gallery');
-        }
-    } else {
-
-        $mc->header = 0;
-        $mc->header_media = NULL;
-    }
-
-    $mc->use_name = filter_input(INPUT_POST, 'use_name') ? 1 : 0;
-    $mc->use_desc = filter_input(INPUT_POST, 'use_desc') ? 1 : 0;
-
-    $mc->counter = $counter;
-
-    $mc->id = filter_input(INPUT_POST, 'idToMod');
-
-    $mc->table = 'mc_pages';
-
-    if ($mc->update(['page_name', 'layout', 'header', 'header_media', 'use_name', 'use_desc', 'counter'], 'id')) {
-
-        if ($name_to_change) {
-            rename('../../' . $old_page_name . '.php', '../../' . $page_name . '.php');
-            chmod('../../' . $page_name . '.php', 0777);
+            $mc->header = 0;
+            $mc->header_media = 'visual.jpg';
         }
 
-        header("Location: ../index.php?p=allPages&msg=pageCustomEditFile");
-        exit;
-    } else {
-        header("Location: ../index.php?p=allPages&err=pageCustomDbErr");
-        exit;
+        $mc->use_name = filter_input(INPUT_POST, 'site_name') ? 1 : 0;
+        $mc->use_desc = filter_input(INPUT_POST, 'site_description') ? 1 : 0;
+
+        $mc->counter = $counter;
+
+        $mc->id = filter_input(INPUT_POST, 'idToMod');
+
+        $mc->table = 'mc_pages';
+
+        if ($mc->update(['page_name', 'layout', 'header', 'header_media', 'use_name', 'use_desc', 'counter'], 'id')) {
+
+            if ($name_to_change) {
+                rename('../../' . $old_page_name . '.php', '../../' . $page_name . '.php');
+                chmod('../../' . $page_name . '.php', 0777);
+            }
+
+            header("Location: ../index.php?p=allPages&msg=pageCustomEditFile");
+            exit;
+        } else {
+            header("Location: ../index.php?p=allPages&err=pageCustomDbErr");
+            exit;
+        }
+    } else if ($operation == 'editDefault') {
+
+                // check if use_header is checked
+                if (filter_input(INPUT_POST, 'use_header')) {
+
+                    $mc->header = 1;
+        
+                    // check the type of the header media
+                    if (filter_input(INPUT_POST, 'header') == 'image') {
+        
+                        if ($_FILES['img_header']['size'] > 0) {
+                            $file->filename = $_FILES['img_header']['name'];
+                            $filename = $_FILES['img_header']['name'];
+        
+                            if ($file->countFile() > 0) {
+                                header("Location: ../index.php?p=allFiles&err=fileExists");
+                                exit;
+                            }
+                            // set data for file uploading
+                            $file->inputFileName = $_FILES['img_header']['tmp_name'];
+                            $file->label = $_FILES['img_header']['name'];
+                            $file->path = "../../uploads/";
+                            $file->origin = filter_input(INPUT_POST, "origin");
+        
+                            $file->operation = "add";
+                            if ($file->uploadFile()) {
+                                //success
+                                $mc->header_media = $_FILES['img_header']['name'];
+                            } else {
+                                $mc->header_media = filter_input(INPUT_POST, 'old_header_img');
+                                $err_file = "&err=headerImgFail";
+                            }
+                        } else {
+                            $mc->header_media = filter_input(INPUT_POST, 'old_header_img');
+                        }
+                    } else if (filter_input(INPUT_POST, 'header') == 'gallery') {
+        
+                        $mc->header_media = filter_input(INPUT_POST, 'header_gallery');
+                    }
+                } else {
+        
+                    $mc->header = 0;
+                    $mc->header_media = 'visual.jpg';
+                }
+        
+                $mc->use_name = filter_input(INPUT_POST, 'site_name') ? 1 : 0;
+                $mc->use_desc = filter_input(INPUT_POST, 'site_description') ? 1 : 0;
+
+                $mc->id = filter_input(INPUT_POST, 'idToMod');
+
+                $mc->table = 'mc_default_pages';
+        
+                if ($mc->update(['header', 'header_media', 'use_name', 'use_desc', ], 'id')) {
+                    header("Location: ../index.php?p=allDefaultPages&msg=pageDefaultEditSucc");
+                    exit;
+                } else {
+                    header("Location: ../index.php?p=allDefaultPages&err=pageDefaultEditFail");
+                    exit;
+                }
     }
 } else if ($operation == "add") {
 
@@ -498,11 +557,11 @@ if (filter_input(INPUT_POST, "idToMod")) {
     } else {
 
         $mc->header = 0;
-        $mc->header_media = NULL;
+        $mc->header_media = 'visual.jpg';
     }
 
-    $mc->use_name = filter_input(INPUT_POST, 'use_name') ? 1 : 0;
-    $mc->use_desc = filter_input(INPUT_POST, 'use_desc') ? 1 : 0;
+    $mc->use_name = filter_input(INPUT_POST, 'site_name') ? 1 : 0;
+    $mc->use_desc = filter_input(INPUT_POST, 'site_description') ? 1 : 0;
 
     $mc->counter = $counter;
 
