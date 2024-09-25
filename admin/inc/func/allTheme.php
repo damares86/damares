@@ -40,7 +40,7 @@
               <div class="form-group has-icon-left">
                 <div class="position-relative">
                   <fieldset class="form-group">
-                    <select class="form-select w-50" id="role" name="role">
+                    <select class="form-select w-50" id="theme" name="theme">
                       <?php
                       foreach (glob("../assets/themes/*") as $dir) {
                         if (is_dir($dir)) {
@@ -76,7 +76,7 @@
             </div>
 
             <input type="hidden" name="origin" value="allTheme">
-            <input type="hidden" name="operation" value="edit">
+            <input type="hidden" name="operation" value="editTheme">
 
             <div class="col-12 mt-3 d-flex justify-content-end">
               <button type="submit" class="btn btn-primary me-1 mb-1 shadow">

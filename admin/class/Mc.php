@@ -18,7 +18,7 @@ class Mc extends Common{
     public $use_name ;
     public $use_desc ;
     public $counter ;
-
+    public $color ;
 }
 
 ?>
