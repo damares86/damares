@@ -49,10 +49,21 @@ if ($operation == 'add') {
         header("Location: ../index.php?p=allQuotes&err=quoteAddFail");
         exit;
     }
-
-
     
 } else if ($operation == 'edit') {
+
+    $mc->quote = filter_input(INPUT_POST,'quote') ;
+    $mc->author = filter_input(INPUT_POST,'author') ;
+    $mc->id = filter_input(INPUT_POST,'idToMod') ; 
+    $mc->table = 'mc_quotes' ;
+
+    if($mc->update(['quote','author'],'id') ){
+        header("Location: ../index.php?p=allQuotes&msg=quoteEditSucc");
+        exit;
+    }else{
+        header("Location: ../index.php?p=allQuotes&err=quoteEditFail");
+        exit;
+    }
 
 }else {
     header("Location: ../index.php?p=allTheme&err=noPost");
