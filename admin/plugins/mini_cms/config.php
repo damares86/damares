@@ -46,6 +46,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       content TEXT NOT NULL,
       page_id INT(5) NOT NULL,
       popup_cat_id INT(5) NOT NULL);
+      CREATE TABLE IF NOT EXISTS " . $prefix . "mc_popup_cat
+      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      category VARCHAR(255) NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "mc_settings
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
@@ -76,7 +79,10 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       VALUES ('mc_theme', 'mini_cms');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
-      VALUES ('maintenance', '0');";
+      VALUES ('maintenance', '0');
+      INSERT INTO " . $prefix . "mc_popup_cat
+      (category)
+      VALUES ('Misc');";
 
 // the data of the parent item of the menu
 

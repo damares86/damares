@@ -52,7 +52,7 @@ $pages = $mc->showAll('id');
                 <td>
                 <?php
                     $str=$row['page_name'];
-                    $str = preg_replace('/\s+/', '_', $str);
+                    $str = str_replace('_', ' ', $str);
 
                     $str = strtolower($str);
                 ?>

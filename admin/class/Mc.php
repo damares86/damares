@@ -21,6 +21,13 @@ class Mc extends Common{
     public $color ;
     public $quote ;
     public $author ;
+    public $title ;
+    public $content ;
+    public $page_id ;
+    public $popup_cat_id ;
+    public $category ;
+
+
 }
 
 ?>
