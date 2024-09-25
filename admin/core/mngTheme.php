@@ -15,47 +15,21 @@ require __DIR__ . "/coreConfig.php";
 
 if (filter_input(INPUT_GET, "idToDel")) {
 
-    $idToDel = filter_input(INPUT_GET, "idToDel");
+    // gestire il discorso del colore usato
 
-    $mc->table = 'mc_pages' ;
+    $idToDel = filter_input(INPUT_GET, "idToDel") ;
+    
+    $mc->table = 'mc_color' ;
     $mc->id = $idToDel ;
-    $stmt = $mc->showAllWhere('id',['id']) ;
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    extract($row) ;
-    
-    $page_name = $row['page_name'] ;
-    
-    $mc->table = 'mc_pages' ;
-    $mc->id = $idToDel ;
-    
+
     if($mc->delete('id')){
-        
-        $err_file = 0 ;
-        $err_file_msg = '' ;
-
-        // delete the php page
-        if(!unlink('../../'.$page_name.'.php')){
-            $err_file++;
-        }
-        
-        // delete the json file
-        if(!unlink('../inc/pages/'.$page_name.'.json')){
-            $err_file++;
-        }
-
-        if($err_file>0){
-            $err_file_msg = '&err=pageFilesErr' ;
-        }
-
-        header("Location: ../index.php?p=allPages&msg=pageDelSucc");
+        header("Location: ../index.php?p=allTheme&msg=colorDelSucc");
         exit;
-
     }else{
-
-        header("Location: ../index.php?p=allPages&err=pageDelFail");
+        header("Location: ../index.php?p=allTheme&err=colorDelFail");
         exit;
-
     }
+
 
 }
 
