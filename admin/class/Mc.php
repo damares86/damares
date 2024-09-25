@@ -19,6 +19,8 @@ class Mc extends Common{
     public $use_desc ;
     public $counter ;
     public $color ;
+    public $quote ;
+    public $author ;
 }
 
 ?>
