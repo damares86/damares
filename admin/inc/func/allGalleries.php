@@ -46,16 +46,18 @@ $gall = $mc->showAll('id');
                 <div class="row">
 
                   <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                    <h6 class="font-extrabold mb-2"><?=$row['gallery_name']?></h6>
+                    <h6 class="font-extrabold mb-2"><?= $row['gallery_name'] ?></h6>
                     <?php
 
                     ?>
                     <img src="../uploads/visual.jpg" class="w-100">
                   </div>
                   <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5">
-                    <div class="stats-icon bg-warning mb-2">
-                      <i class="bi-pencil-square"></i>
-                    </div>
+                    <a href="index.php?p=editGallery&idToMod=<?=$row['id']?>&pagename=allGalleries">
+                      <div class="stats-icon bg-warning mb-2">
+                        <i class="bi-pencil-square"></i>
+                      </div>
+                    </a>
                     <div class="stats-icon bg-danger mb-2">
                       <i class="bi-trash"></i>
                     </div>

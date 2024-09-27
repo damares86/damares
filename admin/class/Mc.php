@@ -30,6 +30,7 @@ class Mc extends Common{
     public $value ;
     public $label ;
     public $email ;
+    public $gallery_name ;
 
 }
 
