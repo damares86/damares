@@ -47,8 +47,9 @@
                           $folder = pathinfo($dir, PATHINFO_FILENAME);
                           $selected = "";
 
-                          $setting->name = 'mc_theme';
-                          $stmt = $setting->showAllWhere('id', ['name']);
+                          $mc->table = 'mc_settings' ;
+                          $mc->name = 'mc_theme';
+                          $stmt = $mc->showAllWhere('id', ['name']);
                           $row = $stmt->fetch(PDO::FETCH_ASSOC);
                           extract($row);
 

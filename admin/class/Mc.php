@@ -26,7 +26,10 @@ class Mc extends Common{
     public $page_id ;
     public $popup_cat_id ;
     public $category ;
-
+    public $name ;
+    public $value ;
+    public $label ;
+    public $email ;
 
 }
 

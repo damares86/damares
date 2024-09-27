@@ -37,16 +37,17 @@ $operation = filter_input(INPUT_POST, "operation");
 // check if there's an account to edit or add
 
 if ($operation == 'editTheme') {
-
+    
     // update theme
     $theme = filter_input(INPUT_POST,'theme') ;
-    $setting->name = 'mc_theme' ;
-    $setting->value = $theme ;
+    $mc->table = 'mc_settings' ;
+    $mc->name = 'mc_theme' ;
+    $mc->value = $theme ;
 
     $err_count = 0 ;
     $err = '' ;
 
-    if(!$setting->update(['value'],'name')){
+    if(!$mc->update(['value'],'name')){
         $err_count++ ;
     }
 

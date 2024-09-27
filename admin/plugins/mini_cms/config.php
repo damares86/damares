@@ -53,6 +53,10 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       value VARCHAR(255) NOT NULL);
+      CREATE TABLE IF NOT EXISTS " . $prefix . "mc_contacts
+      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      label VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL);
       INSERT INTO " . $prefix . "mc_default_pages
       (page_name, header, header_media,use_name,use_desc)
       VALUES ('contact','1','visual.jpg','1','1');
@@ -80,6 +84,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('maintenance', '0');
+      INSERT INTO " . $prefix . "mc_contacts
+      (label, email )
+      VALUES ('info', 'info@mail.com');
       INSERT INTO " . $prefix . "mc_popup_cat
       (category)
       VALUES ('Misc');";

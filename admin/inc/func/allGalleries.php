@@ -39,10 +39,9 @@ $gall = $mc->showAll('id');
         <?php
         while ($row = $gall->fetch(PDO::FETCH_ASSOC)) {
         ?>
-          <div class="col-4 col-lg-3 col-md-4">
+          <div class="col-6 col-lg-4 col-md-6">
             <div class="card border">
               <div class="card-body px-4 py-4-5">
-
 
                 <div class="row">
 

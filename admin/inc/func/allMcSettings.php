@@ -1,12 +1,21 @@
 <?php
 $mc->table = 'mc_settings';
-$quotes = $mc->showAll('id');
+$stmt = $mc->showAll('id');
+
+$mc_settings = [];
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+  extract($row);
+  $mc_settings[$row['name']] = $row['value'];
+}
+
 ?>
 
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutte le citazioni</h3>
+      <h3>Mini Cms Settings</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +24,7 @@ $quotes = $mc->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Tutte le citazioni
+            Mini Cms Settings
           </li>
         </ol>
       </nav>
@@ -24,134 +33,256 @@ $quotes = $mc->showAll('id');
 </div>
 <br>
 
-
-<!-- Basic Tables start -->
 <section class="section">
-  <div class="card shadow">
-    <div class="card-header">
-    </div>
-    <div class="card-body">
+  <div class="row">
+    <div class="col-md-8 col-12">
+      <div class="card shadow">
+        <div class="card-header">
+          <h4 class="card-title">Site settings</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <form class="form form-horizontal" action="core/mngMcSettings.php" method="POST" data-parsley-validate>
+              <div class="form-body">
+                <div class="row">
 
-      <div class="row">
-        <div class="col">
-        <form class="form form-horizontal" action="core/mngQuote.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
-            <div class="form-body">
-              <h5>Aggiungi citazione</h5>
-              <div class="row border-bottom mb-5 py-3">
 
-                <div class="col-md-3">
-                  <label>Autore <span class="text-danger">*</span></label>
-                </div>
-                <div class="col-md-9">
-                  <div class="form-group">
-                    <div class="form-check mandatory">
-                      <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Autore" name="author" data-parsley-required="true" />
+                  <div class="col-md-3">
+                    <label>Site name <span class="text-danger">*</span></label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <div class="form-check mandatory">
+                        <div class="position-relative">
+                          <input type="text" class="form-control" placeholder="Site name" name="mc_site_name" value="<?= $mc_settings['mc_site_name'] ?>" data-parsley-required="true" />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="col-md-3">
-                  <label>Citazione <span class="text-danger">*</span></label>
-                </div>
-                <div class="col-md-9">
-                  <div class="form-group">
-                    <div class="form-check mandatory">
-                      <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Citazione" name="quote" data-parsley-required="true" />
+                  <div class="col-md-3">
+                    <label>Site description <span class="text-danger">*</span></label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <div class="form-check mandatory">
+                        <div class="position-relative">
+                          <input type="text" class="form-control" placeholder="Site description" name="mc_site_description" value="<?= $mc_settings['mc_site_description'] ?>" data-parsley-required="true" />
+                        </div>
                       </div>
                     </div>
                   </div>
+
+                  <div class="col-md-3">
+                    <label>Footer text <span class="text-danger">*</span></label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <div class="form-check mandatory">
+                        <div class="position-relative">
+                          <textarea class="tiny mt-5" name="mc_footer"><?= $mc_settings['mc_footer'] ?></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="operation" value="settings">
+                  <input type="hidden" name="origin" value="allMcSettings">
+
+                  <div class="col-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
+                      <?= $common_submit ?>
+                    </button>
+                    <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
+                      <?= $common_reset ?>
+                    </button>
+                  </div>
                 </div>
-
-
-              <input type="hidden" name="origin" value="allQuotes">
-              <input type="hidden" name="operation" value="add">
-
-              <div class="col-12 mt-3 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
-                  <?= $common_submit ?>
-                </button>
-                <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
-                  <?= $common_reset ?>
-                </button>
               </div>
-            </div>
-
-          </form>
+            </form>
           </div>
-
         </div>
       </div>
-      <h5>Tutte le citazioni</h5>
 
-      <table class="table" id="table">
-        <thead>
-          <tr>
-            <th>Citazione</th>
-            <th>Autore</th>
-            <th><?= $common_actions ?></th>
-          </tr>
-        </thead>
-        <tbody>
 
-          <?php
-          while ($row = $quotes->fetch(PDO::FETCH_ASSOC)) {
-            extract($row);
-          ?>
-            <tr>
-              <td><?= $row['quote'] ?></td>
-              <td><?= $row['author'] ?></td>
-              <td>
-                <a href="index.php?p=editQuote&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editQuote&idToMod=<?= $row['id'] ?>">
-                  <i class="bi bi-pencil-square"></i>
-                </a>
+      <div class="card shadow">
+        <div class="card-header">
+          <h4 class="card-title">Contacts</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <form class="form form-horizontal" action="core/mngMcSettings.php" method="POST" data-parsley-validate>
+              <div class="form-body">
+                <div class="row">
+                  <div class="col-12">
+                    <?php
+                    $mc->table = 'mc_contacts';
+                    $stmt1 = $mc->showAll('id');
+                    ?>
+                    <table class="table" id="table">
+                      <thead>
+                        <tr>
+                          <th>Label</th>
+                          <th>Email</th>
+                          <th><?= $common_actions ?></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+                          extract($row1);
+                        ?>
+                          <tr>
+                            <td><?= $row1['label']; ?></td>
+                            <td><?= $row1['email']; ?></td>
+                            <td>
+                              <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row1['id'] ?>"><i class="bi bi-trash"></i>
+                              </a>
+                              <!--Danger theme Modal -->
+                              <div class="modal fade text-left" id="danger<?= $row1['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                      <h5 class="modal-title white" id="myModalLabel120">
+                                        <?= $common_modal_title_sure ?>
+                                      </h5>
+                                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <i data-feather="x"></i>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Se clicchi conferma il contatto verrà eliminato definitivamente
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
+                                      </button>
+                                      <span class="d-none d-sm-block"><a href="core/mngMcSettings.php?idToDel=<?= $row1['id'] ?>" class="btn btn-danger ml-1">
+                                          <?= $common_modal_confirm ?>
+                                        </a></span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
 
-                &nbsp; &nbsp;
-                <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row['id'] ?>"><i class="bi bi-trash"></i>
-                </a>
-                <!--Danger theme Modal -->
-                <div class="modal fade text-left" id="danger<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header bg-danger">
-                        <h5 class="modal-title white" id="myModalLabel120">
-                          <?= $common_modal_title_sure ?>
-                        </h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                          <i data-feather="x"></i>
-                        </button>
+                            </td>
+                          </tr>
+                        <?php
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                    <div class="row mt-5">
+                      <div class="col-12">
+                        <h6>Add new contact</h6>
                       </div>
-                      <div class="modal-body">
-                        Se confermi la citazione verrà eliminata definitivamente.
+
+                      <div class="col-md-3">
+                        <label>Contact label <span class="text-danger">*</span></label>
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                          <i class="bx bx-x d-block d-sm-none"></i>
-                          <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
-                        </button>
-                        <span class="d-none d-sm-block"><a href="core/mngQuote.php?idToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
-                            <?= $common_modal_confirm ?>
-                          </a></span>
+                      <div class="col-md-9">
+                        <div class="form-group">
+                          <div class="form-check mandatory">
+                            <div class="position-relative">
+                              <input type="text" class="form-control" placeholder="Label" name="label" data-parsley-required="true" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <label>Contact email <span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="form-group">
+                          <div class="form-check mandatory">
+                            <div class="position-relative">
+                              <input type="text" class="form-control" placeholder="Email" name="email" data-parsley-required="true" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <input type="hidden" name="operation" value="contact">
+                  <input type="hidden" name="origin" value="allMcSettings">
+
+                  <div class="col-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
+                      <?= $common_submit ?>
+                    </button>
+                    <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
+                      <?= $common_reset ?>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow">
+        <div class="card-header">
+          <h4 class="card-title">Maintenance mode</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <form class="form form-horizontal" action="core/mngMcSettings.php" method="POST" data-parsley-validate>
+              <div class="form-body">
+                <div class="row">
+
+
+                  <div class="col-md-5">
+                    <label>Activate Maintenance Mode <span class="text-danger">*</span></label>
+                  </div>
+                  <div class="col-md-7">
+                    <div class="form-group">
+                      <div class="form-check">
+                        <div class="checkbox">
+                          <?php
+                          
+                            $mc_settings['maintenance'] == 1 ? $maintenance_checked = 'checked' : $maintenance_checked = '';
+                          ?>
+                          <input type="checkbox" id="checkbox1" class="form-check-input" name="maintentance" <?=$maintenance_checked?>>
+                          <label for="checkbox1">&nbsp; Activate</label>
+                        </div>
                       </div>
                     </div>
                   </div>
+
+                  <input type="hidden" name="operation" value="maintenance">
+                  <input type="hidden" name="origin" value="allMcSettings">
+
+                  <div class="col-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
+                      <?= $common_submit ?>
+                    </button>
+                    <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
+                      <?= $common_reset ?>
+                    </button>
+                  </div>
+
                 </div>
-              </td>
-            </tr>
+              </div>
 
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-
-
-          <?php
-          }
-          ?>
-
-
-
-        </tbody>
-      </table>
+    <div class="col-md-4 col-12">
+      <div class="card shadow">
+        <h4 class="card-title px-4 pt-3"><?= $common_info ?></h4>
+        <div class="card-content px-5 pb-4">
+          <ul>
+            <li><a href="http://dmweblab.com/portal/manual.php?prod=1&page=5" target="_blank"><?= $common_see_guide ?></a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
