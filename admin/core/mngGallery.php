@@ -42,6 +42,8 @@ if (filter_input(INPUT_GET, "idToDel")) {
 
 <?php
 print_r($_POST);
+$count = count($_FILES['myfile']['name']);
+echo $count ;
 print_r($_FILES);
 ?>
 </pre>
@@ -56,39 +58,52 @@ $operation = filter_input(INPUT_POST, "operation");
 
 if ($operation == 'add') {
 
+    // insert gallery in db
+    $mc->table = 'mc_galleries' ;
     $mc->gallery_name = filter_input(INPUT_POST,'gallery_name') ;
-    $mc->author = filter_input(INPUT_POST,'author') ;
-    $mc->table = 'mc_quotes' ;
+    if(!$mc->insert(['gallery_name'])){
+        header("Location: ../index.php?p=allGalleries&err=galleryAddFail");
+        exit;
+    }else{
 
+        for($i=0; $i<count($_FILES['myfile']['name']);$i++){
 
+            if($_FILES['myfile']['size'] > 0){
 
-
-
-
-    if($_FILES['myfile']['size'] > 0){
-
-        $file->filename = $_FILES['myfile']['name'] ;
-        $filename = $_FILES['myfile']['name'] ;
-        $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
-        $file->path = "../uploads/" ;
-        $file->origin = filter_input(INPUT_POST,"origin");
-
-        $file->operation = filter_input(INPUT_POST,"operation") ;
-        $filename_orig = $_POST['filename_orig'];
+                $file->filename = $_FILES['myfile']['name'] ;
+                $filename = $_FILES['myfile']['name'] ;
+                $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
+                $file->path = "../uploads/" ;
+                $file->origin = filter_input(INPUT_POST,"origin");
         
-        if($file->uploadFile()){
-            if(file_exists('../uploads/'.$filename_orig.'_old')){
-                unlink('../uploads/'.$filename_orig.'_old');
-            }else{
-                unlink("../uploads/$filename_orig");
-            }
-          
-            header("Location: ../index.php?p=allFiles&msg=fileEditSucc$url_data");
-            exit;
-        }else{
-            header("Location: ../index.php?p=allFiles&err=fileEditFail$url_data");
-            exit;
+                $file->operation = filter_input(INPUT_POST,"operation") ;
+                $filename_orig = $_POST['filename_orig'];
+                
+                if($file->uploadFile()){
+                    if(file_exists('../uploads/'.$filename_orig.'_old')){
+                        unlink('../uploads/'.$filename_orig.'_old');
+                    }else{
+                        unlink("../uploads/$filename_orig");
+                    }
+                  
+                    header("Location: ../index.php?p=allFiles&msg=fileEditSucc$url_data");
+                    exit;
+                }else{
+                    header("Location: ../index.php?p=allFiles&err=fileEditFail$url_data");
+                    exit;
+                }
+
         }
+
+
+    }
+
+
+
+
+
+
+
 
     }
 
