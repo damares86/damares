@@ -119,7 +119,7 @@
                             <div class="form-group">
                                 <div class="form-check mandatory">
                                     <div class="position-relative">
-                                        <textarea name="content" id="default" cols="30" rows="15"></textarea>
+                                        <textarea name="content" class="tiny" cols="30" rows="15"></textarea>
                                     </div>
                                 </div>
                             </div>

@@ -124,7 +124,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <textarea name="content" id="default" cols="30" rows="15"><?= $row1['content'] ?></textarea>
+                                                    <textarea name="content" class="tiny" cols="30" rows="15"><?= $row1['content'] ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
