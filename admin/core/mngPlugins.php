@@ -100,6 +100,8 @@ if ($op == "add") {
     }
   }
 
+  echo "create table -> ".$error."<br>" ;
+
   if (isset($menu_link)) {
     for ($i = 0; $i < count($menu_link); $i++) {
       if ($menu_link[$i]['link'] != 'link_parent') {
@@ -110,6 +112,7 @@ if ($op == "add") {
         if (!$section->insertParent()) {
           $error++;
         }
+        echo "insert parent-> ".$error."<br>" ;
 
         // get the section parent inserted
         $section->table = 'sectionParent';
@@ -137,6 +140,9 @@ if ($op == "add") {
           $errorPerm++;
         }
 
+        echo "perm parent-> ".$errorPerm."<br>" ;
+
+
         // set permission for the root user
         if ($_SESSION['role_id'] != 1) {
           $rolessection->table = 'rolesSection';
@@ -145,6 +151,7 @@ if ($op == "add") {
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
           }
+          echo "perm parent root-> ".$errorPerm."<br>" ;
 
         }
         $section->table = 'sectionParent';
@@ -173,6 +180,7 @@ if ($op == "add") {
           if (!$section->insertChild()) {
             $error++;
           }
+          echo "insert child-> ".$error."<br>" ;
 
 
           // get the section parent inserted
@@ -199,6 +207,8 @@ if ($op == "add") {
           // set permission for the user that added the plugin
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
+        echo "perm child-> ".$errorPerm."<br>" ;
+
           }
 
           // set permission for the root user
@@ -208,6 +218,8 @@ if ($op == "add") {
             $rolessection->role_id = 1;
             if (!$rolessection->update(['section_id'], 'role_id')) {
               $errorPerm++;
+        echo "perm child root-> ".$errorPerm."<br>" ;
+
             }
           }
         }
@@ -221,6 +233,8 @@ if ($op == "add") {
 
   if (!$plugin->update(['installed', 'active'], 'pluginname')) {
     $error++;
+    echo "update plugin-> ".$error."<br>" ;
+
   }
 
   // copy assets files
@@ -231,8 +245,10 @@ if ($op == "add") {
       chmod('../assets/css/' . $item['basename'] . '', 0777);
     } else {
       $error++;
+      
     }
   }
+  echo "copy assets-> ".$error."<br>" ;
 
 
   // copy class files
@@ -243,8 +259,10 @@ if ($op == "add") {
       chmod('../class/' . $item['basename'] . '', 0777);
     } else {
       $error++;
+      
     }
   }
+  echo "copy class-> ".$error."<br>" ;
 
 
 
@@ -259,6 +277,7 @@ if ($op == "add") {
       }
     }
   }
+  echo "copy core-> ".$error."<br>" ;
 
 
   // copy inc files
@@ -274,6 +293,9 @@ if ($op == "add") {
     }
   }
 
+  echo "copy inc-> ".$error."<br>" ;
+
+
   // copy inc/func files
   foreach (glob("$path/inc/func/*") as $row) {
     $item = pathinfo($row);
@@ -284,6 +306,9 @@ if ($op == "add") {
       $error++;
     }
   }
+
+  echo "copy func-> ".$error."<br>" ;
+
 
   // copy inc/settings files
   foreach (glob("$path/settings/*") as $row) {
@@ -296,6 +321,9 @@ if ($op == "add") {
     }
   }
 
+  echo "copy setting-> ".$error."<br>" ;
+
+
   // copy script files
   foreach (glob("$path/script/*") as $row) {
     $item = pathinfo($row);
@@ -306,6 +334,8 @@ if ($op == "add") {
       $error++;
     }
   }
+
+  echo "copy script-> ".$error."<br>" ;
 
   // copy locale files
   $scan = scandir($path . '/locale');
@@ -325,17 +355,19 @@ if ($op == "add") {
     }
   }
 
+  echo "copy locale-> ".$error."<br>" ;
+
 
   // copy manual files
-  foreach (glob("$path/manual/*") as $row) {
-    $item = pathinfo($row);
+  // foreach (glob("$path/manual/*") as $row) {
+  //   $item = pathinfo($row);
 
-    if (copy($path . '/manual/' . $item['basename'] . '', '../manual/' . $item['basename'] . '')) {
-      chmod('../manual/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
+  //   if (copy($path . '/manual/' . $item['basename'] . '', '../manual/' . $item['basename'] . '')) {
+  //     chmod('../manual/' . $item['basename'] . '', 0777);
+  //   } else {
+  //     $error++;
+  //   }
+  // }
 
   // copy frontend files
   foreach (glob("$path/frontend/*") as $row) {
@@ -348,6 +380,9 @@ if ($op == "add") {
     }
   }
 
+  echo "copy frontend-> ".$error."<br>" ;
+
+
   // copy uploads files
   foreach (glob("$path/uploads/*") as $row) {
     $item = pathinfo($row);
@@ -358,6 +393,10 @@ if ($op == "add") {
       $error++;
     }
   }
+
+  echo "copy uploads-> ".$error."<br>" ;
+
+  exit;
 
   unlink("../inc/class_initialize.php");
   if ($error == 0) {
