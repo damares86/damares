@@ -8,6 +8,14 @@
 #                                          #
 ############################################
 
+// label sidebar
+
+$label_posts="Post" ;
+$label_add_post = "Aggiungi un post" ;
+$label_all_posts = "Tutti i post" ;
+$label_all_categories = "Tutte le categorie" ;
+
+
 
 
 ?>

@@ -1,15 +1,34 @@
 <?php
 
-// here it's possibile to add some extra operations for the installation
+$template_dir = '../template/';
+$json_dir = '../inc/pages/';
 
 if ($op == 'add') {
 
-	// operations during the installation
+	if (!is_dir($template_dir)) {
+		$oldmask = umask(0);
+		mkdir($template_dir, 0777, true);
+		umask($oldmask);
+	}
 
+
+	if (!is_dir($json_dir)) {
+		$oldmask = umask(0);
+		mkdir($json_dir, 0777, true);
+		umask($oldmask);
+	}
+
+	// copy template files
+	if ($common->copyDirectory('../plugins/mini_cms/template/', $template_dir)) {
+		$common->chmod_R($template_dir, 0777);
+	} else {
+		$error++;
+	}
 }else if($op == 'rm'){
-	
-	// operations during the remove
-	
-}
 
+	$luna->rmdir_recursive($template_dir) ;
+	$luna->rmdir_recursive($json_dir) ;
+	
+
+}
 require "config.php";

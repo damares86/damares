@@ -1,12 +1,12 @@
 <?php
-$post->table = 'post';
-$stmt = $post->showAll('id');
-
+$mc->table = 'mc_popup';
+$popup = $mc->showAll('id');
 ?>
+
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutti i post</h3>
+      <h3>Popup</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +15,7 @@ $stmt = $post->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Tutti i post
+          Popup
           </li>
         </ol>
       </nav>
@@ -28,16 +28,18 @@ $stmt = $post->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">Tutti i post &nbsp; &nbsp; &nbsp;
-      <a href="index.php?p=addPost" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Aggiungi un post</a>
+    <div class="card-header">Tutti i popup &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      <a href="index.php?p=addPopup" class="btn icon icon-left btn-success shadow">
+        <i data-feather="plus-circle"></i> Aggiungi un popup
+      </a>
     </div>
     <div class="card-body">
+
       <table class="table" id="table">
         <thead>
           <tr>
-            <th>Titolo</th>
-            <th>Data</th>
-            <th>Autore</th>
+            <th>Nome popup</th>
+            <th>Sulla pagina</th>
             <th>Link</th>
             <th><?= $common_actions ?></th>
           </tr>
@@ -45,19 +47,35 @@ $stmt = $post->showAll('id');
         <tbody>
 
           <?php
-          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $time = $row['created'];
-            $newTime = date("d/m/Y", strtotime($time));
+          while ($row = $popup->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
 
           ?>
-
             <tr>
               <td><?= $row['title'] ?></td>
-              <td><?= $newTime ?></td>
-              <td><?= $row['author'] ?></td>
-              <td><a href="../post.php?id=<?= $row['id'] ?>">Link</a></td>
               <td>
-                <a href="index.php?p=editPost&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPost&idToMod=<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
+                <?php
+                  $mc->table = 'mc_pages' ;
+                  $mc->id = $row['page_id'] ;
+                  $stmt = $mc->showAllWhere('id',['id']);
+                  $page = $stmt->fetch(PDO::FETCH_ASSOC) ;
+                  extract($page);
+                  $str = $page['page_name'];
+                  $str = str_replace('_', ' ', $str);
+  
+                  $str = ucfirst($str);
+                  echo $str ;
+                ?>
+              </td>
+              <td>
+                <a href="../<?=$page['page_name'] ?>.php">View</a>
+              </td>
+
+              <td>
+                <a href="index.php?p=editPopup&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPopup&idToMod=<?= $row['id'] ?>">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+
                 &nbsp; &nbsp;
                 <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row['id'] ?>"><i class="bi bi-trash"></i>
                 </a>
@@ -74,20 +92,21 @@ $stmt = $post->showAll('id');
                         </button>
                       </div>
                       <div class="modal-body">
-                        <?= $customer_all_modal_body ?>
+                        Cliccando su conferma il popup verrà eliminato definitivamente
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                           <i class="bx bx-x d-block d-sm-none"></i>
                           <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
                         </button>
-                        <span class="d-none d-sm-block"><a href="core/mngPost.php?idToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
+                        <span class="d-none d-sm-block"><a href="core/mngPopup.php?idToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
                             <?= $common_modal_confirm ?>
                           </a></span>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </td>
             </tr>
 

@@ -176,7 +176,7 @@ $db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "sectionChild
                   label VARCHAR(255) NOT NULL,
                   icon VARCHAR ( 255 ) NOT NULL,
                   parent_id INT ( 5 ) NOT NULL,
-                  show_menu INT (1) DEFAULT 1");
+                  show_menu INT (1) DEFAULT 1)");
 
 
 $db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "rolesSection
@@ -311,7 +311,7 @@ $db->query("INSERT INTO " . $prefix . "sectionParent
                             VALUES ('allFiles','Files','folder-fill')");
 
 $db->query("INSERT INTO " . $prefix . "sectionChild
-                            (ink,label,icon,parent_id)
+                            (link,label,icon,parent_id)
                             VALUES ('allFiles','All files','folder-fill','3')");
 
 $db->query("INSERT INTO " . $prefix . "sectionChild
@@ -354,11 +354,11 @@ $db->query("INSERT INTO " . $prefix . "rolesSection
 
 $db->query("INSERT INTO " . $prefix . "rolesSectionChild
                             (id, section_id,role_id)
-                            VALUES ('1','1,2,3,4,5','1')");
+                            VALUES ('1','1,2,3,4,5,6,7,8,9,10','1')");
 
 $db->query("INSERT INTO " . $prefix . "rolesSectionChild
                             (id, section_id,role_id)
-                            VALUES ('2','1,2,3,4,5','2')");
+                            VALUES ('2','1,2,3,4,5,6,7,8,9,10','2')");
 // homepage blocks                            
 
 $db->query("INSERT INTO " . $prefix . "home

@@ -168,6 +168,7 @@ if ($op == "add") {
           $section->link = $child_link[$idx]['link'];
           $section->label = $child_link[$idx]['label'];
           $section->icon = $child_link[$idx]['icon'];
+          $section->show_menu = $menu_link[$idx]['show_menu'];
 
           if (!$section->insertChild()) {
             $error++;

@@ -104,6 +104,7 @@
           }
           
           if ($role_id == 1 || in_array($row['id'], $sectionParent)) {
+
         ?>
             <li class="menu-item <?= $active ?> <?= $hasSub ?>">
               <a href="index.php<?= $link ?>" class="menu-link <?=$disabled?>">
@@ -136,7 +137,10 @@
                     while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
                       if ($role_id == 1 ||  in_array($row1['id'], $sectionChild)) {
 
-
+                        $display = '' ;
+                        if($row1['show_menu']==0){
+                            $display = 'style="display:none;"';
+                        }
 
                         $active1 = "";
 
@@ -147,7 +151,7 @@
                         }
 
                     ?>
-                        <li class="submenu-item topbar <?= $active1 ?>">
+                        <li class="submenu-item topbar <?= $active1 ?>" <?=$display?>>
                           <a href="index.php?p=<?= $row1['link'] ?>" class="submenu-link">
                             <i class="bi bi-<?= $row1['icon'] ?>"></i>
                             <span>

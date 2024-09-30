@@ -1,12 +1,12 @@
 <?php
-$post->table = 'post_categories';
-$stmt = $post->showAll('id');
-
+$mc->table = 'mc_pages';
+$pages = $mc->showAll('id');
 ?>
+
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutte le categorie</h3>
+      <h3>Custom pages</h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +15,7 @@ $stmt = $post->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Tutte le categorie
+            Custom pages
           </li>
         </ol>
       </nav>
@@ -28,41 +28,46 @@ $stmt = $post->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">Tutte le categorie &nbsp; &nbsp; &nbsp;
-      <a href="index.php?p=addPostCat" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Aggiungi una categoria</a>
+    <div class="card-header">All custom pages &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      <a href="index.php?p=addPage" class="btn icon icon-left btn-success shadow">
+        <i data-feather="plus-circle"></i> Add a new page
+      </a>
     </div>
     <div class="card-body">
+
       <table class="table" id="table">
         <thead>
           <tr>
-            <th>Nome categoria</th>
-            <th>Numero articoli</th>
+            <th>Page name</th>
+            <th>Page link</th>
             <th><?= $common_actions ?></th>
           </tr>
         </thead>
         <tbody>
 
           <?php
-          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $post->table = 'post';
-            $stmt1 = $post->showAll('id');
+          while ($row = $pages->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
 
-            $num = 0;
-
-            while ($row1  = $stmt1->fetch(PDO::FETCH_ASSOC)) {
-              extract($row);
-
-              $catArr = explode(',', $row1['category_id']);
-              if (in_array($row['id'], $catArr)) {
-                $num++;
-              }
-            }
           ?>
-            <tr <?= $class ?>>
-              <td><?= $row['category_name'] ?></td>
-              <td><?= $num ?></td>
+            <tr>
+              <td><?= $row['page_name'] ?></td>
               <td>
-                <a href="index.php?p=editPostCat&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPostCat&idToMod=<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
+                <?php
+                $str = $row['page_name'];
+                $str = preg_replace('/\s+/', '_', $str);
+
+                $str = strtolower($str);
+                ?>
+                <a href="../<?= $str ?>.php">View</a>
+
+              </td>
+
+              <td>
+                <a href="index.php?p=editPage&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPage&idToMod=<?= $row['id'] ?>">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+
                 &nbsp; &nbsp;
                 <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row['id'] ?>"><i class="bi bi-trash"></i>
                 </a>
@@ -79,20 +84,21 @@ $stmt = $post->showAll('id');
                         </button>
                       </div>
                       <div class="modal-body">
-                        <?= $customer_all_modal_body ?>
+                        <?= $account_all_modal_body ?>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                           <i class="bx bx-x d-block d-sm-none"></i>
                           <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
                         </button>
-                        <span class="d-none d-sm-block"><a href="core/mngPostCat.php?idToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
+                        <span class="d-none d-sm-block"><a href="core/mngPage.php?idToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1">
                             <?= $common_modal_confirm ?>
                           </a></span>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </td>
             </tr>
 

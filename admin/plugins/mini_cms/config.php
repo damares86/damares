@@ -101,42 +101,98 @@ $menu_link = [[
             [
                   'link' => 'allDefaultPages',
                   'label' => 'Default pages',
-                  'icon' => 'file-earmark-medical'
+                  'icon' => 'file-earmark-medical',
+                  'show_menu' => '1'
+            ],
+            [
+                  'link' => 'editDefaultPages',
+                  'label' => 'Edit default pages',
+                  'icon' => 'file-earmark-medical',
+                  'show_menu' => '0'
             ],
             [
                   'link' => 'allPages',
                   'label' => 'Custom pages',
-                  'icon' => 'file-earmark-richtext'
+                  'icon' => 'file-earmark-richtext',
+                  'show_menu' => '1'
+            ],
+            [
+                  'link' => 'addPage',
+                  'label' => 'Add custom pages',
+                  'icon' => 'file-earmark-richtext',
+                  'show_menu' => '0'
+            ],
+            [
+                  'link' => 'editPage',
+                  'label' => 'Edit custom pages',
+                  'icon' => 'file-earmark-richtext',
+                  'show_menu' => '0'
             ],
             [
                   'link' => 'allMenu',
                   'label' => 'Manage menu',
-                  'icon' => 'menu-app'
+                  'icon' => 'menu-app',
+                  'show_menu' => '1'
             ],
             [
                   'link' => 'allGalleries',
                   'label' => 'Galleries',
-                  'icon' => 'card-image'
+                  'icon' => 'card-image',
+                  'show_menu' => '1'
+            ],
+            [
+                  'link' => 'editGallery',
+                  'label' => 'Edit galleries',
+                  'icon' => 'card-image',
+                  'show_menu' => '0'
+            ],
+            [
+                  'link' => 'addGallery',
+                  'label' => 'Add galleries',
+                  'icon' => 'card-image',
+                  'show_menu' => '0'
             ],
             [
                   'link' => 'allTheme',
                   'label' => 'Theme and colors',
-                  'icon' => 'palette'
+                  'icon' => 'palette',
+                  'show_menu' => '1'
             ],
             [
                   'link' => 'allQuotes',
                   'label' => 'Quotes',
-                  'icon' => 'quote'
+                  'icon' => 'quote',
+                  'show_menu' => '1'
+            ],
+            [
+                  'link' => 'editQuote',
+                  'label' => 'Edit uote',
+                  'icon' => 'quote',
+                  'show_menu' => '0'
             ],
             [
                   'link' => 'allPopup',
                   'label' => 'Popup',
-                  'icon' => 'window-stack'
+                  'icon' => 'window-stack',
+                  'show_menu' => '1'
+            ],
+            [
+                  'link' => 'addPopup',
+                  'label' => 'Add popup',
+                  'icon' => 'window-stack',
+                  'show_menu' => '0'
+            ],
+            [
+                  'link' => 'editPopup',
+                  'label' => 'Edit popup',
+                  'icon' => 'window-stack',
+                  'show_menu' => '0'
             ],
             [
                   'link' => 'allMcSettings',
                   'label' => 'Settings',
-                  'icon' => 'wrench'
+                  'icon' => 'wrench',
+                  'show_menu' => '1'
             ]
       ]
 ]];
