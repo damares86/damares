@@ -137,16 +137,20 @@
 
                                     <?php
                                     while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
-                                        if ($role_id == 1 || in_array($row1['id'], $sectionChild)) {
+                                        if (($role_id == 1 || in_array($row1['id'], $sectionChild))) {
+                                            
                                             $active1 = "";
-
+                                            $display = '' ;
+                                            if($row1['show_menu']==0){
+                                                $display = 'style="display:none;"';
+                                            }
                                             extract($row1);
 
                                             if ($page == $row1['link']) {
                                                 $active1 = "active";
                                             }
                                     ?>
-                                            <li class="<?= $active1 ?>"><a href="index.php?p=<?= $row1['link'] ?>" data-parent-id="<?= $parent_id ?>">
+                                            <li class="<?= $active1 ?>"><a href="index.php?p=<?= $row1['link'] ?>" data-parent-id="<?= $parent_id ?>" <?=$display?>>
                                                     <i class="bi bi-<?= $row1['icon'] ?>"></i>
                                                     <span>
                                                         <?php
