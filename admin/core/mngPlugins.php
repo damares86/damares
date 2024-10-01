@@ -100,7 +100,7 @@ if ($op == "add") {
     }
   }
 
-  echo "create table -> ".$error."<br>" ;
+  //echo "create table -> ".$error."<br>" ;
 
   if (isset($menu_link)) {
     for ($i = 0; $i < count($menu_link); $i++) {
@@ -112,7 +112,7 @@ if ($op == "add") {
         if (!$section->insertParent()) {
           $error++;
         }
-        echo "insert parent-> ".$error."<br>" ;
+        //echo "insert parent-> ".$error."<br>" ;
 
         // get the section parent inserted
         $section->table = 'sectionParent';
@@ -140,7 +140,7 @@ if ($op == "add") {
           $errorPerm++;
         }
 
-        echo "perm parent-> ".$errorPerm."<br>" ;
+        //echo "perm parent-> ".$errorPerm."<br>" ;
 
 
         // set permission for the root user
@@ -151,7 +151,7 @@ if ($op == "add") {
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
           }
-          echo "perm parent root-> ".$errorPerm."<br>" ;
+          //echo "perm parent root-> ".$errorPerm."<br>" ;
 
         }
         $section->table = 'sectionParent';
@@ -175,12 +175,12 @@ if ($op == "add") {
           $section->link = $child_link[$idx]['link'];
           $section->label = $child_link[$idx]['label'];
           $section->icon = $child_link[$idx]['icon'];
-          $section->show_menu = $menu_link[$idx]['show_menu'];
+          $section->show_menu = $child_link[$idx]['show_menu'];
 
           if (!$section->insertChild()) {
             $error++;
           }
-          echo "insert child-> ".$error."<br>" ;
+          //echo "insert child-> ".$error."<br>" ;
 
 
           // get the section parent inserted
@@ -207,7 +207,7 @@ if ($op == "add") {
           // set permission for the user that added the plugin
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
-        echo "perm child-> ".$errorPerm."<br>" ;
+        //echo "perm child-> ".$errorPerm."<br>" ;
 
           }
 
@@ -218,7 +218,7 @@ if ($op == "add") {
             $rolessection->role_id = 1;
             if (!$rolessection->update(['section_id'], 'role_id')) {
               $errorPerm++;
-        echo "perm child root-> ".$errorPerm."<br>" ;
+        //echo "perm child root-> ".$errorPerm."<br>" ;
 
             }
           }
@@ -233,7 +233,7 @@ if ($op == "add") {
 
   if (!$plugin->update(['installed', 'active'], 'pluginname')) {
     $error++;
-    echo "update plugin-> ".$error."<br>" ;
+    //echo "update plugin-> ".$error."<br>" ;
 
   }
 
@@ -248,7 +248,7 @@ if ($op == "add") {
       
     }
   }
-  echo "copy assets-> ".$error."<br>" ;
+  //echo "copy assets-> ".$error."<br>" ;
 
 
   // copy class files
@@ -262,7 +262,7 @@ if ($op == "add") {
       
     }
   }
-  echo "copy class-> ".$error."<br>" ;
+  //echo "copy class-> ".$error."<br>" ;
 
 
 
@@ -277,7 +277,7 @@ if ($op == "add") {
       }
     }
   }
-  echo "copy core-> ".$error."<br>" ;
+  //echo "copy core-> ".$error."<br>" ;
 
 
   // copy inc files
@@ -293,7 +293,7 @@ if ($op == "add") {
     }
   }
 
-  echo "copy inc-> ".$error."<br>" ;
+  //echo "copy inc-> ".$error."<br>" ;
 
 
   // copy inc/func files
@@ -307,7 +307,7 @@ if ($op == "add") {
     }
   }
 
-  echo "copy func-> ".$error."<br>" ;
+  //echo "copy func-> ".$error."<br>" ;
 
 
   // copy inc/settings files
@@ -321,7 +321,7 @@ if ($op == "add") {
     }
   }
 
-  echo "copy setting-> ".$error."<br>" ;
+  //echo "copy setting-> ".$error."<br>" ;
 
 
   // copy script files
@@ -335,7 +335,7 @@ if ($op == "add") {
     }
   }
 
-  echo "copy script-> ".$error."<br>" ;
+  //echo "copy script-> ".$error."<br>" ;
 
   // copy locale files
   $scan = scandir($path . '/locale');
@@ -355,7 +355,7 @@ if ($op == "add") {
     }
   }
 
-  echo "copy locale-> ".$error."<br>" ;
+  //echo "copy locale-> ".$error."<br>" ;
 
 
   // copy manual files
@@ -380,7 +380,7 @@ if ($op == "add") {
   //   }
   // }
 
-  // echo "copy frontend-> ".$error."<br>" ;
+  // //echo "copy frontend-> ".$error."<br>" ;
 
 
   // copy uploads files
@@ -394,9 +394,7 @@ if ($op == "add") {
     }
   }
 
-  echo "copy uploads-> ".$error."<br>" ;
-
-  exit;
+  //echo "copy uploads-> ".$error."<br>" ;
 
   unlink("../inc/class_initialize.php");
   if ($error == 0) {

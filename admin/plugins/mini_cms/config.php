@@ -64,8 +64,8 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       (page_name, header, header_media,use_name,use_desc)
       VALUES ('login','1','visual.jpg','1','1');
       INSERT INTO " . $prefix . "mc_pages
-      (page_name, no_del,layout,header,use_name,use_desc,img,counter)
-      VALUES ('index','1','default','1','1','1','visual.jpg','1');
+      (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
+      VALUES ('index','1','default','1','visual.jpg','1','1','1');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_site_name', 'Mini CMS Website');
