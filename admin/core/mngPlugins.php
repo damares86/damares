@@ -370,17 +370,17 @@ if ($op == "add") {
   // }
 
   // copy frontend files
-  foreach (glob("$path/frontend/*") as $row) {
-    $item = pathinfo($row);
+  // foreach (glob("$path/frontend/*") as $row) {
+  //   $item = pathinfo($row);
 
-    if (copy($path . '/frontend/' . $item['basename'] . '', '../../' . $item['basename'] . '')) {
-      chmod('../../' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
+  //   if (copy($path . '/frontend/' . $item['basename'] . '', '../../' . $item['basename'] . '')) {
+  //     chmod('../../' . $item['basename'] . '', 0777);
+  //   } else {
+  //     $error++;
+  //   }
+  // }
 
-  echo "copy frontend-> ".$error."<br>" ;
+  // echo "copy frontend-> ".$error."<br>" ;
 
 
   // copy uploads files
