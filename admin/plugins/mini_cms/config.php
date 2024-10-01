@@ -80,7 +80,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       VALUES ('mc_footer', 'Mini CMS by DMWeblab');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
-      VALUES ('mc_theme', 'mini_cms');
+      VALUES ('mc_theme', 'damares');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('maintenance', '0');
