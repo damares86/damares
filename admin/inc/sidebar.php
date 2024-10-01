@@ -141,8 +141,10 @@
                                             
                                             $active1 = "";
                                             $display = '' ;
+                                            $show_menu = true;
                                             if($row1['show_menu']==0){
                                                 $display = 'style="display:none;"';
+                                                $show_menu = false;
                                             }
                                             extract($row1);
 
@@ -154,14 +156,16 @@
                                                     <i class="bi bi-<?= $row1['icon'] ?>"></i>
                                                     <span>
                                                         <?php
-                                                        if ($lang == "en") {
-                                                            echo $row1['label'];
-                                                        } else {
-                                                            $locale_label = strtolower($row1['label']);
-                                                            $locale_label = str_replace(" ", "_", $locale_label);
-                                                            $locale_label = "label_$locale_label";
-                                                            $section_label = $$locale_label;
-                                                            echo $section_label;
+                                                        if($show_menu){
+                                                            if ($lang == "en") {
+                                                                echo $row1['label'];
+                                                            } else {
+                                                                $locale_label = strtolower($row1['label']);
+                                                                $locale_label = str_replace(" ", "_", $locale_label);
+                                                                $locale_label = "label_$locale_label";
+                                                                $section_label = $$locale_label;
+                                                                echo $section_label;
+                                                            }
                                                         }
                                                         ?>
                                                     </span>

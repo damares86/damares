@@ -127,41 +127,44 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                                                 while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
                                                                     extract($row1);
 
-                                                                    // hide sections for non root users
-                                                                    $role_id = $_SESSION['role_id'];
-                                                                    $rolessection->role_id = $role_id;
-                                                                    $rolessection->table = 'rolesSectionChild';
-                                                                    $permissionChild = $rolessection->showAllPermission('id', ['role_id']);
+                                                                    if ($row1['show_menu'] == 1) {
 
-                                                                    $sectionChildOk = [];
-                                                                    foreach ($permissionChild as $item) {
-                                                                        if ($item['role_id'] == $role_id) {
-                                                                            $section_child_arr = explode(',', $item['section_id']);
-                                                                            $sectionChildOk[] = $section_child_arr;
+                                                                        // hide sections for non root users
+                                                                        $role_id = $_SESSION['role_id'];
+                                                                        $rolessection->role_id = $role_id;
+                                                                        $rolessection->table = 'rolesSectionChild';
+                                                                        $permissionChild = $rolessection->showAllPermission('id', ['role_id']);
+
+                                                                        $sectionChildOk = [];
+                                                                        foreach ($permissionChild as $item) {
+                                                                            if ($item['role_id'] == $role_id) {
+                                                                                $section_child_arr = explode(',', $item['section_id']);
+                                                                                $sectionChildOk[] = $section_child_arr;
+                                                                            }
                                                                         }
-                                                                    }
 
-                                                                    if ($role_id == 1 ||  in_array($row1['id'], $sectionChildOk[0])) {
+                                                                        if ($role_id == 1 ||  in_array($row1['id'], $sectionChildOk[0])) {
 
                                                                 ?>
-                                                                        <div class="form-check">
-                                                                            <div class="checkbox">
-                                                                                <input type="checkbox" name="sectionChild[]" class="form-check-input" value="<?= $row1['id'] ?>">
-                                                                                <?php
-                                                                                if ($lang == "en") {
-                                                                                    echo $row1['label'];
-                                                                                } else {
-                                                                                    $locale_label = strtolower($row1['label']);
-                                                                                    $locale_label = str_replace(" ", "_", $locale_label);
-                                                                                    $locale_label = "label_$locale_label";
-                                                                                    $section_label = $$locale_label;
-                                                                                    echo $section_label;
-                                                                                }
-                                                                                ?>
-                                                                                </label>
+                                                                            <div class="form-check">
+                                                                                <div class="checkbox">
+                                                                                    <input type="checkbox" name="sectionChild[]" class="form-check-input" value="<?= $row1['id'] ?>">
+                                                                                    <?php
+                                                                                    if ($lang == "en") {
+                                                                                        echo $row1['label'];
+                                                                                    } else {
+                                                                                        $locale_label = strtolower($row1['label']);
+                                                                                        $locale_label = str_replace(" ", "_", $locale_label);
+                                                                                        $locale_label = "label_$locale_label";
+                                                                                        $section_label = $$locale_label;
+                                                                                        echo $section_label;
+                                                                                    }
+                                                                                    ?>
+                                                                                    </label>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
                                                                 <?php
+                                                                        }
                                                                     }
                                                                 }
                                                                 ?>

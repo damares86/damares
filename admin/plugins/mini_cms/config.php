@@ -166,7 +166,7 @@ $menu_link = [[
             ],
             [
                   'link' => 'editQuote',
-                  'label' => 'Edit uote',
+                  'label' => 'Edit quote',
                   'icon' => 'quote',
                   'show_menu' => '0'
             ],
