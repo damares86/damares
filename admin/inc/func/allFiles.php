@@ -64,7 +64,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
 
             $label_arr = explode("_", $row['label']);
 
-            if ($fileOk && $label_arr[0] != "avatar" && $row['id'] != 1) {
+            if ($fileOk && $label_arr[0] != "avatar") {
           ?>
               <tr>
                 <td><?= $row['label'] ?></td>

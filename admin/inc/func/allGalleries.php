@@ -38,6 +38,9 @@ $gall = $mc->showAll('id');
       <div class="row">
         <?php
         while ($row = $gall->fetch(PDO::FETCH_ASSOC)) {
+          $images = glob("../uploads/gallery/g_".$row['id']."/*") ;
+          if(count($images)>0){
+
         ?>
           <div class="col-6 col-lg-4 col-md-6">
             <div class="card border">
@@ -50,7 +53,7 @@ $gall = $mc->showAll('id');
                     <?php
 
                     ?>
-                    <img src="../uploads/visual.jpg" class="w-100">
+                    <img src="<?=$images[0]?>" class="w-100">
                   </div>
                   <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5">
                     <a href="index.php?p=editGallery&idToMod=<?=$row['id']?>&pagename=allGalleries">
@@ -68,6 +71,9 @@ $gall = $mc->showAll('id');
             </div>
           </div>
         <?php
+          }else{
+            echo "No images in this gallery";
+          }
 
         }
 

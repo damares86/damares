@@ -65,9 +65,8 @@
                                         </div>
 
                                             
-                                        <input type="hidden" name="operation" value="edit">
-                                        <input type="hidden" name="idToMod" value="<?= $id ?>">
-                                        <input type="hidden" name="origin" value="editGallery">
+                                        <input type="hidden" name="operation" value="add">
+                                        <input type="hidden" name="origin" value="addGallery">
 
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1 shadow">

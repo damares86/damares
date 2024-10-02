@@ -373,12 +373,6 @@ $db->query("INSERT INTO " . $prefix . "home
                               (id, content,size)
                               VALUES ('3','last_login.php','3')");
 
-// insert first program file
-
-$db->query("INSERT INTO " . $prefix . "files
-                              (id, filename,label)
-                              VALUES ('1','Program.pdf','Convention program')");
-
 // scan the plugin directory and insert the plugin by folder's name
 
 $plugins = scandir('../plugins');

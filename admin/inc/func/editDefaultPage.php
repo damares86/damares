@@ -174,8 +174,9 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                             <label>Show site name </label>
                                         </div>
                                         <?php
-                                        $setting->name = 'mc_site_name';
-                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $mc->table = 'mc_settings' ;
+                                        $mc->name = 'mc_site_name';
+                                        $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
                                         ?>
@@ -202,8 +203,9 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                             <label>Show site description </label>
                                         </div>
                                         <?php
-                                        $setting->name = 'mc_site_description';
-                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $mc->table = 'mc_settings' ;
+                                        $mc->name = 'mc_site_description';
+                                        $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
                                         ?>

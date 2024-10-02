@@ -13,7 +13,7 @@ $link_parent = "mini_cms";
 $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       page_name VARCHAR(255) NOT NULL,
-      no_del INT(1) NOT NULL,
+      no_del INT(1) DEFAULT 0,
       layout VARCHAR(50) NOT NULL,
       header INT(1) NOT NULL,
       header_media VARCHAR(255) DEFAULT NULL,

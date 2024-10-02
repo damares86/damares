@@ -65,7 +65,7 @@
                                             <div class="form-check mandatory">
                                                 <?php
                                                 $layout_counter = 0;
-                                                foreach (glob("../assets/css/template/img/*") as $file) {
+                                                foreach (glob("../assets/template/img/*") as $file) {
                                                     if (is_file($file)) {
                                                         $style = pathinfo($file, PATHINFO_FILENAME);
 
@@ -76,7 +76,7 @@
                                                 ?>
 
                                                         <input type="radio" class="btn-check" name="layout" value="<?= $style ?>" autocomplete="off" id="layout_<?= $style ?>" <?= $checked ?>>
-                                                        <label class="btn btn-outline-primary" for="layout_<?= $style ?>"><img src='../assets/css/template/img/<?= $style ?>.png'></label>
+                                                        <label class="btn btn-outline-primary" for="layout_<?= $style ?>"><img src='../assets/template/img/<?= $style ?>.png'></label>
                                                         &nbsp;
                                                 <?php
                                                     }
@@ -168,8 +168,9 @@
                                             <label>Show site name </label>
                                         </div>
                                         <?php
-                                        $setting->name = 'mc_site_name';
-                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $mc->table = 'mc_settings' ;
+                                        $mc->name = 'mc_site_name';
+                                        $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
                                         ?>
@@ -188,8 +189,9 @@
                                             <label>Show site description </label>
                                         </div>
                                         <?php
-                                        $setting->name = 'mc_site_description';
-                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $mc->table = 'mc_settings' ;
+                                        $mc->name = 'mc_site_description';
+                                        $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
                                         ?>

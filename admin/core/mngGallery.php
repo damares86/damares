@@ -17,23 +17,22 @@ if (filter_input(INPUT_GET, "idToDel")) {
 
     // gestire il discorso del colore usato
 
-    $idToDel = filter_input(INPUT_GET, "idToDel") ;
-    
-    $mc->table = 'mc_galleries' ;
-    $mc->id = $idToDel ;
+    $idToDel = filter_input(INPUT_GET, "idToDel");
 
-    if($mc->delete('id')){
+    $mc->table = 'mc_galleries';
+    $mc->id = $idToDel;
+
+    if ($mc->delete('id')) {
         ///////////////////////////////
         // REMOVE ALL FILES
         ///////////////////////////////
 
         header("Location: ../index.php?p=allQuotes&msg=quoteDelSucc");
         exit;
-    }else{
+    } else {
         header("Location: ../index.php?p=allQuotes&err=quoteDelFail");
         exit;
     }
-
 }
 
 ?>
@@ -41,16 +40,16 @@ if (filter_input(INPUT_GET, "idToDel")) {
 <pre>
 
 <?php
-print_r($_POST);
-$count = count($_FILES['myfile']['name']);
-echo $count ;
-print_r($_FILES);
+// print_r($_POST);
+// $count = count($_FILES['myfile']['name']);
+// echo $count ;
+// print_r($_FILES);
 ?>
 </pre>
 
 <?php
 
-exit;
+// exit;
 
 $operation = filter_input(INPUT_POST, "operation");
 
@@ -59,82 +58,62 @@ $operation = filter_input(INPUT_POST, "operation");
 if ($operation == 'add') {
 
     // insert gallery in db
-    $mc->table = 'mc_galleries' ;
-    $mc->gallery_name = filter_input(INPUT_POST,'gallery_name') ;
-    if(!$mc->insert(['gallery_name'])){
+    $mc->table = 'mc_galleries';
+    $gallery_name = filter_input(INPUT_POST, 'gallery_name'); 
+    $mc->gallery_name = $gallery_name ;
+    $error = 0;
+    if (!$mc->insert(['gallery_name'])) {
         header("Location: ../index.php?p=allGalleries&err=galleryAddFail");
         exit;
-    }else{
+    } else {
 
-        for($i=0; $i<count($_FILES['myfile']['name']);$i++){
+        $mc->table = 'mc_galleries' ;
+        $stmt = $mc->showAllLimitDesc('id',1);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        extract($row);
+        $last_id = $row['id'];
 
-            if($_FILES['myfile']['size'] > 0){
+        for ($i = 0; $i < count($_FILES['myfile']['name']); $i++) {
 
-                $file->filename = $_FILES['myfile']['name'] ;
-                $filename = $_FILES['myfile']['name'] ;
-                $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
-                $file->path = "../uploads/" ;
-                $file->origin = filter_input(INPUT_POST,"origin");
-        
-                $file->operation = filter_input(INPUT_POST,"operation") ;
-                $filename_orig = $_POST['filename_orig'];
-                
-                if($file->uploadFile()){
-                    if(file_exists('../uploads/'.$filename_orig.'_old')){
-                        unlink('../uploads/'.$filename_orig.'_old');
-                    }else{
-                        unlink("../uploads/$filename_orig");
-                    }
-                  
-                    header("Location: ../index.php?p=allFiles&msg=fileEditSucc$url_data");
-                    exit;
-                }else{
-                    header("Location: ../index.php?p=allFiles&err=fileEditFail$url_data");
-                    exit;
+            if ($_FILES['myfile']['size'][$i] > 0) {
+
+                $filename = $_FILES['myfile']['name'][$i];
+                $mc->filename = $filename;
+                $mc->inputFileName = $_FILES['myfile']['tmp_name'][$i];
+                // $mc->label =  $gallery_name . '_'.$i ;
+                $mc->path = "../../uploads/gallery/g_$last_id/";
+                $mc->origin = filter_input(INPUT_POST, "origin");
+
+                $mc->operation = filter_input(INPUT_POST, "operation");
+
+                if (!$mc->uploadFile()) {
+                    $error++;
                 }
+            }
 
+            $error_msg = '';
+            if ($error > 0) {
+                $error_msg = '&err=errFileImg';
+            }
         }
-
-
-    }
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-    if($mc->insert(['quote','author']) ){
-        header("Location: ../index.php?p=allQuotes&msg=quoteAddSucc");
-        exit;
-    }else{
-        header("Location: ../index.php?p=allQuotes&err=quoteAddFail");
+        header("Location: ../index.php?p=allGalleries&msg=galleryAddSucc$error_msg");
         exit;
     }
-    
 } else if ($operation == 'edit') {
 
-    $mc->quote = filter_input(INPUT_POST,'quote') ;
-    $mc->author = filter_input(INPUT_POST,'author') ;
-    $mc->id = filter_input(INPUT_POST,'idToMod') ; 
-    $mc->table = 'mc_quotes' ;
+    $mc->quote = filter_input(INPUT_POST, 'quote');
+    $mc->author = filter_input(INPUT_POST, 'author');
+    $mc->id = filter_input(INPUT_POST, 'idToMod');
+    $mc->table = 'mc_quotes';
 
-    if($mc->update(['quote','author'],'id') ){
+    if ($mc->update(['quote', 'author'], 'id')) {
         header("Location: ../index.php?p=allQuotes&msg=quoteEditSucc");
         exit;
-    }else{
+    } else {
         header("Location: ../index.php?p=allQuotes&err=quoteEditFail");
         exit;
     }
-
-}else {
+} else {
     header("Location: ../index.php?p=allTheme&err=noPost");
     exit;
 }
