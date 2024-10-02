@@ -48,7 +48,10 @@ extract($row1);
                                         <?php
                                         $images = glob("../uploads/gallery/g_" . $row1['id'] . "/*");
                                         if (count($images) > 0) {
+                                            $idx = 0 ;
                                             foreach ($images as $img) {
+
+                                                $img_split = explode('/',$img);
 
                                         ?>
                                                 <div class="col-4 col-lg-3 col-md-4">
@@ -63,7 +66,36 @@ extract($row1);
                                                                 </div>
                                                                 <div class="col-12 mt-3">
                                                                     <div class="stats-icon bg-danger mb-2">
-                                                                        <i class="bi-trash"></i>
+                                                                        <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $idx ?>"><i class="bi bi-trash"></i>
+                                                                        </a>
+                                                                        <!--Danger theme Modal -->
+                                                                        <div class="modal fade text-left" id="danger<?= $idx ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header bg-danger">
+                                                                                        <h5 class="modal-title white" id="myModalLabel120">
+                                                                                            <?= $common_modal_title_sure ?>
+                                                                                        </h5>
+                                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                            <i data-feather="x"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <?= $account_all_modal_body ?>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                                                                            <i class="bx bx-x d-block d-sm-none"></i>
+                                                                                            <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
+                                                                                        </button>
+                                                                                        <span class="d-none d-sm-block"><a href="core/mngAccounts.php?imgToDel=<?= $img_split[4] ?>" class="btn btn-danger ml-1">
+                                                                                                <?= $common_modal_confirm ?>
+                                                                                            </a></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -72,6 +104,7 @@ extract($row1);
                                                     </div>
                                                 </div>
                                         <?php
+                                        $idx++;
                                             }
                                         } else {
                                             echo "No images in this gallery";
