@@ -23,7 +23,7 @@ extract($row1);
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
 
-                        Edit Gallery
+                            Edit Gallery
                         </li>
                     </ol>
                 </nav>
@@ -33,45 +33,68 @@ extract($row1);
     <br>
 
 
-        <section class="section">
-            <div class="row">
-                <div class="col-md-8 col-12">
-                    <div class="card shadow">
-                        <div class="card-header">
-                            <h4 class="card-title">Gallery: <b><?=$row1['gallery_name']?></b></h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                <form class="form form-horizontal" action="core/mngQuote.php" method="POST" data-parsley-validate>
-                                    <div class="form-body">
-                                        <div class="row">
-                                            
-                                        <input type="hidden" name="operation" value="edit">
-                                        <input type="hidden" name="idToMod" value="<?= $id ?>">
-                                        <input type="hidden" name="origin" value="editGallery">
-
-                                        <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
-                                                <?= $common_update ?>
-                                            </button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h4 class="card-title">Gallery: <b><?= $row1['gallery_name'] ?></b></h4>
                     </div>
-                </div>
-                <div class="col-md-4 col-12">
-                    <div class="card shadow">
-                        <h4 class="card-title px-4 pt-3"><?= $common_info ?></h4>
-                        <div class="card-content px-5 pb-4">
-                            <ul>
-                                <li><a href="http://dmweblab.com/portal/manual.php?prod=1&page=6" target="_blank"><?= $common_see_guide ?></a></li>
-                            </ul>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-horizontal" action="core/mngGallery.php" method="POST" data-parsley-validate>
+                                <div class="form-body">
+                                    <div class="row">
+                                        <?php
+                                        $images = glob("../uploads/gallery/g_" . $row1['id'] . "/*");
+                                        if (count($images) > 0) {
+                                            foreach ($images as $img) {
+
+                                        ?>
+                                                <div class="col-4 col-lg-3 col-md-4">
+                                                    <div class="card border">
+                                                        <div class="card-body px-4 py-4-5">
+
+                                                            <div class="row">
+
+                                                                <div class="col-12">
+
+                                                                    <img src="<?= $img ?>" class="w-100">
+                                                                </div>
+                                                                <div class="col-12 mt-3">
+                                                                    <div class="stats-icon bg-danger mb-2">
+                                                                        <i class="bi-trash"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                        <?php
+                                            }
+                                        } else {
+                                            echo "No images in this gallery";
+                                        }
+
+
+                                        ?>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-
+            <div class="col-md-4 col-12">
+                <div class="card shadow">
+                    <h4 class="card-title px-4 pt-3"><?= $common_info ?></h4>
+                    <div class="card-content px-5 pb-4">
+                        <ul>
+                            <li><a href="http://dmweblab.com/portal/manual.php?prod=1&page=6" target="_blank"><?= $common_see_guide ?></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

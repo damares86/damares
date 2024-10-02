@@ -81,10 +81,6 @@ $gall = $mc->showAll('id');
         ?>
       </div>
 
-
-
-      </tbody>
-      </table>
     </div>
   </div>
 </section>
