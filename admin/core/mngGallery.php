@@ -23,14 +23,19 @@ if (filter_input(INPUT_GET, "idToDel")) {
     $mc->id = $idToDel;
 
     if ($mc->delete('id')) {
-        ///////////////////////////////
-        // REMOVE ALL FILES
-        ///////////////////////////////
 
-        header("Location: ../index.php?p=allQuotes&msg=quoteDelSucc");
+        // $error = '' ;
+        // if(!$mc->rmdir_recursive('../../uploads/gallery/g_'.$idToDel)){
+        //     $error = '&err=galleryImgDelFail' ;
+        // }
+        // header("Location: ../index.php?p=allGalleries&msg=galleryDelSucc$error");
+        
+        $mc->rmdir_recursive('../../uploads/gallery/g_'.$idToDel);
+        
+        header("Location: ../index.php?p=allGalleries&msg=galleryDelSucc");
         exit;
     } else {
-        header("Location: ../index.php?p=allQuotes&err=quoteDelFail");
+        header("Location: ../index.php?p=allGalleries&err=galleryDelFail");
         exit;
     }
 }else if(filter_input(INPUT_GET, "imgToDel")){
