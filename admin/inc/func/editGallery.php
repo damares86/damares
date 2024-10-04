@@ -11,9 +11,9 @@ extract($row1);
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3 class="d-inline">Edit Gallery</h3>
-                <a href="index.php?p=allGalleries" class="btn icon btn-info shadow mx-3 px-3">
+                <!-- <a href="index.php?p=allGalleries" class="btn icon btn-info shadow mx-3 px-3">
                     <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= $common_back ?>
-                </a>
+                </a> -->
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -42,48 +42,53 @@ extract($row1);
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-horizontal" action="core/mngGallery.php" method="POST" data-parsley-validate>
+                            <form class="form form-horizontal" action="core/mngGallery.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
                                 <div class="form-body">
 
-                                <div class="col-md-3">
+                                    <div class="col-md-3">
                                         <label>Change gallery name <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Gallery name" name="gallery_name" value="<?=$row1['gallery_name']?>" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="Gallery name" name="gallery_name" value="<?= $row1['gallery_name'] ?>" data-parsley-required="true" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label>Aggiungi uno o più foto <span class="text-danger">*</span></label>
+                                        <label>Aggiungi uno o più foto</label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <div class="form-check mandatory">
+                                            <div class="form-check">
                                                 <div class="position-relative">
-                                                    <input class="form-control" type="file" name="myfile[]" multiple data-parsley-required="true" />
+                                                    <input class="form-control" type="file" name="myfile[]" multiple />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <imput type="hidden" name="operation" value="edit">
+                                    <input type="hidden" name="operation" value="edit">
+                                    <input type="hidden" name="old_gallery_name" value="<?= $row1['gallery_name'] ?>">
+                                    <input type="hidden" name="id_gallery" value="<?= $row1['id'] ?>">
 
-                                        <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
-                                                <?= $common_submit ?>
-                                            </button>
-                                        </div>
+
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
+                                            <?= $common_submit ?>
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
 
 
                             <div class="row mt-3 border-top pt-3">
-                                <div class="col-12 my-3"><h6>Manage images</h6></div>
+                                <div class="col-12 my-3">
+                                    <h6>Manage images</h6>
+                                </div>
                                 <?php
                                 $images = glob("../uploads/gallery/g_" . $row1['id'] . "/*");
                                 if (count($images) > 0) {
@@ -127,7 +132,7 @@ extract($row1);
                                                                                     <i class="bx bx-x d-block d-sm-none"></i>
                                                                                     <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
                                                                                 </button>
-                                                                                <span class="d-none d-sm-block"><a href="core/mngGallery.php?imgToDel=<?= $img_split[4] ?>" class="btn btn-danger ml-1">
+                                                                                <span class="d-none d-sm-block"><a href="core/mngGallery.php?imgToDel=<?= $img_split[4] ?>&idGallery=<?= $row1['id'] ?>" class="btn btn-danger ml-1">
                                                                                         <?= $common_modal_confirm ?>
                                                                                     </a></span>
                                                                             </div>

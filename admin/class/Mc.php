@@ -75,6 +75,7 @@ class Mc extends Common
             $file = $this->inputFileName;
 
             if (move_uploaded_file($file, $target_file)) {
+                chmod($target_file,0777);
                 return true;
             } else {
                 return false;
