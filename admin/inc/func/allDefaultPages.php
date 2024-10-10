@@ -6,7 +6,7 @@ $pages = $mc->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Default pages</h3>
+      <h3><?=$alldefault_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +15,7 @@ $pages = $mc->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-          Default pages
+            <?=$alldefault_header?>
           </li>
         </ol>
       </nav>
@@ -28,15 +28,15 @@ $pages = $mc->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">All default pages &nbsp; &nbsp; &nbsp;
+    <div class="card-header"><?=$alldefault_title?> &nbsp; &nbsp; &nbsp;
     </div>
     <div class="card-body">
 
       <table class="table" id="table">
         <thead>
           <tr>
-            <th>Page name</th>
-            <th>Page link</th>
+            <th><?=$alldefault_name?></th>
+            <th><?=$alldefault_link?></th>
             <th><?= $common_actions ?></th>
           </tr>
         </thead>
@@ -56,7 +56,7 @@ $pages = $mc->showAll('id');
 
                     $str = strtolower($str);
                 ?>
-                <a href="../<?=$str?>.php">View</a>
+                <a href="../<?=$str?>.php"><?=$common_link?></a>
                  
                 </td>  
              

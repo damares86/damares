@@ -6,7 +6,7 @@ $gall = $mc->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Galleries</h3>
+      <h3><?=$allgall_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +15,7 @@ $gall = $mc->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Galleries
+            <?=$allgall_header?>
           </li>
         </ol>
       </nav>
@@ -28,9 +28,9 @@ $gall = $mc->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">All Galleries &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <div class="card-header"><?=$allgall_title?> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
       <a href="index.php?p=addGallery" class="btn icon icon-left btn-success shadow">
-        <i data-feather="plus-circle"></i> Add a Gallery
+        <i data-feather="plus-circle"></i> <?=$allgall_add?>
       </a>
     </div>
     <div class="card-body">
@@ -78,7 +78,7 @@ $gall = $mc->showAll('id');
                                 </button>
                               </div>
                               <div class="modal-body">
-                                Se confermi la galleria e tutte le immagini verranno eliminate definitivamente.
+                                <?=$allgall_modal_body?>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -102,11 +102,11 @@ $gall = $mc->showAll('id');
             </div>
         <?php
           } else {
-            echo "No images in this gallery";
+            echo $edigall_noimg;
           }
         }
       }else{
-          echo "No gallery inserted";
+          echo $allgall_nogall ;
 
         }
 

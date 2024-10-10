@@ -3,7 +3,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Colori e tema</h3>
+      <h3><?=$alltheme_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -12,7 +12,7 @@
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Colori e tema
+            <?=$alltheme_header?>
           </li>
         </ol>
       </nav>
@@ -29,12 +29,12 @@
 
       <div id="colorpicker"></div>
 
-      <form class="form form-horizontal " action="core/mngTheme.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
+      <form class="form form-horizontal mb-3" action="core/mngTheme.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
         <div class="form-body">
           <div class="row">
 
             <div class="col-md-3 pb-3">
-              <label>Tema</label>
+              <label><?=$alltheme_theme?></label>
             </div>
             <div class="col-md-9 pb-3">
               <div class="form-group has-icon-left">
@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="col-md-3">
-              <label>Aggiungi colore </label>
+              <label><?=$alltheme_addcolor?> </label>
             </div>
             <div class="col-md-9">
               <div class="form-group has-icon-left">
@@ -93,8 +93,8 @@
 
 
       <div class="col-12  border-top py-3">
-        <label>Colori esistenti</label>
-        <div class="row">
+        <label><?=$alltheme_colors?></label>
+        <div class="row mt-3">
           <?php
           $mc->table = 'mc_color';
           $stmt1 = $mc->showAll('id');
@@ -102,7 +102,7 @@
           while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
           ?>
             <div class="col-6 col-lg-3 col-md-6">
-              <div class="card" style="background-color: <?= $row1['color'] ?>;">
+              <div class="card shadow" style="background-color: <?= $row1['color'] ?>;">
                 <div class="card-body px-4 py-4-5">
                   <div class="row">
                     <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-center ">
@@ -124,7 +124,7 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              Se clicchi conferma questo colore verrà eliminato definitivamente
+                              <?=$alltheme_modal_body?>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">

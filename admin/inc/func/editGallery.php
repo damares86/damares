@@ -10,7 +10,7 @@ extract($row1);
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3 class="d-inline">Edit Gallery</h3>
+                <h3 class="d-inline"><?=$editgall_header?></h3>
                 <!-- <a href="index.php?p=allGalleries" class="btn icon btn-info shadow mx-3 px-3">
                     <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= $common_back ?>
                 </a> -->
@@ -22,8 +22,7 @@ extract($row1);
                             <a href="index.php"><?= $common_dashboard ?></a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-
-                            Edit Gallery
+                            <?=$editgall_header?>
                         </li>
                     </ol>
                 </nav>
@@ -38,7 +37,7 @@ extract($row1);
             <div class="col-md-8 col-12">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h4 class="card-title">Edit gallery: <b><?= $row1['gallery_name'] ?></b></h4>
+                        <h4 class="card-title"><?=$editgall_header?>: <b><?= $row1['gallery_name'] ?></b></h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -46,20 +45,20 @@ extract($row1);
                                 <div class="form-body">
 
                                     <div class="col-md-3">
-                                        <label>Change gallery name <span class="text-danger">*</span></label>
+                                        <label><?=$editgall_change_name?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Gallery name" name="gallery_name" value="<?= $row1['gallery_name'] ?>" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="<?=$editgall_name_ph?>" name="gallery_name" value="<?= $row1['gallery_name'] ?>" data-parsley-required="true" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label>Aggiungi uno o più foto</label>
+                                        <label><?=$editgall_add_photo?></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
@@ -87,7 +86,7 @@ extract($row1);
 
                             <div class="row mt-3 border-top pt-3">
                                 <div class="col-12 my-3">
-                                    <h6>Manage images</h6>
+                                    <h6><?=$editgall_manage?></h6>
                                 </div>
                                 <?php
                                 $images = glob("../uploads/gallery/g_" . $row1['id'] . "/*");
@@ -125,7 +124,7 @@ extract($row1);
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                Se confermi l'immagine verrà eliminata definitivamente.
+                                                                                <?=$edigall_modal_body?>
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -151,7 +150,7 @@ extract($row1);
                                         $idx++;
                                     }
                                 } else {
-                                    echo "No images in this gallery";
+                                    echo $edigall_noimg ;
                                 }
 
 

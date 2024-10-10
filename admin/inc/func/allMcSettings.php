@@ -15,7 +15,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Mini Cms Settings</h3>
+      <h3><?=$mcsettings_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -24,7 +24,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Mini Cms Settings
+            <?=$mcsettings_header?>
           </li>
         </ol>
       </nav>
@@ -38,7 +38,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     <div class="col-md-8 col-12">
       <div class="card shadow">
         <div class="card-header">
-          <h4 class="card-title">Site settings</h4>
+          <h4 class="card-title"><?=$mcsettings_site?></h4>
         </div>
         <div class="card-content">
           <div class="card-body">
@@ -48,33 +48,33 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 
                   <div class="col-md-3">
-                    <label>Site name <span class="text-danger">*</span></label>
+                    <label><?=$mcsettings_site_name?> <span class="text-danger">*</span></label>
                   </div>
                   <div class="col-md-9">
                     <div class="form-group">
                       <div class="form-check mandatory">
                         <div class="position-relative">
-                          <input type="text" class="form-control" placeholder="Site name" name="mc_site_name" value="<?= $mc_settings['mc_site_name'] ?>" data-parsley-required="true" />
+                          <input type="text" class="form-control" placeholder="<?=$mcsettings_site_name?>" name="mc_site_name" value="<?= $mc_settings['mc_site_name'] ?>" data-parsley-required="true" />
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <div class="col-md-3">
-                    <label>Site description <span class="text-danger">*</span></label>
+                    <label><?=$mcsettings_site_description?> <span class="text-danger">*</span></label>
                   </div>
                   <div class="col-md-9">
                     <div class="form-group">
                       <div class="form-check mandatory">
                         <div class="position-relative">
-                          <input type="text" class="form-control" placeholder="Site description" name="mc_site_description" value="<?= $mc_settings['mc_site_description'] ?>" data-parsley-required="true" />
+                          <input type="text" class="form-control" placeholder="<?=$mcsettings_site_description?>" name="mc_site_description" value="<?= $mc_settings['mc_site_description'] ?>" data-parsley-required="true" />
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <div class="col-md-3">
-                    <label>Footer text <span class="text-danger">*</span></label>
+                    <label><?=$mcsettings_footer?> <span class="text-danger">*</span></label>
                   </div>
                   <div class="col-md-9">
                     <div class="form-group">
@@ -106,7 +106,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
       <div class="card shadow">
         <div class="card-header">
-          <h4 class="card-title">Contacts</h4>
+          <h4 class="card-title"><?=$mcsettings_contact?></h4>
         </div>
         <div class="card-content">
           <div class="card-body">
@@ -121,8 +121,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     <table class="table" id="table">
                       <thead>
                         <tr>
-                          <th>Label</th>
-                          <th>Email</th>
+                          <th><?=$mcsettings_label?></th>
+                          <th><?=$common_email?></th>
                           <th><?= $common_actions ?></th>
                         </tr>
                       </thead>
@@ -150,7 +150,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                       </button>
                                     </div>
                                     <div class="modal-body">
-                                      Se clicchi conferma il contatto verrà eliminato definitivamente
+                                      <?=$mcsettings_modal_body?>
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -174,11 +174,11 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     </table>
                     <div class="row mt-5">
                       <div class="col-12">
-                        <h6>Add new contact</h6>
+                        <h6><?=$mcsettings_contact_add?></h6>
                       </div>
 
                       <div class="col-md-3">
-                        <label>Contact label <span class="text-danger">*</span></label>
+                        <label><?=$mcsettings_label?> <span class="text-danger">*</span></label>
                       </div>
                       <div class="col-md-9">
                         <div class="form-group">
@@ -191,7 +191,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                       </div>
 
                       <div class="col-md-3">
-                        <label>Contact email <span class="text-danger">*</span></label>
+                        <label><?=$common_email?> <span class="text-danger">*</span></label>
                       </div>
                       <div class="col-md-9">
                         <div class="form-group">
@@ -236,7 +236,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 
                   <div class="col-md-5">
-                    <label>Activate Maintenance Mode <span class="text-danger">*</span></label>
+                    <label><?=$mcsettings_maintenance?> <span class="text-danger">*</span></label>
                   </div>
                   <div class="col-md-7">
                     <div class="form-group">
@@ -247,7 +247,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             $mc_settings['maintenance'] == 1 ? $maintenance_checked = 'checked' : $maintenance_checked = '';
                           ?>
                           <input type="checkbox" id="checkbox1" class="form-check-input" name="maintentance" <?=$maintenance_checked?>>
-                          <label for="checkbox1">&nbsp; Activate</label>
+                          <label for="checkbox1">&nbsp; <?=$mcsettings_maintenance_activate?></label>
                         </div>
                       </div>
                     </div>

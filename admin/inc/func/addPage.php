@@ -11,7 +11,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Add a new page</h3>
+            <h3><?= $addpage_header ?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -20,7 +20,7 @@
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Add a new page
+                        <?= $addpage_header ?>
                     </li>
                 </ol>
             </nav>
@@ -36,7 +36,7 @@
         <div class="col-md-10 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">New page</h4>
+                    <h4 class="card-title"><?= $addpage_title ?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -44,13 +44,13 @@
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Page name <span class="text-danger">*</span></label>
+                                        <label><?= $addpage_name ?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Type the page name" name="page_name" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="<?= $addpage_name ?>" name="page_name" data-parsley-required="true" />
 
                                                 </div>
                                             </div>
@@ -58,7 +58,7 @@
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Layout <span class="text-danger">*</span></label>
+                                        <label><?= $addpage_layout ?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
@@ -88,14 +88,14 @@
                                     </div>
 
                                     <div class="col-md-3 mt-3 pt-3">
-                                        <label>Use header <span class="text-danger">*</span></label>
+                                        <label><?= $addpage_use_header ?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 mt-3 pt-3">
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="checkbox">
                                                     <input type="checkbox" id="checkbox1" class="form-check-input" name="use_header">
-                                                    <label for="checkbox1">&nbsp; Select to show the header on this page</label>
+                                                    <label for="checkbox1">&nbsp; <?= $addpage_use_header_select ?></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -103,21 +103,21 @@
 
                                     <div class="row highlight-section">
                                         <div class="col-md-3 mt-3 p-3 border-top">
-                                            <label>Header style <span class="text-danger">*</span></label>
+                                            <label><?= $addpage_header_style ?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9 mt-3 border-top">
                                             <div class="row mt-3">
                                                 <div class="col border p-3">
                                                     <div class="form-check">
                                                         <input class="form-check-input nomargin" type="radio" name="header" value="image" checked>
-                                                        <label class="form-check-label">&nbsp; Image</label>
+                                                        <label class="form-check-label">&nbsp; <?= $addpage_header_img_title ?></label>
                                                         <br>
                                                         <br>
-                                                        <span>Default image: <img src="../uploads/visual.jpg" class="d-inline w-25"></span>
+                                                        <span><?= $addpage_header_img_default ?>: <img src="../uploads/visual.jpg" class="d-inline w-25"></span>
                                                         <br>
                                                         <br>
 
-                                                        <label>Upload a new image <span class="text-danger">*</span></label>
+                                                        <label><?= $addpage_header_img_upload ?> <span class="text-danger">*</span></label>
 
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
@@ -131,9 +131,9 @@
                                                 <div class="col border p-3">
                                                     <div class="form-check">
                                                         <input class="form-check-input nomargin" type="radio" name="header" value="gallery">
-                                                        <label class="form-check-label">&nbsp; Gallery</label>
+                                                        <label class="form-check-label">&nbsp; <?= $addpage_header_gallery_title ?></label>
                                                         <br><br>
-                                                        <label>Choose a gallery <span class="text-danger">*</span></label>
+                                                        <label><?= $addpage_header_gallery_choose ?> <span class="text-danger">*</span></label>
 
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
@@ -165,10 +165,10 @@
                                         </div>
 
                                         <div class="col-md-3 mt-3 mb-3">
-                                            <label>Show site name </label>
+                                            <label><?= $addpage_header_site_name ?> </label>
                                         </div>
                                         <?php
-                                        $mc->table = 'mc_settings' ;
+                                        $mc->table = 'mc_settings';
                                         $mc->name = 'mc_site_name';
                                         $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
@@ -186,10 +186,10 @@
                                         </div>
 
                                         <div class="col-md-3 mt-3 mb-3 pb-3 border-bottom">
-                                            <label>Show site description </label>
+                                            <label><?= $addpage_header_site_description ?> </label>
                                         </div>
                                         <?php
-                                        $mc->table = 'mc_settings' ;
+                                        $mc->table = 'mc_settings';
                                         $mc->name = 'mc_site_description';
                                         $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
@@ -210,7 +210,7 @@
                                     <div class="row" id="dynamic_field">
                                         <div class="row" id="block_1">
                                             <div class="col-md-3 mt-3 p-3">
-                                                <label><b>Block <span>1</span></b></label>
+                                                <label><b><?= $block_title ?> <span>1</span></b></label>
                                             </div>
                                             <div class="col-md-5 mt-3  p-3">
                                                 <div class="form-group">
@@ -218,22 +218,21 @@
                                                         <div class="position-relative">
                                                             <fieldset class="form-group">
                                                                 <select class="form-select" id="block_1_type" name="block_1_type">
-                                                                    <option value="text_1">Text</option>
-                                                                    <option value="img_1">Image</option>
-                                                                    <option value="info_1">Box info</option>
-                                                                    <option value="gallery_1">Gallery</option>
-                                                                    <option value="quote_1">Quotes</option>
+                                                                    <option value="text_1"><?= $block_type_text ?></option>
+                                                                    <option value="img_1"><?= $block_type_image ?></option>
+                                                                    <option value="info_1"><?= $block_type_info ?></option>
+                                                                    <option value="gallery_1"><?= $block_type_gallery ?></option>
+                                                                    <option value="quote_1"><?= $block_type_quotes ?></option>
                                                                     <?php
                                                                     $plugin->pluginname = "post";
                                                                     $postOption = '';
                                                                     if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-                                                                        $postOption = '<option value="post_1">Latest post</option>';
+                                                                        $postOption = '<option value="post_1">'.$block_type_post.'</option>';
                                                                     ?>
-                                                                        <option value="post_1">Latest post</option>
+                                                                        <option value="post_1"><?= $block_type_post ?></option>
                                                                     <?php
                                                                     }
                                                                     ?>
-
                                                                 </select>
                                                             </fieldset>
                                                         </div>
@@ -251,7 +250,7 @@
                                                     <!-- <textarea class="summernote" name="text_1"></textarea> -->
                                                 </div>
                                                 <div class="row page img_1">
-                                                    <label>Upload an image <span class="text-danger">*</span></label>
+                                                    <label><?= $block_image_upload ?> <span class="text-danger">*</span></label>
                                                     <div class="form-group">
                                                         <div class="form-check mandatory">
                                                             <div class="position-relative">
@@ -261,7 +260,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row page info_1">
-                                                    <label>Upload an image <span class="text-danger">*</span></label>
+                                                    <label><?= $block_image_upload ?> <span class="text-danger">*</span></label>
                                                     <div class="form-group">
                                                         <div class="form-check mandatory">
                                                             <div class="position-relative">
@@ -274,7 +273,7 @@
                                                 </div>
                                                 <div class="row page gallery_1">
                                                     <div class="col-7">
-                                                        <label class="mb-3">Choose a gallery <span class="text-danger">*</span></label>
+                                                        <label class="mb-3"><?= $block_gallery_choose ?> <span class="text-danger">*</span></label>
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
                                                                 <div class="position-relative">
@@ -299,11 +298,11 @@
                                                     <div class="col-5">&nbsp;</div>
                                                 </div>
                                                 <div class="row page quote_1">
-                                                    <p>Show a slideshow with quotes</p>
+                                                    <p><?= $block_quotes_text ?></p>
                                                     <input type="hidden" name="quote_1" value="q">
                                                 </div>
                                                 <div class="row page post_1">
-                                                    <p>Show the latest post of the blog</p>
+                                                    <p><?= $block_post_text ?></p>
                                                     <input type="hidden" name="post_1" value="p">
                                                 </div>
 
@@ -313,7 +312,7 @@
 
                                                 <!-- Sezione Background color -->
                                                 <div class="col-md-3 mt-3 px-3">
-                                                    <label>Background color</label>
+                                                    <label><?= $block_bg_color ?></label>
                                                 </div>
                                                 <div class="col-md-9 mt-3 px-3">
                                                     <div class="form-group">
@@ -322,8 +321,8 @@
                                                                 <div class="form-group">
                                                                     <!-- Opzione 'none' per il Background color -->
                                                                     <input type="radio" class="btn-check" name="bg_color_1" value="none" autocomplete="off" id="bg_none_1" hidden checked>
-                                                                    <label class="color-label bg" for="bg_none_1" style="background-color: #e5e5e5;">
-                                                                        None
+                                                                    <label class="color-label bg shadow my-1" for="bg_none_1" style="background-color: #e5e5e5;">
+                                                                        <?= $block_color_none ?>
                                                                         <span class="checkmark"></span>
                                                                     </label>
 
@@ -331,13 +330,13 @@
                                                                     <?php
                                                                     $mc->table = 'mc_color';
                                                                     $colors = $mc->showAll('id');
-                                                                    $colorArray = [] ;
+                                                                    $colorArray = [];
 
                                                                     while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
                                                                         $colorArray[] = ['color' => $row['color']];
                                                                     ?>
                                                                         <input type="radio" class="btn-check" name="bg_color_1" value="<?= $row['color'] ?>" autocomplete="off" id="bg_<?= $row['color'] ?>" hidden>
-                                                                        <label class="color-label" for="bg_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
+                                                                        <label class="color-label  shadow my-1" for="bg_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
                                                                             <span class="checkmark">✔</span>
                                                                             &nbsp;
                                                                         </label>
@@ -352,7 +351,7 @@
 
                                                 <!-- Sezione Text color -->
                                                 <div class="col-md-3 mt-3 px-3">
-                                                    <label>Text color</label>
+                                                    <label><?= $block_bg_text ?></label>
                                                 </div>
                                                 <div class="col-md-9 mt-3 px-3">
                                                     <div class="form-group">
@@ -361,8 +360,8 @@
                                                                 <div class="form-group">
                                                                     <!-- Opzione 'none' per il Text color -->
                                                                     <input type="radio" class="btn-check" name="text_color_1" value="none" autocomplete="off" id="text_none_1" hidden checked>
-                                                                    <label class="color-label text" for="text_none_1" style="background-color: #e5e5e5;">
-                                                                        None
+                                                                    <label class="color-label text shadow my-1" for="text_none_1" style="background-color: #e5e5e5;">
+                                                                        <?= $block_color_none ?>
                                                                         <span class="checkmark"></span>
                                                                     </label>
 
@@ -374,7 +373,7 @@
                                                                     while ($row = $colors->fetch(PDO::FETCH_ASSOC)) {
                                                                     ?>
                                                                         <input type="radio" class="btn-check" name="text_color_1" value="<?= $row['color'] ?>" autocomplete="off" id="text_<?= $row['color'] ?>" hidden>
-                                                                        <label class="color-label" for="text_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
+                                                                        <label class="color-label shadow my-1" for="text_<?= $row['color'] ?>" style="background-color: <?= $row['color'] ?>;">
                                                                             <span class="checkmark">✔</span>
                                                                             &nbsp;
                                                                         </label>
@@ -393,7 +392,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" name="add" id="add" class="btn btn-success w-25">Add block</button>
+                                    <button type="button" name="add" id="add" class="btn btn-success w-25"><?= $block_add ?></button>
 
 
                                     <input type="hidden" name="operation" value="add">
@@ -499,24 +498,41 @@ if (isset($count)) {
 <?php
 }
 ?>
-<?php 
-$colors = json_encode($colorArray); 
-?> 
+<?php
+$colors = json_encode($colorArray);
+?>
 <script type="text/javascript">
     var galleryOptions = '<?php echo $galleryOptions; ?>';
     var postOptions = '<?php echo $postOption; ?>';
     var colorOptionsBg = '<?php echo $colorOptionsBg; ?>';
     var colorOptionsText = '<?php echo $colorOptionsText; ?>';
     var colors = <?php echo $colors; ?>;
+    var block_type_text = '<?php echo $block_type_text; ?>' ;
+    var block_title = '<?php echo $block_title; ?>' ;
+    var block_type_image = '<?php echo $block_type_image; ?>' ;
+    var block_type_info = '<?php echo $block_type_info; ?>' ;
+    var block_type_gallery = '<?php echo $block_type_gallery; ?>' ;
+    var block_type_quotes = '<?php echo $block_type_quotes; ?>' ;
+    var block_type_post = '<?php echo $block_type_post; ?>' ;
+    var block_gallery_choose = '<?php echo $block_gallery_choose; ?>' ;
+    var block_quotes_text = '<?php echo $block_quotes_text; ?>' ;
+    var block_post_text = '<?php echo $block_post_text; ?>' ;
+    var block_bg_color = '<?php echo $block_bg_color; ?>' ;
+    var block_bg_text = '<?php echo $block_bg_text; ?>' ;
+    var block_color_none = '<?php echo $block_color_none; ?>' ;
+    var block_add = '<?php echo $block_add; ?>' ;
+    var block_image_upload = '<?php echo $block_image_upload; ?>' ;
+    var block_image_default = '<?php echo $block_image_default; ?>' ;
+
 </script>
 <script src="script/mc_addBlockPage.js"></script>
 <script>
-$(document).ready(function() {
-    $('#addPage').on('submit', function(event) {
-        $(".summernote").each(function() {
-            var content = $(this).summernote('code');
-            $(this).val(content);
+    $(document).ready(function() {
+        $('#addPage').on('submit', function(event) {
+            $(".summernote").each(function() {
+                var content = $(this).summernote('code');
+                $(this).val(content);
+            });
         });
     });
-});
 </script>

@@ -25,6 +25,11 @@
         $str = strtolower($str);
         $page_order[]=$str;
         $link=$root.$str.".php";
+        
+        if($str=="attivita"){
+            $link="blog.php?cat=3";
+        }
+
         $class="";
         if($one&&$str!="login"){
             $link="#$str";
@@ -36,6 +41,8 @@
             echo "Home";
         } else if($name=="Post"||$name=="Blog"){
             echo "Blog";
+        }else if($name=='Contact'){
+            echo "Contatti";
         }else{
         echo $name;
         }?></a>
@@ -61,6 +68,15 @@
                         $str1 = strtolower($str1);
                         $page_order[]=$str1;
                         $link_child=$root.$str1.".php";
+                        
+                        if($str1=="itinerario_educativo"){
+                            $link_child="uploads/download.php?id=4";
+                        }
+                        if($str1=="news"){
+                            $link_child="blog.php?cat=2";
+                        }
+
+
                         if($one&&$str1!="login"){
                             $link="#$str1";
                             $class="class=\"scrolly\"";

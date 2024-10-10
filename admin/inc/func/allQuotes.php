@@ -6,7 +6,7 @@ $quotes = $mc->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutte le citazioni</h3>
+      <h3><?=$allquotes_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +15,7 @@ $quotes = $mc->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Tutte le citazioni
+            <?=$allquotes_header?>
           </li>
         </ol>
       </nav>
@@ -36,11 +36,11 @@ $quotes = $mc->showAll('id');
         <div class="col">
         <form class="form form-horizontal" action="core/mngQuote.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
             <div class="form-body">
-              <h5>Aggiungi citazione</h5>
+              <h5><?=$allquotes_add?></h5>
               <div class="row border-bottom mb-5 py-3">
 
                 <div class="col-md-3">
-                  <label>Autore <span class="text-danger">*</span></label>
+                  <label><?=$allquotes_author?> <span class="text-danger">*</span></label>
                 </div>
                 <div class="col-md-9">
                   <div class="form-group">
@@ -53,7 +53,7 @@ $quotes = $mc->showAll('id');
                 </div>
 
                 <div class="col-md-3">
-                  <label>Citazione <span class="text-danger">*</span></label>
+                  <label><?=$allquotes_quote?> <span class="text-danger">*</span></label>
                 </div>
                 <div class="col-md-9">
                   <div class="form-group">
@@ -84,13 +84,13 @@ $quotes = $mc->showAll('id');
 
         </div>
       </div>
-      <h5>Tutte le citazioni</h5>
+      <h5><?=$allquotes_title?></h5>
 
       <table class="table" id="table">
         <thead>
           <tr>
-            <th>Citazione</th>
-            <th>Autore</th>
+            <th><?=$allquotes_quote?></th>
+            <th><?=$allquotes_author?></th>
             <th><?= $common_actions ?></th>
           </tr>
         </thead>
@@ -124,7 +124,7 @@ $quotes = $mc->showAll('id');
                         </button>
                       </div>
                       <div class="modal-body">
-                        Se confermi la citazione verrà eliminata definitivamente.
+                        <?=$allquotes_modal_body?>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">

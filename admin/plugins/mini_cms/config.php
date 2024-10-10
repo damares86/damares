@@ -52,7 +52,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       CREATE TABLE IF NOT EXISTS " . $prefix . "mc_settings
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
-      value VARCHAR(255) NOT NULL);
+      value TEXT(255) NOT NULL);
       CREATE TABLE IF NOT EXISTS " . $prefix . "mc_contacts
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       label VARCHAR(255) NOT NULL,
