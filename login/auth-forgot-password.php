@@ -99,8 +99,8 @@ if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
                 <?php
                     }
                 }
-                
-                $account->deleteFromTable('email','password_reset_temp');
+                $account->table = 'password_reset_temp' ;
+                $account->delete('email');
             } 
          ?>
         </div>

@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
 				exit;
 			}
 			$account->email = $email ;
+			$account->table = 'password_reset_temp';
 
 			$pswTmp = $account->getPswTmpDataByEmail();
 
@@ -77,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
 				$expDate=$pswTmp['expDate'];
 				
 				if((!$pswTmp['email']||(($pswTmp['email']) && ($expDate<$curDate)))){
-					$stmt=$account->deleteFromTable('email','password_reset_temp');
+					$stmt=$account->delete('email');
 					if(!$stmt){
 						header("Location: ../../login.php?err=noResetDelete");
 						exit;
@@ -90,8 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
 						$token = $token . $addToken;
 						$account->token=$token;
 						$account->expDate = $expDate ;
+						$account->table = 'password_reset_temp' ;
 
-					if($account->insertIntoTable(['email','token','expDate'],'password_reset_temp')){
+					if($account->insert(['email','token','expDate'])){
 
 						$url = $_SERVER['SERVER_NAME'];
 
@@ -155,19 +157,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
 				$password_hash = password_hash($password, PASSWORD_BCRYPT);
 				$account->password = $password_hash;
 				$account->id = $row['id'] ;
+				$account->table = 'password_reset_temp' ;
 
-				// update the post
+			
 				if($account->update(['password'],'id')){
-					if($stmt=$account->deleteFromTable('email','password_reset_temp')){
+					if($account->delete('email')){
 						header("Location: ../../login/auth-login.php?msg=newPass");
 						exit;
 					}else{
 						header("Location: ../../login/auth-login.php?err=keyDelErr");
 						exit;
 					}
-					// empty posted values
-					// $_POST=array();
-					
+										
 				}else{
 					header("Location: ../../login/auth-login.php?err=pswEditErr");
 					exit;

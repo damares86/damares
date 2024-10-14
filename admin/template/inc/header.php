@@ -1,10 +1,7 @@
 <?php
 
-// require 'admin/vendor/autoload.php';		// If installed via composer
-// $debug = new \bdk\Debug(array(
-// 	'collect' => true,
-// 	'output' => true,
-// ));
+require "core/prefix.php";
+require __DIR__ . "/mc_version.php";
 
 session_start();
 // loading class
@@ -14,20 +11,19 @@ if (!is_file('admin/class/Database.php')) {
     exit;
 }
 
-require "admin/inc/mc_version.php";
-
 spl_autoload_register('autoloader');
 function autoloader($class)
 {
     include("admin/class/$class.php");
 }
 
-
+/////////////////////////////////////////////////////////////////////
 $prefix_table = "";
 if (is_file("admin/core/prefix.php")) {
     include "admin/core/prefix.php";
     $prefix_table = $prefix;
 }
+/////////////////////////////////////////////////////////////////////
 
 $database = new Database();
 $db = $database->getConnection();
@@ -85,18 +81,9 @@ $file_name = basename($_SERVER['PHP_SELF']);
 
 $post_title = "";
 
-if (filter_input(INPUT_GET, "id")) {
-
-    $post->table = 'post';
-    $post->id = filter_input(INPUT_GET, "id");
-    $post_title_stmt = $post->showAllWhere('id', ['id']);
-    $post_title_row = $post_title_stmt->fetch(PDO::FETCH_ASSOC);
-    extract($post_title_row);
-    $post_title = $post_title_row['title'];
-}
-
 $page_name = "";
 $page_class = "";
+
 if ($file_name == "login.php") {
     if (isset($_SESSION['loggedin'])) {
         header('Location: admin/');
@@ -104,18 +91,34 @@ if ($file_name == "login.php") {
     }
 }
 
-$root = "";
 
 if ($file_name == "index.php") {
+
+    //force the page name in home page
     $page_name_title = "Home";
     $page_class = pathinfo($file_name, PATHINFO_FILENAME);
+
 } else if ($file_name == "post.php") {
+
+    // get the post data
+    $post->table = 'post';
+    $post->id = filter_input(INPUT_GET, "id");
+    $post_title_stmt = $post->showAllWhere('id', ['id']);
+    $post_title_row = $post_title_stmt->fetch(PDO::FETCH_ASSOC);
+    extract($post_title_row);
+    $post_title = $post_title_row['title'];
+
     $page_name_title = $post_title . " - Blog ";
     $page_class = "blog";
+
 } else if ($file_name == "contact.php") {
-    $page_name_title = "Contatti";
+
+    // force the page name in contacts
+    $page_name_title = $page_contact;
     $page_class = "contact";
+
 } else if ($file_name == "blog.php") {
+
     if (filter_input(INPUT_GET, 'cat')) {
         $cat = filter_input(INPUT_GET, 'cat');
         if ($cat == 2 || $cat == 3) {
@@ -132,6 +135,7 @@ if ($file_name == "index.php") {
         $page_name_title = "Blog";
     }
     $page_class = "blog";
+
 } else {
     // mi prendo solo il nome senza l'estensione
     $page_name_title = pathinfo($file_name, PATHINFO_FILENAME);
@@ -187,9 +191,13 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 
 $url_file = ($_SERVER['PHP_SELF']);
-$url = "www.virginiaagnelli.it$url_file";
+$root = $mc_settings['mc_site_url'] ;
+$url = $root.$url_file;
 
 $one = false;
+if($mc_settings['mc_theme_one'] == 1){
+    $one = true;
+}
 
 ?>
 <!doctype html>
@@ -222,16 +230,12 @@ $one = false;
     <meta name="twitter:site" content="<?= $url ?>" />
     <meta name="twitter:image" content="uploads/img/<?= $page_header_media ?>">
 
-
     <title><?= $page_name_title ?> - <?= $mc_settings['mc_site_name'] ?></title>
     <link rel="icon" href="assets/themes/<?= $mc_settings['mc_theme'] ?>/img/favicon.ico">
-
-
-    <!-- <link rel="stylesheet" href="admin/assets/css/my-login.css" /> -->
     <link href='admin/script/simplelightbox/simple-lightbox.min.css' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="admin/script/simplelightbox/simple-lightbox.jquery.min.js"></script>
-    <script src="admin/assets/js/bootstrap_mc.js"></script>
+    <script src="admin/script/bootstrap_mc.js"></script>
     <link type="text/css" href="assets/themes/<?= $mc_settings['mc_theme'] ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <?php
@@ -243,13 +247,15 @@ $one = false;
 
     $plugin->pluginname = "post";
     if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ///// URL CORRETTO?
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    
     ?>
         <link href='admin/assets/css/post.css' rel='stylesheet' type='text/css'>
 
     <?php
     }
-
-    $root = "";
 
     // TODO
     // require "admin/inc/func/check.php";
@@ -335,43 +341,7 @@ $one = false;
     }
     ?>
     <div id="siteContainer" <?= $style ?>>
-
-        <?php
-        $mc->table = 'mc_quotes';
-        if ($mc->countAll() > 0 ) {
-            $mc->table = 'mc_quotes';
-            $quote_stmt = $mc->showAll('id') ;
-            
-        ?>
-            <div class="slideshow-container">
-                
-                <?php
-
-                while($quote_row = $quote_stmt->fetch(PDO::FETCH_ASSOC)){
-                    extract($quote_row);
-                ?>
-                    <div class="mySlides">
-                        <q><?= $quote_row['quote'] ?></q>
-                        <p class="author"><?=$quote_row['author'] ?></p>
-                    </div>
-                <?php
-                }
-                ?>
-
-                <a class="prev" onclick="plusSlides(-1)">❮</a>
-                <a class="next" onclick="plusSlides(1)">❯</a>
-
-            </div>
-
-            <div class="dot-container">
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-            </div>
-        <?php
-        }
-        ?>
-
+        
         <div id="topContainer">
             <header>
                 <?php

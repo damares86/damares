@@ -1,3 +1,13 @@
+<pre>
+<?php
+
+
+$url_file = ($_SERVER);
+
+print_r($url_file);
+exit;
+?>
+</pre>
 <?php
 
 require "../core/coreConfig.php";

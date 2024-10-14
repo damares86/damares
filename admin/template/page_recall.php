@@ -18,9 +18,6 @@
     $data = file_get_contents($json_file);
     $json_arr = json_decode($data, true);
     
-    
-    $pageArray=[4,8,12,16,19,23];
-    
     for($i=1;$i<=$counter;$i++){
 
     ?>

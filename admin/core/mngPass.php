@@ -58,7 +58,8 @@ if($resetForm){
 		$expDate=$pswTmp['expDate'];
 		
 		if((!$pswTmp['email']||(($pswTmp['email']) && ($expDate<$curDate)))){
-			$stmt=$account->deleteFromTable('email','password_reset_temp');
+			$account->table = 'password_reset_temp' ;
+			$stmt=$account->delete('email');
 			if(!$stmt){
 				header("Location: ../../login.php?err=noResetDelete");
 				exit;
@@ -71,8 +72,8 @@ if($resetForm){
 				$token = $token . $addToken;
 				$account->token=$token;
 				$account->expDate = $expDate ;
-
-			if($account->insertIntoTable(['email','token','expDate'],'password_reset_temp')){
+				$account->table = 'password_reset_temp' ;
+			if($account->insert(['email','token','expDate'])){
 
 				$url = $_SERVER['SERVER_NAME'];
 
@@ -136,10 +137,11 @@ if($resetForm){
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
 		$account->password = $password_hash;
 		$account->id = $row['id'] ;
+		$account->table = 'password_reset_temp';
 
 		// update the post
 		if($account->update(['password'],'id')){
-			if($stmt=$account->deleteFromTable('email','password_reset_temp')){
+			if($account->delete('email')){
 				header("Location: ../../login/auth-login.php?msg=newPass");
 				exit;
 			}else{

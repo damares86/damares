@@ -76,9 +76,6 @@ if ($parent) {
     $pageId = $child['id'];
     $check_parent = 0;
 } else {
-    /////////////////////////////////////////////////
-    // GESTIRE IL CASO DI PAGINA NON INSERITA NEL DB
-    /////////////////////////////////////////////////
     $pageLabel = "";
     $pageLink = "";
     $pageId = "";

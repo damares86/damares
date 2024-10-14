@@ -274,7 +274,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                     <div class="row" id="dynamic_field">
 
                                         <?php
-                                        $json_file = 'inc/pages/' . $item['page_name'] . '.json';
+                                        $json_file = 'inc/pages/' . $item['id'] . '.json';
                                         $data = file_get_contents($json_file);
                                         $json_arr = json_decode($data, true);
 

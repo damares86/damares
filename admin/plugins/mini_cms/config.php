@@ -68,6 +68,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       VALUES ('index','1','default','1','visual.jpg','1','1','1');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
+      INSERT INTO " . $prefix . "mc_settings
+      (name, value )
+      VALUES ('mc_site_url', 'www.site.com');
       VALUES ('mc_site_name', 'Mini CMS Website');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
@@ -81,6 +84,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_theme', 'damares');
+      INSERT INTO " . $prefix . "mc_settings
+      (name, value )
+      VALUES ('mc_theme_one', '0');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('maintenance', '0');

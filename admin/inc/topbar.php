@@ -54,7 +54,8 @@
         $permChildArr = $permissionChild->fetch(PDO::FETCH_ASSOC);
         extract($permChildArr);
         $sectionChild = explode(',', $permChildArr['section_id']);
-        $stmt = $section->showAllTable('id', 'sectionParent');
+        $section->table = 'sectionParent' ;
+        $stmt = $section->showAll('id');
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 

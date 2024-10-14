@@ -5,7 +5,7 @@
     $link_child="";
 
     if($page_class=="login"&&$one){
-        echo $root;
+        
 ?>
 
 <li><a href="index.php#index" <?=$class?> ><- <?=$login_back_home?> </a></li>

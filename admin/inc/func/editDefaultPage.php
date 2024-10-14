@@ -231,7 +231,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                     <?php
                                     if ($item['id'] == 2) {
-                                        $json_file = 'inc/pages/contact.json';
+                                        $json_file = 'inc/pages/2.json';
                                         $data = file_get_contents($json_file);
                                         $json_arr = json_decode($data, true);
                                         // print_r($json_arr);
