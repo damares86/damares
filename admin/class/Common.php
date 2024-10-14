@@ -141,7 +141,7 @@ class Common
         return $stmt;
     }
 
-    // show the last record inserted in a table
+    // show the last n record inserted in a table
     function showAllLimitDesc($orderBy, $limit)
     {
         $query = "SELECT *

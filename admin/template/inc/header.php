@@ -1,7 +1,7 @@
 <?php
 
-require "core/prefix.php";
-require __DIR__ . "/mc_version.php";
+require "admin/core/prefix.php";
+require "admin/inc/mc_version.php";
 
 session_start();
 // loading class
@@ -357,7 +357,7 @@ if($mc_settings['mc_theme_one'] == 1){
                         $page_arr = array("infanzia", "primaria");
 
                     ?>
-                        <div id="banner" class="box container" style="background-image: url(<?= $root ?>uploads/img/<?= $page_header_media ?>);">
+                        <div id="banner" class="box container" style="background-image: url(<?= $root ?>/uploads/img/<?= $page_header_media ?>);">
                             <div id="header_text" class="row">
                                 <div class="col-7 col-12-medium">
                                     <?php

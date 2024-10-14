@@ -83,7 +83,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                             <div class="form-check mandatory">
                                                 <?php
                                                 $layout_counter = 0;
-                                                foreach (glob("../assets/css/template/img/*") as $file) {
+                                                foreach (glob("../assets/template/img/*") as $file) {
                                                     if (is_file($file)) {
                                                         $style = pathinfo($file, PATHINFO_FILENAME);
 
@@ -94,7 +94,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                 ?>
 
                                                         <input type="radio" class="btn-check" name="layout" value="<?= $style ?>" autocomplete="off" id="layout_<?= $style ?>" <?= $checked ?>>
-                                                        <label class="btn btn-outline-primary" for="layout_<?= $style ?>"><img src='../assets/css/template/img/<?= $style ?>.png'></label>
+                                                        <label class="btn btn-outline-primary" for="layout_<?= $style ?>"><img src='../assets/template/img/<?= $style ?>.png'></label>
                                                         &nbsp;
                                                 <?php
                                                     }

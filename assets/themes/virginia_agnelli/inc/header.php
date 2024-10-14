@@ -12,8 +12,8 @@
 							?>
 							<!-- Logo -->
 								<div id="logoIndex">
-								<a href="<?=$root?>index.php">
-										<img src="<?=$root?>assets/themes/<?=$mc_settings['mc_theme']?>/img/logo.png">
+								<a href="index.php">
+										<img src="assets/themes/<?=$mc_settings['mc_theme']?>/img/logo.png">
 								</a><br>
 								<h2 class="mb-5">Istituto Virginia Agnelli</h2>
 								</div>
@@ -23,8 +23,8 @@
 						?>
 						<!-- Logo -->
 							<div id="logo">
-							<a href="<?=$root?>index.php">
-                          		  <img src="<?=$root?>assets/themes/<?=$mc_settings['mc_theme']?>/img/logo.png">
+							<a href="index.php">
+                          		  <img src="assets/themes/<?=$mc_settings['mc_theme']?>/img/logo.png">
                        	 </a>
 							</div>
 
@@ -32,7 +32,7 @@
 		
 							<nav id="nav">
                             <?php
-                                require "".$root."admin/template/inc/menu.php";
+                                require "admin/template/inc/menu.php";
                             ?>
 							</nav>
 							<?php
