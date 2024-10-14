@@ -28,7 +28,7 @@
 
         <!-- Blocco Parent -->
         <div id='parent-block' class='container-pages p-3'>
-          <h4>Parent Pages</h4>
+          <h4>In menu</h4>
           <?php
           // get menu order
           $pages_json = file_get_contents('inc/menu/menu.json');
@@ -175,15 +175,14 @@
 
     let postData = {
       orderedItems: JSON.stringify(orderedItems),
-      nomenuItems: JSON.stringify(nomenuItems),
-      additionalData: JSON.stringify(additionalData)
+      nomenuItems: JSON.stringify(nomenuItems)
     };
 
     console.log(orderedItems, nomenuItems);
 
     // AJAX per salvare i dati
     $.ajax({
-      url: 'core/mngLunaOrder.php',
+      url: 'core/mngMenu.php',
       method: 'POST',
       data: postData,
       success: function (response) {

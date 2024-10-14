@@ -1,0 +1,129 @@
+<?php
+
+##############    Damares    ###############
+#                                          #
+#    A backend project by DM WebLab        #
+#   Website: https://www.dmweblab.com      #
+#   GitHub: https://github.com/damares86   #
+#                                          #
+############################################
+
+require __DIR__ . "/coreConfig.php";
+
+$setting->name = "lang";
+$stmt = $setting->showByName();
+$lang = $stmt['value'];
+
+foreach (glob("../locale/$lang/*.php") as $row) {
+    require "$row";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['orderedItems'])) {
+        $orderedItems = json_decode($_POST['orderedItems'], true);
+        $nomenuItems = json_decode($_POST['nomenuItems'], true);
+
+        // Creazione di una struttura gerarchica degli ID delle pagine
+        $hierarchicalStructure = createTree($orderedItems, $nomenuItems);
+
+        // Converte la struttura gerarchica in formato JSON
+        $jsonContent = json_encode($hierarchicalStructure);
+
+        // Salva il contenuto JSON su un file
+        $menu_file = '../inc/menu/menu.json';
+
+        if (file_put_contents($menu_file, $jsonContent)) {
+            chmod($menu_file, 0777);
+            $response = [
+                'success' => true, // o false se c'è stato un errore
+                'message' => 'Ordine pagine salvato',
+                // Altri dati, se necessario
+            ];
+            // Imposta l'intestazione JSON
+            header('Content-Type: application/json');
+
+            // Invia la risposta come JSON
+            echo json_encode($response);
+        } else {
+            unlink($menu_file);
+            copy($bck_file, $menu_file);
+            $response = [
+                'success' => false, // o false se c'è stato un errore
+                'message' => $allLunaPages_save_fail,
+                // Altri dati, se necessario
+            ];
+            header('Content-Type: application/json');
+
+            // Invia la risposta come JSON
+            echo json_encode($response);
+        }
+    } else {
+        // Se il parametro 'orderedItems' non è presente nella richiesta POST, invia una risposta JSON con un messaggio di errore
+        $response = [
+            'success' => false,
+            'message' => 'Parametro "orderedItems" non trovato nella richiesta POST.'
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+} else {
+    // Se il metodo HTTP non è consentito, invia una risposta JSON con un messaggio di errore
+    $response = [
+        'success' => false,
+        'message' => 'Metodo HTTP non consentito. Si prega di utilizzare il metodo POST.'
+    ];
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+// Funzione per creare una struttura gerarchica degli ID delle pagine
+function createTree($orderedItems, $nomenuItems)
+{
+    $tree = [];
+    $child_tot = [];
+    $parent = [];
+
+    // Creazione struttura per gli orderedItems
+    foreach ($orderedItems as $item) {
+        $id = $item['id'];
+        $level = $item['livello'];
+
+        if ($level == 1) {
+            // È una pagina parent, va al livello principale
+            $parent[] = $id;
+        } else if ($level == 2) {
+            // È una pagina di livello child
+            if (!in_array($id, $child_tot)) {
+                $child_label = 'child_' . end($parent);
+                if (!isset($$child_label)) {
+                    $$child_label = [];
+                }
+                $$child_label[] = $id;
+                $child_tot[] = $id;
+            }
+        }
+    }
+
+    // Creazione struttura per i nomenuItems
+    $nomenu_tree = [];
+    foreach ($nomenuItems as $item) {
+        $nomenu_tree[] = $item['id']; // Supponendo che l'ID sia un campo semplice
+    }
+
+    $child_tree = [];
+    foreach ($parent as $item) {
+        $child_arr = 'child_' . $item;
+        if (isset($$child_arr)) {
+            $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
+        }
+    }
+
+    // Combinazione della struttura
+    $tree = [
+        'parent' => $parent,
+        'child' => $child_tree,
+        'nomenu' => $nomenu_tree // Aggiungi la sezione nomenu
+    ];
+
+    return $tree;
+}
