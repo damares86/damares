@@ -215,7 +215,7 @@ class Common
         SELECT ".$this->fields ."
         FROM " . $this->prx . $table2 . "
         ORDER BY " . $orderBy . " ASC ";
-        print_r($query);
+        
         $stmt = $this->conn->prepare($query);
         
         $stmt->execute();

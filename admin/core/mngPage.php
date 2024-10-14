@@ -355,7 +355,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
         $mc->id = filter_input(INPUT_POST, 'idToMod');
 
-        $mc->table = 'mc_default_pages';
+        $mc->table = 'mc_pages';
 
         if ($mc->update(['header', 'header_media', 'use_name', 'use_desc',], 'id')) {
 

@@ -20,13 +20,6 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       use_name INT(1) DEFAULT 0,
       use_desc INT(1) DEFAULT 0,
       counter INT(3) NOT NULL);
-      CREATE TABLE IF NOT EXISTS " . $prefix . "mc_default_pages
-      ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      page_name VARCHAR(255) NOT NULL,
-      header INT(1) NOT NULL,
-      header_media VARCHAR(255) DEFAULT NULL,
-      use_name INT(1) DEFAULT 0,
-      use_desc INT(1) DEFAULT 0);
       CREATE TABLE IF NOT EXISTS " . $prefix . "mc_menu
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       page_id INT(5) NOT NULL);
@@ -57,15 +50,15 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       label VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL);
-      INSERT INTO " . $prefix . "mc_default_pages
-      (page_name, header, header_media,use_name,use_desc)
-      VALUES ('contact','1','visual.jpg','1','1');
-      INSERT INTO " . $prefix . "mc_default_pages
-      (page_name, header, header_media,use_name,use_desc)
-      VALUES ('login','1','visual.jpg','1','1');
       INSERT INTO " . $prefix . "mc_pages
       (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
       VALUES ('index','1','default','1','visual.jpg','1','1','1');
+      INSERT INTO " . $prefix . "mc_pages
+      (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
+      VALUES ('contact','1','default','1','visual.jpg','1','1','1');
+      INSERT INTO " . $prefix . "mc_default_pages
+      (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
+      VALUES ('login','1','default','1','visual.jpg','1','1','1');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       INSERT INTO " . $prefix . "mc_settings

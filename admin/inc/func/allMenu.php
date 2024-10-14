@@ -1,22 +1,3 @@
-<?php
-
-$pages = $mc->showFieldsUnion('id','mc_default_pages','mc_pages',['id','page_name']);
-
-
-while($row = $pages->fetch(PDO::FETCH_ASSOC)){
-  extract($row);
-  ?>
-  <pre>
-  <?php
-  print_r($row);
-  ?>
-  </pre>
-  <?php
-}
-
-exit;
-?>
-
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
@@ -46,7 +27,52 @@ exit;
     </div> -->
     <div class="card-body">
 
-      Work in progress
+      <div class='wrapper'>
+        <div id="alert-placeholder"></div>
+        <div id='parent-block' class='container-pages p-3'>
+
+          <?php
+
+          // get menu order
+          $pages_json = file_get_contents('inc/menu/menu.json');
+          $pages_data = json_decode($pages_json, true);
+
+          foreach ($pages_data['inmenu'] as $inmenu) {
+
+            $mc->table = $inmenu['table'];
+            $mc->id = $inmenu['id'];
+
+            $stmt = $mc->showAllWhere('id', ['id']);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            extract($row);
+            $parent_div_arr[] = $row['id'];
+            
+          }
+
+
+
+
+
+          ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
 
     </div>
   </div>

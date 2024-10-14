@@ -33,7 +33,7 @@
 
 $idToMod = filter_input(INPUT_GET, 'idToMod');
 
-$mc->table = 'mc_default_pages';
+$mc->table = 'mc_pages';
 $mc->id = $idToMod;
 $page_to_edit = $mc->showAllWhere('id', ['id']);
 
@@ -244,7 +244,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                             <div class="form-group">
                                                 <div class="form-check">
                                                     <div class="position-relative">
-                                                        <textarea name="maps"cols="80" rows="6"><?=$json_arr[2]['block2']?></textarea>
+                                                        <textarea name="maps"cols="50" rows="6"><?=$json_arr[2]['block2']?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
