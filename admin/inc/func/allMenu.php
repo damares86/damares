@@ -1,6 +1,20 @@
 <?php
-$mc->table = 'mc_pages';
-$pages = $mc->showAll('id');
+
+$pages = $mc->showFieldsUnion('id','mc_default_pages','mc_pages',['id','page_name']);
+
+
+while($row = $pages->fetch(PDO::FETCH_ASSOC)){
+  extract($row);
+  ?>
+  <pre>
+  <?php
+  print_r($row);
+  ?>
+  </pre>
+  <?php
+}
+
+exit;
 ?>
 
 <div class="page-title">

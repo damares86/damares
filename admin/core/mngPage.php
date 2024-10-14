@@ -39,7 +39,7 @@ if (filter_input(INPUT_GET, "idToDel")) {
         }
 
         // delete the json file
-        if (!unlink('../inc/pages/' . $page_name . '.json')) {
+        if (!unlink('../inc/pages/' . $idToDel . '.json')) {
             $err_file++;
         }
 

@@ -196,6 +196,34 @@ class Common
         return $stmt;
     }
 
+    // fields must be an array
+    function showFieldsUnion($orderBy, $table1, $table2, $fields){
+
+        $this->fields = "";
+        $i = 1;
+        foreach ($fields as $item) {
+            $this->fields .= "$item";
+            if ($i < count($fields)) {
+                $this->fields .= ", ";
+            }
+            $i++;
+        }
+
+        $query = "SELECT ".$this->fields ."
+        FROM " . $this->prx . $table1 . "
+        UNION
+        SELECT ".$this->fields ."
+        FROM " . $this->prx . $table2 . "
+        ORDER BY " . $orderBy . " ASC ";
+        print_r($query);
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->execute();
+
+        return $stmt;
+
+    }
+
     // check the existence of a single record
     public function itemExists($item)
     {
