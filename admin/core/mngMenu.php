@@ -35,30 +35,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Salva il contenuto JSON su un file
         $menu_file = '../inc/menu/menu.json';
-
-        if (file_put_contents($menu_file, $jsonContent)) {
-            chmod($menu_file, 0777);
+        if (file_put_contents($menu_file, $jsonContent) === false) {
+            // Errore durante il salvataggio del file
+            error_log('Errore nel salvataggio del file JSON.');
             $response = [
-                'success' => true, // o false se c'è stato un errore
-                'message' => 'Ordine pagine salvato',
-                // Altri dati, se necessario
+                'success' => false,
+                'message' => 'Errore nel salvataggio del file JSON.',
             ];
-            // Imposta l'intestazione JSON
             header('Content-Type: application/json');
-
-            // Invia la risposta come JSON
             echo json_encode($response);
         } else {
-            unlink($menu_file);
-            copy($bck_file, $menu_file);
+            chmod($menu_file, 0777);
             $response = [
-                'success' => false, // o false se c'è stato un errore
-                'message' => $allLunaPages_save_fail,
-                // Altri dati, se necessario
+                'success' => true,
+                'message' => 'Ordine pagine salvato',
             ];
             header('Content-Type: application/json');
-
-            // Invia la risposta come JSON
             echo json_encode($response);
         }
     } else {

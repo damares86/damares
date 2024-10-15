@@ -1,7 +1,1 @@
-{
-  "parent": ["1", "2"],
-  "child": [
-    { "parent_id": "1", "id": ["5"] }
-  ],
-  "nomenu":["3"]
-}
+{"parent":["1","2"],"child":[{"parent_id":"1","id":["5"]},{"parent_id":"2","id":[]}],"nomenu":["3"]}
