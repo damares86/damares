@@ -19,58 +19,63 @@ foreach (glob("../locale/$lang/*.php") as $row) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['orderedItems'])) {
-        $orderedItems = $_POST['orderedItems']; // Dovrebbe essere già un array
-        $nomenuItems = $_POST['nomenuItems'];  // Anche questo dovrebbe essere un array
+    if (isset($_POST['orderedItems']) && isset($_POST['nomenuItems'])) {
+        // Recupera i dati inviati dal client
+        $orderedItems = json_decode($_POST['orderedItems'], true);
+        $nomenuItems = json_decode($_POST['nomenuItems'], true);
 
-        // Verifica i dati
-        error_log(print_r($orderedItems, true));
-        error_log(print_r($nomenuItems, true));
+        // Verifica e prepara la struttura dei dati
+        $data = [
+            'parent' => [],
+            'child' => [],
+            'nomenu' => []
+        ];
 
-        // Creazione di una struttura gerarchica degli ID delle pagine
-        $hierarchicalStructure = createTree($orderedItems, $nomenuItems);
+        foreach ($orderedItems as $item) {
+            $data['parent'][] = $item['id'];
+            // Registriamo i child
+            foreach ($item['children'] as $childId) {
+                $data['child'][] = [
+                    'parent_id' => $item['id'],
+                    'id' => [$childId] // Ogni child viene salvato correttamente
+                ];
+            }
+        }
 
-        // Converte la struttura gerarchica in formato JSON
-        $jsonContent = json_encode($hierarchicalStructure);
+        // Aggiungi i nomenu
+        foreach ($nomenuItems as $nomenu) {
+            $data['nomenu'][] = $nomenu['id'];
+        }
 
-        // Salva il contenuto JSON su un file
-        $menu_file = '../inc/menu/menu.json';
-        if (file_put_contents($menu_file, $jsonContent) === false) {
-            // Errore durante il salvataggio del file
-            error_log('Errore nel salvataggio del file JSON.');
-            $response = [
-                'success' => false,
-                'message' => 'Errore nel salvataggio del file JSON.',
-            ];
-            header('Content-Type: application/json');
-            echo json_encode($response);
-        } else {
-            chmod($menu_file, 0777);
+        // Salva nel file JSON
+        $json_data = json_encode($data, JSON_PRETTY_PRINT);
+        $file_path = '../inc/menu/menu.json'; // Modifica il percorso se necessario
+
+        if (file_put_contents($file_path, $json_data)) {
             $response = [
                 'success' => true,
-                'message' => 'Ordine pagine salvato',
+                'message' => 'Menu salvato con successo.'
             ];
-            header('Content-Type: application/json');
-            echo json_encode($response);
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Errore nel salvataggio del file JSON.'
+            ];
         }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
     } else {
-        // Se il parametro 'orderedItems' non è presente nella richiesta POST, invia una risposta JSON con un messaggio di errore
+        // Messaggio di errore se mancano i parametri necessari
         $response = [
             'success' => false,
-            'message' => 'Parametro "orderedItems" non trovato nella richiesta POST.'
+            'message' => 'Parametro "orderedItems" o "nomenuItems" non trovato nella richiesta POST.'
         ];
         header('Content-Type: application/json');
         echo json_encode($response);
     }
-} else {
-    // Se il metodo HTTP non è consentito, invia una risposta JSON con un messaggio di errore
-    $response = [
-        'success' => false,
-        'message' => 'Metodo HTTP non consentito. Si prega di utilizzare il metodo POST.'
-    ];
-    header('Content-Type: application/json');
-    echo json_encode($response);
 }
+
 
 // Funzione per creare una struttura gerarchica degli ID delle pagine
 function createTree($orderedItems, $nomenuItems) {
