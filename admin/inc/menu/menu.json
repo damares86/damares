@@ -1,14 +1,15 @@
 {
-    "parent": [
-        "1"
-    ],
-    "child": [
-        {
-            "parent_id": "1",
-            "id": [
-                "5"
-            ]
-        }
-    ],
-    "nomenu": []
+  "parent": [
+      "1",
+      "2"
+  ],
+  "child": [
+      {
+          "parent_id": "1",
+          "id": [
+              "5"
+          ]
+      }
+  ],
+  "nomenu": ["3"]
 }
