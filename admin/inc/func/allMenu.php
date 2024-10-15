@@ -48,7 +48,7 @@
             $page_name = str_replace('_', ' ', $page_name);
             $page_name = ucfirst($page_name);
           ?>
-            <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'> 
+            <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2'>
               <b><?= $page_name ?></b>
               <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
                 <i class="bi bi-chevron-down"></i>
@@ -75,7 +75,7 @@
                   }
                 }
                 ?>
-              </div> 
+              </div>
             </div>
           <?php
           }
@@ -132,26 +132,26 @@
 
   // Configura Dragula
   dragula(blocks_array, {
-    moves: function (el, container, handle) {
+    moves: function(el, container, handle) {
       // Permetti di spostare tutti i div all'interno di parent-block e nomenu-block
       return true;
     },
-    accepts: function (el, target) {
+    accepts: function(el, target) {
       // Permetti il drop solo nei blocchi container-pages e nomenu
       return target.classList.contains('container-pages') || target.id === 'nomenu-block';
     }
-  }).on('drop', function (el, target, source, sibling) {
+  }).on('drop', function(el, target, source, sibling) {
     // Log dell'elemento rilasciato per il debug
     console.log('Element dropped:', el.id, 'into', target.id);
   });
 
   // Funzione per salvare l'ordine
-  $("#save").click(function () {
+  $("#save").click(function() {
     let orderedItems = [];
     let nomenuItems = [];
 
     // Scansiona parent-block e salva gli elementi ordinati
-    $('#parent-block').find('.parent_item, .child_item').each(function () {
+    $('#parent-block').find('.parent_item, .child_item').each(function() {
       let id = this.id;
       if (id && /^[0-9]+$/.test(id)) {
         orderedItems.push({
@@ -162,7 +162,7 @@
     });
 
     // Scansiona nomenu-block per salvare i nomenu
-    $('#nomenu-block').find('.nomenu_item').each(function () {
+    $('#nomenu-block').find('.nomenu_item').each(function() {
       let id = this.id;
       if (id && /^[0-9]+$/.test(id)) {
         nomenuItems.push({
@@ -172,27 +172,22 @@
       }
     });
 
-
-    let postData = {
-      orderedItems: JSON.stringify(orderedItems),
-      nomenuItems: JSON.stringify(nomenuItems)
-    };
-
-    console.log(orderedItems, nomenuItems);
-
     // AJAX per salvare i dati
     $.ajax({
       url: 'core/mngMenu.php',
       method: 'POST',
-      data: postData,
-      success: function (response) {
+      data: {
+        orderedItems: orderedItems, // Non convertirli manualmente in JSON
+        nomenuItems: nomenuItems
+      },
+      success: function(response) {
         if (response.success) {
           showAlert(response.message, 'success');
         } else {
           showAlert(response.message, 'danger');
         }
       },
-      error: function (xhr, status, error) {
+      error: function(xhr, status, error) {
         console.error('Errore AJAX:', error);
         showAlert('Si è verificato un errore durante la richiesta AJAX.', 'danger');
       }
@@ -209,4 +204,3 @@
     );
   }
 </script>
-

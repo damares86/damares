@@ -20,8 +20,12 @@ foreach (glob("../locale/$lang/*.php") as $row) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['orderedItems'])) {
-        $orderedItems = json_decode($_POST['orderedItems'], true);
-        $nomenuItems = json_decode($_POST['nomenuItems'], true);
+        $orderedItems = $_POST['orderedItems']; // Dovrebbe essere già un array
+        $nomenuItems = $_POST['nomenuItems'];  // Anche questo dovrebbe essere un array
+
+        // Verifica i dati
+        error_log(print_r($orderedItems, true));
+        error_log(print_r($nomenuItems, true));
 
         // Creazione di una struttura gerarchica degli ID delle pagine
         $hierarchicalStructure = createTree($orderedItems, $nomenuItems);
