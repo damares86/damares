@@ -172,6 +172,9 @@
       }
     });
 
+    console.log("orderedItems -> ", orderedItems);
+    console.log("nomenuItems -> ", nomenuItems);
+
     // AJAX per salvare i dati
     $.ajax({
       url: 'core/mngMenu.php',
