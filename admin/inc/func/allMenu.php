@@ -84,8 +84,8 @@
                 </div>
 
                 <!-- Blocco NoMenu -->
+                <h4>No Menu Pages</h4>
                 <div id='nomenu-block' class='container-pages p-3'>
-                    <h4>No Menu Pages</h4>
                     <?php
                     foreach ($pages_data['nomenu'] as $nomenu) {
                         $mc->table = 'mc_pages';
@@ -138,19 +138,12 @@
         return items;
     }
 
-    // Array per il drag and drop
-    var blocks_array = [
+    // Configurazione Dragula
+    var drake = dragula([
         document.getElementById('parent-block'),
-        document.getElementById('nomenu-block')
-    ];
-
-    // Aggiungi i blocchi child per il drag and drop
-    <?php foreach ($parent_div_arr as $item) { ?>
-        blocks_array.push(document.getElementById('child_<?= $item ?>'));
-    <?php } ?>
-
-    // Configura Dragula
-    dragula(blocks_array, {
+        document.getElementById('nomenu-block'),
+        ...document.querySelectorAll('.child_block')
+    ], {
         moves: function(el, container, handle) {
             return true; // Permetti il movimento
         },
@@ -158,25 +151,40 @@
             return target.classList.contains('container-pages'); // Permetti solo nei blocchi designati
         }
     }).on('drop', function(el, target, source, sibling) {
-        // Rimuove l'elemento originale dal contenitore di origine
-        if (source.id !== target.id) {
-            el.remove();
-            target.appendChild(el); // Aggiunge l'elemento al nuovo target
-        }
+        console.log("Elemento spostato:", el.id, "da:", source.id, "a:", target.id); // Log evento drop
 
-        console.log('Elemento spostato:', el.id, 'in', target.id);
-    }).on('dragend', function(el) {
-        // Se l'elemento è stato spostato in parent-block come child
-        if (el.parentNode.id === 'parent-block') {
-            let parentDiv = $(el).closest('.parent_item');
-            if (parentDiv.length) {
-                let parentId = parentDiv.attr('id');
-                console.log("Child spostato in parent: ", el.id, "in parent:", parentId);
+        // Rimuovi l'elemento originale dalla sorgente
+        if (source.id !== target.id) {
+            target.appendChild(el);
+            console.log("Elemento aggiunto:", el.id, "in target:", target.id); // Log di registrazione
+
+            // Cambia la classe se l'elemento viene spostato in parent-block
+            if (target.id === 'parent-block') {
+                $(el).removeClass('nomenu_item').addClass('child_item'); // Cambia classe
+                console.log("Classe cambiata:", el.id, "a child_item");
+            }
+
+            // Controlla se l'elemento proviene da 'nomenu-block'
+            if (source.id === 'nomenu-block' && target.id === 'parent-block') {
+                console.log("Elemento spostato da nomenu a parent:", el.id);
+                // Aggiungi qui la logica per registrare l'elemento nel JSON
+            }
+
+            // Controlla se l'elemento è un child in 'parent-block'
+            if (target.id === 'parent-block') {
+                let parentDiv = $(el).closest('.parent_item');
+                if (parentDiv.length) {
+                    let parentId = parentDiv.attr('id');
+                    console.log("Child spostato in parent:", el.id, "in parent:", parentId);
+                    // Aggiungi qui la logica per registrare l'elemento nel JSON
+                }
             }
         }
+    }).on('dragend', function(el) {
+        console.log("Drag ended for:", el.id); // Log quando il drag termina
     });
 
-    // Funzione per salvare l'ordine
+    // Salva l'ordine al click
     $("#save").click(function() {
         let orderedItems = getOrderedItems('#parent-block');
         let nomenuItems = getOrderedItems('#nomenu-block');
@@ -190,10 +198,11 @@
             url: 'core/mngMenu.php',
             method: 'POST',
             data: {
-                orderedItems: JSON.stringify(orderedItems), // Invia come stringa JSON
-                nomenuItems: JSON.stringify(nomenuItems)    // Invia come stringa JSON
+                orderedItems: JSON.stringify(orderedItems),
+                nomenuItems: JSON.stringify(nomenuItems)
             },
             success: function(response) {
+                console.log("Risposta ricevuta:", response); // Log risposta
                 if (response.success) {
                     showAlert(response.message, 'success');
                 } else {
@@ -201,7 +210,7 @@
                 }
             },
             error: function(xhr, status, error) {
-                console.error('Errore AJAX:', error);
+                console.error('Errore AJAX:', error); // Log errori AJAX
                 showAlert('Si è verificato un errore durante la richiesta AJAX.', 'danger');
             }
         });
