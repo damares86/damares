@@ -81,53 +81,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Funzione per creare una struttura gerarchica degli ID delle pagine
-function createTree($orderedItems, $nomenuItems)
-{
+function createTree($orderedItems, $nomenuItems) {
     $tree = [];
-    $child_tot = [];
     $parent = [];
+    $child_map = []; // Mappa per i child
 
     // Creazione struttura per gli orderedItems
     foreach ($orderedItems as $item) {
         $id = $item['id'];
         $level = $item['livello'];
 
-        if ($level == 1) {
-            // È una pagina parent, va al livello principale
+        if ($level == 0) {
+            // È una pagina parent
             $parent[] = $id;
         } else if ($level == 2) {
-            // È una pagina di livello child
-            if (!in_array($id, $child_tot)) {
-                $child_label = 'child_' . end($parent);
-                if (!isset($$child_label)) {
-                    $$child_label = [];
-                }
-                $$child_label[] = $id;
-                $child_tot[] = $id;
+            // È una pagina child
+            $parent_id = end($parent); // Prendi l'ultimo parent
+            if (!isset($child_map[$parent_id])) {
+                $child_map[$parent_id] = [];
             }
+            $child_map[$parent_id][] = $id;
         }
     }
 
     // Creazione struttura per i nomenuItems
     $nomenu_tree = [];
     foreach ($nomenuItems as $item) {
-        $nomenu_tree[] = $item['id']; // Supponendo che l'ID sia un campo semplice
+        $nomenu_tree[] = $item['id'];
     }
 
+    // Costruisci la struttura finale
     $child_tree = [];
-    foreach ($parent as $item) {
-        $child_arr = 'child_' . $item;
-        if (isset($$child_arr)) {
-            $child_tree[] = array("parent_id" => $item, "id" => $$child_arr);
-        }
+    foreach ($parent as $parent_id) {
+        $child_tree[] = [
+            "parent_id" => $parent_id,
+            "id" => isset($child_map[$parent_id]) ? $child_map[$parent_id] : []
+        ];
     }
 
     // Combinazione della struttura
     $tree = [
         'parent' => $parent,
         'child' => $child_tree,
-        'nomenu' => $nomenu_tree // Aggiungi la sezione nomenu
+        'nomenu' => $nomenu_tree
     ];
 
     return $tree;
 }
+
