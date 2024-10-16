@@ -2,3 +2,8 @@
     padding-left: 36px;
 }
 
+
+.drag-over {
+    border: 2px dashed #007bff; /* Evidenzia il div mentre ci si sopra */
+}
+
