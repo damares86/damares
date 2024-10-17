@@ -19,9 +19,6 @@
 </div>
 <br>
 
-
-
-
 <section class="section">
     <div class="card shadow">
         <div class="card-body">
@@ -30,21 +27,19 @@
 
                 <!-- Blocco Parent -->
                 <div id='parent-block' class='container-pages p-3'>
-                    <h4>In menu</h4>
+                    <h4>In Menu</h4>
                     <?php
-                    // get menu order
                     $pages_json = file_get_contents('inc/menu/menu.json');
                     $pages_data = json_decode($pages_json, true);
-
-                    foreach ($pages_data['parent'] as $parent) {
+                    
+                    // Iteriamo sui parent
+                    foreach ($pages_data['inmenu'] as $parent) {
                         $mc->table = 'mc_pages';
-                        $mc->id = $parent;
+                        $mc->id = $parent['id'];
 
                         $stmt = $mc->showAllWhere('id', ['id']);
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                         extract($row);
-                        $parent_div_arr[] = $row['id'];
-
                         $page_name = str_replace('_', ' ', ucfirst($row['page_name']));
                     ?>
                         <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2' draggable="true">
@@ -55,21 +50,18 @@
 
                             <div id="child_<?= $row['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'>
                                 <?php
-                                // Se il parent ha child, li mostriamo qui
-                                foreach ($pages_data['child'] as $child) {
-                                    if ($child['parent_id'] == $parent) {
-                                        foreach ($child['id'] as $item) {
-                                            $mc->table = 'mc_pages';
-                                            $mc->id = $item;
-                                            $stmt1 = $mc->showAllWhere('id', ['id']);
-                                            $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-                                            extract($row1);
+                                if (isset($parent['child'])) {
+                                    foreach ($parent['child'] as $childId) {
+                                        $mc->table = 'mc_pages';
+                                        $mc->id = $childId;
+                                        $stmt1 = $mc->showAllWhere('id', ['id']);
+                                        $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+                                        extract($row1);
                                 ?>
-                                            <div id="<?= $row1['id'] ?>" class="child_item rounded m-2" draggable="true"> <!-- Rendi i child draggable -->
-                                                <b> <?= $row1['page_name'] ?></b>
-                                            </div>
+                                        <div id="<?= $row1['id'] ?>" class="child_item rounded m-2" draggable="true">
+                                            <b><?= $row1['page_name'] ?></b>
+                                        </div>
                                 <?php
-                                        }
                                     }
                                 }
                                 ?>
@@ -86,15 +78,12 @@
                         foreach ($pages_data['nomenu'] as $nomenu) {
                             $mc->table = 'mc_pages';
                             $mc->id = $nomenu;
-
                             $stmt = $mc->showAllWhere('id', ['id']);
                             $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             extract($row);
-                            $nomenu_div_arr[] = $row['id'];
-
                             $page_name = str_replace('_', ' ', ucfirst($row['page_name']));
                         ?>
-                            <div id="<?= $row['id'] ?>" class='container-pages nomenu_item rounded m-2' draggable="true"> <!-- Rendi anche i nomenu draggable -->
+                            <div id="<?= $row['id'] ?>" class='container-pages nomenu_item rounded m-2' draggable="true">
                                 <b><?= $page_name ?></b>
                             </div>
                         <?php
@@ -108,72 +97,105 @@
         <button id="save" class="btn btn-success m-3 w-25">Save</button>
     </div>
 </section>
-
-
-
 <script src='script/dragula.js'></script>
 <script>
-    // Funzione per mantenere l'ordine degli elementi
-    function getOrderedItems(container) {
-        let items = [];
-        $(container).children('.parent_item, .child_item, .nomenu_item').each(function() {
-            let id = this.id;
-            let children = [];
+    // Funzione per inizializzare Dragula
+    function initDragula() {
+        var drake = dragula([document.getElementById('parent-block'), document.getElementById('nomenu-block')]);
 
-            // Se il div è un parent, aggiungi i suoi child
-            if ($(this).hasClass('parent_item')) {
-                // Cattura i child solo se esistono
-                $(this).find('.child_item').each(function() {
-                    children.push(this.id);
-                });
+        // Permettere il drop nei child
+        drake.containers.push(...document.querySelectorAll('.child_block'));
+
+        drake.on('drop', function(el, target, source, sibling) {
+            // Verifica se l'elemento è stato spostato in un parent, un child o un nomenu
+            if ($(target).hasClass('child_block')) {
+                // Se viene rilasciato in un child_block, è un child
+                var parentId = $(target).closest('.parent_item').attr('id');
+                $(el).detach().appendTo($('#child_' + parentId));
+                $(el).removeClass('parent_item nomenu_item').addClass('child_item'); // Aggiorna le classi
+            } else if ($(target).attr('id') === 'parent-block') {
+                // Se viene rilasciato nel parent-block, è un parent
+                $(el).removeClass('child_item nomenu_item').addClass('parent_item'); // Aggiorna le classi
+            } else if ($(target).attr('id') === 'nomenu-block') {
+                // Se viene rilasciato nel nomenu-block, è un elemento di nomenu
+                $(el).removeClass('parent_item child_item').addClass('nomenu_item'); // Aggiorna le classi
             }
 
-            items.push({
-                id: id,
-                children: children // Aggiunge i children trovati
-            });
+            // Posiziona l'elemento nel target nella posizione corretta
+            $(el).detach().appendTo(target);
+            if (sibling) {
+                // Se c'è un elemento "sibling", posiziona l'elemento prima di esso
+                $(el).insertBefore(sibling);
+            }
+
+            // Aggiorna il JSON dopo il drop
+            updateJSON();
         });
+
+        drake.on('remove', function(el, container) {
+            console.log("Element removed:", el.id);
+            updateJSON(); // Aggiorna JSON quando un elemento viene rimosso
+        });
+    }
+
+    // Chiamata per inizializzare Dragula
+    initDragula();
+
+    function getInMenuItems() {
+        let items = [];
+
+        // Itera su tutti i parent nel blocco parent
+        $('#parent-block').children('.parent_item').each(function() {
+            let parentId = this.id; // Ottieni l'ID del parent
+            let children = [];
+
+            // Cerca i child dentro il blocco collapse relativo al parent
+            $(this).find('.child_block .child_item').each(function() {
+                children.push(this.id); // Aggiungi l'ID del child
+            });
+
+            // Se ci sono child, includili nel JSON come array
+            if (children.length > 0) {
+                items.push({ id: parentId, child: children });
+            } else {
+                // Se non ci sono child, aggiungi solo l'ID del parent
+                items.push({ id: parentId });
+            }
+        });
+
         return items;
     }
 
-    // Inizializzazione di Dragula
-    var drake = dragula([
-        document.getElementById('parent-block'),
-        document.getElementById('nomenu-block'),
-        ...document.querySelectorAll('.child_block')
-    ], {
-        moves: function(el, container, handle) {
-            return true; // Permetti sempre il movimento
-        },
-        accepts: function(el, target, source, sibling) {
-            return true; // Consenti a tutti gli elementi di essere rilasciati in qualsiasi target
-        }
-    }).on('drop', function(el, target, source, sibling) {
-        // Rinfresca i contenitori dopo il drop
-        refreshContainers();
-    });
+    function getNoMenuItems() {
+        let noMenuItems = [];
 
-    // Rinfresca i contenitori per assicurarsi che l'ordine sia corretto
-    function refreshContainers() {
-        console.log("Containers refreshed.");
+        // Itera su tutti gli elementi nel blocco nomenu
+        $('#nomenu-block').children('.nomenu_item').each(function() {
+            noMenuItems.push(this.id); // Aggiungi l'ID a nomenu
+        });
+
+        return noMenuItems;
     }
 
-    // Funzione per il salvataggio
-    $("#save").click(function() {
-        let orderedItems = getOrderedItems('#parent-block');
-        let nomenuItems = getOrderedItems('#nomenu-block');
+    // Funzione per aggiornare il JSON
+    function updateJSON() {
+        let inMenuItems = getInMenuItems();
+        let noMenuItems = getNoMenuItems();
 
-        // Debugging: log di cosa viene registrato
-        console.log("orderedItems -> ", orderedItems);
-        console.log("nomenuItems -> ", nomenuItems);
+        // Costruisci l'oggetto per il JSON
+        let jsonData = {
+            inmenu: inMenuItems,
+            nomenu: noMenuItems
+        };
+
+        console.log("JSON attuale:", jsonData); // Log per debugging
 
         // AJAX per salvare i dati
         $.ajax({
             url: 'core/mngMenu.php',
             method: 'POST',
             data: {
-                orderedItems: JSON.stringify(orderedItems), // Aggiorna il formato per mantenere la struttura
-                nomenuItems: JSON.stringify(nomenuItems) // Aggiorna il formato per mantenere la struttura
+                menuData: JSON.stringify(jsonData) // Invia il JSON come stringa
             },
             success: function(response) {
                 console.log("Risposta ricevuta:", response); // Log risposta
@@ -188,8 +210,14 @@
                 showAlert('Si è verificato un errore durante la richiesta AJAX.', 'danger');
             }
         });
+    }
+
+    // Funzione per il salvataggio
+    $("#save").click(function() {
+        updateJSON(); // Aggiorna JSON quando si clicca su Salva
     });
 
+    // Funzione per mostrare un alert di successo o errore
     function showAlert(message, type) {
         $('#alert-placeholder').html(
             '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
