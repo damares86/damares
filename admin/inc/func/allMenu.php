@@ -44,10 +44,12 @@
                     ?>
                         <div id="<?= $row['id'] ?>" class='container-pages parent_item px-5 rounded m-2' draggable="true">
                             <b><?= $page_name ?></b>
-                            <a class="btn icon btn-sm btn-info mx-2 shadow" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
+                            <!-- Freccia visibile per i parent -->
+                            <a class="btn icon btn-sm btn-info mx-2 shadow collapse-toggle" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
                                 <i class="bi bi-chevron-down"></i>
                             </a>
 
+                            <!-- Blocco per i child, visibile solo per i parent -->
                             <div id="child_<?= $row['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2'>
                                 <?php
                                 if (isset($parent['child'])) {
@@ -60,6 +62,10 @@
                                 ?>
                                         <div id="<?= $row1['id'] ?>" class="child_item rounded m-2" draggable="true">
                                             <b><?= $row1['page_name'] ?></b>
+                                            <!-- Freccia nascosta perché è un child -->
+                                            <a class="btn icon btn-sm btn-info mx-2 shadow collapse-toggle d-none" data-bs-toggle="collapse" href="#child_<?= $row1['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row1['id'] ?>">
+                                                <i class="bi bi-chevron-down"></i>
+                                            </a>
                                         </div>
                                 <?php
                                     }
@@ -85,6 +91,13 @@
                         ?>
                             <div id="<?= $row['id'] ?>" class='container-pages nomenu_item rounded m-2' draggable="true">
                                 <b><?= $page_name ?></b>
+                                <!-- Freccia nascosta perché è nel nomenu -->
+                                <a class="btn icon btn-sm btn-info mx-2 shadow collapse-toggle d-none" data-bs-toggle="collapse" href="#child_<?= $row['id'] ?>" role="button" aria-expanded="false" aria-controls="child_<?= $row['id'] ?>">
+                                    <i class="bi bi-chevron-down"></i>
+                                </a>
+
+                                <!-- Blocca child nascosto per gli elementi in nomenu -->
+                                <div id="child_<?= $row['id'] ?>" class='collapse container-pages child_block p-2 rounded m-2 d-none'></div>
                             </div>
                         <?php
                         }
@@ -97,7 +110,9 @@
         <button id="save" class="btn btn-success m-3 w-25">Save</button>
     </div>
 </section>
+
 <script src='script/dragula.js'></script>
+
 <script>
     // Funzione per inizializzare Dragula
     function initDragula() {
@@ -107,18 +122,26 @@
         drake.containers.push(...document.querySelectorAll('.child_block'));
 
         drake.on('drop', function(el, target, source, sibling) {
-            // Verifica se l'elemento è stato spostato in un parent, un child o un nomenu
+            // Verifica se si sta tentando di spostare un elemento dentro uno dei suoi discendenti
+            if (isAncestor(el, target)) {
+                console.error("Errore: impossibile spostare un nodo dentro uno dei suoi discendenti.");
+                return;
+            }
+
             if ($(target).hasClass('child_block')) {
                 // Se viene rilasciato in un child_block, è un child
                 var parentId = $(target).closest('.parent_item').attr('id');
                 $(el).detach().appendTo($('#child_' + parentId));
                 $(el).removeClass('parent_item nomenu_item').addClass('child_item'); // Aggiorna le classi
+                updateCollapseIconAndChildBlock(el, false); // Nasconde la freccia e lo spazio child
             } else if ($(target).attr('id') === 'parent-block') {
                 // Se viene rilasciato nel parent-block, è un parent
                 $(el).removeClass('child_item nomenu_item').addClass('parent_item'); // Aggiorna le classi
+                updateCollapseIconAndChildBlock(el, true); // Mostra la freccia e lo spazio child
             } else if ($(target).attr('id') === 'nomenu-block') {
                 // Se viene rilasciato nel nomenu-block, è un elemento di nomenu
                 $(el).removeClass('parent_item child_item').addClass('nomenu_item'); // Aggiorna le classi
+                updateCollapseIconAndChildBlock(el, false); // Nasconde la freccia e lo spazio child
             }
 
             // Posiziona l'elemento nel target nella posizione corretta
@@ -136,6 +159,28 @@
             console.log("Element removed:", el.id);
             updateJSON(); // Aggiorna JSON quando un elemento viene rimosso
         });
+    }
+
+    // Funzione per verificare se il target è un discendente dell'elemento spostato
+    function isAncestor(el, target) {
+        return el.contains(target);
+    }
+
+    // Funzione per aggiornare la visibilità dell'icona di espansione e del blocco child
+    function updateCollapseIconAndChildBlock(el, show) {
+        const childBlock = $(el).find('.child_block');
+        if (show) {
+            // Se è un parent, mostra la freccia e il blocco child
+            $(el).find('.collapse-toggle').removeClass('d-none');
+            childBlock.removeClass('d-none'); // Mostra il blocco child
+            if (!childBlock.hasClass('show')) {
+                childBlock.collapse('show'); // Mostra il blocco child se non è già visibile
+            }
+        } else {
+            // Se non è un parent, nascondi la freccia e il blocco child
+            $(el).find('.collapse-toggle').addClass('d-none');
+            childBlock.collapse('hide'); // Nascondi il blocco child
+        }
     }
 
     // Chiamata per inizializzare Dragula
