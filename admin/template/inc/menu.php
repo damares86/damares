@@ -13,43 +13,52 @@
 
         <?php
     } else {
-        echo "ciao";
-        $stmt = $menu->showAllParent();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+
+        $pages_json = file_get_contents('admin/inc/menu/menu.json');
+        $pages_data = json_decode($pages_json, true);
+
+
+        // Iteriamo sui parent
+        foreach ($pages_data['inmenu'] as $parent) {
+            $mc->table = 'mc_pages';
+            $mc->id = $parent['id'];
+
+            $stmt = $mc->showAllWhere('id', ['id']);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
             extract($row);
-            $class = "";
-            $name = $row['pagename'];
-            $name = ucfirst($name);
-            $str = $row['pagename'];
-            $str = preg_replace('/\s+/', '_', $str);
-            $str = strtolower($str);
-            $page_order[] = $str;
-            $link = $root . $str . ".php";
-
-            if ($str == "attivita") {
-                $link = "blog.php?cat=3";
-            }
-
+            $page_name = str_replace('_', ' ', ucfirst($row['page_name']));
+            $link = $root . $row['page_name'] . ".php";
             $class = "";
             if ($one && $str != "login") {
                 $link = "#$str";
                 $class = "class=\"scrolly\"";
             }
-        ?>
-            <li><a href="<?= $link ?>" <?= $class ?>><?php
-                                                    if ($name == 'index') {
-                                                        echo "Home";
-                                                    } else if ($name == "Post" || $name == "Blog") {
-                                                        echo "Blog";
-                                                    } else if ($name == 'Contact') {
-                                                        echo "Contatti";
-                                                    } else {
-                                                        echo $name;
-                                                    } ?></a>
-                <?php
 
-                $menu->childof = $name;
-                $num = $menu->countChildInMenu();
+        ?>
+
+            <li>
+                <a href="<?= $link ?>" <?= $class ?>>
+                    <?php
+                    if ($name == 'index') {
+                        echo "Home";
+                    } else if ($name == "Post" || $name == "Blog") {
+                        echo "Blog";
+                    } else if ($name == 'Contact') {
+                        echo $page_contact;
+                    } else {
+                        echo $name;
+                    } ?>
+                </a>
+            <?php
+
+
+
+
+        }
+
+
+        
 
                 if ($num > 0) {
                     $stmt1 = $menu->showAllChildInMenu();
@@ -83,11 +92,11 @@
                             }
                         ?>
                             <li style="white-space: nowrap;"><a href="<?= $link_child ?>" style="display: block;" <?= $class ?>><?php
-                                                                                                                            if ($row1['pagename'] == 'index') {
-                                                                                                                                echo "Home";
-                                                                                                                            } else {
-                                                                                                                                echo $row1['pagename'];
-                                                                                                                            } ?></a>
+                                                                                                                                if ($row1['pagename'] == 'index') {
+                                                                                                                                    echo "Home";
+                                                                                                                                } else {
+                                                                                                                                    echo $row1['pagename'];
+                                                                                                                                } ?></a>
                             </li>
                         <?php
                         }
@@ -100,7 +109,7 @@
             </li>
     <?php
         }
-    }
+    
     ?>
 
 </ul>
