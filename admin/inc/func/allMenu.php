@@ -31,7 +31,7 @@
                     <?php
                     $pages_json = file_get_contents('inc/menu/menu.json');
                     $pages_data = json_decode($pages_json, true);
-                    
+
                     // Iteriamo sui parent
                     foreach ($pages_data['inmenu'] as $parent) {
                         $mc->table = 'mc_pages';
@@ -107,20 +107,30 @@
             </div>
         </div>
 
-        <button id="save" class="btn btn-success m-3 w-25">Save</button>
+        <!-- <button id="save" class="btn btn-success m-3 w-25">Save</button> -->
     </div>
 </section>
 
 <script src='script/dragula.js'></script>
 
 <script>
-    // Funzione per inizializzare Dragula
+    var drake; // Definisci 'drake' a livello globale
+
+    // Funzione per inizializzare o reinizializzare Dragula
     function initDragula() {
-        var drake = dragula([document.getElementById('parent-block'), document.getElementById('nomenu-block')]);
+        if (drake) {
+            drake.destroy(); // Distruggi l'istanza precedente, se esiste
+        }
 
-        // Permettere il drop nei child
-        drake.containers.push(...document.querySelectorAll('.child_block'));
+        // Inizializza Dragula con i contenitori esistenti
+        drake = dragula([document.getElementById('parent-block'), document.getElementById('nomenu-block')]);
 
+        // Aggiungi tutti i blocchi child già esistenti
+        document.querySelectorAll('.child_block').forEach(function(container) {
+            drake.containers.push(container);
+        });
+
+        // Gestione del drop
         drake.on('drop', function(el, target, source, sibling) {
             // Verifica se si sta tentando di spostare un elemento dentro uno dei suoi discendenti
             if (isAncestor(el, target)) {
@@ -131,24 +141,22 @@
             if ($(target).hasClass('child_block')) {
                 // Se viene rilasciato in un child_block, è un child
                 var parentId = $(target).closest('.parent_item').attr('id');
-                $(el).detach().appendTo($('#child_' + parentId));
-                $(el).removeClass('parent_item nomenu_item').addClass('child_item'); // Aggiorna le classi
-                updateCollapseIconAndChildBlock(el, false); // Nasconde la freccia e lo spazio child
+                $(el).removeClass('parent_item nomenu_item').addClass('child_item');
+                updateCollapseIconAndChildBlock(el, false);
             } else if ($(target).attr('id') === 'parent-block') {
-                // Se viene rilasciato nel parent-block, è un parent
-                $(el).removeClass('child_item nomenu_item').addClass('parent_item'); // Aggiorna le classi
-                updateCollapseIconAndChildBlock(el, true); // Mostra la freccia e lo spazio child
+                // Se viene rilasciato nel parent-block, diventa un parent
+                $(el).removeClass('child_item nomenu_item').addClass('parent_item');
+                updateCollapseIconAndChildBlock(el, true);
             } else if ($(target).attr('id') === 'nomenu-block') {
-                // Se viene rilasciato nel nomenu-block, è un elemento di nomenu
-                $(el).removeClass('parent_item child_item').addClass('nomenu_item'); // Aggiorna le classi
-                updateCollapseIconAndChildBlock(el, false); // Nasconde la freccia e lo spazio child
+                // Se viene rilasciato nel nomenu-block, diventa un elemento di nomenu
+                $(el).removeClass('parent_item child_item').addClass('nomenu_item');
+                updateCollapseIconAndChildBlock(el, false);
             }
 
-            // Posiziona l'elemento nel target nella posizione corretta
+            // Aggiungi l'elemento al contenitore di destinazione
             $(el).detach().appendTo(target);
             if (sibling) {
-                // Se c'è un elemento "sibling", posiziona l'elemento prima di esso
-                $(el).insertBefore(sibling);
+                $(el).insertBefore(sibling); // Se c'è un sibling, inserisci prima di esso
             }
 
             // Aggiorna il JSON dopo il drop
@@ -161,30 +169,47 @@
         });
     }
 
+    // Funzione per aggiornare la visibilità dell'icona di espansione e del blocco child
+    function updateCollapseIconAndChildBlock(el, show) {
+        const childBlockId = 'child_' + el.id;
+        let childBlock = $(el).find('.child_block');
+
+        if (show) {
+            $(el).find('.collapse-toggle').removeClass('d-none');
+
+            if (childBlock.length === 0) {
+                // Crea dinamicamente il child_block se non esiste già
+                $(el).append(`
+                <div id="${childBlockId}" class="collapse container-pages child_block p-2 rounded m-2"></div>
+            `);
+                childBlock = $(el).find('.child_block');
+            }
+
+            // Aggiungi il nuovo child_block ai contenitori Dragula
+            drake.containers.push(childBlock[0]);
+
+            // Aggiorna l'attributo 'data-bs-target' della freccia
+            $(el).find('.collapse-toggle').attr('data-bs-target', `#${childBlockId}`).attr('aria-controls', childBlockId);
+
+            // Mostra il child_block (se non già visibile)
+            if (!childBlock.hasClass('show')) {
+                childBlock.collapse('show');
+            }
+        } else {
+            // Nascondi la freccia e il child_block se non deve essere visibile
+            $(el).find('.collapse-toggle').addClass('d-none');
+            childBlock.collapse('hide');
+        }
+    }
+
     // Funzione per verificare se il target è un discendente dell'elemento spostato
     function isAncestor(el, target) {
         return el.contains(target);
     }
 
-    // Funzione per aggiornare la visibilità dell'icona di espansione e del blocco child
-    function updateCollapseIconAndChildBlock(el, show) {
-        const childBlock = $(el).find('.child_block');
-        if (show) {
-            // Se è un parent, mostra la freccia e il blocco child
-            $(el).find('.collapse-toggle').removeClass('d-none');
-            childBlock.removeClass('d-none'); // Mostra il blocco child
-            if (!childBlock.hasClass('show')) {
-                childBlock.collapse('show'); // Mostra il blocco child se non è già visibile
-            }
-        } else {
-            // Se non è un parent, nascondi la freccia e il blocco child
-            $(el).find('.collapse-toggle').addClass('d-none');
-            childBlock.collapse('hide'); // Nascondi il blocco child
-        }
-    }
-
     // Chiamata per inizializzare Dragula
     initDragula();
+
 
     function getInMenuItems() {
         let items = [];
@@ -201,10 +226,15 @@
 
             // Se ci sono child, includili nel JSON come array
             if (children.length > 0) {
-                items.push({ id: parentId, child: children });
+                items.push({
+                    id: parentId,
+                    child: children
+                });
             } else {
                 // Se non ci sono child, aggiungi solo l'ID del parent
-                items.push({ id: parentId });
+                items.push({
+                    id: parentId
+                });
             }
         });
 
