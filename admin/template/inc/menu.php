@@ -25,11 +25,12 @@
             $stmt = $mc->showAllWhere('id', ['id']);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             extract($row);
+            $page_order[] = $row['id'] ;
             $page_name = str_replace('_', ' ', ucfirst($row['page_name']));
             $link = $row['page_name'] . ".php";
             $class = "";
-            if ($one && $str != "login") {
-                $link = "#$str";
+            if ($one && $row['page_name']!= "login") {
+                $link = "#".$row['id'];
                 $class = "class=\"scrolly\"";
             }
 
@@ -60,8 +61,14 @@
                             $stmt1 = $mc->showAllWhere('id', ['id']);
                             $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
                             extract($row1);
+                            $page_order[] = $row1['id'] ;
                             $child_name = str_replace('_', ' ', ucfirst($row1['page_name']));
                             $link_child = $row1['page_name'] . ".php";
+
+                            if ($one && $row1['page_name']!= "login") {
+                                $link_child = "#".$row1['id'];
+                                $class = "class=\"scrolly\"";
+                            }
                         ?>
                             <li style="white-space: nowrap;"><a href="<?= $link_child ?>" style="display: block;" <?= $class ?>>
                                     <?php

@@ -12,7 +12,7 @@
     <?php
     }
     if ($one) {
-        $json = $page_req;
+        $page_id = $page_req;
     }
     $json_file = 'admin/inc/pages/'.$page_id.'.json';
     $data = file_get_contents($json_file);

@@ -2,6 +2,7 @@
 
 <script src="assets/themes/<?= $mc_settings['mc_theme'] ?>/js/jquery.dropotron.min.js"></script>
 <script src="assets/themes/<?= $mc_settings['mc_theme'] ?>/js/jquery.scrolly.min.js"></script>
+<script src="assets/themes/<?= $mc_settings['mc_theme'] ?>/js/jquery.scrollex.min.js"></script>
 <script src="assets/themes/<?= $mc_settings['mc_theme'] ?>/js/browser.min.js"></script>
 <script src="assets/themes/<?= $mc_settings['mc_theme'] ?>/js/breakpoints.min.js"></script>
 <script src="assets/themes/<?= $mc_settings['mc_theme'] ?>/js/util.js"></script>
