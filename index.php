@@ -15,9 +15,9 @@ if(!$one){
     foreach($page_order as $page_req){
         if($page_req!=3){
             
-          if($page_req==1){
-                require "admin/template/page_recall.php";
-            }else{
+        //   if($page_req==1){
+        //         require "admin/template/page_recall.php";
+        //     }else{
                 ?>
         <div id="<?=$page_req?>">
             <?php
@@ -32,7 +32,7 @@ if(!$one){
             }
         }
     }
-}
+// }
     ?>
 </div>
 <?php

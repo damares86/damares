@@ -41,7 +41,7 @@
                 <?php
             } else if ($json_arr[$i]['block' . $i . '_type'] == "quote") {
                 $mc->table = 'mc_quotes';
-                if ($mc->countAll() > 0 && $file_name != "index.php" ) {
+                if ($mc->countAll() > 0) {
                     $mc->table = 'mc_quotes';
                     $quote_stmt = $mc->showAll('id') ;
                     
