@@ -7,7 +7,7 @@
     ?>
         <div class="text-right">
 
-            <a href="admin/index.php?man=page&op=edit&idToMod=<?= $page_id ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
+            <a href="admin/index.php?p=editPage&&idToMod=<?= $page_id ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
         </div>
     <?php
     }
@@ -40,20 +40,20 @@
                 <img src="uploads/img/<?= $pict ?>">
                 <?php
             } else if ($json_arr[$i]['block' . $i . '_type'] == "quote") {
-                if (is_file("admin/inc/quotes.json")) {
-                    $json_file = 'admin/inc/quotes.json';
-                    $data = file_get_contents($json_file);
-                    $quotes = json_decode($data, true);
-                    $countQuotes = count($quotes);
+                $mc->table = 'mc_quotes';
+                if ($mc->countAll() > 0 && $file_name != "index.php" ) {
+                    $mc->table = 'mc_quotes';
+                    $quote_stmt = $mc->showAll('id') ;
+                    
                 ?>
                     <div class="slideshow-container">
                         <?php
-
-                        for ($idx = 0; $idx < $countQuotes; $idx++) {
+                while($quote_row = $quote_stmt->fetch(PDO::FETCH_ASSOC)){
+                    extract($quote_row);
                         ?>
                             <div class="mySlides">
-                                <q><?= $quotes[$idx]['quote'] ?></q>
-                                <p class="author"><?= $quotes[$idx]['author'] ?></p>
+                                <q><?=$quote_row['quote'] ?></q>
+                                <p class="author"><?= $quote_row['author'] ?></p>
                             </div>
                         <?php
                         }

@@ -20,6 +20,11 @@ $label_quotes = "Citazioni" ;
 $label_popup = "Popup";
 $label_Settings = "Impostazioni" ;
 
+
+// frontend
+
+$cont_form_page = "Contatti" ;
+
 // add page
 
 $addpage_header = "Aggiungi una nuova pagina" ;

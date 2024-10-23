@@ -8,6 +8,12 @@
 #                                          #
 ############################################
 
+
+// frontend
+
+$cont_form_page = "Contacts" ;
+
+
 // add page
 
 $addpage_header = "Add a new page" ;

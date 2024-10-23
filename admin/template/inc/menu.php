@@ -43,7 +43,7 @@
                     } else if ($page_name == "Post" || $name == "Blog") {
                         echo "Blog";
                     } else if ($name == 'Contact') {
-                        echo $page_contact;
+                        echo $cont_form_page;
                     } else {
                         echo $page_name;
                     } ?>
