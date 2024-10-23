@@ -55,7 +55,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       VALUES ('index','1','default','1','visual.jpg','1','1','1');
       INSERT INTO " . $prefix . "mc_pages
       (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
-      VALUES ('contact','1','default','1','visual.jpg','1','1','1');
+      VALUES ('contact','1','default','1','visual.jpg','1','1','2');
       INSERT INTO " . $prefix . "mc_default_pages
       (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
       VALUES ('login','1','default','1','visual.jpg','1','1','1');
@@ -196,4 +196,4 @@ $menu_link = [[
       ]
 ]];
 
-$query_drop_table = "DROP TABLE  " . $prefix . "mc_pages, " . $prefix . "mc_default_pages, " . $prefix . "mc_menu, " . $prefix . "mc_galleries, " . $prefix . "mc_color, " . $prefix . "mc_quotes, " . $prefix . "mc_popup";
+$query_drop_table = "DROP TABLE  " . $prefix . "mc_pages, " . $prefix . "mc_default_pages, " . $prefix . "mc_menu, " . $prefix . "mc_galleries, " . $prefix . "mc_color, " . $prefix . "mc_quotes, " . $prefix . "mc_popup, " . $prefix . "mc_popup_cat, " . $prefix . "mc_settings, " . $prefix . "mc_contacts";

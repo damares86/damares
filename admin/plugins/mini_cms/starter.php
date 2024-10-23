@@ -27,7 +27,14 @@ if ($op == 'add') {
 	}
 
 	// copy template files
-	if ($common->copyDirectory('../plugins/mini_cms/frontend/', $frontend_dir)) {
+	if ($common->copyDirectory('../plugins/mini_cms/frontend/assets/', $frontend_dir)) {
+		$common->chmod_R($frontend_dir, 0777);
+	} else {
+		$error++;
+	}
+
+	// copy template files
+	if ($common->copyDirectory('../plugins/mini_cms/frontend/uploads/', $frontend_dir)) {
 		$common->chmod_R($frontend_dir, 0777);
 	} else {
 		$error++;
