@@ -50,66 +50,43 @@
                         echo $name;
                     } ?>
                 </a>
-            <?php
-
-
-
-
-        }
-
-
-        
-
-                if ($num > 0) {
-                    $stmt1 = $menu->showAllChildInMenu();
-
+                <?php
+                if ($parent['child']) {
                 ?>
                     <ul>
                         <?php
-                        while ($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+                        foreach ($parent['child'] as $child) {
+                            $mc->table = 'mc_pages';
+                            $mc->id = $parent['id'];
+
+                            $stmt1 = $mc->showAllWhere('id', ['id']);
+                            $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
                             extract($row1);
-                            $str1 = $row1['pagename'];
-
-                            if ($name == "Post" || $name == "Blog") {
-                                $str1 = "blog";
-                            }
-                            $str1 = preg_replace('/\s+/', '_', $str1);
-                            $str1 = strtolower($str1);
-                            $page_order[] = $str1;
-                            $link_child = $root . $str1 . ".php";
-
-                            if ($str1 == "itinerario_educativo") {
-                                $link_child = "uploads/download.php?id=4";
-                            }
-                            if ($str1 == "news") {
-                                $link_child = "blog.php?cat=2";
-                            }
-
-
-                            if ($one && $str1 != "login") {
-                                $link = "#$str1";
-                                $class = "class=\"scrolly\"";
-                            }
+                            $page_name = str_replace('_', ' ', ucfirst($row1['page_name']));
+                            $link_child = $root . $row1['page_name'] . ".php";
                         ?>
-                            <li style="white-space: nowrap;"><a href="<?= $link_child ?>" style="display: block;" <?= $class ?>><?php
-                                                                                                                                if ($row1['pagename'] == 'index') {
-                                                                                                                                    echo "Home";
-                                                                                                                                } else {
-                                                                                                                                    echo $row1['pagename'];
-                                                                                                                                } ?></a>
+                            <li style="white-space: nowrap;"><a href="<?= $link_child ?>" style="display: block;" <?= $class ?>>
+                                    <?php
+                                    if ($row1['pagename'] == 'index') {
+                                        echo "Home";
+                                    } else {
+                                        echo $row1['page_name'];
+                                    } ?>
+                                </a>
                             </li>
+
                         <?php
                         }
-
                         ?>
                     </ul>
                 <?php
                 }
                 ?>
             </li>
-    <?php
+        <?php
         }
-    
-    ?>
-
+        ?>
 </ul>
+<?php
+    }
+?>
