@@ -97,7 +97,6 @@ if ($file_name == "index.php") {
     //force the page name in home page
     $page_name_title = "Home";
     $page_class = pathinfo($file_name, PATHINFO_FILENAME);
-
 } else if ($file_name == "post.php") {
 
     // get the post data
@@ -110,13 +109,11 @@ if ($file_name == "index.php") {
 
     $page_name_title = $post_title . " - Blog ";
     $page_class = "blog";
-
 } else if ($file_name == "contact.php") {
 
     // force the page name in contacts
     $page_name_title = $page_contact;
     $page_class = "contact";
-
 } else if ($file_name == "blog.php") {
 
     if (filter_input(INPUT_GET, 'cat')) {
@@ -135,7 +132,6 @@ if ($file_name == "index.php") {
         $page_name_title = "Blog";
     }
     $page_class = "blog";
-
 } else {
     // mi prendo solo il nome senza l'estensione
     $page_name_title = pathinfo($file_name, PATHINFO_FILENAME);
@@ -147,21 +143,10 @@ if ($file_name == "index.php") {
 }
 
 
-$default = 0;
-$mc->table = 'mc_default_pages';
+
+$mc->table = 'mc_pages';
 $mc->page_name = $page_class;
-if ($mc->itemExists('page_name')) {
-    $default = 1;
-    $mc->table = 'mc_default_pages';
-    $mc->page_name = $page_class;
-    $page_data = $mc->showAllWhere('id', ['page_name']);
-    $page_type = 'default';
-} else {
-    $mc->table = 'mc_pages';
-    $mc->page_name = $page_class;
-    $page_data = $mc->showAllWhere('id', ['page_name']);
-    $page_type = 'custom';
-}
+$page_data = $mc->showAllWhere('id', ['page_name']);
 
 while ($row = $page_data->fetch(PDO::FETCH_ASSOC)) {
 
@@ -173,7 +158,7 @@ while ($row = $page_data->fetch(PDO::FETCH_ASSOC)) {
     $page_header_media = $row['header_media'];
     $page_use_name = $row['use_name'];
     $page_use_description = $row['use_desc'];
-    if ($default == 0) {
+    if ($row['no_del'] == 0) {
         $page_counter = $row['counter'];
     }
 }
@@ -191,11 +176,11 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 
 $url_file = ($_SERVER['PHP_SELF']);
-$root = $mc_settings['mc_site_url'] ;
-$url = $root.$url_file;
+$root = $mc_settings['mc_site_url'];
+$url = $root . $url_file;
 
 $one = false;
-if($mc_settings['mc_theme_one'] == 1){
+if ($mc_settings['mc_theme_one'] == 1) {
     $one = true;
 }
 
@@ -205,12 +190,12 @@ if($mc_settings['mc_theme_one'] == 1){
 
 <head>
     <!--
-            ==========================================================================
+    ==========================================================================
             
-            Mini Cms is a project by DM WebLab (https://www.dmweblab.com)
+         Mini Cms is a project by DM WebLab (https://www.dmweblab.com)
             
-            ==========================================================================
-        -->
+    ==========================================================================
+    -->
     <meta charset="utf-8">
     <meta name="author" content="dmweblab" />
 
@@ -231,12 +216,10 @@ if($mc_settings['mc_theme_one'] == 1){
     <meta name="twitter:image" content="uploads/img/<?= $page_header_media ?>">
 
     <title><?= $page_name_title ?> - <?= $mc_settings['mc_site_name'] ?></title>
-    <link rel="icon" href="assets/themes/<?= $mc_settings['mc_theme'] ?>/img/favicon.ico">
     <link href='admin/script/simplelightbox/simple-lightbox.min.css' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="admin/script/simplelightbox/simple-lightbox.jquery.min.js"></script>
     <script src="admin/script/bootstrap_mc.js"></script>
-    <link type="text/css" href="assets/themes/<?= $mc_settings['mc_theme'] ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <?php
     foreach (glob("admin/template/inc/css/*.css") as $cssfile) {
@@ -247,10 +230,10 @@ if($mc_settings['mc_theme_one'] == 1){
 
     $plugin->pluginname = "post";
     if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    ///// URL CORRETTO?
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ///// URL CORRETTO?
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
     ?>
         <link href='admin/assets/css/post.css' rel='stylesheet' type='text/css'>
 
@@ -341,7 +324,7 @@ if($mc_settings['mc_theme_one'] == 1){
     }
     ?>
     <div id="siteContainer" <?= $style ?>>
-        
+
         <div id="topContainer">
             <header>
                 <?php
@@ -357,20 +340,20 @@ if($mc_settings['mc_theme_one'] == 1){
                         $page_arr = array("infanzia", "primaria");
 
                     ?>
-                        <div id="banner" class="box container" style="background-image: url(<?= $root ?>/uploads/img/<?= $page_header_media ?>);">
+                        <div id="banner" class="box container" style="background-image: url(uploads/img/<?= $page_header_media ?>);">
                             <div id="header_text" class="row">
                                 <div class="col-7 col-12-medium">
                                     <?php
-                                    if ($page->use_name == 1) {
+                                    if ($page_use_name == 1) {
                                     ?>
-                                        <h2><?= $site_name ?></h2>
+                                        <h2><?= $mc_settings['mc_site_name'] ?></h2>
                                     <?php
                                     }
 
-                                    if ($page->use_desc == 1) {
+                                    if ($page_use_description == 1) {
                                     ?>
 
-                                        <p><?= $site_description ?></p>
+                                        <p><?= $mc_settings['mc_site_description'] ?></p>
                                     <?php
                                     }
                                     if (in_array($page_class, $page_arr)) {

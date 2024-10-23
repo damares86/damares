@@ -4,7 +4,7 @@
 						<!-- Logo -->
 							<div id="logo">
 							<a href="index.php">
-                          		  <img src="assets/<?=$mc_settings['mc_theme']?>/img/logo.svg">
+                          		  <img src="assets/themes/<?=$mc_settings['mc_theme']?>/img/logo.svg">
                        	 </a>
 							</div>
 

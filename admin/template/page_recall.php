@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" class="container">
     <?php
     $counter=$page_counter;
 
@@ -7,14 +7,14 @@
     ?>
         <div class="text-right">
 
-            <a href="admin/index.php?man=page&op=edit&idToMod=<?= $page_id ?>&type=<?= $page_type ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
+            <a href="admin/index.php?man=page&op=edit&idToMod=<?= $page_id ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
         </div>
     <?php
     }
     if ($one) {
         $json = $page_req;
     }
-    $json_file = 'admin/inc/pages/'.$page_class.'.json';
+    $json_file = 'admin/inc/pages/'.$page_id.'.json';
     $data = file_get_contents($json_file);
     $json_arr = json_decode($data, true);
     
