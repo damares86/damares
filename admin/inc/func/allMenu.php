@@ -263,8 +263,6 @@
             nomenu: noMenuItems
         };
 
-        console.log("JSON attuale:", jsonData); // Log per debugging
-
         // AJAX per salvare i dati
         $.ajax({
             url: 'core/mngMenu.php',

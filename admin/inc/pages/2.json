@@ -1,1 +1,15 @@
-[{"name":"contact"},{"block1_type":"text","block1":"<p>Your contacts<\/p>","block1_bg":"none","block1_text":"none"},{"block2_type":"text","block2":"<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d2819.6985843663106!2d7.6405310159198425!3d45.03104387909822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47881327689d8a73%3A0x25d69ec7359674ae!2sIstituto%20Virginia%20Agnelli!5e0!3m2!1sit!2sit!4v1675243869443!5m2!1sit!2sit\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>                    ","block2_bg":"none","block2_text":"none"}]
+[
+  { "name": "contact" },
+  {
+    "block1_type": "text",
+    "block1": "<p>Your contacts</p>",
+    "block1_bg": "none",
+    "block1_text": "none"
+  },
+  {
+    "block2_type": "text",
+    "block2": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2819.6985843663106!2d7.6405310159198425!3d45.03104387909822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47881327689d8a73%3A0x25d69ec7359674ae!2sIstituto%20Virginia%20Agnelli!5e0!3m2!1sit!2sit!4v1675243869443!5m2!1sit!2sit\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>                    ",
+    "block2_bg": "none",
+    "block2_text": "none"
+  }
+]

@@ -112,7 +112,7 @@ if ($file_name == "index.php") {
 } else if ($file_name == "contact.php") {
 
     // force the page name in contacts
-    $page_name_title = $page_contact;
+    $page_name_title = $cont_form_page;
     $page_class = "contact";
 } else if ($file_name == "blog.php") {
 
@@ -158,9 +158,7 @@ while ($row = $page_data->fetch(PDO::FETCH_ASSOC)) {
     $page_header_media = $row['header_media'];
     $page_use_name = $row['use_name'];
     $page_use_description = $row['use_desc'];
-    if ($row['no_del'] == 0) {
-        $page_counter = $row['counter'];
-    }
+    $page_counter = $row['counter'];
 }
 
 $mc->table = 'mc_settings';
