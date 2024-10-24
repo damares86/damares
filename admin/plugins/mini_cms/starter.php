@@ -29,14 +29,14 @@ if ($op == 'add') {
 	}
 
 	// copy frontend files
-	if ($common->copyDirectory($plugin_dir . 'frontend/assets/', $frontend_dir)) {
+	if ($common->copyDirectory($plugin_dir . 'frontend/assets/', $frontend_dir.'assets/')) {
 		$common->chmod_R($frontend_dir, 0777);
 	} else {
 		$error++;
 	}
 
 	// copy frontend files
-	if ($common->copyDirectory($plugin_dir . 'frontend/uploads/', $frontend_dir)) {
+	if ($common->copyDirectory($plugin_dir . 'frontend/uploads/', $frontend_dir.'uploads/')) {
 		$common->chmod_R($frontend_dir, 0777);
 	} else {
 		$error++;
@@ -47,6 +47,8 @@ if ($op == 'add') {
 	} else {
 		$error++;
 	}
+
+	rename($frontend_dir.'index.php',$frontend_dir.'_index.php');
 
 	foreach (glob($plugin_dir . 'misc/pages_file/') as $row) {
 		$item = pathinfo($row);
@@ -67,13 +69,23 @@ if ($op == 'add') {
 			$error++;
 		}
 	}
-	
+
 } else if ($op == 'rm') {
 
-	$luna->rmdir_recursive($template_dir);
-	$luna->rmdir_recursive($json_dir);
-	$luna->rmdir_recursive($menu_dir);
-	$luna->rmdir_recursive($frontend_dir . 'assets/');
-	$luna->rmdir_recursive($frontend_dir . 'uploads/');
+	// rimozione pagine
+	$mc->table = '"mc_pages';
+	$stmt = $m->showAll();
+	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		extract($row);
+		unlink($frontend_dir.$row['page_name'].'.php');
+	}
+
+	rename($frontend_dir.'_index.php',$frontend_dir.'index.php');	
+
+	$mc->rmdir_recursive($template_dir);
+	$mc->rmdir_recursive($json_dir);
+	$mc->rmdir_recursive($menu_dir);
+	$mc->rmdir_recursive($frontend_dir . 'assets/');
+	$mc->rmdir_recursive($frontend_dir . 'uploads/');
 }
 require "config.php";
