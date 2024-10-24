@@ -337,7 +337,7 @@ class Common
     {
         // Usa DIRECTORY_SEPARATOR per compatibilità tra sistemi operativi
         if (!is_dir($path)) {
-            return chmod($path, $filemode);
+            return chmod($path, $filemode,0777);
         }
     
         // Apri la directory
@@ -362,7 +362,7 @@ class Common
                 }
             } else {
                 // Imposta i permessi sul file
-                if (!chmod($fullpath, $filemode)) {
+                if (!chmod($fullpath, $filemode,0777)) {
                     closedir($dh); // Chiudi in caso di errore
                     return false;
                 }
@@ -373,7 +373,7 @@ class Common
         closedir($dh);
     
         // Imposta i permessi sulla directory stessa
-        if (!chmod($path, $filemode)) {
+        if (!chmod($path, $filemode,0777)) {
             return false;
         }
     
