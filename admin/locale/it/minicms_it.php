@@ -126,11 +126,16 @@ $allpopup_modal_body = "Se clicchi conferma il popup verrà eliminato definitiva
 
 // all theme
 
-$alltheme_header = "Colori e tema" ;
+$alltheme_header = "Temi" ;
 $alltheme_theme = "Seleziona tema" ;
-$alltheme_addcolor = "Aggiungi colore" ;
-$alltheme_colors = "Colori esistenti" ;
-$alltheme_modal_body = "Se clicchi conferma questo colore verrà eliminato definitivamente";
+$alltheme_css = "CSS personalizzato" ;
+
+// all colors
+
+$allcolors_header = "Colori" ;
+$allcolors_addcolor = "Aggiungi colore" ;
+$allcolors_colors = "Colori esistenti" ;
+$allcolors_modal_body = "Se clicchi conferma questo colore verrà eliminato definitivamente";
 
 // all quotes
 
@@ -140,6 +145,16 @@ $allquotes_add = "Aggiungi una citazione" ;
 $allquotes_author = "Autore" ;
 $allquotes_quote = "Citazione" ;
 $allquotes_modal_body = "Se clicchi conferma la citazione verrà eliminata definitivamente." ;
+
+
+// all menu
+
+$allmenu_header = "Gestione menu" ;
+$allmenu_inmenu = "Pagine nel menù" ;
+$allmenu_nomenu = "Pagine non nel menù" ;
+$allmenu_success = "Menù aggiornato con successo" ;
+$allmenu_errJson = "Errore durante il salvataggio del file JSON." ;
+$allmenu_errData = 'Parametro "menuData" non trovato nella richiesta POST.' ;
 
 
 // edit page
@@ -168,6 +183,16 @@ $editpopup_header = "Modifica popup" ;
 $editquote_header = "Modifica citazione" ;
 
 
+// contact page
+
+$contact_title = "Contattaci" ;
+$contact_name = "Il tuo nome" ;
+$contact_email = "La tua email" ;
+$contact_choose = "Scrivi a (scegli un'opzione)" ;
+$contact_subject = "Oggetto" ;
+$contact_message = "Il tuo messaggio" ;
+
+
 // alert
 
 // msg
@@ -178,6 +203,7 @@ $msg_galleryAddSucc = "Galleria inserita" ;
 $msg_galleryEditSucc = "Galleria modificata correttamente" ;
 $msg_colorDelSucc = "Colore eliminato correttamente" ;
 $msg_themeEditSucc = "Impostazioni del tema aggiornate" ;
+$msg_colorAddSucc = "Colore aggiunto correttamente" ;
 $msg_contactDelSucc = "Contatto eliminato correttamente" ;
 $msg_settingUpdate = "Impostazioni aggiornate" ;
 $msg_quoteDelSucc = "Citazione eliminata" ;
@@ -200,6 +226,7 @@ $err_errFileImg = "Errori nel caricamento di alcune immagini" ;
 $err_errGalleryName = "Nome della galleria non cambiato" ;
 $err_colorDelFail = "Colore non eliminato" ;
 $err_themeEditFail = "Impostazioni del tema non aggiornate";
+$err_colorAddFail = "Colore non aggiunto" ;
 $err_contactDelFail = "Contatto non eliminato" ;
 $err_settingUpdateErr = "Impostazioni non aggiornate" ;
 $err_quoteDelFail = "Citazione non eliminata" ;

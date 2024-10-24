@@ -71,7 +71,7 @@
 
               $css_file_data = file_get_contents($css_file);
               ?>
-              <label for="code" class="mb-3">Custom CSS:</label>
+              <label for="code" class="mb-3"><?=$alltheme_css?>:</label>
               <textarea id="code" name="code"><?php echo htmlentities($css_file_data) ?></textarea>
 
               <script>

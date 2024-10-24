@@ -41,12 +41,19 @@ if($operation=="edit"){
         $url_pageName = filter_input(INPUT_POST,'url_pageName');
     
         $url_data = "&tablePage=$url_tablePage&pageName=$url_pageName" ;
-
-        $post->gall = filter_input(INPUT_POST,"gall");
+    
+        if( filter_input(INPUT_POST,"gall") )
+        {
+            $post->gall = filter_input(INPUT_POST,"gall");
+        }
+        else
+        {
+            $post->gall = 'none' ;
+        }
         $post->title = filter_input(INPUT_POST,"title");
         $post->author = filter_input(INPUT_POST,"author");
         $post->content = filter_input(INPUT_POST,"content");
-        // $post->created = date("Y-m-d");
+        $post->created = date("Y-m-d");
         $category = $_POST['categories'] ;
         $post->category_id = implode(',',$category) ;
     
@@ -65,7 +72,7 @@ if($operation=="edit"){
             // set data for file uploading
             $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
             $file->label = 'post -> '.$post->title ;
-            $file->path = "../../uploads/img/" ;
+            $file->path = "../../uploads/" ;
             $file->origin = filter_input(INPUT_POST,"origin");
             
             $file->operation = "add" ;
@@ -87,7 +94,7 @@ if($operation=="edit"){
         $post->table = 'post' ;
         $post->id = $id ;
 
-        if($post->update(['main_img','gall','title','author','content','category_id'],'id')){
+        if($post->update(['main_img','gall','title','author','content','created','category_id'],'id')){
     
             //success
             header("Location: ../index.php?p=editPost$url_data&idToMod=$id&msg=postEditSucc$errImg");
@@ -102,8 +109,15 @@ if($operation=="edit"){
     
 
 }else if($operation == "add"){
-    
-    $post->gall = filter_input(INPUT_POST,"gall");
+
+    if( filter_input(INPUT_POST,"gall") )
+    {
+        $post->gall = filter_input(INPUT_POST,"gall");
+    }
+    else
+    {
+        $post->gall = 'none' ;
+    }
     $post->title = filter_input(INPUT_POST,"title");
     $post->author = filter_input(INPUT_POST,"author");
     $post->content = filter_input(INPUT_POST,"content");
@@ -126,7 +140,7 @@ if($operation=="edit"){
         // set data for file uploading
         $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
         $file->label = 'post -> '.$post->title ;
-        $file->path = "../../uploads/img/" ;
+        $file->path = "../../uploads/" ;
         $file->origin = filter_input(INPUT_POST,"origin");
         
         $file->operation = "add" ;

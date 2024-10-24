@@ -226,7 +226,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
       <div class="card shadow">
         <div class="card-header">
-          <h4 class="card-title">Maintenance mode</h4>
+          <h4 class="card-title"><?=$mcsettings_maintenance?></h4>
         </div>
         <div class="card-content">
           <div class="card-body">

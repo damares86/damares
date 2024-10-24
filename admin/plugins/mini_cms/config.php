@@ -80,6 +80,12 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_theme_one', '0');
+      INSERT INTO " . $prefix . "mc_color
+      (color)
+      VALUES ('#008db1');
+      INSERT INTO " . $prefix . "mc_color
+      (color)
+      VALUES ('#ffac17');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('maintenance', '0');
@@ -104,7 +110,7 @@ $menu_link = [[
                   'show_menu' => '1'
             ],
             [
-                  'link' => 'editDefaultPages',
+                  'link' => 'editDefaultPage',
                   'label' => 'Edit default pages',
                   'icon' => 'file-earmark-medical',
                   'show_menu' => '0'

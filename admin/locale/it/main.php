@@ -52,7 +52,7 @@ $common_number_user = "Numero di utenti" ;
 $common_profile = "Il mio profilo" ;
 $common_see_guide = "Vedi la guida" ;
 $common_back = "Torna indietro" ;
-
+$common_loading = "Caricamento" ;
 
 //////  HOMEPAGE  //////
 

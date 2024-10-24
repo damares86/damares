@@ -115,11 +115,16 @@ $allpopup_modal_body = "If you confirm the popup will be definitively deleted." 
 
 // all theme
 
-$alltheme_header = "Theme and colors" ;
+$alltheme_header = "Themes" ;
 $alltheme_theme = "Select theme" ;
-$alltheme_addcolor = "Add color" ;
-$alltheme_colors = "Existing colors" ;
-$alltheme_modal_body = "If you confirm the color will be definitively deleted." ;
+$alltheme_css = "Custom CSS" ;
+
+// all colors
+
+$allcolors_header = "Colors" ;
+$allcolors_addcolor = "Add color" ;
+$allcolors_colors = "Existing colors" ;
+$allcolors_modal_body = "If you confirm the color will be definitively deleted." ;
 
 // all quotes
 
@@ -130,6 +135,14 @@ $allquotes_author = "Author" ;
 $allquotes_quote = "Quote" ;
 $allquotes_modal_body = "If you confirm the quote will be definitively deleted." ;
 
+// all menu
+
+$allmenu_header = "Menu management" ;
+$allmenu_inmenu = "In menu" ;
+$allmenu_nomenu = "Not in menu" ;
+$allmenu_success = "Updated menu" ;
+$allmenu_errJson = "Error while saving json file." ;
+$allmenu_errData = '"menuData" parameter not found.' ;
 
 // edit page
 
@@ -157,6 +170,17 @@ $editpopup_header = "Edit popup" ;
 $editquote_header = "Edit quote" ;
 
 
+// contact page
+
+$contact_title = "Contact us" ;
+$contact_name = "Your name" ;
+$contact_email = "Your email" ;
+$contact_choose = "Send to (choose an option)" ;
+$contact_subject = "Subject" ;
+$contact_message = "Your message" ;
+
+
+
 // alert
 
 // msg
@@ -167,6 +191,7 @@ $msg_galleryAddSucc = "Gallery added" ;
 $msg_galleryEditSucc = "Gallery updated" ;
 $msg_colorDelSucc = "Color deleted" ;
 $msg_themeEditSucc = "Theme settings updated" ;
+$msg_colorAddSucc = "Color added" ;
 $msg_contactDelSucc = "Contact deleted" ;
 $msg_settingUpdate = "Settings updated" ;
 $msg_quoteDelSucc = "Quote deleted" ;
@@ -189,6 +214,7 @@ $err_errFileImg = "Error in image's uploading" ;
 $err_errGalleryName = "Gallery name not changed" ;
 $err_colorDelFail = "Color not deleted" ;
 $err_themeEditFail = "Theme setting not updated";
+$err_colorAddFail = "Color not added" ;
 $err_contactDelFail = "Contact not deleted" ;
 $err_settingUpdateErr = "Settings not updated" ;
 $err_quoteDelFail = "Quote not deleted" ;

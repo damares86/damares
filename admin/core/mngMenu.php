@@ -31,11 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Salva i dati aggiornati nel file JSON
         if (file_put_contents($menuFilePath, json_encode($menuData, JSON_PRETTY_PRINT))) {
-            echo json_encode(['success' => true, 'message' => 'Menu salvato con successo']);
+            echo json_encode(['success' => true, 'message' => $allmenu_success]);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Errore durante il salvataggio del file JSON.']);
+            echo json_encode(['success' => false, 'message' => $allmenu_errJson]);
         }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Parametro "menuData" non trovato nella richiesta POST.']);
+        echo json_encode(['success' => false, 'message' => $allmenu_errData]);
     }
 }

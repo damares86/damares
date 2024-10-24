@@ -1,7 +1,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Menu management</h3>
+            <h3><?=$allmenu_header?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -10,7 +10,7 @@
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Menu management
+                        <?=$allmenu_header?>
                     </li>
                 </ol>
             </nav>
@@ -27,7 +27,7 @@
 
                 <!-- Blocco Parent -->
                 <div id='parent-block' class='container-pages p-3'>
-                    <h4 dragula-ignore>In Menu</h4>
+                    <h4 dragula-ignore><?=$allmenu_inmenu?></h4>
                     <?php
                     $pages_json = file_get_contents('inc/menu/menu.json');
                     $pages_data = json_decode($pages_json, true);
@@ -79,7 +79,7 @@
 
                     <!-- Blocco NoMenu -->
                     <div id='nomenu-block' class='container-pages p-3 bg-warning'>
-                        <h4 dragula-ignore>No Menu Pages</h4>
+                        <h4 dragula-ignore><?=$allmenu_nomenu?></h4>
                         <?php
                         foreach ($pages_data['nomenu'] as $nomenu) {
                             $mc->table = 'mc_pages';

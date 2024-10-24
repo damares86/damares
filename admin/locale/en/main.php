@@ -35,6 +35,7 @@ $common_number_user = "Number of users" ;
 $common_profile = "My profile" ;
 $common_see_guide = "See the guide" ;
 $common_back = "Go back" ;
+$common_loading = "Loading" ;
 
 
 //////  HOMEPAGE  //////

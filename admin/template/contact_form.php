@@ -6,6 +6,18 @@
 
     ?>
     <div id="content" class="container">
+    <?php
+    $counter=$page_counter;
+
+    if (isset($_SESSION['loggedin'])) {
+    ?>
+        <div class="text-right">
+
+            <a href="admin/index.php?p=editDefaultPage&idToMod=<?= $page_id ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
+        </div>
+    <?php
+    }
+    ?>
         <div id="contact">
             <div class="row">
                 <div class="col-12 col-xl-6">

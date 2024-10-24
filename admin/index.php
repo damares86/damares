@@ -19,7 +19,7 @@ $layout = $row['value'];
   <!-- Overlay con lo spinner -->
   <div id="preloader">
     <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
+      <span class="visually-hidden"><?=$common_loading?>...</span>
     </div>
   </div>
   <script>

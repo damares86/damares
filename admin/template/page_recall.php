@@ -3,11 +3,10 @@
     $counter=$page_counter;
 
     if (isset($_SESSION['loggedin'])) {
-
     ?>
         <div class="text-right">
 
-            <a href="admin/index.php?p=editPage&&idToMod=<?= $page_id ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
+            <a href="admin/index.php?p=editPage&idToMod=<?= $page_id ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
         </div>
     <?php
     }

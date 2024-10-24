@@ -23,14 +23,9 @@ class Post extends Common{
 
     public function readMore()
     {
-
-        if (strlen($this->content) <= $this->limit) {
-            return $this->content;
-        }
-
         $this->content = substr($this->content, 0, $this->limit) ;
         $this->content = substr($this->content, 0, strrpos($this->content, ' ')) ;
-        $this->content = $this->content . "... <a href='$this->post_link'>Continua a leggere -></a>" ;
+        $this->content = $this->content . "... <a href='$this->post_link?id=$this->id'>Read more -></a>" ;
         return $this->content ;
     }
     

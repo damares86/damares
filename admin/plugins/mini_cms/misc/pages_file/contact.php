@@ -8,9 +8,11 @@ require "admin/template/inc/header.php";
 
     $mc->page_name = $page_class;
 
-    require "admin/template/page_recall.php";
+    require "admin/template/contact_form.php";
+
     ?>
-</div>
+
+    
 <?php
 
 require "admin/template/inc/footer.php";

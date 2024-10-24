@@ -16,7 +16,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "post
       gall VARCHAR(255) DEFAULT NULL,
       title VARCHAR(255) NOT NULL,
       author VARCHAR(255) NOT NULL,
-      content text COLLATE utf8_unicode_ci NOT NULL,
+      content text NOT NULL,
       created datetime NOT NULL,
       category_id VARCHAR (255) NULL);
       CREATE TABLE IF NOT EXISTS post_categories
@@ -28,23 +28,44 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "post
 
 $menu_link = [[
       'link' => 'post',
-      'label' => 'Posts',
+      'label' => 'Blog',
       'icon' => 'vector-pen',
       'child' => [
             [
                   'link' => 'addPost',
                   'label' => 'Add post',
-                  'icon' => 'file-earmark-plus'
+                  'icon' => 'file-earmark-plus',
+                  'show_menu' => '1'
             ],
             [
                   'link' => 'allPosts',
                   'label' => 'All Posts',
-                  'icon' => 'file-earmark-post'
+                  'icon' => 'file-earmark-post',
+                  'show_menu' => '1'
             ],
             [
                   'link' => 'allPostsCat',
                   'label' => 'All categories',
-                  'icon' => 'bookmarks'
+                  'icon' => 'bookmarks',
+                  'show_menu' => '1'
+            ],
+            [
+                  'link' => 'addPostCat',
+                  'label' => 'Add post cat',
+                  'icon' => 'icon',
+                  'show_menu' => '0'
+            ],
+            [
+                  'link' => 'editPostCat',
+                  'label' => 'Edit post cat',
+                  'icon' => 'icon',
+                  'show_menu' => '0'
+            ],
+            [
+                  'link' => 'editPost',
+                  'label' => 'Edit post',
+                  'icon' => 'icon',
+                  'show_menu' => '0'
             ]
       ]
 ]];

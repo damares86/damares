@@ -3,7 +3,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>All colors</h3>
+      <h3><?=$allcolors_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -12,7 +12,7 @@
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            All colors
+          <?=$allcolors_header?>
           </li>
         </ol>
       </nav>
@@ -34,7 +34,7 @@
           <div class="row">
 
             <div class="col-md-3">
-              <label>Add color</label>
+              <label><?=$allcolors_addcolor?></label>
             </div>
             <div class="col-md-9">
               <div class="form-group has-icon-left">
@@ -61,7 +61,7 @@
 
 
       <div class="col-12  border-top py-3">
-        <label><?=$alltheme_colors?></label>
+        <label><?=$allcolors_colors?></label>
         <div class="row mt-3">
           <?php
           $mc->table = 'mc_color';
@@ -92,7 +92,7 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <?=$alltheme_modal_body?>
+                              <?=$allcolors_modal_body ?>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
