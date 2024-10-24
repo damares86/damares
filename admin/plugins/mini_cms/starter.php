@@ -30,14 +30,14 @@ if ($op == 'add') {
 
 	// copy frontend files
 	if ($common->copyDirectory($plugin_dir . 'frontend/assets/', $frontend_dir.'assets/')) {
-		$common->chmod_R($frontend_dir, 0777);
+		$common->chmod_R($frontend_dir.'assets/', 0777);
 	} else {
 		$error++;
 	}
 
 	// copy frontend files
 	if ($common->copyDirectory($plugin_dir . 'frontend/uploads/', $frontend_dir.'uploads/')) {
-		$common->chmod_R($frontend_dir, 0777);
+		$common->chmod_R($frontend_dir.'uploads/', 0777);
 	} else {
 		$error++;
 	}

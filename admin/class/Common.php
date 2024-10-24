@@ -335,33 +335,51 @@ class Common
 
     public function chmod_R($path, $filemode)
     {
+        // Usa DIRECTORY_SEPARATOR per compatibilità tra sistemi operativi
         if (!is_dir($path)) {
             return chmod($path, $filemode);
         }
+    
+        // Apri la directory
         $dh = opendir($path);
-        while ($file = readdir($dh)) {
-            if ($file != '.' && $file != '..') {
-                $fullpath = $path . '/' . $file;
-                if (!is_dir($fullpath)) {
-                    if (!chmod($fullpath, $filemode)) {
-                        return false;
-                    }
-                } else {
-                    if (!$this->chmod_R($fullpath, $filemode)) {
-                        return false;
-                    }
+        if (!$dh) {
+            return false; // Fallisce se non può aprire la directory
+        }
+    
+        // Scansiona la directory
+        while (($file = readdir($dh)) !== false) {
+            if ($file == '.' || $file == '..') {
+                continue; // Salta directory correnti e parenti
+            }
+    
+            $fullpath = $path . DIRECTORY_SEPARATOR . $file;
+    
+            if (is_dir($fullpath)) {
+                // Ricorsione per le directory
+                if (!$this->chmod_R($fullpath, $filemode)) {
+                    closedir($dh); // Chiudi in caso di errore
+                    return false;
+                }
+            } else {
+                // Imposta i permessi sul file
+                if (!chmod($fullpath, $filemode)) {
+                    closedir($dh); // Chiudi in caso di errore
+                    return false;
                 }
             }
         }
-
+    
+        // Chiudi la directory
         closedir($dh);
-
-        if (chmod($path, $filemode)) {
-            return true;
-        } else {
+    
+        // Imposta i permessi sulla directory stessa
+        if (!chmod($path, $filemode)) {
             return false;
         }
+    
+        return true; // Successo
     }
+    
 
     public function copyDirectory($source, $destination)
     {
