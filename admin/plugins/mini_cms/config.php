@@ -208,4 +208,4 @@ $menu_link = [[
       ]
 ]];
 
-$query_drop_table = "DROP TABLE  " . $prefix . "mc_pages, " . $prefix . "mc_default_pages, " . $prefix . "mc_menu, " . $prefix . "mc_galleries, " . $prefix . "mc_color, " . $prefix . "mc_quotes, " . $prefix . "mc_popup, " . $prefix . "mc_popup_cat, " . $prefix . "mc_settings, " . $prefix . "mc_contacts";
+$query_drop_table = "DROP TABLE  " . $prefix . "mc_pages, " . $prefix . "mc_menu, " . $prefix . "mc_galleries, " . $prefix . "mc_color, " . $prefix . "mc_quotes, " . $prefix . "mc_popup, " . $prefix . "mc_popup_cat, " . $prefix . "mc_settings, " . $prefix . "mc_contacts";

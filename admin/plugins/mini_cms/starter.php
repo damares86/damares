@@ -79,13 +79,15 @@ if ($op == 'add') {
 } else if ($op == 'rm') {
 
 	// rimozione pagine
-	$mc->table = '"mc_pages';
-	$stmt = $m->showAll();
+	$mc->table = 'mc_pages';
+	$stmt = $mc->showAll('id');
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
 		unlink($frontend_dir.$row['page_name'].'.php');
 	}
 
+	unlink($frontend_dir.'login.php');
+	
 	rename($frontend_dir.'_index.php',$frontend_dir.'index.php');	
 
 	$mc->rmdir_recursive($template_dir);
