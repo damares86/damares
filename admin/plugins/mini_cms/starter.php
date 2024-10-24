@@ -21,6 +21,12 @@ if ($op == 'add') {
 		umask($oldmask);
 	}
 
+	if (!is_dir($menu_dir)) {
+		$oldmask = umask(0);
+		mkdir($menu_dir, 0777, true);
+		umask($oldmask);
+	}
+
 	// copy template files
 	if ($common->copyDirectory($plugin_dir . 'template/', $template_dir)) {
 		$common->chmod_R($template_dir, 0777);
@@ -50,7 +56,7 @@ if ($op == 'add') {
 
 	rename($frontend_dir.'index.php',$frontend_dir.'_index.php');
 
-	foreach (glob($plugin_dir . 'misc/pages_file/') as $row) {
+	foreach (glob($plugin_dir . 'misc/pages_file/*') as $row) {
 		$item = pathinfo($row);
 
 		if (copy($plugin_dir . 'misc/pages_file/' . $item['basename'] . '', $frontend_dir . $item['basename'])) {
@@ -60,7 +66,7 @@ if ($op == 'add') {
 		}
 	}
 
-	foreach (glob($plugin_dir . 'misc/pages_json/') as $row) {
+	foreach (glob($plugin_dir . 'misc/pages_json/*') as $row) {
 		$item = pathinfo($row);
 
 		if (copy($plugin_dir . 'misc/pages_json/' . $item['basename'] . '', $json_dir . $item['basename'])) {
