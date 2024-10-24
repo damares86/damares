@@ -1,6 +1,7 @@
 <?php
 $mc->table = 'mc_pages';
-$pages = $mc->showAll('id');
+$mc->no_del = 0;
+$pages = $mc->showAllWhere('id', ['no_del']);
 ?>
 
 <div class="page-title">
@@ -48,18 +49,14 @@ $pages = $mc->showAll('id');
           <?php
           while ($row = $pages->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-
+            $str = $row['page_name'];
+            $str = str_replace('_', ' ', $str);
+            $str = ucfirst($str);
           ?>
-            <tr>
-              <td><?= $row['page_name'] ?></td>
+              <tr>
+                <td><?= $str  ?></td>
               <td>
-                <?php
-                $str = $row['page_name'];
-                $str = preg_replace('/\s+/', '_', $str);
-
-                $str = strtolower($str);
-                ?>
-                <a href="../<?= $str ?>.php">View</a>
+                <a href="../<?= $row['page_name'] ?>.php">View</a>
 
               </td>
 
