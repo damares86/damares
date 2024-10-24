@@ -153,7 +153,13 @@ $menu_link = [[
             ],
             [
                   'link' => 'allTheme',
-                  'label' => 'Theme and colors',
+                  'label' => 'Themes',
+                  'icon' => 'window-desktop',
+                  'show_menu' => '1'
+            ],
+            [
+                  'link' => 'allColors',
+                  'label' => 'Colors',
                   'icon' => 'palette',
                   'show_menu' => '1'
             ],

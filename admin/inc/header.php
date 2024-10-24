@@ -48,7 +48,7 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
     $export = true;
   }
 }
-$summernote='';
+$summernote = '';
 
 
 ?>
@@ -81,6 +81,12 @@ $summernote='';
   <link rel="stylesheet" href="assets/css/shared/iconly.css" />
   <link rel="stylesheet" href="assets/css/pages/summernote.css">
   <link rel="stylesheet" href="assets/extensions/summernote/summernote-lite.css">
+
+  <link rel="stylesheet" href="assets/extensions/codemirror/codemirror.min.css">
+  <link rel="stylesheet" href="assets/extensions/codemirror/dracula.min.css">
+  <script src="assets/extensions/codemirror/codemirror.min.js"></script>
+  <script src="assets/extensions/codemirror/css.min.js"></script>
+
 
   <?php
 

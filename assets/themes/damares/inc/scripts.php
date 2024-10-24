@@ -6,5 +6,6 @@
 
 <link type="text/css" href="assets/themes/<?= $mc_settings['mc_theme'] ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/themes/<?=$mc_settings['mc_theme']?>/css/main.css" />
+<link rel="stylesheet" href="assets/themes/<?=$mc_settings['mc_theme']?>/css/misc.css" />
 <link rel="stylesheet" href="assets/themes/<?=$mc_settings['mc_theme']?>/css/custom.css" />
 

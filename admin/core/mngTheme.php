@@ -13,23 +13,23 @@ require __DIR__ . "/coreConfig.php";
 
 // check if there's a page to delete
 
-if (filter_input(INPUT_GET, "idToDel")) {
+// if (filter_input(INPUT_GET, "idToDel")) {
 
-    // gestire il discorso del colore usato
+//     // gestire il discorso del colore usato
 
-    $idToDel = filter_input(INPUT_GET, "idToDel");
+//     $idToDel = filter_input(INPUT_GET, "idToDel");
 
-    $mc->table = 'mc_color';
-    $mc->id = $idToDel;
+//     $mc->table = 'mc_color';
+//     $mc->id = $idToDel;
 
-    if ($mc->delete('id')) {
-        header("Location: ../index.php?p=allTheme&msg=colorDelSucc");
-        exit;
-    } else {
-        header("Location: ../index.php?p=allTheme&err=colorDelFail");
-        exit;
-    }
-}
+//     if ($mc->delete('id')) {
+//         header("Location: ../index.php?p=allTheme&msg=colorDelSucc");
+//         exit;
+//     } else {
+//         header("Location: ../index.php?p=allTheme&err=colorDelFail");
+//         exit;
+//     }
+// }
 
 $operation = filter_input(INPUT_POST, "operation");
 
@@ -59,18 +59,13 @@ if ($operation == 'editTheme') {
         $err_count++;
     }
 
-    $color = filter_input(INPUT_POST, 'color');
-    $mc->table = 'mc_color';
-    $mc->color = $color;
+    $css_code = $_POST['code'];
+    $css_code = htmlspecialchars($css_code, ENT_QUOTES, 'UTF-8');
 
-    $stmt = $mc->countItem('color');
-    if ($stmt == 0) {
+    $css_file = '../../assets/themes/'.$theme.'/css/custom.css';
 
-        $mc->table = 'mc_color';
-        $mc->color = $color;
-        if (!$mc->insert(['color'])) {
-            $err_count++;
-        }
+    if(!file_put_contents($css_file,$css_code)){
+        $err_count++;
     }
 
     if ($err_count == 0) {
