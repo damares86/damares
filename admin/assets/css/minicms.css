@@ -1,9 +1,0 @@
-.square .clr-field input, .circle .clr-field input{
-    padding-left: 36px;
-}
-
-
-.drag-over {
-    border: 2px dashed #007bff; /* Evidenzia il div mentre ci si sopra */
-}
-

@@ -11,7 +11,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Edit page</h3>
+            <h3><?=$editpage_header?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -20,7 +20,7 @@
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Edit page
+                        <?=$editpage_header?>
                     </li>
                 </ol>
             </nav>
@@ -33,7 +33,7 @@
 
 $idToMod = filter_input(INPUT_GET, 'idToMod');
 
-$mc->table = 'mc_default_pages';
+$mc->table = 'mc_pages';
 $mc->id = $idToMod;
 $page_to_edit = $mc->showAllWhere('id', ['id']);
 
@@ -49,21 +49,21 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                     while ($item = $page_to_edit->fetch(PDO::FETCH_ASSOC)) {
                         extract($item);
-                        
+
                         $str = $item['page_name'];
                         $str = str_replace('_', ' ', $str);
                         $str = ucfirst($str);
                     ?>
-                        <h4 class="card-title">Edit page: <u><?= $str ?></u></h4>
+                        <h4 class="card-title"><?=$editpage_header?>: <u><?= $str ?></u></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <form class="form form-horizontal" action="core/mngPage.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
                             <div class="form-body">
                                 <div class="row">
-                                    
+
                                     <div class="col-md-3 mt-3 pt-3">
-                                        <label>Use header <span class="text-danger">*</span></label>
+                                        <label><?=$addpage_use_header?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 mt-3 pt-3">
                                         <div class="form-group">
@@ -75,10 +75,10 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                     if ($item['header'] == 1) {
                                                         $checked = 'checked';
                                                     }
-                                                    
+
                                                     ?>
                                                     <input type="checkbox" id="checkbox1" class="form-check-input" name="use_header" <?= $checked ?>>
-                                                    <label for="checkbox1">&nbsp; Select to show the header on this page</label>
+                                                    <label for="checkbox1">&nbsp; <?=$addpage_use_header_select?></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,26 +101,26 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                     ?>
                                     <div class="row highlight-section">
                                         <div class="col-md-3 mt-3 p-3 border-top">
-                                            <label>Header style <span class="text-danger">*</span></label>
+                                            <label><?=$addpage_header_style ?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9 mt-3 border-top">
                                             <div class="row mt-3">
                                                 <div class="col border p-3">
                                                     <div class="form-check">
                                                         <input class="form-check-input nomargin" type="radio" name="header" value="image" <?= $checked_img ?>>
-                                                        <label class="form-check-label">&nbsp; Image</label>
+                                                        <label class="form-check-label">&nbsp; <?=$addpage_header_img_title?></label>
                                                         <br>
                                                         <br>
-                                                        <span>Actual image: <img src="../uploads/<?= $image ?>" class="d-inline w-25"></span>
-                                                        <input type="hidden" name="old_header_img" value="<?=$item['header_media']?>">
+                                                        <span><?=$editpage_current_image?>: <img src="../uploads/img/<?= $image ?>" class="d-inline w-25"></span>
+                                                        <input type="hidden" name="old_header_img" value="<?= $item['header_media'] ?>">
 
                                                         <br>
                                                         <br>
 
-                                                        <label>Upload a new image <span class="text-danger">*</span></label>
+                                                        <label><?=$addpage_header_img_upload?> </label>
 
                                                         <div class="form-group">
-                                                            <div class="form-check mandatory">
+                                                            <div class="form-check">
                                                                 <div class="position-relative">
                                                                     <input class="form-control" type="file" name="img_header" />
                                                                 </div>
@@ -131,9 +131,9 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                 <div class="col border p-3">
                                                     <div class="form-check">
                                                         <input class="form-check-input nomargin" type="radio" name="header" value="gallery" <?= $checked_gallery ?>>
-                                                        <label class="form-check-label">&nbsp; Gallery</label>
+                                                        <label class="form-check-label">&nbsp; <?=$addpage_header_gallery_title?></label>
                                                         <br><br>
-                                                        <label>Choose a gallery <span class="text-danger">*</span></label>
+                                                        <label><?=$addpage_header_gallery_choose ?> <span class="text-danger">*</span></label>
 
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
@@ -146,7 +146,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                             $galleryOptions = '';
                                                                             while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
                                                                                 $selected = '';
-                                                                                
+
                                                                                 if ($item['header_media'] == $row['id']) {
                                                                                     $selected = 'selected';
                                                                                 }
@@ -171,11 +171,12 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                         </div>
 
                                         <div class="col-md-3 mt-3 mb-3">
-                                            <label>Show site name </label>
+                                            <label><?=$addpage_header_site_name ?> </label>
                                         </div>
                                         <?php
-                                        $setting->name = 'mc_site_name';
-                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $mc->table = 'mc_settings';
+                                        $mc->name = 'mc_site_name';
+                                        $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
                                         ?>
@@ -199,11 +200,12 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                         </div>
 
                                         <div class="col-md-3 mt-3 mb-3 pb-3 border-bottom">
-                                            <label>Show site description </label>
+                                            <label><?=$addpage_header_site_description?> </label>
                                         </div>
                                         <?php
-                                        $setting->name = 'mc_site_description';
-                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $mc->table = 'mc_settings';
+                                        $mc->name = 'mc_site_description';
+                                        $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
                                         ?>
@@ -227,9 +229,46 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                         </div>
                                     </div>
 
+                                    <?php
+                                    if ($item['id'] == 2) {
+                                        $json_file = 'inc/pages/2.json';
+                                        $data = file_get_contents($json_file);
+                                        $json_arr = json_decode($data, true);
+                                        // print_r($json_arr);
+                                    ?>
+
+                                        <div class="col-md-3 mt-3">
+                                            <label><?=$editpage_link_maps?> </label>
+                                        </div>
+                                        <div class="col-md-9 mt-3">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <div class="position-relative">
+                                                        <textarea name="maps"cols="50" rows="6"><?=$json_arr[2]['block2']?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 mt-3">
+                                            <label><?=$editpage_contact?></label>
+                                        </div>
+                                        <div class="col-md-9 mt-3">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <div class="position-relative">
+                                                        <textarea name="contacts" class="tiny" cols="60" rows="5"><?=$json_arr[1]['block1']?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+
                                     <input type="hidden" name="operation" value="editDefault">
                                     <input type="hidden" name="origin" value="editDefaultPage">
-                                    <input type="hidden" name="idToMod" value="<?=$idToMod?>">
+                                    <input type="hidden" name="idToMod" value="<?= $idToMod ?>">
 
                                 <?php
                             }

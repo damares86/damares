@@ -11,7 +11,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Add a new popup</h3>
+            <h3><?=$addpopup_header?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -20,7 +20,7 @@
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Add a new popup
+                        <?=$addpopup_header?>
                     </li>
                 </ol>
             </nav>
@@ -36,7 +36,7 @@
         <div class="col-md-10 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">New popup</h4>
+                    <h4 class="card-title"><?=$addpopup_title ?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -44,13 +44,13 @@
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Popup name <span class="text-danger">*</span></label>
+                                        <label><?=$addpopup_name?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Type the popup name" name="title" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="<?=$addpopup_name?>" name="title" data-parsley-required="true" />
 
                                                 </div>
                                             </div>
@@ -64,7 +64,7 @@
 
 
                                     <div class="col-md-3 my-3">
-                                        <label>On page <span class="text-danger">*</span></label>
+                                        <label><?=$addpopup_onpage?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 my-3">
                                         <div class="form-group">
@@ -98,7 +98,7 @@
                                     </div>
 
                                     <div class="col-md-3 my-3">
-                                        <label>Popup category <span class="text-danger">*</span></label>
+                                        <label><?=$addpopup_category?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 my-3">
                                         <div class="form-group">

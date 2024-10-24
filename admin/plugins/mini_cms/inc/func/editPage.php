@@ -11,7 +11,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Edit page</h3>
+            <h3><?=$editpage_header?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -20,7 +20,7 @@
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Edit page
+                        <?=$editpage_header?>
                     </li>
                 </ol>
             </nav>
@@ -54,7 +54,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                         $str = str_replace('_', ' ', $str);
                         $str = ucfirst($str);
                     ?>
-                        <h4 class="card-title">Edit page: <u><?= $str ?></u></h4>
+                        <h4 class="card-title"><?=$editpage_header?>: <u><?= $str ?></u></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -62,13 +62,13 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Page name <span class="text-danger">*</span></label>
+                                        <label><?=$addpage_name ?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Type the page name" value="<?= $str ?>" name="page_name" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="<?=$addpage_name ?>" value="<?= $str ?>" name="page_name" data-parsley-required="true" />
                                                     <input type="hidden" name="old_page_name" value="<?=$item['page_name']?>">
                                                 </div>
                                             </div>
@@ -76,14 +76,14 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Layout <span class="text-danger">*</span></label>
+                                        <label><?=$addpage_layout?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <?php
                                                 $layout_counter = 0;
-                                                foreach (glob("../assets/css/template/img/*") as $file) {
+                                                foreach (glob("../assets/template/img/*") as $file) {
                                                     if (is_file($file)) {
                                                         $style = pathinfo($file, PATHINFO_FILENAME);
 
@@ -94,7 +94,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                 ?>
 
                                                         <input type="radio" class="btn-check" name="layout" value="<?= $style ?>" autocomplete="off" id="layout_<?= $style ?>" <?= $checked ?>>
-                                                        <label class="btn btn-outline-primary" for="layout_<?= $style ?>"><img src='../assets/css/template/img/<?= $style ?>.png'></label>
+                                                        <label class="btn btn-outline-primary" for="layout_<?= $style ?>"><img src='../assets/template/img/<?= $style ?>.png'></label>
                                                         &nbsp;
                                                 <?php
                                                     }
@@ -106,7 +106,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                     </div>
 
                                     <div class="col-md-3 mt-3 pt-3">
-                                        <label>Use header <span class="text-danger">*</span></label>
+                                        <label><?=$addpage_use_header?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 mt-3 pt-3">
                                         <div class="form-group">
@@ -121,7 +121,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                     
                                                     ?>
                                                     <input type="checkbox" id="checkbox1" class="form-check-input" name="use_header" <?= $checked ?>>
-                                                    <label for="checkbox1">&nbsp; Select to show the header on this page</label>
+                                                    <label for="checkbox1">&nbsp; <?=$addpage_use_header_select?></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,23 +144,23 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                     ?>
                                     <div class="row highlight-section">
                                         <div class="col-md-3 mt-3 p-3 border-top">
-                                            <label>Header style <span class="text-danger">*</span></label>
+                                            <label><?=$addpage_header_style?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9 mt-3 border-top">
                                             <div class="row mt-3">
                                                 <div class="col border p-3">
                                                     <div class="form-check">
                                                         <input class="form-check-input nomargin" type="radio" name="header" value="image" <?= $checked_img ?>>
-                                                        <label class="form-check-label">&nbsp; Image</label>
+                                                        <label class="form-check-label">&nbsp; <?=$addpage_header_img_title?></label>
                                                         <br>
                                                         <br>
-                                                        <span>Actual image: <img src="../uploads/<?= $image ?>" class="d-inline w-25"></span>
+                                                        <span><?=$editpage_current_image?>: <img src="../uploads/img/<?= $image ?>" class="d-inline w-25"></span>
                                                         <input type="hidden" name="old_header_img" value="<?=$item['header_media']?>">
 
                                                         <br>
                                                         <br>
 
-                                                        <label>Upload a new image <span class="text-danger">*</span></label>
+                                                        <label><?=$addpage_header_img_upload?> <span class="text-danger">*</span></label>
 
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
@@ -174,9 +174,9 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                 <div class="col border p-3">
                                                     <div class="form-check">
                                                         <input class="form-check-input nomargin" type="radio" name="header" value="gallery" <?= $checked_gallery ?>>
-                                                        <label class="form-check-label">&nbsp; Gallery</label>
+                                                        <label class="form-check-label">&nbsp; <?=$addpage_header_gallery_title?></label>
                                                         <br><br>
-                                                        <label>Choose a gallery <span class="text-danger">*</span></label>
+                                                        <label><?=$addpage_header_gallery_choose ?> <span class="text-danger">*</span></label>
 
                                                         <div class="form-group">
                                                             <div class="form-check mandatory">
@@ -214,11 +214,12 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                         </div>
 
                                         <div class="col-md-3 mt-3 mb-3">
-                                            <label>Show site name </label>
+                                            <label><?=$addpage_header_site_name?> </label>
                                         </div>
                                         <?php
-                                        $setting->name = 'mc_site_name';
-                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $mc->table = 'mc_settings' ;
+                                        $mc->name = 'mc_site_name';
+                                        $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
                                         ?>
@@ -242,11 +243,12 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                         </div>
 
                                         <div class="col-md-3 mt-3 mb-3 pb-3 border-bottom">
-                                            <label>Show site description </label>
+                                            <label><?=$addpage_header_site_description?> </label>
                                         </div>
                                         <?php
-                                        $setting->name = 'mc_site_description';
-                                        $sitename = $setting->showAllWhere('id', ['name']);
+                                        $mc->table = 'mc_settings' ;
+                                        $mc->name = 'mc_site_description';
+                                        $sitename = $mc->showAllWhere('id', ['name']);
                                         $name = $sitename->fetch(PDO::FETCH_ASSOC);
 
                                         ?>
@@ -272,7 +274,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                     <div class="row" id="dynamic_field">
 
                                         <?php
-                                        $json_file = 'inc/pages/' . $item['page_name'] . '.json';
+                                        $json_file = 'inc/pages/' . $item['id'] . '.json';
                                         $data = file_get_contents($json_file);
                                         $json_arr = json_decode($data, true);
 
@@ -298,7 +300,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                         ?>
                                             <div class="row border-top" id="block_<?= $idx ?>">
                                                 <div class="col-md-3 mt-3 p-3">
-                                                    <label><b>Block <span><?= $idx ?></span></b></label>
+                                                    <label><b><?=$block_title?> <span><?= $idx ?></span></b></label>
                                                 </div>
                                                 <div class="col-md-5 mt-3  p-3">
                                                     <div class="form-group">
@@ -307,18 +309,18 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                 <fieldset class="form-group">
                                                                     <select class="form-select" id="block_<?= $idx ?>_type" name="block_<?= $idx ?>_type">
 
-                                                                        <option value="text_<?= $idx ?>" <?= $text_selected ?>>Text</option>
-                                                                        <option value="img_<?= $idx ?>" <?= $img_selected ?>>Image</option>
-                                                                        <option value="info_<?= $idx ?>" <?= $info_selected ?>>Box info</option>
-                                                                        <option value="gallery_<?= $idx ?>" <?= $gallery_selected ?>>Gallery</option>
-                                                                        <option value="quote_<?= $idx ?>" <?= $quote_selected ?>>Quotes</option>
+                                                                        <option value="text_<?= $idx ?>" <?= $text_selected ?>><?=$block_type_text?></option>
+                                                                        <option value="img_<?= $idx ?>" <?= $img_selected ?>><?=$block_type_image?></option>
+                                                                        <option value="info_<?= $idx ?>" <?= $info_selected ?>><?=$block_type_info?></option>
+                                                                        <option value="gallery_<?= $idx ?>" <?= $gallery_selected ?>><?=$block_type_gallery?></option>
+                                                                        <option value="quote_<?= $idx ?>" <?= $quote_selected ?>><?=$block_type_quotes?></option>
                                                                         <?php
                                                                         $plugin->pluginname = "post";
                                                                         $postOption = '';
                                                                         if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                                                             $postOption = '<option value="post_' . $idx . '" ' . $$label_selected . '>Latest post</option>';
                                                                         ?>
-                                                                            <option value="post_<?= $idx ?>" <?= $$label_selected ?>>Latest post</option>
+                                                                            <option value="post_<?= $idx ?>" <?= $$label_selected ?>><?=$block_type_post?></option>
                                                                         <?php
                                                                         }
                                                                         ?>
@@ -346,7 +348,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                         <!-- <textarea class="summernote" name="text_<?= $idx ?>"></textarea> -->
                                                     </div>
                                                     <div class="row page img_<?= $idx ?>">
-                                                        <label>Upload an image </label>
+                                                        <label><?=$block_image_upload?> </label>
                                                         <div class="form-group">
                                                             <div class="form-check">
                                                                 <div class="position-relative">
@@ -360,12 +362,12 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                 $actual_img = $json_arr[$idx]['block' . $idx] ;
                                                             }
                                                         ?>
-                                                        <span>Actual image: <img src="../uploads/<?= $actual_img ?>" class="d-inline w-25"></span>
+                                                        <span><?=$editpage_current_image?>: <img src="../uploads/img/<?= $actual_img ?>" class="d-inline w-25"></span>
                                                         <input type="hidden" name="old_img_<?=$idx?>" value="<?= $actual_img ?>">
 
                                                     </div>
                                                     <div class="row page info_<?= $idx ?>">
-                                                        <label>Upload a new image</label>
+                                                        <label><?=$addpage_header_img_upload?></label>
                                                         <div class="form-group">
                                                             <div class="form-check">
                                                                 <div class="position-relative">
@@ -379,14 +381,14 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                 $actual_img = $json_arr[$idx]['block' . $idx .'_info'] ;
                                                             }
                                                         ?>
-                                                        <span>Actual image: <img src="../uploads/<?= $actual_img ?>" class="d-inline m-3 w-25"></span>
+                                                        <span><?=$editpage_current_image?>: <img src="../uploads/img/<?= $actual_img ?>" class="d-inline m-3 w-25"></span>
                                                         <input type="hidden" name="old_info_img_<?=$idx?>" value="<?= $json_arr[$idx]['block' . $idx . '_info'] ?>">
                                                         <!-- <textarea class="summernote" class="mt-5" name="info_content_1"></textarea> -->
                                                         <textarea class="tiny mt-5" name="info_content_<?= $idx ?>"><?= $json_arr[$idx]['block' . $idx . '_desc'] ?></textarea>
                                                     </div>
                                                     <div class="row page gallery_<?= $idx ?>">
                                                         <div class="col-7">
-                                                            <label class="mb-3">Choose a gallery <span class="text-danger">*</span></label>
+                                                            <label class="mb-3"><?=$block_gallery_choose?> <span class="text-danger">*</span></label>
                                                             <div class="form-group">
                                                                 <div class="form-check mandatory">
                                                                     <div class="position-relative">
@@ -415,11 +417,11 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                         <div class="col-5">&nbsp;</div>
                                                     </div>
                                                     <div class="row page quote_<?= $idx ?>">
-                                                        <p>Show a slideshow with quotes</p>
+                                                        <p><?=$block_quotes_text?></p>
                                                         <input type="hidden" name="quote_<?= $idx ?>" value="q">
                                                     </div>
                                                     <div class="row page post_<?= $idx ?>">
-                                                        <p>Show the latest post of the blog</p>
+                                                        <p><?=$block_post_text?></p>
                                                         <input type="hidden" name="post_<?= $idx ?>" value="p">
                                                     </div>
 
@@ -429,7 +431,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                                     <!-- Sezione Background color -->
                                                     <div class="col-md-3 mt-3 px-3">
-                                                        <label>Background color</label>
+                                                        <label><?=$block_bg_color?></label>
                                                     </div>
                                                     <div class="col-md-9 mt-3 px-3">
                                                         <div class="form-group">
@@ -444,8 +446,8 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                         }
                                                                         ?>
                                                                         <input type="radio" class="btn-check" name="bg_color_<?= $idx ?>" value="none" autocomplete="off" id="bg_none_<?= $idx ?>" hidden <?= $none_checked ?>>
-                                                                        <label class="color-label bg" for="bg_none_<?= $idx ?>" style="background-color: #e5e5e5;">
-                                                                            None
+                                                                        <label class="color-label bg shadow my-1" for="bg_none_<?= $idx ?>" style="background-color: #e5e5e5;">
+                                                                            <?=$block_color_none?>
                                                                             <span class="checkmark"></span>
                                                                         </label>
 
@@ -463,7 +465,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                             }
                                                                         ?>
                                                                             <input type="radio" class="btn-check" name="bg_color_<?= $idx ?>" value="<?= $row['color'] ?>" autocomplete="off" id="bg_<?= $row['color'] ?>_<?= $idx ?>" hidden <?= $bg_checked ?>>
-                                                                            <label class="color-label" for="bg_<?= $row['color'] ?>_<?= $idx ?>" style="background-color: <?= $row['color'] ?>;">
+                                                                            <label class="color-label shadow my-1" for="bg_<?= $row['color'] ?>_<?= $idx ?>" style="background-color: <?= $row['color'] ?>;">
                                                                                 <span class="checkmark">✔</span>
                                                                                 &nbsp;
                                                                             </label>
@@ -478,7 +480,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
 
                                                     <!-- Sezione Text color -->
                                                     <div class="col-md-3 mt-3 px-3">
-                                                        <label>Text color</label>
+                                                        <label><?=$block_bg_text?></label>
                                                     </div>
                                                     <div class="col-md-9 mt-3 px-3">
                                                         <div class="form-group">
@@ -493,8 +495,8 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                         }
                                                                         ?>
                                                                         <input type="radio" class="btn-check" name="text_color_<?= $idx ?>" value="none" autocomplete="off" id="text_none_<?= $idx ?>" hidden <?= $none_checked ?>>
-                                                                        <label class="color-label text" for="text_none_<?= $idx ?>" style="background-color: #e5e5e5;">
-                                                                            None
+                                                                        <label class="color-label text shadow my-1" for="text_none_<?= $idx ?>" style="background-color: #e5e5e5;">
+                                                                            <?=$block_color_none?>
                                                                             <span class="checkmark"></span>
                                                                         </label>
 
@@ -510,7 +512,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                                                             }
                                                                         ?>
                                                                             <input type="radio" class="btn-check" name="text_color_<?= $idx ?>" value="<?= $row['color'] ?>" autocomplete="off" id="text_<?= $row['color'] ?>_<?= $idx ?>" hidden <?= $text_checked ?>>
-                                                                            <label class="color-label" for="text_<?= $row['color'] ?>_<?= $idx ?>" style="background-color: <?= $row['color'] ?>;">
+                                                                            <label class="color-label shadow my-1" for="text_<?= $row['color'] ?>_<?= $idx ?>" style="background-color: <?= $row['color'] ?>;">
                                                                                 <span class="checkmark">✔</span>
                                                                                 &nbsp;
                                                                             </label>
@@ -531,7 +533,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                                         }
                                         ?>
                                     </div>
-                                    <button type="button" name="add" id="add" class="btn btn-success w-25">Add block</button>
+                                    <button type="button" name="add" id="add" class="btn btn-success w-25"><?=$block_add?></button>
 
 
                                     <input type="hidden" name="operation" value="edit">
@@ -684,6 +686,22 @@ $colors = json_encode($colorArray);
     var galleryOptions = '<?php echo $galleryOptions; ?>';
     var postOptions = '<?php echo $postOption; ?>';
     var colors = <?php echo $colors; ?>;
+    var block_type_text = '<?php echo $block_type_text; ?>' ;
+    var block_title = '<?php echo $block_title; ?>' ;
+    var block_type_image = '<?php echo $block_type_image; ?>' ;
+    var block_type_info = '<?php echo $block_type_info; ?>' ;
+    var block_type_gallery = '<?php echo $block_type_gallery; ?>' ;
+    var block_type_quotes = '<?php echo $block_type_quotes; ?>' ;
+    var block_type_post = '<?php echo $block_type_post; ?>' ;
+    var block_gallery_choose = '<?php echo $block_gallery_choose; ?>' ;
+    var block_quotes_text = '<?php echo $block_quotes_text; ?>' ;
+    var block_post_text = '<?php echo $block_post_text; ?>' ;
+    var block_bg_color = '<?php echo $block_bg_color; ?>' ;
+    var block_bg_text = '<?php echo $block_bg_text; ?>' ;
+    var block_color_none = '<?php echo $block_color_none; ?>' ;
+    var block_add = '<?php echo $block_add; ?>' ;
+    var block_image_upload = '<?php echo $block_image_upload; ?>' ;
+    var block_image_default = '<?php echo $block_image_default; ?>' ;
 </script>
 <script src="script/mc_addBlockPage.js"></script>
 <script>

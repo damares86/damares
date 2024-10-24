@@ -1,12 +1,13 @@
 <?php
 $mc->table = 'mc_pages';
-$pages = $mc->showAll('id');
+$mc->no_del = 0;
+$pages = $mc->showAllWhere('id', ['no_del']);
 ?>
 
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Custom pages</h3>
+      <h3><?=$allpages_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +16,7 @@ $pages = $mc->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Custom pages
+            <?=$allpages_header?>
           </li>
         </ol>
       </nav>
@@ -28,9 +29,9 @@ $pages = $mc->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">All custom pages &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <div class="card-header"><?=$allpages_title?> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
       <a href="index.php?p=addPage" class="btn icon icon-left btn-success shadow">
-        <i data-feather="plus-circle"></i> Add a new page
+        <i data-feather="plus-circle"></i> <?=$allpages_add?>
       </a>
     </div>
     <div class="card-body">
@@ -38,8 +39,8 @@ $pages = $mc->showAll('id');
       <table class="table" id="table">
         <thead>
           <tr>
-            <th>Page name</th>
-            <th>Page link</th>
+            <th><?=$allpages_name?></th>
+            <th><?=$allpages_link?></th>
             <th><?= $common_actions ?></th>
           </tr>
         </thead>
@@ -48,22 +49,21 @@ $pages = $mc->showAll('id');
           <?php
           while ($row = $pages->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-
+            $str = $row['page_name'];
+            $str = str_replace('_', ' ', $str);
+            $str = ucfirst($str);
           ?>
-            <tr>
-              <td><?= $row['page_name'] ?></td>
+              <tr>
+                <td><?= $str  ?></td>
               <td>
-                <?php
-                $str = $row['page_name'];
-                $str = preg_replace('/\s+/', '_', $str);
-
-                $str = strtolower($str);
-                ?>
-                <a href="../<?= $str ?>.php">View</a>
+                <a href="../<?= $row['page_name'] ?>.php">View</a>
 
               </td>
 
               <td>
+                <?php
+                  if($row['no_del']==0){
+                ?>
                 <a href="index.php?p=editPage&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPage&idToMod=<?= $row['id'] ?>">
                   <i class="bi bi-pencil-square"></i>
                 </a>
@@ -84,7 +84,7 @@ $pages = $mc->showAll('id');
                         </button>
                       </div>
                       <div class="modal-body">
-                        <?= $account_all_modal_body ?>
+                        <?= $allpages_modal_body?>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -98,6 +98,9 @@ $pages = $mc->showAll('id');
                     </div>
                   </div>
                 </div>
+                <?php
+                  }
+                ?>
 
               </td>
             </tr>

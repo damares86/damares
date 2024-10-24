@@ -3,7 +3,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3 class="d-inline">Add a new Gallery</h3>
+                <h3 class="d-inline"><?=$addgallery_header?></h3>
                 <a href="index.php?p=allGalleries" class="btn icon btn-info shadow mx-3 px-3">
                     <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= $common_back ?>
                 </a>
@@ -15,8 +15,7 @@
                             <a href="index.php"><?= $common_dashboard ?></a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-
-                        Add a new Gallery
+                            <?=$addgallery_header?>
                         </li>
                     </ol>
                 </nav>
@@ -31,7 +30,7 @@
                 <div class="col-md-8 col-12">
                     <div class="card shadow">
                         <div class="card-header">
-                            <h4 class="card-title">New gallery</b></h4>
+                            <h4 class="card-title"><?=$addgallery_title?></b></h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -39,20 +38,20 @@
                                     <div class="form-body">
                                         <div class="row">
                                         <div class="col-md-3">
-                                        <label>Gallery name <span class="text-danger">*</span></label>
+                                        <label><?=$addgallery_name?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Gallery name" name="gallery_name" data-parsley-required="true" />
+                                                    <input type="text" class="form-control" placeholder="<?=$addgallery_name?>" name="gallery_name" data-parsley-required="true" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
-                                            <label>Aggiungi tutte le foto <span class="text-danger">*</span></label>
+                                            <label><?=$addgallery_addphoto?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <div class="form-group">
@@ -65,9 +64,8 @@
                                         </div>
 
                                             
-                                        <input type="hidden" name="operation" value="edit">
-                                        <input type="hidden" name="idToMod" value="<?= $id ?>">
-                                        <input type="hidden" name="origin" value="editGallery">
+                                        <input type="hidden" name="operation" value="add">
+                                        <input type="hidden" name="origin" value="addGallery">
 
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1 shadow">

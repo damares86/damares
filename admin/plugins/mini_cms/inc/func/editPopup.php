@@ -9,7 +9,7 @@ $popup = $mc->showAllWhere('id', ['id']);
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Edit popup</h3>
+            <h3><?=$editpopup_header?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -18,7 +18,7 @@ $popup = $mc->showAllWhere('id', ['id']);
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Edit popup
+                    <?=$editpopup_header?>
                     </li>
                 </ol>
             </nav>
@@ -32,7 +32,7 @@ $popup = $mc->showAllWhere('id', ['id']);
         <div class="col-md-10 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Edit popup</h4>
+                    <h4 class="card-title"><?=$editpopup_header?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -45,7 +45,7 @@ $popup = $mc->showAllWhere('id', ['id']);
                                     ?>
 
                                         <div class="col-md-3">
-                                            <label>Popup name <span class="text-danger">*</span></label>
+                                            <label><?=$addpopup_name?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <div class="form-group">
@@ -65,7 +65,7 @@ $popup = $mc->showAllWhere('id', ['id']);
 
 
                                         <div class="col-md-3 my-3">
-                                            <label>On page <span class="text-danger">*</span></label>
+                                            <label><?=$addpopup_onpage?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9 my-3">
                                             <div class="form-group">
@@ -105,7 +105,7 @@ $popup = $mc->showAllWhere('id', ['id']);
                                         </div>
 
                                         <div class="col-md-3 my-3">
-                                            <label>Popup category <span class="text-danger">*</span></label>
+                                            <label><?=$addpopup_category?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9 my-3">
                                             <div class="form-group">

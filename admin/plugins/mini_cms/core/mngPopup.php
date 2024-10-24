@@ -59,10 +59,10 @@ if ($operation == 'add') {
     $mc->table = 'mc_popup' ;
 
     if($mc->update(['title','content','page_id','popup_cat_id'],'id') ){
-        header("Location: ../index.php?p=allPopup&msg=popupAddSucc");
+        header("Location: ../index.php?p=allPopup&msg=popupEditSucc");
         exit;
     }else{
-        header("Location: ../index.php?p=allPopup&err=popupAddFail");
+        header("Location: ../index.php?p=allPopup&err=popupEditFail");
         exit;
     }
 

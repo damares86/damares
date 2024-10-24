@@ -13,68 +13,68 @@ require __DIR__ . "/coreConfig.php";
 
 // check if there's a page to delete
 
-if (filter_input(INPUT_GET, "idToDel")) {
+// if (filter_input(INPUT_GET, "idToDel")) {
 
-    // gestire il discorso del colore usato
+//     // gestire il discorso del colore usato
 
-    $idToDel = filter_input(INPUT_GET, "idToDel") ;
-    
-    $mc->table = 'mc_color' ;
-    $mc->id = $idToDel ;
+//     $idToDel = filter_input(INPUT_GET, "idToDel");
 
-    if($mc->delete('id')){
-        header("Location: ../index.php?p=allTheme&msg=colorDelSucc");
-        exit;
-    }else{
-        header("Location: ../index.php?p=allTheme&err=colorDelFail");
-        exit;
-    }
+//     $mc->table = 'mc_color';
+//     $mc->id = $idToDel;
 
-}
+//     if ($mc->delete('id')) {
+//         header("Location: ../index.php?p=allTheme&msg=colorDelSucc");
+//         exit;
+//     } else {
+//         header("Location: ../index.php?p=allTheme&err=colorDelFail");
+//         exit;
+//     }
+// }
 
 $operation = filter_input(INPUT_POST, "operation");
 
 // check if there's an account to edit or add
 
 if ($operation == 'editTheme') {
-    
+
     // update theme
-    $theme = filter_input(INPUT_POST,'theme') ;
-    $mc->table = 'mc_settings' ;
-    $mc->name = 'mc_theme' ;
-    $mc->value = $theme ;
+    $theme = filter_input(INPUT_POST, 'theme');
+    $mc->table = 'mc_settings';
+    $mc->name = 'mc_theme';
+    $mc->value = $theme;
 
-    $err_count = 0 ;
-    $err = '' ;
+    $err_count = 0;
+    $err = '';
 
-    if(!$mc->update(['value'],'name')){
-        $err_count++ ;
-    }
-
-    $color = filter_input(INPUT_POST,'color');
-    $mc->table = 'mc_color' ;
-    $mc->color = $color ;
-
-    $stmt = $mc->countItem('color') ;
-    if($stmt == 0 ){
-        
-        $mc->table = 'mc_color' ;
-        $mc->color = $color ;
-        if(!$mc->insert(['color'])){
-            $err_count++ ;
+    if ($mc->update(['value'], 'name')) {
+        if (file_exists('../../assets/themes/' . $theme . '/one.php')) {
+            $mc->value = 1;
+        } else {
+            $mc->value = 0;
         }
+        $mc->table = 'mc_settings';
+        $mc->name = 'mc_theme_one';
+        $mc->update(['value'], 'name');
+    } else {
+        $err_count++;
     }
 
-    if($err_count == 0 ){
+    $css_code = $_POST['code'];
+    $css_code = htmlspecialchars($css_code, ENT_QUOTES, 'UTF-8');
+
+    $css_file = '../../assets/themes/'.$theme.'/css/custom.css';
+
+    if(!file_put_contents($css_file,$css_code)){
+        $err_count++;
+    }
+
+    if ($err_count == 0) {
         header("Location: ../index.php?p=allTheme&msg=themeEditSucc");
         exit;
-    }else{
+    } else {
         header("Location: ../index.php?p=allTheme&err=themeEditFail");
         exit;
     }
-
-
-    
 } else {
     header("Location: ../index.php?p=allTheme&err=noPost");
     exit;
