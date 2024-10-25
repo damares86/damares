@@ -56,14 +56,14 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       INSERT INTO " . $prefix . "mc_pages
       (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
       VALUES ('contact','1','default','1','visual.jpg','1','1','2');
-      INSERT INTO " . $prefix . "mc_default_pages
+      INSERT INTO " . $prefix . "mc_pages
       (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
       VALUES ('login','1','default','1','visual.jpg','1','1','1');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
+      VALUES ('mc_site_url', 'www.site.com');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
-      VALUES ('mc_site_url', 'www.site.com');
       VALUES ('mc_site_name', 'Mini CMS Website');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )

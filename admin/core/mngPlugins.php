@@ -355,34 +355,6 @@ if ($op == "add") {
     }
   }
 
-  //echo "copy locale-> ".$error."<br>" ;
-
-
-  // copy manual files
-  // foreach (glob("$path/manual/*") as $row) {
-  //   $item = pathinfo($row);
-
-  //   if (copy($path . '/manual/' . $item['basename'] . '', '../manual/' . $item['basename'] . '')) {
-  //     chmod('../manual/' . $item['basename'] . '', 0777);
-  //   } else {
-  //     $error++;
-  //   }
-  // }
-
-  // copy frontend files
-  // foreach (glob("$path/frontend/*") as $row) {
-  //   $item = pathinfo($row);
-
-  //   if (copy($path . '/frontend/' . $item['basename'] . '', '../../' . $item['basename'] . '')) {
-  //     chmod('../../' . $item['basename'] . '', 0777);
-  //   } else {
-  //     $error++;
-  //   }
-  // }
-
-  // //echo "copy frontend-> ".$error."<br>" ;
-
-
   // copy uploads files
   foreach (glob("$path/uploads/*") as $row) {
     $item = pathinfo($row);
@@ -783,15 +755,6 @@ if ($op == "add") {
     }
   }
 
-  // remove manual files
-  foreach (glob("$path/manual/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../manual/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
   $scan = scandir($path . '/locale');
   $exclude = array('..', '.');
   foreach ($scan as $folder) {
@@ -805,15 +768,6 @@ if ($op == "add") {
           $error++;
         }
       }
-    }
-  }
-
-  // remove frontend files
-  foreach (glob("$path/frontend/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../../' . $item['basename'] . '')) {
-      $error++;
     }
   }
 
