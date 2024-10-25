@@ -21,7 +21,8 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "post
       category_id VARCHAR (255) NULL);
       CREATE TABLE IF NOT EXISTS post_categories
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      category_name VARCHAR(255) NOT NULL);
+      category_name VARCHAR(255) NOT NULL,
+      assign_page INT(5) DEFAULT NULL);
       INSERT INTO post_categories
       (id, category_name)
       VALUES ('1','Misc')";
