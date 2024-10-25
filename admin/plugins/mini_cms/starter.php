@@ -28,7 +28,7 @@ if ($op == 'add') {
 	}
 
 	// copy template files
-	if ($common->copyDirectory($plugin_dir . 'template/', $template_dir)) {
+	if ($common->copyDirectory($plugin_dir . 'misc/template/', $template_dir)) {
 		$common->chmod_R($template_dir, 0777);
 	} else {
 		$error++;

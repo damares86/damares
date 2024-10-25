@@ -237,6 +237,17 @@ if ($op == "add") {
 
   }
 
+  foreach(glob("$path/") as $row){
+
+    
+
+
+
+
+
+
+  }
+
   // copy assets files
   foreach (glob("$path/assets/*") as $row) {
     $item = pathinfo($row);
