@@ -248,6 +248,7 @@ if ($op == "add") {
       foreach (glob($row . '/*') as $elem) {
   
         if (is_dir($elem)) {
+          echo "dir -> $elem <br>";
           $item1 = pathinfo($elem);
           foreach (glob($elem . '/*') as $elem_child) {
   
@@ -255,7 +256,8 @@ if ($op == "add") {
   
             $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
             $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
-  
+            echo "dir->source_file-> $source_file <br>";
+            echo "dir->dest_file-> $dest_file <br>";
             // copy
             if (copy($source_file, $dest_file)) {
               chmod($dest_file, 0755);
@@ -268,6 +270,8 @@ if ($op == "add") {
           $file_parent = pathinfo($elem);
   
           $source_file = $elem . $file_parent['basename'];
+          echo "file source -> $source_file <br>" ;
+          echo "file dest -> $dest_file <br>" ;
           $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
   
           if (copy($source_file, $dest_file)) {
@@ -281,7 +285,7 @@ if ($op == "add") {
       }
     }
   }
-  
+  exit;
 
   unlink("../inc/class_initialize.php");
   if ($error == 0) {
