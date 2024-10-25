@@ -2,6 +2,13 @@
 $post->table = 'post_categories';
 $stmt = $post->showAll('id');
 
+$minicms = false ;
+$plugin->pluginname = "mini_cms";
+
+if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+  $minicms = true ;
+}
+
 ?>
 <div class="page-title">
   <div class="row">
@@ -32,11 +39,18 @@ $stmt = $post->showAll('id');
       <a href="index.php?p=addPostCat" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Aggiungi una categoria</a>
     </div>
     <div class="card-body">
-      <table class="table" id="table1">
+      <table class="table" id="table">
         <thead>
           <tr>
             <th>Nome categoria</th>
             <th>Numero articoli</th>
+            <?php
+            if($minicms){
+            ?>
+              <th>Assigned to page</th>
+            <?php
+            }
+            ?>
             <th><?= $common_actions ?></th>
           </tr>
         </thead>
@@ -61,6 +75,30 @@ $stmt = $post->showAll('id');
             <tr <?= $class ?>>
               <td><?= $row['category_name'] ?></td>
               <td><?= $num ?></td>
+            <?php
+            if($minicms){
+            ?>
+              <td>
+                <?php
+                  if($row['assign_page'] == NULL){
+                    echo "nessuna" ;
+                  }else{
+                    $mc->table = 'mc_pages' ;
+                    $mc->id = $row['assign_page'] ;
+                    $stmt2 = $mc->showAllWhere('id',['id']) ;
+                    $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                    extract($row2);
+                    $page_name = str_replace('_',' ',$row2['page_name']);
+                    $page_name = ucfirst($page_name)
+                ?>
+                  <?=$page_name?>
+                <?php
+                  }
+                ?>
+              </td>
+            <?php
+            }
+            ?>
               <td>
                 <a href="index.php?p=editPostCat&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPostCat&idToMod=<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
                 &nbsp; &nbsp;
