@@ -248,7 +248,7 @@ if ($op == "add") {
       foreach (glob($row . '/*') as $elem) {
   
         if (is_dir($elem)) {
-          echo "dir -> $elem <br>";
+          
           $item1 = pathinfo($elem);
           foreach (glob($elem . '/*') as $elem_child) {
   
@@ -256,8 +256,7 @@ if ($op == "add") {
   
             $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
             $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
-            echo "dir->source_file-> $source_file <br>";
-            echo "dir->dest_file-> $dest_file <br>";
+            
             // copy
             if (copy($source_file, $dest_file)) {
               chmod($dest_file, 0755);
@@ -269,9 +268,8 @@ if ($op == "add") {
   
           $file_parent = pathinfo($elem);
   
-          $source_file = $elem . $file_parent['basename'];
-          echo "file source -> $source_file <br>" ;
-          echo "file dest -> $dest_file <br>" ;
+          $source_file = $elem ;
+          
           $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
   
           if (copy($source_file, $dest_file)) {
@@ -281,11 +279,9 @@ if ($op == "add") {
           }
         }
   
-        echo "<br>";
       }
     }
   }
-  exit;
 
   unlink("../inc/class_initialize.php");
   if ($error == 0) {
@@ -609,93 +605,46 @@ if ($op == "add") {
 
   // DELETE ALL FILES
 
-  // remove assets files
-  foreach (glob("$path/assets/*") as $row) {
+  
+  $root = '../';
+
+  $exclude_folder = ['frontend', 'misc'];
+  foreach (glob("$path/*") as $row) {
     $item = pathinfo($row);
-
-    if (!unlink('../assets/css/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove class files
-  foreach (glob("$path/class/*") as $row) {
-    $item = pathinfo($row);
-    if (!unlink('../class/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove core files
-  foreach (glob("$path/core/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove inc files
-
-  $scan = scandir($path . '/inc');
-
-  foreach ($scan as $file) {
-    if (!in_array($file, $exclude)) {
-      if (!unlink('../inc/' . $file . '')) {
-        $error++;
-      }
-    }
-  }
-
-  // remove inc/func files
-  foreach (glob("$path/inc/func/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../inc/func/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove setting files
-  foreach (glob("$path/settings/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../inc/func/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove script files
-  foreach (glob("$path/script/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../script/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  $scan = scandir($path . '/locale');
-  $exclude = array('..', '.');
-  foreach ($scan as $folder) {
-    if (is_dir("$path/locale/$folder") && !in_array($folder, $exclude)) {
-      // copy locale files
-      foreach (glob("$path/locale/$folder/*") as $row) {
-        $item = pathinfo($row);
-
-        if (!unlink('../locale/' . $folder . '/' . $item['basename'] . '')) {
-
-          $error++;
+  
+    if (is_dir($row) && !in_array($item['basename'], $exclude_folder)) {
+  
+      foreach (glob($row . '/*') as $elem) {
+  
+        if (is_dir($elem)) {
+          
+          $item1 = pathinfo($elem);
+          foreach (glob($elem . '/*') as $elem_child) {
+  
+            $file_child = pathinfo($elem_child);
+  
+            // $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+            $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+            
+            // unlink
+            if (!unlink($dest_file)) {
+              $error++;
+            }
+          }
+        } else {
+  
+          $file_parent = pathinfo($elem);
+          // $source_file = $elem ;
+          
+          $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
+  
+            // unlink
+            if (!unlink($dest_file)) {
+              $error++;
+            }
         }
+  
       }
-    }
-  }
-
-  // remove uploads files
-  foreach (glob("$path/uploads/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../uploads/' . $item['basename'] . '')) {
-      $error++;
     }
   }
 
