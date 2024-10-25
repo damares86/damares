@@ -1,6 +1,7 @@
 <?php
 
-$post->id = filter_input(INPUT_GET, "idToMod");
+$idToMod = filter_input(INPUT_GET, "idToMod");
+$post->id = $idToMod ;
 $post->table = 'post_categories';
 $stmt1 = $post->showAllWhere('id', ['id']);
 $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
@@ -116,7 +117,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                     ?>
 
 
-                                    <input type="hidden" name="idToMod" value="<?= $id ?>">
+                                    <input type="hidden" name="idToMod" value="<?= $idToMod ?>">
                                     <input type="hidden" name="operation" value="edit">
                                     <input type="hidden" name="origin" value="editPostCat">
                                     <input type="hidden" name="url_tablePage" value="<?= $url_tablePage ?>">

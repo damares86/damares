@@ -4,6 +4,28 @@
     $link = "";
     $link_child = "";
 
+    $plugin->pluginname = "post";
+
+    $post_check = false ;
+
+    if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+
+        $post_check = true ;
+
+        $post->table = 'post_categories';
+        $cat_stmt = $post->showAll('id');
+        $cat_pages = [] ;
+        while($cat_row = $cat_stmt->fetch(PDO::FETCH_ASSOC)){
+            extract($cat_row);
+            if($cat_row['assign_page'] != NULL){
+                $cat_pages[] = array($cat_row['assign_page'] => $cat_row['id']) ;
+            }
+        }
+
+    }
+
+
+
     if ($page_class == "login" && $one) {
 
     ?>
@@ -28,6 +50,18 @@
             $page_order[] = $row['id'] ;
             $page_name = str_replace('_', ' ', ucfirst($row['page_name']));
             $link = $row['page_name'] . ".php";
+            if($post_check){
+                $found_value = NULL ;
+                foreach ($cat_pages as $page) {
+                    if (array_key_exists($row['id'], $page)) {
+                        $found_value = $page[$row['id']];
+                        break; // Esci dal ciclo una volta trovato
+                    }
+                }
+                if($found_value){
+                    $link = 'blog.php?cat='.$found_value ;
+                }
+            }
             $class = "";
             if ($one && $row['page_name']!= "login") {
                 $link = "#".$row['id'];
@@ -64,7 +98,18 @@
                             $page_order[] = $row1['id'] ;
                             $child_name = str_replace('_', ' ', ucfirst($row1['page_name']));
                             $link_child = $row1['page_name'] . ".php";
-
+                            if($post_check){
+                                $found_value = NULL ;
+                                foreach ($cat_pages as $page) {
+                                    if (array_key_exists($row1['id'], $page)) {
+                                        $found_value = $page[$row1['id']];
+                                        break; // Esci dal ciclo una volta trovato
+                                    }
+                                }
+                                if($found_value){
+                                    $link_child = 'blog.php?cat='.$found_value ;
+                                }
+                            }
                             if ($one && $row1['page_name']!= "login") {
                                 $link_child = "#".$row1['id'];
                                 $class = "class=\"scrolly\"";
