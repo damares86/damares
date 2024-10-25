@@ -63,7 +63,7 @@ $stmt = $post->showAll('id');
                   echo $author_row['username'] ;
                 ?>
                 </td>
-              <td><a href="../post.php?id=<?= $row['id'] ?>">Link</a></td>
+              <td><a href="../post.php?id=<?= $row['id'] ?>"><?=$common_link?></a></td>
               <td>
                 <a href="index.php?p=editPost&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPost&idToMod=<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
                 &nbsp; &nbsp;

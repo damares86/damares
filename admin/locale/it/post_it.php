@@ -78,9 +78,20 @@ $editcat_name = "Nome categoria" ;
 $editcat_assign = "Assegna alla pagina" ;
 $editcat_none = "Nessuna" ;
 
+
 //  FRONTEND
 
 // blog
+
+$blog_cat = "Categorie" ;
+$blog_date = "Data" ;
+$blog_author = "Autore" ;
+$blog_first = "Inizio" ;
+$blog_previous = "Precedente" ;
+$blog_next = "Successiva" ;
+$blog_last = "Fine" ;
+
+
 
 
 
