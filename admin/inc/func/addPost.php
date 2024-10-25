@@ -84,7 +84,7 @@
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Immagine principale <span class="text-danger">*</span></label>
+                                        <label>Immagine principale </label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
@@ -94,8 +94,7 @@
                                                         class="form-control"
                                                         type="file"
                                                         id="formFile"
-                                                        name="myfile"
-                                                        data-parsley-required="true" />
+                                                        name="myfile" />
                                                 </div>
                                             </div>
                                         </div>
@@ -119,36 +118,46 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3 my-3">
-                                        <label>Scegli una galleria </label>
-                                    </div>
-                                    <div class="col-md-9 my-3">
-                                        <div class="form-group">
-                                            <div class="form-check mandatory">
-                                                <div class="position-relative">
-                                                    <fieldset class="form-group">
-                                                        <select class="form-select" name="gall">
-                                                            <option value="none">Nessuna</option>
-                                                            <?php
-                                                            $mc->table = 'mc_galleries';
-                                                            $galleries = $mc->showAll('id');
-                                                            $galleryOptions = '';
-                                                            while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
-                                                            ?>
+                                    
+                                    <?php
+                                    $plugin->pluginname = "mini_cms";
 
-                                                                <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+                                    if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+                                    ?>
+                                        <div class="col-md-3 my-3">
+                                            <label>Scegli una galleria </label>
+                                        </div>
+                                        <div class="col-md-9 my-3">
+                                            <div class="form-group">
+                                                <div class="form-check mandatory">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select" name="gall">
+                                                                <option value="none">Nessuna</option>
+                                                                <?php
+                                                                $mc->table = 'mc_galleries';
+                                                                $galleries = $mc->showAll('id');
+                                                                $galleryOptions = '';
+                                                                while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+                                                                ?>
 
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </fieldset>
+                                                                    <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php
+                                    }
+                                    ?>
 
-                                    <input type="hidden" name="author" value="<?= $_SESSION['username'] ?>">
+
+                                    <input type="hidden" name="author" value="<?= $_SESSION['account_id'] ?>">
                                     <input type="hidden" name="operation" value="add">
                                     <input type="hidden" name="origin" value="addPost">
 

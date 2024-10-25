@@ -101,7 +101,13 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="position-relative">
-                                                    <img src="../uploads/img/<?= $row1['main_img'] ?>" class="w-25 mb-3">
+                                                    <?php
+                                                    if ($row1['main_img'] != NULL) {
+                                                    ?>
+                                                        <img src="../uploads/img/<?= $row1['main_img'] ?>" class="w-25 mb-3">
+                                                    <?php
+                                                    }
+                                                    ?>
                                                     <br> <span class="mb-3">Carica una nuova immagine</span>
                                                     <input class="form-control" type="file" id="formFile" name="myfile" placeholder="Carica nuovo file" />
                                                 </div>
@@ -130,38 +136,48 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3 my-3">
-                                        <label>Scegli una galleria </label>
-                                    </div>
-                                    <div class="col-md-9 my-3">
-                                        <div class="form-group">
-                                            <div class="form-check mandatory">
-                                                <div class="position-relative">
-                                                    <fieldset class="form-group">
-                                                        <select class="form-select" name="gall">
-                                                            <option value="none">Nessuna</option>
-                                                            <?php
-                                                            $mc->table = 'mc_galleries';
-                                                            $galleries = $mc->showAll('id');
-                                                            $galleryOptions = '';
-                                                            while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
-                                                            ?>
 
-                                                                <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+                                    <?php
+                                    $plugin->pluginname = "mini_cms";
 
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </fieldset>
+                                    if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+                                    ?>
+                                        <div class="col-md-3 my-3">
+                                            <label>Scegli una galleria </label>
+                                        </div>
+                                        <div class="col-md-9 my-3">
+                                            <div class="form-group">
+                                                <div class="form-check mandatory">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select" name="gall">
+                                                                <option value="none">Nessuna</option>
+                                                                <?php
+                                                                $mc->table = 'mc_galleries';
+                                                                $galleries = $mc->showAll('id');
+                                                                $galleryOptions = '';
+                                                                while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+                                                                ?>
+
+                                                                    <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php
+                                    }
+
+                                    ?>
 
 
 
-                                    <input type="hidden" name="author" value="<?= $_SESSION['username'] ?>">
+                                    <input type="hidden" name="author" value="<?= $_SESSION['account_id'] ?>">
                                     <input type="hidden" name="old_main_img" value="<?= $row1['main_img'] ?>">
                                     <input type="hidden" name="idToMod" value="<?= $post_id ?>">
                                     <input type="hidden" name="operation" value="edit">

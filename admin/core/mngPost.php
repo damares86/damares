@@ -72,7 +72,7 @@ if($operation=="edit"){
             // set data for file uploading
             $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
             $file->label = 'post -> '.$post->title ;
-            $file->path = "../../uploads/" ;
+            $file->path = "../../uploads/img/" ;
             $file->origin = filter_input(INPUT_POST,"origin");
             
             $file->operation = "add" ;
@@ -140,7 +140,7 @@ if($operation=="edit"){
         // set data for file uploading
         $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
         $file->label = 'post -> '.$post->title ;
-        $file->path = "../../uploads/" ;
+        $file->path = "../../uploads/img/" ;
         $file->origin = filter_input(INPUT_POST,"origin");
         
         $file->operation = "add" ;
@@ -156,7 +156,7 @@ if($operation=="edit"){
     }
     else
     {
-        $errImg = 'err=postImgEmpty';
+        $post->main_img = NULL ;
     }
     
     $post->table = 'post' ;

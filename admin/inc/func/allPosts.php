@@ -54,7 +54,15 @@ $stmt = $post->showAll('id');
             <tr>
               <td><?= $row['title'] ?></td>
               <td><?= $newTime ?></td>
-              <td><?= $row['author'] ?></td>
+              <td>
+                <?php
+                  $account->id= $row['author'] ;
+                  $author_stmt = $account->showAllWhere('id',['id']);
+                  $author_row = $author_stmt->fetch(PDO::FETCH_ASSOC);
+                  extract($author_row);
+                  echo $author_row['username'] ;
+                ?>
+                </td>
               <td><a href="../post.php?id=<?= $row['id'] ?>">Link</a></td>
               <td>
                 <a href="index.php?p=editPost&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPost&idToMod=<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
