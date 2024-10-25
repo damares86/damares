@@ -1,7 +1,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Aggiungi post</h3>
+            <h3><?=$addpost_header?></h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav
@@ -12,7 +12,7 @@
                         <a href="index.php"><?= $common_dashboard ?></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Aggiungi post
+                        <?=$addpost_header?>
                     </li>
                 </ol>
             </nav>
@@ -26,7 +26,7 @@
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Aggiungi un nuovo post</h4>
+                    <h4 class="card-title"><?=$addpost_title?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -34,7 +34,7 @@
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Titolo<span class="text-danger">*</span></label>
+                                        <label><?=$addpost_post_title?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
@@ -53,7 +53,7 @@
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Categorie <span class="text-danger">*</span></label>
+                                        <label><?=$addpost_cat?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
@@ -84,7 +84,7 @@
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Immagine principale </label>
+                                        <label><?=$addpost_img?> </label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
@@ -106,7 +106,7 @@
                         </div> -->
 
                                     <div class="col-md-3 my-3">
-                                        <label>Contenuto<span class="text-danger">*</span></label>
+                                        <label><?=$addpost_content?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 my-3">
                                         <div class="form-group">
@@ -125,7 +125,7 @@
                                     if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                     ?>
                                         <div class="col-md-3 my-3">
-                                            <label>Scegli una galleria </label>
+                                            <label><?=$addpost_gallery?> </label>
                                         </div>
                                         <div class="col-md-9 my-3">
                                             <div class="form-group">
@@ -133,7 +133,7 @@
                                                     <div class="position-relative">
                                                         <fieldset class="form-group">
                                                             <select class="form-select" name="gall">
-                                                                <option value="none">Nessuna</option>
+                                                                <option value="none"><?=$addpost_gallery_none?></option>
                                                                 <?php
                                                                 $mc->table = 'mc_galleries';
                                                                 $galleries = $mc->showAll('id');

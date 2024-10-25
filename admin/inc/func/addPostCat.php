@@ -1,7 +1,7 @@
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Aggiungi categoria</h3>
+      <h3><?=$addcat_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav
@@ -12,7 +12,7 @@
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Aggiungi categoria
+            <?=$addcat_header?>
           </li>
         </ol>
       </nav>
@@ -26,7 +26,7 @@
     <div class="col-md-8 col-12">
       <div class="card shadow">
         <div class="card-header">
-          <h4 class="card-title">Aggiungi una nuova categoria</h4>
+          <h4 class="card-title"><?=$addcat_title?></h4>
         </div>
         <div class="card-content">
           <div class="card-body">
@@ -34,7 +34,7 @@
               <div class="form-body">
                 <div class="row">
                   <div class="col-md-3">
-                    <label>Nome categoria<span class="text-danger">*</span></label>
+                    <label><?=$addcat_name?> <span class="text-danger">*</span></label>
                   </div>
                   <div class="col-md-9">
                     <div class="form-group">
@@ -43,8 +43,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            placeholder="Categoria"
-                            id="first-name"
+                            placeholder="<?=$addcat_name?>"
                             name="category_name"
                             data-parsley-required="true" />
 
@@ -59,7 +58,7 @@
                   if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                   ?>
                     <div class="col-md-3 my-3">
-                      <label>Assegna alla pagina: <span class="text-danger">*</span></label>
+                      <label><?=$addcat_assign?>: <span class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-9 my-3">
                       <div class="form-group">
@@ -67,7 +66,7 @@
                           <div class="position-relative">
                             <fieldset class="form-group">
                               <select class="form-select w-75" name="assign_page">
-                                <option value="none">None</option>
+                                <option value="none"><?=$addcat_none?></option>
                                 <?php
                                 $mc->table = 'mc_pages';
                                 $stmt = $mc->showAll('page_name');

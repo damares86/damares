@@ -13,7 +13,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutte le categorie</h3>
+      <h3><?=$allpostcat_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -22,7 +22,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Tutte le categorie
+            <?=$allpostcat_header?>
           </li>
         </ol>
       </nav>
@@ -35,19 +35,19 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">Tutte le categorie &nbsp; &nbsp; &nbsp;
-      <a href="index.php?p=addPostCat" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Aggiungi una categoria</a>
+    <div class="card-header"><?=$allpostcat_header?> &nbsp; &nbsp; &nbsp;
+      <a href="index.php?p=addPostCat" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> <?=$allpostcat_add?></a>
     </div>
     <div class="card-body">
       <table class="table" id="table">
         <thead>
           <tr>
-            <th>Nome categoria</th>
-            <th>Numero articoli</th>
+            <th><?=$allpostcat_name?></th>
+            <th><?=$allpostcat_number?></th>
             <?php
             if($minicms){
             ?>
-              <th>Assigned to page</th>
+              <th><?=$allpostcat_assign?></th>
             <?php
             }
             ?>
@@ -117,7 +117,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                         </button>
                       </div>
                       <div class="modal-body">
-                        <?= $customer_all_modal_body ?>
+                        <?= $allpostcat_modal_body ?>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">

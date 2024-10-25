@@ -61,6 +61,13 @@ $total_pages = ceil($total_rows / $limit);
 
 					?>
 					*** Data: <?= $newTime ?> ***
+					<?php
+						$account->id = $row['author'] ;
+						$author_stmt = $account->showAllWhere('id',['id']);
+						$author_row = $author_stmt->fetch(PDO::FETCH_ASSOC);
+						extract($author_row);
+					?>
+					*** Autore: <b><?=$author_row['username']?></b> ***
 				</p>
 				<div class="blog_content border-bottom">
 					<?php

@@ -16,7 +16,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3 class="d-inline">Modifica post</h3>
+            <h3 class="d-inline"><?=$editpost_header?></h3>
             <a href="index.php?p=<?= $url_pageName ?>&tablePage=<?= $url_tablePage ?>&pageName=<?= $url_pageName ?>" class="btn icon btn-info shadow mx-3 px-3">
                 <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= $common_back ?>
             </a>
@@ -29,7 +29,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                     <a href="index.php"><?= $common_dashboard ?></a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Modifica post
+                    <?=$editpost_header?>
                 </li>
             </ol>
         </nav>
@@ -43,7 +43,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Modifica il post: <?= $row1['title'] ?></h4>
+                    <h4 class="card-title"><?=$editpost_title?>: <?= $row1['title'] ?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -51,7 +51,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Titolo<span class="text-danger">*</span></label>
+                                        <label><?=$editpost_post_title?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
@@ -64,7 +64,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Categorie <span class="text-danger">*</span></label>
+                                        <label><?=$editpost_cat?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
@@ -95,7 +95,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Immagine principale </label>
+                                        <label><?=$editpost_img?> </label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
@@ -108,7 +108,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                                     <?php
                                                     }
                                                     ?>
-                                                    <br> <span class="mb-3">Carica una nuova immagine</span>
+                                                    <br> <span class="mb-3"><?=$editpost_upload?></span>
                                                     <input class="form-control" type="file" id="formFile" name="myfile" placeholder="Carica nuovo file" />
                                                 </div>
                                             </div>
@@ -124,7 +124,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
 
 
                                     <div class="col-md-3 my-3">
-                                        <label>Contenuto<span class="text-danger">*</span></label>
+                                        <label><?=$editpost_content?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 my-3">
                                         <div class="form-group">
@@ -143,7 +143,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                     if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                     ?>
                                         <div class="col-md-3 my-3">
-                                            <label>Scegli una galleria </label>
+                                            <label><?=$editpost_gallery?> </label>
                                         </div>
                                         <div class="col-md-9 my-3">
                                             <div class="form-group">
@@ -151,7 +151,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                                     <div class="position-relative">
                                                         <fieldset class="form-group">
                                                             <select class="form-select" name="gall">
-                                                                <option value="none">Nessuna</option>
+                                                                <option value="none"><?=$editpost_gallery_none?></option>
                                                                 <?php
                                                                 $mc->table = 'mc_galleries';
                                                                 $galleries = $mc->showAll('id');
