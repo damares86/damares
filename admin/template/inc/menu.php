@@ -4,6 +4,28 @@
     $link = "";
     $link_child = "";
 
+    $plugin->pluginname = "post";
+
+    $post_check = false ;
+
+    if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+
+        $post_check = true ;
+
+        $post->table = 'post_categories';
+        $cat_stmt = $post->showAll();
+        $cat_pages = [] ;
+        while($cat_row = $cat_stmt->fetch(PDO::FETCH_ASSOC)){
+            extract($cat_row);
+            if($cat_row['assign_page'] != NULL){
+                $cat_pages[] = $cat_row['assign_page'] ;
+            }
+        }
+
+    }
+
+
+
     if ($page_class == "login" && $one) {
 
     ?>
@@ -28,6 +50,11 @@
             $page_order[] = $row['id'] ;
             $page_name = str_replace('_', ' ', ucfirst($row['page_name']));
             $link = $row['page_name'] . ".php";
+            if($post_check){
+                if(in_array($parent['id'],$cat_pages)){
+                    $link = 'blog.php?cat='.$parent['id'];
+                }
+            }
             $class = "";
             if ($one && $row['page_name']!= "login") {
                 $link = "#".$row['id'];
