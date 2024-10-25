@@ -1,28 +1,44 @@
 <?php
 
 $path = "../plugins/mini_cms";
-$root = '../' ;
+$root = '../';
 
 $exclude_folder = ['frontend', 'misc'];
 foreach (glob("$path/*") as $row) {
   $item = pathinfo($row);
 
   if (is_dir($row) && !in_array($item['basename'], $exclude_folder)) {
-    echo "ROW -> ".$root.$item['basename']." <br>";
+
     foreach (glob($row . '/*') as $elem) {
-      
+
       if (is_dir($elem)) {
         $item1 = pathinfo($elem);
         foreach (glob($elem . '/*') as $elem_child) {
-          
-          echo 'CHILD -> '.$root.$item['basename'].'/'.$item1['basename'].' <br>';
+
           $file_child = pathinfo($elem_child);
-          echo "second -> ".$file_child['basename'];
-          echo "<br>";
+
+          $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+          $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+
+          // copy
+          if (copy($source_file, $dest_file)) {
+            chmod($dest_file, 0755);
+          } else {
+            $error++;
+          }
         }
       } else {
-        $file_parent = pathinfo($elem);        
-        echo "file-> ".$file_parent['basename'];
+
+        $file_parent = pathinfo($elem);
+
+        $source_file = $elem . $file_parent['basename'];
+        $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
+
+        if (copy($source_file, $dest_file)) {
+          chmod($dest_file, 0755);
+        } else {
+          $error++;
+        }
       }
 
       echo "<br>";

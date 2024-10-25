@@ -237,147 +237,51 @@ if ($op == "add") {
 
   }
 
-  foreach(glob("$path/") as $row){
+  $root = '../';
 
-    
-
-
-
-
-
-
-  }
-
-  // copy assets files
-  foreach (glob("$path/assets/*") as $row) {
+  $exclude_folder = ['frontend', 'misc'];
+  foreach (glob("$path/*") as $row) {
     $item = pathinfo($row);
-
-    if (copy($path . '/assets/' . $item['basename'] . '', '../assets/css/' . $item['basename'] . '')) {
-      chmod('../assets/css/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-      
-    }
-  }
-  //echo "copy assets-> ".$error."<br>" ;
-
-
-  // copy class files
-  foreach (glob("$path/class/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/class/' . $item['basename'] . '', '../class/' . $item['basename'] . '')) {
-      chmod('../class/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-      
-    }
-  }
-  //echo "copy class-> ".$error."<br>" ;
-
-
-
-  // copy core files
-  foreach (scandir("$path/core/") as $row) {
-    $item = pathinfo($row);
-    if (!in_array($item['basename'], $exclude)) {
-      if (copy($path . '/core/' . $item['basename'] . '', '' . $item['basename'] . '')) {
-        chmod('' . $item['basename'] . '', 0777);
-      } else {
-        $error++;
-      }
-    }
-  }
-  //echo "copy core-> ".$error."<br>" ;
-
-
-  // copy inc files
-  $scan = scandir($path . '/inc');
-
-  foreach ($scan as $folder) {
-    if (!in_array($folder, $exclude)) {
-      if (copy($path . '/inc/' . $folder . '', '../inc/' . $folder . '')) {
-        chmod('../inc/' . $folder . '', 0777);
-      } else {
-        $error++;
-      }
-    }
-  }
-
-  //echo "copy inc-> ".$error."<br>" ;
-
-
-  // copy inc/func files
-  foreach (glob("$path/inc/func/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/inc/func/' . $item['basename'] . '', '../inc/func/' . $item['basename'] . '')) {
-      chmod('../inc/func/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  //echo "copy func-> ".$error."<br>" ;
-
-
-  // copy inc/settings files
-  foreach (glob("$path/settings/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/settings/' . $item['basename'] . '', '../inc/func/' . $item['basename'] . '')) {
-      chmod('../inc/func/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  //echo "copy setting-> ".$error."<br>" ;
-
-
-  // copy script files
-  foreach (glob("$path/script/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/script/' . $item['basename'] . '', '../script/' . $item['basename'] . '')) {
-      chmod('../script/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  //echo "copy script-> ".$error."<br>" ;
-
-  // copy locale files
-  $scan = scandir($path . '/locale');
-  foreach ($scan as $folder) {
-    if (is_dir("$path/locale/$folder") && !in_array($folder, $exclude)) {
-
-      // copy locale files
-      foreach (glob("$path/locale/$folder/*") as $row) {
-        $item = pathinfo($row);
-
-        if (copy($path . '/locale/' . $folder . '/' . $item['basename'] . '', '../locale/' . $folder . '/' . $item['basename'] . '')) {
-          chmod('../locale/' . $folder . '/' . $item['basename'] . '', 0777);
+  
+    if (is_dir($row) && !in_array($item['basename'], $exclude_folder)) {
+  
+      foreach (glob($row . '/*') as $elem) {
+  
+        if (is_dir($elem)) {
+          $item1 = pathinfo($elem);
+          foreach (glob($elem . '/*') as $elem_child) {
+  
+            $file_child = pathinfo($elem_child);
+  
+            $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+            $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+  
+            // copy
+            if (copy($source_file, $dest_file)) {
+              chmod($dest_file, 0755);
+            } else {
+              $error++;
+            }
+          }
         } else {
-          $error++;
+  
+          $file_parent = pathinfo($elem);
+  
+          $source_file = $elem . $file_parent['basename'];
+          $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
+  
+          if (copy($source_file, $dest_file)) {
+            chmod($dest_file, 0755);
+          } else {
+            $error++;
+          }
         }
+  
+        echo "<br>";
       }
     }
   }
-
-  // copy uploads files
-  foreach (glob("$path/uploads/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/uploads/' . $item['basename'] . '', '../uploads/' . $item['basename'] . '')) {
-      chmod('../uploads/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  //echo "copy uploads-> ".$error."<br>" ;
+  
 
   unlink("../inc/class_initialize.php");
   if ($error == 0) {
