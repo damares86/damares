@@ -66,7 +66,7 @@
                         <div class="form-check mandatory">
                           <div class="position-relative">
                             <fieldset class="form-group">
-                              <select class="form-select w-75" name="page_id">
+                              <select class="form-select w-75" name="assign_page">
                                 <option value="none">None</option>
                                 <?php
                                 $mc->table = 'mc_pages';

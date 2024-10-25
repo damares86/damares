@@ -32,7 +32,7 @@ $stmt = $post->showAll('id');
       <a href="index.php?p=addPost" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Aggiungi un post</a>
     </div>
     <div class="card-body">
-      <table class="table" id="table1">
+      <table class="table" id="table">
         <thead>
           <tr>
             <th>Titolo</th>

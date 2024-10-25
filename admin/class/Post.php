@@ -20,6 +20,7 @@ class Post extends Common{
     public $category_id ;
     public $category_name ;
     public $post_link ;
+    public $assign_page ;
 
     public function readMore()
     {

@@ -45,5 +45,6 @@ $err_customerNoDel = "Customer not deleted" ;
 $err_customerExist = "Customer already exists" ;
 $err_customerNoEdit = "Customer not modified" ;
 $err_customerFail = "Customer not created" ;
+$err_postCatPage = "Category assigned to a page";
 
 ?>

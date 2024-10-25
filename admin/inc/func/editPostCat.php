@@ -73,7 +73,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                                 <div class="form-check mandatory">
                                                     <div class="position-relative">
                                                         <fieldset class="form-group">
-                                                            <select class="form-select w-75" name="page_id">
+                                                            <select class="form-select w-75" name="assign_page">
                                                                 <?php
                                                                 $selected = '';
                                                                 if ($row1['assign_page'] == 'none') {
