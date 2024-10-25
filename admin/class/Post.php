@@ -26,7 +26,7 @@ class Post extends Common{
     {
         $this->content = substr($this->content, 0, $this->limit) ;
         $this->content = substr($this->content, 0, strrpos($this->content, ' ')) ;
-        $this->content = $this->content . "... <a href='$this->post_link?id=$this->id'>Read more -></a>" ;
+        $this->content = $this->content . "... <a href='$this->post_link'>Read more -></a>" ;
         return $this->content ;
     }
     

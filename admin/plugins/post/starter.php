@@ -15,6 +15,26 @@ if ($op == 'add') {
 			$error++;
 		}
 	}
+
+	$plugin->pluginname = "mini_cms";
+
+	if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+
+		$mc->table = 'mc_pages' ;
+		$mc->page_name = 'blog' ;
+		$mc->no_del = 1 ;
+		$mc->layout = 'default' ;
+		$mc->header = 1 ;
+		$mc->header_media = 'visual.jpg' ;
+		$mc->use_name = 1 ;
+		$mc->use_desc = 1 ;
+		$mc->counter = 1 ;
+
+		if(!$mc->insert(['page_name', 'no_del', 'layout', 'header', 'header_media', 'use_name', 'use_desc', 'counter'])) {
+			$error++ ;
+		}
+		
+	}
 	
 }else if($op == 'rm'){
 	

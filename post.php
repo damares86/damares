@@ -74,11 +74,17 @@ require "admin/template/inc/header.php";
                         *** Data: <?= $newTime ?> ***
                     </p>
                     <div class="blog_content border-bottom">
-                        <div class="row">
-                            <div class="col px-5">
-                                <img src="uploads/img/<?= $post_title_row['main_img'] ?>" class="justify-content-center mx-auto"><br>
+                        <?php
+                        if ($post_title_row['main_img'] != NULL) {
+                        ?>
+                            <div class="row">
+                                <div class="col px-5">
+                                    <img src="uploads/img/<?= $post_title_row['main_img'] ?>" class="post_img justify-content-center mx-auto"><br>
+                                </div>
                             </div>
-                        </div>
+                        <?php
+                        }
+                        ?>
                         <?= $post_title_row['content'] ?>
                         <br><br>
                         <?php
@@ -100,7 +106,7 @@ require "admin/template/inc/header.php";
                                     // Image extensions
                                     $image_extensions = array("png", "jpg", "jpeg", "JPG");
 
-                                    $dir = "uploads/gallery/g_".$post_title_row['gall']."/";
+                                    $dir = "uploads/gallery/g_" . $post_title_row['gall'] . "/";
 
                                     if (is_dir($dir)) {
 

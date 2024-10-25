@@ -5,7 +5,7 @@ require "admin/template/inc/header.php";
 $limit = 3; // Numero di post per pagina
 $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
 if (!$page || $page <= 0) {
-    $page = 1;
+	$page = 1;
 }
 $offset = ($page - 1) * $limit; // Calcola l'offset per la query SQL
 
@@ -18,14 +18,12 @@ $catPage = "";
 
 if (filter_input(INPUT_GET, "cat")) {
 	$post->category_id = $cat_id;
-	$stmt = $post->showAllWhere('id', ['category_id'],$limit,$offset);
-	if ($cat_id == 2 || $cat_id == 3) {
-		$catPage = "&cat=$cat_id";
-	}
+	$stmt = $post->showAllWhere('id', ['category_id'], $limit, $offset);
+	$catPage = "&cat=$cat_id";
 	$post->category_id = $cat_id;
 	$total_rows = $post->countItem('category_id');
 } else {
-	$stmt = $post->showAll('id',$limit,$offset);
+	$stmt = $post->showAll('id', $limit, $offset);
 	$post->table = 'post';
 	$total_rows = $post->countAll();
 }
@@ -65,11 +63,17 @@ $total_pages = ceil($total_rows / $limit);
 					*** Data: <?= $newTime ?> ***
 				</p>
 				<div class="blog_content border-bottom">
-					<div class="row">
-						<div class="col px-5">
-							<img src="uploads/img/<?= $row['main_img'] ?>" class="justify-content-center mx-auto"><br>
+					<?php
+					if ($row['main_img'] != NULL) {
+					?>
+						<div class="row">
+							<div class="col px-5">
+								<img src="uploads/img/<?= $row['main_img'] ?>" class="post_img justify-content-center mx-auto"><br>
+							</div>
 						</div>
-					</div>
+					<?php
+					}
+					?>
 					<?php
 					$post->content = $row['content'];
 					$post->post_link = 'post.php?id=' . $row['id'] . $catPage . '';
@@ -82,24 +86,24 @@ $total_pages = ceil($total_rows / $limit);
 			}
 			if ($total_pages > 1) {
 			?>
-			<!-- Paginazione -->
-			<div class="pagination text-center">
-				<ul>
-					<?php if ($page > 1): ?>
-						<li class="page-item"><a class="page-link" href="?page=1<?= $cat_id ? '&cat=' . $cat_id : '' ?>">Inizio</a></li>
-						<li class="page-item"><a class="page-link" href="?page=<?= $page - 1 ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>">Precedente</a></li>
-					<?php endif; ?>
+				<!-- Paginazione -->
+				<div class="pagination text-center">
+					<ul>
+						<?php if ($page > 1): ?>
+							<li class="page-item"><a class="page-link" href="?page=1<?= $cat_id ? '&cat=' . $cat_id : '' ?>">Inizio</a></li>
+							<li class="page-item"><a class="page-link" href="?page=<?= $page - 1 ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>">Precedente</a></li>
+						<?php endif; ?>
 
-					<?php for ($i = 1; $i <= $total_pages; $i++): ?>
-						<li class="page-item<?= $i == $page ? ' active' : '' ?>"><a class="page-link" href="?page=<?= $i ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?= $i ?></a></li>
-					<?php endfor; ?>
+						<?php for ($i = 1; $i <= $total_pages; $i++): ?>
+							<li class="page-item<?= $i == $page ? ' active' : '' ?>"><a class="page-link" href="?page=<?= $i ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?= $i ?></a></li>
+						<?php endfor; ?>
 
-					<?php if ($page < $total_pages): ?>
-						<li class="page-item"><a class="page-link" href="?page=<?= $page + 1 ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>">Prossima</a></li>
-						<li class="page-item"><a class="page-link" href="?page=<?= $total_pages ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>">Fine</a></li>
-					<?php endif; ?>
-				</ul>
-			</div>
+						<?php if ($page < $total_pages): ?>
+							<li class="page-item"><a class="page-link" href="?page=<?= $page + 1 ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>">Prossima</a></li>
+							<li class="page-item"><a class="page-link" href="?page=<?= $total_pages ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>">Fine</a></li>
+						<?php endif; ?>
+					</ul>
+				</div>
 			<?php
 			}
 			?>
@@ -109,22 +113,22 @@ $total_pages = ceil($total_rows / $limit);
 				<h2><strong>Categorie</strong></h2>
 				<ul>
 					<?php
-						$post->table = "post_categories" ;
-						$all_cat = $post->showAll('id');
-						while($row_all_cat = $all_cat->fetch(PDO::FETCH_ASSOC)){
+					$post->table = "post_categories";
+					$all_cat = $post->showAll('id');
+					while ($row_all_cat = $all_cat->fetch(PDO::FETCH_ASSOC)) {
 
-							extract($row_all_cat);
-							?>
-								<li><a href="blog.php?cat=<?=$row_all_cat['id']?>"><?=$row_all_cat['category_name']?></a></li>
-							<?php
+						extract($row_all_cat);
+					?>
+						<li><a href="blog.php?cat=<?= $row_all_cat['id'] ?>"><?= $row_all_cat['category_name'] ?></a></li>
+					<?php
 
-						}
+					}
 					?>
 				</ul>
 			</div>
 		</div>
 		<div class="clearfix"></div>
-<?php
-require "admin/template/inc/footer.php";
+		<?php
+		require "admin/template/inc/footer.php";
 
-?>
+		?>
