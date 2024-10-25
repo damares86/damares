@@ -101,7 +101,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="position-relative">
-                                                    <img src="../uploads/<?= $row1['main_img'] ?>" class="w-25 mb-3">
+                                                    <img src="../uploads/img/<?= $row1['main_img'] ?>" class="w-25 mb-3">
                                                     <br> <span class="mb-3">Carica una nuova immagine</span>
                                                     <input class="form-control" type="file" id="formFile" name="myfile" placeholder="Carica nuovo file" />
                                                 </div>
@@ -124,11 +124,41 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <textarea name="content" id="default" cols="30" rows="15"><?= $row1['content'] ?></textarea>
+                                                    <textarea name="content" class="tiny" cols="30" rows="15"><?= $row1['content'] ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-3 my-3">
+                                        <label>Scegli una galleria </label>
+                                    </div>
+                                    <div class="col-md-9 my-3">
+                                        <div class="form-group">
+                                            <div class="form-check mandatory">
+                                                <div class="position-relative">
+                                                    <fieldset class="form-group">
+                                                        <select class="form-select" name="gall">
+                                                            <option value="none">Nessuna</option>
+                                                            <?php
+                                                            $mc->table = 'mc_galleries';
+                                                            $galleries = $mc->showAll('id');
+                                                            $galleryOptions = '';
+                                                            while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+                                                            ?>
+
+                                                                <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
 
                                     <input type="hidden" name="author" value="<?= $_SESSION['username'] ?>">
