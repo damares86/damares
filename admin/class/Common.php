@@ -38,7 +38,7 @@ class Common
     }
 
 
-    // insert
+    ///////////// INSERT
 
     // $fields must be an array
     function insert($fields)
@@ -56,41 +56,15 @@ class Common
         }
 
         $query = "INSERT INTO " . $this->prx . $this->table . "
-    SET " . $this->fields . "";
+        SET " . $this->fields . "";
 
 
         $stmt = $this->conn->prepare($query);
+        echo $query . '<br>';
 
         foreach ($fields as $item) {
             $stmt->bindParam(":$item", $this->$item);
-        }
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function insertIntoTable($fields, $table)
-    {
-
-        $i = 1;
-
-        $this->fields = "";
-        foreach ($fields as $item) {
-            $this->fields .= "$item = :$item";
-            if ($i < count($fields)) {
-                $this->fields .= ", ";
-            }
-            $i++;
-        }
-
-        $query = "INSERT INTO " . $this->prx . $table . "
-    SET " . $this->fields . "";
-        $stmt = $this->conn->prepare($query);
-        foreach ($fields as $item) {
-            $stmt->bindParam(":$item", $this->$item);
+            echo $item . ' -> ' . $this->$item . '<br>';
         }
 
         if ($stmt->execute()) {
@@ -101,8 +75,7 @@ class Common
     }
 
 
-
-    // update
+    ///////////// UPDATE
 
     // $fields must be an array
     function update($fields, $where)
@@ -140,103 +113,35 @@ class Common
     }
 
 
-    // $fields must be an array
-    function updateTable($fields, $where, $table)
+
+    ///////////// SELECT
+
+    function showAll($orderBy, $limit = null, $offset = null)
     {
 
-        $this->where = "";
+        $limits = '';
 
-        $this->fields = "";
-
-        $i = 1;
-        foreach ($fields as $item) {
-            $this->fields .= "$item = :$item";
-            if ($i < count($fields)) {
-                $this->fields .= ", ";
-            }
-            $i++;
+        if ($limit !== null && $offset !== null) {
+            $limits = " LIMIT :limit OFFSET :offset";
         }
 
-        $query = "UPDATE " . $this->prx . $table . "
-        SET " . $this->fields . " WHERE $where = :$where";
-
-
-        $stmt = $this->conn->prepare($query);
-
-        foreach ($fields as $item) {
-            $stmt->bindParam(":$item", $this->$item);
-        }
-        $stmt->bindParam(":$where", $this->$where);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    // $fields and $where must be an array
-    function updateTableMultiple($fields, $where, $table)
-    {
-
-        $this->where = "";
-
-        $this->fields = "";
-
-        $i = 1;
-        foreach ($fields as $item) {
-            $this->fields .= "$item = :$item";
-            if ($i < count($fields)) {
-                $this->fields .= ", ";
-            }
-            $i++;
-        }
-
-        $i = 1;
-        foreach ($where as $item) {
-            $this->where .= "$item = :$item";
-            if ($i < count($where)) {
-                $this->where .= " AND ";
-            }
-            $i++;
-        }
-
-        $query = "UPDATE " . $this->prx . $table . "
-    SET " . $this->fields . " WHERE " . $this->where . "";
-
-        $stmt = $this->conn->prepare($query);
-
-        foreach ($fields as $item) {
-            $stmt->bindParam(":$item", $this->$item);
-        }
-
-        foreach ($where as $item) {
-            $stmt->bindParam(":$item", $this->$item);
-        }
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // show_all
-
-    function showAll($orderBy)
-    {
         $query = "SELECT *
-    FROM " . $this->prx . $this->table . "
-    ORDER BY " . $orderBy . " ASC";
+            FROM " . $this->prx . $this->table . "
+        ORDER BY " . $orderBy . " ASC " . $limits . "";
 
         $stmt = $this->conn->prepare($query);
+
+        if ($limit !== null && $offset !== null) {
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        }
 
         $stmt->execute();
 
         return $stmt;
     }
 
+    // show the last n record inserted in a table
     function showAllLimitDesc($orderBy, $limit)
     {
         $query = "SELECT *
@@ -250,23 +155,8 @@ class Common
         return $stmt;
     }
 
-
-    function showAllTable($orderBy, $table)
-    {
-
-        $query = "SELECT *
-        FROM " . $this->prx . $table . "
-        ORDER BY " . $orderBy . " ASC";
-
-        $stmt = $this->conn->prepare($query);
-
-        $stmt->execute();
-
-        return $stmt;
-    }
-
     // $where must be an array
-    function showAllWhere($orderBy, $where)
+    function showAllWhere($orderBy, $where, $limit = null, $offset = null)
     {
 
         $this->where = "";
@@ -280,10 +170,20 @@ class Common
             $i++;
         }
 
+        $limit_query = '';
+        $offset_query = '';
+
+        if ($limit !== null) {
+            $limit_query = " LIMIT :limit ";
+        }
+        if ($offset !== null) {
+            $offset_query = " OFFSET :offset";
+        }
+
         $query = "SELECT *
         FROM " . $this->prx . $this->table . "
         WHERE " . $this->where . "
-        ORDER BY " . $orderBy . " ASC";
+        ORDER BY " . $orderBy . " ASC" . $limit_query . $offset_query . "";
 
         $stmt = $this->conn->prepare($query);
         // print_r($stmt);
@@ -291,105 +191,54 @@ class Common
             $stmt->bindParam(":$item", $this->$item);
         }
 
+        if ($limit !== null) {
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        }
+        if ($offset !== null) {
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        }
+
         $stmt->execute();
         return $stmt;
     }
 
-    function showAllWhereGtLt($orderBy, $op, $where)
+
+    // fields must be an array
+    function showFieldsUnion($orderBy, $table1, $table2, $fields)
     {
 
-        $this->where = "";
-
+        $this->fields = "";
         $i = 1;
-        foreach ($where as $item) {
-            $this->where .= "$item $op :$item";
-            if ($i < count($where)) {
-                $this->where .= " AND ";
+        foreach ($fields as $item) {
+            $this->fields .= "$item";
+            if ($i < count($fields)) {
+                $this->fields .= ", ";
             }
             $i++;
         }
 
-        $query = "SELECT *
-        FROM " . $this->prx . $this->table . "
-        WHERE " . $this->where . "
-        ORDER BY " . $orderBy . " ASC";
-        $stmt = $this->conn->prepare($query);
-
-        foreach ($where as $item) {
-            $stmt->bindParam(":$item", $this->$item);
-        }
-
-        $stmt->execute();
-        return $stmt;
-    }
-
-    function showAllWhereBetween($orderBy, $op1, $op2, $where)
-    {
-
-        $this->where = "";
-
-        $i = 1;
-        foreach ($where as $item) {
-            $op = 'op' . $i;
-            $this->where .= '' . $item . ' ' . $$op . ' :' . $item . '';
-            if ($i < count($where)) {
-                $this->where .= " AND ";
-            }
-            $i++;
-        }
-
-        $query = "SELECT *
-        FROM " . $this->prx . $this->table . "
-        WHERE " . $this->where . "
-        ORDER BY " . $orderBy . " ASC";
-        $stmt = $this->conn->prepare($query);
-
-        foreach ($where as $item) {
-            $stmt->bindParam(":$item", $this->$item);
-        }
-
-        $stmt->execute();
-        return $stmt;
-    }
-
-    function showAllWhereTable($orderBy, $table, $where)
-    {
-
-        $this->where = "";
-
-        $i = 1;
-        foreach ($where as $item) {
-            $this->where .= "$item = :$item";
-            if ($i < count($where)) {
-                $this->where .= " AND ";
-            }
-            $i++;
-        }
-        $query = "SELECT *
-        FROM " . $this->prx . $table . "
-        WHERE " . $this->where . "
-        ORDER BY " . $orderBy . " ASC";
+        $query = "SELECT " . $this->fields . "
+        FROM " . $this->prx . $table1 . "
+        UNION
+        SELECT " . $this->fields . "
+        FROM " . $this->prx . $table2 . "
+        ORDER BY " . $orderBy . " ASC ";
 
         $stmt = $this->conn->prepare($query);
-
-        foreach ($where as $item) {
-            $stmt->bindParam(":$item", $this->$item);
-        }
 
         $stmt->execute();
 
         return $stmt;
     }
 
-
+    // check the existence of a single record
     public function itemExists($item)
     {
 
-        // query to check if email exists
         $query = "SELECT *
-    FROM " . $this->prx . $this->table . "
-    WHERE " . $item . " = :" . $item . "
-    LIMIT 0,1";
+        FROM " . $this->prx . $this->table . "
+        WHERE " . $item . " = :" . $item . "
+        LIMIT 0,1";
 
         $stmt = $this->conn->prepare($query);
 
@@ -408,13 +257,14 @@ class Common
         }
     }
 
+    // count how many record there are with a specific field
     public function countItem($item)
     {
 
         // query to check if email exists
         $query = "SELECT *
-    FROM " . $this->prx . $this->table . "
-    WHERE " . $item . " = :" . $item . "";
+        FROM " . $this->prx . $this->table . "
+        WHERE " . $item . " = :" . $item . "";
 
         $stmt = $this->conn->prepare($query);
 
@@ -429,8 +279,18 @@ class Common
         return $num;
     }
 
+    // count all records of a table
+    public function countAll()
+    {
+        $query = "SELECT COUNT(*) as total FROM " . $this->table . "";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
 
-    // delete
+
+    ///////////// DELETE
 
     function delete($field)
     {
@@ -448,20 +308,7 @@ class Common
     }
 
 
-    function deleteFromTable($field, $table)
-    {
-
-        $query = "DELETE FROM " . $this->prx . $table . " WHERE " . $field . " = :" . $field . "";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":$field", $this->$field);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    /////////////   OPERATIONS ON TABLES
 
     function dropTable($tableToDel)
     {
@@ -491,35 +338,56 @@ class Common
         }
     }
 
+
+    /////////////   OPERATIONS ON FILES
+
     public function chmod_R($path, $filemode)
     {
+        // Usa DIRECTORY_SEPARATOR per compatibilità tra sistemi operativi
         if (!is_dir($path)) {
-            return chmod($path, $filemode);
+            return chmod($path, $filemode, true);
         }
+
+        // Apri la directory
         $dh = opendir($path);
-        while ($file = readdir($dh)) {
-            if ($file != '.' && $file != '..') {
-                $fullpath = $path . '/' . $file;
-                if (!is_dir($fullpath)) {
-                    if (!chmod($fullpath, $filemode)) {
-                        return false;
-                    }
-                } else {
-                    if (!$this->chmod_R($fullpath, $filemode)) {
-                        return false;
-                    }
+        if (!$dh) {
+            return false; // Fallisce se non può aprire la directory
+        }
+
+        // Scansiona la directory
+        while (($file = readdir($dh)) !== false) {
+            if ($file == '.' || $file == '..') {
+                continue; // Salta directory correnti e parenti
+            }
+
+            $fullpath = $path . DIRECTORY_SEPARATOR . $file;
+
+            if (is_dir($fullpath)) {
+                // Ricorsione per le directory
+                if (!$this->chmod_R($fullpath, $filemode)) {
+                    closedir($dh); // Chiudi in caso di errore
+                    return false;
+                }
+            } else {
+                // Imposta i permessi sul file
+                if (!chmod($fullpath, $filemode, true)) {
+                    closedir($dh); // Chiudi in caso di errore
+                    return false;
                 }
             }
         }
 
+        // Chiudi la directory
         closedir($dh);
 
-        if (chmod($path, $filemode)) {
-            return true;
-        } else {
+        // Imposta i permessi sulla directory stessa
+        if (!chmod($path, $filemode, 0777, true)) {
             return false;
         }
+
+        return true; // Successo
     }
+
 
     public function copyDirectory($source, $destination)
     {
@@ -540,17 +408,6 @@ class Common
         }
     }
 
-    public function commaToPoint($number)
-    {
-        return str_replace(',', '.', $number);
-    }
-
-    public function pointToComma($number)
-    {
-        return str_replace('.', ',', $number);
-    }
-
-
     public function rmdir_recursive($dir)
     {
         foreach (scandir($dir) as $file) {
@@ -561,5 +418,17 @@ class Common
         rmdir($dir);
     }
 
-    
+
+    /////////////   MISC
+
+
+    public function commaToPoint($number)
+    {
+        return str_replace(',', '.', $number);
+    }
+
+    public function pointToComma($number)
+    {
+        return str_replace('.', ',', $number);
+    }
 }

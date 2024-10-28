@@ -54,7 +54,8 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
             $fileOk = true;
             if ($fileToRate) {
               $rate->file_id = $row['id'];
-              $stmt1 = $rate->showAllWhereTable('id', 'fileCat', ['file_id']);
+              $rate->table = "fileCat" ;
+              $stmt1 = $rate->showAllWhere('id', ['file_id']);
               $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
               extract($row1);
               if ($row['id'] == $row1['file_id']) {
@@ -64,7 +65,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
 
             $label_arr = explode("_", $row['label']);
 
-            if ($fileOk && $label_arr[0] != "avatar" && $row['id'] != 1) {
+            if ($fileOk && $label_arr[0] != "avatar") {
           ?>
               <tr>
                 <td><?= $row['label'] ?></td>

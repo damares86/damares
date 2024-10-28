@@ -52,7 +52,7 @@ $common_number_user = "Numero di utenti" ;
 $common_profile = "Il mio profilo" ;
 $common_see_guide = "Vedi la guida" ;
 $common_back = "Torna indietro" ;
-
+$common_loading = "Caricamento" ;
 
 //////  HOMEPAGE  //////
 
@@ -135,6 +135,14 @@ $settings_layout_title = "Layout" ;
 $settings_layout_horizontal = "Orizzontale" ;
 $settings_layout_vertical = "Verticale" ;
 
+
+//////  DAMARES  //////
+
+$damares_title = "Gestione Root Damares" ;
+$damares_enable = "Abilita" ;
+$damares_clear_title = "Reset dell'installazione";
+$damares_clear_button = "Reset" ;
+$damares_modal_body = "Se confermi, tutti i dati del db e tutti i file personalizzati saranno ELIMINATI DEFINITIVAMENTE!" ;
 
 
 //////  MAIN MSG ALERT  //////

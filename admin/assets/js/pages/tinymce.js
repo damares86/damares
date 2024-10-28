@@ -12,11 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
   // tinymce.init({ selector: "#default", ...themeOptions })
+  // tinymce.init({
+  //   selector: "#default",
+  //   toolbar:
+  //     "undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent link code",
+  //   plugins: "code lists link",
+  //   ...themeOptions,
+  // })
   tinymce.init({
-    selector: "#default",
+    selector: ".tiny",
     toolbar:
       "undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent link code",
     plugins: "code lists link",
     ...themeOptions,
+    height: 400, // Imposta l'altezza dell'editor
+    // menubar: false, // Disattiva la barra del menù se non necessaria
   })
 })

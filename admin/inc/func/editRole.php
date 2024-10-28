@@ -193,6 +193,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
 
                                                                 if ($role_id == 1 ||  in_array($row1['id'], $sectionChildOk[0])) {
 
+                                                                    if($row1['show_menu']==1){
                                                                     $checkedChild = '';
                                                                     if (in_array($row1['id'], $sectionChild)) {
                                                                         $checkedChild = 'checked';
@@ -217,6 +218,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                                                         </div>
                                                                     </div>
                                                             <?php
+                                                                    }
                                                                 }
                                                             }
                                                             ?>

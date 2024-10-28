@@ -127,25 +127,3 @@ button:hover {
   line-height: 16px;
 }
 
-.container-pages {
-  display: block;
-  /* background-color: rgba(255, 255, 255, 0.2); */
-  background-color: #008db1;
-  width: 100%;
-  color:#000;
-}
-.parent_item{
-  background-color:#fff;
-}
-.child_block{
-  background-color: cadetblue;
-}
-.child_item{
-  background-color: #fff;
-}
-.paragraph_block{
-  background-color:wheat;
-}
-.paragraph_item{
-  background-color:darkseagreen;
-}

@@ -35,6 +35,7 @@ $common_number_user = "Number of users" ;
 $common_profile = "My profile" ;
 $common_see_guide = "See the guide" ;
 $common_back = "Go back" ;
+$common_loading = "Loading" ;
 
 
 //////  HOMEPAGE  //////
@@ -119,6 +120,14 @@ $settings_layout_title = "Layout" ;
 $settings_layout_horizontal = "Horizontal" ;
 $settings_layout_vertical = "Vertical" ;
 
+
+//////  DAMARES  //////
+
+$damares_title = "Root Management Damares" ;
+$damares_enable = "Enable" ;
+$damares_clear_title = "Reset installation";
+$damares_clear_button = "Clear" ;
+$damares_modal_body = "If you confirm, all the db data and all the custom file will be COMPLETELY DELETED!" ;
 
 
 //////  MAIN MSG ALERT  //////

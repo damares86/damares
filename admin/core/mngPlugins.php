@@ -100,6 +100,8 @@ if ($op == "add") {
     }
   }
 
+  //echo "create table -> ".$error."<br>" ;
+
   if (isset($menu_link)) {
     for ($i = 0; $i < count($menu_link); $i++) {
       if ($menu_link[$i]['link'] != 'link_parent') {
@@ -110,6 +112,7 @@ if ($op == "add") {
         if (!$section->insertParent()) {
           $error++;
         }
+        //echo "insert parent-> ".$error."<br>" ;
 
         // get the section parent inserted
         $section->table = 'sectionParent';
@@ -137,6 +140,9 @@ if ($op == "add") {
           $errorPerm++;
         }
 
+        //echo "perm parent-> ".$errorPerm."<br>" ;
+
+
         // set permission for the root user
         if ($_SESSION['role_id'] != 1) {
           $rolessection->table = 'rolesSection';
@@ -145,6 +151,7 @@ if ($op == "add") {
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
           }
+          //echo "perm parent root-> ".$errorPerm."<br>" ;
 
         }
         $section->table = 'sectionParent';
@@ -168,10 +175,12 @@ if ($op == "add") {
           $section->link = $child_link[$idx]['link'];
           $section->label = $child_link[$idx]['label'];
           $section->icon = $child_link[$idx]['icon'];
+          $section->show_menu = $child_link[$idx]['show_menu'];
 
           if (!$section->insertChild()) {
             $error++;
           }
+          //echo "insert child-> ".$error."<br>" ;
 
 
           // get the section parent inserted
@@ -198,6 +207,8 @@ if ($op == "add") {
           // set permission for the user that added the plugin
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
+        //echo "perm child-> ".$errorPerm."<br>" ;
+
           }
 
           // set permission for the root user
@@ -207,6 +218,8 @@ if ($op == "add") {
             $rolessection->role_id = 1;
             if (!$rolessection->update(['section_id'], 'role_id')) {
               $errorPerm++;
+        //echo "perm child root-> ".$errorPerm."<br>" ;
+
             }
           }
         }
@@ -220,141 +233,53 @@ if ($op == "add") {
 
   if (!$plugin->update(['installed', 'active'], 'pluginname')) {
     $error++;
+    //echo "update plugin-> ".$error."<br>" ;
+
   }
 
-  // copy assets files
-  foreach (glob("$path/assets/*") as $row) {
+  $root = '../';
+
+  $exclude_folder = ['frontend', 'misc'];
+  foreach (glob("$path/*") as $row) {
     $item = pathinfo($row);
-
-    if (copy($path . '/assets/' . $item['basename'] . '', '../assets/css/' . $item['basename'] . '')) {
-      chmod('../assets/css/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-
-  // copy class files
-  foreach (glob("$path/class/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/class/' . $item['basename'] . '', '../class/' . $item['basename'] . '')) {
-      chmod('../class/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-
-
-  // copy core files
-  foreach (scandir("$path/core/") as $row) {
-    $item = pathinfo($row);
-    if (!in_array($item['basename'], $exclude)) {
-      if (copy($path . '/core/' . $item['basename'] . '', '' . $item['basename'] . '')) {
-        chmod('' . $item['basename'] . '', 0777);
-      } else {
-        $error++;
-      }
-    }
-  }
-
-
-  // copy inc files
-  $scan = scandir($path . '/inc');
-
-  foreach ($scan as $folder) {
-    if (!in_array($folder, $exclude)) {
-      if (copy($path . '/inc/' . $folder . '', '../inc/' . $folder . '')) {
-        chmod('../inc/' . $folder . '', 0777);
-      } else {
-        $error++;
-      }
-    }
-  }
-
-  // copy inc/func files
-  foreach (glob("$path/inc/func/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/inc/func/' . $item['basename'] . '', '../inc/func/' . $item['basename'] . '')) {
-      chmod('../inc/func/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  // copy inc/settings files
-  foreach (glob("$path/settings/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/settings/' . $item['basename'] . '', '../inc/func/' . $item['basename'] . '')) {
-      chmod('../inc/func/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  // copy script files
-  foreach (glob("$path/script/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/script/' . $item['basename'] . '', '../script/' . $item['basename'] . '')) {
-      chmod('../script/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  // copy locale files
-  $scan = scandir($path . '/locale');
-  foreach ($scan as $folder) {
-    if (is_dir("$path/locale/$folder") && !in_array($folder, $exclude)) {
-
-      // copy locale files
-      foreach (glob("$path/locale/$folder/*") as $row) {
-        $item = pathinfo($row);
-
-        if (copy($path . '/locale/' . $folder . '/' . $item['basename'] . '', '../locale/' . $folder . '/' . $item['basename'] . '')) {
-          chmod('../locale/' . $folder . '/' . $item['basename'] . '', 0777);
+  
+    if (is_dir($row) && !in_array($item['basename'], $exclude_folder)) {
+  
+      foreach (glob($row . '/*') as $elem) {
+  
+        if (is_dir($elem)) {
+          
+          $item1 = pathinfo($elem);
+          foreach (glob($elem . '/*') as $elem_child) {
+  
+            $file_child = pathinfo($elem_child);
+  
+            $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+            $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+            
+            // copy
+            if (copy($source_file, $dest_file)) {
+              chmod($dest_file, 0755);
+            } else {
+              $error++;
+            }
+          }
         } else {
-          $error++;
+  
+          $file_parent = pathinfo($elem);
+  
+          $source_file = $elem ;
+          
+          $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
+  
+          if (copy($source_file, $dest_file)) {
+            chmod($dest_file, 0755);
+          } else {
+            $error++;
+          }
         }
+  
       }
-    }
-  }
-
-
-  // copy manual files
-  foreach (glob("$path/manual/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/manual/' . $item['basename'] . '', '../manual/' . $item['basename'] . '')) {
-      chmod('../manual/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  // copy frontend files
-  foreach (glob("$path/frontend/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/frontend/' . $item['basename'] . '', '../../' . $item['basename'] . '')) {
-      chmod('../../' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
-    }
-  }
-
-  // copy uploads files
-  foreach (glob("$path/uploads/*") as $row) {
-    $item = pathinfo($row);
-
-    if (copy($path . '/uploads/' . $item['basename'] . '', '../uploads/' . $item['basename'] . '')) {
-      chmod('../uploads/' . $item['basename'] . '', 0777);
-    } else {
-      $error++;
     }
   }
 
@@ -680,111 +605,46 @@ if ($op == "add") {
 
   // DELETE ALL FILES
 
-  // remove assets files
-  foreach (glob("$path/assets/*") as $row) {
+  
+  $root = '../';
+
+  $exclude_folder = ['frontend', 'misc'];
+  foreach (glob("$path/*") as $row) {
     $item = pathinfo($row);
-
-    if (!unlink('../assets/css/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove class files
-  foreach (glob("$path/class/*") as $row) {
-    $item = pathinfo($row);
-    if (!unlink('../class/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove core files
-  foreach (glob("$path/core/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove inc files
-
-  $scan = scandir($path . '/inc');
-
-  foreach ($scan as $file) {
-    if (!in_array($file, $exclude)) {
-      if (!unlink('../inc/' . $file . '')) {
-        $error++;
-      }
-    }
-  }
-
-  // remove inc/func files
-  foreach (glob("$path/inc/func/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../inc/func/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove setting files
-  foreach (glob("$path/settings/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../inc/func/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove script files
-  foreach (glob("$path/script/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../script/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove manual files
-  foreach (glob("$path/manual/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../manual/' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  $scan = scandir($path . '/locale');
-  $exclude = array('..', '.');
-  foreach ($scan as $folder) {
-    if (is_dir("$path/locale/$folder") && !in_array($folder, $exclude)) {
-      // copy locale files
-      foreach (glob("$path/locale/$folder/*") as $row) {
-        $item = pathinfo($row);
-
-        if (!unlink('../locale/' . $folder . '/' . $item['basename'] . '')) {
-
-          $error++;
+  
+    if (is_dir($row) && !in_array($item['basename'], $exclude_folder)) {
+  
+      foreach (glob($row . '/*') as $elem) {
+  
+        if (is_dir($elem)) {
+          
+          $item1 = pathinfo($elem);
+          foreach (glob($elem . '/*') as $elem_child) {
+  
+            $file_child = pathinfo($elem_child);
+  
+            // $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+            $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+            
+            // unlink
+            if (!unlink($dest_file)) {
+              $error++;
+            }
+          }
+        } else {
+  
+          $file_parent = pathinfo($elem);
+          // $source_file = $elem ;
+          
+          $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
+  
+            // unlink
+            if (!unlink($dest_file)) {
+              $error++;
+            }
         }
+  
       }
-    }
-  }
-
-  // remove frontend files
-  foreach (glob("$path/frontend/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../../' . $item['basename'] . '')) {
-      $error++;
-    }
-  }
-
-  // remove uploads files
-  foreach (glob("$path/uploads/*") as $row) {
-    $item = pathinfo($row);
-
-    if (!unlink('../uploads/' . $item['basename'] . '')) {
-      $error++;
     }
   }
 

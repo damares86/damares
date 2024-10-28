@@ -48,8 +48,9 @@
             $permChildArr = $permissionChild->fetch(PDO::FETCH_ASSOC);
             extract($permChildArr);
             $sectionChild = explode(',', $permChildArr['section_id']);
+            $section->table = 'sectionParent';
 
-            $stmt = $section->showAllTable('id', 'sectionParent');
+            $stmt = $section->showAll('id');
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
@@ -75,11 +76,21 @@
                 }
 
                 $disabled = '';
-                
+                $child = $section->showAllWhere('id', ['parent_id']);
+
                 if ($section->countChild($row['id']) > 0 && $countChildPermissions > 0) {
-                    $hasSub = "has-sub";
-                    $link = "#";
-                    $disabled = ' disabled';
+                    $check_nomenu = 0;
+                    while ($row_child = $child->fetch(PDO::FETCH_ASSOC)) {
+                        if ($row_child['show_menu'] == 1) {
+                            $check_nomenu++;
+                        }
+                    }
+                    if ($check_nomenu > 0) {
+
+                        $hasSub = "has-sub";
+                        $link = "#";
+                        $disabled = ' disabled';
+                    }
                 }
 
                 if ($page == $row['link']) {
@@ -103,7 +114,7 @@
                 if ($role_id == 1 ||  in_array($row['id'], $sectionParent)) {
             ?>
                     <li class="sidebar_li  align-items-center <?= $active ?>">
-                        <a href="index.php<?= $link ?>" class="sidebar-link<?=$disabled?>">
+                        <a href="index.php<?= $link ?>" class="sidebar-link<?= $disabled ?>">
                             <i class="bi bi-<?= $row['icon'] ?>"></i>
                             <?php
                             if ($lang == "en") {
@@ -121,63 +132,68 @@
                         if ($hasSub) {
                         ?>
                             <span class="toggle-submenu">+</span>
-                        <?php
-                        }
-                        ?>
-                        <?php
-                        if ($hasSub) {
-                            $where = ['parent_id'];
-                            $section->parent_id = $row['id'];
 
-                            $child = $section->showAllChild();
-                            if ($role_id == 1 || count($sectionChild) > 0) {
+                            <ul class="submenu_damares list-unstyled">
+                                <?php
+                                $where = ['parent_id'];
+                                $section->parent_id = $row['id'];
 
-                        ?>
-                                <ul class="submenu_damares list-unstyled">
+                                $child = $section->showAllChild();
+                                if ($role_id == 1 || count($sectionChild) > 0) {
+
+                                ?>
 
                                     <?php
                                     while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
-                                        if ($role_id == 1 || in_array($row1['id'], $sectionChild)) {
-                                            $active1 = "";
+                                        if (($role_id == 1 || in_array($row1['id'], $sectionChild))) {
+                                            if ($check_nomenu > 0) {
+                                                $active1 = "";
+                                                $display = '';
+                                                $show_menu = true;
+                                                if ($row1['show_menu'] == 0) {
+                                                    $display = 'style="display:none;"';
+                                                    $show_menu = false;
+                                                }
+                                                extract($row1);
 
-                                            extract($row1);
-
-                                            if ($page == $row1['link']) {
-                                                $active1 = "active";
-                                            }
+                                                if ($page == $row1['link']) {
+                                                    $active1 = "active";
+                                                }
                                     ?>
-                                            <li class="<?= $active1 ?>"><a href="index.php?p=<?= $row1['link'] ?>" data-parent-id="<?= $parent_id ?>">
-                                                    <i class="bi bi-<?= $row1['icon'] ?>"></i>
-                                                    <span>
-                                                        <?php
-                                                        if ($lang == "en") {
-                                                            echo $row1['label'];
-                                                        } else {
-                                                            $locale_label = strtolower($row1['label']);
-                                                            $locale_label = str_replace(" ", "_", $locale_label);
-                                                            $locale_label = "label_$locale_label";
-                                                            $section_label = $$locale_label;
-                                                            echo $section_label;
-                                                        }
-                                                        ?>
-                                                    </span>
-                                                </a>
-                                            </li>
+                                                <li class="<?= $active1 ?>"><a href="index.php?p=<?= $row1['link'] ?>" data-parent-id="<?= $parent_id ?>" <?= $display ?>>
+                                                        <i class="bi bi-<?= $row1['icon'] ?>"></i>
+                                                        <span>
+                                                            <?php
+                                                            if ($show_menu) {
+                                                                if ($lang == "en") {
+                                                                    echo $row1['label'];
+                                                                } else {
+                                                                    $locale_label = strtolower($row1['label']);
+                                                                    $locale_label = str_replace(" ", "_", $locale_label);
+                                                                    $locale_label = "label_$locale_label";
+                                                                    $section_label = $$locale_label;
+                                                                    echo $section_label;
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </span>
+                                                    </a>
+                                                </li>
                                     <?php
+                                            }
                                         }
                                     }
                                     ?>
-                                </ul>
-                        <?php
+                            </ul>
+                    <?php
+                                }
                             }
-                        }
-                        ?>
+                    ?>
                     </li>
 
             <?php
                 }
             }
-
             ?>
         </ul>
 

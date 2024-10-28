@@ -1,4 +1,4 @@
-$("#summernote").summernote({
+$(".summernote").summernote({
   tabsize: 2,
   height: 400,
   lang:"it-IT",

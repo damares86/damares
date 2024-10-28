@@ -1,10 +1,82 @@
 <?php
 
+$path = "../plugins/mini_cms";
+$root = '../';
+
+$exclude_folder = ['frontend', 'misc'];
+foreach (glob("$path/*") as $row) {
+  $item = pathinfo($row);
+
+  if (is_dir($row) && !in_array($item['basename'], $exclude_folder)) {
+
+    foreach (glob($row . '/*') as $elem) {
+
+      if (is_dir($elem)) {
+        $item1 = pathinfo($elem);
+        foreach (glob($elem . '/*') as $elem_child) {
+
+          $file_child = pathinfo($elem_child);
+
+          $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+          $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
+
+          // copy
+          if (copy($source_file, $dest_file)) {
+            chmod($dest_file, 0755);
+          } else {
+            $error++;
+          }
+        }
+      } else {
+
+        $file_parent = pathinfo($elem);
+
+        $source_file = $elem . $file_parent['basename'];
+        $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
+
+        if (copy($source_file, $dest_file)) {
+          chmod($dest_file, 0755);
+        } else {
+          $error++;
+        }
+      }
+
+      echo "<br>";
+    }
+  }
+}
+
+exit;
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+<pre>
+<?php
+
+
+$url_file = ($_SERVER);
+
+print_r($url_file);
+exit;
+?>
+</pre>
+<?php
+
 require "../core/coreConfig.php";
 
-if($luna->cloneTable('accounts','account_copy','id')){
+if ($luna->cloneTable('accounts', 'account_copy', 'id')) {
   echo "ok";
-}else{
+} else {
   echo "ko";
 }
 
@@ -13,7 +85,7 @@ exit;
 $pages_json = file_get_contents('../inc/luna_pages/pages_2.json');
 $pages_data = json_decode($pages_json, true);
 
-array_push($pages_data[1],8);
+array_push($pages_data[1], 8);
 print_r($pages_data);
 exit;
 
@@ -31,7 +103,7 @@ $indice = array_search($valore_da_rimuovere, $array);
 
 // Se l'indice esiste, rimuovi l'elemento dall'array
 if ($indice !== false) {
-    unset($array[$indice]);
+  unset($array[$indice]);
 }
 
 // Stampa l'array aggiornato
@@ -43,75 +115,69 @@ exit;
 $exclude = array('..', '.');
 foreach (scandir("../../product") as $row) {
 
-  $item=pathinfo($row);
-  if(!in_array($item['basename'],$exclude)){
+  $item = pathinfo($row);
+  if (!in_array($item['basename'], $exclude)) {
     $folder = $item['basename'];
 
-    rename("../../product/$folder","../../product/".$folder."_old");
-    echo "<br>" ;
+    rename("../../product/$folder", "../../product/" . $folder . "_old");
+    echo "<br>";
   }
-
 }
 
 exit;
 
 
-  require "inc/header.php" ;
+require "inc/header.php";
 
 
-  // calcolo differenza date
-  $today = date("Y-m-d");
-  $date1 = new DateTime($today);
-  $end = date("Y-m-d",strtotime("+10 days"));
-  $date2 = new DateTime($end);
+// calcolo differenza date
+$today = date("Y-m-d");
+$date1 = new DateTime($today);
+$end = date("Y-m-d", strtotime("+10 days"));
+$date2 = new DateTime($end);
 
-  $res = $date1->diff($date2);
-  echo $res->days ;
-  exit;
+$res = $date1->diff($date2);
+echo $res->days;
+exit;
 
 
-  if(($end - $today)  ) 
-  {
-    echo "Ok" ;
-  }
-  else
-  {
-    echo "Ko" ;
-  }
+if (($end - $today)) {
+  echo "Ok";
+} else {
+  echo "Ko";
+}
 
 
 
-  exit;
+exit;
 
 $ch = curl_init('https://giornatecardiologichetorinesi.it/quiz/script.php');
 // $ch = curl_init('http://boots.local/salomon/quiz/script.php');
 
-for($i=1; $i<501; $i++)
-{
-  if($i==1)
-  {
-    $ts1=1691655222910;
-    $ts2=1691655222921;
-    $ts3=1691655222934;
+for ($i = 1; $i < 501; $i++) {
+  if ($i == 1) {
+    $ts1 = 1691655222910;
+    $ts2 = 1691655222921;
+    $ts3 = 1691655222934;
   }
   // set post fields
-  
-  $post = 
-  [
-    'id' => $i,
-    1 => $ts1+$i,
-    2 => $ts2+$i,
-    3 => $ts3+$i
-  ];
+
+  $post =
+    [
+      'id' => $i,
+      1 => $ts1 + $i,
+      2 => $ts2 + $i,
+      3 => $ts3 + $i
+    ];
   print_r($post);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-  
+
   // execute!
   $response = curl_exec($ch);
   // close the connection, release resources used
   curl_close($ch);
-  
+
   // do anything you want with your response
   var_dump($response);
 }
@@ -123,17 +189,17 @@ exit;
 
 
 
-  $time = time();
+$time = time();
 
-  // print_r($time);
+// print_r($time);
 
-  echo "<br>";
+echo "<br>";
 
-  // get the day from epoch
-  $day = date('Y-m-d 00:00:00',$time);
-  
-  print_r($day);
-  exit;
+// get the day from epoch
+$day = date('Y-m-d 00:00:00', $time);
+
+print_r($day);
+exit;
 
 
 
@@ -142,73 +208,74 @@ exit;
 
 <script src="assets/extensions/jquery/jquery.min.js"></script>
 <script>
+  // sessionStorage.clear();
 
-// sessionStorage.clear();
+  // INSERIMENTO NEL SESSIONSTORAGE
+  // // const userArray = ['user_id','relation_id',1(domanda),0(boolean),timestamp_inizio,timestamp_fine];
 
-// INSERIMENTO NEL SESSIONSTORAGE
-// // const userArray = ['user_id','relation_id',1(domanda),0(boolean),timestamp_inizio,timestamp_fine];
-
-let id = 1 ;
-let start = Date.now();
-let userArray = ['user','relation',1,0,start];
-sessionStorage.setItem(id, JSON.stringify(userArray));
-let id1 = 2 ;
-userArray = ['user1','relation1',1,0];
-sessionStorage.setItem(id1, JSON.stringify(userArray));
-let id2 = 3 ;
-userArray = ['user2','relation2',1,0];
-sessionStorage.setItem(id2, JSON.stringify(userArray));
-let id3 = 4 ;
-userArray = ['user3','relation3',1,0];
-sessionStorage.setItem(id3, JSON.stringify(userArray));
-
-
-// GET ALL DATA FROM SESSIONSTORAGE
-var obj = Object.keys(sessionStorage).reduce(function(obj, key) {
-   obj[key] = sessionStorage.getItem(key);
-   return obj
-}, {});
-
-console.log(obj)
-
-// POST DATA TO PHP MNG PAGE
-
-$.post("script.php", { total: obj });
-
-// LOCALSTORAGE
-
-// recupero l'id dalla sessione
-// var session = "<?=$_SESSION['account_id']?>";
-
-// // INSERIMENTO NEL LOCALSTORAGE
-// // localStorage.setItem('quiz_(indice domanda)', JSON.stringify(userArray));
-
-// // GET E PARSE KEY (STRINGA >> JSON)
-// // prova = JSON.parse(localStorage.getItem('user'));
-// // console.log("prova")
+  let id = 1;
+  let start = Date.now();
+  let userArray = ['user', 'relation', 1, 0, start];
+  sessionStorage.setItem(id, JSON.stringify(userArray));
+  let id1 = 2;
+  userArray = ['user1', 'relation1', 1, 0];
+  sessionStorage.setItem(id1, JSON.stringify(userArray));
+  let id2 = 3;
+  userArray = ['user2', 'relation2', 1, 0];
+  sessionStorage.setItem(id2, JSON.stringify(userArray));
+  let id3 = 4;
+  userArray = ['user3', 'relation3', 1, 0];
+  sessionStorage.setItem(id3, JSON.stringify(userArray));
 
 
-// // ITERATE ALL LOCALSTORAGE KEYS
-// for (var i = 0; i < localStorage.length; i++) {
+  // GET ALL DATA FROM SESSIONSTORAGE
+  var obj = Object.keys(sessionStorage).reduce(function(obj, key) {
+    obj[key] = sessionStorage.getItem(key);
+    return obj
+  }, {});
 
-//   // set iteration key name
-//   var key = localStorage.key(i);
+  console.log(obj)
 
-//   // get the keys which includes 'quiz'
-//   if(key.includes('quiz')){
+  // POST DATA TO PHP MNG PAGE
 
-//     // get e parse del valore della chiave ciclata
-//     var value = JSON.parse(localStorage.getItem(key));
+  $.post("script.php", {
+    total: obj
+  });
 
-//     // prendo l'indice 0 (l'utente nel caso sopra)
-//     console.log(value[0])
-    
-//     }
+  // LOCALSTORAGE
 
-// // SVUOTA LOCALSTORAGE (A INIZIO QUIZ)
-// // localStorage.clear();
+  // recupero l'id dalla sessione
+  // var session = "<?= $_SESSION['account_id'] ?>";
 
-// }
+  // // INSERIMENTO NEL LOCALSTORAGE
+  // // localStorage.setItem('quiz_(indice domanda)', JSON.stringify(userArray));
+
+  // // GET E PARSE KEY (STRINGA >> JSON)
+  // // prova = JSON.parse(localStorage.getItem('user'));
+  // // console.log("prova")
+
+
+  // // ITERATE ALL LOCALSTORAGE KEYS
+  // for (var i = 0; i < localStorage.length; i++) {
+
+  //   // set iteration key name
+  //   var key = localStorage.key(i);
+
+  //   // get the keys which includes 'quiz'
+  //   if(key.includes('quiz')){
+
+  //     // get e parse del valore della chiave ciclata
+  //     var value = JSON.parse(localStorage.getItem(key));
+
+  //     // prendo l'indice 0 (l'utente nel caso sopra)
+  //     console.log(value[0])
+
+  //     }
+
+  // // SVUOTA LOCALSTORAGE (A INIZIO QUIZ)
+  // // localStorage.clear();
+
+  // }
 </script>
 <?php
 
@@ -230,16 +297,16 @@ const fs = require('fs');
 
 // Read the JSON file
 fs.readFile('data.json', 'utf8', (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+if (err) {
+console.error(err);
+return;
+}
 
-  // Parse the JSON data
-  const jsonData = JSON.parse(data);
+// Parse the JSON data
+const jsonData = JSON.parse(data);
 
-  // Access and manipulate the data as needed
-  console.log(jsonData);
+// Access and manipulate the data as needed
+console.log(jsonData);
 });
 To modify a JSON file:
 
@@ -249,78 +316,80 @@ const fs = require('fs');
 
 // Read the JSON file
 fs.readFile('data.json', 'utf8', (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+if (err) {
+console.error(err);
+return;
+}
 
-  // Parse the JSON data
-  const jsonData = JSON.parse(data);
+// Parse the JSON data
+const jsonData = JSON.parse(data);
 
-  // Modify the data
-  jsonData.property = 'new value';
+// Modify the data
+jsonData.property = 'new value';
 
-  // Convert the modified data back to JSON string
-  const updatedData = JSON.stringify(jsonData);
+// Convert the modified data back to JSON string
+const updatedData = JSON.stringify(jsonData);
 
-  // Write the updated JSON data back to the file
-  fs.writeFile('data.json', updatedData, 'utf8', (err) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log('JSON file has been updated.');
-  });
+// Write the updated JSON data back to the file
+fs.writeFile('data.json', updatedData, 'utf8', (err) => {
+if (err) {
+console.error(err);
+return;
+}
+console.log('JSON file has been updated.');
 });
-Make sure to replace 'data.json' with the actual path to your JSON file. The fs module in Node.js is used in these examples, assuming 
-you are working in a Node.js environment. If you are running JavaScript in a web browser, the process may differ slightly as 
-browsers have security restrictions on directly accessing the file system. In the browser, you typically use AJAX requests to 
+});
+Make sure to replace 'data.json' with the actual path to your JSON file. The fs module in Node.js is used in these examples, assuming
+you are working in a Node.js environment. If you are running JavaScript in a web browser, the process may differ slightly as
+browsers have security restrictions on directly accessing the file system. In the browser, you typically use AJAX requests to
 load and modify JSON data from a server.
 
 ------------------
 AJAX Requests:
 ------------------
 
-If you have a server-side component or an API endpoint that can handle file operations, 
-you can use AJAX (Asynchronous JavaScript and XML) requests to send and receive JSON data. 
-You can make requests to your server, and the server can handle the file read and write 
+If you have a server-side component or an API endpoint that can handle file operations,
+you can use AJAX (Asynchronous JavaScript and XML) requests to send and receive JSON data.
+You can make requests to your server, and the server can handle the file read and write
 operations. Here's an example using the Fetch API:
 javascript
 Copy code
 <script>
-// Read JSON data from the server
-fetch('data.json')
-  .then(response => response.json())
-  .then(jsonData => {
-    // Access and manipulate the data
-    console.log(jsonData);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+  // Read JSON data from the server
+  fetch('data.json')
+    .then(response => response.json())
+    .then(jsonData => {
+      // Access and manipulate the data
+      console.log(jsonData);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 
-// Modify JSON data and send it to the server
-const modifiedData = { key: 'new value' };
+  // Modify JSON data and send it to the server
+  const modifiedData = {
+    key: 'new value'
+  };
 
-fetch('saveData', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(modifiedData)
-})
-  .then(response => {
-    if (response.ok) {
-      console.log('JSON data has been saved.');
-    } else {
-      console.error('Failed to save JSON data.');
-    }
-  })
-  .catch(error => {
-    console.error(error);
-  });
+  fetch('saveData', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(modifiedData)
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('JSON data has been saved.');
+      } else {
+        console.error('Failed to save JSON data.');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
 </script>
-In the above example, data.json is the file you want to read, and 'saveData' is the 
+In the above example, data.json is the file you want to read, and 'saveData' is the
 endpoint or URL where you would send the modified JSON data for saving on the server-side.
-Remember that the server-side component or API you are using should be responsible for 
+Remember that the server-side component or API you are using should be responsible for
 handling file operations and persisting the changes to the JSON file.

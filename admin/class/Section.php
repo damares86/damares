@@ -16,6 +16,7 @@ class Section extends Common{
     public $link ;
     public $label ;
     public $icon ;
+    public $show_menu ;
 
         
     public function countChild($id){
@@ -60,7 +61,8 @@ class Section extends Common{
         SET link = :link,
         label = :label,
         icon = :icon,
-        parent_id = :parent_id"; 
+        parent_id = :parent_id,
+        show_menu = :show_menu"; 
         
         $stmt = $this->conn->prepare( $query );
     
@@ -68,6 +70,7 @@ class Section extends Common{
         $stmt->bindParam(":label", $this->label);
         $stmt->bindParam(":icon", $this->icon);
         $stmt->bindParam(":parent_id", $this->parent_id);
+        $stmt->bindParam(":show_menu", $this->show_menu);
     
         if($stmt->execute()){
             return true ;

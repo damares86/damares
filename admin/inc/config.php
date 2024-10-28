@@ -79,6 +79,7 @@ if ($parent) {
     $pageLabel = "";
     $pageLink = "";
     $pageId = "";
+    $check_parent = 0;
 }
 
 $setting->name = "lang";
