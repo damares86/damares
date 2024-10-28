@@ -46,10 +46,11 @@ $pages = $mc->showAllWhere('id', ['no_del']);
           <?php
           while ($row = $pages->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $str = $row['page_name'];
-            $str = str_replace('_', ' ', $str);
+            if ($row['id'] !== 1) {
+              $str = $row['page_name'];
+              $str = str_replace('_', ' ', $str);
 
-            $str = ucfirst($str);
+              $str = ucfirst($str);
           ?>
               <tr>
                 <td><?= $str  ?></td>
@@ -71,6 +72,7 @@ $pages = $mc->showAllWhere('id', ['no_del']);
 
           <?php
             }
+          }
           ?>
 
 

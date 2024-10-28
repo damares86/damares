@@ -113,7 +113,7 @@
                                                         <label class="form-check-label">&nbsp; <?= $addpage_header_img_title ?></label>
                                                         <br>
                                                         <br>
-                                                        <span><?= $addpage_header_img_default ?>: <img src="../uploads/visual.jpg" class="d-inline w-25"></span>
+                                                        <span><?= $addpage_header_img_default ?>: <img src="../uploads/img/visual.jpg" class="d-inline w-25"></span>
                                                         <br>
                                                         <br>
 
@@ -225,9 +225,11 @@
                                                                     <option value="quote_1"><?= $block_type_quotes ?></option>
                                                                     <?php
                                                                     $plugin->pluginname = "post";
-                                                                    $postOption = '';
+                                                                    // $postOption = '';
+                                                                    $postExist = false ;
                                                                     if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-                                                                        $postOption = '<option value="post_1">'.$block_type_post.'</option>';
+                                                                        $postExist = true ;
+                                                                        // $postOption = '<option value="post_1">' . $block_type_post . '</option>';
                                                                     ?>
                                                                         <option value="post_1"><?= $block_type_post ?></option>
                                                                     <?php
@@ -302,7 +304,38 @@
                                                     <input type="hidden" name="quote_1" value="q">
                                                 </div>
                                                 <div class="row page post_1">
-                                                    <p><?= $block_post_text ?></p>
+                                                    <div class="col-12">
+                                                        <p><?= $block_post_text ?></p>
+                                                    </div>
+
+                                                    <div class="col-md-3 pb-3">
+                                                        <label><?=$block_post_cat?></label>
+                                                    </div>
+                                                    <div class="col-md-9 pb-3">
+                                                        <div class="form-group has-icon-left">
+                                                            <div class="position-relative">
+                                                                <fieldset class="form-group">
+                                                                    <select class="form-select w-50" name="post_cat_1">
+                                                                        <option value='none'><?=$block_post_cat_all?></option>
+                                                                        <?php
+                                                                        $catOption = '<option value="none">'.$block_post_cat_all.'</option>';
+                                                                        $post->table = "post_categories";
+                                                                        $cat_stmt = $post->showAll('id');
+                                                                        while ($cat_row = $cat_stmt->fetch(PDO::FETCH_ASSOC)) {
+                                                                           $catOption .= '<option value="'.$cat_row['id'].'">' . $cat_row['category_name'] . '</option>';
+
+                                                                        ?>
+                                                                            <option value='<?= $cat_row['id'] ?>'><?= $cat_row['category_name'] ?></option>
+                                                                        <?php
+                                                                        }
+
+                                                                        ?>
+                                                                    </select>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <input type="hidden" name="post_1" value="p">
                                                 </div>
 
@@ -503,27 +536,29 @@ $colors = json_encode($colorArray);
 ?>
 <script type="text/javascript">
     var galleryOptions = '<?php echo $galleryOptions; ?>';
-    var postOptions = '<?php echo $postOption; ?>';
+    var postExist = <?=$postExist?>;
+    var catOptions = '<?php echo $catOption; ?>';
     var colorOptionsBg = '<?php echo $colorOptionsBg; ?>';
     var colorOptionsText = '<?php echo $colorOptionsText; ?>';
     var colors = <?php echo $colors; ?>;
-    var block_type_text = '<?php echo $block_type_text; ?>' ;
-    var block_title = '<?php echo $block_title; ?>' ;
-    var block_type_image = '<?php echo $block_type_image; ?>' ;
-    var block_type_info = '<?php echo $block_type_info; ?>' ;
-    var block_type_gallery = '<?php echo $block_type_gallery; ?>' ;
-    var block_type_quotes = '<?php echo $block_type_quotes; ?>' ;
-    var block_type_post = '<?php echo $block_type_post; ?>' ;
-    var block_gallery_choose = '<?php echo $block_gallery_choose; ?>' ;
-    var block_quotes_text = '<?php echo $block_quotes_text; ?>' ;
-    var block_post_text = '<?php echo $block_post_text; ?>' ;
-    var block_bg_color = '<?php echo $block_bg_color; ?>' ;
-    var block_bg_text = '<?php echo $block_bg_text; ?>' ;
-    var block_color_none = '<?php echo $block_color_none; ?>' ;
-    var block_add = '<?php echo $block_add; ?>' ;
-    var block_image_upload = '<?php echo $block_image_upload; ?>' ;
-    var block_image_default = '<?php echo $block_image_default; ?>' ;
-
+    var block_type_text = '<?php echo $block_type_text; ?>';
+    var block_title = '<?php echo $block_title; ?>';
+    var block_type_image = '<?php echo $block_type_image; ?>';
+    var block_type_info = '<?php echo $block_type_info; ?>';
+    var block_type_gallery = '<?php echo $block_type_gallery; ?>';
+    var block_type_quotes = '<?php echo $block_type_quotes; ?>';
+    var block_type_post = '<?php echo $block_type_post; ?>';
+    var block_gallery_choose = '<?php echo $block_gallery_choose; ?>';
+    var block_quotes_text = '<?php echo $block_quotes_text; ?>';
+    var block_post_text = '<?php echo $block_post_text; ?>';
+    var block_post_cat = '<?php echo $block_post_cat; ?>';
+    var block_post_cat_all = '<?php echo $block_post_cat_all; ?>';
+    var block_bg_color = '<?php echo $block_bg_color; ?>';
+    var block_bg_text = '<?php echo $block_bg_text; ?>';
+    var block_color_none = '<?php echo $block_color_none; ?>';
+    var block_add = '<?php echo $block_add; ?>';
+    var block_image_upload = '<?php echo $block_image_upload; ?>';
+    var block_image_default = '<?php echo $block_image_default; ?>';
 </script>
 <script src="script/mc_addBlockPage.js"></script>
 <script>

@@ -128,9 +128,9 @@ class Common
         $query = "SELECT *
             FROM " . $this->prx . $this->table . "
         ORDER BY " . $orderBy . " ASC " . $limits . "";
-        
+
         $stmt = $this->conn->prepare($query);
-        
+
         if ($limit !== null && $offset !== null) {
             $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -170,16 +170,20 @@ class Common
             $i++;
         }
 
-        $limits = '';
+        $limit_query = '';
+        $offset_query = '';
 
-        if ($limit !== null && $offset !== null) {
-            $limits = " LIMIT :limit OFFSET :offset";
+        if ($limit !== null) {
+            $limit_query = " LIMIT :limit ";
+        }
+        if ($offset !== null) {
+            $offset_query = " OFFSET :offset";
         }
 
         $query = "SELECT *
         FROM " . $this->prx . $this->table . "
         WHERE " . $this->where . "
-        ORDER BY " . $orderBy . " ASC" . $limits . "";
+        ORDER BY " . $orderBy . " ASC" . $limit_query . $offset_query . "";
 
         $stmt = $this->conn->prepare($query);
         // print_r($stmt);
@@ -187,8 +191,10 @@ class Common
             $stmt->bindParam(":$item", $this->$item);
         }
 
-        if ($limit !== null && $offset !== null) {
+        if ($limit !== null) {
             $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        }
+        if ($offset !== null) {
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         }
 
@@ -196,8 +202,10 @@ class Common
         return $stmt;
     }
 
+
     // fields must be an array
-    function showFieldsUnion($orderBy, $table1, $table2, $fields){
+    function showFieldsUnion($orderBy, $table1, $table2, $fields)
+    {
 
         $this->fields = "";
         $i = 1;
@@ -209,19 +217,18 @@ class Common
             $i++;
         }
 
-        $query = "SELECT ".$this->fields ."
+        $query = "SELECT " . $this->fields . "
         FROM " . $this->prx . $table1 . "
         UNION
-        SELECT ".$this->fields ."
+        SELECT " . $this->fields . "
         FROM " . $this->prx . $table2 . "
         ORDER BY " . $orderBy . " ASC ";
-        
+
         $stmt = $this->conn->prepare($query);
-        
+
         $stmt->execute();
 
         return $stmt;
-
     }
 
     // check the existence of a single record
@@ -273,14 +280,15 @@ class Common
     }
 
     // count all records of a table
-    public function countAll() {
-        $query = "SELECT COUNT(*) as total FROM ".$this->table."";
+    public function countAll()
+    {
+        $query = "SELECT COUNT(*) as total FROM " . $this->table . "";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }
-    
+
 
     ///////////// DELETE
 
@@ -337,23 +345,23 @@ class Common
     {
         // Usa DIRECTORY_SEPARATOR per compatibilità tra sistemi operativi
         if (!is_dir($path)) {
-            return chmod($path, $filemode,true);
+            return chmod($path, $filemode, true);
         }
-    
+
         // Apri la directory
         $dh = opendir($path);
         if (!$dh) {
             return false; // Fallisce se non può aprire la directory
         }
-    
+
         // Scansiona la directory
         while (($file = readdir($dh)) !== false) {
             if ($file == '.' || $file == '..') {
                 continue; // Salta directory correnti e parenti
             }
-    
+
             $fullpath = $path . DIRECTORY_SEPARATOR . $file;
-    
+
             if (is_dir($fullpath)) {
                 // Ricorsione per le directory
                 if (!$this->chmod_R($fullpath, $filemode)) {
@@ -362,24 +370,24 @@ class Common
                 }
             } else {
                 // Imposta i permessi sul file
-                if (!chmod($fullpath, $filemode,true)) {
+                if (!chmod($fullpath, $filemode, true)) {
                     closedir($dh); // Chiudi in caso di errore
                     return false;
                 }
             }
         }
-    
+
         // Chiudi la directory
         closedir($dh);
-    
+
         // Imposta i permessi sulla directory stessa
-        if (!chmod($path, $filemode,0777,true)) {
+        if (!chmod($path, $filemode, 0777, true)) {
             return false;
         }
-    
+
         return true; // Successo
     }
-    
+
 
     public function copyDirectory($source, $destination)
     {
@@ -413,7 +421,7 @@ class Common
 
     /////////////   MISC
 
-    
+
     public function commaToPoint($number)
     {
         return str_replace(',', '.', $number);
@@ -423,6 +431,4 @@ class Common
     {
         return str_replace('.', ',', $number);
     }
-
-
 }

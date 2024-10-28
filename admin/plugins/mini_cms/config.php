@@ -52,7 +52,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       email VARCHAR(255) NOT NULL);
       INSERT INTO " . $prefix . "mc_pages
       (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
-      VALUES ('index','1','default','1','visual.jpg','1','1','1');
+      VALUES ('index','0','default','1','visual.jpg','1','1','1');
       INSERT INTO " . $prefix . "mc_pages
       (page_name, no_del,layout,header,header_media,use_name,use_desc,counter)
       VALUES ('contact','1','default','1','visual.jpg','1','1','2');

@@ -79,6 +79,12 @@ $(document).ready(function(){
                 '</label>';
         });
 
+    
+        var postOptions = '';
+        if(postExist==true){
+            postOptions = '<option value="post_' + i + '">' + block_type_post + '</option>';
+        }
+
         $('#dynamic_field').append('<div class="row" id="block_'+i+'">'+
             '<div class="col-md-3 mt-3 p-3">'+
                 '<label><b>'+block_title+' <span>'+i+'</span></b></label>'+
@@ -117,7 +123,7 @@ $(document).ready(function(){
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<span>'+block_image_default+': <img src="../uploads/visual.jpg" class="d-inline w-25"></span>'+
+                    '<span>'+block_image_default+': <img src="../uploads/img/visual.jpg" class="d-inline w-25"></span>'+
                 '</div>'+
                 '<div class="row page info_'+i+'">'+
                     '<label>'+block_image_upload+' <span class="text-danger">*</span></label>'+
@@ -128,7 +134,7 @@ $(document).ready(function(){
                             '</div>'+
                         '</div>'+
                     '</div>'+
-                    '<span>'+block_image_default+': <img src="../uploads/visual.jpg" class="d-inline m-3 w-25"></span>'+
+                    '<span>'+block_image_default+': <img src="../uploads/img/visual.jpg" class="d-inline m-3 w-25"></span>'+
                     '<textarea class="tiny" class="mt-5" name="info_content_'+i+'"></textarea>'+
                 '</div>'+
                 '<div class="row page gallery_'+i+'">'+
@@ -153,7 +159,23 @@ $(document).ready(function(){
                     '<input type="hidden" name="quote_'+i+'" value="q">'+
                 '</div>'+
                 '<div class="row page post_'+i+'">'+
-                    '<p>'+block_post_text+'</p>'+
+                    '<div class="col-12">'+
+                        '<p>'+block_post_text+'</p>'+
+                    '</div>'+
+                    '<div class="col-md-3 pb-3">'+
+                        '<label>'+block_post_cat+'</label>'+
+                    '</div>'+
+                    '<div class="col-md-9 pb-3">'+
+                        '<div class="form-group has-icon-left">'+
+                            '<div class="position-relative">'+
+                                '<fieldset class="form-group">'+
+                                    '<select class="form-select w-50" id="theme" name="post_cat_'+i+'">'+
+                                        catOptions+
+                                    '</select>'+
+                                '</fieldset>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
                     '<input type="hidden" name="post_'+i+'" value="p">'+
                 '</div>'+
             '</div>'+
@@ -263,6 +285,12 @@ $(document).ready(function(){
                 var optionValue = $(this).val();
                 // Sostituisci il vecchio indice con il nuovo
                 var newValue = optionValue.replace('_' + oldIndex, '_' + newIndex);
+    
+                // Se l'opzione è "post", cambia anche il valore specifico per post
+                if (optionValue.startsWith("post_")) {
+                    newValue = "post_" + newIndex;
+                }
+    
                 $(this).val(newValue);
             });
     
@@ -314,4 +342,5 @@ $(document).ready(function(){
             });
         });
     }
+    
   });

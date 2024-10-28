@@ -92,16 +92,28 @@
                 <?php
             } else if ($json_arr[$i]['block' . $i . '_type'] == "post") {
 
-                $stmt1 = $post->showLastPosts();
+                $post->table = 'post' ;
+                if($json_arr[$i]['block'.$i.'_cat']!= 'none'){
+                    $post->category_id = $json_arr[$i]['block'.$i.'_cat'] ;
+                    $stmt1 = $post->showAllWhere('id',['category_id'],3);
+                }else{
+                    $stmt1 = $post->showAllLimitDesc('id',3);
+                }
 
                 while ($row = $stmt1->fetch(PDO::FETCH_ASSOC)) {
 
                     extract($row);
                 ?>
                     <div class="row m-1">
-                        <div class="col-12 col-md-5 img_blog">
-                            <img src="uploads/img/<?= $main_img ?>">
-                        </div>
+                        <?php
+                            if($row['main_img'] != NULL){
+                        ?>
+                                <div class="col-12 col-md-5 img_blog">
+                                    <img src="uploads/img/<?= $main_img ?>">
+                                </div>
+                        <?php
+                            }
+                        ?>
                         <div class="col-12 col-md-7">
                             <b><?= $title ?></b><br>
                             <a href="post.php?id=<?= $id ?>&title=<?= $post_title ?>"><?= $blog_continue ?> -></a>

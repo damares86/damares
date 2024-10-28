@@ -285,6 +285,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
                     $$array_name = array(
                         'block' . $i . '_type'  => 'post',
+                        'block' . $i . '_cat'  => filter_input(INPUT_POST, 'post_cat_' . $i . ''),         
                         'block' . $i . '_bg'    => $colorBg,
                         'block' . $i . '_text'  => $colorText
                     );
@@ -612,6 +613,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
                 $$array_name = array(
                     'block' . $i . '_type'  => 'post',
+                    'block' . $i . '_cat'  => filter_input(INPUT_POST, 'post_cat_' . $i . ''),                    
                     'block' . $i . '_bg'    => $colorBg,
                     'block' . $i . '_text'  => $colorText
                 );
