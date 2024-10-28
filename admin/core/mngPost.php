@@ -66,7 +66,7 @@ if($operation=="edit"){
     
             if($file->countFile()>0){
                 
-                header("Location: ../index.php?p=allFiles&err=fileExists$url_data");
+                header("Location: ../index.php?p=allPosts&err=fileExists$url_data");
                 exit;
             }
             // set data for file uploading
@@ -134,7 +134,7 @@ if($operation=="edit"){
 
         if($file->countFile()>0){
             
-            header("Location: ../index.php?p=allFiles&err=fileExists");
+            header("Location: ../index.php?p=allPosts&err=fileExists");
             exit;
         }
         // set data for file uploading
@@ -164,13 +164,13 @@ if($operation=="edit"){
     if($post->insert(['main_img','gall','title','author','content','created','category_id'])){
 
         //success
-        header("Location: ../index.php?p=allPosts&msg=postSucc$errImg");
+        header("Location: ../index.php?p=allPosts&msg=postAddSucc$errImg");
         exit;
 
     }else{
 
         // fail
-        header("Location: ../index.php?p=allPosts&err=postFail$errImg");
+        header("Location: ../index.php?p=allPosts&err=postAddFail$errImg");
         exit;
     }
 

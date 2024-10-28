@@ -59,9 +59,9 @@ $addcat_none = "Nessuna" ;
 
 // edit post
 
-$editpost_header = "Modifica post" ;
-$editpost_title = "Modifica il post" ;
-$editpost_post_title = "Title" ;
+$editpost_header = "Modifica articolo" ;
+$editpost_title = "Modifica l'articolo" ;
+$editpost_post_title = "Titolo" ;
 $editpost_cat = "Categorie" ;
 $editpost_img = "Immagine principale" ;
 $editpost_upload = "Carica una nuova immagine" ;
@@ -90,10 +90,41 @@ $blog_first = "Inizio" ;
 $blog_previous = "Precedente" ;
 $blog_next = "Successiva" ;
 $blog_last = "Fine" ;
+$blog_more = "Continua a leggere ->" ;
+
+// post
+
+$post_back = "Torna indietro" ;
+$post_edit = "Modifica" ;
+$post_share = "Condividi su";
+
+
+
+// ALERT
+
+// msg
+
+$msg_postCatDel = "Categoria eliminata" ;
+$msg_postEditCatSucc = "Categoria modificata correttamente" ;
+$msg_postAddCatSucc = "Categoria aggiunta correttamente" ;
+$msg_postDel = "Articolo eliminato" ;
+$msg_postEditSucc = "Articolo modificato correttamente" ;
+$smg_postAddSucc = "Articolo aggiunto correttamente" ;
 
 
 
 
+// err
+
+$err_postCatPage = "Categoria assegnata a una pagina!" ;
+$err_postCatCount = "Sono presenti articoli con questa categoria!" ;
+$err_postCatNoDel = "Categoria non eliminata" ;
+$err_postEditCatFail = "Categoria non modificata" ;
+$err_postAddCatFail = "Categoria non aggiunta" ;
+$err_postNoDel = "Articolo non eliminato" ;
+$err_postImgErr = "Errore nell'upload dell'immagine principale, aggiunta quella di default" ;
+$err_postEditFail = "Articolo non modificato" ;
+$err_postAddFail = "Articolo non aggiunto" ;
 
 
 ?>

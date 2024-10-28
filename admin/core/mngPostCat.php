@@ -80,12 +80,12 @@ if ($operation == "edit") {
 
     if ($post->update(['category_name', 'assign_page'], 'id')) {
         //success
-        header("Location: ../index.php?p=editPostCat&idToMod=$idToMod&msg=postCatSucc$url_data");
+        header("Location: ../index.php?p=editPostCat&idToMod=$idToMod&msg=postCatEditSucc$url_data");
         exit;
     } else {
 
         // fail
-        header("Location: ../index.php?p=editPostCat&idToMod=$idToMod&&err=postCatFail$url_data");
+        header("Location: ../index.php?p=editPostCat&idToMod=$idToMod&&err=postCatEditFail$url_data");
         exit;
     }
 } else if ($operation == "add") {
@@ -97,12 +97,12 @@ if ($operation == "edit") {
     if ($post->insert(['category_name', 'assign_page'])) {
 
         //success
-        header("Location: ../index.php?p=allPostsCat&msg=postCatSucc");
+        header("Location: ../index.php?p=allPostsCat&msg=postCatAddSucc");
         exit;
     } else {
 
         // fail
-        header("Location: ../index.php?p=allPostsCat&err=postCatFail");
+        header("Location: ../index.php?p=allPostsCat&err=postCatAddFail");
         exit;
     }
 } else {

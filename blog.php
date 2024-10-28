@@ -85,6 +85,7 @@ $total_pages = ceil($total_rows / $limit);
 					$post->content = $row['content'];
 					$post->post_link = 'post.php?id=' . $row['id'] . $catPage . '';
 					$post->limit = 400;
+					$post->more = $blog_more ;
 					echo $post->readMore();
 					?>
 					<!-- <a href="post.php?id=<?= $row['id'] ?>&title=<?= $row['title'] ?><?= $catPage ?>">Continua a leggere -></a> -->

@@ -41,7 +41,7 @@ require "admin/template/inc/header.php";
             ?>
                 <div class="text-right">
 
-                    <a href="admin/index.php?p=editPost&idToMod=<?= $post_title_row['id'] ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
+                    <a href="admin/index.php?p=editPost&idToMod=<?= $post_title_row['id'] ?>" class="btn btn-primary btn-sm"><b><?=$post_edit?></b></a>
                 </div>
             <?php
             }
@@ -53,11 +53,11 @@ require "admin/template/inc/header.php";
             }
 
             ?>
-            <a href="blog.php<?= $catPage ?>"><- Torna indietro</a>
+            <a href="blog.php<?= $catPage ?>"><- <?=$post_back?></a>
                     <br><br>
                     <h1><?= $post_title_row['title'] ?></h1>
 
-                    <p class="metainfo">*** Categorie:
+                    <p class="metainfo">*** <?=$blog_cat?>:
                         <?php
                         foreach ($catArr as $arr) {
                             $post->table = 'post_categories';
@@ -71,7 +71,7 @@ require "admin/template/inc/header.php";
                         }
 
                         ?>
-                        *** Data: <?= $newTime ?> ***
+                        *** <?=$blog_date?>: <?= $newTime ?> ***
                     </p>
                     <div class="blog_content border-bottom">
                         <?php
@@ -170,7 +170,7 @@ require "admin/template/inc/header.php";
                         ?>
 
                         <div class="border p-3">
-                            Condividi su: &nbsp;
+                            <?=$post_share?>: &nbsp;
 
                             <a href="https://twitter.com/share?url=<?= $url ?>" target="_blank" onclick="window.open(this.href,'window','width=640,height=480,resizable,scrollbars') ;return false;">
                                 <i class="fab fa-twitter"></i></a>
@@ -191,7 +191,7 @@ require "admin/template/inc/header.php";
         </div>
         <div id="sidebar">
             <div id="sidebar_menu">
-                <h2><strong>Categorie</strong></h2>
+                <h2><strong><?=$blog_cat?></strong></h2>
                 <ul>
                     <?php
                     $post->table = "post_categories";
