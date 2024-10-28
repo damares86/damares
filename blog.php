@@ -46,7 +46,7 @@ $total_pages = ceil($total_rows / $limit);
 			?>
 				<h1><?= $row['title'] ?></h1>
 
-				<p class="metainfo">*** <?=$blog_cat?>:
+				<p class="metainfo">*** <?= $blog_cat ?>:
 					<?php
 					foreach ($catArr as $arr) {
 						$post->table = 'post_categories';
@@ -60,14 +60,14 @@ $total_pages = ceil($total_rows / $limit);
 					}
 
 					?>
-					*** <?=$blog_date?>: <?= $newTime ?> ***
+					*** <?= $blog_date ?>: <?= $newTime ?> ***
 					<?php
-						$account->id = $row['author'] ;
-						$author_stmt = $account->showAllWhere('id',['id']);
-						$author_row = $author_stmt->fetch(PDO::FETCH_ASSOC);
-						extract($author_row);
+					$account->id = $row['author'];
+					$author_stmt = $account->showAllWhere('id', ['id']);
+					$author_row = $author_stmt->fetch(PDO::FETCH_ASSOC);
+					extract($author_row);
 					?>
-					*** <?=$blog_author?>: <b><?=$author_row['username']?></b> ***
+					*** <?= $blog_author ?>: <b><?= $author_row['username'] ?></b> ***
 				</p>
 				<div class="blog_content border-bottom">
 					<?php
@@ -85,7 +85,7 @@ $total_pages = ceil($total_rows / $limit);
 					$post->content = $row['content'];
 					$post->post_link = 'post.php?id=' . $row['id'] . $catPage . '';
 					$post->limit = 400;
-					$post->more = $blog_more ;
+					$post->more = $blog_more;
 					echo $post->readMore();
 					?>
 					<!-- <a href="post.php?id=<?= $row['id'] ?>&title=<?= $row['title'] ?><?= $catPage ?>">Continua a leggere -></a> -->
@@ -98,8 +98,8 @@ $total_pages = ceil($total_rows / $limit);
 				<div class="pagination text-center">
 					<ul>
 						<?php if ($page > 1): ?>
-							<li class="page-item"><a class="page-link" href="?page=1<?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?=$blog_first?></a></li>
-							<li class="page-item"><a class="page-link" href="?page=<?= $page - 1 ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?=$blog_previous?></a></li>
+							<li class="page-item"><a class="page-link" href="?page=1<?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?= $blog_first ?></a></li>
+							<li class="page-item"><a class="page-link" href="?page=<?= $page - 1 ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?= $blog_previous ?></a></li>
 						<?php endif; ?>
 
 						<?php for ($i = 1; $i <= $total_pages; $i++): ?>
@@ -107,8 +107,8 @@ $total_pages = ceil($total_rows / $limit);
 						<?php endfor; ?>
 
 						<?php if ($page < $total_pages): ?>
-							<li class="page-item"><a class="page-link" href="?page=<?= $page + 1 ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?=$blog_next ?></a></li>
-							<li class="page-item"><a class="page-link" href="?page=<?= $total_pages ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?=$blog_last?></a></li>
+							<li class="page-item"><a class="page-link" href="?page=<?= $page + 1 ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?= $blog_next ?></a></li>
+							<li class="page-item"><a class="page-link" href="?page=<?= $total_pages ?><?= $cat_id ? '&cat=' . $cat_id : '' ?>"><?= $blog_last ?></a></li>
 						<?php endif; ?>
 					</ul>
 				</div>
@@ -116,25 +116,11 @@ $total_pages = ceil($total_rows / $limit);
 			}
 			?>
 		</div>
-		<div id="sidebar">
-			<div id="sidebar_menu">
-				<h2><strong><?=$blog_cat?></strong></h2>
-				<ul>
-					<?php
-					$post->table = "post_categories";
-					$all_cat = $post->showAll('id');
-					while ($row_all_cat = $all_cat->fetch(PDO::FETCH_ASSOC)) {
+		<?php
 
-						extract($row_all_cat);
-					?>
-						<li><a href="blog.php?cat=<?= $row_all_cat['id'] ?>"><?= $row_all_cat['category_name'] ?></a></li>
-					<?php
+		require "sidebar.php";
 
-					}
-					?>
-				</ul>
-			</div>
-		</div>
+		?>
 		<div class="clearfix"></div>
 		<?php
 		require "admin/template/inc/footer.php";

@@ -179,6 +179,11 @@ $contact_choose = "Send to (choose an option)" ;
 $contact_subject = "Subject" ;
 $contact_message = "Your message" ;
 
+// frontend
+
+$fe_admin = "Go to administration panel";
+$fe_edit = "Edit";
+
 
 
 // alert

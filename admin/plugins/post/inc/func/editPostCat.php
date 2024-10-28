@@ -1,6 +1,7 @@
 <?php
 
-$post->id = filter_input(INPUT_GET, "idToMod");
+$idToMod = filter_input(INPUT_GET, "idToMod");
+$post->id = $idToMod ;
 $post->table = 'post_categories';
 $stmt1 = $post->showAllWhere('id', ['id']);
 $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
@@ -13,7 +14,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3 class="d-inline">Modifica categoria</h3>
+            <h3 class="d-inline"><?=$editcat_header?></h3>
             <a href="index.php?p=<?= $url_pageName ?>&tablePage=<?= $url_tablePage ?>&pageName=<?= $url_pageName ?>" class="btn icon btn-info shadow mx-3 px-3">
                 <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= $common_back ?>
             </a>
@@ -26,7 +27,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                     <a href="index.php"><?= $common_dashboard ?></a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Modifica categoria
+                    <?=$editcat_header?>
                 </li>
             </ol>
         </nav>
@@ -40,7 +41,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Modifica la categoria: <?= $row1['category_name'] ?></h4>
+                    <h4 class="card-title"><?=$editcat_title?>: <?= $row1['category_name'] ?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -48,7 +49,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Nome categoria<span class="text-danger">*</span></label>
+                                        <label><?=$editcat_name?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
@@ -60,8 +61,63 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                             </div>
                                         </div>
                                     </div>
+                                    <?php
+                                    $plugin->pluginname = "mini_cms";
 
-                                    <input type="hidden" name="idToMod" value="<?= $id ?>">
+                                    if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+                                    ?>
+                                        <div class="col-md-3 my-3">
+                                            <label><?=$editcat_assign?>: <span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-md-9 my-3">
+                                            <div class="form-group">
+                                                <div class="form-check mandatory">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select w-75" name="assign_page">
+                                                                <?php
+                                                                $selected = '';
+                                                                if ($row1['assign_page'] == 'none') {
+                                                                    $selected = 'selected';
+                                                                }
+                                                                ?>
+                                                                <option value="none" <?= $selected ?>><?=$editcat_none?></option>
+
+                                                                <?php
+                                                                $mc->table = 'mc_pages';
+                                                                $stmt = $mc->showAll('page_name');
+                                                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                                                    extract($row);
+
+                                                                    $selected = '';
+                                                                    if ($row1['assign_page'] == $row['id']) {
+                                                                        $selected = 'selected';
+                                                                    }
+
+                                                                    $str = $row['page_name'];
+                                                                    $str = str_replace('_', ' ', $str);
+                                                                    $str = ucfirst($str);
+
+                                                                ?>
+                                                                    <option value="<?= $row['id'] ?>" <?= $selected ?>><?= $str ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+
+                                                            </select>
+
+                                                        </fieldset>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+
+
+                                    <input type="hidden" name="idToMod" value="<?= $idToMod ?>">
                                     <input type="hidden" name="operation" value="edit">
                                     <input type="hidden" name="origin" value="editPostCat">
                                     <input type="hidden" name="url_tablePage" value="<?= $url_tablePage ?>">

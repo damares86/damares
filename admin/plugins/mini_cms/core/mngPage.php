@@ -23,6 +23,39 @@ if (filter_input(INPUT_GET, "idToDel")) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     extract($row);
 
+    // check if the page is used in the menu
+    $pages_json = file_get_contents('../inc/menu/menu.json');
+    $pages_data = json_decode($pages_json, true);
+
+    $searchValue = $row['id'];
+
+    foreach ($pages_data['inmenu'] as $menuItem) {
+
+        if (isset($menuItem['id']) && $menuItem['id'] == $searchValue) {
+            header("Location: ../index.php?p=allPages&err=pageInmenu");
+            exit;
+        }
+        
+        // Controlla se il valore si trova in "child"
+        if (isset($menuItem['child']) && in_array($searchValue, $menuItem['child'])) {
+            header("Location: ../index.php?p=allPages&err=pageInmenu");
+            exit;
+        }
+    }
+
+    $key = array_search($searchValue, $pages_data['nomenu']);
+
+    // Se il valore "6" è stato trovato, lo rimuove dall'array "nomenu"
+    if ($key !== false) {
+        unset($pages_data['nomenu'][$key]);
+
+        // Reindicizza l'array per evitare eventuali buchi negli indici
+        $pages_data['nomenu'] = array_values($pages_data['nomenu']);
+    }
+
+    $newpages_data = json_encode($pages_data,JSON_PRETTY_PRINT);
+    file_put_contents('../inc/menu/menu.json', $newpages_data);
+
     $page_name = $row['page_name'];
 
     $mc->table = 'mc_pages';
@@ -47,7 +80,7 @@ if (filter_input(INPUT_GET, "idToDel")) {
             $err_file_msg = '&err=pageFilesErr';
         }
 
-        header("Location: ../index.php?p=allPages&msg=pageDelSucc");
+        header("Location: ../index.php?p=allPages&msg=pageDelSucc$err_file_msg");
         exit;
     } else {
 
@@ -605,15 +638,29 @@ if (filter_input(INPUT_POST, "idToMod")) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         extract($row);
 
+
+        // add to nomenu
+        $pages_json = file_get_contents('../inc/menu/menu.json');
+        $pages_data = json_decode($pages_json, true);
+        $pages_data['nomenu'][] = "".$row['id']."" ;
+        $newpages_data = json_encode($pages_data,JSON_PRETTY_PRINT);
+        file_put_contents('../inc/menu/menu.json', $newpages_data);
+
+
+        // create json file for blocks
         $json_file = $target_directory . $row['id'] . '.json';
         $json = json_encode($arr_tot);
 
-        file_put_contents($json_file, $json, FILE_APPEND);
+        file_put_contents($json_file, $json);
         chmod($json_file, 0777);
 
         if (copy('../template/master.php', '../../master.php')) {
             rename('../../master.php', '../../' . $page_name . '.php');
             chmod('../../' . $page_name . '.php', 0777);
+
+            ////////////////////////
+            // cancella tutto ???
+            ////////////////////////
 
             header("Location: ../index.php?p=allPages&msg=pageCustomSucc");
             exit;

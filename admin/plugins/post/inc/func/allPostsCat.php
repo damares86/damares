@@ -2,11 +2,18 @@
 $post->table = 'post_categories';
 $stmt = $post->showAll('id');
 
+$minicms = false ;
+$plugin->pluginname = "mini_cms";
+
+if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+  $minicms = true ;
+}
+
 ?>
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutte le categorie</h3>
+      <h3><?=$allpostcat_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +22,7 @@ $stmt = $post->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Tutte le categorie
+            <?=$allpostcat_header?>
           </li>
         </ol>
       </nav>
@@ -28,15 +35,22 @@ $stmt = $post->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">Tutte le categorie &nbsp; &nbsp; &nbsp;
-      <a href="index.php?p=addPostCat" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Aggiungi una categoria</a>
+    <div class="card-header"><?=$allpostcat_header?> &nbsp; &nbsp; &nbsp;
+      <a href="index.php?p=addPostCat" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> <?=$allpostcat_add?></a>
     </div>
     <div class="card-body">
-      <table class="table" id="table1">
+      <table class="table" id="table">
         <thead>
           <tr>
-            <th>Nome categoria</th>
-            <th>Numero articoli</th>
+            <th><?=$allpostcat_name?></th>
+            <th><?=$allpostcat_number?></th>
+            <?php
+            if($minicms){
+            ?>
+              <th><?=$allpostcat_assign?></th>
+            <?php
+            }
+            ?>
             <th><?= $common_actions ?></th>
           </tr>
         </thead>
@@ -61,6 +75,30 @@ $stmt = $post->showAll('id');
             <tr <?= $class ?>>
               <td><?= $row['category_name'] ?></td>
               <td><?= $num ?></td>
+            <?php
+            if($minicms){
+            ?>
+              <td>
+                <?php
+                  if($row['assign_page'] == NULL){
+                    echo "nessuna" ;
+                  }else{
+                    $mc->table = 'mc_pages' ;
+                    $mc->id = $row['assign_page'] ;
+                    $stmt2 = $mc->showAllWhere('id',['id']) ;
+                    $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                    extract($row2);
+                    $page_name = str_replace('_',' ',$row2['page_name']);
+                    $page_name = ucfirst($page_name)
+                ?>
+                  <?=$page_name?>
+                <?php
+                  }
+                ?>
+              </td>
+            <?php
+            }
+            ?>
               <td>
                 <a href="index.php?p=editPostCat&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editPostCat&idToMod=<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
                 &nbsp; &nbsp;
@@ -79,7 +117,7 @@ $stmt = $post->showAll('id');
                         </button>
                       </div>
                       <div class="modal-body">
-                        <?= $customer_all_modal_body ?>
+                        <?= $allpostcat_modal_body ?>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">

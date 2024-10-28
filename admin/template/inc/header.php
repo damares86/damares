@@ -295,9 +295,9 @@ if ($mc_settings['mc_theme_one'] == 1) {
         $style = "style='margin-top:1.8em'";
     ?>
         <div id="adminBar">
-            <a href="admin">Vai al pannello di amministrazione</a>
+            <a href="admin"><?=$fe_admin?></a>
             &nbsp; - &nbsp;
-            <a href="admin/core/logout.php">Logout</a>
+            <a href="admin/core/logout.php"><?=$common_logout?></a>
         </div>
     <?php
     }

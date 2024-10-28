@@ -41,7 +41,7 @@ require "admin/template/inc/header.php";
             ?>
                 <div class="text-right">
 
-                    <a href="admin/index.php?p=editPost&idToMod=<?= $post_title_row['id'] ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
+                    <a href="admin/index.php?p=editPost&idToMod=<?= $post_title_row['id'] ?>" class="btn btn-primary btn-sm"><b><?= $post_edit ?></b></a>
                 </div>
             <?php
             }
@@ -53,11 +53,11 @@ require "admin/template/inc/header.php";
             }
 
             ?>
-            <a href="blog.php<?= $catPage ?>"><- Torna indietro</a>
+            <a href="blog.php<?= $catPage ?>"><- <?= $post_back ?></a>
                     <br><br>
                     <h1><?= $post_title_row['title'] ?></h1>
 
-                    <p class="metainfo">*** Categorie:
+                    <p class="metainfo">*** <?= $blog_cat ?>:
                         <?php
                         foreach ($catArr as $arr) {
                             $post->table = 'post_categories';
@@ -71,14 +71,27 @@ require "admin/template/inc/header.php";
                         }
 
                         ?>
-                        *** Data: <?= $newTime ?> ***
+                        *** <?= $blog_date ?>: <?= $newTime ?> ***
+                        <?php
+                        $account->id = $post_title_row['author'];
+                        $author_stmt = $account->showAllWhere('id', ['id']);
+                        $author_row = $author_stmt->fetch(PDO::FETCH_ASSOC);
+                        extract($author_row);
+                        ?>
+                        *** <?= $blog_author ?>: <b><?= $author_row['username'] ?></b> ***
                     </p>
                     <div class="blog_content border-bottom">
-                        <div class="row">
-                            <div class="col px-5">
-                                <img src="uploads/img/<?= $post_title_row['main_img'] ?>" class="justify-content-center mx-auto"><br>
+                        <?php
+                        if ($post_title_row['main_img'] != NULL) {
+                        ?>
+                            <div class="row">
+                                <div class="col px-5">
+                                    <img src="uploads/img/<?= $post_title_row['main_img'] ?>" class="post_img justify-content-center mx-auto"><br>
+                                </div>
                             </div>
-                        </div>
+                        <?php
+                        }
+                        ?>
                         <?= $post_title_row['content'] ?>
                         <br><br>
                         <?php
@@ -100,7 +113,7 @@ require "admin/template/inc/header.php";
                                     // Image extensions
                                     $image_extensions = array("png", "jpg", "jpeg", "JPG");
 
-                                    $dir = "uploads/gallery/g_".$post_title_row['gall']."/";
+                                    $dir = "uploads/gallery/g_" . $post_title_row['gall'] . "/";
 
                                     if (is_dir($dir)) {
 
@@ -164,7 +177,7 @@ require "admin/template/inc/header.php";
                         ?>
 
                         <div class="border p-3">
-                            Condividi su: &nbsp;
+                            <?= $post_share ?>: &nbsp;
 
                             <a href="https://twitter.com/share?url=<?= $url ?>" target="_blank" onclick="window.open(this.href,'window','width=640,height=480,resizable,scrollbars') ;return false;">
                                 <i class="fab fa-twitter"></i></a>
@@ -183,25 +196,13 @@ require "admin/template/inc/header.php";
                     </div>
 
         </div>
-        <div id="sidebar">
-            <div id="sidebar_menu">
-                <h2><strong>Categorie</strong></h2>
-                <ul>
-                    <?php
-                    $post->table = "post_categories";
-                    $all_cat = $post->showAll('id');
-                    while ($row_all_cat = $all_cat->fetch(PDO::FETCH_ASSOC)) {
+        
+        <?php
 
-                        extract($row_all_cat);
-                    ?>
-                        <li><a href="blog.php?cat=<?= $row_all_cat['id'] ?>"><?= $row_all_cat['category_name'] ?></a></li>
-                    <?php
+        require "sidebar.php";
 
-                    }
-                    ?>
-                </ul>
-            </div>
-        </div>
+        ?>
+
         <div class="clearfix"></div>
     </div>
 </div>

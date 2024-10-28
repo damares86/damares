@@ -16,7 +16,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3 class="d-inline">Modifica post</h3>
+            <h3 class="d-inline"><?=$editpost_header?></h3>
             <a href="index.php?p=<?= $url_pageName ?>&tablePage=<?= $url_tablePage ?>&pageName=<?= $url_pageName ?>" class="btn icon btn-info shadow mx-3 px-3">
                 <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= $common_back ?>
             </a>
@@ -29,7 +29,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                     <a href="index.php"><?= $common_dashboard ?></a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Modifica post
+                    <?=$editpost_header?>
                 </li>
             </ol>
         </nav>
@@ -43,7 +43,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
         <div class="col-md-8 col-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Modifica il post: <?= $row1['title'] ?></h4>
+                    <h4 class="card-title"><?=$editpost_title?>: <?= $row1['title'] ?></h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -51,7 +51,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Titolo<span class="text-danger">*</span></label>
+                                        <label><?=$editpost_post_title?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
@@ -64,7 +64,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Categorie <span class="text-danger">*</span></label>
+                                        <label><?=$editpost_cat?> <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
@@ -95,14 +95,20 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                                     </div>
 
                                     <div class="col-md-3 mt-3">
-                                        <label>Immagine principale </label>
+                                        <label><?=$editpost_img?> </label>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <div class="position-relative">
-                                                    <img src="../uploads/<?= $row1['main_img'] ?>" class="w-25 mb-3">
-                                                    <br> <span class="mb-3">Carica una nuova immagine</span>
+                                                    <?php
+                                                    if ($row1['main_img'] != NULL) {
+                                                    ?>
+                                                        <img src="../uploads/img/<?= $row1['main_img'] ?>" class="w-25 mb-3">
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                    <br> <span class="mb-3"><?=$editpost_upload?></span>
                                                     <input class="form-control" type="file" id="formFile" name="myfile" placeholder="Carica nuovo file" />
                                                 </div>
                                             </div>
@@ -118,20 +124,60 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
 
 
                                     <div class="col-md-3 my-3">
-                                        <label>Contenuto<span class="text-danger">*</span></label>
+                                        <label><?=$editpost_content?><span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 my-3">
                                         <div class="form-group">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <textarea name="content" id="default" cols="30" rows="15"><?= $row1['content'] ?></textarea>
+                                                    <textarea name="content" class="tiny" cols="30" rows="15"><?= $row1['content'] ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <input type="hidden" name="author" value="<?= $_SESSION['username'] ?>">
+                                    <?php
+                                    $plugin->pluginname = "mini_cms";
+
+                                    if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+                                    ?>
+                                        <div class="col-md-3 my-3">
+                                            <label><?=$editpost_gallery?> </label>
+                                        </div>
+                                        <div class="col-md-9 my-3">
+                                            <div class="form-group">
+                                                <div class="form-check mandatory">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select" name="gall">
+                                                                <option value="none"><?=$editpost_gallery_none?></option>
+                                                                <?php
+                                                                $mc->table = 'mc_galleries';
+                                                                $galleries = $mc->showAll('id');
+                                                                $galleryOptions = '';
+                                                                while ($row = $galleries->fetch(PDO::FETCH_ASSOC)) {
+                                                                ?>
+
+                                                                    <option value="<?= $row['id'] ?>"><?= $row['gallery_name'] ?></option>
+
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+
+                                    ?>
+
+
+
+                                    <input type="hidden" name="author" value="<?= $_SESSION['account_id'] ?>">
                                     <input type="hidden" name="old_main_img" value="<?= $row1['main_img'] ?>">
                                     <input type="hidden" name="idToMod" value="<?= $post_id ?>">
                                     <input type="hidden" name="operation" value="edit">

@@ -114,24 +114,7 @@ if ($file_name == "index.php") {
     // force the page name in contacts
     $page_name_title = $cont_form_page;
     $page_class = "contact";
-} else if ($file_name == "blog.php") {
 
-    if (filter_input(INPUT_GET, 'cat')) {
-        $cat = filter_input(INPUT_GET, 'cat');
-        if ($cat == 2 || $cat == 3) {
-            $post->table = 'post_categories';
-            $post->id = $cat;
-            $title_stmt = $post->showAllWhere('id', ['id']);
-            $title_row = $title_stmt->fetch(PDO::FETCH_ASSOC);
-            extract($title_row);
-            $page_name_title = ucfirst($title_row['category_name']);
-        } else {
-            $page_name_title = "Blog";
-        }
-    } else {
-        $page_name_title = "Blog";
-    }
-    $page_class = "blog";
 } else {
     // mi prendo solo il nome senza l'estensione
     $page_name_title = pathinfo($file_name, PATHINFO_FILENAME);
@@ -141,8 +124,6 @@ if ($file_name == "index.php") {
     // metto la prima lettera maiuscola
     $page_name_title = ucfirst($page_name_title);
 }
-
-
 
 $mc->table = 'mc_pages';
 $mc->page_name = $page_class;
@@ -314,9 +295,9 @@ if ($mc_settings['mc_theme_one'] == 1) {
         $style = "style='margin-top:1.8em'";
     ?>
         <div id="adminBar">
-            <a href="admin">Vai al pannello di amministrazione</a>
+            <a href="admin"><?=$fe_admin?></a>
             &nbsp; - &nbsp;
-            <a href="admin/core/logout.php">Logout</a>
+            <a href="admin/core/logout.php"><?=$common_logout?></a>
         </div>
     <?php
     }

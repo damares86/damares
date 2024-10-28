@@ -6,7 +6,7 @@
     ?>
         <div class="text-right">
 
-            <a href="admin/index.php?p=editPage&idToMod=<?= $page_id ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b>Modifica</b></a>
+            <a href="admin/index.php?p=editPage&idToMod=<?= $page_id ?>&count=<?= $counter ?>" class="btn btn-primary btn-sm"><b><?=$fe_edit ?></b></a>
         </div>
     <?php
     }

@@ -193,6 +193,11 @@ $contact_choose = "Scrivi a (scegli un'opzione)" ;
 $contact_subject = "Oggetto" ;
 $contact_message = "Il tuo messaggio" ;
 
+// frontend
+
+$fe_admin = "Vai al pannello di amministrazione";
+$fe_edit = "Modifica";
+
 
 // alert
 

@@ -20,12 +20,14 @@ class Post extends Common{
     public $category_id ;
     public $category_name ;
     public $post_link ;
+    public $assign_page ;
+    public $more ;
 
     public function readMore()
     {
         $this->content = substr($this->content, 0, $this->limit) ;
         $this->content = substr($this->content, 0, strrpos($this->content, ' ')) ;
-        $this->content = $this->content . "... <a href='$this->post_link?id=$this->id'>Read more -></a>" ;
+        $this->content = $this->content . "... <a href='$this->post_link'>$this->more</a>" ;
         return $this->content ;
     }
     

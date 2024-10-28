@@ -193,6 +193,11 @@ $contact_choose = "Scrivi a (scegli un'opzione)" ;
 $contact_subject = "Oggetto" ;
 $contact_message = "Il tuo messaggio" ;
 
+// frontend
+
+$fe_admin = "Vai al pannello di amministrazione";
+$fe_edit = "Modifica";
+
 
 // alert
 
@@ -237,6 +242,7 @@ $err_popupDelFail = "Popup non eliminato" ;
 $err_popupAddFail = "Popup non inserito" ;
 $err_popupEditFail = "Popup non modificato" ;
 $err_pageDelFail = "Pagina non eliminata" ;
+$err_pageInmenu = "Pagina usata nel menu" ;
 $err_pageCustomModFileErr = "Contenuti della pagina non modificati" ;
 $err_pageCustomDbErr = "Errore nella modifica dei dati della pagina" ;
 $err_jsonErr = "Contenuti della pagina non modificati" ;
