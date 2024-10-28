@@ -224,6 +224,7 @@ $err_popupDelFail = "Popup not deleted" ;
 $err_popupAddFail = "Popup not added" ;
 $err_popupEditFail = "Popup not updated" ;
 $err_pageDelFail = "Page not deleted" ;
+$err_pageInmenu = "Page used in menu" ;
 $err_pageCustomModFileErr = "Page content not updated" ;
 $err_pageCustomDbErr = "Page data not updated" ;
 $err_jsonErr = "Page content not updated" ;
