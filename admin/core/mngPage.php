@@ -609,9 +609,9 @@ if (filter_input(INPUT_POST, "idToMod")) {
         // add to nomenu
         $pages_json = file_get_contents('../inc/menu/menu.json');
         $pages_data = json_decode($pages_json, true);
-        $pages_data['nomenu'][] = $row['id'] ;
+        $pages_data['nomenu'][] = "".$row['id']."" ;
         $newpages_data = json_encode($pages_data,JSON_PRETTY_PRINT);
-        file_put_contents($newpages_data, $pages_json);
+        file_put_contents('../inc/menu/menu.json', $newpages_data);
 
 
         // create json file for blocks
