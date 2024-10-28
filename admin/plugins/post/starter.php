@@ -36,6 +36,8 @@ if ($op == 'add') {
 		
 	}
 	
+	// aggiunta pagina nel menu
+
 }else if($op == 'rm'){
 	
 	

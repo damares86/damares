@@ -2,6 +2,12 @@
         TODO
 ------------------------------------------
 
+- inserire in nomenu le nuove pagine inserite 
+- controllo incrociato col menu prima di cancellare la pagine
+- aggiungere categoria ai latest post di MC
+- gestire il richiamo del blog se assegno una categoria a una pagina
+
+
 
 ########################################################
 
