@@ -208,7 +208,7 @@ $msg_popupDelSucc = "Popup deleted" ;
 $msg_popupAddSucc = "Popup added" ;
 $msg_popupEditSucc = "Popup updated" ;
 $msg_pageDelSucc = "Page deleted" ;
-$smg_pageCustomEditFile = "Page updated" ;
+$msg_pageCustomEditFile = "Page updated" ;
 $msg_pageDefaultEditSucc = "Page updated" ;
 $msg_pageCustomSucc = "Page added" ;
 

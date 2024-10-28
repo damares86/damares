@@ -221,7 +221,7 @@ $msg_popupDelSucc = "Popup eliminato correttamente" ;
 $msg_popupAddSucc = "Popup inserito correttamente" ;
 $msg_popupEditSucc = "Popup modificato correttamente" ;
 $msg_pageDelSucc = "Pagina eliminata correttamente" ;
-$smg_pageCustomEditFile = "Pagina modificata correttamente" ;
+$msg_pageCustomEditFile = "Pagina modificata correttamente" ;
 $msg_pageDefaultEditSucc = "Pagina modificata correttamente" ;
 $msg_pageCustomSucc = "Pagina aggiunta correttamente" ;
 
