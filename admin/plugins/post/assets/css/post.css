@@ -1,0 +1,14 @@
+.pagination li{
+    list-style: none;
+    display:inline-block;
+    margin:0;
+    padding:0;
+}
+
+.pagination{
+    text-align: center;
+}
+
+img.post_img{
+    width:100%;
+}
