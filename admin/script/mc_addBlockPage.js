@@ -134,6 +134,12 @@ $(document).ready(function(){
             '<div class="col-md-4 mt-3 p-3">'+
                 '<button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>'+
             '</div>'+
+            '<div class="col-md-3 mt-3 p-3">'+
+                '<label>'+block_bootstrap+'</label>'+
+            '</div>'+
+            '<div class="col-md-9 mt-3  px-5">'+
+                '<input type="text" class="form-control" placeholder="" name="bootstrap_'+i+'" data-parsley-required="true" />'+
+            '</div>'+
             '<div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">'+
                 '<div class="row page text_'+i+'">'+
                     '<textarea class="tiny" name="text_content_'+i+'"></textarea>'+

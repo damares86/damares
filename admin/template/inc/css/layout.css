@@ -6,6 +6,10 @@
     clear:both;
     height:auto;
 }
+
+.row{
+	display:block !important;
+}
 /******** DEFAULT  ***********/
 
 

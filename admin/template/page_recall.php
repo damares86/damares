@@ -1,4 +1,5 @@
 <div id="content" class="container">
+    <div class="row">
     <?php
     $counter=$page_counter;
 
@@ -19,12 +20,14 @@
     
     for($i=1;$i<=$counter;$i++){
 
+        $bootstrap = $json_arr[$i]['block' . $i . '_bootstrap'] ;
+
     ?>
 
 
 
 
-        <div class="block block<?= $i ?> <?= $page_layout ?> <?= $page_class ?>" style="background-color:<?= $json_arr[$i]['block' . $i . '_bg'] ?> !important; color:<?= $json_arr[$i]['block' . $i . '_text'] ?> !important;">
+        <div class="block block<?= $i ?> <?= $page_layout ?> p_<?= $page_id ?> <?=$bootstrap?>" style="background-color:<?= $json_arr[$i]['block' . $i . '_bg'] ?> !important; color:<?= $json_arr[$i]['block' . $i . '_text'] ?> !important;">
 
             <?php
 
@@ -217,4 +220,5 @@
     }
 
     ?>
+    </div>
     <div class="clearfix"></div>

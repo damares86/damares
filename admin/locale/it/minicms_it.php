@@ -46,6 +46,7 @@ $addpage_header_site_description = "Mostra descrizione del sito" ;
 // add page -> blocks
 
 $block_title = "Blocco" ;
+$block_bootstrap = "Aggiungi classi bootstrap" ;
 $block_type_text = "Testo" ;
 $block_type_image = "Immagine" ;
 $block_type_info = "Box info" ;

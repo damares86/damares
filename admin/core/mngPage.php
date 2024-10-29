@@ -35,7 +35,7 @@ if (filter_input(INPUT_GET, "idToDel")) {
             header("Location: ../index.php?p=allPages&err=pageInmenu");
             exit;
         }
-        
+
         // Controlla se il valore si trova in "child"
         if (isset($menuItem['child']) && in_array($searchValue, $menuItem['child'])) {
             header("Location: ../index.php?p=allPages&err=pageInmenu");
@@ -53,7 +53,7 @@ if (filter_input(INPUT_GET, "idToDel")) {
         $pages_data['nomenu'] = array_values($pages_data['nomenu']);
     }
 
-    $newpages_data = json_encode($pages_data,JSON_PRETTY_PRINT);
+    $newpages_data = json_encode($pages_data, JSON_PRETTY_PRINT);
     file_put_contents('../inc/menu/menu.json', $newpages_data);
 
     $page_name = $row['page_name'];
@@ -166,7 +166,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
         $mc->counter = $counter;
 
         $idToMod = filter_input(INPUT_POST, 'idToMod');
-        $mc->id = $idToMod ;
+        $mc->id = $idToMod;
 
         $mc->table = 'mc_pages';
 
@@ -187,6 +187,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
                 $colorBg = filter_input(INPUT_POST, 'bg_color_' . $i . '');
                 $colorText = filter_input(INPUT_POST, 'text_color_' . $i . '');
+                $bootstrap = filter_input(INPUT_POST, 'bootstrap_' . $i . '');
 
                 if ($type == 'text') {
 
@@ -195,7 +196,8 @@ if (filter_input(INPUT_POST, "idToMod")) {
                         'block' . $i . '_type'  => 'text',
                         'block' . $i . ''       => $editor,
                         'block' . $i . '_bg'    => $colorBg,
-                        'block' . $i . '_text'  => $colorText
+                        'block' . $i . '_text'  => $colorText,
+                        'block' . $i . '_bootstrap'  => $bootstrap
                     );
                 } else if ($type == 'img') {
 
@@ -229,7 +231,8 @@ if (filter_input(INPUT_POST, "idToMod")) {
                         'block' . $i . '_type'  => 'img',
                         'block' . $i . ''       => $img,
                         'block' . $i . '_bg'    => $colorBg,
-                        'block' . $i . '_text'  => $colorText
+                        'block' . $i . '_text'  => $colorText,
+                        'block' . $i . '_bootstrap'  => $bootstrap
                     );
                 } else if ($type == 'info') {
 
@@ -264,7 +267,8 @@ if (filter_input(INPUT_POST, "idToMod")) {
                         'block' . $i . '_info'  => $img_info,
                         'block' . $i . '_desc'  => filter_input(INPUT_POST, 'info_content_' . $i . ''),
                         'block' . $i . '_bg'    => $colorBg,
-                        'block' . $i . '_text'  => $colorText
+                        'block' . $i . '_text'  => $colorText,
+                        'block' . $i . '_bootstrap'  => $bootstrap
                     );
                 } else if ($type == 'gallery') {
 
@@ -272,22 +276,25 @@ if (filter_input(INPUT_POST, "idToMod")) {
                         'block' . $i . '_type'  => 'gallery',
                         'block' . $i . ''       => filter_input(INPUT_POST, 'gallery_name_' . $i . ''),
                         'block' . $i . '_bg'    => $colorBg,
-                        'block' . $i . '_text'  => $colorText
+                        'block' . $i . '_text'  => $colorText,
+                        'block' . $i . '_bootstrap'  => $bootstrap
                     );
                 } else if ($type == 'quote') {
 
                     $$array_name = array(
                         'block' . $i . '_type'  => 'quote',
                         'block' . $i . '_bg'    => $colorBg,
-                        'block' . $i . '_text'  => $colorText
+                        'block' . $i . '_text'  => $colorText,
+                        'block' . $i . '_bootstrap'  => $bootstrap
                     );
                 } else if ($type == 'post') {
 
                     $$array_name = array(
                         'block' . $i . '_type'  => 'post',
-                        'block' . $i . '_cat'  => filter_input(INPUT_POST, 'post_cat_' . $i . ''),         
+                        'block' . $i . '_cat'  => filter_input(INPUT_POST, 'post_cat_' . $i . ''),
                         'block' . $i . '_bg'    => $colorBg,
-                        'block' . $i . '_text'  => $colorText
+                        'block' . $i . '_text'  => $colorText,
+                        'block' . $i . '_bootstrap'  => $bootstrap
                     );
                 }
             }
@@ -515,6 +522,7 @@ if (filter_input(INPUT_POST, "idToMod")) {
 
             $colorBg = filter_input(INPUT_POST, 'bg_color_' . $i . '');
             $colorText = filter_input(INPUT_POST, 'text_color_' . $i . '');
+            $bootstrap = filter_input(INPUT_POST, 'bootstrap_' . $i . '');
 
             if ($type == 'text') {
 
@@ -523,7 +531,8 @@ if (filter_input(INPUT_POST, "idToMod")) {
                     'block' . $i . '_type'  => 'text',
                     'block' . $i . ''       => $editor,
                     'block' . $i . '_bg'    => $colorBg,
-                    'block' . $i . '_text'  => $colorText
+                    'block' . $i . '_text'  => $colorText,
+                    'block' . $i . '_bootstrap'  => $bootstrap
                 );
             } else if ($type == 'img') {
 
@@ -557,7 +566,8 @@ if (filter_input(INPUT_POST, "idToMod")) {
                     'block' . $i . '_type'  => 'img',
                     'block' . $i . ''       => $img,
                     'block' . $i . '_bg'    => $colorBg,
-                    'block' . $i . '_text'  => $colorText
+                    'block' . $i . '_text'  => $colorText,
+                    'block' . $i . '_bootstrap'  => $bootstrap
                 );
             } else if ($type == 'info') {
 
@@ -592,7 +602,8 @@ if (filter_input(INPUT_POST, "idToMod")) {
                     'block' . $i . '_info'  => $img_info,
                     'block' . $i . '_desc'  => filter_input(INPUT_POST, 'info_content_' . $i . ''),
                     'block' . $i . '_bg'    => $colorBg,
-                    'block' . $i . '_text'  => $colorText
+                    'block' . $i . '_text'  => $colorText,
+                    'block' . $i . '_bootstrap'  => $bootstrap
                 );
             } else if ($type == 'gallery') {
 
@@ -600,22 +611,25 @@ if (filter_input(INPUT_POST, "idToMod")) {
                     'block' . $i . '_type'  => 'gallery',
                     'block' . $i . ''       => filter_input(INPUT_POST, 'gallery_' . $i . ''),
                     'block' . $i . '_bg'    => $colorBg,
-                    'block' . $i . '_text'  => $colorText
+                    'block' . $i . '_text'  => $colorText,
+                    'block' . $i . '_bootstrap'  => $bootstrap
                 );
             } else if ($type == 'quote') {
 
                 $$array_name = array(
                     'block' . $i . '_type'  => 'quote',
                     'block' . $i . '_bg'    => $colorBg,
-                    'block' . $i . '_text'  => $colorText
+                    'block' . $i . '_text'  => $colorText,
+                    'block' . $i . '_bootstrap'  => $bootstrap
                 );
             } else if ($type == 'post') {
 
                 $$array_name = array(
                     'block' . $i . '_type'  => 'post',
-                    'block' . $i . '_cat'  => filter_input(INPUT_POST, 'post_cat_' . $i . ''),                    
+                    'block' . $i . '_cat'  => filter_input(INPUT_POST, 'post_cat_' . $i . ''),
                     'block' . $i . '_bg'    => $colorBg,
-                    'block' . $i . '_text'  => $colorText
+                    'block' . $i . '_text'  => $colorText,
+                    'block' . $i . '_bootstrap'  => $bootstrap
                 );
             }
         }
@@ -644,8 +658,8 @@ if (filter_input(INPUT_POST, "idToMod")) {
         // add to nomenu
         $pages_json = file_get_contents('../inc/menu/menu.json');
         $pages_data = json_decode($pages_json, true);
-        $pages_data['nomenu'][] = "".$row['id']."" ;
-        $newpages_data = json_encode($pages_data,JSON_PRETTY_PRINT);
+        $pages_data['nomenu'][] = "" . $row['id'] . "";
+        $newpages_data = json_encode($pages_data, JSON_PRETTY_PRINT);
         file_put_contents('../inc/menu/menu.json', $newpages_data);
 
 

@@ -29,11 +29,12 @@ $addpage_header_img_upload = "Upload a new image" ;
 $addpage_header_gallery_title = "Gallery" ;
 $addpage_header_gallery_choose = "Choose a gallery" ;
 $addpage_header_site_name = "Show site name" ;
-$addpage_header_site_description = "Show site description" ;
+$addpage_header_site_description = "Show site description"; 
 
 // add page -> blocks
 
 $block_title = "Block" ;
+$block_bootstrap = "Add bootstrap class" ;
 $block_type_text = "Text" ;
 $block_type_image = "Image" ;
 $block_type_info = "Box info" ;

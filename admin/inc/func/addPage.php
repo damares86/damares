@@ -245,6 +245,13 @@
                                                 &nbsp;
                                             </div>
 
+                                            <div class="col-md-3 mt-3 p-3">
+                                                <label><?=$block_bootstrap?></label>
+                                            </div>
+                                            <div class="col-md-9 mt-3  px-5">
+                                                <input type="text" class="form-control" placeholder="" name="bootstrap_1"  />
+                                            </div>
+
                                             <div class="col-12 mt-3 mb-3 px-5 pb-3 border-bottom">
 
                                                 <div class="row page text_1">
@@ -304,7 +311,7 @@
                                                     <input type="hidden" name="quote_1" value="q">
                                                 </div>
                                                 <?php
-                                                if ($postExist==true) {
+                                                if ($postExist == true) {
                                                 ?>
                                                     <div class="row page post_1">
                                                         <div class="col-12">
@@ -542,13 +549,13 @@ $colors = json_encode($colorArray);
 <script type="text/javascript">
     var galleryOptions = '<?php echo $galleryOptions; ?>';
     <?php
-    if($postExist==true){
-        
+    if ($postExist == true) {
+
         echo 'var postExist = true;';
-        echo 'var catOptions = \''.$catOption.'\';';
-        echo 'var block_post_cat = \''.$block_post_cat.'\';';
-        echo 'var block_post_text = \''.$block_post_text.'\';';    
-    }else{
+        echo 'var catOptions = \'' . $catOption . '\';';
+        echo 'var block_post_cat = \'' . $block_post_cat . '\';';
+        echo 'var block_post_text = \'' . $block_post_text . '\';';
+    } else {
         echo 'var postExist = false;';
     }
     ?>
@@ -556,6 +563,7 @@ $colors = json_encode($colorArray);
     var colorOptionsText = '<?php echo $colorOptionsText; ?>';
     var colors = <?php echo $colors; ?>;
     var block_type_text = '<?php echo $block_type_text; ?>';
+    var block_bootstrap = '<?php echo $block_bootstrap?>';
     var block_title = '<?php echo $block_title; ?>';
     var block_type_image = '<?php echo $block_type_image; ?>';
     var block_type_info = '<?php echo $block_type_info; ?>';
