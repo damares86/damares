@@ -19,7 +19,7 @@ $layout = $row['value'];
   <!-- Overlay con lo spinner -->
   <div id="preloader">
     <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden"><?=$common_loading?>...</span>
+      <span class="visually-hidden"><?= $common_loading ?>...</span>
     </div>
   </div>
   <script>
@@ -56,7 +56,18 @@ $layout = $row['value'];
         if ($page == 'index') {
         ?>
           <div class="page-heading">
-            <h3>Damares <?= $common_dashboard ?></h3>
+            <h3 class="d-inline">Damares <?= $common_dashboard ?></h3>
+            <?php
+            $plugin->pluginname = "mini_cms";
+
+            if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+            ?>
+              <a href="../" class="btn icon btn-info shadow mx-3 px-3">
+                <i class="bi bi-arrow-left-circle"></i> &nbsp; <?=$mc_backsite?>
+              </a>
+            <?php
+            }
+            ?>
           </div>
         <?php
         }
@@ -67,12 +78,12 @@ $layout = $row['value'];
 
           require "inc/alert.php";
 
-          if ($page!='index') {
+          if ($page != 'index') {
             include "inc/func/$page.php";
           } else {
 
           ?>
-          
+
             <section class="row">
               <?php
               $homeBlocks = $home->showAll('id');

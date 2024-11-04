@@ -17,6 +17,7 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       layout VARCHAR(50) NOT NULL,
       header INT(1) NOT NULL,
       header_media VARCHAR(255) DEFAULT NULL,
+      use_page_name INT(1) DEFAULT 0,
       use_name INT(1) DEFAULT 0,
       use_desc INT(1) DEFAULT 0,
       counter INT(3) NOT NULL);
@@ -62,6 +63,9 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "mc_pages
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_site_url', 'www.site.com');
+      INSERT INTO " . $prefix . "mc_settings
+      (name, value )
+      VALUES ('mc_site_logo', 'mc_logo.png');
       INSERT INTO " . $prefix . "mc_settings
       (name, value )
       VALUES ('mc_site_name', 'Mini CMS Website');
