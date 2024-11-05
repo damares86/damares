@@ -43,28 +43,29 @@ session_start();
 //   }
 // }
 
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] ==1){
+// if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] ==1){
   
-  if($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2){
-    header("Location: ../admin");
-    exit;
-  }
+//   if($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2){
+//     header("Location: ../admin");
+//     exit;
+//   }
 
 
-  $plugin->pluginname = "role_redirect" ;
+//   $plugin->pluginname = "role_redirect" ;
         
-  if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-      $role->id = $_SESSION['role_id'] ;
-      $stmt = $role->showAllWhere('id',['id']);
-      foreach($stmt as $row){
-          if($row['redirect']!="none"){
-              header("Location: ".$row['redirect']."");
-              exit;
-          }
-      }
-  }
+//   if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
+//       $role->id = $_SESSION['role_id'] ;
+//       $stmt = $role->showAllWhere('id',['id']);
+//       foreach($stmt as $row){
+//           if($row['redirect']!="none"){
+//               header("Location: ".$row['redirect']."");
+//               exit;
+//           }
+//       }
+//   }
 
-}else if(isset($_COOKIE['damares-login'])){
+// }else if(isset($_COOKIE['damares-login'])){
+if(isset($_COOKIE['damares-login'])){
     $pieces = explode(",", $_COOKIE['damares-login']);
     $auth->id = $pieces[0];
     $id = $pieces[0];
