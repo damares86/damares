@@ -30,7 +30,6 @@
                                 <li><a class="dropdown-item border-0" href="core/logout.php"><?= $common_logout ?></a></li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -38,10 +37,7 @@
 
         <ul class="sidebar_menu list-unstyled">
             <?php
-
-
             $role_id = $_SESSION['role_id'];
-
             $rolessection->table = 'rolesSectionChild';
             $rolessection->role_id = $role_id;
             $permissionChild = $rolessection->showAllWhere('id', ['role_id']);
@@ -49,18 +45,14 @@
             extract($permChildArr);
             $sectionChild = explode(',', $permChildArr['section_id']);
             $section->table = 'sectionParent';
-
             $stmt = $section->showAll('id');
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
                 extract($row);
 
                 $hasSub = "";
                 $active = "";
-                // $link = "?p=" . $row['link'] . "";
-                $link = $row['link'] == "index" ? "" : "?p=" . $row['link'] . "";
-
+                $link = $row['link'] == "index" ? "" : "index.php?p=" . $row['link'] . "";
                 $parent_id = $row['id'];
 
                 $section->table = 'sectionChild';
@@ -69,13 +61,11 @@
                 $countChildPermissions = 0;
 
                 while ($row2 = $child->fetch(PDO::FETCH_ASSOC)) {
-
                     if (in_array($row2['id'], $sectionChild)) {
                         $countChildPermissions++;
                     }
                 }
 
-                $disabled = '';
                 $child = $section->showAllWhere('id', ['parent_id']);
 
                 if ($section->countChild($row['id']) > 0 && $countChildPermissions > 0) {
@@ -85,11 +75,10 @@
                             $check_nomenu++;
                         }
                     }
+                    $link = ($row['link'] == "index") ? "" : "index.php?p=" . $row['link'];
                     if ($check_nomenu > 0) {
-
                         $hasSub = "has-sub";
-                        $link = "#";
-                        $disabled = ' disabled';
+                        $link = "javascript:void(0)"; // Imposta correttamente href solo per i link con sottomenu
                     }
                 }
 
@@ -97,24 +86,21 @@
                     $active = "active";
                 }
 
-                // SECTION PERMISSIONS
                 $rolessection->role_id = $role_id;
                 $rolessection->table = 'rolesSection';
                 $permissionParent = $rolessection->showAllWhere('id', ['role_id']);
                 $row3 = $permissionParent->fetch(PDO::FETCH_ASSOC);
                 extract($row3);
                 $perm = explode(',', $row3['section_id']);
-
                 $sectionParent = [];
                 foreach ($perm as $item) {
                     $sectionParent[] = $item;
                 }
 
-
                 if ($role_id == 1 ||  in_array($row['id'], $sectionParent)) {
             ?>
-                    <li class="sidebar_li  align-items-center <?= $active ?>">
-                        <a href="index.php<?= $link ?>" class="sidebar-link<?= $disabled ?>">
+                    <li class="sidebar_li align-items-center <?= $active ?>">
+                        <a href="<?= $link ?>" class="sidebar-link <?=$hasSub?>">
                             <i class="bi bi-<?= $row['icon'] ?>"></i>
                             <?php
                             if ($lang == "en") {
@@ -132,18 +118,12 @@
                         if ($hasSub) {
                         ?>
                             <span class="toggle-submenu">+</span>
-
-                            <ul class="submenu_damares list-unstyled">
+                            <ul class="submenu_damares list-unstyled" style="display: none;">
                                 <?php
                                 $where = ['parent_id'];
                                 $section->parent_id = $row['id'];
-
                                 $child = $section->showAllChild();
                                 if ($role_id == 1 || count($sectionChild) > 0) {
-
-                                ?>
-
-                                    <?php
                                     while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
                                         if (($role_id == 1 || in_array($row1['id'], $sectionChild))) {
                                             if ($check_nomenu > 0) {
@@ -159,7 +139,7 @@
                                                 if ($page == $row1['link']) {
                                                     $active1 = "active";
                                                 }
-                                    ?>
+                                ?>
                                                 <li class="<?= $active1 ?>"><a href="index.php?p=<?= $row1['link'] ?>" data-parent-id="<?= $parent_id ?>" <?= $display ?>>
                                                         <i class="bi bi-<?= $row1['icon'] ?>"></i>
                                                         <span>
@@ -185,18 +165,16 @@
                                     }
                                     ?>
                             </ul>
-                    <?php
+                        <?php
                                 }
-                            }
-                    ?>
+                        ?>
                     </li>
-
-            <?php
+        <?php
+                        }
+                    }
                 }
-            }
-            ?>
+        ?>
         </ul>
-
     </div>
 </div>
 
@@ -206,42 +184,45 @@
         var parentPage = <?= $check_parent ?>;
         var parentOfChild = null;
 
-        // Funzione per aprire il submenu
+        // Funzione per aprire il submenu senza animazione
+        function openSubmenuNoAnimation($submenu) {
+            $submenu.addClass('active').show();
+            $submenu.prev('li').find('.toggle-submenu').text('-');
+        }
+
+        // Funzione per aprire il submenu con animazione
         function openSubmenu($submenu) {
             $submenu.addClass('active').slideDown();
             $submenu.prev('li').find('.toggle-submenu').text('-');
-            toggleSymbol = '-'; // Aggiorna la variabile a '-'
         }
 
+        // Funzione per chiudere il submenu con animazione
         function closeSubmenu($submenu) {
             $submenu.removeClass('active').slideUp();
             $submenu.prev('li').find('.toggle-submenu').text('+');
-            toggleSymbol = '+'; // Aggiorna la variabile a '+'
         }
 
-        // Apri i submenu dei parent attivi
+        // Apri i sottomenu dei parent attivi all'inizio, senza animazione
         $('a[data-parent-id]').each(function() {
             var $this = $(this);
             var parentId = $this.data('parent-id');
 
-            // Controllo per parentPage e currentPage
             if (parentId == parentPage || parentId == currentPage) {
                 var $submenu = $this.closest('li').find('.submenu_damares');
-                openSubmenu($submenu);
+                openSubmenuNoAnimation($submenu); // Apri senza animazione
 
-                // Se la pagina corrente è un child, memorizza il parent
+                // Memorizza il parent se la pagina corrente è un child
                 if (parentId == currentPage) {
                     parentOfChild = $this.data('parent-id');
                 }
             }
-
         });
 
-        // Se la pagina corrente è un child, apri anche il parent e il relativo submenu
+        // Apri anche il parent se la pagina corrente è un child
         if (parentOfChild !== null) {
             $('a[data-parent-id="' + parentOfChild + '"]').each(function() {
                 var $submenu = $(this).closest('li').find('.submenu_damares');
-                openSubmenu($submenu);
+                openSubmenuNoAnimation($submenu); // Apri senza animazione
             });
         }
 
@@ -249,34 +230,58 @@
         $('.submenu_damares').each(function() {
             if ($(this).find('li.active').length > 0) {
                 $(this).prev('a').addClass('active');
-                openSubmenu($(this));
-                // Imposta il simbolo del toggle a '-'
-                $(this).prev('span').text('-');
+                openSubmenuNoAnimation($(this)); // Apri senza animazione
+                $(this).prev('span').text('-'); // Imposta il simbolo a '-'
             }
         });
 
-        // Gestione del click sul toggle del submenu
+        // Gestione del click sul toggle del submenu e sui link
         $('.toggle-submenu').on('click', function(e) {
             e.preventDefault();
             var $submenu = $(this).closest('li').find('.submenu_damares').first();
+
             if ($submenu.hasClass('active')) {
                 closeSubmenu($submenu);
-                $(this).text(function(_, text) {
-                    return text = '+';
-                    // return text === '-' ? '+' : '-';
-                });
+                $(this).text('+');
             } else {
                 openSubmenu($submenu);
-
-                $(this).text(function(_, text) {
-                    return text = '-';
-                });
+                $(this).text('-');
             }
         });
-    });
 
-    // Gestione del click sul burger menu
-    $('#burger-menu').on('click', function() {
-        $('#side_damares').toggleClass('active');
+        // Abilita i link a.has-sub per aprire i sottomenu
+        $('a.has-sub').on('click', function(e) {
+            e.preventDefault();
+            var $submenu = $(this).closest('li').find('.submenu_damares').first();
+
+            if ($submenu.hasClass('active')) {
+                closeSubmenu($submenu);
+            } else {
+                openSubmenu($submenu);
+            }
+        });
+
+        // Impedire che i link con "javascript:void(0)" causino un reload
+        $('a[href="javascript:void(0)"]').on('click', function(e) {
+            e.preventDefault();
+        });
+
+        // Gestione del click sul burger menu
+        $('#burger-menu').on('click', function() {
+            $('#side_damares').toggleClass('active');
+        });
     });
 </script>
+
+
+
+
+<style>
+    /* Stile per la freccia e animazione */
+    .toggle-submenu {
+        font-size: 1em;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+    
+</style>
