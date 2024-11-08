@@ -180,14 +180,85 @@
 
 <script>
     $(document).ready(function() {
-        // Gestione apertura/chiusura dei sottomenu e aggiornamento simbolo
-        $('.toggle-submenu, a.has-sub').on('click', function(e) {
+        var currentPage = <?= $pageId ?>;
+        var parentPage = <?= $check_parent ?>;
+        var parentOfChild = null;
+
+        // Funzione per aprire il submenu senza animazione
+        function openSubmenuNoAnimation($submenu) {
+            $submenu.addClass('active').show();
+            $submenu.prev('li').find('.toggle-submenu').text('-');
+        }
+
+        // Funzione per aprire il submenu con animazione
+        function openSubmenu($submenu) {
+            $submenu.addClass('active').slideDown();
+            $submenu.prev('li').find('.toggle-submenu').text('-');
+        }
+
+        // Funzione per chiudere il submenu con animazione
+        function closeSubmenu($submenu) {
+            $submenu.removeClass('active').slideUp();
+            $submenu.prev('li').find('.toggle-submenu').text('+');
+        }
+
+        // Apri i sottomenu dei parent attivi all'inizio, senza animazione
+        $('a[data-parent-id]').each(function() {
+            var $this = $(this);
+            var parentId = $this.data('parent-id');
+
+            if (parentId == parentPage || parentId == currentPage) {
+                var $submenu = $this.closest('li').find('.submenu_damares');
+                openSubmenuNoAnimation($submenu); // Apri senza animazione
+
+                // Memorizza il parent se la pagina corrente è un child
+                if (parentId == currentPage) {
+                    parentOfChild = $this.data('parent-id');
+                }
+            }
+        });
+
+        // Apri anche il parent se la pagina corrente è un child
+        if (parentOfChild !== null) {
+            $('a[data-parent-id="' + parentOfChild + '"]').each(function() {
+                var $submenu = $(this).closest('li').find('.submenu_damares');
+                openSubmenuNoAnimation($submenu); // Apri senza animazione
+            });
+        }
+
+        // Aggiungi la classe active anche al parent del submenu
+        $('.submenu_damares').each(function() {
+            if ($(this).find('li.active').length > 0) {
+                $(this).prev('a').addClass('active');
+                openSubmenuNoAnimation($(this)); // Apri senza animazione
+                $(this).prev('span').text('-'); // Imposta il simbolo a '-'
+            }
+        });
+
+        // Gestione del click sul toggle del submenu e sui link
+        $('.toggle-submenu').on('click', function(e) {
             e.preventDefault();
             var $submenu = $(this).closest('li').find('.submenu_damares').first();
-            $submenu.slideToggle(300);
-            $(this).siblings('.toggle-submenu').text(
-                $(this).siblings('.toggle-submenu').text() === '+' ? '-' : '+'
-            ); // Cambia il simbolo
+
+            if ($submenu.hasClass('active')) {
+                closeSubmenu($submenu);
+                $(this).text('+');
+            } else {
+                openSubmenu($submenu);
+                $(this).text('-');
+            }
+        });
+
+        // Abilita i link a.has-sub per aprire i sottomenu
+        $('a.has-sub').on('click', function(e) {
+            e.preventDefault();
+            var $submenu = $(this).closest('li').find('.submenu_damares').first();
+
+            if ($submenu.hasClass('active')) {
+                closeSubmenu($submenu);
+            } else {
+                openSubmenu($submenu);
+            }
         });
 
         // Impedire che i link con "javascript:void(0)" causino un reload
@@ -203,6 +274,8 @@
 </script>
 
 
+
+
 <style>
     /* Stile per la freccia e animazione */
     .toggle-submenu {
@@ -210,4 +283,5 @@
         cursor: pointer;
         margin-left: 5px;
     }
+    
 </style>
