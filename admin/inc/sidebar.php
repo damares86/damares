@@ -2,8 +2,8 @@
     ☰
 </button>
 <div id="side_damares" class="">
-    <div class="sidebar_damares sidebar-wrapper_damares">
-        <div class="sidebar-logo">
+    <div class="sidebar_damares sidebar-wrapper_damares shadow">
+        <div class="sidebar-logo border-bottom">
             <a href="index.php">
                 <img src="assets/images/logo/damares_logo.png" alt="Logo" srcset="" />
             </a>
@@ -34,7 +34,19 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 text-center">
+            <?php
+            $plugin->pluginname = "mini_cms";
 
+            if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+            ?>
+                <a href="../" class="btn icon btn-primary shadow mx-3 px-3 text-white">
+                    <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= $mc_backsite ?>
+                </a>
+            <?php
+            }
+            ?>
+        </div>
         <ul class="sidebar_menu list-unstyled">
             <?php
             $role_id = $_SESSION['role_id'];
@@ -100,7 +112,7 @@
                 if ($role_id == 1 ||  in_array($row['id'], $sectionParent)) {
             ?>
                     <li class="sidebar_li align-items-center <?= $active ?>">
-                        <a href="<?= $link ?>" class="sidebar-link <?=$hasSub?>">
+                        <a href="<?= $link ?>" class="sidebar-link <?= $hasSub ?>">
                             <i class="bi bi-<?= $row['icon'] ?>"></i>
                             <?php
                             if ($lang == "en") {
@@ -283,5 +295,4 @@
         cursor: pointer;
         margin-left: 5px;
     }
-    
 </style>
