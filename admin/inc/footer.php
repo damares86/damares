@@ -19,7 +19,13 @@
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/app.js"></script>
 
+<?php
+if($layout == 'h'){
+?>
 <script src="assets/js/pages/horizontal-layout.js"></script>
+<?php
+}
+?>
 
 <?php
 if ($apex) {

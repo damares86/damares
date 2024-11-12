@@ -229,7 +229,7 @@ body.theme-dark .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
 .sidebar-logo{
   text-align: center;
   padding:0.8em;
-  background-color: #f2f7ff;
+  /* background-color: #f2f7ff; */
 }
 
 .sidebar-logo img{
