@@ -23,11 +23,11 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                                <li><a class="dropdown-item border-0" href="index.php?p=editProfile"><?= $common_profile ?></a></li>
+                                <li class="px-2"><a class="dropdown-item border-0" href="index.php?p=editProfile"><?= $common_profile ?></a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item border-0" href="core/logout.php"><?= $common_logout ?></a></li>
+                                <li class="px-2"><a class="dropdown-item border-0" href="core/logout.php"><?= $common_logout ?></a></li>
                             </ul>
                         </div>
                     </div>
