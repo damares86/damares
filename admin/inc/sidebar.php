@@ -64,7 +64,7 @@
 
                 $hasSub = "";
                 $active = "";
-                $link = $row['link'] == "index" ? "" : "index.php?p=" . $row['link'] . "";
+                $link = $row['link'] == "index" ? "index.php" : "index.php?p=" . $row['link'] . "";
                 $parent_id = $row['id'];
 
                 $section->table = 'sectionChild';
@@ -87,7 +87,7 @@
                             $check_nomenu++;
                         }
                     }
-                    $link = ($row['link'] == "index") ? "" : "index.php?p=" . $row['link'];
+                    // $link = ($row['link'] == "index") ? "" : "index.php?p=" . $row['link'];
                     if ($check_nomenu > 0) {
                         $hasSub = "has-sub";
                         $link = "javascript:void(0)"; // Imposta correttamente href solo per i link con sottomenu
