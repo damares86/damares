@@ -40,7 +40,6 @@ if($email_exists && password_verify($postpass,$auth->password)){
         
         $account->update(['auth_token'],'email') ;
         setcookie("damares-login", $auth->id . "," . $token, time()+(60 * 60 *24 * 365 *10 ),"/");
-        
     }
     
     session_start();

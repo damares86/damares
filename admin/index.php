@@ -33,6 +33,7 @@ $layout = $row['value'];
     <script src="assets/js/initTheme.js"></script>
 
     <?php
+
     $classHoriz = '';
 
     if ($layout == 'h') {
@@ -77,7 +78,7 @@ $layout = $row['value'];
           <?php
 
           require "inc/alert.php";
-
+          
           if ($page != 'index') {
             include "inc/func/$page.php";
           } else {
