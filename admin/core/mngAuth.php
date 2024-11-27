@@ -64,25 +64,20 @@ if($email_exists && password_verify($postpass,$auth->password)){
     $time=date("Y.m.d, G:i:s");
     $auth->updateLog($time);
     
-    $plugin->pluginname = "role_redirect" ;
-    
-    if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-        $stmt = $role->showAllWhere('id',['id']);
-        foreach($stmt as $row){
-            if($row['redirect']!="none"){
-                header("Location: ".$row['redirect']."");
-                exit;
-            }
-        }
+    $setting->name = "role_redirect";
+    $stmt = $setting->showAllWhere('id', ['name']);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $redir = $row['value'];
+  
+    if ($redir == 1) {
+      $stmt = $role->showAllWhere('id', ['id']);
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      extract($row);
+      if ($row['redirect'] != "none") {
+        header("Location: " . $row['redirect'] . "");
+        exit;
+      }
     }
-
-    $plugin->pluginname = "file_for_role" ; 
-    
-    if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-        // TODO
-        // spostamento su una pagina con i file
-    }
-
 
     header("Location: ../");
     exit;

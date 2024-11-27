@@ -29,15 +29,18 @@ if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
 
   $role->id = $_SESSION['role_id'];
 
-  $plugin->pluginname = "role_redirect";
+  $setting->name = "role_redirect";
+  $stmt = $setting->showAllWhere('id', ['name']);
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  $redir = $row['value'];
 
-  if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+  if ($redir == 1) {
     $stmt = $role->showAllWhere('id', ['id']);
-    foreach ($stmt as $row) {
-      if ($row['redirect'] != "none") {
-        header("Location: " . $row['redirect'] . "");
-        exit;
-      }
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    extract($row);
+    if ($row['redirect'] != "none") {
+      header("Location: " . $row['redirect'] . "");
+      exit;
     }
   }
 
