@@ -21,7 +21,8 @@ $query_create_table = "CREATE TABLE IF NOT EXISTS " . $prefix . "verify (
 $menu_link = [[
    'link' => 'setRecaptcha',
    'label' => 'Recaptcha',
-   'icon' => 'lock-fill'
+   'icon' => 'lock-fill',
+   'show_menu' => '1'
 ]];
 
 $query_drop_table = "DROP TABLE  " . $prefix . "verify;";

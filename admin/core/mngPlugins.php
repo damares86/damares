@@ -236,7 +236,7 @@ if ($op == "add") {
     //echo "update plugin-> ".$error."<br>" ;
 
   }
-
+  echo "update -> $error<br>";
   $root = '../';
 
   $exclude_folder = ['frontend', 'misc'];
@@ -262,6 +262,7 @@ if ($op == "add") {
               chmod($dest_file, 0755);
             } else {
               $error++;
+              echo "$dest_file -> $error<br>";
             }
           }
         } else {
@@ -276,13 +277,13 @@ if ($op == "add") {
             chmod($dest_file, 0755);
           } else {
             $error++;
+            echo "$dest_file -> $error<br>";
           }
         }
   
       }
     }
   }
-
   unlink("../inc/class_initialize.php");
   if ($error == 0) {
 

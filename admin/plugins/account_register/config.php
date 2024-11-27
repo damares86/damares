@@ -30,10 +30,11 @@ $menu_link = [[
       [
          'link' => 'setRegister',
          'label' => 'Account register',
-         'icon' => 'person-badge'
+         'icon' => 'person-badge',
+         'show_menu' => '1'
       ]
    ]
 ]];
 
 $query_drop_table = "DROP TABLE  " . $prefix . "register_account_temp;
-                     DELETE FROM " . $prefix . "settings WHERE value = reg_role";
+                     DELETE FROM " . $prefix . "settings WHERE name = 'reg_role'";
