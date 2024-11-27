@@ -31,25 +31,20 @@ if(isset($_COOKIE['damares-login'])){
         $time=date("Y.m.d, G:i:s");
         $auth->updateLog($time);
         
-        $plugin->pluginname = "role_redirect" ;
-        
-        if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-            $stmt = $role->showAllWhere('id',['id']);
-            foreach($stmt as $row){
-                if($row['redirect']!="none"){
-                    header("Location: ".$row['redirect']."");
-                    exit;
-                }
-            }
+        $setting->name = "role_redirect";
+        $stmt = $setting->showAllWhere('id', ['name']);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $redir = $row['value'];
+      
+        if ($redir == 1) {
+          $stmt = $role->showAllWhere('id', ['id']);
+          $row = $stmt->fetch(PDO::FETCH_ASSOC);
+          extract($row);
+          if ($row['redirect'] != "none") {
+            header("Location: " . $row['redirect'] . "");
+            exit;
+          }
         }
-
-        // if($role->id == 1 || $role->id == 2 ){
-        //     header("Location: admin/");
-        //     exit;
-        // }else{
-            // header("Location: index_xs.php");
-            // exit;
-        // }
       
     } else {
         header("Location: ../login/auth-login.php?err=noLogin");

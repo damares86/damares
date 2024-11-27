@@ -1,12 +1,9 @@
 <?php
 
-$allroles = $role->showAll('id');
-
-$plugin->pluginname = "role_redirect";
-$redir = false;
-if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-  $redir = true;
-}
+$setting->name = "role_redirect";
+$stmt = $setting->showAllWhere('id', ['name']);
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$redir = $row['value'];
 
 ?>
 <div class="page-title">
@@ -44,7 +41,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
             <th><?= $common_rolename ?></th>
             <th><?= $common_section_auth ?></th>
             <?php
-            if ($redir) {
+            if ($redir == 1) {
             ?>
               <th><?= $common_redirect ?></th>
             <?php
@@ -100,7 +97,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                 ?>
               </td>
               <?php
-              if ($redir) {
+              if ($redir == 1) {
               ?>
                 <td><?= $row['redirect'] ?></td>
               <?php

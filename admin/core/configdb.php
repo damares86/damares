@@ -272,6 +272,10 @@ $db->query("INSERT INTO " . $prefix . "settings
                             (id, name,value)
                             VALUES ('5','layout','h')");
 
+$db->query("INSERT INTO " . $prefix . "settings
+                            (id, name,value)
+                            VALUES ('6','role_redirect','0')");
+
 // insert the section for the sidebar / home link management
 
 $db->query("INSERT INTO " . $prefix . "sectionParent

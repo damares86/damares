@@ -1,11 +1,8 @@
 <?php
-
-$plugin->pluginname = "role_redirect";
-$redir = false;
-if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-    $redir = true;
-}
-
+$setting->name = "role_redirect";
+$stmt = $setting->showAllWhere('id', ['name']);
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$redir = $row['value'];
 ?>
 <div class="page-heading">
     <div class="page-title">
@@ -177,7 +174,7 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
                                             }
                                         }
 
-                                        if ($redir) {
+                                        if ($redir == 1) {
                                             ?>
                                             <div class="col-md-3">
                                                 <label><?= $common_redirect ?> </label>

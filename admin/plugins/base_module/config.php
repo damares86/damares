@@ -25,12 +25,14 @@ $menu_link = [[
             [
                   'link' => 'allBaseModule',
                   'label' => 'All base module',
-                  'icon' => 'icon-name'
+                  'icon' => 'icon-name',
+                  'show_menu' => '1'
             ],
             [
                   'link' => 'addBaseModule',
                   'label' => 'Add a new base module',
-                  'icon' => 'icon-name'
+                  'icon' => 'icon-name',
+                  'show_menu' => '0'
             ]
       ]
 ]];
