@@ -68,10 +68,13 @@
                                         <div class="form-group has-icon-left">
                                             <div class="form-check mandatory">
                                                 <div class="position-relative">
-                                                    <input type="password" class="form-control" placeholder="Password" name="password" data-parsley-required="true" />
+                                                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" data-parsley-required="true" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-lock"></i>
                                                     </div>
+    <div class="toggle-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+      <i class="bi bi-eye" id="togglePassword"></i>
+    </div>
                                                 </div>
                                             </div>
                                         </div>
