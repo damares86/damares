@@ -54,8 +54,9 @@ $redir = $row['value'];
         <tbody>
 
           <?php
-          while ($row = $allroles->fetch(PDO::FETCH_ASSOC)) {
-            extract($row);
+          $allroles = $role->showAll('id');
+          while ($row1 = $allroles->fetch(PDO::FETCH_ASSOC)) {
+            extract($row1);
 
             // hide sections for non root users
             if ($_SESSION['role_id'] == 1) {
@@ -64,29 +65,29 @@ $redir = $row['value'];
               $exclude_roles = [1, 2];
             }
 
-            if (in_array($row['id'], $exclude_roles)) {
+            if (in_array($row1['id'], $exclude_roles)) {
               continue;
             }
 
           ?>
             <tr>
-              <td><?= $row['rolename'] ?></td>
+              <td><?= $row1['rolename'] ?></td>
               <td>
                 <?php
-                $rolessection->role_id = $row['id'];
+                $rolessection->role_id = $row1['id'];
                 $permissions = $rolessection->showAllPermission();
-                $row = $permissions->fetch(PDO::FETCH_ASSOC);
-                extract($row);
-                if (!is_null($row['section_id'])) {
-                  $section_arr = explode(',', $row['section_id']);
+                $row2 = $permissions->fetch(PDO::FETCH_ASSOC);
+                extract($row2);
+                if (!is_null($row2['section_id'])) {
+                  $section_arr = explode(',', $row1['section_id']);
                   foreach ($section_arr as $item) {
 
                     $section->id = $item;
-                    $stmt = $section->showById('sectionParent');
+                    $stmt1 = $section->showById('sectionParent');
                     if ($lang == "en") {
-                      echo $stmt['label'] . "<br>";
+                      echo $stmt1['label'] . "<br>";
                     } else {
-                      $locale_label = strtolower($stmt['label']);
+                      $locale_label = strtolower($stmt1['label']);
                       $locale_label = str_replace(" ", "_", $locale_label);
                       $locale_label = "label_$locale_label";
                       $section_label = $$locale_label;
@@ -99,24 +100,24 @@ $redir = $row['value'];
               <?php
               if ($redir == 1) {
               ?>
-                <td><?= $row['redirect'] ?></td>
+                <td><?= $row1['redirect'] ?></td>
               <?php
               }
               ?>
               <td>
                 <?php
-                $accountroles->role_id = $row['id'];
+                $accountroles->role_id = $row1['id'];
                 $roleNum = $accountroles->countRoleAccounts();
                 echo $roleNum;
                 ?>
               </td>
               <td>
-                <a href="index.php?p=editRole&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editRole&idToMod=<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
+                <a href="index.php?p=editRole&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editRole&idToMod=<?= $row1['id'] ?>"><i class="bi bi-pencil-square"></i></a>
                 &nbsp; &nbsp;
-                <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row['id'] ?>"><i class="bi bi-trash"></i>
+                <a href="#" class="btn icon btn-danger shadow" data-bs-toggle="modal" data-bs-target="#danger<?= $row1['id'] ?>"><i class="bi bi-trash"></i>
                 </a>
                 <!--Danger theme Modal -->
-                <div class="modal fade text-left" id="danger<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                <div class="modal fade text-left" id="danger<?= $row1['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                       <div class="modal-header bg-danger">
@@ -135,7 +136,7 @@ $redir = $row['value'];
                           <i class="bx bx-x d-block d-sm-none"></i>
                           <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
                         </button>
-                        <span class="d-none d-sm-block"><a href="core/mngRoles.php?idToDel=<?= $row['id'] ?>" class="btn btn-danger ml-1"><?= $common_modal_confirm ?></a></span>
+                        <span class="d-none d-sm-block"><a href="core/mngRoles.php?idToDel=<?= $row1['id'] ?>" class="btn btn-danger ml-1"><?= $common_modal_confirm ?></a></span>
                       </div>
                     </div>
                   </div>
