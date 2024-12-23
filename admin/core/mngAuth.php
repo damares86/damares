@@ -61,7 +61,8 @@ if($email_exists && password_verify($postpass,$auth->password)){
     
 
     // update the login log time
-    $time=date("Y.m.d, G:i:s");
+    $time=date("Y-m-d G:i:s");
+    // $time=date("Y.m.d, G:i:s");
     $auth->updateLog($time);
     
     $setting->name = "role_redirect";

@@ -3,9 +3,11 @@
 require "inc/header.php";
 $plugin->pluginname = "recaptcha";
 $mng = "mngAuth";
+$recap = false ;
 
 if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
   $mng = "mngAuthRecap";
+  $recap = true ;
   require "../admin/inc/recaptcha.php";
 }
 
@@ -18,6 +20,14 @@ if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
 </p>
 
 <form action="../admin/core/<?= $mng ?>.php" method="POST" data-parsley-validate>
+  <?php
+  if($recap){
+  ?>
+  <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+  <?php
+  }
+  ?>
+
   <div class="form-group position-relative has-icon-left mb-4">
     <input type="email" class="form-control form-control-xl" placeholder="Email" name="email" data-parsley-required="true" />
     <div class="form-control-icon">
