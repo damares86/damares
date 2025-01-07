@@ -2,7 +2,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3><?= $file_add_header ?></h3>
+                <h3>Aggiungi nuovo file archivio</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -11,7 +11,7 @@
                             <a href="index.php"><?= $common_dashboard ?></a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            <?= $file_add_header ?>
+                        Aggiungi nuovo file archivio
                         </li>
                     </ol>
                 </nav>
@@ -25,28 +25,53 @@
             <div class="col-md-8 col-12">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h4 class="card-title"><?= $file_add_title ?></h4>
+                        <h4 class="card-title">Aggiungi nuovo file</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-horizontal upload-form" action="core/mngFiles.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
+                            <form class="form form-horizontal upload-form" action="core/mngArchive.php" method="POST" enctype="multipart/form-data" data-parsley-validate>
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label><?= $file_all_label ?> <span class="text-danger">*</span></label>
+                                            <label>Titolo file <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9">
-                                            <div class="form-group has-icon-left">
+                                            <div class="form-group">
                                                 <div class="form-check mandatory">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="File name" id="first-name-icon" name="label" data-parsley-required="true" />
-                                                        <div class="form-control-icon">
-                                                            <i class="bi bi-key"></i>
-                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="File name" id="first-name-icon" name="title" data-parsley-required="true" />
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-3">
+                                        <label>Anno <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <div class="form-check mandatory">
+                                                <div class="position-relative">
+                                                    <fieldset class="form-group">
+                                                        <select class="form-select" id="year" name="year_id">
+                                                            <?php
+                                                            $archive->table = "archive_years" ;
+                                                            $stmt = $archive->showAll('year',null, null,"DESC");
+                                                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                                            ?>
+
+                                                                    <option value="<?= $row['id'] ?>"><?= $row['year'] ?></option>
+
+                                                            <?php
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                         <div class="col-md-3">
                                             <label><?= $file_add_file ?> <span class="text-danger">*</span></label>
@@ -66,7 +91,7 @@
                                             <div class="result"></div>
                                         </div>
                                         <input type="hidden" id="operation" name="operation" value="add">
-                                        <input type="hidden" name="origin" value="addFile">
+                                        <input type="hidden" name="origin" value="addArchive">
 
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1 shadow">

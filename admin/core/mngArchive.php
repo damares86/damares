@@ -85,6 +85,40 @@ if($operation == "addYear") {
 
 }else if($operation == "add"){
 
+
+    if($_FILES['myfile']['size'] > 0){
+        $file->filename = $_FILES['myfile']['name'] ;
+        $filename = $_FILES['myfile']['name'] ;
+
+        if($file->countFile()>0){
+            
+            header("Location: ../index.php?p=allArchive&err=fileExists$url_data");
+            exit;
+        }
+        // set data for file uploading
+        $file->table = 'archive_files' ;
+        $file->inputFileName = $_FILES['myfile']['tmp_name'] ;
+        $file->label = filter_input(INPUT_POST,"label") ;
+        $file->path = "../../uploads/archive/" ;
+        $file->origin = filter_input(INPUT_POST,"origin");
+        
+        $file->operation = "add" ;
+        
+        if($file->uploadFile()){
+            //success
+            header("Location: ../index.php?p=allArchive&msg=fileSucc$url_data");
+            exit;
+        }else{
+            header("Location: ../index.php?p=allArchive&err=fileFail$url_data");
+            exit;
+        }
+    }else{
+        header("Location: ../index.php?p=allArchive&err=fileErr$url_data");
+        exit;
+    }
+
+
+
 }else if($operation == "editYear"){
 
     $archive->table = 'archive_years' ;
