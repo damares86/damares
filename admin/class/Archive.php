@@ -11,6 +11,8 @@
 class Archive extends Common{
 
     // public $table = "home";
+    public $archive_year_id ;
+    public $year ;
 
   
     
