@@ -20,6 +20,7 @@ class Common
     public $prx;
     public $operation;
     public $origin;
+    protected $prefix;
 
 
     // constructor
@@ -27,6 +28,28 @@ class Common
     public function __construct($db)
     {
         $this->conn = $db;
+        // Include il file con il prefisso
+        $this->loadPrefix();
+    }
+
+
+    // public function __construct() {
+    // }
+
+    protected function loadPrefix() {
+        // Assicurati che il file esista
+        $prefixFile = '../core/prefix.php';
+        if (is_file($prefixFile)) {
+            require $prefixFile;
+            $this->prefix = isset($prefix) ? $prefix : '';
+        } else {
+            $this->prefix = ''; // Nessun prefisso se il file non esiste
+        }
+    }
+
+    public function getTableName($baseTable) {
+        // Ritorna il nome della tabella con prefisso
+        return $this->prefix !== '' ? "{$this->prefix}_{$baseTable}" : $baseTable;
     }
 
     // error->TENERE?

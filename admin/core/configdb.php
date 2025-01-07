@@ -18,52 +18,41 @@ $debug = new \bdk\Debug(array(
 
 
 // create Database class
-
 if (!is_file('../class/Database.php')) {
   $db_name = filter_input(INPUT_POST, "dbname");
   $username = filter_input(INPUT_POST, "username");
   $db_password = filter_input(INPUT_POST, "db_password");
   $host = filter_input(INPUT_POST, "host");
+  
   $file_handle = fopen('../class/Database.php', 'w');
-  fwrite($file_handle, '<?php');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, "class Database{");
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'public $db_name="' . $db_name . '";');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'public $username="' . $username . '";');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'public $password="' . $db_password . '";');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'public $host="' . $host . '";');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'public $conn;');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'public $prx;');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, "public function getConnection(){");
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, '$this->conn = null;');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'try{');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, '$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, '}catch(PDOException $exception){');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'echo "Connection error: " . $exception->getMessage();');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, '}');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, 'return $this->conn;');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, '}');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, '}');
-  fwrite($file_handle, "\n");
-  fwrite($file_handle, '?>');
+  
+  $content = <<<PHP
+<?php
+class Database {
+  public \$db_name = "{$db_name}";
+  public \$username = "{$username}";
+  public \$password = "{$db_password}";
+  public \$host = "{$host}";
+  public \$conn;
+  public \$prx;
+
+  public function getConnection() {
+      \$this->conn = null;
+      try {
+          \$this->conn = new PDO("mysql:host=" . \$this->host . ";dbname=" . \$this->db_name, \$this->username, \$this->password);
+      } catch (PDOException \$exception) {
+          echo "Connection error: " . \$exception->getMessage();
+      }
+      return \$this->conn;
+  }
 }
+?>
+PHP;
+
+  fwrite($file_handle, $content);
+  fclose($file_handle);
+}
+
 
 chmod('../class/Database.php', 0777);
 
@@ -72,6 +61,10 @@ include("../class/Database.php");
 $database = new Database();
 $db = $database->getConnection();
 
+$prefix = "";
+if ($_POST['prefix']) {
+  $prefix = $_POST['prefix'] . "_";
+}
 // recall of all the classes
 $files = glob("../class/*.php", GLOB_BRACE);
 rsort($files);
@@ -106,10 +99,7 @@ $password_hash = password_hash($password, PASSWORD_BCRYPT);
 // prefix optionally given by user
 // and save it in a file
 
-$prefix = "";
-if ($_POST['prefix']) {
-  $prefix = $_POST['prefix'] . "_";
-}
+
 
 $file_handle = fopen('../core/prefix.php', 'w');
 fwrite($file_handle, '<?php');
@@ -159,8 +149,8 @@ $db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "accountsRoles
               ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 account_id INT ( 5 ) NOT NULL,
                 role_id INT (5) NOT NULL,
-                FOREIGN KEY (account_id) REFERENCES accounts(id),
-                FOREIGN KEY (role_id) REFERENCES roles(id))");
+                FOREIGN KEY (account_id) REFERENCES " . $prefix . "accounts(id),
+                FOREIGN KEY (role_id) REFERENCES " . $prefix . "roles(id))");
 
 
 $db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "sectionParent
@@ -270,7 +260,7 @@ $db->query("INSERT INTO " . $prefix . "settings
 
 $db->query("INSERT INTO " . $prefix . "settings
                             (id, name,value)
-                            VALUES ('5','layout','h')");
+                            VALUES ('5','layout','v')");
 
 $db->query("INSERT INTO " . $prefix . "settings
                             (id, name,value)
