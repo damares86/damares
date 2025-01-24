@@ -43,9 +43,12 @@ if (filter_input(INPUT_GET, "idToDel")) {
             header("Location:../index.php?p=allArchiveYear&msg=yearDelSucc");
             exit;
         } else {
-            header("Location:../index.php?p=allArchiveYear&err=yearDleFail");
+            header("Location:../index.php?p=allArchiveYear&err=yearDelFail");
             exit;
         }
+    }else {
+        header("Location:../index.php?p=allArchiveYear&err=yearArchiveExists");
+        exit;
     }
 }
 
@@ -130,20 +133,21 @@ if ($operation == "addYear") {
 } else if ($operation == "edit") {
 
     $idToMod = filter_input(INPUT_POST, "idToMod");
-    $url_tablePage = filter_input(INPUT_POST, 'url_tablePage');
-    $url_pageName = filter_input(INPUT_POST, 'url_pageName');
-
-    $url_data = "&tablePage=$url_tablePage&pageName=$url_pageName";
-
+    
+    $archive->table = 'archive_files';
     $archive->id = $idToMod;
     $archive->title = filter_input(INPUT_POST, "title");
     $archive->archive_year_id = filter_input(INPUT_POST, "year_id");
-
     if (filter_input(INPUT_POST, "month")) {
         $archive->month = filter_input(INPUT_POST, "month");
     } else {
         $archive->month = NULL;
     }
+    
+    $url_tablePage = filter_input(INPUT_POST, 'url_tablePage');
+    $url_pageName = filter_input(INPUT_POST, 'url_pageName');
+
+    $url_data = "&tablePage=$url_tablePage&pageName=$url_pageName";
 
     if ($_FILES['myfile']['size'] > 0) {
 
@@ -162,7 +166,7 @@ if ($operation == "addYear") {
         $archive->path = "../../uploads/archive/";
         $archive->origin = filter_input(INPUT_POST, "origin");
 
-        $archive->operation = "add";
+        $archive->operation = "edit";
 
         if ($archive->uploadFile()) {
             //success
@@ -183,6 +187,8 @@ if ($operation == "addYear") {
         }
     }
 } else {
+
+
     header("Location: ../index.php?p=allArchive&err=noPost");
     exit;
 }

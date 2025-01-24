@@ -6,7 +6,7 @@ $allarchive = $archive->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Anni dell'archivio</h3>
+      <h3><?=$allyears_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +15,7 @@ $allarchive = $archive->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Anni dell'archivio
+            <?=$allyears_header?>
           </li>
         </ol>
       </nav>
@@ -27,14 +27,14 @@ $allarchive = $archive->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">Anni dell'archivio &nbsp; &nbsp; &nbsp;
-      <a href="index.php?p=addArchiveYear" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Aggiungi nuovo anno</a>
+    <div class="card-header"><?=$allyears_header?> &nbsp; &nbsp; &nbsp;
+      <a href="index.php?p=addArchiveYear" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> <?=$allyears_add?></a>
     </div>
     <div class="card-body">
       <table class="table" id="table">
         <thead>
           <tr>
-            <th>Anno</th>
+            <th><?=$allyears_year?></th>
             <th><?= $common_actions ?></th>
           </tr>
         </thead>
@@ -65,7 +65,7 @@ $allarchive = $archive->showAll('id');
                         </button>
                       </div>
                       <div class="modal-body">
-                        Vuoi eliminare questo anno?
+                        <?=$allyears_modal_body?>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">

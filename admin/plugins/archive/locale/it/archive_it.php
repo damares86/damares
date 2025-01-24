@@ -10,61 +10,73 @@
 
 // label sidebar
 
-$label_account_register="Registrazione account" ;
+$label_all_archive_files="Tutti i file dell'archivio" ;
+$label_add_a_new_archive_files = 'Aggiungi un nuovo file archivio' ;
+$label_edit_an_archive_file = "Modifica file archivio" ;
+$label_archive_years = 'Anni archivio' ;
+$label_add_an_archive_year = "Aggiungi anno archivio" ;
+$label_edit_an_archive_year = 'Modifica anno archivio' ;
 
-//  pages
+// add year
 
-$login_reg = "Non hai un account?" ;
-$login_signup = "Registrati" ;
-$reg_title = "Registrati" ;
-$reg_desc = "Inserisci i tuoi dati per registrarti al sito";
-$reg_account = "Hai già un account?" ;
-$reg_account_button = "Entra";
-$reg_noreg = "<-- Nessuna registrazione in sospeso con questi dati. Per favore riprova o contattaci ";
-$reg_errreg = "Errore nel processo di registrazione. Per favore riprova o contattaci ";
-$reg_token = "Richiesta di registrazione scaduta" ;
-$reg_back = "<-- Torna alla pagina di registrazione" ;
-$reg_conf_psw_ph = "Conferma Password";
-$reg_agree_1 = "Accetto le ";
-$reg_agree_2 = "condizioni";
-$reg_agree_3 = " e la ";
-$reg_agree_4 = "privacy policy";
+$addyear_header = 'Aggiungi anno archivio' ;
+$addyear_title = 'Aggiungi nuovo anno archivio' ;
+$addyear_year = "Anno" ;
+$addyear_title_ph = 'Anno' ;
 
+// edit year
 
+$edityear_header = 'Modifica anno archivio' ;
+$edityear_title = 'Modifica anno archivio' ;
+$edityear_year = "Anno" ;
+$edityear_title_ph = 'Anno' ;
 
-// settings
+// add file
 
-$regset_title = "Ruolo di default per gli utenti registrati" ;
+$addarchive_header = 'Aggiungi file archivio' ;
+$addarchive_title = 'Aggiungi nuovo file archivio' ;
+$addarchive_title_file = 'Titolo file' ;
+$addarchive_year = 'Anno' ;
 
+// edit file
 
-// block mail
+$editarchive_header = 'Modifica file archivio' ;
+$editarchive_title = 'Modifica file archivio' ;
+$editarchive_title_file = 'Titolo file' ;
+$editarchive_year = 'Anno' ;
+$editarchive_current_file = 'File attuale' ;
+$editarchive_replace_file = 'Sostituisci file' ;
 
-$reg_mail_subject = "Conferma registrazione - damares" ;
-$reg_block1 ='<html><body>';
-$reg_block1.= '<p>Caro utente,</p>';
-$reg_block1.='<p>clicca sul link per completare la registrazione.</p>';
-$reg_block1.='<p>-------------------------------------------------------------</p>';
-$reg_block2='<p>Se il link non dovesse funzionare, copialo nella barra degli indirizzi del browser.
-Questo link scadrà in un\'ora per motivi di sicurezza.</p>';
-$reg_block2.='<p>Se non hai richiesto questa registrazione non ti preoccupare, non è necessaria alcuna azione.</p>';   	
-$reg_block2.='<p>Grazie,</p>';
-$reg_block2.='<p>Damares</p>';
-$reg_block2.='</body></html>';
+// all years
 
+$allyears_header = 'Anni dell\'archivio' ;
+$allyears_add = 'Aggiungi nuovo anno' ;
+$allyears_year = 'Anno' ;
+$allyears_modal_body = 'Se confermi questo anno verrà eliminato definitivamente.';
 
-//  msg alert
+// all files
 
-$msg_sentRegMail = "Ti abbiamo inviato una mail con le istruzioni per completare la registrazione" ;
-$msg_accountReg = "Account registrato correttamente. Entra nel sito usando email e password" ;
-$msg_regRoleUpdated = "Ruolo di default aggiornato";
+$allarchive_header = 'Tutti i file dell\'archivio' ;
+$allarchive_title = 'Archivio' ;
+$allarchive_date = 'Data' ;
 
 
-//  err alert
+// msg
 
-$err_mailExists = "Un account con questa mail esiste già." ;
-$err_noRegDelete = "Alcuni errori durante il processo di registrazione. Per favore contattaci" ;
-$err_errSendMail = "Errore nell'invio della mail di registrazione. Per favore contattaci." ;
-$err_noReg = "Errore nella richiesta di registrazione. Per favore riprova o contattaci " ;
-$err_errRegRequest = "Nessuna registrazione in sospeso con questi dati o link scaduto" ;
-$err_accountNoReg = "Account non registrato" ;
-$err_regRoleNotUpdated = "Ruolo di default non aggiornato" ;
+$msg_archiveFileDel = 'File eliminato dall\'archivio' ;
+$msg_yearDelSucc = 'Anno eliminato' ;
+$msg_yearAddSucc = 'Anno aggiunto correttamente' ;
+$msg_yearEditSucc = 'Anno modificato correttamente' ;
+$msg_archiveEditSucc = 'File archivio modificato correttamente' ;
+
+
+// err
+
+$err_archiveFileNoDel = 'File non eliminato' ;
+$err_yearDelFail = 'Anno non eliminato' ;
+$err_yearArchiveExists = 'Anno non eliminato, ci sono file in archivio associati a questo anno' ;
+$err_yearAddFail = 'Errore durante l\'aggiunta dell\'anno' ;
+$err_yearExists = 'L\'anno è già presente in archvio' ;
+$err_yearEditFail = 'Errore durante la modifica dell\'anno' ;
+$err_archiveEditErr = 'Errore durante la modifica del file dell\'archivio';
+

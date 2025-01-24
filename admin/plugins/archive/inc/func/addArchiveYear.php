@@ -2,7 +2,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Aggiungi anno archivio</h3>
+                <h3><?=$addyear_header?></h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -11,7 +11,7 @@
                             <a href="index.php"><?= $common_dashboard ?></a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Aggiungi anno archivio
+                            <?=$addyear_header?>
                         </li>
                     </ol>
                 </nav>
@@ -25,7 +25,7 @@
             <div class="col-md-8 col-12">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h4 class="card-title">Aggiungi nuovo anno archivio</h4>
+                        <h4 class="card-title"><?=$addyear_title?></h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -33,7 +33,7 @@
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label>Anno <span class="text-danger">*</span></label>
+                                            <label><?=$addyear_year?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <div class="form-group">

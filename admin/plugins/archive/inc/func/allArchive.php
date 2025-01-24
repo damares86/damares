@@ -6,7 +6,7 @@ $allarchive = $archive->showAll('id');
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>Tutti i file dell'archivio</h3>
+      <h3><?=$allarchive_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -15,7 +15,7 @@ $allarchive = $archive->showAll('id');
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            Tutti i file dell'archivio
+          <?=$allarchive_header?>
           </li>
         </ol>
       </nav>
@@ -27,7 +27,7 @@ $allarchive = $archive->showAll('id');
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">Archivio &nbsp; &nbsp; &nbsp;
+    <div class="card-header"><?=$allarchive_title?> &nbsp; &nbsp; &nbsp;
       <a href="index.php?p=addArchive" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> <?= $file_all_add ?></a>
     </div>
     <div class="card-body">
@@ -36,7 +36,7 @@ $allarchive = $archive->showAll('id');
           <tr>
             <th><?= $file_all_label ?></th>
             <th><?= $file_all_file ?></th>
-            <th>Data</th>
+            <th><?=$allarchive_date?></th>
             <th><?= $common_link ?></th>
             <th><?= $common_actions ?></th>
           </tr>

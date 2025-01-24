@@ -7,13 +7,19 @@ $archive_file = $archive->showAllWhere('id', ['id']);
 $row_file = $archive_file->fetch(PDO::FETCH_ASSOC);
 extract($row_file);
 
+
+$url_tablePage = filter_input(INPUT_GET, 'tablePage');
+$url_pageName = filter_input(INPUT_GET, 'pageName');
+
+$filename = '' ;
+
 ?>
 
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Modifica file archivio</h3>
+                <h3><?=$editarchive_header?></h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -22,7 +28,7 @@ extract($row_file);
                             <a href="index.php"><?= $common_dashboard ?></a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Modifica file archivio
+                            <?=$editarchive_header?>
                         </li>
                     </ol>
                 </nav>
@@ -36,7 +42,7 @@ extract($row_file);
             <div class="col-md-8 col-12">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h4 class="card-title">Modifica file</h4>
+                        <h4 class="card-title"><?=$editarchive_title?></h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -44,13 +50,13 @@ extract($row_file);
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label>Titolo file <span class="text-danger">*</span></label>
+                                            <label><?=$editarchive_title_file?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <div class="form-group">
                                                 <div class="form-check mandatory">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="File name" id="first-name-icon" name="title" data-parsley-required="true" value="<?= $row_file['title'] ?>" />
+                                                        <input type="text" class="form-control" placeholder="<?=$editarchive_title_file?>" id="first-name-icon" name="title" data-parsley-required="true" value="<?= $row_file['title'] ?>" />
 
                                                     </div>
                                                 </div>
@@ -58,7 +64,7 @@ extract($row_file);
                                         </div>
 
                                         <div class="col-md-3">
-                                            <label>Anno <span class="text-danger">*</span></label>
+                                            <label><?=$editarchive_year?> <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-9">
                                             <div class="form-group">
@@ -71,7 +77,9 @@ extract($row_file);
                                                                 $archive->table = "archive_years";
                                                                 $stmt = $archive->showAll('year', null, null, "DESC");
                                                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                                    if ($$row['id'] == $row_file['year_id']) {
+
+                                                                    $selected = '' ;
+                                                                    if ($row['id'] == $row_file['archive_year_id']) {
                                                                         $selected = 'selected';
                                                                     }
                                                                 ?>
@@ -89,10 +97,13 @@ extract($row_file);
 
 
                                         <div class="col-md-12 my-3">
-                                            File attuale: <b><a href="../uploads/archive/<?= $row_file['file_name'] ?>"><?= $row_file['file_name'] ?></a></b>
+                                            <?php
+                                            $filename = $row_file['file_name'] ;
+                                            ?>
+                                            <?=$editarchive_current_file?>: <b><a href="../uploads/archive/<?= $row_file['file_name'] ?>" target="_blank"><?= $row_file['file_name'] ?></a></b>
                                         </div>
                                         <div class=" col-md-3">
-                                            <label>Sostituisci file</label>
+                                            <label><?=$editarchive_replace_file?></label>
                                         </div>
                                         <div class="col-md-9">
                                             <div class="form-group">
@@ -108,21 +119,23 @@ extract($row_file);
                                             <div class="progress"></div>
                                             <div class="result"></div>
                                         </div>
+
+                                        <input type="hidden" name="filename_orig" value="<?= $filename ?>">
                                         <input type="hidden" id="operation" name="operation" value="edit">
                                         <input type="hidden" name="origin" value="editArchive">
+                                        <input type="hidden" name="idToMod" value="<?= $idToMod ?>">
+                                        <input type="hidden" name="url_tablePage" value="<?= $url_tablePage ?>">
+                                        <input type="hidden" name="url_pageName" value="<?= $url_pageName ?>">
 
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
-                                                <?= $common_submit ?>
-                                            </button>
-                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
-                                                <?= $common_reset ?>
+                                                <?= $common_update ?>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <script src="script/uploadFile.js"></script>
+                            <script src="script/uploadFileArchive.js"></script>
                         </div>
                     </div>
                 </div>
