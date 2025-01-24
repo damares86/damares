@@ -69,23 +69,29 @@ class Archive extends Common
                     $query = "INSERT INTO
                                 " .$this->prx. $this->table . "
                             SET
-                            filename = :filename,
-                            label = :label";
+                            file_name = :file_name,
+                            title = :title,
+                            archive_year_id = :archive_year_id,
+                            month = :month";
                             
                         }else if($this->operation=="edit"){
                             $query = "UPDATE
                             " .$this->prx. $this->table . "
                             SET
-                            filename = :filename,
-                            label = :label
+                            file_name = :file_name,
+                            title = :title,
+                            archive_year_id = :archive_year_id,
+                            month = :month
                             WHERE 
                             id = :id";
                         }
                         // prepare the query
                         $stmt = $this->conn->prepare($query);
                         // bind the values
-                        $stmt->bindParam(':filename', $this->file_name);
-                        $stmt->bindParam(':label', $this->label);
+                        $stmt->bindParam(':file_name', $this->file_name);
+                        $stmt->bindParam(':title', $this->title);
+                        $stmt->bindParam(':archive_year_id', $this->archive_year_id);
+                        $stmt->bindParam(':month', $this->month);
                         if($this->operation=="edit"){
                             $stmt->bindParam(':id', $this->id);
                         }

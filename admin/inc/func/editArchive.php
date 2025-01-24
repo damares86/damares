@@ -7,6 +7,12 @@ $archive_file = $archive->showAllWhere('id', ['id']);
 $row_file = $archive_file->fetch(PDO::FETCH_ASSOC);
 extract($row_file);
 
+
+$url_tablePage = filter_input(INPUT_GET, 'tablePage');
+$url_pageName = filter_input(INPUT_GET, 'pageName');
+
+$filename = '' ;
+
 ?>
 
 <div class="page-heading">
@@ -71,7 +77,9 @@ extract($row_file);
                                                                 $archive->table = "archive_years";
                                                                 $stmt = $archive->showAll('year', null, null, "DESC");
                                                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                                    if ($$row['id'] == $row_file['year_id']) {
+
+                                                                    $selected = '' ;
+                                                                    if ($row['id'] == $row_file['archive_year_id']) {
                                                                         $selected = 'selected';
                                                                     }
                                                                 ?>
@@ -89,7 +97,10 @@ extract($row_file);
 
 
                                         <div class="col-md-12 my-3">
-                                            File attuale: <b><a href="../uploads/archive/<?= $row_file['file_name'] ?>"><?= $row_file['file_name'] ?></a></b>
+                                            <?php
+                                            $filename = $row_file['file_name'] ;
+                                            ?>
+                                            File attuale: <b><a href="../uploads/archive/<?= $row_file['file_name'] ?>" target="_blank"><?= $row_file['file_name'] ?></a></b>
                                         </div>
                                         <div class=" col-md-3">
                                             <label>Sostituisci file</label>
@@ -108,21 +119,23 @@ extract($row_file);
                                             <div class="progress"></div>
                                             <div class="result"></div>
                                         </div>
+
+                                        <input type="hidden" name="filename_orig" value="<?= $filename ?>">
                                         <input type="hidden" id="operation" name="operation" value="edit">
                                         <input type="hidden" name="origin" value="editArchive">
+                                        <input type="hidden" name="idToMod" value="<?= $idToMod ?>">
+                                        <input type="hidden" name="url_tablePage" value="<?= $url_tablePage ?>">
+                                        <input type="hidden" name="url_pageName" value="<?= $url_pageName ?>">
 
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1 shadow">
-                                                <?= $common_submit ?>
-                                            </button>
-                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow">
-                                                <?= $common_reset ?>
+                                                <?= $common_update ?>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <script src="script/uploadFile.js"></script>
+                            <script src="script/uploadFileArchive.js"></script>
                         </div>
                     </div>
                 </div>

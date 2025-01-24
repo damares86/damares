@@ -119,7 +119,7 @@ class Common
 
         $query = "UPDATE " . $this->prx . $this->table . "
         SET " . $this->fields . " WHERE $where = :$where";
-
+        
         $stmt = $this->conn->prepare($query);
 
         foreach ($fields as $item) {

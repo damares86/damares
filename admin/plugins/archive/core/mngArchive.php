@@ -9,26 +9,43 @@
 #                                          #
 ############################################
 
-
 require __DIR__ . "/coreConfig.php";
 
 // check if there's an account to delete
 
 if (filter_input(INPUT_GET, "idToDel")) {
 
-    // $idToDel = filter_input(INPUT_GET,"idToDel");
-    $accountroles->account_id = filter_input(INPUT_GET, "idToDel");
-    $accountroles->delete('account_id');
-    $account->table = "accounts";
+    // ELIMINA FILE DELL'ARCHIVIO
 
-    $account->id = filter_input(INPUT_GET, "idToDel");
+    $archive->table = 'archive_files';
+    $archive->id = filter_input(INPUT_GET, "idToDel");
 
-    if ($account->delete('id')) {
-        header("Location: ../index.php?p=allAccounts&msg=accountDel");
+    if ($archive->delete('id')) {
+        header("Location: ../index.php?p=allArchive&msg=archiveFileDel");
         exit;
     } else {
-        header("Location: ../index.php?p=allAccounts&err=accountNoDel");
+        header("Location: ../index.php?p=allArchive&err=archiveFileNoDel");
         exit;
+    }
+} else if (filter_input(INPUT_GET, "idYearToDel")) {
+
+    // ELIMINA ANNO
+    $idToDel = filter_input(INPUT_GET, 'idYearToDel');
+    $archive->table = "archive_files";
+    $archive->archive_year_id = $idToDel;
+
+    if (!$archive->itemExists('archive_year_id')) {
+
+        $archive->table = "archive_years";
+        $archive->id = $idToDel;
+
+        if ($archive->delete('id')) {
+            header("Location:../index.php?p=allArchiveYear&msg=yearDelSucc");
+            exit;
+        } else {
+            header("Location:../index.php?p=allArchiveYear&err=yearDleFail");
+            exit;
+        }
     }
 }
 
@@ -36,235 +53,136 @@ $operation = filter_input(INPUT_POST, "operation");
 
 // check if there's an account to edit or add
 
-if (filter_input(INPUT_POST, "idToMod")) {
+if ($operation == "addYear") {
 
-    $id = filter_input(INPUT_POST, "idToMod");
-    $account->id = $id;
-    $account->table = "accounts";
+    $archive->table = 'archive_years';
+    $archive->year = filter_input(INPUT_POST, 'year');
 
-    $url_tablePage = filter_input(INPUT_POST,'url_tablePage');
-    $url_pageName = filter_input(INPUT_POST,'url_pageName');
+    if (!$archive->itemExists('year')) {
 
-    $url_data = "&tablePage=$url_tablePage&pageName=$url_pageName" ;
-
-    if ($operation == "password") {
-
-        $password = filter_input(INPUT_POST, "password");
-        $password_hash = password_hash($password, PASSWORD_BCRYPT);
-        $account->password = $password_hash;
-
-        if ($account->update(['password'], 'id')) {
-            header("Location: ../index.php?p=editAccount&idToMod=$id&msg=passMod$url_data");
+        $archive->table = 'archive_years';
+        $archive->year = filter_input(INPUT_POST, 'year');
+        if ($archive->insert(['year'])) {
+            header("Location:../index.php?p=allArchiveYear&msg=yearAddSucc");
             exit;
         } else {
-            header("Location: ../index.php?p=editAccount&idToMod=$id&err=passNoMod$url_data");
+            header("Location:../index.php?p=allArchiveYear&err=yearAddFail");
             exit;
         }
-    } else if ($operation == "edit") {
-
-        $account->id = $id;
-        $stmt = $account->showAllWhere('id', ['id']);
-        $old_email = "";
-        foreach ($stmt as $item) {
-            $old_email = $item['email'];
-        }
-        $email = filter_input(INPUT_POST, "email");
-
-        $auth->email = $email;
-
-        if ($auth->emailExists() && $email != $old_email) {
-            if (filter_input(INPUT_POST, 'frontend')) {
-                header("Location: ../../profile.php?err=accountExist$url_data");
-                exit;
-            } else {
-                header("Location: ../index.php?p=editAccount&err=accountExist$url_data");
-                exit;
-            }
-        } else {
-
-            $account->username = filter_input(INPUT_POST, "username");
-            $account->email = filter_input(INPUT_POST, "email");
-
-            require "accountDetails.php";
-
-            $details_arr = [];
-            $details_opt_arr = [];
-
-            foreach ($account_details as $item) {
-                $details_arr[] = array("$item" => "" . $_POST[$item] . "");
-            }
-
-            if ($details_arr) {
-                $details_str = serialize($details_arr);
-                $account->details = $details_str;
-            }
-
-            foreach ($account_details_opt as $item) {
-                $details_opt_arr[] = array("$item" => "" . $_POST[$item] . "");
-            }
-
-            if ($details_opt_arr) {
-                $details_opt_str = serialize($details_opt_arr);
-                $account->details_opt = $details_opt_str;
-            }
-
-            if ($_FILES['avatar']['size'] > 0) {
-                // set data for file uploading
-                $file->filename = $_FILES['avatar']['name'];
-                $file->inputFileName = $_FILES['avatar']['tmp_name'];
-                $file->label = 'avatar_' . rand(10, 100);
-                $file->path = "../uploads/avatar/";
-                $file->origin = filter_input(INPUT_POST, "origin");
-                $file->filename_orig = filter_input(INPUT_POST, "avatar_orig");
-                $file->id = $file->showIdByFilename();
-                $file->operation = $operation;
-
-                if ($file->uploadFile()) {
-                    $account->avatar = $_FILES['avatar']['name'];
-                    if ($_SESSION['account_id'] == $id) {
-                        $_SESSION['avatar'] = $_FILES['avatar']['name'];
-                    }
-                    if ($_POST['avatar_orig'] != "default.png") {
-                        unlink("../uploads/avatar/" . filter_input(INPUT_POST, "avatar_orig"));
-                    }
-                } else {
-                    header("Location: ../index.php?p=allAccounts&err=noAvatarUpload$url_data");
-                    exit;
-                }
-            } else {
-                $account->avatar = filter_input(INPUT_POST, "avatar_orig");
-            }
-
-
-            if ($account->update(['username', 'email', 'avatar', 'details', 'details_opt'], 'id')) {
-                if (filter_input(INPUT_POST, 'frontend')) {
-                    header("Location: ../../profile.php?msg=accountEdit");
-                    exit;
-                }
-                $accountroles->role_id = filter_input(INPUT_POST, "role");
-                $accountroles->account_id = $id;
-
-                if ($accountroles->update(['role_id'], 'account_id')) {
-                    header("Location: ../index.php?p=editAccount&idToMod=$id&msg=accountEdit$url_data");
-                    exit;
-                } else {
-                    header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountRoleNoEdit$url_data");
-                    exit;
-                }
-            } else {
-                if (filter_input(INPUT_POST, 'frontend')) {
-                    header("Location: ../../profile.php?msg=accountNoEdit$url_data");
-                    exit;
-                } else {
-                    header("Location: ../index.php?p=editAccount&idToMod=$id&err=accountNoEdit$url_data");
-                    exit;
-                }
-            }
-
-
-            exit;
-        }
+    } else {
+        header("Location:../index.php?p=allArchiveYear&err=yearExists");
         exit;
     }
 } else if ($operation == "add") {
 
-    $auth->email = filter_input(INPUT_POST, "email");
 
-    if ($auth->emailExists()) {
-        header("Location: ../index.php?p=addAccount&err=accountExist");
+    if ($_FILES['myfile']['size'] > 0) {
+        $archive->file_name = $_FILES['myfile']['name'];
+        $filename = $_FILES['myfile']['name'];
+
+        if ($file->countFile() > 0) {
+
+            header("Location: ../index.php?p=allArchive&err=fileExists$url_data");
+            exit;
+        }
+        // set data for file uploading
+        $archive->table = 'archive_files';
+        $archive->inputFileName = $_FILES['myfile']['tmp_name'];
+        $archive->title = filter_input(INPUT_POST, "title");
+        $archive->archive_year_id = filter_input(INPUT_POST, "year_id");
+        if (filter_input(INPUT_POST, "month")) {
+            $archive->month = filter_input(INPUT_POST, "month");
+        } else {
+            $archive->month = NULL;
+        }
+
+        $archive->path = "../../uploads/archive/";
+        $archive->origin = filter_input(INPUT_POST, "origin");
+
+        $archive->operation = "add";
+
+        if ($archive->uploadFile()) {
+            //success
+            header("Location: ../index.php?p=allArchive&msg=fileSucc$url_data");
+            exit;
+        } else {
+            header("Location: ../index.php?p=allArchive&err=fileFail$url_data");
+            exit;
+        }
+    } else {
+        header("Location: ../index.php?p=allArchive&err=fileErr$url_data");
+        exit;
+    }
+} else if ($operation == "editYear") {
+
+    $archive->table = 'archive_years';
+    $archive->year = filter_input(INPUT_POST, 'year');
+    $idToMod =  filter_input(INPUT_POST, 'idToMod');
+    $archive->id = $idToMod;
+
+    if ($archive->update(['year'], 'id')) {
+        header("Location:../index.php?p=editArchiveYear&idToMod=$idToMod&msg=yearEditSucc");
         exit;
     } else {
+        header("Location:../index.php?p=editArchiveYear&idToMod=$idToMod&err=yearEditFail");
+        exit;
+    }
+} else if ($operation == "edit") {
 
-        $account->username = filter_input(INPUT_POST, "username");
-        $account->email = filter_input(INPUT_POST, "email");
+    $idToMod = filter_input(INPUT_POST, "idToMod");
+    $url_tablePage = filter_input(INPUT_POST, 'url_tablePage');
+    $url_pageName = filter_input(INPUT_POST, 'url_pageName');
 
-        // hash password
-        $password = filter_input(INPUT_POST, "password");
-        $password_hash = password_hash($password, PASSWORD_BCRYPT);
-        $account->password = $password_hash;
+    $url_data = "&tablePage=$url_tablePage&pageName=$url_pageName";
 
-        require "accountDetails.php";
+    $archive->id = $idToMod;
+    $archive->title = filter_input(INPUT_POST, "title");
+    $archive->archive_year_id = filter_input(INPUT_POST, "year_id");
 
-        $details_arr = [];
-        $details_opt_arr = [];
+    if (filter_input(INPUT_POST, "month")) {
+        $archive->month = filter_input(INPUT_POST, "month");
+    } else {
+        $archive->month = NULL;
+    }
 
-        foreach ($account_details as $item) {
-            $details_arr[] = array("$item" => "" . $_POST[$item] . "");
+    if ($_FILES['myfile']['size'] > 0) {
+
+        $archive->file_name = $_FILES['myfile']['name'];
+        $filename = $_FILES['myfile']['name'];
+
+        if ($file->countFile() > 0) {
+
+            header("Location: ../index.php?p=allArchive&err=fileExists$url_data");
+            exit;
         }
+        // set data for file uploading
+        $archive->table = 'archive_files';
+        $archive->inputFileName = $_FILES['myfile']['tmp_name'];
 
-        $details_str = serialize($details_arr);
-        $account->details = $details_str;
+        $archive->path = "../../uploads/archive/";
+        $archive->origin = filter_input(INPUT_POST, "origin");
 
-        foreach ($account_details_opt as $item) {
-            $details_opt_arr[] = array("$item" => "" . $_POST[$item] . "");
-        }
-        $details_opt_str = serialize($details_opt_arr);
-        $account->details_opt = $details_opt_str;
+        $archive->operation = "add";
 
-        // upload avatar
-        $errUpload = "";
-        $file->operation = filter_input(INPUT_POST, "operation");
-
-        if ($_FILES['avatar']['size'] > 0) {
-
-            // set data for file uploading
-            $file->filename = $_FILES['avatar']['name'];
-            $file->inputFileName = $_FILES['avatar']['tmp_name'];
-            $file->label = 'avatar_' . rand(10, 100);
-            $file->path = "../uploads/avatar/";
-            $file->origin = filter_input(INPUT_POST, "origin");
-
-            if ($file->uploadFile()) {
-                $account->avatar = $_FILES['avatar']['name'];
-            } else {
-                $errUpload = "&err=noAvatarUpload";
-                $account->avatar = "default.png";
-            }
+        if ($archive->uploadFile()) {
+            //success
+            header("Location: ../index.php?p=allArchive&msg=fileSucc$url_data");
+            exit;
         } else {
-            $account->avatar = "default.png";
+            header("Location: ../index.php?p=allArchive&err=fileFail$url_data");
+            exit;
         }
-
-        if ($account->insert(['username', 'email', 'password', 'avatar', 'details', 'details_opt'])) {
-
-            $accountroles->role_id = filter_input(INPUT_POST, "role");
-            $insertedId = "";
-            $account->email = filter_input(INPUT_POST, "email");
-
-            $stmt = $account->showAllWhere('id', ['email']);
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                extract($row);
-                $insertedId = $row['id'];
-            }
-
-            $accountroles->account_id = $insertedId;
-
-            // success, insert the role in accountsRoles table
-            if ($accountroles->insert(['account_id', 'role_id'])) {
-
-                //success
-                header("Location: ../index.php?p=allAccounts&msg=accountSucc$errUpload");
-                exit;
-            } else {
-
-                // failed, delete the user inserted
-
-                if (!$errUpload) {
-                    unlink("../uploads/avatar/" . $_FILES['avatar']['name'] . "");
-                }
-                header("Location: ../index.php?p=allAccounts&err=accountFail");
-                exit;
-            }
+    } else {
+        // update solo db
+        if ($archive->update(['title', 'archive_year_id', 'month'], 'id')) {
+            header("Location: ../index.php?p=allArchive&msg=archiveEditSucc$url_data");
+            exit;
         } else {
-
-            // error, removing avatar if uploaded
-            if (!$errUpload) {
-                unlink("../uploads/avatar/" . $_FILES['avatar']['name'] . "");
-            }
-            header("Location: ../index.php?p=allAccounts&err=accountFail");
+            header("Location: ../index.php?p=allArchive&err=archiveEditErr$url_data");
             exit;
         }
     }
 } else {
-    header("Location: ../index.php?p=allAccounts&err=noPost");
+    header("Location: ../index.php?p=allArchive&err=noPost");
     exit;
 }

@@ -57,7 +57,7 @@ $menu_link = [[
             ],
             [
                   'link' => 'editArchiveYear',
-                  'label' => 'Edit an rchive years',
+                  'label' => 'Edit an archive years',
                   'icon' => 'calendar-date',
                   'show_menu' => '0'
             ]
