@@ -27,7 +27,6 @@ $email = $_POST['email'];
 // check if the given email exist in db
 $email_exists = $auth->emailExists();
 
-
 // match the email and the password
 if($email_exists && password_verify($postpass,$auth->password)){
     if($_POST['remember']){
@@ -59,9 +58,9 @@ if($email_exists && password_verify($postpass,$auth->password)){
     $_SESSION['username'] = $auth->username;
     $_SESSION['avatar'] = $auth->avatar;
     
-
     // update the login log time
-    $time=date("Y.m.d, G:i:s");
+    $time=date("Y-m-d G:i:s");
+    // $time=date("Y.m.d, G:i:s");
     $auth->updateLog($time);
     
     $setting->name = "role_redirect";

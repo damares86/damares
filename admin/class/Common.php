@@ -20,6 +20,7 @@ class Common
     public $prx;
     public $operation;
     public $origin;
+    protected $prefix;
 
 
     // constructor
@@ -27,6 +28,28 @@ class Common
     public function __construct($db)
     {
         $this->conn = $db;
+        // Include il file con il prefisso
+        $this->loadPrefix();
+    }
+
+
+    // public function __construct() {
+    // }
+
+    protected function loadPrefix() {
+        // Assicurati che il file esista
+        $prefixFile = '../core/prefix.php';
+        if (is_file($prefixFile)) {
+            require $prefixFile;
+            $this->prefix = isset($prefix) ? $prefix : '';
+        } else {
+            $this->prefix = ''; // Nessun prefisso se il file non esiste
+        }
+    }
+
+    public function getTableName($baseTable) {
+        // Ritorna il nome della tabella con prefisso
+        return $this->prefix !== '' ? "{$this->prefix}_{$baseTable}" : $baseTable;
     }
 
     // error->TENERE?
@@ -60,11 +83,11 @@ class Common
 
 
         $stmt = $this->conn->prepare($query);
-        echo $query . '<br>';
+        // echo $query . '<br>';
 
         foreach ($fields as $item) {
             $stmt->bindParam(":$item", $this->$item);
-            echo $item . ' -> ' . $this->$item . '<br>';
+            // echo $item . ' -> ' . $this->$item . '<br>';
         }
 
         if ($stmt->execute()) {
@@ -96,7 +119,7 @@ class Common
 
         $query = "UPDATE " . $this->prx . $this->table . "
         SET " . $this->fields . " WHERE $where = :$where";
-
+        
         $stmt = $this->conn->prepare($query);
 
         foreach ($fields as $item) {
@@ -116,7 +139,7 @@ class Common
 
     ///////////// SELECT
 
-    function showAll($orderBy, $limit = null, $offset = null)
+    function showAll($orderBy, $limit = null, $offset = null, $ascDesc = "ASC")
     {
 
         $limits = '';
@@ -127,7 +150,7 @@ class Common
 
         $query = "SELECT *
             FROM " . $this->prx . $this->table . "
-        ORDER BY " . $orderBy . " ASC " . $limits . "";
+        ORDER BY " . $orderBy . " ".$ascDesc." " . $limits . "";
 
         $stmt = $this->conn->prepare($query);
 
@@ -156,7 +179,7 @@ class Common
     }
 
     // $where must be an array
-    function showAllWhere($orderBy, $where, $limit = null, $offset = null)
+    function showAllWhere($orderBy, $where, $limit = null, $offset = null, $ascDesc = "ASC")
     {
 
         $this->where = "";
@@ -183,7 +206,7 @@ class Common
         $query = "SELECT *
         FROM " . $this->prx . $this->table . "
         WHERE " . $this->where . "
-        ORDER BY " . $orderBy . " ASC" . $limit_query . $offset_query . "";
+        ORDER BY " . $orderBy . " ". $ascDesc ." " . $limit_query . $offset_query . "";
 
         $stmt = $this->conn->prepare($query);
         // print_r($stmt);
