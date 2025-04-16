@@ -81,8 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
             
             // update the login log time
             $time=date("Y-m-d G:i:s");
-            
-            // $time=date("Y.m.d, G:i:s");
             $auth->updateLog($time);
             
             $setting->name = "role_redirect";
