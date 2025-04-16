@@ -32,7 +32,7 @@ if(session_status() == PHP_SESSION_ACTIVE){
  }
 
  
- $query = "DROP TABLE IF EXISTS `".$prx."accounts`, `".$prx."accountsRoles`, `".$prx."files`, `".$prx."home`, `".$prx."password_reset_temp`, `".$prx."plugins`, `".$prx."roles`, `".$prx."rolesSection`, `".$prx."rolesSectionChild`, `".$prx."sectionChild`, `".$prx."sectionParent`, `".$prx."settings`,`".$prx."register_account_temp`";
+ $query = "DROP TABLE IF EXISTS `".$prx."accountsRoles`, `".$prx."accounts`,  `".$prx."files`, `".$prx."home`, `".$prx."password_reset_temp`, `".$prx."plugins`, `".$prx."roles`, `".$prx."rolesSection`, `".$prx."rolesSectionChild`, `".$prx."sectionChild`, `".$prx."sectionParent`, `".$prx."settings`,`".$prx."register_account_temp`";
 
  
  $stmt = $database->conn->prepare($query);
