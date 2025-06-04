@@ -99,11 +99,39 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-3">&nbsp;</div>
-                        <div class="col-md-9">
-                            <div class="progress"></div>
-                            <div class="result"></div>
-                        </div> -->
+
+                                    <div class="col-md-3 mt-3">
+                                        <label>File Manager </label>
+                                    </div>
+                                    <div class="col-md-9 mt-3">
+                                        <button type="button" class="btn btn-primary me-1 mb-1 shadow" data-bs-toggle="modal" data-bs-target="#fm_modal">
+                                            Apri
+                                        </button>
+                                    </div>
+
+                                    <style>
+                                        .modal-dialog {
+                                            width: 79%;
+                                            max-width: 80%;
+                                            height: 70%;
+                                        }
+                                    </style>
+                                    <div class="modal fade" id="fm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                                        <div class="modal-dialog" role="document" style="height: 100%;">
+                                            <div class="modal-content h-75">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <iframe src='core/tinyfilemanager.php' style="width: 100%; height:100%;">
+                                                    </iframe>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-3 my-3">
                                         <label><?= $addpost_content ?> <span class="text-danger">*</span></label>
