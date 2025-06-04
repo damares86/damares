@@ -27,7 +27,7 @@ require "inc/funcHeader.php";
                                                         <?php
 
                                                         $scan = scandir('locale/');
-                                                        $exclude = array('..', '.', '.gitkeep');
+                                                        $exclude = array('..', '.', '.gitkeep','fm_translation.json');
                                                         $selected = "";
                                                         foreach ($scan as $folder) {
                                                             if (!in_array($folder, $exclude)) {

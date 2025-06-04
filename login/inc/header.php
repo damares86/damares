@@ -27,45 +27,6 @@ require "../admin/inc/class_initialize.php";
 
 session_start();
 
-// if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
-//   require "../admin/inc/check_cookie.php";
-//   header('Location: ../login/auth-login.php?err=noLogin');
-//   exit;
-// } else if (isset($_COOKIE['damares-login'])) {
-//   $pieces = explode(",", $_COOKIE['damares-login']);
-//   $auth->id = $pieces[0];
-//   $id = $pieces[0];
-//   $auth->auth_token = $pieces[1];
-
-//   if ($auth->checkCookie() > 0) {
-//     header("Location: ../login/auth-login.php?err=noLogin");
-//     exit;
-//   }
-// }
-
-// if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] ==1){
-
-//   if($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2){
-//     header("Location: ../admin");
-//     exit;
-//   }
-
-
-//   $plugin->pluginname = "role_redirect" ;
-
-//   if($plugin->itemExists('pluginname') && $plugin->isActive()==1){
-//       $role->id = $_SESSION['role_id'] ;
-//       $stmt = $role->showAllWhere('id',['id']);
-//       foreach($stmt as $row){
-//           if($row['redirect']!="none"){
-//               header("Location: ".$row['redirect']."");
-//               exit;
-//           }
-//       }
-//   }
-
-// }else if(isset($_COOKIE['damares-login'])){
-
 $setting->name = "role_redirect";
 $stmt = $setting->showAllWhere('id', ['name']);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -73,12 +34,12 @@ $redir = $row['value'];
 
 if (isset($_COOKIE['damares-login'])) {
   $pieces = explode(",", $_COOKIE['damares-login']);
+
   $auth->id = $pieces[0];
   $id = $pieces[0];
   $auth->auth_token = $pieces[1];
   if ($auth->checkCookie() > 0) {
 
-    session_start();
     $accountroles->account_id = $id;
 
     $account->id = $id;
@@ -99,11 +60,10 @@ if (isset($_COOKIE['damares-login'])) {
     $_SESSION['avatar'] = $row['avatar'];
 
     // update the login log time
-    $time = date("Y.m.d, G:i:s");
+    $time = date("Y.m.d G:i:s");
     $auth->updateLog($time);
 
     $plugin->pluginname = "role_redirect";
-
     if ($redir == 1) {
       $stmt = $role->showAllWhere('id', ['id']);
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -115,6 +75,9 @@ if (isset($_COOKIE['damares-login'])) {
         header("Location: ../admin/");
         exit;
       }
+    } else {
+      header("Location: ../admin/");
+      exit;
     }
   }
 } else if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == 1) {
@@ -129,8 +92,12 @@ if (isset($_COOKIE['damares-login'])) {
       header("Location: ../admin/");
       exit;
     }
+  } else {
+    header("Location: ../admin/");
+    exit;
   }
 }
+
 $setting->name = "lang";
 $stmt = $setting->showByName();
 $lang = $stmt['value'];
@@ -152,8 +119,6 @@ if (filter_input(INPUT_GET, "op")) {
 if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
   $reg = true;
 }
-
-
 
 ?>
 
