@@ -99,7 +99,8 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    
+                                    <!-- file manager modal -->
                                     <div class="col-md-3 mt-3">
                                         <label>File Manager </label>
                                     </div>

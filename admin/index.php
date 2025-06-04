@@ -58,17 +58,6 @@ $layout = $row['value'];
         ?>
           <div class="page-heading">
             <h3 class="d-inline">Damares <?= $common_dashboard ?></h3>
-            <?php
-            $plugin->pluginname = "mini_cms";
-
-            if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
-            ?>
-              <a href="../" class="btn icon btn-info shadow mx-3 px-3">
-                <i class="bi bi-arrow-left-circle"></i> &nbsp; <?=$mc_backsite?>
-              </a>
-            <?php
-            }
-            ?>
           </div>
         <?php
         }

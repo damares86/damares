@@ -35,15 +35,15 @@ if ($op == 'add') {
 	}
 
 	// copy frontend files
-	if ($common->copyDirectory($plugin_dir . 'frontend/assets/', $frontend_dir.'assets/')) {
-		$common->chmod_R($frontend_dir.'assets/', 0777);
+	if ($common->copyDirectory($plugin_dir . 'frontend/assets/', $frontend_dir . 'assets/')) {
+		$common->chmod_R($frontend_dir . 'assets/', 0777);
 	} else {
 		$error++;
 	}
 
 	// copy frontend files
-	if ($common->copyDirectory($plugin_dir . 'frontend/uploads/', $frontend_dir.'uploads/')) {
-		$common->chmod_R($frontend_dir.'uploads/', 0777);
+	if ($common->copyDirectory($plugin_dir . 'frontend/uploads/', $frontend_dir . 'uploads/')) {
+		$common->chmod_R($frontend_dir . 'uploads/', 0777);
 	} else {
 		$error++;
 	}
@@ -54,7 +54,7 @@ if ($op == 'add') {
 		$error++;
 	}
 
-	rename($frontend_dir.'index.php',$frontend_dir.'_index.php');
+	rename($frontend_dir . 'index.php', $frontend_dir . '_index.php');
 
 	foreach (glob($plugin_dir . 'misc/pages_file/*') as $row) {
 		$item = pathinfo($row);
@@ -76,19 +76,48 @@ if ($op == 'add') {
 		}
 	}
 
+
+	$url = explode(".", $_SERVER['SERVER_NAME']);
+
+	$website = "";
+	$new_url = "";
+
+	if ($url[0] == "www") {
+		$website = implode(".", $url);
+		array_shift($url);
+		$new_url = implode(".", $url);
+	} else {
+		$new_url = implode(".", $url);
+		array_unshift($url, "www");
+		$website = implode(".", $url);
+	}
+
+	if (!is_file('../../core/site.php')) {
+		$file_handle = fopen('../../core/site.php', 'w');
+		fwrite($file_handle, '<?php');
+		fwrite($file_handle, "\n");
+		fwrite($file_handle, '$site=array("' . $website . '","' . $new_url . '");');
+		fwrite($file_handle, "\n");
+		fwrite($file_handle, '?>');
+	}
+
+	chmod('../../core/site.php', 0777);
+
 } else if ($op == 'rm') {
 
 	// rimozione pagine
 	$mc->table = 'mc_pages';
 	$stmt = $mc->showAll('id');
-	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 		extract($row);
-		unlink($frontend_dir.$row['page_name'].'.php');
+		unlink($frontend_dir . $row['page_name'] . '.php');
 	}
 
-	unlink($frontend_dir.'login.php');
-	
-	rename($frontend_dir.'_index.php',$frontend_dir.'index.php');	
+	unlink($frontend_dir . 'login.php');
+	unlink($frontend_dir . 'index.php');
+	unlink('../../core/site.php');
+
+	rename($frontend_dir . '_index.php', $frontend_dir . 'index.php');
 
 	$mc->rmdir_recursive($template_dir);
 	$mc->rmdir_recursive($json_dir);

@@ -8,4 +8,3 @@
 <link type="text/css" href="assets/themes/<?= $mc_settings['mc_theme'] ?>/css/fontawesome-all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/themes/<?=$mc_settings['mc_theme']?>/css/misc.css" />
 <link rel="stylesheet" href="assets/themes/<?=$mc_settings['mc_theme']?>/css/styles.css" />
-

@@ -212,8 +212,7 @@ if ($mc_settings['mc_theme_one'] == 1) {
     <?php
     }
 
-    // TODO
-    // require "admin/inc/func/check.php";
+    require "admin/template/check.php";
 
     $plugin->pluginname = "recaptcha";
     $recap = false;
@@ -272,19 +271,23 @@ if ($mc_settings['mc_theme_one'] == 1) {
                 });
             </script>
 
-            <div id="myPopup" class="modal fade popup <?= $popup_cat_row['category'] ?>">
+            <div class="modal fade <?= $popup_cat_row['category'] ?>" id="myPopup" tabindex="-1" aria-labelledby="popupTitle" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+
                         <div class="modal-header">
-                            <h5 class="modal-title"><?= $popup['title'] ?></h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h5 class="modal-title" id="popupTitle"><?= $popup['title'] ?></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                         </div>
+
                         <div class="modal-body">
                             <?= $popup['content'] ?>
                         </div>
+
                     </div>
                 </div>
             </div>
+
 
         <?php
         }

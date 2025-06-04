@@ -221,6 +221,39 @@
                                         </div>
                                     </div>
 
+                                    <!-- file manager modal -->
+                                    <div class="col-md-3 mt-3 pb-3 border-bottom">
+                                        <label><b>File Manager</b> </label>
+                                    </div>
+                                    <div class="col-md-9 mt-3 pb-3 border-bottom">
+                                        <button type="button" class="btn btn-primary me-1 mb-1 shadow" data-bs-toggle="modal" data-bs-target="#fm_modal">
+                                            Apri
+                                        </button>
+                                    </div>
+                                    <style>
+                                        .modal-dialog {
+                                            width: 79%;
+                                            max-width: 80%;
+                                            height: 70%;
+                                        }
+                                    </style>
+                                    <div class="modal fade" id="fm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                                        <div class="modal-dialog" role="document" style="height: 100%;">
+                                            <div class="modal-content h-75">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <iframe src='core/tinyfilemanager.php' style="width: 100%; height:100%;">
+                                                    </iframe>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row" id="dynamic_field">
                                         <div class="row" id="block_1">
                                             <div class="col-md-3 mt-3 p-3">
@@ -237,7 +270,7 @@
                                                                     <option value="info_1"><?= $block_type_info ?></option>
                                                                     <option value="gallery_1"><?= $block_type_gallery ?></option>
                                                                     <option value="quote_1"><?= $block_type_quotes ?></option>
-                                                                    <option value="script_1"><?=$block_type_scripts?></option>
+                                                                    <option value="script_1"><?= $block_type_scripts ?></option>
                                                                     <?php
                                                                     $plugin->pluginname = "post";
                                                                     // $postOption = '';
@@ -327,11 +360,11 @@
                                                 </div>
                                                 <div class="row page script_1">
                                                     <div class="col-12">
-                                                        <b><?=$block_script_title?></b><br>
-                                                        <?=$block_script_warn?> <br><?=$block_script_desc?>
+                                                        <b><?= $block_script_title ?></b><br>
+                                                        <?= $block_script_warn ?> <br><?= $block_script_desc ?>
                                                     </div>
                                                     <div class="col-md-3 pb-3 mt-3">
-                                                        <label><?=$block_script_file?></label>
+                                                        <label><?= $block_script_file ?></label>
                                                     </div>
                                                     <div class="col-md-9 pb-3">
                                                         <div class="form-group">
@@ -604,10 +637,10 @@ $colors = json_encode($colorArray);
     var block_type_post = '<?php echo $block_type_post; ?>';
     var block_gallery_choose = '<?php echo $block_gallery_choose; ?>';
     var block_quotes_text = '<?php echo $block_quotes_text; ?>';
-    var block_script_title = '<?php echo $block_script_title ?>' ;
-    var block_script_warn = '<?php echo $block_script_warn ?>' ;
-    var block_script_desc = '<?php echo $block_script_desc ?>' ;
-    var block_script_file = '<?php echo $block_script_file ?>' ;
+    var block_script_title = '<?php echo $block_script_title ?>';
+    var block_script_warn = '<?php echo $block_script_warn ?>';
+    var block_script_desc = '<?php echo $block_script_desc ?>';
+    var block_script_file = '<?php echo $block_script_file ?>';
     var block_post_cat_all = '<?php echo $block_post_cat_all; ?>';
     var block_bg_color = '<?php echo $block_bg_color; ?>';
     var block_bg_text = '<?php echo $block_bg_text; ?>';
