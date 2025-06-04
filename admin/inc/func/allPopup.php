@@ -55,30 +55,20 @@ $popup = $mc->showAll('id');
               <td><?= $row['title'] ?></td>
               <td>
                 <?php
-                if ($row['page_id'] == 0) {
-                  echo $allpopup_none;
-                } else {
-                  $mc->table = 'mc_pages';
-                  $mc->id = $row['page_id'];
-                  $stmt = $mc->showAllWhere('id', ['id']);
-                  $page = $stmt->fetch(PDO::FETCH_ASSOC);
+                  $mc->table = 'mc_pages' ;
+                  $mc->id = $row['page_id'] ;
+                  $stmt = $mc->showAllWhere('id',['id']);
+                  $page = $stmt->fetch(PDO::FETCH_ASSOC) ;
                   extract($page);
                   $str = $page['page_name'];
                   $str = str_replace('_', ' ', $str);
-
+  
                   $str = ucfirst($str);
-                  echo $str;
-                }
+                  echo $str ;
                 ?>
               </td>
               <td>
-                <?php
-                if($row['page_id']!=0){
-                ?>
-                  <a href="../<?= $page['page_name'] ?>.php"><?= $common_link ?></a>
-                <?php
-                }
-                ?>
+                <a href="../<?=$page['page_name'] ?>.php"><?=$common_link?></a>
               </td>
 
               <td>

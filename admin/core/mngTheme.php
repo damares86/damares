@@ -64,7 +64,7 @@ if ($operation == 'editTheme') {
         $css_code = $_POST['code'];
         $css_code = htmlspecialchars($css_code, ENT_QUOTES, 'UTF-8');
         
-        $css_file = '../../assets/themes/'.$theme.'/css/custom.css';
+        $css_file = '../../assets/themes/'.$theme.'/custom.css';
         
         if(!file_put_contents($css_file,$css_code)){
             $err_count++;

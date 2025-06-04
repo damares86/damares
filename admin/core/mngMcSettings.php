@@ -76,8 +76,6 @@ if ($operation == 'settings') {
             } else {
                 $err_file = "&err=logoImgFail";
             }
-        }else{           
-            $err_file = "&err=logoImgEmpty";
         }
     }
 

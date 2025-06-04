@@ -120,7 +120,6 @@ $allpopup_title = "All popup" ;
 $allpopup_add = "Add a popup" ;
 $allpopup_name = "Popup name" ;
 $allpopup_onpage = "On page" ;
-$allpopup_none = "None" ;
 $allpopup_link = "Page link" ;
 $allpopup_modal_body = "If you confirm the popup will be definitively deleted." ;
 

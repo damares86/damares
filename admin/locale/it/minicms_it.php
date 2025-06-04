@@ -127,12 +127,12 @@ $mcsettings_maintenance = "Modalità manutenzione" ;
 $mcsettings_maintenance_activate = "Attiva" ;
 
 // all popup
+
 $allpopup_header = "Popup" ;
 $allpopup_title = "Tutti i popup" ;
 $allpopup_add = "Aggiungi un popup" ;
 $allpopup_name = "Nome del popup" ;
 $allpopup_onpage = "Sulla pagina" ;
-$allpopup_none = "Nessuna" ;
 $allpopup_link = "Link della pagina" ;
 $allpopup_modal_body = "Se clicchi conferma il popup verrà eliminato definitivamente" ;
 

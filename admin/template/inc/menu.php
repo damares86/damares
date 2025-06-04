@@ -17,7 +17,7 @@
         $cat_pages = [];
         while ($cat_row = $cat_stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($cat_row);
-            if ($cat_row['assign_page'] != NULL) {
+            if ($cat_row['assign_page'] != "none") {
                 $cat_pages[] = array($cat_row['assign_page'] => $cat_row['id']);
             }
         }
@@ -136,7 +136,7 @@
                         } else if ($row['id'] == 2) {
                             echo $cont_form_page;
                         } else if ($page_name == "Post" || $name == "Blog") {
-                            echo "Blog";
+                            echo "News";
                         } else {
                             echo $page_name;
                         } ?>

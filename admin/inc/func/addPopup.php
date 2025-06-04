@@ -72,7 +72,6 @@
                                                 <div class="position-relative">
                                                     <fieldset class="form-group">
                                                         <select class="form-select w-75" name="page_id">
-                                                            <option value="0"><?=$allpopup_none?></option>
                                                             <?php
                                                             $mc->table = 'mc_pages';
                                                             $stmt = $mc->showAll('page_name');

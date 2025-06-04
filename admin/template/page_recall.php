@@ -4,7 +4,7 @@
             <?php
             $counter = $page_counter;
 
-            $quote_counter = 0 ;
+            $quote_counter = 0;
 
             if (isset($_SESSION['loggedin'])) {
             ?>
@@ -39,7 +39,7 @@
 
                         echo $json_arr[$i]['block' . $i . ''];
                     } else if ($json_arr[$i]['block' . $i . '_type'] == "img") {
-                        $pict = $json_arr[$i]['block' . $i ];
+                        $pict = $json_arr[$i]['block' . $i];
                     ?>
 
                         <img src="uploads/img/<?= $pict ?>">
@@ -99,20 +99,23 @@
                             </div>
                         </div>
                         <?php
-                        }else if ($json_arr[$i]['block' . $i . '_type'] == "script") {
-                                $file_req = $json_arr[$i]['block' . $i . '_file'];
-                                require 'assets/themes/'.$mc_settings['mc_theme'].'/script/'.$file_req ;
-                        
+                    } else if ($json_arr[$i]['block' . $i . '_type'] == "script") {
+                        $file_req = $json_arr[$i]['block' . $i . '_file'];
+                        require 'assets/themes/' . $mc_settings['mc_theme'] . '/script/' . $file_req;
                     } else if ($json_arr[$i]['block' . $i . '_type'] == "post") {
 
                         $post->table = 'post';
                         if ($json_arr[$i]['block' . $i . '_cat'] != 'none') {
                             $post->category_id = $json_arr[$i]['block' . $i . '_cat'];
-                            $stmt1 = $post->showAllWhere('id', ['category_id'], 3);
+                            $stmt1 = $post->showAllWhere('created', ['category_id'], 3);
                         } else {
-                            $stmt1 = $post->showAllLimitDesc('id', 3);
+                            $stmt1 = $post->showAllLimitDesc('created', 3);
                         }
+                        ?>
 
+                    <div class="row gx-5">
+                        <h3>Ultime notizie</h3>
+                        <?php
                         while ($row = $stmt1->fetch(PDO::FETCH_ASSOC)) {
 
                             extract($row);
@@ -120,35 +123,49 @@
                             $time = $row['created'];
                             $newTime = date("d/m/Y", strtotime($time));
                         ?>
-                            <div class="row m-1 d-flex align-items-stretch border-bottom mb-3">
-                                <?php
-                                if ($row['main_img'] != NULL) {
-                                ?>
-                                    <div class="col-12 col-md-5 img_blog">
-                                        <img src="uploads/img/<?= $main_img ?>">
-                                    </div>
-                                <?php
-                                }
-                                ?>
-                                <div class="col-12 col-md-7 h-100">
-                                    <b><?= $title ?></b><br>
-                                    <div class="small text-muted mb-3">
-                                        <?= $newTime ?>
-                                    </div>
+                            <div class="col-lg-4 mb-5">
+                                <div class="card h-100 shadow border-0">
                                     <?php
-                                    $post->content = $row['content'];
-                                    $post->post_link = 'post.php?id=' . $row['id'] . $catPage . '';
-                                    $post->limit = 120;
-                                    $post->more = $blog_more;
-                                    echo $post->readMore();
+                                    if ($row['main_img'] != NULL) {
                                     ?>
-                                    <a href="post.php?id=<?= $id ?>&title=<?= $post_title ?>"><?= $blog_continue ?></a>
+                                        <img class="card-img-top" src="uploads/img/<?= $main_img ?>">
+                                    <?php
+                                    }
+                                    ?>
+                                    <div class="card-body p-4">
+                                        <!-- <div class="badge bg-primary bg-gradient rounded-pill mb-2"></div> -->
+                                        <!-- <a class="text-decoration-none link-dark stretched-link" href="post.php?id=<?= $id ?>&title=<?= $post_title ?>"> -->
+                                            <h5 class="card-title mb-3"><?= $title ?></h5>
+                                        <!-- </a> -->
+
+                                        <p class="card-text mb-0">
+                                            <?php
+                                            $post->content = $row['content'];
+                                            $post->post_link = 'post.php?id=' . $row['id'] .'&origin='.$file_name.'';
+                                            $post->limit = 120;
+                                            $post->more = $blog_more;
+                                            echo $post->readMore();
+                                            ?>
+                                            <a href="post.php?id=<?= $id ?>&title=<?= $post_title ?>"><?= $blog_continue ?></a>
+
+                                        </p>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                        <div class="d-flex align-items-end justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <div class="small">
+                                                    <div class="text-muted"><?= $newTime ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-
                         <?php
                         }
+                        ?>
+                    </div>
+                    <?php
                     } else if ($json_arr[$i]['block' . $i . '_type'] == "gallery") {
                         $mc->table = 'mc_galleries';
                         $mc->id = $json_arr[$i]['block_' . $i];
@@ -245,5 +262,4 @@
             ?>
         </div>
     </div>
-    <div class="clearfix"></div>
 </section>

@@ -4,23 +4,40 @@
 if (!$one) {
 ?>
     <footer>
-        <div class="row">
+
+
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-12">
+                    <div class="small m-0 text-center"><?= $mc_settings['mc_footer'] ?></div>
+                </div>
+                <div class="col-12">
+                    <p class="copyright" style="font-size:0.7em;">
+                        <img class="align-middle" src="uploads/img/logo_mc_rid.png"> &nbsp; &nbsp; by &nbsp; &nbsp;
+                        <a href="https://www.dmweblab.com"><img class="align-middle" src="admin/assets/images/logo/dmweblab_logo.png"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row">
             <div class="col-12">
                 <div id="copyright">
-                    <?= $mc_settings['mc_footer'] ?>
+                    <?= $mc_settings['mc_footer'] ?></a>
                 </div>
             </div>
         </div>
         <p class="copyright" style="font-size:0.7em;">
-            <img class="align-middle" src="uploads/img/logo_mc_rid.png"> &nbsp; &nbsp; by  &nbsp; &nbsp; 
-        <a href="https://www.dmweblab.com"><img class="align-middle" src="admin/assets/images/logo/dmweblab_logo.png"></a></p>
+            <img class="align-middle" src="uploads/img/logo_mc_rid.png"> &nbsp; &nbsp; by &nbsp; &nbsp;
+            <a href="https://www.dmweblab.com"><img class="align-middle" src="admin/assets/images/logo/dmweblab_logo.png"></a>
+        </p> -->
     </footer>
 <?php
 }
 ?>
 
 <?php
-if($quote_counter>0){
+if ($quote_counter > 0) {
 ?>
     <script src="admin/script/quotes.js"></script>
 <?php

@@ -176,6 +176,11 @@ if ($mc_settings['mc_theme_one'] == 1) {
     <meta name="author" content="dmweblab" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+    <meta name="description" content="Parrocchie San Lorenzo e San Giacomo di Giaveno e San Giovanni Battista di Valgioie. Sito ufficiale con informazioni sulle attività delle parrocchie.">
+    <meta name="keywords" content="parrocchia san lorenzo giaveno, parrocchia san giacomo giaveno, parrocchia san giovanni battista valgioie, giaveno, san lorenzo, orari messe">
+    <meta name="robots" content="index, follow">
+
+
     <!-- FACEBOOK and LINKEDIN meta tag -->
     <meta property="og:title" content="<?= $mc_settings['mc_site_name'] ?>">
     <meta property="og:description" content="<?= $mc_settings['mc_site_description'] ?>">
@@ -328,7 +333,7 @@ if ($mc_settings['mc_theme_one'] == 1) {
 
             ?>
                 <!-- Header-->
-                <header class="py-5 p_<?= $page_id ?>" style="background-image: url(uploads/img/<?= $page_header_media ?>);">
+                <header class="py-5 p_<?= $page_id ?>" style="background-image: url('uploads/img/<?= $page_header_media ?>');">
                     <div class="container px-5">
                         <div class="row gx-5 align-items-center justify-content-center">
                             <div class="col-12">
