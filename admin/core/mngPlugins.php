@@ -82,7 +82,6 @@ $op = filter_input(INPUT_GET, "op");
 $idPlugin = filter_input(INPUT_GET, "idPlugin");
 $plugin->id = $idPlugin;
 $pluginFolder = $plugin->showPluginnameById();
-
 $path = "../plugins/$pluginFolder";
 
 include "$path/starter.php";

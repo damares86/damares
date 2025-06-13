@@ -23,9 +23,9 @@ if (!is_file('../class/Database.php')) {
   $username = filter_input(INPUT_POST, "username");
   $db_password = filter_input(INPUT_POST, "db_password");
   $host = filter_input(INPUT_POST, "host");
-  
+
   $file_handle = fopen('../class/Database.php', 'w');
-  
+
   $content = <<<PHP
 <?php
 class Database {

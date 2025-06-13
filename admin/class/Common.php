@@ -66,9 +66,8 @@ class Common
     // $fields must be an array
     function insert($fields)
     {
-
         $i = 1;
-
+        
         $this->fields = "";
         foreach ($fields as $item) {
             $this->fields .= "$item = :$item";
@@ -77,9 +76,10 @@ class Common
             }
             $i++;
         }
-
+        
         $query = "INSERT INTO " . $this->prx . $this->table . "
         SET " . $this->fields . "";
+
 
 
         $stmt = $this->conn->prepare($query);
@@ -89,7 +89,7 @@ class Common
             $stmt->bindParam(":$item", $this->$item);
             // echo $item . ' -> ' . $this->$item . '<br>';
         }
-
+        
         if ($stmt->execute()) {
             return true;
         } else {
