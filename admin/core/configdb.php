@@ -19,40 +19,47 @@ $debug = new \bdk\Debug(array(
 
 // create Database class
 if (!is_file('../class/Database.php')) {
-  $db_name = filter_input(INPUT_POST, "dbname");
-  $username = filter_input(INPUT_POST, "username");
-  $db_password = filter_input(INPUT_POST, "db_password");
-  $host = filter_input(INPUT_POST, "host");
+    $db_name = filter_input(INPUT_POST, "dbname");
+    $username = filter_input(INPUT_POST, "username");
+    $db_password = filter_input(INPUT_POST, "db_password");
+    $host = filter_input(INPUT_POST, "host");
 
-  $file_handle = fopen('../class/Database.php', 'w');
+    $file_handle = fopen('../class/Database.php', 'w');
 
-  $content = <<<PHP
+    $content = <<<PHP
 <?php
 class Database {
-  public \$db_name = "{$db_name}";
-  public \$username = "{$username}";
-  public \$password = "{$db_password}";
-  public \$host = "{$host}";
-  public \$conn;
-  public \$prx;
+    public \$db_name = "{$db_name}";
+    public \$username = "{$username}";
+    public \$password = "{$db_password}";
+    public \$host = "{$host}";
+    public \$conn;
+    public \$prx;
 
-  public function getConnection() {
-      \$this->conn = null;
-      try {
-          \$this->conn = new PDO("mysql:host=" . \$this->host . ";dbname=" . \$this->db_name, \$this->username, \$this->password);
-      } catch (PDOException \$exception) {
-          echo "Connection error: " . \$exception->getMessage();
-      }
-      return \$this->conn;
-  }
+    public function getConnection() {
+        \$this->conn = null;
+        try {
+            \$this->conn = new PDO(
+                "mysql:host=" . \$this->host . ";dbname=" . \$this->db_name . ";charset=utf8mb4",
+                \$this->username,
+                \$this->password,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ]
+            );
+        } catch (PDOException \$exception) {
+            echo "Connection error: " . \$exception->getMessage();
+        }
+        return \$this->conn;
+    }
 }
 ?>
 PHP;
 
-  fwrite($file_handle, $content);
-  fclose($file_handle);
+    fwrite($file_handle, $content);
+    fclose($file_handle);
 }
-
 
 chmod('../class/Database.php', 0777);
 
@@ -305,10 +312,6 @@ $db->query("INSERT INTO " . $prefix . "sectionParent
                             VALUES ('allFiles','Files','folder-fill')");
 
 $db->query("INSERT INTO " . $prefix . "sectionChild
-                            (link,label,icon,parent_id)
-                            VALUES ('allFiles','All files','folder-fill','3')");
-
-$db->query("INSERT INTO " . $prefix . "sectionChild
                             (link,label,icon,parent_id,show_menu)
                             VALUES ('addFile','Add file','icon','3','0')");
 
@@ -318,11 +321,7 @@ $db->query("INSERT INTO " . $prefix . "sectionChild
 
 $db->query("INSERT INTO " . $prefix . "sectionParent
                             (link,label,icon)
-                            VALUES ('settings','Settings','tools')");
-
-$db->query("INSERT INTO " . $prefix . "sectionChild
-                            (link,label,icon,parent_id)
-                            VALUES ('allSettings','All settings','gear-fill','4')");
+                            VALUES ('allSettings','Settings','tools')");
 
 $db->query("INSERT INTO " . $prefix . "sectionParent
                             (link,label,icon)

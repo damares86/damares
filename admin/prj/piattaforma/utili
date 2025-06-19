@@ -1,0 +1,24 @@
+ % PROVV AVERE (dove va inserito? è legato alla compagnia o al collaboratore?)
+ PROVV AVERE (precentuale*premio imponibile: percentuale provvigione da dove si prende?)
+ PROVV NETTE AVERE (la percentuale dove va inserita?)
+   	 
+ PAGATO COMPAGNIA (inserito a mano?) 	
+ DA PAGARE COMPAGNIA (premio lordo - PAGATO COMPAGNIA)
+ DARE/AVERE COMPAGNIA ( DA PAGARE COMPAGNIA - PROVV NETTE AVERE)
+ 
+ % PROVV PREMIO DARE (dove si inserisce?)
+ PROVV PREMIO DARE (premio netto* % PROVV PREMIO DARE)
+ 
+ % PROVV CONSUL DARE (dove viene definita?)
+ PROVV CONSUL DARE (consulenza * % PROVV CONSUL DARE)
+
+ TOT PROVV DARE	(PROVV PREMIO DARE + PROVV CONSUL DARE)
+
+ TOT PROVV NETTE DARE (la percentuale dove viene definita?) 
+
+ PAGATO DA COLLAB (inserito a mano? nella polizza?)	
+ DA PAGARE DA COLLAB (premio lordo + consulenza - PAGATO DA COLLAB)
+ DARE/AVERE COLLAB (DA PAGARE DA COLLAB - TOT PROVV NETTE DARE) 
+
+ UTILE NETTO CFA (consulenza + PAGATO COMPAGNIA - TOT PROVV NETTE DARE)  
+
