@@ -68,9 +68,8 @@ class Common
     // $fields must be an array
     function insert($fields)
     {
-
         $i = 1;
-
+        
         $this->fields = "";
         foreach ($fields as $item) {
             $this->fields .= "$item = :$item";
@@ -79,9 +78,10 @@ class Common
             }
             $i++;
         }
-
+        
         $query = "INSERT INTO " . $this->prx . $this->table . "
         SET " . $this->fields . "";
+
 
 
         $stmt = $this->conn->prepare($query);
@@ -91,7 +91,7 @@ class Common
             $stmt->bindParam(":$item", $this->$item);
             // echo $item . ' -> ' . $this->$item . '<br>';
         }
-
+        
         if ($stmt->execute()) {
             return true;
         } else {
@@ -471,32 +471,31 @@ class Common
     {
         return str_replace('.', ',', $number);
     }
+    public function getBaseUrlBefore($stopDir = 'admin') {
+    // Determina il protocollo (http o https)
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' 
+                || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
-    public function getBaseUrlBefore($stopDir = 'admin')
-    {
-        // Determina il protocollo (http o https)
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
-            || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    // Host, es: boots.local
+    $host = $_SERVER['HTTP_HOST'];
 
-        // Host, es: boots.local
-        $host = $_SERVER['HTTP_HOST'];
+    // URI della richiesta, es: /damares/admin/core/tinyfilemanager.php?lang=en
+    $uri = $_SERVER['REQUEST_URI'];
 
-        // URI della richiesta, es: /damares/admin/core/tinyfilemanager.php?lang=en
-        $uri = $_SERVER['REQUEST_URI'];
+    // Rimuove la query string (tutto dopo il ?)
+    $uri = parse_url($uri, PHP_URL_PATH);
 
-        // Rimuove la query string (tutto dopo il ?)
-        $uri = parse_url($uri, PHP_URL_PATH);
+    // Divide il path in segmenti
+    $segments = explode('/', trim($uri, '/'));
 
-        // Divide il path in segmenti
-        $segments = explode('/', trim($uri, '/'));
-
-        // Ricostruisce il path fino alla directory specificata (esclusa)
-        $basePath = '';
-        foreach ($segments as $segment) {
-            if ($segment === $stopDir) break;
-            $basePath .= $segment . '/';
-        }
-
-        return $protocol . $host . '/' . $basePath;
+    // Ricostruisce il path fino alla directory specificata (esclusa)
+    $basePath = '';
+    foreach ($segments as $segment) {
+        if ($segment === $stopDir) break;
+        $basePath .= $segment . '/';
     }
+
+    return $protocol . $host . '/' . $basePath;
+}
+
 }

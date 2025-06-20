@@ -82,7 +82,6 @@ $op = filter_input(INPUT_GET, "op");
 $idPlugin = filter_input(INPUT_GET, "idPlugin");
 $plugin->id = $idPlugin;
 $pluginFolder = $plugin->showPluginnameById();
-
 $path = "../plugins/$pluginFolder";
 
 include "$path/starter.php";
@@ -236,8 +235,10 @@ if ($op == "add") {
     //echo "update plugin-> ".$error."<br>" ;
 
   }
-  echo "update -> $error<br>";
- $root = '../';
+  
+  // echo "update -> $error<br>";
+  $root = '../';
+
 
   $exclude_folder = ['frontend', 'misc'];
   foreach (glob("$path/*") as $row) {
@@ -270,7 +271,7 @@ if ($op == "add") {
               chmod($dest_file, 0755);
             } else {
               $error++;
-              echo "$dest_file -> $error<br>";
+              // echo "$dest_file -> $error<br>";
             }
           }
         } else {
@@ -293,7 +294,7 @@ if ($op == "add") {
             chmod($dest_file, 0755);
           } else {
             $error++;
-            echo "$dest_file -> $error<br>";
+            // echo "$dest_file -> $error<br>";
           }
         }
       }

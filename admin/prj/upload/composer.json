@@ -1,0 +1,6 @@
+{
+    "require": {
+        "bdk/debug": "^3.0",
+        "phpoffice/phpspreadsheet": "^1.29"
+    }
+}
