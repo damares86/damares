@@ -36,7 +36,8 @@ class Common
     // public function __construct() {
     // }
 
-    protected function loadPrefix() {
+    protected function loadPrefix()
+    {
         // Assicurati che il file esista
         $prefixFile = '../core/prefix.php';
         if (is_file($prefixFile)) {
@@ -47,7 +48,8 @@ class Common
         }
     }
 
-    public function getTableName($baseTable) {
+    public function getTableName($baseTable)
+    {
         // Ritorna il nome della tabella con prefisso
         return $this->prefix !== '' ? "{$this->prefix}_{$baseTable}" : $baseTable;
     }
@@ -119,7 +121,7 @@ class Common
 
         $query = "UPDATE " . $this->prx . $this->table . "
         SET " . $this->fields . " WHERE $where = :$where";
-        
+
         $stmt = $this->conn->prepare($query);
 
         foreach ($fields as $item) {
@@ -150,7 +152,7 @@ class Common
 
         $query = "SELECT *
             FROM " . $this->prx . $this->table . "
-        ORDER BY " . $orderBy . " ".$ascDesc." " . $limits . "";
+        ORDER BY " . $orderBy . " " . $ascDesc . " " . $limits . "";
 
         $stmt = $this->conn->prepare($query);
 
@@ -206,7 +208,7 @@ class Common
         $query = "SELECT *
         FROM " . $this->prx . $this->table . "
         WHERE " . $this->where . "
-        ORDER BY " . $orderBy . " ". $ascDesc ." " . $limit_query . $offset_query . "";
+        ORDER BY " . $orderBy . " " . $ascDesc . " " . $limit_query . $offset_query . "";
 
         $stmt = $this->conn->prepare($query);
         // print_r($stmt);
@@ -453,5 +455,33 @@ class Common
     public function pointToComma($number)
     {
         return str_replace('.', ',', $number);
+    }
+
+    public function getBaseUrlBefore($stopDir = 'admin')
+    {
+        // Determina il protocollo (http o https)
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
+            || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+        // Host, es: boots.local
+        $host = $_SERVER['HTTP_HOST'];
+
+        // URI della richiesta, es: /damares/admin/core/tinyfilemanager.php?lang=en
+        $uri = $_SERVER['REQUEST_URI'];
+
+        // Rimuove la query string (tutto dopo il ?)
+        $uri = parse_url($uri, PHP_URL_PATH);
+
+        // Divide il path in segmenti
+        $segments = explode('/', trim($uri, '/'));
+
+        // Ricostruisce il path fino alla directory specificata (esclusa)
+        $basePath = '';
+        foreach ($segments as $segment) {
+            if ($segment === $stopDir) break;
+            $basePath .= $segment . '/';
+        }
+
+        return $protocol . $host . '/' . $basePath;
     }
 }
