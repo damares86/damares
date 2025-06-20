@@ -207,7 +207,7 @@ if ($op == "add") {
           // set permission for the user that added the plugin
           if (!$rolessection->update(['section_id'], 'role_id')) {
             $errorPerm++;
-            //echo "perm child-> ".$errorPerm."<br>" ;
+        //echo "perm child-> ".$errorPerm."<br>" ;
 
           }
 
@@ -218,7 +218,7 @@ if ($op == "add") {
             $rolessection->role_id = 1;
             if (!$rolessection->update(['section_id'], 'role_id')) {
               $errorPerm++;
-              //echo "perm child root-> ".$errorPerm."<br>" ;
+        //echo "perm child root-> ".$errorPerm."<br>" ;
 
             }
           }
@@ -237,7 +237,7 @@ if ($op == "add") {
 
   }
   echo "update -> $error<br>";
-  $root = '../';
+ $root = '../';
 
   $exclude_folder = ['frontend', 'misc'];
   foreach (glob("$path/*") as $row) {
@@ -299,7 +299,6 @@ if ($op == "add") {
       }
     }
   }
-
   unlink("../inc/class_initialize.php");
   if ($error == 0) {
 
@@ -622,44 +621,45 @@ if ($op == "add") {
 
   // DELETE ALL FILES
 
-
+  
   $root = '../';
 
   $exclude_folder = ['frontend', 'misc'];
   foreach (glob("$path/*") as $row) {
     $item = pathinfo($row);
-
+  
     if (is_dir($row) && !in_array($item['basename'], $exclude_folder)) {
-
+  
       foreach (glob($row . '/*') as $elem) {
-
+  
         if (is_dir($elem)) {
-
+          
           $item1 = pathinfo($elem);
           foreach (glob($elem . '/*') as $elem_child) {
-
+  
             $file_child = pathinfo($elem_child);
-
+  
             // $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
             $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
-
+            
             // unlink
             if (!unlink($dest_file)) {
               $error++;
             }
           }
         } else {
-
+  
           $file_parent = pathinfo($elem);
           // $source_file = $elem ;
-
+          
           $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
-
-          // unlink
-          if (!unlink($dest_file)) {
-            $error++;
-          }
+  
+            // unlink
+            if (!unlink($dest_file)) {
+              $error++;
+            }
         }
+  
       }
     }
   }

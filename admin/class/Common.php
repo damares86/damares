@@ -416,22 +416,37 @@ class Common
 
     public function copyDirectory($source, $destination)
     {
-        if (!is_dir($destination)) {
-            mkdir($destination, 0755, true);
+        if (!is_dir($source)) {
+            echo "Source folder not found: $source\n";
+            return false;
         }
+
+        if (!is_dir($destination)) {
+            if (!mkdir($destination, 0755, true)) {
+                echo "Failed to create destination: $destination\n";
+                return false;
+            }
+        }
+
         $files = scandir($source);
         foreach ($files as $file) {
             if ($file !== '.' && $file !== '..') {
-                $sourceFile = $source . '/' . $file;
-                $destinationFile = $destination . '/' . $file;
-                if (is_dir($sourceFile)) {
-                    $this->copyDirectory($sourceFile, $destinationFile);
+                $src = rtrim($source, '/') . '/' . $file;
+                $dest = rtrim($destination, '/') . '/' . $file;
+
+                if (is_dir($src)) {
+                    $this->copyDirectory($src, $dest);
                 } else {
-                    copy($sourceFile, $destinationFile);
+                    if (!copy($src, $dest)) {
+                        echo "Failed to copy file: $src\n";
+                    }
                 }
             }
         }
+
+        return true;
     }
+
 
     public function rmdir_recursive($dir)
     {
