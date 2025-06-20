@@ -454,4 +454,31 @@ class Common
     {
         return str_replace('.', ',', $number);
     }
+
+    public function getBaseUrlBefore($stopDir = 'admin') {
+    // Determina il protocollo (http o https)
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' 
+                || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+    // Host, es: boots.local
+    $host = $_SERVER['HTTP_HOST'];
+
+    // URI della richiesta, es: /damares/admin/core/tinyfilemanager.php?lang=en
+    $uri = $_SERVER['REQUEST_URI'];
+
+    // Rimuove la query string (tutto dopo il ?)
+    $uri = parse_url($uri, PHP_URL_PATH);
+
+    // Divide il path in segmenti
+    $segments = explode('/', trim($uri, '/'));
+
+    // Ricostruisce il path fino alla directory specificata (esclusa)
+    $basePath = '';
+    foreach ($segments as $segment) {
+        if ($segment === $stopDir) break;
+        $basePath .= $segment . '/';
+    }
+
+    return $protocol . $host . '/' . $basePath;
+}
 }

@@ -19,14 +19,14 @@ $debug = new \bdk\Debug(array(
 
 // create Database class
 if (!is_file('../class/Database.php')) {
-    $db_name = filter_input(INPUT_POST, "dbname");
-    $username = filter_input(INPUT_POST, "username");
-    $db_password = filter_input(INPUT_POST, "db_password");
-    $host = filter_input(INPUT_POST, "host");
+  $db_name = filter_input(INPUT_POST, "dbname");
+  $username = filter_input(INPUT_POST, "username");
+  $db_password = filter_input(INPUT_POST, "db_password");
+  $host = filter_input(INPUT_POST, "host");
 
-    $file_handle = fopen('../class/Database.php', 'w');
+  $file_handle = fopen('../class/Database.php', 'w');
 
-    $content = <<<PHP
+  $content = <<<PHP
 <?php
 class Database {
     public \$db_name = "{$db_name}";
@@ -57,9 +57,10 @@ class Database {
 ?>
 PHP;
 
-    fwrite($file_handle, $content);
-    fclose($file_handle);
+  fwrite($file_handle, $content);
+  fclose($file_handle);
 }
+
 
 chmod('../class/Database.php', 0777);
 
@@ -126,90 +127,91 @@ chmod('../core/prefix.php', 0777);
 // create the db tables if not exists
 
 /////////////////////////////////////////////////////////////
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "files (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    filename VARCHAR(255) NOT NULL,
+    label VARCHAR(255) NOT NULL
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "accounts (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) DEFAULT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    avatar VARCHAR(255) DEFAULT 'default.png',
+    details TEXT DEFAULT NULL,
+    details_opt TEXT DEFAULT NULL,
+    auth_token VARCHAR(255) DEFAULT 'none',
+    last_login datetime DEFAULT CURRENT_TIMESTAMP
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "files
-              ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                filename VARCHAR(255) NOT NULL,
-                label VARCHAR(255) NOT NULL)");
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "roles (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    rolename VARCHAR(255) NOT NULL,
+    redirect VARCHAR(255) DEFAULT 'none'
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "accountsRoles (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    account_id INT(5) NOT NULL,
+    role_id INT(5) NOT NULL,
+    FOREIGN KEY (account_id) REFERENCES " . $prefix . "accounts(id),
+    FOREIGN KEY (role_id) REFERENCES " . $prefix . "roles(id)
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "accounts
-              ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                username VARCHAR(255) DEFAULT NULL,
-                password VARCHAR(255) NOT NULL,
-                email VARCHAR(255) NOT NULL,
-                avatar VARCHAR(255) DEFAULT 'default.png',
-                details TEXT DEFAULT NULL,
-                details_opt TEXT DEFAULT NULL,
-                auth_token VARCHAR(255) DEFAULT 'none',
-                last_login datetime DEFAULT CURRENT_TIMESTAMP)");
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "sectionParent (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    link VARCHAR(255) NOT NULL,
+    label VARCHAR(255) NOT NULL,
+    icon VARCHAR(255) NOT NULL
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "sectionChild (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    link VARCHAR(255) NOT NULL,
+    label VARCHAR(255) NOT NULL,
+    icon VARCHAR(255) NOT NULL,
+    parent_id INT(5) NOT NULL,
+    show_menu INT(1) DEFAULT 1
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "roles
-              ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                rolename VARCHAR(255) NOT NULL,
-                redirect VARCHAR(255) DEFAULT 'none')");
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "rolesSection (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    section_id VARCHAR(255) NOT NULL,
+    role_id INT(5) DEFAULT NULL
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "rolesSectionChild (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    section_id VARCHAR(255) NOT NULL,
+    role_id INT(5) DEFAULT NULL
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "accountsRoles
-              ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                account_id INT ( 5 ) NOT NULL,
-                role_id INT (5) NOT NULL,
-                FOREIGN KEY (account_id) REFERENCES " . $prefix . "accounts(id),
-                FOREIGN KEY (role_id) REFERENCES " . $prefix . "roles(id))");
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "password_reset_temp (
+    email VARCHAR(250) NOT NULL PRIMARY KEY,
+    token VARCHAR(250) NOT NULL,
+    expDate DATETIME NOT NULL
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "settings (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    value VARCHAR(255) NOT NULL
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "sectionParent
-              ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                link VARCHAR(255) NOT NULL,
-                label VARCHAR(255) NOT NULL,
-                icon VARCHAR ( 255 ) NOT NULL)");
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "plugins (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pluginname VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    installed INT(1) DEFAULT 0,
+    active INT(1) DEFAULT 0
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "sectionChild
-                ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                  link VARCHAR(255) NOT NULL,
-                  label VARCHAR(255) NOT NULL,
-                  icon VARCHAR ( 255 ) NOT NULL,
-                  parent_id INT ( 5 ) NOT NULL,
-                  show_menu INT (1) DEFAULT 1)");
-
-
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "rolesSection
-                  ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    section_id VARCHAR(255) NOT NULL,
-                    role_id INT (5) DEFAULT NULL)");
-
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "rolesSectionChild
-                    ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                      section_id VARCHAR(255) NOT NULL,
-                      role_id INT (5) DEFAULT NULL)");
-
-
-$db->query("CREATE TABLE IF NOT EXISTS  " . $prefix . "password_reset_temp (
-                    email VARCHAR(250) NOT NULL PRIMARY KEY,
-                    token VARCHAR(250) NOT NULL,
-                    expDate DATETIME NOT NULL)");
-
-
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "settings
-                  ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    name VARCHAR(255) NOT NULL,
-                    value VARCHAR(255) NOT NULL)");
-
-
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "plugins
-                  ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    pluginname VARCHAR(255) NOT NULL,  
-                    description TEXT NOT NULL,                     
-                    installed INT(1) DEFAULT 0,
-                    active INT(1) DEFAULT 0)");
-
-$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "home
-                  ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    content TEXT,  
-                    size INT(2) NOT NULL)");
+$db->query("CREATE TABLE IF NOT EXISTS " . $prefix . "home (
+    id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    content TEXT,
+    size INT(2) NOT NULL
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 /////////////////////////////////////////////////////////////
 
@@ -312,6 +314,10 @@ $db->query("INSERT INTO " . $prefix . "sectionParent
                             VALUES ('allFiles','Files','folder-fill')");
 
 $db->query("INSERT INTO " . $prefix . "sectionChild
+                            (link,label,icon,parent_id)
+                            VALUES ('allFiles','All files','folder-fill','3')");
+
+$db->query("INSERT INTO " . $prefix . "sectionChild
                             (link,label,icon,parent_id,show_menu)
                             VALUES ('addFile','Add file','icon','3','0')");
 
@@ -321,7 +327,11 @@ $db->query("INSERT INTO " . $prefix . "sectionChild
 
 $db->query("INSERT INTO " . $prefix . "sectionParent
                             (link,label,icon)
-                            VALUES ('allSettings','Settings','tools')");
+                            VALUES ('settings','Settings','tools')");
+
+$db->query("INSERT INTO " . $prefix . "sectionChild
+                            (link,label,icon,parent_id)
+                            VALUES ('allSettings','All settings','gear-fill','4')");
 
 $db->query("INSERT INTO " . $prefix . "sectionParent
                             (link,label,icon)
