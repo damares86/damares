@@ -313,25 +313,9 @@ $db->query("INSERT INTO " . $prefix . "sectionParent
                             (link,label,icon)
                             VALUES ('allFiles','Files','folder-fill')");
 
-$db->query("INSERT INTO " . $prefix . "sectionChild
-                            (link,label,icon,parent_id)
-                            VALUES ('allFiles','All files','folder-fill','3')");
-
-$db->query("INSERT INTO " . $prefix . "sectionChild
-                            (link,label,icon,parent_id,show_menu)
-                            VALUES ('addFile','Add file','icon','3','0')");
-
-$db->query("INSERT INTO " . $prefix . "sectionChild
-                            (link,label,icon,parent_id,show_menu)
-                            VALUES ('editFile','Edit file','icon','3','0')");
-
 $db->query("INSERT INTO " . $prefix . "sectionParent
                             (link,label,icon)
-                            VALUES ('settings','Settings','tools')");
-
-$db->query("INSERT INTO " . $prefix . "sectionChild
-                            (link,label,icon,parent_id)
-                            VALUES ('allSettings','All settings','gear-fill','4')");
+                            VALUES ('allSettings','Settings','tools')");
 
 $db->query("INSERT INTO " . $prefix . "sectionParent
                             (link,label,icon)

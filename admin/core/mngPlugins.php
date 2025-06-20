@@ -235,28 +235,38 @@ if ($op == "add") {
     //echo "update plugin-> ".$error."<br>" ;
 
   }
+  
   // echo "update -> $error<br>";
   $root = '../';
+
 
   $exclude_folder = ['frontend', 'misc'];
   foreach (glob("$path/*") as $row) {
     $item = pathinfo($row);
-  
+
     if (is_dir($row) && !in_array($item['basename'], $exclude_folder)) {
-  
+
       foreach (glob($row . '/*') as $elem) {
-  
+
         if (is_dir($elem)) {
-          
+
           $item1 = pathinfo($elem);
           foreach (glob($elem . '/*') as $elem_child) {
-  
+
+            // skip if it's a directory
+            if (is_dir($elem_child)) {
+              continue;
+            }
+
             $file_child = pathinfo($elem_child);
-  
+
             $source_file = $path . '/' . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
             $dest_file = $root . $item['basename'] . '/' . $item1['basename'] . '/' . $file_child['basename'];
-            
-            // copy
+
+            if (!is_dir(dirname($dest_file))) {
+              mkdir(dirname($dest_file), 0755, true);
+            }
+
             if (copy($source_file, $dest_file)) {
               chmod($dest_file, 0755);
             } else {
@@ -265,13 +275,21 @@ if ($op == "add") {
             }
           }
         } else {
-  
+
+          // salta se è una directory
+          if (is_dir($elem)) {
+            continue;
+          }
+
           $file_parent = pathinfo($elem);
-  
-          $source_file = $elem ;
-          
+
+          $source_file = $elem;
           $dest_file = $root . $item['basename'] . '/' . $file_parent['basename'];
-  
+
+          if (!is_dir(dirname($dest_file))) {
+            mkdir(dirname($dest_file), 0755, true);
+          }
+
           if (copy($source_file, $dest_file)) {
             chmod($dest_file, 0755);
           } else {
@@ -279,7 +297,6 @@ if ($op == "add") {
             // echo "$dest_file -> $error<br>";
           }
         }
-  
       }
     }
   }

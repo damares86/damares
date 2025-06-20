@@ -24,11 +24,9 @@ if (!is_file('inc/class_initialize.php')) {
     foreach ($files as $filename) {
         $nomefile = pathinfo($filename);
         $file = $nomefile['filename'];
-        if ($file != "PhpXlsxGenerator") {
-            $file_var = strtolower($file);
-            fwrite($file_handle, '$' . $file_var . ' = new ' . $file . '($db);');
-            fwrite($file_handle, "\n");
-        }
+        $file_var = strtolower($file);
+        fwrite($file_handle, '$' . $file_var . ' = new ' . $file . '($db);');
+        fwrite($file_handle, "\n");
     }
     if ($prefix) {
         fwrite($file_handle, '$common->prx = "' . $prefix . '_";');
@@ -85,7 +83,7 @@ if ($parent) {
 $setting->name = "lang";
 $stmt = $setting->showByName();
 $lang = $stmt['value'];
-$_SESSION['lang'] = $lang ;
+$_SESSION['lang'] = $lang;
 
 foreach (glob("locale/$lang/*.php") as $row) {
     require "$row";

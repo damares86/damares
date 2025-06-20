@@ -36,7 +36,8 @@ class Common
     // public function __construct() {
     // }
 
-    protected function loadPrefix() {
+    protected function loadPrefix()
+    {
         // Assicurati che il file esista
         $prefixFile = '../core/prefix.php';
         if (is_file($prefixFile)) {
@@ -47,7 +48,8 @@ class Common
         }
     }
 
-    public function getTableName($baseTable) {
+    public function getTableName($baseTable)
+    {
         // Ritorna il nome della tabella con prefisso
         return $this->prefix !== '' ? "{$this->prefix}_{$baseTable}" : $baseTable;
     }
@@ -119,7 +121,7 @@ class Common
 
         $query = "UPDATE " . $this->prx . $this->table . "
         SET " . $this->fields . " WHERE $where = :$where";
-        
+
         $stmt = $this->conn->prepare($query);
 
         foreach ($fields as $item) {
@@ -150,7 +152,7 @@ class Common
 
         $query = "SELECT *
             FROM " . $this->prx . $this->table . "
-        ORDER BY " . $orderBy . " ".$ascDesc." " . $limits . "";
+        ORDER BY " . $orderBy . " " . $ascDesc . " " . $limits . "";
 
         $stmt = $this->conn->prepare($query);
 
@@ -206,7 +208,7 @@ class Common
         $query = "SELECT *
         FROM " . $this->prx . $this->table . "
         WHERE " . $this->where . "
-        ORDER BY " . $orderBy . " ". $ascDesc ." " . $limit_query . $offset_query . "";
+        ORDER BY " . $orderBy . " " . $ascDesc . " " . $limit_query . $offset_query . "";
 
         $stmt = $this->conn->prepare($query);
         // print_r($stmt);
@@ -414,22 +416,37 @@ class Common
 
     public function copyDirectory($source, $destination)
     {
-        if (!is_dir($destination)) {
-            mkdir($destination, 0755, true);
+        if (!is_dir($source)) {
+            echo "Source folder not found: $source\n";
+            return false;
         }
+
+        if (!is_dir($destination)) {
+            if (!mkdir($destination, 0755, true)) {
+                echo "Failed to create destination: $destination\n";
+                return false;
+            }
+        }
+
         $files = scandir($source);
         foreach ($files as $file) {
             if ($file !== '.' && $file !== '..') {
-                $sourceFile = $source . '/' . $file;
-                $destinationFile = $destination . '/' . $file;
-                if (is_dir($sourceFile)) {
-                    $this->copyDirectory($sourceFile, $destinationFile);
+                $src = rtrim($source, '/') . '/' . $file;
+                $dest = rtrim($destination, '/') . '/' . $file;
+
+                if (is_dir($src)) {
+                    $this->copyDirectory($src, $dest);
                 } else {
-                    copy($sourceFile, $destinationFile);
+                    if (!copy($src, $dest)) {
+                        echo "Failed to copy file: $src\n";
+                    }
                 }
             }
         }
+
+        return true;
     }
+
 
     public function rmdir_recursive($dir)
     {
@@ -454,7 +471,6 @@ class Common
     {
         return str_replace('.', ',', $number);
     }
-
     public function getBaseUrlBefore($stopDir = 'admin') {
     // Determina il protocollo (http o https)
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' 
@@ -481,4 +497,5 @@ class Common
 
     return $protocol . $host . '/' . $basePath;
 }
+
 }
