@@ -79,7 +79,7 @@ $redir = $row['value'];
                 $row2 = $permissions->fetch(PDO::FETCH_ASSOC);
                 extract($row2);
                 if (!is_null($row2['section_id'])) {
-                  $section_arr = explode(',', $row1['section_id']);
+                  $section_arr = explode(',', $row2['section_id']);
                   foreach ($section_arr as $item) {
 
                     $section->id = $item;

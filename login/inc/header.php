@@ -1,9 +1,5 @@
 <?php
-// require '../admin/vendor/autoload.php';		// If installed via composer
-// $debug = new \bdk\Debug(array(
-// 	'collect' => true,
-// 	'output' => true,
-// ));
+
 if (!is_file('../admin/class/Database.php')) {
   require "../admin/inc/dbdata.php";
   exit;
@@ -22,7 +18,6 @@ $db = $database->getConnection();
 // recall of all the classes
 $files = glob("../admin/class/*.php", GLOB_BRACE);
 rsort($files);
-
 
 // creation of the file with all the initialization of the classes
 if (!is_file('../admin/inc/class_initialize.php')) {
@@ -117,6 +112,21 @@ if (isset($_COOKIE['damares-login'])) {
     exit;
   }
 }
+
+// check if the debug mode is active
+$setting->name = "debug";
+$dbg = $setting->showAllWhere('id', ['name']);
+$row_debug = $dbg->fetch(PDO::FETCH_ASSOC);
+extract($row_debug);
+
+if ($row_debug['value'] == 1) {
+    require '../admin/vendor/autoload.php';        // If installed via composer
+    $debug = new \bdk\Debug(array(
+        'collect' => true,
+        'output' => true,
+    ));
+}
+
 
 $setting->name = "lang";
 $stmt = $setting->showByName();
