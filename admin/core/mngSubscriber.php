@@ -42,7 +42,7 @@ if ($operation == 'add') {
         $confirmation = $stmt->fetch(PDO::FETCH_ASSOC);
         
         $confirm_message = '' ;
-        if($confirmation['value'] == 0){
+        if($confirmation['value'] == 1){
             $confirm_message = 'NoConfirm' ;
         }
         
@@ -69,10 +69,10 @@ if ($operation == 'add') {
         exit;
     }
 
-}else if (filter_input(INPUT_POST, "confirm")) {
+}else if (filter_input(INPUT_GET, "confirm")) {
 
     $newsletter->table = "newsletter_subscribers";
-    $newsletter->id = filter_input(INPUT_POST,'id');
+    $newsletter->id = filter_input(INPUT_GET,'id');
     $newsletter->confirmed = 1 ;
 
     if($newsletter->update(['confirmed'],'id')){
