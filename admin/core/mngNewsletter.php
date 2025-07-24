@@ -8,6 +8,8 @@
 #                                          #
 ############################################
 
+use Pelago\Emogrifier\CssInliner;
+
 require __DIR__ . "/coreConfig.php";
 
 if (filter_input(INPUT_GET, 'idToDel')) {
@@ -59,7 +61,11 @@ if ($operation == 'clone') {
 
     $newsletter->table = 'newsletter_messages';
     $newsletter->subject = filter_input(INPUT_POST, 'subject');
-    $newsletter->body = filter_input(INPUT_POST, 'body');
+
+    // css inline conversion
+    $body = filter_input(INPUT_POST, 'body');
+    $converted = CssInliner::fromHtml($body)->inlineCss()->render();
+    $newsletter->body = $converted ;
 
     if ($newsletter->insert(['subject', 'body'])) {
         $newsletter->table = 'newsletter_messages';

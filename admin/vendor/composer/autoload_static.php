@@ -16,9 +16,15 @@ class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
             'bdk\\Container\\' => 14,
             'bdk\\Backtrace\\' => 14,
         ),
+        'S' => 
+        array (
+            'Symfony\\Component\\CssSelector\\' => 30,
+            'Sabberworm\\CSS\\' => 15,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
+            'Pelago\\Emogrifier\\' => 18,
         ),
     );
 
@@ -47,9 +53,21 @@ class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
         array (
             0 => __DIR__ . '/..' . '/bdk/debug/src/Backtrace',
         ),
+        'Symfony\\Component\\CssSelector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/css-selector',
+        ),
+        'Sabberworm\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/bdk/debug/src/Psr7',
+        ),
+        'Pelago\\Emogrifier\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pelago/emogrifier/src',
         ),
     );
 
