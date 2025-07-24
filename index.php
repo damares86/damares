@@ -50,6 +50,7 @@ require "admin/template/inc/header.php";
                         <input class="form-control" type="email" HTML5
                             data-parsley-type="email" name="email" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" data-parsley-required="true"/>
                         <button class="btn btn-outline-light mt-3" id="button-newsletter" type="submit">Sign up</button>
+                        <input type="hidden" name="operation" value="add">
                     </form>
                 </div>
                 <div class="small text-white-50">We care about privacy, and will never share your data.</div>

@@ -222,7 +222,7 @@ class Common
         if ($offset !== null) {
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         }
-
+        
         $stmt->execute();
         return $stmt;
     }
@@ -324,7 +324,7 @@ class Common
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":$field", $this->$field);
-
+        
         if ($stmt->execute()) {
             return true;
         } else {

@@ -30,11 +30,19 @@ $operation = filter_input(INPUT_POST,'operation') ;
 
 if ($operation == 'add') {
     
+    $goback = filter_input(INPUT_POST,'backend') ? '../index.php?p=allSubscribers' : '../../index.php?p=1';
+
     $newsletter->name = filter_input(INPUT_POST,"name");
     $newsletter->email = filter_input(INPUT_POST,"email");
+    $data = ['name','email'];
+    if(filter_input(INPUT_POST,'backend')){
+        $newsletter->confirmed = 1;
+        $data[] = 'confirmed';
+    }
     $newsletter->table = "newsletter_subscribers";
     
-    if($newsletter->insert(['name','email'])){
+
+    if($newsletter->insert($data)){
 
         $newsletter->table = "newsletter_settings";
         $newsletter->name = "confirmation";
@@ -42,15 +50,15 @@ if ($operation == 'add') {
         $confirmation = $stmt->fetch(PDO::FETCH_ASSOC);
         
         $confirm_message = '' ;
-        if($confirmation['value'] == 1){
+        if($confirmation['value'] == 1 && !filter_input(INPUT_POST,'backend')){
             $confirm_message = 'NoConfirm' ;
         }
         
-        header("Location:../../index.php?msg=subscriberSucc$confirm_message");
+        header("Location: $goback&msg=subscriberSucc$confirm_message");
         exit;
         
     }else{
-        header("Location:../../index.php?err=subscriberErr");
+        header("Location: $goback&err=subscriberErr");
         exit;
     }
     

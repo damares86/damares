@@ -9,11 +9,11 @@ $link_parent = "newsletter";
 // query to create the tables and insert values
 
 $query_create_table = "CREATE TABLE " . $prefix . "newsletter_subscribers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    name VARCHAR(255),
-    subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    confirmed TINYINT(1) DEFAULT 1
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      name VARCHAR(255),
+      subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      confirmed TINYINT(1) DEFAULT 1
       );
       CREATE TABLE " . $prefix . "newsletter_messages (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -21,13 +21,15 @@ $query_create_table = "CREATE TABLE " . $prefix . "newsletter_subscribers (
       body TEXT NOT NULL,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       );
-      CREATE TABLE " . $prefix . "newsletter_queue (
+      CREATE TABLE newsletter_queue (
       id INT AUTO_INCREMENT PRIMARY KEY,
-      message_id INT NOT NULL,
-      subscriber_email VARCHAR(255) NOT NULL,
-      status ENUM('pending', 'sent', 'error') DEFAULT 'pending',
-      sent_at DATETIME NULL,
-      FOREIGN KEY (message_id) REFERENCES newsletter_messages(id)
+      message_id INT,
+      subscriber_id INT,
+      status ENUM('queued', 'sent', 'failed') DEFAULT 'queued',
+      sent_at DATETIME DEFAULT NULL,
+      error TEXT DEFAULT NULL,
+      FOREIGN KEY (message_id) REFERENCES newsletter_messages(id),
+      FOREIGN KEY (subscriber_id) REFERENCES newsletter_subscribers(id)
       );
        CREATE TABLE IF NOT EXISTS " . $prefix . "newsletter_settings
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
