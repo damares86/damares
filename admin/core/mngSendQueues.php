@@ -7,9 +7,17 @@
 #   GitHub: https://github.com/damares86   #
 #                                          #
 ############################################
+ini_set('display_errors', 0); // Non mostrare a schermo
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/newsletter_error.log');
+error_reporting(E_ALL);
+
+$messageId = intval($_POST['message_id']);
+error_log("Ricevuto messageId: $messageId");
+
 
 require __DIR__ . "/coreConfig.php";
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -17,7 +25,7 @@ use PHPMailer\PHPMailer\Exception;
 $messageId = intval($_POST['message_id']);
 
 // 1. Recupera tutti i subscriber confermati
-$newsletter->table = "newsletter_subscribers" ;
+$newsletter->table = "newsletter_subscribers";
 $stmt = $newsletter->showAll('id');
 $subscribers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -43,7 +51,7 @@ $results = [];
 
 foreach ($queue as $row) {
     $mail = new PHPMailer(true);
- 
+
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.netsons.com';
@@ -59,12 +67,18 @@ foreach ($queue as $row) {
         $mail->isHTML(true);
         $mail->Body = $row['body'];
 
+
+        $mail->SMTPDebug = 2;
+        $mail->Debugoutput = function ($str, $level) {
+            error_log("SMTP DEBUG [$level]: $str");
+        };
+
+
         $mail->send();
 
         $db->prepare("UPDATE newsletter_queue SET status = 'sent', sent_at = NOW() WHERE id = ?")
             ->execute([$row['queue_id']]);
         $results[] = ['email' => $row['email'], 'status' => 'sent'];
-
     } catch (Exception $e) {
         $db->prepare("UPDATE newsletter_queue SET status = 'failed', error = ? WHERE id = ?")
             ->execute([$mail->ErrorInfo, $row['queue_id']]);

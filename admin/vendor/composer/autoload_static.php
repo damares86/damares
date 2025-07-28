@@ -4,8 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
+class ComposerStaticInit98e480f004e9a0ee14fc16da044fc38c
 {
+    public static $files = array (
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'b' => 
         array (
@@ -18,6 +22,7 @@ class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Sabberworm\\CSS\\' => 15,
         ),
@@ -54,6 +59,10 @@ class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
         array (
             0 => __DIR__ . '/..' . '/bdk/debug/src/Backtrace',
         ),
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
         'Symfony\\Component\\CssSelector\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/css-selector',
@@ -77,7 +86,12 @@ class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'bdk\\Backtrace' => __DIR__ . '/..' . '/bdk/debug/src/Backtrace/Backtrace.php',
         'bdk\\Container' => __DIR__ . '/..' . '/bdk/debug/src/Container/Container.php',
         'bdk\\Debug' => __DIR__ . '/..' . '/bdk/debug/src/Debug/Debug.php',
@@ -88,9 +102,9 @@ class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit98e480f004e9a0ee14fc16da044fc38c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit98e480f004e9a0ee14fc16da044fc38c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit98e480f004e9a0ee14fc16da044fc38c::$classMap;
 
         }, null, ClassLoader::class);
     }

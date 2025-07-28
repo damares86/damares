@@ -36,7 +36,7 @@ extract($email_row);
             <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title d-inline">Edit email</h4>
-                    <button id="sendBtn" data-message-id="<?= $row['id'] ?>" class="btn btn-info mx-5 me-1 mb-1 shadow">
+                    <button id="sendBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-info mx-5 me-1 mb-1 shadow">
                         <i class="bi bi-send"></i> Send
                     </button>
                     <!-- <a href="core/mngNewsletter.php?idToSend=<?= $email_id ?>" type="button" class="btn btn-info mx-5 me-1 mb-1 shadow">
@@ -184,7 +184,15 @@ extract($email_row);
                 message_id: messageId
             },
             success: function(res) {
-                let response = JSON.parse(res);
+                console.log("Raw response:", res); // <-- Aggiunto
+                let response;
+                try {
+                    response = JSON.parse(res);
+                } catch (e) {
+                    alert("Errore: risposta non valida dal server.\n" + res);
+                    return;
+                }
+
                 $('#progressBar').css('width', '100%').text('100%');
 
                 if (response.errors && response.errors.length > 0) {

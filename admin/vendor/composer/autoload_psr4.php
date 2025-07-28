@@ -12,6 +12,7 @@ return array(
     'bdk\\Debug\\' => array($vendorDir . '/bdk/debug/src/Debug'),
     'bdk\\Container\\' => array($vendorDir . '/bdk/debug/src/Container'),
     'bdk\\Backtrace\\' => array($vendorDir . '/bdk/debug/src/Backtrace'),
+    'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Component\\CssSelector\\' => array($vendorDir . '/symfony/css-selector'),
     'Sabberworm\\CSS\\' => array($vendorDir . '/sabberworm/php-css-parser/src'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/bdk/debug/src/Psr7'),
