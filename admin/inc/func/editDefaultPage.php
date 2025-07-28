@@ -316,7 +316,7 @@ $page_to_edit = $mc->showAllWhere('id', ['id']);
                 <h4 class="card-title px-4 pt-3"><?= $common_info ?></h4>
                 <div class="card-content px-5 pb-4">
                     <ul>
-                        <li><a href="https://www.dmweblab.com/portal/manual.php?prod=4&page=3" target="_blank"><?= $common_see_guide ?></a></li>
+                        <li><a href="https://www.dmweblab.com/portal/manual.php?prod=2&parent=1&page=2" target="_blank"><?= $common_see_guide ?></a></li>
                     </ul>
                 </div>
             </div>

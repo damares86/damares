@@ -36,9 +36,32 @@ extract($email_row);
             <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title d-inline">Edit email</h4>
-                    <a href="core/mngNewsletter.php?idToSend=<?= $email_id ?>" type="button" class="btn btn-info mx-5 me-1 mb-1 shadow">
+                    <button id="sendBtn" data-message-id="<?= $row['id'] ?>" class="btn btn-info mx-5 me-1 mb-1 shadow">
                         <i class="bi bi-send"></i> Send
-                    </a>
+                    </button>
+                    <!-- <a href="core/mngNewsletter.php?idToSend=<?= $email_id ?>" type="button" class="btn btn-info mx-5 me-1 mb-1 shadow">
+                    </a> -->
+
+                    <div id="progressBarContainer" class="my-3" style="display:none;">
+                        <div class="progress">
+                            <div id="progressBar" class="progress-bar" style="width: 0%">0%</div>
+                        </div>
+                    </div>
+
+                    <!-- Modale per errori -->
+                    <div class="modal fade" id="errorModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Invii Falliti</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul id="errorList" class="list-group"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -147,3 +170,36 @@ extract($email_row);
         </div>
     </div>
 </section>
+
+<script>
+    $('#sendBtn').on('click', function() {
+        const messageId = $(this).data('message-id');
+        $('#progressBarContainer').show();
+        $('#progressBar').css('width', '0%').text('0%');
+
+        $.ajax({
+            url: 'core/mngSendQueues.php',
+            type: 'POST',
+            data: {
+                message_id: messageId
+            },
+            success: function(res) {
+                let response = JSON.parse(res);
+                $('#progressBar').css('width', '100%').text('100%');
+
+                if (response.errors && response.errors.length > 0) {
+                    $('#errorList').html('');
+                    response.errors.forEach(function(err) {
+                        $('#errorList').append('<li class="list-group-item text-danger">' + err.email + ': ' + err.error + '</li>');
+                    });
+                    $('#errorModal').modal('show');
+                } else {
+                    alert("Invio completato con successo!");
+                }
+            },
+            error: function() {
+                alert('Errore durante l\'invio.');
+            }
+        });
+    });
+</script>

@@ -25,6 +25,7 @@ class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
         array (
             'Psr\\Http\\Message\\' => 17,
             'Pelago\\Emogrifier\\' => 18,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
@@ -68,6 +69,10 @@ class ComposerStaticInit1f7f0f8912223f29fe308d90712da4f7
         'Pelago\\Emogrifier\\' => 
         array (
             0 => __DIR__ . '/..' . '/pelago/emogrifier/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 

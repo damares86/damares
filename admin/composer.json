@@ -1,6 +1,7 @@
 {
     "require": {
         "bdk/debug": "3.0",
-        "pelago/emogrifier": "*"
+        "pelago/emogrifier": "*",
+        "phpmailer/phpmailer": "^6.10"
     }
 }

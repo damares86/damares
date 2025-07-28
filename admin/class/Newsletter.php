@@ -9,4 +9,5 @@ class Newsletter extends Common{
     public $confirmed ;
     public $message_id ;
     public $subscriber_email ;
+    public $subscriber_id ;
 }

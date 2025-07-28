@@ -15,23 +15,18 @@ $query_create_table = "CREATE TABLE " . $prefix . "newsletter_subscribers (
       subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       confirmed TINYINT(1) DEFAULT 1
       );
-      CREATE TABLE " . $prefix . "newsletter_messages (
+      CREATE TABLE " . $prefix . "newsletter_queue (
       id INT AUTO_INCREMENT PRIMARY KEY,
-      subject VARCHAR(255) NOT NULL,
-      body TEXT NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      subscriber_id INT NOT NULL,
+      message_id INT NOT NULL,
+      status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
+      sent_at DATETIME NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE (subscriber_id, message_id),
+      FOREIGN KEY (subscriber_id) REFERENCES newsletter_subscribers(id) ON DELETE CASCADE,
+      FOREIGN KEY (message_id) REFERENCES newsletter_messages(id) ON DELETE CASCADE
       );
-      CREATE TABLE newsletter_queue (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      message_id INT,
-      subscriber_id INT,
-      status ENUM('queued', 'sent', 'failed') DEFAULT 'queued',
-      sent_at DATETIME DEFAULT NULL,
-      error TEXT DEFAULT NULL,
-      FOREIGN KEY (message_id) REFERENCES newsletter_messages(id),
-      FOREIGN KEY (subscriber_id) REFERENCES newsletter_subscribers(id)
-      );
-       CREATE TABLE IF NOT EXISTS " . $prefix . "newsletter_settings
+      CREATE TABLE IF NOT EXISTS " . $prefix . "newsletter_settings
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       value LONGTEXT NOT NULL) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -81,7 +76,7 @@ $menu_link = [[
                   'label' => 'Edit subscriber',
                   'icon' => 'person-fill',
                   'show_menu' => '0'
-            ],            
+            ],
             [
                   'link' => 'allNewsletterSettings',
                   'label' => 'Newsletter Settings',

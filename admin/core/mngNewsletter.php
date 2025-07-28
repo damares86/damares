@@ -25,12 +25,7 @@ if (filter_input(INPUT_GET, 'idToDel')) {
         exit;
     }
 
-} else if (filter_input(INPUT_GET, 'idToSend')) {
-    /////////////////// TODO ///////////////////////////
-    echo "send";
-    exit;
-}
-
+} 
 
 $operation = filter_input(INPUT_POST, 'operation');
 
@@ -58,20 +53,35 @@ if ($operation == 'clone') {
     }
     
 } else if ($operation == 'add') {
-
+    
     $newsletter->table = 'newsletter_messages';
     $newsletter->subject = filter_input(INPUT_POST, 'subject');
-
+    
     // css inline conversion
     $body = filter_input(INPUT_POST, 'body');
     $converted = CssInliner::fromHtml($body)->inlineCss()->render();
     $newsletter->body = $converted ;
-
+    
     if ($newsletter->insert(['subject', 'body'])) {
+
         $newsletter->table = 'newsletter_messages';
         $stmt = $newsletter->showAll('id', 1, null, 'DESC');
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $id = $row['id'];
+    $newsletter->table = "newsletter_subscribers";
+        $stmt1 = $newsletter->showAll('id');
+        $error = 0 ;
+        while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)){
+            $newsletter->table = "newsletter_queue";
+            $newsletter->subscriber_id = $row1['id'] ;
+            $newsletter->message_id = $id ;
+
+            if(!$newsletter->insert(['subscriber_id','message_id'])){
+                $error++;
+            }
+        }
+        
+        $err_queue = $error>0 ? '&err=newsletterQueue' : '' ;   
         header("Location: ../index.php?p=editEmail&idToMod=$id&msg=newsletterAdd");
         exit;
     } else {

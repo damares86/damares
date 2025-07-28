@@ -62,14 +62,14 @@ $subscribers = $newsletter->showAll('created_at');
 
                                 if ($row1['status'] != 'sent') {
                                 ?>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#send<?= $row['id'] ?>" class="btn icon btn-primary shadow edit-link">
+                                    <!-- <a href="#" data-bs-toggle="modal" data-bs-target="#send<?= $row['id'] ?>" class="btn icon btn-primary shadow edit-link">
                                         <i class="bi bi-send"></i>
-                                    </a>
+                                    </a> -->
 
                                     &nbsp; &nbsp;
 
                                     <!--Send theme Modal -->
-                                    <div class="modal fade text-left" id="send<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+                                    <!-- <div class="modal fade text-left" id="send<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header bg-primary">
@@ -94,7 +94,7 @@ $subscribers = $newsletter->showAll('created_at');
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <a href="index.php?p=editEmail&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editEmail&idToMod=<?= $row['id'] ?>">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
