@@ -46,14 +46,14 @@ foreach ($queue as $row) {
  
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.example.com';
+        $mail->Host = 'smtp.netsons.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'user@example.com';
-        $mail->Password = 'secret';
+        $mail->Username = 'noreply@dmweblab.com';
+        $mail->Password = 'Salomon-86';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('newsletter@yourdomain.com', 'Newsletter');
+        $mail->setFrom('noreply@dmweblab.com', 'Newsletter');
         $mail->addAddress($row['email'], $row['name']);
         $mail->Subject = $row['subject'];
         $mail->isHTML(true);
