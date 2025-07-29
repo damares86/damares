@@ -51,7 +51,7 @@ if ($operation == 'add') {
         
         $confirm_message = '' ;
         if($confirmation['value'] == 1 && !filter_input(INPUT_POST,'backend')){
-            $confirm_message = 'NoConfirm' ;
+            $confirm_message = '&msg=NoConfirm' ;
         }
         
         header("Location: $goback&msg=subscriberSucc$confirm_message");

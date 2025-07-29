@@ -43,6 +43,7 @@ $common_modal_title_sure = "Sei sicuro?" ;
 $common_modal_confirm = "Conferma" ;
 $common_modal_cancel = "Cancella" ;
 $common_submit = "Invia" ;
+$common_close = "Chiudi" ;
 $common_update = "Aggiorna" ;
 $common_reset = "Reset" ;
 $common_info = "Info" ;
@@ -103,18 +104,8 @@ $role_header_child = "Sottosezioni" ;
 //////  FILE  //////
 
 $file_all_header = "Tutti i file" ;
-$file_all_title = "Tutti i file" ;
-$file_all_add = "Aggiungi nuovo file" ;
-$file_all_modal_body = "Se confermi, cancellerai definitivamente questo file." ;
-$file_all_label = "Titolo file" ;
-$file_all_file = "Nome file" ;
-$file_add_header = "Aggiungi un file" ;
-$file_add_title = "Aggiungi un nuovo file" ;
-$file_add_file = "Carica file" ;
-$file_edit_header = "Modifica un file" ;
-$file_edit_title = "Modifica il file" ;
-$file_edit_file = "Carica un nuovo file" ;
-$file_edit_actual = "File attuale:";
+$file_fm = "File Manager" ;
+$file_fm_open = "Apri file manager" ;
 
 
 //////  PLUGIN  //////

@@ -4,7 +4,7 @@ $message_id = $_POST['message_id'] ?? null;
 
 if (!$message_id) {
     http_response_code(400);
-    echo json_encode(['error' => 'Missing message_id']);
+    echo json_encode(['error' => $send_no_id]);
     exit;
 }
 

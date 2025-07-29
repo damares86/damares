@@ -15,7 +15,7 @@ $messageId = intval($_POST['message_id'] ?? 0);
 $batchSize = intval($_POST['batch_size'] ?? 10);
 
 if (!$messageId) {
-    echo json_encode(['error' => 'Missing message_id']);
+    echo json_encode(['error' => $send_no_id]);
     exit;
 }
 

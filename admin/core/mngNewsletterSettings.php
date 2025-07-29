@@ -11,24 +11,6 @@
 
 require __DIR__ . "/coreConfig.php";
 
-if (filter_input(INPUT_GET, "idToDel")) {
-
-    // gestire il discorso del colore usato
-
-    $idToDel = filter_input(INPUT_GET, "idToDel");
-
-    $mc->table = 'mc_contacts';
-    $mc->id = $idToDel;
-
-    if ($mc->delete('id')) {
-        header("Location: ../index.php?p=allMcSettings&msg=contactDelSucc");
-        exit;
-    } else {
-        header("Location: ../index.php?p=allMcSettings&err=contactDelFail");
-        exit;
-    }
-}
-
 $operation = filter_input(INPUT_POST, "operation");
 
 $post = $_POST;
@@ -45,7 +27,7 @@ if ($operation == 'settings') {
         header("Location:../index.php?p=allNewsletterSettings&msg=settingUpdate");
         exit;
     } else {
-        header("Location:../index.php?p=allNewsletterSettings&err=settingNoUpdate");
+        header("Location:../index.php?p=allNewsletterSettings&err=settingUpdateEr");
         exit;
     }
 } else if ($operation == "mail") {
@@ -67,7 +49,7 @@ if ($operation == 'settings') {
         header("Location:../index.php?p=allNewsletterSettings&msg=settingUpdate");
         exit;
     } else {
-        header("Location:../index.php?p=allNewsletterSettings&err=settingNoUpdate");
+        header("Location:../index.php?p=allNewsletterSettings&err=settingUpdateEr");
         exit;
     }
 }

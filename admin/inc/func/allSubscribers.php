@@ -14,7 +14,7 @@ $confirmation = $row['value'] == 1 ? true : false;
 <div class="page-title">
   <div class="row">
     <div class="col-12 col-md-6 order-md-1 order-last">
-      <h3>All subscribers</h3>
+      <h3><?=$allsub_header?></h3>
     </div>
     <div class="col-12 col-md-6 order-md-2 order-first">
       <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -23,7 +23,7 @@ $confirmation = $row['value'] == 1 ? true : false;
             <a href="index.php"><?= $common_dashboard ?></a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            All subscribers
+            <?=$allsub_header?>
           </li>
         </ol>
       </nav>
@@ -36,21 +36,21 @@ $confirmation = $row['value'] == 1 ? true : false;
 <!-- Basic Tables start -->
 <section class="section">
   <div class="card shadow">
-    <div class="card-header">Subscribers &nbsp; &nbsp; &nbsp;
-      <a href="index.php?p=addSubscriber" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> Add subscriber</a>
+    <div class="card-header"><?=$allsub_title?> &nbsp; &nbsp; &nbsp;
+      <a href="index.php?p=addSubscriber" class="btn icon icon-left btn-success shadow"><i data-feather="plus-circle"></i> <?=$allsub_add?></a>
     </div>
     <div class="card-body">
 
       <table class="table" id="table">
         <thead>
           <tr>
-            <th>Name</th>
+            <th><?=$common_name?></th>
             <th><?= $common_email ?></th>
-            <th>Subscribed at</th>
+            <th><?=$allsub_subscribed_at?></th>
             <?php
             if ($confirmation) {
             ?>
-              <th>Confirmed</th>
+              <th><?=$allsub_confirmed?></th>
             <?php
             }
             ?>
@@ -74,7 +74,7 @@ $confirmation = $row['value'] == 1 ? true : false;
               ?>
                 <td>
                   <?php
-                  $confirmed = $row['confirmed'] == 0 ? 'No' : 'Yes';
+                  $confirmed = $row['confirmed'] == 0 ? '<i class="bi-x"></i>' : '<i class="bi-check2-circle text-success"></i>';
                   echo $confirmed;
                   ?>
                 </td>
@@ -113,7 +113,7 @@ $confirmation = $row['value'] == 1 ? true : false;
                         </button>
                       </div>
                       <div class="modal-body">
-                        Se confermi questo iscritto verrà eliminato definitivamente
+                        <?=$allsub_modal_body?>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">

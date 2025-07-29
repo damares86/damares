@@ -26,6 +26,7 @@ $common_modal_title_sure = "Are you sure?" ;
 $common_modal_confirm = "Confirm" ;
 $common_modal_cancel = "Cancel" ;
 $common_submit = "Submit" ;
+$common_close = "Close" ;
 $common_update = "Update" ;
 $common_reset = "Reset" ;
 $common_info = "Info" ;
@@ -88,18 +89,8 @@ $role_header_child = "Subsections" ;
 //////  FILE  //////
 
 $file_all_header = "All files" ;
-$file_all_title = "All files" ;
-$file_all_add = "Add new file" ;
-$file_all_modal_body = "If you confirm, you will completely delete this file." ;
-$file_all_label = "File title" ;
-$file_all_file = "File name" ;
-$file_add_header = "Add a file" ;
-$file_add_title = "Add a new file" ;
-$file_add_file = "Upload file" ;
-$file_edit_header = "Edit a file" ;
-$file_edit_title = "Edit the file" ;
-$file_edit_file = "Upload new file" ;
-$file_edit_actual = "Actual file:";
+$file_fm = "File Manager" ;
+$file_fm_open = "Open file manager" ;
 
 
 //////  PLUGIN  //////
