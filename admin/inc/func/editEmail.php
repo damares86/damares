@@ -13,9 +13,7 @@ extract($email_row);
             <h3>Edit email</h3>
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
-            <nav
-                aria-label="breadcrumb"
-                class="breadcrumb-header float-start float-lg-end">
+            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="index.php"><?= $common_dashboard ?></a>
@@ -39,16 +37,54 @@ extract($email_row);
                     <button id="sendBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-info mx-5 me-1 mb-1 shadow">
                         <i class="bi bi-send"></i> Send
                     </button>
-                    <!-- <a href="core/mngNewsletter.php?idToSend=<?= $email_id ?>" type="button" class="btn btn-info mx-5 me-1 mb-1 shadow">
-                    </a> -->
+                    <button id="retryBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-warning mx-5 me-1 mb-1 shadow" style="display:none;">
+                        <i class="bi bi-arrow-clockwise"></i> Retry
+                    </button>
 
-                    <div id="progressBarContainer" class="my-3" style="display:none;">
-                        <div class="progress">
-                            <div id="progressBar" class="progress-bar" style="width: 0%">0%</div>
-                        </div>
+
+                    <style>
+                        #progressBarContainer {
+                            display: none;
+                            margin-top: 1rem;
+                            background-color: #e9ecef;
+                            border-radius: 0.25rem;
+                            overflow: hidden;
+                            height: 25px;
+                            position: relative;
+                        }
+
+                        #progressBar {
+                            height: 100%;
+                            width: 0%;
+                            background-color: #0d6efd;
+                            transition: width 0.4s ease;
+                        }
+
+                        #progressText {
+                            position: absolute;
+                            width: 100%;
+                            text-align: center;
+                            top: 0;
+                            left: 0;
+                            color: white;
+                            font-weight: bold;
+                            line-height: 25px;
+                            user-select: none;
+                        }
+                    </style>
+
+                    <div id="progressBarContainer">
+                        <div id="progressBar"></div>
+                        <div id="progressText">0%</div>
                     </div>
 
-                    <!-- Modale per errori -->
+                    <div id="genericErrorNotice" class="alert alert-danger mt-3" style="display:none;">
+                        Alcune email non sono state inviate correttamente.
+                    </div>
+                    <button id="showErrorsBtn" class="btn btn-danger mt-2" style="display:none;" data-bs-toggle="modal" data-bs-target="#errorModal">
+                        Visualizza errori
+                    </button>
+
                     <div class="modal fade" id="errorModal" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -73,47 +109,25 @@ extract($email_row);
                                     </div>
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <div class="form-check mandatory">
-                                                <div class="position-relative">
-                                                    <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        placeholder="Email subject"
-                                                        id="first-name"
-                                                        name="subject"
-                                                        value="<?= $email_row['subject'] ?>"
-                                                        data-parsley-required="true" />
-                                                </div>
-                                            </div>
+                                            <input type="text" class="form-control" name="subject" value="<?= $email_row['subject'] ?>" required />
                                         </div>
                                     </div>
 
-
                                     <div class="col-md-3 mt-3">
-                                        <label>File Manager </label>
+                                        <label>File Manager</label>
                                     </div>
                                     <div class="col-md-9 mt-3">
-                                        <button type="button" class="btn btn-primary me-1 mb-1 shadow" data-bs-toggle="modal" data-bs-target="#fm_modal">
-                                            Open
-                                        </button>
+                                        <button type="button" class="btn btn-primary me-1 mb-1 shadow" data-bs-toggle="modal" data-bs-target="#fm_modal">Open</button>
                                     </div>
 
-                                    <style>
-                                        .modal-dialog {
-                                            width: 79%;
-                                            max-width: 80%;
-                                            height: 70%;
-                                        }
-                                    </style>
-                                    <div class="modal fade" id="fm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
-                                        <div class="modal-dialog" role="document" style="height: 100%;">
+                                    <div class="modal fade" id="fm_modal" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" style="width: 80%; max-width: 80%; height: 70%;">
                                             <div class="modal-content h-75">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <h5 class="modal-title">File Manager</h5>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <iframe src='core/tinyfilemanager.php' style="width: 100%; height:100%;">
-                                                    </iframe>
+                                                    <iframe src='core/tinyfilemanager.php' style="width: 100%; height:100%;"></iframe>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -126,13 +140,7 @@ extract($email_row);
                                         <label>Email body <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-9 my-3">
-                                        <div class="form-group">
-                                            <div class="form-check mandatory">
-                                                <div class="position-relative">
-                                                    <textarea name="body" class="tiny" cols="30" rows="15"><?= $email_row['body'] ?></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <textarea name="body" class="tiny" cols="30" rows="15" required><?= $email_row['body'] ?></textarea>
                                     </div>
 
                                     <input type="hidden" name="operation" value="edit">
@@ -140,16 +148,8 @@ extract($email_row);
                                     <input type="hidden" name="origin" value="editEmail">
 
                                     <div class="col-12 d-flex justify-content-end">
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary me-1 mb-1 shadow">
-                                            <?= $common_submit ?>
-                                        </button>
-                                        <button
-                                            type="reset"
-                                            class="btn btn-light-secondary me-1 mb-1 shadow">
-                                            <?= $common_reset ?>
-                                        </button>
+                                        <button type="submit" class="btn btn-primary me-1 mb-1 shadow"><?= $common_submit ?></button>
+                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1 shadow"><?= $common_reset ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -170,44 +170,119 @@ extract($email_row);
         </div>
     </div>
 </section>
-
 <script>
-    $('#sendBtn').on('click', function() {
-        const messageId = $(this).data('message-id');
-        $('#progressBarContainer').show();
-        $('#progressBar').css('width', '0%').text('0%');
+    function sendNewsletter(messageId, isRetry = false) {
+        const batchSize = 10;
+        let total = 0;
+        let processed = 0;
+        let errors = [];
 
-        $.ajax({
-            url: 'core/mngSendQueues.php',
-            type: 'POST',
-            data: {
+        $('#progressBarContainer').show();
+        $('#progressBar').css('width', '0%');
+        $('#progressText').text('0%');
+
+        const startSend = () => {
+            function sendBatch() {
+                $.post('core/sendBatch.php', {
+                    message_id: messageId,
+                    batch_size: batchSize
+                }, function(res) {
+                    processed += res.sent + res.failed;
+                    const perc = Math.min(Math.round((processed / total) * 100), 100);
+                    $('#progressBar').css('width', perc + '%');
+                    $('#progressText').text(`${perc}% (${processed} / ${total})`);
+
+                    if (res.failed > 0) {
+                        $('#showErrorsBtn').show();
+                    }
+
+                    if (res.remaining > 0) {
+                        setTimeout(sendBatch, 300);
+                    } else {
+                        $('#progressBar').css('width', '100%');
+                        $('#progressText').text(`100% (${total} / ${total})`);
+
+                        // Elimina i sent
+                        $.post('core/deleteSent.php', {
+                            message_id: messageId
+                        });
+
+                        // Gestione tasti finali
+                        $('#sendBtn').hide();
+                        error_msg = '' ;
+                        if (res.failed > 0) {
+                            $('#retryBtn').show();
+                            error_msg = ' con errori';
+                        }
+
+                        if (errors.length === 0) {
+                            setTimeout(() => alert('Invio completato'), 300);
+                        }
+                    }
+                }, 'json').fail(() => {
+                    alert('Errore durante la richiesta batch.');
+                });
+            }
+
+            sendBatch();
+        };
+
+        if (!isRetry) {
+            $.post('core/prepareQueue.php', {
                 message_id: messageId
-            },
-            success: function(res) {
-                console.log("Raw response:", res); // <-- Aggiunto
-                let response;
-                try {
-                    response = JSON.parse(res);
-                } catch (e) {
-                    alert("Errore: risposta non valida dal server.\n" + res);
+            }, function(res) {
+                total = parseInt(res.total, 10);
+                if (!total || total === 0) {
+                    alert('Nessun destinatario da inviare.');
+                    $('#progressBarContainer').hide();
                     return;
                 }
-
-                $('#progressBar').css('width', '100%').text('100%');
-
-                if (response.errors && response.errors.length > 0) {
-                    $('#errorList').html('');
-                    response.errors.forEach(function(err) {
-                        $('#errorList').append('<li class="list-group-item text-danger">' + err.email + ': ' + err.error + '</li>');
-                    });
-                    $('#errorModal').modal('show');
-                } else {
-                    alert("Invio completato con successo!");
+                $('#progressText').text(`0% (0 / ${total})`);
+                startSend();
+            }, 'json');
+        } else {
+            $.post('core/retryFailed.php', {
+                message_id: messageId
+            }, function(res) {
+                total = parseInt(res.total, 10);
+                if (!total || total === 0) {
+                    alert('Nessun destinatario da reinviare.');
+                    $('#progressBarContainer').hide();
+                    return;
                 }
-            },
-            error: function() {
-                alert('Errore durante l\'invio.');
+                $('#progressText').text(`0% (0 / ${total})`);
+                startSend();
+            }, 'json');
+        }
+    }
+
+    $('#sendBtn').on('click', function() {
+        const messageId = $(this).data('message-id');
+        if (!messageId) return alert("ID messaggio mancante.");
+        sendNewsletter(messageId);
+    });
+
+    $('#retryBtn').on('click', function() {
+        const messageId = $(this).data('message-id');
+        if (!messageId) return alert("ID messaggio mancante.");
+        $(this).hide();
+        sendNewsletter(messageId, true);
+    });
+
+    $('#showErrorsBtn').on('click', function() {
+        const messageId = $('#sendBtn').data('message-id');
+        if (!messageId) return alert("ID messaggio mancante.");
+        $.post('core/getFailedEmails.php', {
+            message_id: messageId
+        }, function(res) {
+            $('#errorList').html('');
+            if (res.failed?.length) {
+                res.failed.forEach(email => {
+                    $('#errorList').append(`<li class="list-group-item text-danger">${email}</li>`);
+                });
+            } else {
+                $('#errorList').append(`<li class="list-group-item">Nessun errore trovato.</li>`);
             }
-        });
+        }, 'json');
     });
 </script>
