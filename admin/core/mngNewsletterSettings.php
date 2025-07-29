@@ -48,30 +48,26 @@ if ($operation == 'settings') {
         header("Location:../index.php?p=allNewsletterSettings&err=settingNoUpdate");
         exit;
     }
+} else if ($operation == "mail") {
+    $exclude = array('operation', '.origin');
+    foreach ($post as $k => $v) {        
+        if($k == 'password'  && trim($v) === ''){
+            continue ;
+        }
+        $newsletter->table = "newsletter_settings";
+        $newsletter->name = $k;
+        $newsletter->value = $v;
 
-    // $post = $_POST;
+        if (!$newsletter->update(['value'], 'name')) {
+            $error++;
+        }
+    }
 
-    // $exclude = ['operation', 'origin'];
-
-    // foreach ($post as $key => $value) {
-    //     if (!in_array($key, $exclude)) {
-    //         $newsletter->table = 'newsletter_settings';
-    //         $newsletter->name = $key;
-    //         $newsletter->value = $value;
-    //         if ($key == "confirmation") {
-    //             $newsletter->value = filter_input(INPUT_POST, 'confirmation') ? 1 : 0;
-    //         }
-    //         if (!$newsletter->update(['value'], 'name')) {
-    //             $error++;
-    //         }
-    //     }
-    // }
-}
-
-if ($error == 0) {
-    header("Location: ../index.php?p=allMcSettings&msg=settingUpdate$err_file");
-    exit;
-} else {
-    header("Location: ../index.php?p=allMcSettings&err=settingUpdateErr$err_file");
-    exit;
+    if ($error == 0) {
+        header("Location:../index.php?p=allNewsletterSettings&msg=settingUpdate");
+        exit;
+    } else {
+        header("Location:../index.php?p=allNewsletterSettings&err=settingNoUpdate");
+        exit;
+    }
 }

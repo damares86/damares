@@ -101,7 +101,7 @@ extract($email_row);
                     <div id="genericErrorNotice" class="alert alert-danger mt-3" style="display:none;">
                         Alcune email non sono state inviate correttamente.
                     </div>
-                    <button id="showErrorsBtn" class="btn btn-danger mt-2" style="display:none;" data-bs-toggle="modal" data-bs-target="#errorModal">
+                    <button id="showErrorsBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-danger mt-2" style="display:none;" data-bs-toggle="modal" data-bs-target="#errorModal">
                         Visualizza errori
                     </button>
 

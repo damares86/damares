@@ -40,6 +40,7 @@ $subscribers = $newsletter->showAll('created_at');
                     <tr>
                         <th>Subject</th>
                         <th>Created at</th>
+                        <th>Sent</th>
                         <th><?= $common_actions ?></th>
                     </tr>
                 </thead>
@@ -55,54 +56,25 @@ $subscribers = $newsletter->showAll('created_at');
                             <td><?= $row['created_at'] ?></td>
                             <td>
                                 <?php
-                                $newsletter->table = "newsletter_queue";
-                                $newsletter->id = $row['id'];
-                                $stmt1 = $newsletter->showAllWhere('id', ['id']);
-                                $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
 
-                                if ($row1['status'] != 'sent') {
+                                if ($row['status'] == 1) {
                                 ?>
-                                    <!-- <a href="#" data-bs-toggle="modal" data-bs-target="#send<?= $row['id'] ?>" class="btn icon btn-primary shadow edit-link">
-                                        <i class="bi bi-send"></i>
-                                    </a> -->
+                                    <i class="bi-check2-circle text-success"></i>
+                                <?php
+                                } else {
+                                ?>
+                                    <i class="bi-x text-danger"></i>
 
-                                    &nbsp; &nbsp;
-
-                                    <!--Send theme Modal -->
-                                    <!-- <div class="modal fade text-left" id="send<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header bg-primary">
-                                                    <h5 class="modal-title white" id="myModalLabel120">
-                                                        <?= $common_modal_title_sure ?>
-                                                    </h5>
-                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                        <i data-feather="x"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Vuoi inviare questa mail? Non potrai chiudere la pagina fino a invio completato.
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block"><?= $common_modal_cancel ?></span>
-                                                    </button>
-                                                    <span class="d-none d-sm-block"><a href="core/mngSendQueues.php?idToSend=<?= $row['id'] ?>" class="btn btn-primary ml-1">
-                                                            <?= $common_modal_confirm ?>
-                                                        </a></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                    <a href="index.php?p=editEmail&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editEmail&idToMod=<?= $row['id'] ?>">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-
-                                    &nbsp; &nbsp;
                                 <?php
                                 }
                                 ?>
+                            </td>
+                            <td>
+                                <a href="index.php?p=editEmail&idToMod=<?= $row['id'] ?>" class="btn icon btn-warning shadow edit-link" data-base-url="index.php?p=editEmail&idToMod=<?= $row['id'] ?>">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                &nbsp; &nbsp;
                                 <a href="#" class="btn icon btn-info shadow" data-bs-toggle="modal" data-bs-target="#clone<?= $row['id'] ?>"><i class="bi bi-files"></i></a>
                                 &nbsp; &nbsp;
                                 <!--Clone theme Modal -->

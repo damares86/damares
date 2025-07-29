@@ -22,7 +22,20 @@ require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// $messageId = intval($_POST['message_id']);
+// get settings
+$newsletter->table = 'newsletter_settings';
+$stmt = $newsletter->showAll('id');
+
+$newsletter_settings = [];
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+    extract($row);
+    $newsletter_settings[$row['name']] = $row['value'];
+}
+
+
+
 
 // 1. Recupera tutti i subscriber confermati
 $newsletter->table = "newsletter_subscribers";
@@ -60,14 +73,14 @@ foreach ($queue as $row) {
     // File di log dedicato per PHPMailer
     try {
         $mail->isSMTP();
-        $mail->Host = 'mail.dmweblab.com';
+        $mail->Host = $newsletter_settings['host'];
         $mail->SMTPAuth = true;
-        $mail->Username = 'noreply@dmweblab.com';
-        $mail->Password = 'Salomon-86';
-        $mail->SMTPSecure = 'ssl';
-        $mail->Port = 465;
+        $mail->Username = $newsletter_settings['email'];
+        $mail->Password = $newsletter_settings['password'] ;
+        $mail->SMTPSecure = $newsletter_settings['secure'];
+        $mail->Port = $newsletter_settings['port'];
 
-        $mail->setFrom('noreply@dmweblab.com', 'Newsletter');
+        $mail->setFrom($newsletter_settings['email'], $newsletter_settings['name']);
         $mail->addAddress($row['email'], $row['name']);
         $mail->Subject = $row['subject'];
         $mail->isHTML(true);
@@ -80,8 +93,8 @@ foreach ($queue as $row) {
         };
 
 
-        // $mail->send(); // disattivato per stress test
-        usleep(10000); // simula ritardo invio (10ms)
+        $mail->send(); // disattivato per stress test
+        //usleep(10000); // simula ritardo invio (10ms)
         file_put_contents($phpmailer_log_path, "[" . date('Y-m-d H:i:s') . "] Email inviata a: {$row['email']}\n", FILE_APPEND);
 
         $db->prepare("UPDATE newsletter_queue SET status = 'sent', sent_at = NOW() WHERE id = ?")

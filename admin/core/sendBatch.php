@@ -19,6 +19,22 @@ if (!$messageId) {
     exit;
 }
 
+
+// get settings
+$newsletter->table = 'newsletter_settings';
+$stmt = $newsletter->showAll('id');
+
+$newsletter_settings = [];
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+    extract($row);
+    $newsletter_settings[$row['name']] = $row['value'];
+}
+
+error_log("SMTP SETTINGS: " . print_r($newsletter_settings, true));
+
+
 $phpmailer_log_path = __DIR__ . '/logs/phpmailer_debug.log';
 $db = $database->getConnection();
 
@@ -44,14 +60,14 @@ foreach ($queue as $row) {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host = 'mail.dmweblab.com';
+        $mail->Host = $newsletter_settings['host'];
         $mail->SMTPAuth = true;
-        $mail->Username = 'noreply@dmweblab.com';
-        $mail->Password = 'Salomon-86';
-        $mail->SMTPSecure = 'ssl';
-        $mail->Port = 465;
+        $mail->Username = $newsletter_settings['email'];
+        $mail->Password = $newsletter_settings['password'] ;
+        $mail->SMTPSecure = $newsletter_settings['secure'];
+        $mail->Port = $newsletter_settings['port'];
 
-        $mail->setFrom('noreply@dmweblab.com', 'Newsletter');
+        $mail->setFrom($newsletter_settings['email'], $newsletter_settings['name']);
         $mail->addAddress($row['email'], $row['name']);
         $mail->Subject = $row['subject'];
         $mail->isHTML(true);
