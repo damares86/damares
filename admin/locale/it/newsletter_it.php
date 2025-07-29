@@ -91,7 +91,6 @@ $msg_newsletterAdd = "Email creata" ;
 $msg_newsletterEdit = "Email modificata" ;
 $msg_subscriberDel = "Iscritto eliminato" ;
 $msg_subscriberSucc = "Registrazione effettuata";
-$msg_noConfirm = "Per completare l'iscrizione è necessaria l'approvazione di un amministratore" ;
 $msg_subscriberEdit = "Iscritto modificato" ;
 $msg_subscriberConfirm = "Iscritto confermato" ;
 
@@ -104,6 +103,7 @@ $err_newsletterNoAdd = "Email non creata" ;
 $err_newsletterNoEdit = "Email non modificata" ;
 $err_subscriberNoDel = "Iscritto non eliminato" ;
 $err_subscriberErr = "Errore durante l'iscrizione. Per favore contattatci.";
+$err_noConfirm = "Per completare l'iscrizione è necessaria l'approvazione di un amministratore" ;
 $err_subscriberNoEdit = "Iscritto non modificato" ;
 $err_subscriberErrConfirm = "Iscritto non confermato" ;
 $err_errSendConfirm = "Errore nell'invio della conferma via email" ;

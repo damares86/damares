@@ -81,7 +81,6 @@ $msg_newsletterAdd = "Email created" ;
 $msg_newsletterEdit = "Email modified" ;
 $msg_subscriberDel = "Subscriber deleted" ;
 $msg_subscriberSucc = "Registration successful";
-$msg_noConfirm = "You need an administrator confirmation to be subscribed to the newsletter" ;
 $msg_subscriberEdit = "Subscriber modified" ;
 $msg_subscriberConfirm = "Subscriber confirmed" ;
 
@@ -94,6 +93,7 @@ $err_newsletterNoAdd = "Email not created" ;
 $err_newsletterNoEdit = "Email not modified" ;
 $err_subscriberNoDel = "Subscriber not deleted" ;
 $err_subscriberErr = "Error during subscription. Please contact us.";
+$err_noConfirm = "You need an administrator confirmation to be subscribed to the newsletter" ;
 $err_subscriberNoEdit = "Subscriber not modified" ;
 $err_subscriberErrConfirm = "Subscriber not confirmed" ;
 $err_errSendConfirm = "Error sending confirmation via email" ;

@@ -1,32 +1,27 @@
-<?php
-
-    if(filter_input(INPUT_GET,"msg")){
-    ?>
-    <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
-      <i class="fa fa-check-circle"></i>
-      <?php
-      $msg = filter_input(INPUT_GET,"msg");
-      $alert_label = "msg_$msg";
-      echo $$alert_label;
-      ?>
-      <button class="btn-close" type="button" data-bs-dismiss="alert"
-        aria-label="Close"></button>
+<?php if(filter_input(INPUT_GET, "msg")): ?>
+  <?php
+    $msg = filter_input(INPUT_GET, "msg");
+    $alert_label = "msg_$msg";
+  ?>
+  <div class="alert alert-success d-flex align-items-center alert-dismissible fade show shadow-sm" role="alert">
+    <!-- <i class=" bi-check-circle-fill me-2 fs-5"></i> -->
+    <div class="flex-grow-1">
+      <?= $$alert_label ?>
     </div>
-    <?php
-    }
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<?php endif; ?>
 
-    if(filter_input(INPUT_GET,"err")){
-      ?>
-      <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
-        <i class=" fa x-circle-fill"></i>
-        <?php
-        $err= filter_input(INPUT_GET,"err");
-        $alert_label = "err_$err";
-        echo $$alert_label;
-        ?>
-        <button class="btn-close" type="button" data-bs-dismiss="alert"
-          aria-label="Close"></button>
-      </div>
-      <?php
-      }
-?>
+<?php if(filter_input(INPUT_GET, "err")): ?>
+  <?php
+    $err = filter_input(INPUT_GET, "err");
+    $alert_label = "err_$err";
+  ?>
+  <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show shadow-sm" role="alert">
+    <!-- <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i> -->
+    <div class="flex-grow-1">
+      <?= $$alert_label ?>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<?php endif; ?>
