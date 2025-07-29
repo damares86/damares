@@ -492,4 +492,5 @@ $quote_counter = 1;
                         </header>
                     <?php
                 }
+                require "admin/inc/alert.php";
                     ?>

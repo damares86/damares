@@ -27,6 +27,10 @@ $allsub_subscribed_at = "Iscritto il" ;
 $allsub_confirmed = "Confermato" ;
 $allsub_modal_body = "Se confermi questo iscritto verrà eliminato definitivamente" ;
 
+$subreg_subject = "Iscrizione confermata - " ;
+$subreg_body1 = "Congratulazioni!<br> Sei ufficialmente iscritto alla newsletter del sito ";
+$subreg_body2 = "A presto!";
+
 
 // add subscriber
 
@@ -102,3 +106,4 @@ $err_subscriberNoDel = "Iscritto non eliminato" ;
 $err_subscriberErr = "Errore durante l'iscrizione. Per favore contattatci.";
 $err_subscriberNoEdit = "Iscritto non modificato" ;
 $err_subscriberErrConfirm = "Iscritto non confermato" ;
+$err_errSendConfirm = "Errore nell'invio della conferma via email" ;

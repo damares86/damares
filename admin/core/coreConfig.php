@@ -40,6 +40,6 @@ $stmt = $setting->showByName();
 $lang = $stmt['value'];
 $_SESSION['lang'] = $lang;
 
-foreach (glob("locale/$lang/*.php") as $row) {
+foreach (glob("../locale/$lang/*.php") as $row) {
     require "$row";
 }

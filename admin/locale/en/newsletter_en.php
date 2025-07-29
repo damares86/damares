@@ -17,6 +17,10 @@ $allsub_subscribed_at = "Subscribed at" ;
 $allsub_confirmed = "Confirmed" ;
 $allsub_modal_body = "If you confirm this subscriber will be completely deleted" ;
 
+$subreg_subject = "Subscription successful - " ;
+$subreg_body1 = "Congratulations!<br> You have been subscribed to the newsletter from the website ";
+$subreg_body2 = "See you soon!";
+
 
 // add subscriber
 
@@ -92,3 +96,4 @@ $err_subscriberNoDel = "Subscriber not deleted" ;
 $err_subscriberErr = "Error during subscription. Please contact us.";
 $err_subscriberNoEdit = "Subscriber not modified" ;
 $err_subscriberErrConfirm = "Subscriber not confirmed" ;
+$err_errSendConfirm = "Error sending confirmation via email" ;
