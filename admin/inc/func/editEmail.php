@@ -34,12 +34,32 @@ extract($email_row);
             <div class="card shadow">
                 <div class="card-header">
                     <h4 class="card-title d-inline">Edit email</h4>
-                    <button id="sendBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-info mx-5 me-1 mb-1 shadow">
-                        <i class="bi bi-send"></i> Send
-                    </button>
-                    <button id="retryBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-warning mx-5 me-1 mb-1 shadow" style="display:none;">
-                        <i class="bi bi-arrow-clockwise"></i> Retry
-                    </button>
+
+                    <?php if ($status == 0): ?>
+                        <button id="sendBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-info mx-5 me-1 mb-1 shadow">
+                            <i class="bi bi-send"></i> Send
+                        </button>
+                        <button id="retryBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-warning mx-5 me-1 mb-1 shadow" style="display:none;">
+                            <i class="bi bi-arrow-clockwise"></i> Retry
+                        </button>
+                    <?php elseif ($status == 1): ?>
+                        <?php
+                        // Controlla se ci sono fallimenti per questo messaggio
+                        $fail_check = $db->prepare("SELECT COUNT(*) FROM newsletter_queue WHERE message_id = ? AND status = 'failed'");
+                        $fail_check->execute([$email_id]);
+                        $fail_count = $fail_check->fetchColumn();
+                        ?>
+
+                        <?php if ($fail_count > 0): ?>
+                            <button id="retryBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-warning mx-5 me-1 mb-1 shadow">
+                                <i class="bi bi-arrow-clockwise"></i> Retry
+                            </button>
+                            <button id="showErrorsBtn" data-message-id="<?= $email_row['id'] ?>" class="btn btn-danger mx-2 mb-1 shadow" data-bs-toggle="modal" data-bs-target="#errorModal">
+                                Visualizza errori
+                            </button>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
 
 
                     <style>
@@ -175,7 +195,6 @@ extract($email_row);
         const batchSize = 10;
         let total = 0;
         let processed = 0;
-        let errors = [];
 
         $('#progressBarContainer').show();
         $('#progressBar').css('width', '0%');
@@ -207,17 +226,25 @@ extract($email_row);
                             message_id: messageId
                         });
 
-                        // Gestione tasti finali
+                        // Aggiorna lo status della newsletter a "inviata"
+                        $.post('core/updateNewsletterStatus.php', {
+                            message_id: messageId
+                        });
+
                         $('#sendBtn').hide();
-                        error_msg = '' ;
+
                         if (res.failed > 0) {
                             $('#retryBtn').show();
-                            error_msg = ' con errori';
+                            $('#showErrorsBtn').show();
                         }
 
-                        if (errors.length === 0) {
-                            setTimeout(() => alert('Invio completato'), 300);
-                        }
+                        setTimeout(() => {
+                            if (res.failed > 0) {
+                                alert('Invio completato con errori.');
+                            } else {
+                                alert('Invio completato con successo.');
+                            }
+                        }, 300);
                     }
                 }, 'json').fail(() => {
                     alert('Errore durante la richiesta batch.');
@@ -270,7 +297,7 @@ extract($email_row);
     });
 
     $('#showErrorsBtn').on('click', function() {
-        const messageId = $('#sendBtn').data('message-id');
+        const messageId = $(this).data('message-id');
         if (!messageId) return alert("ID messaggio mancante.");
         $.post('core/getFailedEmails.php', {
             message_id: messageId

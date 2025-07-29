@@ -15,6 +15,12 @@ $query_create_table = "CREATE TABLE " . $prefix . "newsletter_subscribers (
       subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       confirmed TINYINT(1) DEFAULT 1
       );
+      CREATE TABLE " . $prefix . "newsletter_messages (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      subject VARCHAR(255) NOT NULL UNIQUE,
+      body LONGTEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      status TINYINT(1) DEFAULT 0);
       CREATE TABLE " . $prefix . "newsletter_queue (
       id INT AUTO_INCREMENT PRIMARY KEY,
       subscriber_id INT NOT NULL,
