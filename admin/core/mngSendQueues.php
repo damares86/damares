@@ -22,7 +22,7 @@ require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$messageId = intval($_POST['message_id']);
+// $messageId = intval($_POST['message_id']);
 
 // 1. Recupera tutti i subscriber confermati
 $newsletter->table = "newsletter_subscribers";
@@ -47,19 +47,25 @@ $queueStmt = $db->prepare("SELECT nq.id as queue_id, ns.email, ns.name, nm.subje
 $queueStmt->execute([$messageId]);
 $queue = $queueStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$results = [];
+if (empty($queue)) {
+    file_put_contents($phpmailer_log_path, "[" . date('Y-m-d H:i:s') . "] Nessun record da inviare (messageId: $messageId)\n", FILE_APPEND);
+}
 
+
+$results = [];
+$start = microtime(true);
+$phpmailer_log_path = __DIR__ . '/logs/phpmailer_debug.log';
 foreach ($queue as $row) {
     $mail = new PHPMailer(true);
-
+    // File di log dedicato per PHPMailer
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.netsons.com';
+        $mail->Host = 'mail.dmweblab.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'noreply@dmweblab.com';
         $mail->Password = 'Salomon-86';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
 
         $mail->setFrom('noreply@dmweblab.com', 'Newsletter');
         $mail->addAddress($row['email'], $row['name']);
@@ -67,19 +73,23 @@ foreach ($queue as $row) {
         $mail->isHTML(true);
         $mail->Body = $row['body'];
 
-
-        $mail->SMTPDebug = 2;
-        $mail->Debugoutput = function ($str, $level) {
-            error_log("SMTP DEBUG [$level]: $str");
+        // 🔍 Debug SMTP
+        $mail->SMTPDebug = 3;
+        $mail->Debugoutput = function ($str, $level) use ($phpmailer_log_path) {
+            file_put_contents($phpmailer_log_path, "[" . date('Y-m-d H:i:s') . "] SMTP DEBUG [$level]: $str\n", FILE_APPEND);
         };
 
 
-        $mail->send();
+        // $mail->send(); // disattivato per stress test
+        usleep(10000); // simula ritardo invio (10ms)
+        file_put_contents($phpmailer_log_path, "[" . date('Y-m-d H:i:s') . "] Email inviata a: {$row['email']}\n", FILE_APPEND);
 
         $db->prepare("UPDATE newsletter_queue SET status = 'sent', sent_at = NOW() WHERE id = ?")
             ->execute([$row['queue_id']]);
         $results[] = ['email' => $row['email'], 'status' => 'sent'];
     } catch (Exception $e) {
+        file_put_contents($phpmailer_log_path, "[" . date('Y-m-d H:i:s') . "] ERRORE invio a: {$row['email']} - " . $mail->ErrorInfo . "\n", FILE_APPEND);
+
         $db->prepare("UPDATE newsletter_queue SET status = 'failed', error = ? WHERE id = ?")
             ->execute([$mail->ErrorInfo, $row['queue_id']]);
         $results[] = ['email' => $row['email'], 'status' => 'failed', 'error' => $mail->ErrorInfo];
@@ -89,9 +99,12 @@ foreach ($queue as $row) {
 // 4. Elimina i record "sent"
 $db->prepare("DELETE FROM newsletter_queue WHERE status = 'sent' AND message_id = ?")
     ->execute([$messageId]);
-
+$duration = microtime(true) - $start;
+file_put_contents($phpmailer_log_path, "Tempo totale invio: {$duration} secondi", FILE_APPEND);
 // 5. Ritorna JSON con gli errori
 $errors = array_filter($results, fn($r) => $r['status'] === 'failed');
+file_put_contents($phpmailer_log_path, "[" . date('Y-m-d H:i:s') . "] Invio completato. Risultati: " . json_encode($results) . "\n", FILE_APPEND);
+
 echo json_encode([
     'status' => 'done',
     'errors' => $errors
