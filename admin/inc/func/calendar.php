@@ -99,15 +99,27 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Calendario</label><br>
-          <?php
-          $stmt = $calendar->showAll('id');
-          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          ?>
-            <input type="color" class="form-control form-control-color d-inline" id="cal_<?= $row['id'] ?>" name="color" value="<?= $row['cat_color'] ?>">
-            <label for="cal_<?= $row['id'] ?>" class="form-label mx-3" style="color:<?= $row['cat_color'] ?>"><?= $row['cat_name'] ?></label>
-          <?php
-          }
-          ?>
+          <div class="row">
+
+            <?php
+            $calendar->table = "calendar_cat";
+            $stmt = $calendar->showAll('id');
+            $calArray = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+              $isDefault = $row['id'] == 1 ? 'checked' : '';
+            ?>
+              <div class="col-2 text-center">
+                <input type="radio" class="btn-check" name="calendar_color" value="<?= $row['id'] ?>" id="cal_<?= $row['id'] ?>" <?= $isDefault ?> autocomplete="off" hidden>
+                <label class="color-label shadow my-1" for="cal_<?= $row['id'] ?>" style="background-color: <?= $row['cat_color'] ?>;">
+                  <span class="checkmark">✔</span>
+                </label>
+                <span style="color:<?=$row['cat_color']?>; font-weight:bold"><?= $row['cat_name'] ?></span>
+              </div>
+            <?php
+            }
+            ?>
+          </div>
+
         </div>
       </div>
       <div class="modal-footer">

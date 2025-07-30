@@ -10,7 +10,7 @@
 
 // label sidebar
 
-$label_calendar = "Calendari" ;
+$label_calendar = "Calendario" ;
 $label_show_calendar = "Mostra calendario" ;
 $label_all_calendars = "Tutti i calendari" ;
 $label_add_a_calendar = "Aggiungi un calendario" ;

@@ -3,12 +3,13 @@
 require __DIR__ . "/coreConfig.php";
 
 header('Content-Type: application/json');
+file_put_contents("debug.log", print_r($_POST, true));
 
 $title = $_POST['title'] ?? null;
 $start = $_POST['start'] ?? null;
 $end   = $_POST['end'] ?? null;
 $url   = $_POST['url'] ?? null;
-$color = $_POST['color'] ?? '#008db1';
+$color = $_POST['calendar_color'] ?? '1';
 
 if (!$title || !$start || !$end) {
     echo json_encode(["success" => false, "error" => "Campi obbligatori mancanti"]);
