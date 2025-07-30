@@ -9,18 +9,18 @@ $link_parent = "newsletter";
 // query to create the tables and insert values
 
 $query_create_table = "CREATE TABLE " . $prefix . "newsletter_subscribers (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id INT(5) AUTO_INCREMENT PRIMARY KEY,
       email VARCHAR(255) NOT NULL UNIQUE,
       name VARCHAR(255),
       subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       confirmed TINYINT(1) DEFAULT 1
-      );
+      ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
       CREATE TABLE " . $prefix . "newsletter_messages (
       id INT AUTO_INCREMENT PRIMARY KEY,
       subject VARCHAR(255) NOT NULL UNIQUE,
       body LONGTEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      status TINYINT(1) DEFAULT 0);
+      status TINYINT(1) DEFAULT 0) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
       CREATE TABLE " . $prefix . "newsletter_queue (
       id INT AUTO_INCREMENT PRIMARY KEY,
       subscriber_id INT NOT NULL,
@@ -31,14 +31,32 @@ $query_create_table = "CREATE TABLE " . $prefix . "newsletter_subscribers (
       UNIQUE (subscriber_id, message_id),
       FOREIGN KEY (subscriber_id) REFERENCES newsletter_subscribers(id) ON DELETE CASCADE,
       FOREIGN KEY (message_id) REFERENCES newsletter_messages(id) ON DELETE CASCADE
-      );
+      ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
       CREATE TABLE IF NOT EXISTS " . $prefix . "newsletter_settings
       ( id INT ( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       value LONGTEXT NOT NULL) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
        INSERT INTO " . $prefix . "newsletter_settings
       (name, value )
-      VALUES ('confirmation', '0');";
+      VALUES ('confirmation', '0');
+      INSERT INTO " . $prefix . "newsletter_settings
+      (name, value )
+      VALUES ('email', 'test@mail.com');       
+      INSERT INTO " . $prefix . "newsletter_settings
+      (name, value )
+      VALUES ('password', 'test');
+      INSERT INTO " . $prefix . "newsletter_settings
+      (name, value )
+      VALUES ('name', 'Newsletter');
+      INSERT INTO " . $prefix . "newsletter_settings
+      (name, value )
+      VALUES ('host', 'mail.site.com');
+      INSERT INTO " . $prefix . "newsletter_settings
+      (name, value )
+      VALUES ('secure', 'ssl');
+      INSERT INTO " . $prefix . "newsletter_settings
+      (name, value )
+      VALUES ('port', '465');";
 
 // the data of the parent item of the menu
 
@@ -93,4 +111,4 @@ $menu_link = [[
       ]
 ]];
 
-$query_drop_table = "DROP TABLE  " . $prefix . "table_name, " . $prefix . "second_table_name";
+$query_drop_table = "DROP TABLE  " . $prefix . "newsletter_subscribers, " . $prefix . "newsletter_messages, " . $prefix . "newsletter_queue, " . $prefix . "newsletter_settings";

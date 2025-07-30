@@ -1,5 +1,5 @@
 <?php
-$stmt = $verify->showAll();
+$stmt = $verify->showAll('id');
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $public = $row['public'];
 ?>

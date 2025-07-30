@@ -112,7 +112,7 @@ $confirmation = $row['value'] == 1 ? true : false;
                           <i data-feather="x"></i>
                         </button>
                       </div>
-                      <div class="modal-body">
+                      <div class="modal-body text-dark">
                         <?=$allsub_modal_body?>
                       </div>
                       <div class="modal-footer">

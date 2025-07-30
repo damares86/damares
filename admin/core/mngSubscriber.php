@@ -31,6 +31,30 @@ if ($operation == 'add') {
 
     $goback = filter_input(INPUT_POST, 'backend') ? '../index.php?p=allSubscribers' : '../../index.php?p=1';
 
+
+    if (isset($_POST['recaptcha_response'])) {
+        $stmt = $verify->showAll('id');
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $secret = $row['secret'];
+        // Costruire il POST request:      
+
+        $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
+        $recaptcha_secret = $secret;
+        $recaptcha_response = $_POST['recaptcha_response'];
+
+        // Istanziare e decodificare la richiesta POST:      
+
+        $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response);
+        $recaptcha = json_decode($recaptcha);
+
+        // Azioni da compiere basate sul punteggio ottenuto:      
+
+        if (!$recaptcha->score >= 0.5) {
+            header("Location:$goback&err=errRecaptcha");
+            exit;
+        }
+    }
+
     $newsletter->name = filter_input(INPUT_POST, "name");
     $newsletter->email = filter_input(INPUT_POST, "email");
     $data = ['name', 'email'];
@@ -118,11 +142,11 @@ if ($operation == 'add') {
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         // Create email headers
         $headers .= 'From: ' . $from . "\r\n" .
-        'Reply-To: ' . $from . "\r\n" .
-        'X-Mailer: PHP/' . phpversion();
-        
+            'Reply-To: ' . $from . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+
         $output = '<p>' . $subreg_body1;
-        $output .= '<a href="http://' . $mc_settings['mc_site_url'] . '" target="_blank">' . $mc_settings['mc_site_name']. '</a></p>';
+        $output .= '<a href="http://' . $mc_settings['mc_site_url'] . '" target="_blank">' . $mc_settings['mc_site_name'] . '</a></p>';
         $output .= '<p>' . $subreg_body2 . '</p>';
 
         $to = $email;

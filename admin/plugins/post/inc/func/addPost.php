@@ -21,33 +21,6 @@
 </div>
 <br>
 
-<div id="fm_button">
-    <button type="button" class="btn btn-primary me-1 mb-1 shadow" data-bs-toggle="modal" data-bs-target="#fm_modal">
-        <?= $addpage_fm_open ?>
-    </button>
-</div>
-
-<style>
-    .modal-dialog {
-        width: 79%;
-        max-width: 80%;
-        height: 70%;
-    }
-</style>
-<div class="modal fade" id="fm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
-    <div class="modal-dialog" role="document" style="height: 100%;">
-        <div class="modal-content h-75">
-            <div class="modal-body">
-                <iframe src='core/tinyfilemanager.php' style="width: 100%; height:100%;">
-                </iframe>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <section class="section">
     <div class="row">
         <div class="col-md-10 col-12">
@@ -240,7 +213,7 @@
                 <h4 class="card-title px-4 pt-3"><?= $common_info ?></h4>
                 <div class="card-content px-5 pb-4">
                     <ul>
-                        <li><a href="https://www.dmweblab.com/portal/manual.php?prod=5&page=2" target="_blank"><?= $common_see_guide ?></a></li>
+                        <li><a href="https://www.dmweblab.com/portal/manual.php?prod=3&page=3" target="_blank"><?= $common_see_guide ?></a></li>
                     </ul>
                 </div>
             </div>

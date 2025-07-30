@@ -143,7 +143,7 @@ $url_pageName = filter_input(INPUT_GET, 'pageName');
                 <h4 class="card-title px-4 pt-3"><?= $common_info ?></h4>
                 <div class="card-content px-5 pb-4">
                     <ul>
-                        <li><a href="https://www.dmweblab.com/portal/manual.php?prod=5&page=6" target="_blank"><?= $common_see_guide ?></a></li>
+                        <li><a href="https://www.dmweblab.com/portal/manual.php?prod=3&page=5" target="_blank"><?= $common_see_guide ?></a></li>
                     </ul>
                 </div>
             </div>
