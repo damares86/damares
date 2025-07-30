@@ -20,9 +20,9 @@
 <script src="assets/js/app.js"></script>
 
 <?php
-if($layout == 'h'){
+if ($layout == 'h') {
 ?>
-<script src="assets/js/pages/horizontal-layout.js"></script>
+  <script src="assets/js/pages/horizontal-layout.js"></script>
 <?php
 }
 ?>
@@ -220,20 +220,9 @@ if ($apex) {
 <script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
 <script src="assets/js/pages/form-element-select.js"></script>
 
-<?php
-if ($summernote) {
-?>
+<script src="assets/extensions/tinymce/tinymce.min.js"></script>
+<script src="assets/js/pages/tinymce.js"></script>
 
-  <script src="assets/extensions/summernote/summernote-lite.min.js"></script>
-  <script src="assets/js/pages/summernote.js"></script>
-<?php
-} else {
-?>
-  <script src="assets/extensions/tinymce/tinymce.min.js"></script>
-  <script src="assets/js/pages/tinymce.js"></script>
-<?php
-}
-?>
 
 <?php
 

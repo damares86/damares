@@ -135,5 +135,3 @@ foreach (glob("locale/$lang/*.php") as $row) {
 // variable for require script for chart
 $apex = '';
 
-// set to true to use Summernote instead of TinyMCE
-$summernote = '';

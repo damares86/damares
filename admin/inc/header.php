@@ -40,8 +40,6 @@ require __DIR__ . "/config.php";
   <link rel="stylesheet" href="assets/css/pages/buttons.dataTables.min.css">
 
   <link rel="stylesheet" href="assets/css/shared/iconly.css" />
-  <link rel="stylesheet" href="assets/css/pages/summernote.css">
-  <link rel="stylesheet" href="assets/extensions/summernote/summernote-lite.css">
 
   <link rel="stylesheet" href="assets/extensions/codemirror/codemirror.min.css">
   <link rel="stylesheet" href="assets/extensions/codemirror/dracula.min.css">
