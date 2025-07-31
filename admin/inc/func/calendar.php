@@ -44,12 +44,29 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
       </div>
       <div class="modal-body">
-        <p><strong>Titolo:</strong> <span id="detailTitle"></span></p>
-        <p><strong>Inizio:</strong> <span id="detailStart"></span></p>
-        <p><strong>Fine:</strong> <span id="detailEnd"></span></p>
-        <p><strong>Link:</strong> <a href="#" target="_blank" id="detailUrl"></a></p>
+        <div class="mb-2">
+          <label class="form-label"><strong>Titolo:</strong></label>
+          <input type="text" class="form-control" id="detailTitleInput">
+        </div>
+        <div class="mb-2">
+          <label class="form-label"><strong>Inizio:</strong></label>
+          <input type="datetime-local" class="form-control" id="detailStartInput">
+        </div>
+        <div class="mb-2">
+          <label class="form-label"><strong>Fine:</strong></label>
+          <input type="datetime-local" class="form-control" id="detailEndInput">
+        </div>
+        <div class="mb-2">
+          <label class="form-label"><strong>Note:</strong></label>
+          <textarea class="form-control" id="detailNoteInput" rows="2"></textarea>
+        </div>
+        <div class="mb-2">
+          <label class="form-label"><strong>Link:</strong></label>
+          <input type="url" class="form-control" id="detailUrlInput">
+        </div>
       </div>
       <div class="modal-footer">
+        <button id="updateEventBtn" type="button" class="btn btn-primary">Salva Modifiche</button>
         <button id="deleteEventBtn" type="button" class="btn btn-danger">Elimina</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
       </div>
@@ -94,6 +111,10 @@
           <input type="datetime-local" class="form-control" id="eventEnd" name="end" required>
         </div>
         <div class="mb-3">
+          <label for="eventUrl" class="form-label">Note (opzionale)</label>
+          <input type="text" class="form-control" id="eventNote" name="note">
+        </div>
+        <div class="mb-3">
           <label for="eventUrl" class="form-label">Link (opzionale)</label>
           <input type="url" class="form-control" id="eventUrl" name="url">
         </div>
@@ -113,7 +134,7 @@
                 <label class="color-label shadow my-1" for="cal_<?= $row['id'] ?>" style="background-color: <?= $row['cat_color'] ?>;">
                   <span class="checkmark">✔</span>
                 </label>
-                <span style="color:<?=$row['cat_color']?>; font-weight:bold"><?= $row['cat_name'] ?></span>
+                <span style="color:<?= $row['cat_color'] ?>; font-weight:bold"><?= $row['cat_name'] ?></span>
               </div>
             <?php
             }
@@ -148,26 +169,27 @@
       eventClick: function(info) {
         info.jsEvent.preventDefault(); // previene apertura link
 
-        // riempi modale con dettagli
         var event = info.event;
-        document.getElementById('detailTitle').textContent = event.title;
-        document.getElementById('detailStart').textContent = event.start.toLocaleString();
-        document.getElementById('detailEnd').textContent = event.end ? event.end.toLocaleString() : '';
-        var urlEl = document.getElementById('detailUrl');
-        if (event.url) {
-          urlEl.href = event.url;
-          urlEl.textContent = event.url;
-          urlEl.style.display = 'inline';
-        } else {
-          urlEl.style.display = 'none';
+        document.getElementById('detailTitleInput').value = event.title;
+
+        function formatLocalDateTime(date) {
+          const pad = n => n.toString().padStart(2, '0');
+          return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
         }
 
-        // memorizzo id evento per eliminazione
+        document.getElementById('detailStartInput').value = formatLocalDateTime(event.start);
+        document.getElementById('detailEndInput').value = event.end ? formatLocalDateTime(event.end) : '';
+
+        document.getElementById('detailNoteInput').value = event.extendedProps.note || '';
+        document.getElementById('detailUrlInput').value = event.url || '';
+
+        // ID per eliminazione
         window.currentEventId = event.id;
 
         var eventModal = new bootstrap.Modal(document.getElementById('eventDetailModal'));
         eventModal.show();
       },
+
 
       dateClick: function(info) {
         // imposto il form per inserire nuovo evento
@@ -226,6 +248,34 @@
             bootstrap.Modal.getInstance(document.getElementById('eventDetailModal')).hide();
           } else {
             alert('Errore eliminazione evento: ' + (data.error || ''));
+          }
+        });
+    });
+
+    document.getElementById('updateEventBtn').addEventListener('click', function() {
+      const id = window.currentEventId;
+
+      const formData = new URLSearchParams();
+      formData.append('id', id);
+      formData.append('title', document.getElementById('detailTitleInput').value);
+      formData.append('start', document.getElementById('detailStartInput').value);
+      formData.append('end', document.getElementById('detailEndInput').value);
+      formData.append('note', document.getElementById('detailNoteInput').value);
+      formData.append('url', document.getElementById('detailUrlInput').value);
+
+      fetch('core/update_event.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: formData.toString()
+        }).then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            calendar.refetchEvents();
+            bootstrap.Modal.getInstance(document.getElementById('eventDetailModal')).hide();
+          } else {
+            alert('Errore aggiornamento evento: ' + (data.error || ''));
           }
         });
     });

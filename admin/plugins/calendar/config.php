@@ -15,6 +15,7 @@ $query_create_table = "CREATE TABLE " . $prefix . "calendar_events (
       title VARCHAR(255) NOT NULL,
       start DATETIME NOT NULL,
       end DATETIME NOT NULL,
+      note TEXT DEFAULT NULL,
       url VARCHAR(255) DEFAULT NULL,
       color VARCHAR(7) DEFAULT NULL
       );
@@ -39,13 +40,13 @@ $menu_link = [[
             ],
             [
                   'link' => 'allCalendars',
-                  'label' => 'All calendars',
+                  'label' => 'All categories',
                   'icon' => 'calendar2-range',
                   'show_menu' => 1
             ],
             [
                   'link' => 'addCalendar',
-                  'label' => 'Add a calendar',
+                  'label' => 'Add a category',
                   'icon' => 'calendar-plus',
                   'show_menu' => 1
             ]

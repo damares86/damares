@@ -11,6 +11,7 @@ try {
             e.title, 
             e.start, 
             e.end, 
+            e.note, 
             e.url, 
             c.cat_color AS color
         FROM calendar_events e

@@ -1,34 +1,31 @@
 <?php
 
 require __DIR__ . "/coreConfig.php";
-
 header('Content-Type: application/json');
-file_put_contents("debug.log", print_r($_POST, true));
 
+$id = $_POST['id'] ?? null;
 $title = $_POST['title'] ?? null;
 $start = $_POST['start'] ?? null;
 $end   = $_POST['end'] ?? null;
-$note   = $_POST['note'] ?? null;
-$url   = $_POST['url'] ?? null;
-$color = $_POST['calendar_color'] ?? '1';
+$note  = $_POST['note'] ?? '';
+$url   = $_POST['url'] ?? '';
 
-if (!$title || !$start || !$end) {
+if (!$id || !$title || !$start || !$end) {
     echo json_encode(["success" => false, "error" => "Campi obbligatori mancanti"]);
     exit;
 }
 
 try {
-    $stmt = $db->prepare("INSERT INTO calendar_events (title, start, end, note, url, color) VALUES (:title, :start, :end, :note, :url, :color)");
+    $stmt = $db->prepare("UPDATE calendar_events SET title = :title, start = :start, end = :end, note = :note, url = :url WHERE id = :id");
     $stmt->execute([
         ':title' => $title,
         ':start' => $start,
         ':end'   => $end,
         ':note'  => $note,
         ':url'   => $url,
-        ':color' => $color
+        ':id'    => $id
     ]);
-
-    echo json_encode(["success" => true, "id" => $db->lastInsertId()]);
+    echo json_encode(["success" => true]);
 } catch (PDOException $e) {
     echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }
