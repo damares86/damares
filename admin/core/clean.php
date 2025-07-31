@@ -1,11 +1,5 @@
 <?php
 
-require '../vendor/autoload.php';		// If installed via composer
-$debug = new \bdk\Debug(array(
-	'collect' => true,
-	'output' => true,
-));
-
 ##############    Damares    ###############
 #                                          #
 #    A backend project by DM WebLab        #
@@ -40,18 +34,6 @@ if(session_status() == PHP_SESSION_ACTIVE){
  $stmt->execute();
  }
 
-//   function rmdir_recursive($dir) {
-//     foreach(scandir($dir) as $file) {
-//       if ('.' === $file || '..' === $file) continue;
-//       if (is_dir($dir.'/'.$file)) rmdir_recursive($dir.'/'.$file);
-//       else unlink($dir.'/'.$file);
-//     }
-//     rmdir($dir);
-//   }
-
-// $dir="../../misc/";
-
-// rmdir_recursive($dir);
 
 $exclude_arr=array("default","Program","sd");
 
@@ -72,7 +54,9 @@ foreach (glob("../uploads/*") as $row){
   }
 
 unlink("../class/Database.php");
-// unlink("site.php");
+if(is_file("site.php")){
+  unlink("site.php");
+}
 if(is_file("prefix.php")){
   unlink("prefix.php");
  }

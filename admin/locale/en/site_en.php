@@ -38,7 +38,7 @@ $err_noReset = "Error during reset process. Please contact us" ;
 $err_errResetRequest = "No reset request present or request expired" ;
 $err_keyDelErr = "Password modified, but there where some problems. Please contatct us" ;
 $err_pswEditErr = "Password not modified. Please contact us" ;
-$err_noLogin = "You must be logged in to access that page" ;
+$err_noLogin = "You must be logged in to access that page.<br>HINT: if you are sure of the credentials try to check 'Remember me'" ;
 $err_errUserPsw = "Username or password wrong" ;
 
 //////  ALERT: MSG  //////

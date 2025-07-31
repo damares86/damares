@@ -29,68 +29,7 @@ if ($layout == 'h') {
 
 <?php
 if ($apex) {
-?>
-  <script src="assets/extensions/dayjs/dayjs.min.js"></script>
-  <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
-
-  <script>
-    var barOptions = {
-      series: [{
-          name: "<?= $title1 ?>",
-          data: [<?= $arr1 ?>],
-        },
-        {
-          name: "<?= $title2 ?>",
-          data: [<?= $arr2 ?>],
-        },
-        {
-          name: "<?= $title3 ?>",
-          data: [<?= $arr3 ?>],
-        },
-      ],
-      chart: {
-        type: "bar",
-        height: 350,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-          endingShape: "rounded",
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"],
-      },
-      xaxis: {
-        categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
-      },
-      yaxis: {
-        title: {
-          text: "$ (thousands)",
-        },
-      },
-      fill: {
-        opacity: 1,
-      },
-      tooltip: {
-        y: {
-          formatter: function(val) {
-            return "$ " + val + " thousands";
-          },
-        },
-      },
-    };
-
-    var bar = new ApexCharts(document.querySelector("#bar"), barOptions);
-    bar.render();
-  </script>
-<?php
+  require "script/apex.php";
 }
 ?>
 
@@ -116,7 +55,6 @@ if ($apex) {
   }
 
   ?>
-
 
   // console.log('current page name: ' + currentPageName)
   let updatingURL = false; // Variabile per evitare la sovrascrittura dell'URL
@@ -202,16 +140,7 @@ if ($apex) {
   });
 </script>
 
-
-
-
-<!-- <script src="assets/js/pages/datatables.js"></script> -->
-
 <script src="assets/js/pages/dataTables.buttons.min.js"></script>
-<script src="assets/js/pages/jszip.min.js"></script>
-<script src="assets/js/pages/vfs_fonts.js"></script>
-<script src="assets/js/pages/buttons.html5.min.js"></script>
-<script src="assets/js/pages/buttons.print.min.js"></script>
 
 <script src="assets/extensions/parsleyjs/parsley.min.js"></script>
 <script src="assets/js/pages/parsley.js"></script>
@@ -222,50 +151,6 @@ if ($apex) {
 
 <script src="assets/extensions/tinymce/tinymce.min.js"></script>
 <script src="assets/js/pages/tinymce.js"></script>
-
-
-<?php
-
-if ($page == "addPaziente" || $page == "editPaziente") {
-  if (isset($count)) {
-?>
-    <script>
-      var i = <?= $count ?> - 1;
-    </script>
-  <?php
-  } else {
-  ?>
-    <script>
-      var i = 1;
-    </script>
-  <?php
-  }
-  ?>
-  <script src="script/mngFarmaci.js"></script>
-
-  <?php
-}
-
-if ($page == "addQuiz" || $page == "editQuiz") {
-  if (isset($count)) {
-  ?>
-    <script>
-      var i = <?= $count ?> - 1;
-    </script>
-  <?php
-  } else {
-  ?>
-    <script>
-      var i = 1;
-    </script>
-  <?php
-  }
-  ?>
-  <script src="script/mngQuiz.js"></script>
-
-<?php
-}
-?>
 
 </body>
 
