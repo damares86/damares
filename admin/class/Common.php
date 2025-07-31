@@ -271,7 +271,7 @@ class Common
 
         // execute the query
         $stmt->execute();
-
+        
         // get number of rows
         $num = $stmt->rowCount();
 

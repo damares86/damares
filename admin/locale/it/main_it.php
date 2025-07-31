@@ -54,6 +54,8 @@ $common_profile = "Il mio profilo" ;
 $common_see_guide = "Vedi la guida" ;
 $common_back = "Torna indietro" ;
 $common_loading = "Caricamento" ;
+$common_delete = "Elimina" ;
+
 
 //////  HOMEPAGE  //////
 

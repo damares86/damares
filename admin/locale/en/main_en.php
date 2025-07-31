@@ -37,6 +37,7 @@ $common_profile = "My profile" ;
 $common_see_guide = "See the guide" ;
 $common_back = "Go back" ;
 $common_loading = "Loading" ;
+$common_delete = "Delete" ;
 
 
 //////  HOMEPAGE  //////
