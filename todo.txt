@@ -1,4 +1,0 @@
-- file manager anche per header (e immagine blocchi?) e logo sito 
-
-- evidenziare il titolo Blocco 1
-- aggiungere favicons
