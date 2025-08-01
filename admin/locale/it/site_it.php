@@ -30,7 +30,7 @@ $forgot_token = "Link scaduto";
 
 //  ALERT: ERR 
 
-$err_noResetDelete = "Erorre nel reset della password. Contattaci" ;
+$err_noResetDelete = "Errore nel reset della password. Contattaci" ;
 $err_mailNotReg = "Mail non registrata" ;
 $errSendMail = "Errore nell'invio della mail. Contattaci" ;
 $err_noReset = "Erorre nel reset della password. Contattaci" ;
