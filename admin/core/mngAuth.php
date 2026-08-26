@@ -13,6 +13,8 @@ spl_autoload_register(static function (string $class): void {
 $database = new Database();
 $db = $database->getConnection();
 require_once __DIR__ . '/../inc/class_initialize.php';
+$prefix = trim((string) ($prefix ?? ''), '_');
+$common->prx = $prefix === '' ? '' : $prefix . '_';
 
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) ?: '';
 $password = (string) (filter_input(INPUT_POST, 'password') ?? '');

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 <?php
 
+require_once __DIR__ . '/../../admin/core/prefix.php';
+
 if (!is_file(__DIR__ . '/../../admin/class/Database.php')) {
   require_once __DIR__ . "/../../admin/inc/dbdata.php";
   exit;
@@ -33,6 +35,9 @@ if (!is_file($initializerPath)) {
 ");
   foreach ($files as $filename) {
     $file = pathinfo($filename, PATHINFO_FILENAME);
+    if ($file === 'Database') {
+      continue;
+    }
     $fileVar = strtolower($file);
     fwrite($fileHandle, '$' . $fileVar . ' = new ' . $file . '($db);' . PHP_EOL);
   }
@@ -44,6 +49,8 @@ if (!is_file($initializerPath)) {
   chmod($initializerPath, 0640);
 }
 require_once $initializerPath;
+$prefix = trim((string) ($prefix ?? ''), '_');
+$common->prx = $prefix === '' ? '' : $prefix . '_';
 
 session_start();
 

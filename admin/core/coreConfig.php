@@ -18,12 +18,14 @@ spl_autoload_register(static function (string $class): void {
     }
 });
 
-require "../core/prefix.php";
+require_once __DIR__ . '/../core/prefix.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 require_once __DIR__ . "/../inc/class_initialize.php";
+$prefix = trim((string) ($prefix ?? ''), '_');
+$common->prx = $prefix === '' ? '' : $prefix . '_';
 
 $setting->name = "debug" ;
 $dbg = $setting->showAllWhere('id',['name']);

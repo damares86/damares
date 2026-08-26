@@ -31,6 +31,9 @@ if (!is_file($initializerPath)) {
 ");
     foreach ($files as $filename) {
         $file = pathinfo($filename, PATHINFO_FILENAME);
+        if ($file === 'Database') {
+            continue;
+        }
         $fileVar = strtolower($file);
         fwrite($fileHandle, '$' . $fileVar . ' = new ' . $file . '($db);' . PHP_EOL);
     }
@@ -45,6 +48,8 @@ if (!is_file($initializerPath)) {
 }
 
 require_once $initializerPath;
+$prefix = trim((string) ($prefix ?? ''), '_');
+$common->prx = $prefix === '' ? '' : $prefix . '_';
 
 // check if the user is logged
 if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
