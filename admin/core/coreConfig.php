@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+<?php
 
 
 session_start();
@@ -8,18 +11,19 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-spl_autoload_register('autoloader');
-
-function autoloader($class){
-	include("../class/$class.php");
-}
+spl_autoload_register(static function (string $class): void {
+    $classFile = __DIR__ . '/../class/' . $class . '.php';
+    if (is_file($classFile)) {
+        require_once $classFile;
+    }
+});
 
 require "../core/prefix.php";
 
 $database = new Database();
 $db = $database->getConnection();
 
-include "../inc/class_initialize.php";
+require_once __DIR__ . "/../inc/class_initialize.php";
 
 $setting->name = "debug" ;
 $dbg = $setting->showAllWhere('id',['name']);

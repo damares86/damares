@@ -1,16 +1,9 @@
-<?php 
+<?php
+declare(strict_types=1);
 
-##############    Damares    ###############
-#                                          #
-#    A backend project by DM WebLab        #
-#   Website: https://www.dmweblab.com      #
-#   GitHub: https://github.com/damares86   #
-#                                          #
-############################################
-
-class Auth extends Common{
-
-    public $table = "accounts";
+class Auth extends Common
+{
+    public $table = 'accounts';
     public $username;
     public $password;
     public $email;
@@ -18,92 +11,52 @@ class Auth extends Common{
     public $last_login;
     public $token;
     public $expDate;
-    public $auth_token ;
+    public $auth_token;
 
-
-    public function emailExists(){
-        
-        // query to check if email exists
-        $query = "SELECT *
-        FROM " .$this->prx. $this->table . "
-        WHERE email = ?
-        LIMIT 0,1";
-    
-        // prepare the query
-        $stmt = $this->conn->prepare( $query );
-    
-        // sanitize
-        $this->email=htmlspecialchars(strip_tags($this->email));
-    
-        // bind given email value
-        $stmt->bindParam(1, $this->email);
-    
-        // execute the query
-        $stmt->execute();
-    
-        // get number of rows
-        $num = $stmt->rowCount();
-    
-        // if email exists, assign values to object properties for easy access and use for php sessions
-        if($num>0){
-    
-            // get record details / values
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-            // assign values to object properties
-            $this->id = $row['id'];
-            $this->username = $row['username'];
-            $this->password = $row['password'];
-            $this->email = $row['email'];
-            $this->avatar = $row['avatar'];
-            $this->last_login = $row['last_login'];
-    
-            // return true because email exists in the database
-            return true;
-        }
-    
-        // return false if email does not exist in the database
-        return false;
-        }
-
-
-    public function updateLog($time){
-
-        $query="UPDATE 
-        " .$this->prx. $this->table . "
-            SET last_login=:last_login 
-            WHERE id = :id";
-
-        $stmt=$this->conn->prepare($query);
-        $stmt->bindParam(':last_login', $time);
-        $stmt->bindParam(':id', $this->id);
-        
-        if($stmt->execute()){
-            return true;
-
-        }else{
-            $this->showError($stmt);
+    public function emailExists(): bool
+    {
+        if (!is_string($this->email) || filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
             return false;
         }
 
+        $query = sprintf(
+            'SELECT id, username, password, email, avatar, last_login FROM %s WHERE email = :email LIMIT 1',
+            $this->tableName()
+        );
+        $row = $this->executeQuery($query, [':email' => $this->email])->fetch(PDO::FETCH_ASSOC);
+
+        if ($row === false) {
+            return false;
+        }
+
+        $this->id = $row['id'];
+        $this->username = $row['username'];
+        $this->password = $row['password'];
+        $this->email = $row['email'];
+        $this->avatar = $row['avatar'];
+        $this->last_login = $row['last_login'];
+
+        return true;
     }
 
-    public function checkCookie(){
-        $query="SELECT * FROM ".$this->table."
-        WHERE id = :id AND auth_token = :auth_token";
-        
+    public function updateLog(string $time): bool
+    {
+        $query = sprintf('UPDATE %s SET last_login = :last_login WHERE id = :id', $this->tableName());
+        $this->executeQuery($query, [':last_login' => $time, ':id' => $this->id]);
 
-        $stmt=$this->conn->prepare($query);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->bindParam(':auth_token', $this->auth_token);
-        
-        $stmt->execute();
-
-        $num = $stmt->rowCount();
-    
-        return $num;
-        
+        return true;
     }
 
+    public function checkCookie(): int
+    {
+        $query = sprintf(
+            'SELECT 1 FROM %s WHERE id = :id AND auth_token = :auth_token LIMIT 1',
+            $this->tableName()
+        );
+
+        return $this->executeQuery($query, [
+            ':id' => $this->id,
+            ':auth_token' => $this->auth_token,
+        ])->fetchColumn() === false ? 0 : 1;
+    }
 }
-?>

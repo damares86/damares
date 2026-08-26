@@ -1,12 +1,14 @@
 {
     "require": {
+        "php": "^8.1",
         "bdk/debug": "3.0",
         "pelago/emogrifier": "^7.0.1",
         "phpmailer/phpmailer": "^6.10"
     },
-  "config": {
-    "platform": {
-      "php": "7.4.33"
+    "config": {
+        "platform": {
+            "php": "8.2.0"
+        },
+        "sort-packages": true
     }
-  }
-}
+}\n

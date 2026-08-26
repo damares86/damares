@@ -1,16 +1,19 @@
 <?php
+declare(strict_types=1);
 
-if (!is_file('../admin/class/Database.php')) {
-  require "../admin/inc/dbdata.php";
+<?php
+
+if (!is_file(__DIR__ . '/../admin/class/Database.php')) {
+  require_once __DIR__ . "/../../admin/inc/dbdata.php";
   exit;
 }
 
-spl_autoload_register('autoloader');
-
-function autoloader($class)
-{
-  include("../admin/class/$class.php");
-}
+spl_autoload_register(static function (string $class): void {
+  $classFile = __DIR__ . '/../../admin/class/' . $class . '.php';
+  if (is_file($classFile)) {
+    require_once $classFile;
+  }
+});
 
 $database = new Database();
 $db = $database->getConnection();

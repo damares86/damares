@@ -1,97 +1,53 @@
-<?php 
+<?php
+declare(strict_types=1);
 
+class Account extends Common
+{
+    public $table = 'accounts';
+    public $username;
+    public $email;
+    public $password;
+    public $avatar;
+    public $last_login;
+    public $token;
+    public $expDate;
+    public $auth_token;
+    public $details;
+    public $details_opt;
 
-##############    Damares    ###############
-#                                          #
-#    A backend project by DM WebLab        #
-#   Website: https://www.dmweblab.com      #
-#   GitHub: https://github.com/damares86   #
-#                                          #
-############################################
+    public function getPswTmpData(): array|false
+    {
+        $query = sprintf(
+            'SELECT * FROM %s WHERE token = :token AND email = :email LIMIT 1',
+            $this->tableName('password_reset_temp')
+        );
 
-
-class Account extends Common{
-
-    public $table = "accounts" ;
-    public $username ;
-    public $email ;
-    public $password ;
-    public $avatar ;
-    public $last_login ;
-    public $token ;
-    public $expDate ;
-    public $auth_token ;
-    public $details ;
-    public $details_opt ;
-
-    public function getPswTmpData(){
-        
-        $query="SELECT * FROM 
-        ".$this->prx."password_reset_temp
-        WHERE token = :token AND email = :email
-        LIMIT 0,1";
-
-        $stmt = $this->conn->prepare( $query );
-
-        $stmt->bindParam(":token",$this->token) ;
-        $stmt->bindParam(":email",$this->email) ;
-
-        $stmt->execute();
-
-        $row=$stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $row;
+        return $this->executeQuery($query, [
+            ':token' => $this->token,
+            ':email' => $this->email,
+        ])->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getPswTmpDataByEmail(){
-        
-        $query="SELECT * FROM 
-        ".$this->prx."password_reset_temp
-        WHERE email = :email
-        LIMIT 0,1";
-        
-        $stmt = $this->conn->prepare( $query );
+    public function getPswTmpDataByEmail(): array|false
+    {
+        $query = sprintf(
+            'SELECT * FROM %s WHERE email = :email LIMIT 1',
+            $this->tableName('password_reset_temp')
+        );
 
-        $stmt->bindParam(":email",$this->email) ;
-
-        $stmt->execute();
-
-        $row=$stmt->fetch(PDO::FETCH_ASSOC);
-        return $row;
+        return $this->executeQuery($query, [':email' => $this->email])->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getExpDate(){
-        $query = "SELECT *
-        FROM ".$this->prx."password_reset_temp
-        WHERE email = :email
-        LIMIT 0,1";
-  
-        $stmt = $this->conn->prepare( $query );
-        $stmt->bindParam(':email', $this->email);
-        
-        $stmt->execute();
-    
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        $this->expDate = $row['expDate'];
+    public function getExpDate(): void
+    {
+        $row = $this->getPswTmpDataByEmail();
+        $this->expDate = $row['expDate'] ?? null;
     }
 
-    public function getLastLogin(){
-
-        $query="SELECT * FROM 
-        ".$this->prx.$this->table."
-        ORDER BY last_login DESC
-        LIMIT 3";
-
-        $stmt = $this->conn->prepare($query);
-        
-        $stmt->execute();
-
-        return $stmt ;
-
+    public function getLastLogin(): PDOStatement
+    {
+        return $this->executeQuery(
+            sprintf('SELECT * FROM %s ORDER BY last_login DESC LIMIT 3', $this->tableName())
+        );
     }
-    
-
 }
-
-?>
