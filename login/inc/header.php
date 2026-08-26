@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 <?php
 
-if (!is_file(__DIR__ . '/../admin/class/Database.php')) {
+if (!is_file(__DIR__ . '/../../admin/class/Database.php')) {
   require_once __DIR__ . "/../../admin/inc/dbdata.php";
   exit;
 }
@@ -19,29 +19,31 @@ $database = new Database();
 $db = $database->getConnection();
 
 // recall of all the classes
-$files = glob("../admin/class/*.php", GLOB_BRACE);
+$files = glob(__DIR__ . '/../../admin/class/*.php');
 rsort($files);
 
-// creation of the file with all the initialization of the classes
-if (!is_file('../admin/inc/class_initialize.php')) {
-  $file_handle = fopen('inc/class_initialize.php', 'w');
-  fwrite($file_handle, '<?php');
-  fwrite($file_handle, "\n");
+$initializerPath = __DIR__ . '/../../admin/inc/class_initialize.php';
+if (!is_file($initializerPath)) {
+  $fileHandle = fopen($initializerPath, 'w');
+  if ($fileHandle === false) {
+    throw new RuntimeException('Unable to create the class initializer.');
+  }
+
+  fwrite($fileHandle, "<?php
+");
   foreach ($files as $filename) {
-    $nomefile = pathinfo($filename);
-    $file = $nomefile['filename'];
-    $file_var = strtolower($file);
-    fwrite($file_handle, '$' . $file_var . ' = new ' . $file . '($db);');
-    fwrite($file_handle, "\n");
+    $file = pathinfo($filename, PATHINFO_FILENAME);
+    $fileVar = strtolower($file);
+    fwrite($fileHandle, '$' . $fileVar . ' = new ' . $file . '($db);' . PHP_EOL);
   }
-  if ($prefix) {
-    fwrite($file_handle, '$common->prx = "' . $prefix . '_";');
-    fwrite($file_handle, "\n");
+  $prefix = (string) ($prefix ?? '');
+  if ($prefix !== '') {
+    fwrite($fileHandle, '$common->prx = "' . $prefix . '";' . PHP_EOL);
   }
-  fwrite($file_handle, "?>");
-  chmod('../admin/inc/class_initialize.php', 0777);
+  fclose($fileHandle);
+  chmod($initializerPath, 0640);
 }
-require "../admin/inc/class_initialize.php";
+require_once $initializerPath;
 
 session_start();
 

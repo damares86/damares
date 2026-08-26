@@ -17,27 +17,34 @@ $files = glob("class/*.php", GLOB_BRACE);
 rsort($files);
 
 // creation of the file with all the initialization of the classes
-\$initializerPath = __DIR__ . '/class_initialize.php';
-if (!is_file(\$initializerPath)) {
-    \$file_handle = fopen(\$initializerPath, 'w');
-    fwrite($file_handle, '<?php');
-    fwrite($file_handle, "\n");
+$files = glob(__DIR__ . '/../class/*.php');
+rsort($files);
+$initializerPath = __DIR__ . '/class_initialize.php';
+
+if (!is_file($initializerPath)) {
+    $fileHandle = fopen($initializerPath, 'w');
+    if ($fileHandle === false) {
+        throw new RuntimeException('Unable to create the class initializer.');
+    }
+
+    fwrite($fileHandle, "<?php
+");
     foreach ($files as $filename) {
-        $nomefile = pathinfo($filename);
-        $file = $nomefile['filename'];
-        $file_var = strtolower($file);
-        fwrite(\$file_handle, '
-        fwrite($file_handle, "\n");
+        $file = pathinfo($filename, PATHINFO_FILENAME);
+        $fileVar = strtolower($file);
+        fwrite($fileHandle, '$' . $fileVar . ' = new ' . $file . '($db);' . PHP_EOL);
     }
-    if ($prefix) {
-        fwrite(\$file_handle, '$common->prx = "' . \$prefix . '";');
-        fwrite($file_handle, "\n");
+
+    $prefix = (string) ($prefix ?? '');
+    if ($prefix !== '') {
+        fwrite($fileHandle, '$common->prx = "' . $prefix . '";' . PHP_EOL);
     }
-    fwrite(\$file_handle, "?>");
-    fclose(\$file_handle);
-    chmod(\$initializerPath, 0640);
+
+    fclose($fileHandle);
+    chmod($initializerPath, 0640);
 }
-require_once \$initializerPath;
+
+require_once $initializerPath;
 
 // check if the user is logged
 if (!isset($_SESSION['loggedin']) && !isset($_SESSION['account_id'])) {
