@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 require_once __DIR__ . '/../core/prefix.php';
 require __DIR__ . "/damares_version.php";
 
@@ -13,22 +15,17 @@ $database = new Database();
 $db = $database->getConnection();
 
 // recall of all the classes
-$files = glob("class/*.php", GLOB_BRACE);
-rsort($files);
-
-// creation of the file with all the initialization of the classes
 $files = glob(__DIR__ . '/../class/*.php');
 rsort($files);
-$initializerPath = __DIR__ . '/class_initialize.php';
 
+$initializerPath = __DIR__ . '/class_initialize.php';
 if (!is_file($initializerPath)) {
     $fileHandle = fopen($initializerPath, 'w');
     if ($fileHandle === false) {
         throw new RuntimeException('Unable to create the class initializer.');
     }
 
-    fwrite($fileHandle, "<?php
-");
+    fwrite($fileHandle, '<?php' . PHP_EOL);
     foreach ($files as $filename) {
         $file = pathinfo($filename, PATHINFO_FILENAME);
         if ($file === 'Database') {
