@@ -1,3 +1,11 @@
+<?php
+
+declare(strict_types=1);
+
+$userAvatar = htmlspecialchars((string) ($_SESSION['avatar'] ?? 'default.png'), ENT_QUOTES, 'UTF-8');
+$userName = htmlspecialchars((string) ($_SESSION['username'] ?? ''), ENT_QUOTES, 'UTF-8');
+$roleName = htmlspecialchars((string) ($_SESSION['rolename'] ?? ''), ENT_QUOTES, 'UTF-8');
+?>
 <button id="burger-menu" class="burger-menu">
     ☰
 </button>
@@ -5,7 +13,7 @@
     <div class="sidebar_damares sidebar-wrapper_damares shadow">
         <div class="sidebar-logo border-bottom">
             <a href="index.php">
-                <img src="assets/images/logo/damares_logo.png" alt="Logo" srcset="" />
+                <img src="assets/images/logo/damares_logo.png" alt="Logo" />
             </a>
         </div>
         <div class="col-12 col-lg-3">
@@ -15,19 +23,19 @@
                         <div class="dropdown">
                             <a href="#" id="topbarUserDropdown" class="user-dropdown d-flex align-items-center dropend dropdown-toggle border-0" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="avatar avatar-xl">
-                                    <img src="uploads/avatar/<?= $_SESSION['avatar'] ?>" alt="Avatar">
+                                    <img src="uploads/avatar/<?= $userAvatar ?>" alt="Avatar">
                                 </div>
                                 <div class="text">
-                                    <h6 class="user-dropdown-name"><?= $_SESSION['username'] ?></h6>
-                                    <p class="user-dropdown-status text-sm text-muted"><?= $_SESSION['rolename'] ?></p>
+                                    <h6 class="user-dropdown-name"><?= $userName ?></h6>
+                                    <p class="user-dropdown-status text-sm text-muted"><?= $roleName ?></p>
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                                <li class="px-2"><a class="dropdown-item border-0" href="index.php?p=editProfile"><?= $common_profile ?></a></li>
+                                <li class="px-2"><a class="dropdown-item border-0" href="index.php?p=editProfile"><?= htmlspecialchars((string) ($common_profile ?? 'Profile'), ENT_QUOTES, 'UTF-8') ?></a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li class="px-2"><a class="dropdown-item border-0" href="core/logout.php"><?= $common_logout ?></a></li>
+                                <li class="px-2"><a class="dropdown-item border-0" href="core/logout.php"><?= htmlspecialchars((string) ($common_logout ?? 'Logout'), ENT_QUOTES, 'UTF-8') ?></a></li>
                             </ul>
                         </div>
                     </div>
@@ -36,12 +44,11 @@
         </div>
         <div class="col-12 text-center">
             <?php
-            $plugin->pluginname = "mini_cms";
-
-            if ($plugin->itemExists('pluginname') && $plugin->isActive() == 1) {
+            $plugin->pluginname = 'mini_cms';
+            if ($plugin->itemExists('pluginname') && (int) $plugin->isActive() === 1) {
             ?>
                 <a href="../" class="btn icon btn-primary shadow mx-3 px-3 text-white">
-                    <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= $mc_backsite ?>
+                    <i class="bi bi-arrow-left-circle"></i> &nbsp; <?= htmlspecialchars((string) ($mc_backsite ?? 'Back to site'), ENT_QUOTES, 'UTF-8') ?>
                 </a>
             <?php
             }
@@ -49,205 +56,162 @@
         </div>
         <ul class="sidebar_menu list-unstyled">
             <?php
-            $role_id = $_SESSION['role_id'];
+            $role_id = (int) ($_SESSION['role_id'] ?? 0);
             $rolessection->table = 'rolesSectionChild';
             $rolessection->role_id = $role_id;
             $permissionChild = $rolessection->showAllWhere('id', ['role_id']);
-            $permChildArr = $permissionChild->fetch(PDO::FETCH_ASSOC);
-            extract($permChildArr);
-            $sectionChild = explode(',', $permChildArr['section_id']);
+            $permChildArr = $permissionChild ? $permissionChild->fetch(PDO::FETCH_ASSOC) : null;
+            $sectionChild = !empty($permChildArr['section_id']) ? explode(',', (string) $permChildArr['section_id']) : [];
+
+            $rolessection->role_id = $role_id;
+            $rolessection->table = 'rolesSection';
+            $permissionParent = $rolessection->showAllWhere('id', ['role_id']);
+            $row3 = $permissionParent ? $permissionParent->fetch(PDO::FETCH_ASSOC) : null;
+            $sectionParent = !empty($row3['section_id']) ? explode(',', (string) $row3['section_id']) : [];
+
             $section->table = 'sectionParent';
             $stmt = $section->showAll('id');
 
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                extract($row);
+            if ($stmt instanceof PDOStatement) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $hasSub = '';
+                    $active = '';
+                    $link = ($row['link'] === 'index') ? 'index.php' : 'index.php?p=' . urlencode((string) $row['link']);
+                    $parent_id = (int) $row['id'];
 
-                $hasSub = "";
-                $active = "";
-                $link = $row['link'] == "index" ? "index.php" : "index.php?p=" . $row['link'] . "";
-                $parent_id = $row['id'];
-
-                $section->table = 'sectionChild';
-                $section->parent_id = $row['id'];
-                $child = $section->showAllWhere('id', ['parent_id']);
-                $countChildPermissions = 0;
-
-                while ($row2 = $child->fetch(PDO::FETCH_ASSOC)) {
-                    if (in_array($row2['id'], $sectionChild)) {
-                        $countChildPermissions++;
-                    }
-                }
-
-                $child = $section->showAllWhere('id', ['parent_id']);
-
-                if ($section->countChild($row['id']) > 0 && $countChildPermissions > 0) {
+                    $section->table = 'sectionChild';
+                    $section->parent_id = $parent_id;
+                    $child = $section->showAllWhere('id', ['parent_id']);
+                    $countChildPermissions = 0;
                     $check_nomenu = 0;
-                    while ($row_child = $child->fetch(PDO::FETCH_ASSOC)) {
-                        if ($row_child['show_menu'] == 1) {
-                            $check_nomenu++;
+
+                    if ($child instanceof PDOStatement) {
+                        while ($row2 = $child->fetch(PDO::FETCH_ASSOC)) {
+                            if (in_array((string) $row2['id'], $sectionChild, true)) {
+                                $countChildPermissions++;
+                            }
+                            if ((int) ($row2['show_menu'] ?? 1) === 1) {
+                                $check_nomenu++;
+                            }
                         }
                     }
-                    // $link = ($row['link'] == "index") ? "" : "index.php?p=" . $row['link'];
-                    if ($check_nomenu > 0) {
-                        $hasSub = "has-sub";
-                        $link = "javascript:void(0)"; // Imposta correttamente href solo per i link con sottomenu
+
+                    if ($section->countChild($parent_id) > 0 && $countChildPermissions > 0 && $check_nomenu > 0) {
+                        $hasSub = 'has-sub';
+                        $link = 'javascript:void(0)';
                     }
-                }
 
-                if ($page == $row['link']) {
-                    $active = "active";
-                }
+                    if (($page ?? '') === $row['link']) {
+                        $active = 'active';
+                    }
 
-                $rolessection->role_id = $role_id;
-                $rolessection->table = 'rolesSection';
-                $permissionParent = $rolessection->showAllWhere('id', ['role_id']);
-                $row3 = $permissionParent->fetch(PDO::FETCH_ASSOC);
-                extract($row3);
-                $perm = explode(',', $row3['section_id']);
-                $sectionParent = [];
-                foreach ($perm as $item) {
-                    $sectionParent[] = $item;
-                }
-
-                if ($role_id == 1 ||  in_array($row['id'], $sectionParent)) {
-            ?>
-                    <li class="sidebar_li align-items-center <?= $active ?>">
-                        <a href="<?= $link ?>" class="sidebar-link <?= $hasSub ?>">
-                            <i class="bi bi-<?= $row['icon'] ?>"></i>
-                            <?php
-                            if ($lang == "en") {
-                                echo $row['label'];
-                            } else {
-                                $locale_label = strtolower($row['label']);
-                                $locale_label = str_replace(" ", "_", $locale_label);
-                                $locale_label = "label_$locale_label";
-                                $section_label = $$locale_label;
-                                echo $section_label;
+                    if ($role_id === 1 || in_array((string) $row['id'], $sectionParent, true)) {
+                        $labelDisplay = (string) $row['label'];
+                        if (($lang ?? 'en') !== 'en') {
+                            $locale_label = 'label_' . str_replace(' ', '_', strtolower((string) $row['label']));
+                            if (isset($$locale_label)) {
+                                $labelDisplay = (string) $$locale_label;
                             }
-                            ?>
-                        </a>
-                        <?php
-                        if ($hasSub) {
+                        }
                         ?>
-                            <span class="toggle-submenu">+</span>
-                            <ul class="submenu_damares list-unstyled" style="display: none;">
-                                <?php
-                                $where = ['parent_id'];
-                                $section->parent_id = $row['id'];
-                                $child = $section->showAllChild();
-                                if ($role_id == 1 || count($sectionChild) > 0) {
-                                    while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
-                                        if (($role_id == 1 || in_array($row1['id'], $sectionChild))) {
-                                            if ($check_nomenu > 0) {
-                                                $active1 = "";
-                                                $display = '';
-                                                $show_menu = true;
-                                                if ($row1['show_menu'] == 0) {
-                                                    $display = 'style="display:none;"';
-                                                    $show_menu = false;
-                                                }
-                                                extract($row1);
+                        <li class="sidebar_li align-items-center <?= $active ?>">
+                            <a href="<?= $link ?>" class="sidebar-link <?= $hasSub ?>">
+                                <i class="bi bi-<?= htmlspecialchars((string) ($row['icon'] ?? 'circle'), ENT_QUOTES, 'UTF-8') ?>"></i>
+                                <?= htmlspecialchars($labelDisplay, ENT_QUOTES, 'UTF-8') ?>
+                            </a>
+                            <?php if ($hasSub): ?>
+                                <span class="toggle-submenu">+</span>
+                                <ul class="submenu_damares list-unstyled" style="display: none;">
+                                    <?php
+                                    $section->parent_id = $parent_id;
+                                    $child = $section->showAllChild();
+                                    if ($child instanceof PDOStatement) {
+                                        while ($row1 = $child->fetch(PDO::FETCH_ASSOC)) {
+                                            if ($role_id === 1 || in_array((string) $row1['id'], $sectionChild, true)) {
+                                                $display = ((int) ($row1['show_menu'] ?? 1) === 0) ? 'style="display:none;"' : '';
+                                                $active1 = (($page ?? '') === $row1['link']) ? 'active' : '';
 
-                                                if ($page == $row1['link']) {
-                                                    $active1 = "active";
+                                                $childLabel = (string) $row1['label'];
+                                                if (($lang ?? 'en') !== 'en') {
+                                                    $locale_label = 'label_' . str_replace(' ', '_', strtolower((string) $row1['label']));
+                                                    if (isset($$locale_label)) {
+                                                        $childLabel = (string) $$locale_label;
+                                                    }
                                                 }
-                                ?>
-                                                <li class="<?= $active1 ?>"><a href="index.php?p=<?= $row1['link'] ?>" data-parent-id="<?= $parent_id ?>" <?= $display ?>>
-                                                        <i class="bi bi-<?= $row1['icon'] ?>"></i>
-                                                        <span>
-                                                            <?php
-                                                            if ($show_menu) {
-                                                                if ($lang == "en") {
-                                                                    echo $row1['label'];
-                                                                } else {
-                                                                    $locale_label = strtolower($row1['label']);
-                                                                    $locale_label = str_replace(" ", "_", $locale_label);
-                                                                    $locale_label = "label_$locale_label";
-                                                                    $section_label = $$locale_label;
-                                                                    echo $section_label;
-                                                                }
-                                                            }
-                                                            ?>
-                                                        </span>
+                                                ?>
+                                                <li class="<?= $active1 ?>">
+                                                    <a href="index.php?p=<?= urlencode((string) $row1['link']) ?>" data-parent-id="<?= $parent_id ?>" <?= $display ?>>
+                                                        <i class="bi bi-<?= htmlspecialchars((string) ($row1['icon'] ?? 'circle'), ENT_QUOTES, 'UTF-8') ?>"></i>
+                                                        <span><?= htmlspecialchars($childLabel, ENT_QUOTES, 'UTF-8') ?></span>
                                                     </a>
                                                 </li>
-                                    <?php
+                                                <?php
                                             }
                                         }
                                     }
                                     ?>
-                            </ul>
+                                </ul>
+                            <?php endif; ?>
+                        </li>
                         <?php
-                                }
-                        ?>
-                    </li>
-        <?php
-                        }
                     }
                 }
-        ?>
+            }
+            ?>
         </ul>
     </div>
 </div>
 
 <script>
     $(document).ready(function() {
-        var currentPage = <?= $pageId ?>;
-        var parentPage = <?= $check_parent ?>;
+        var currentPage = <?= json_encode($pageId ?? '') ?>;
+        var parentPage = <?= json_encode($check_parent ?? 0) ?>;
         var parentOfChild = null;
 
-        // Funzione per aprire il submenu senza animazione
         function openSubmenuNoAnimation($submenu) {
             $submenu.addClass('active').show();
             $submenu.prev('li').find('.toggle-submenu').text('-');
         }
 
-        // Funzione per aprire il submenu con animazione
         function openSubmenu($submenu) {
             $submenu.addClass('active').slideDown();
             $submenu.prev('li').find('.toggle-submenu').text('-');
         }
 
-        // Funzione per chiudere il submenu con animazione
         function closeSubmenu($submenu) {
             $submenu.removeClass('active').slideUp();
             $submenu.prev('li').find('.toggle-submenu').text('+');
         }
 
-        // Apri i sottomenu dei parent attivi all'inizio, senza animazione
         $('a[data-parent-id]').each(function() {
             var $this = $(this);
             var parentId = $this.data('parent-id');
 
             if (parentId == parentPage || parentId == currentPage) {
                 var $submenu = $this.closest('li').find('.submenu_damares');
-                openSubmenuNoAnimation($submenu); // Apri senza animazione
+                openSubmenuNoAnimation($submenu);
 
-                // Memorizza il parent se la pagina corrente è un child
                 if (parentId == currentPage) {
                     parentOfChild = $this.data('parent-id');
                 }
             }
         });
 
-        // Apri anche il parent se la pagina corrente è un child
         if (parentOfChild !== null) {
             $('a[data-parent-id="' + parentOfChild + '"]').each(function() {
                 var $submenu = $(this).closest('li').find('.submenu_damares');
-                openSubmenuNoAnimation($submenu); // Apri senza animazione
+                openSubmenuNoAnimation($submenu);
             });
         }
 
-        // Aggiungi la classe active anche al parent del submenu
         $('.submenu_damares').each(function() {
             if ($(this).find('li.active').length > 0) {
                 $(this).prev('a').addClass('active');
-                openSubmenuNoAnimation($(this)); // Apri senza animazione
-                $(this).prev('span').text('-'); // Imposta il simbolo a '-'
+                openSubmenuNoAnimation($(this));
+                $(this).prev('span').text('-');
             }
         });
 
-        // Gestione del click sul toggle del submenu e sui link
         $('.toggle-submenu').on('click', function(e) {
             e.preventDefault();
             var $submenu = $(this).closest('li').find('.submenu_damares').first();
@@ -261,7 +225,6 @@
             }
         });
 
-        // Abilita i link a.has-sub per aprire i sottomenu
         $('a.has-sub').on('click', function(e) {
             e.preventDefault();
             var $submenu = $(this).closest('li').find('.submenu_damares').first();
@@ -273,23 +236,17 @@
             }
         });
 
-        // Impedire che i link con "javascript:void(0)" causino un reload
         $('a[href="javascript:void(0)"]').on('click', function(e) {
             e.preventDefault();
         });
 
-        // Gestione del click sul burger menu
         $('#burger-menu').on('click', function() {
             $('#side_damares').toggleClass('active');
         });
     });
 </script>
 
-
-
-
 <style>
-    /* Stile per la freccia e animazione */
     .toggle-submenu {
         font-size: 1em;
         cursor: pointer;
