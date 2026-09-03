@@ -59,7 +59,7 @@ if ($operation === 'edit') {
         if (is_array($sectionChild)) {
             $sectionChildArr = [];
             foreach ($sectionChild as $item) {
-                $section->table = 'sectionChild';
+                $section->table = 'section_child';
                 $section->id = $item;
                 $stmt = $section->showAllWhere('id', ['id']);
                 if ($stmt) {
@@ -74,7 +74,7 @@ if ($operation === 'edit') {
 
         $error = 0;
 
-        $rolessection->table = 'rolesSection';
+        $rolessection->table = 'roles_section';
         $rolessection->role_id = $idToMod;
         $rolessection->section_id = $sectionParentStr;
 
@@ -88,7 +88,7 @@ if ($operation === 'edit') {
             }
         }
 
-        $rolessection->table = 'rolesSectionChild';
+        $rolessection->table = 'roles_section_child';
         $rolessection->role_id = $idToMod;
         $rolessection->section_id = $sectionChildStr;
 
@@ -145,7 +145,7 @@ if ($operation === 'add') {
         if (is_array($sectionChild)) {
             $sectionChildArr = [];
             foreach ($sectionChild as $item) {
-                $section->table = 'sectionChild';
+                $section->table = 'section_child';
                 $section->id = $item;
                 $stmt = $section->showAllWhere('id', ['id']);
                 if ($stmt) {
@@ -160,7 +160,7 @@ if ($operation === 'add') {
 
         $error = 0;
 
-        $rolessection->table = 'rolesSection';
+        $rolessection->table = 'roles_section';
         $rolessection->role_id = $newRoleId;
         $rolessection->section_id = $sectionParentStr;
 
@@ -168,7 +168,7 @@ if ($operation === 'add') {
             $error++;
         }
 
-        $rolessection->table = 'rolesSectionChild';
+        $rolessection->table = 'roles_section_child';
         $rolessection->role_id = $newRoleId;
         $rolessection->section_id = $sectionChildStr;
 

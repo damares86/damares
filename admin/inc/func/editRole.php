@@ -93,11 +93,11 @@ $url_pageName = (string) (filter_input(INPUT_GET, 'pageName', FILTER_DEFAULT) ??
                                             </div>
                                         </div>
                                         <?php
-                                        $section->table = 'sectionParent';
+                                        $section->table = 'section_parent';
                                         $stmt = $section->showAll('id');
 
                                         $role_id = (int) ($_SESSION['role_id'] ?? 0);
-                                        $rolessection->table = 'rolesSection';
+                                        $rolessection->table = 'roles_section';
                                         $rolessection->role_id = $role_id;
                                         $permission = $rolessection->showAllPermission('id', ['role_id']);
                                         $sectionOk = [];
@@ -110,13 +110,13 @@ $url_pageName = (string) (filter_input(INPUT_GET, 'pageName', FILTER_DEFAULT) ??
                                             }
                                         }
 
-                                        $rolessection->table = 'rolesSection';
+                                        $rolessection->table = 'roles_section';
                                         $rolessection->role_id = $idToMod;
                                         $permissionParent = $rolessection->showAllWhere('id', ['role_id']);
                                         $permArr = $permissionParent ? $permissionParent->fetch(PDO::FETCH_ASSOC) : null;
                                         $sectionParent = !empty($permArr['section_id']) ? explode(',', (string) $permArr['section_id']) : [];
 
-                                        $rolessection->table = 'rolesSectionChild';
+                                        $rolessection->table = 'roles_section_child';
                                         $rolessection->role_id = $idToMod;
                                         $permissionChild = $rolessection->showAllWhere('id', ['role_id']);
                                         $permChildArr = $permissionChild ? $permissionChild->fetch(PDO::FETCH_ASSOC) : null;
@@ -148,12 +148,12 @@ $url_pageName = (string) (filter_input(INPUT_GET, 'pageName', FILTER_DEFAULT) ??
                                                                 </div>
                                                                 <div class="col-md-7">
                                                                     <?php
-                                                                    $section->table = 'sectionChild';
+                                                                    $section->table = 'section_child';
                                                                     $section->parent_id = $pId;
                                                                     $stmt1 = $section->showAllWhere('id', ['parent_id']);
 
                                                                     $rolessection->role_id = $role_id;
-                                                                    $rolessection->table = 'rolesSectionChild';
+                                                                    $rolessection->table = 'roles_section_child';
                                                                     $permChildQuery = $rolessection->showAllPermission('id', ['role_id']);
                                                                     $sectionChildOk = [];
                                                                     if ($permChildQuery instanceof PDOStatement) {

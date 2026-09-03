@@ -113,14 +113,14 @@ if ($op === 'add') {
                     $error++;
                 }
 
-                $section->table = 'sectionParent';
+                $section->table = 'section_parent';
                 $stmt = $section->showAllWhere('id', ['link']);
                 $row = $stmt ? $stmt->fetch(PDO::FETCH_ASSOC) : null;
                 $pId = $row ? (int) $row['id'] : 0;
                 $parentInsertedId = $pId;
 
                 // User permissions
-                $rolessection->table = 'rolesSection';
+                $rolessection->table = 'roles_section';
                 $rolessection->role_id = (int) ($_SESSION['role_id'] ?? 0);
                 $stmt1 = $rolessection->showAllWhere('id', ['role_id']);
                 $row1 = $stmt1 ? $stmt1->fetch(PDO::FETCH_ASSOC) : null;
@@ -144,7 +144,7 @@ if ($op === 'add') {
                     }
                 }
             } else {
-                $section->table = 'sectionParent';
+                $section->table = 'section_parent';
                 $section->link = (string) ($link_parent ?? '');
                 $stmt5 = $section->showAllWhere('id', ['link']);
                 $row5 = $stmt5 ? $stmt5->fetch(PDO::FETCH_ASSOC) : null;
@@ -163,12 +163,12 @@ if ($op === 'add') {
                         $error++;
                     }
 
-                    $section->table = 'sectionChild';
+                    $section->table = 'section_child';
                     $stmtC = $section->showAllWhere('id', ['link']);
                     $rowC = $stmtC ? $stmtC->fetch(PDO::FETCH_ASSOC) : null;
                     $cId = $rowC ? (int) $rowC['id'] : 0;
 
-                    $rolessection->table = 'rolesSectionChild';
+                    $rolessection->table = 'roles_section_child';
                     $rolessection->role_id = (int) ($_SESSION['role_id'] ?? 0);
                     $stmt1C = $rolessection->showAllWhere('id', ['role_id']);
                     $row1C = $stmt1C ? $stmt1C->fetch(PDO::FETCH_ASSOC) : null;
@@ -270,7 +270,7 @@ if ($op === 'dis') {
             if (!empty($mItem['child']) && is_array($mItem['child'])) {
                 foreach ($mItem['child'] as $cItem) {
                     $section->link = (string) ($cItem['link'] ?? '');
-                    if (!$section->deleteByLink('sectionChild')) {
+                    if (!$section->deleteByLink('section_child')) {
                         $error++;
                     }
                 }
@@ -278,7 +278,7 @@ if ($op === 'dis') {
 
             if (($mItem['link'] ?? '') !== 'link_parent') {
                 $section->link = (string) ($mItem['link'] ?? '');
-                if (!$section->deleteByLink('sectionParent')) {
+                if (!$section->deleteByLink('section_parent')) {
                     $error++;
                 }
             }
@@ -311,13 +311,13 @@ if ($op === 'rm') {
             if (!empty($mItem['child']) && is_array($mItem['child'])) {
                 foreach ($mItem['child'] as $cItem) {
                     $section->link = (string) ($cItem['link'] ?? '');
-                    $section->deleteByLink('sectionChild');
+                    $section->deleteByLink('section_child');
                 }
             }
 
             if (($mItem['link'] ?? '') !== 'link_parent') {
                 $section->link = (string) ($mItem['link'] ?? '');
-                $section->deleteByLink('sectionParent');
+                $section->deleteByLink('section_parent');
             }
         }
     }

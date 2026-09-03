@@ -70,7 +70,7 @@ $redir = (string) ($row['value'] ?? '0');
                                             </div>
                                         </div>
                                         <?php
-                                        $section->table = 'sectionParent';
+                                        $section->table = 'section_parent';
                                         $stmt = $section->showAll('id');
 
                                         $role_id = (int) ($_SESSION['role_id'] ?? 0);
@@ -111,12 +111,12 @@ $redir = (string) ($row['value'] ?? '0');
                                                                 </div>
                                                                 <div class="col-md-7">
                                                                     <?php
-                                                                    $section->table = 'sectionChild';
+                                                                    $section->table = 'section_child';
                                                                     $section->parent_id = $pId;
                                                                     $stmt1 = $section->showAllWhere('id', ['parent_id']);
 
                                                                     $rolessection->role_id = $role_id;
-                                                                    $rolessection->table = 'rolesSectionChild';
+                                                                    $rolessection->table = 'roles_section_child';
                                                                     $permissionChild = $rolessection->showAllPermission('id', ['role_id']);
                                                                     $sectionChildOk = [];
                                                                     if ($permissionChild instanceof PDOStatement) {

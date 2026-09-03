@@ -73,7 +73,7 @@ $redir = (string) ($row['value'] ?? '0');
                           $section_arr = explode(',', (string) $row2['section_id']);
                           foreach ($section_arr as $item) {
                               $section->id = $item;
-                              $stmt1 = $section->showById('sectionParent');
+                              $stmt1 = $section->showById('section_parent');
                               if ($stmt1 && isset($stmt1['label'])) {
                                   $secLabel = (string) $stmt1['label'];
                                   if (($lang ?? 'en') !== 'en') {

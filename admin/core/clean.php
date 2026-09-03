@@ -28,17 +28,17 @@ if (is_file(__DIR__ . '/../class/Database.php')) {
 
     if ($db) {
         $tables = [
-            "{$prx}accountsRoles",
+            "{$prx}accounts_roles",
             "{$prx}accounts",
             "{$prx}files",
             "{$prx}home",
             "{$prx}password_reset_temp",
             "{$prx}plugins",
             "{$prx}roles",
-            "{$prx}rolesSection",
-            "{$prx}rolesSectionChild",
-            "{$prx}sectionChild",
-            "{$prx}sectionParent",
+            "{$prx}roles_section",
+            "{$prx}roles_section_child",
+            "{$prx}section_child",
+            "{$prx}section_parent",
             "{$prx}settings",
             "{$prx}register_account_temp",
             "{$prx}verify",

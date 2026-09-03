@@ -116,7 +116,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS {$prefix}roles (
     redirect VARCHAR(255) DEFAULT 'none'
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}accountsRoles (
+$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}accounts_roles (
     id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     account_id INT(5) NOT NULL,
     role_id INT(5) NOT NULL,
@@ -124,14 +124,14 @@ $db->exec("CREATE TABLE IF NOT EXISTS {$prefix}accountsRoles (
     FOREIGN KEY (role_id) REFERENCES {$prefix}roles(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}sectionParent (
+$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}section_parent (
     id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     link VARCHAR(255) NOT NULL,
     label VARCHAR(255) NOT NULL,
     icon VARCHAR(255) NOT NULL
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}sectionChild (
+$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}section_child (
     id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     link VARCHAR(255) NOT NULL,
     label VARCHAR(255) NOT NULL,
@@ -140,13 +140,13 @@ $db->exec("CREATE TABLE IF NOT EXISTS {$prefix}sectionChild (
     show_menu INT(1) DEFAULT 1
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}rolesSection (
+$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}roles_section (
     id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     section_id VARCHAR(255) NOT NULL,
     role_id INT(5) DEFAULT NULL
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
-$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}rolesSectionChild (
+$db->exec("CREATE TABLE IF NOT EXISTS {$prefix}roles_section_child (
     id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     section_id VARCHAR(255) NOT NULL,
     role_id INT(5) DEFAULT NULL
@@ -206,7 +206,7 @@ $stmtRole->execute([':id' => 1, ':rolename' => 'Root']);
 $stmtRole->execute([':id' => 2, ':rolename' => 'Admin']);
 
 // AccountsRoles
-$stmtAccRole = $db->prepare("INSERT INTO {$prefix}accountsRoles (id, account_id, role_id) VALUES (:id, :acc, :role)");
+$stmtAccRole = $db->prepare("INSERT INTO {$prefix}accounts_roles (id, account_id, role_id) VALUES (:id, :acc, :role)");
 $stmtAccRole->execute([':id' => 1, ':acc' => 1, ':role' => 1]);
 $stmtAccRole->execute([':id' => 2, ':acc' => 2, ':role' => 2]);
 
@@ -225,7 +225,7 @@ foreach ($defaultSettings as [$sId, $sName, $sVal]) {
 }
 
 // Section Parents
-$stmtSecP = $db->prepare("INSERT INTO {$prefix}sectionParent (id, link, label, icon) VALUES (:id, :link, :label, :icon)");
+$stmtSecP = $db->prepare("INSERT INTO {$prefix}section_parent (id, link, label, icon) VALUES (:id, :link, :label, :icon)");
 $parents = [
     [1, 'index', 'Dashboard', 'grid-fill'],
     [2, 'accounts', 'Accounts', 'people-fill'],
@@ -239,7 +239,7 @@ foreach ($parents as [$pId, $pLink, $pLabel, $pIcon]) {
 }
 
 // Section Children
-$stmtSecC = $db->prepare("INSERT INTO {$prefix}sectionChild (id, link, label, icon, parent_id, show_menu) VALUES (:id, :link, :label, :icon, :parent_id, :show_menu)");
+$stmtSecC = $db->prepare("INSERT INTO {$prefix}section_child (id, link, label, icon, parent_id, show_menu) VALUES (:id, :link, :label, :icon, :parent_id, :show_menu)");
 $children = [
     [1, 'allAccounts', 'All accounts', 'people-fill', 2, 1],
     [2, 'addAccount', 'Add account', 'person-plus-fill', 2, 1],
@@ -253,11 +253,11 @@ foreach ($children as [$cId, $cLink, $cLabel, $cIcon, $cPid, $cShow]) {
 }
 
 // Roles Section Permissions
-$stmtRS = $db->prepare("INSERT INTO {$prefix}rolesSection (id, section_id, role_id) VALUES (:id, :section_id, :role_id)");
+$stmtRS = $db->prepare("INSERT INTO {$prefix}roles_section (id, section_id, role_id) VALUES (:id, :section_id, :role_id)");
 $stmtRS->execute([':id' => 1, ':section_id' => '1,2,3,4,5,6', ':role_id' => 1]);
 $stmtRS->execute([':id' => 2, ':section_id' => '1,2,3', ':role_id' => 2]);
 
-$stmtRSC = $db->prepare("INSERT INTO {$prefix}rolesSectionChild (id, section_id, role_id) VALUES (:id, :section_id, :role_id)");
+$stmtRSC = $db->prepare("INSERT INTO {$prefix}roles_section_child (id, section_id, role_id) VALUES (:id, :section_id, :role_id)");
 $stmtRSC->execute([':id' => 1, ':section_id' => '1,2,3,4,5,6', ':role_id' => 1]);
 $stmtRSC->execute([':id' => 2, ':section_id' => '1,2,3,4,5,6', ':role_id' => 2]);
 

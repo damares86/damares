@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 class RolesSection extends Common
 {
-    public string $table = 'rolesSection';
+    public string $table = 'roles_section';
     public int|string|null $section_id = null;
     public int|string|null $role_id = null;
 

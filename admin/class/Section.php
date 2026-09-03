@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 class Section extends Common
 {
-    public string $table_parent = 'sectionParent';
-    public string $table_child = 'sectionChild';
+    public string $table_parent = 'section_parent';
+    public string $table_child = 'section_child';
     public int|string|null $parent_id = null;
     public ?string $link = null;
     public ?string $label = null;

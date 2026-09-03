@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 class AccountRoles extends Common
 {
-    public string $table = 'accountsRoles';
+    public string $table = 'accounts_roles';
     public int|string|null $account_id = null;
     public int|string|null $role_id = null;
     public ?string $redirect = null;

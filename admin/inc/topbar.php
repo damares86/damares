@@ -45,19 +45,19 @@ $roleName = htmlspecialchars((string) ($_SESSION['rolename'] ?? ''), ENT_QUOTES,
       <ul>
         <?php
         $role_id = (int) ($_SESSION['role_id'] ?? 0);
-        $rolessection->table = 'rolesSectionChild';
+        $rolessection->table = 'roles_section_child';
         $rolessection->role_id = $role_id;
         $permissionChild = $rolessection->showAllWhere('id', ['role_id']);
         $permChildArr = $permissionChild ? $permissionChild->fetch(PDO::FETCH_ASSOC) : null;
         $sectionChild = !empty($permChildArr['section_id']) ? explode(',', (string) $permChildArr['section_id']) : [];
 
         $rolessection->role_id = $role_id;
-        $rolessection->table = 'rolesSection';
+        $rolessection->table = 'roles_section';
         $permissionParent = $rolessection->showAllWhere('id', ['role_id']);
         $row3 = $permissionParent ? $permissionParent->fetch(PDO::FETCH_ASSOC) : null;
         $sectionParent = !empty($row3['section_id']) ? explode(',', (string) $row3['section_id']) : [];
 
-        $section->table = 'sectionParent';
+        $section->table = 'section_parent';
         $stmt = $section->showAll('id');
 
         if ($stmt instanceof PDOStatement) {
@@ -67,7 +67,7 @@ $roleName = htmlspecialchars((string) ($_SESSION['rolename'] ?? ''), ENT_QUOTES,
                 $link = ($row['link'] === 'index') ? '' : '?p=' . urlencode((string) $row['link']);
                 $parent_id = (int) $row['id'];
 
-                $section->table = 'sectionChild';
+                $section->table = 'section_child';
                 $section->parent_id = $parent_id;
                 $child = $section->showAllWhere('id', ['parent_id']);
                 $countChildPermissions = 0;

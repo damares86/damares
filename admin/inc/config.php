@@ -138,8 +138,8 @@ $pageLink = '';
 $pageId = '';
 $check_parent = 0;
 
-$parent = $section->showByLink($page, 'sectionParent');
-$child = $section->showByLink($page, 'sectionChild');
+$parent = $section->showByLink($page, 'section_parent');
+$child = $section->showByLink($page, 'section_child');
 
 if ($parent) {
     $pageLabel = (string) ($parent['label'] ?? '');
